@@ -2,49 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="robots" content="noindex">
     <title>Search Results - schema.org</title>
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
+
+<!-- #### Static Doc Insert Head goes here -->
+
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-<script src="//www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  function parseQueryFromUrl () {
-    var queryParamName = "q";
-    var search = window.location.href.split('#')[1];
-    var parts = search.split('&');
-    for (var i = 0; i < parts.length; i++) {
-      var keyvaluepair = parts[i].split('=');
-      if (decodeURIComponent(keyvaluepair[0]) == queryParamName) {
-        return decodeURIComponent(keyvaluepair[1].replace(/\+/g, ' '));
-      }
-    }
-    return '';
-  }
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.setSearchFormRoot('cse-search-form');
-    customSearchControl.draw('cse', options);
-    var queryFromUrl = parseQueryFromUrl();
-    if (queryFromUrl) {
-      customSearchControl.execute(queryFromUrl);
-    }
-  }, true);
+<!-- #### Static Doc Insert PageHead goes here -->
+
+<!-- Hides search prompt in main header -->
+
+<!-- change the default search prompt - for this [search results] page only -->
+<script>
+      var targets = document.getElementsByClassName("gcse-searchbox-only");
+      var target = targets[0];
+      target.classList.remove("gcse-searchbox-only");
+      target.classList.add("gcse-searchbox");
+      target.removeAttribute('data-resultsUrl');
 </script>
 
 <style type="text/css">
@@ -84,7 +60,7 @@
   }
   .gs-webResult.gs-result a.gs-title:hover,
   .gs-webResult.gs-result a.gs-title:hover b {
-    color: #FFFFFF;
+    color: #660000;
   }
   .gs-webResult.gs-result a.gs-title:active,
   .gs-webResult.gs-result a.gs-title:active b {
@@ -211,34 +187,12 @@
   }
 </style>
 
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li >
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
-
   <div id="mainContent">
-    <div id="cse" style="width: 600px;">Loading</div>
+    <div class="gcse-searchresults"></div>
   </div>
 
 
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

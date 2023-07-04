@@ -1,0 +1,15 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:membershipPointsEarned a rdf:Property ;
+    rdfs:label "membershipPointsEarned" ;
+    :domainIncludes :ProgramMembership ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2085> ;
+    rdfs:comment "The number of membership points earned by the member. If necessary, the unitText can be used to express the units the points are issued in. (E.g. stars, miles, etc.)" .
+

@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - "*"
+  pull_request:
+    branches: 
+      - "*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Setup python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      # Install python dependencies
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r software/requirements.txt
+
+      # Local tests prepare
+      - name: Local Tests prepare
+        run: |
+          software/util/buildsite.py -e -f RDFExport.nquads Context Examples
+          mkdir software/site/releases/LATEST
+          (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
+      
+      #Run local tests
+      - name: Run local tests
+        run: software/util/buildsite.py -r 
+
+      # Setup Ruby environment  
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 3.1
+
+      #Install Ruby dependencies
+      - name: Install Ruby dependencies
+        run: bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
+
+      # Run Ruby tests
+      - name: Run Ruby tests
+        run: (cd software/scripts; bundle exec rake)

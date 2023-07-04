@@ -1,4 +1,4 @@
-TYPES: #creativework-1 Painting, contentLocation, locationCreated
+TYPES: #eg-0340 Painting, contentLocation, locationCreated
 
 PRE-MARKUP:
 
@@ -8,32 +8,30 @@ The Church at Auvers by Vincent van Gogh depicts a church in Auvers-sur-Oise, bu
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Painting">
+<div itemscope itemtype="https://schema.org/Painting">
 <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg" />
 <meta itemprop="sameAs" content="https://en.wikipedia.org/wiki/The_Church_at_Auvers" />
 <span itemprop="name">The Church at Auvers</span>
-by <div itemprop="creator" itemscope itemtype="http://schema.org/Person">
+by <div itemprop="creator" itemscope itemtype="https://schema.org/Person">
 <span itemprop="name">Vincent van Gogh</span>
-</div>
-</span>,
-depicts a church in <div itemprop="contentLocation" itemscope itemtype="http://schema.org/AdministrativeArea">
+</div>,
+depicts a church in <div itemprop="contentLocation" itemscope itemtype="https://schema.org/AdministrativeArea">
 <span itemprop="name">Auvers-sur-Oise</span>,
 </div>
-but was creaetd in <div itemprop="locationCreated" itemscope itemtype="http://schema.org/AdministrativeArea">
+but was creaetd in <div itemprop="locationCreated" itemscope itemtype="https://schema.org/AdministrativeArea">
 <span itemprop="name">Saint-Rémy-de-Provence</span>.
 </div>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Painting">
+<div vocab="https://schema.org/" typeof="Painting">
 <img property="image" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg" />
 <meta property="sameAs" content="https://en.wikipedia.org/wiki/The_Church_at_Auvers" />
 <span property="name">The Church at Auvers</span>
 by <div property="creator" typeof="Person">
 <span property="name">Vincent van Gogh</span>
-</div>
-</span>,
+</div>,
 depicts a church in <div property="contentLocation" typeof="AdministrativeArea">
 <span property="name">Auvers-sur-Oise</span>,
 </div>
@@ -46,7 +44,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Painting",
   "name": "The Church at Auvers",
   "image": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg",
@@ -65,3 +63,290 @@ JSON:
   }
 }
 </script>
+
+TYPES: #eg-0341 Conversation, Message
+
+PRE-MARKUP:
+
+<div>
+A conversation between two people re: duck season vs rabbit season.
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Conversation">
+  <meta itemprop="name" content="Duck Season vs Rabbit Season" />
+  <meta itemprop="sameAs" content="https://www.youtube.com/watch?v=9-k5J4RxQdE" />
+  <div itemscope itemprop="hasPart" itemtype="https://schema.org/Message">
+    <div itemscope itemprop="sender" itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Bugs Bunny" />
+    </div>
+    <div itemscope itemprop="recipient" itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Daffy Duck" />
+    </div>
+    <div itemscope itemprop="about" itemtype="https://schema.org/Thing">
+      <meta itemprop="name" content="Duck Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-02-29" />
+  </div>
+  <div itemscope itemprop="hasPart" itemtype="https://schema.org/Message">
+    <div itemscope itemprop="sender" itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Daffy Duck" />
+    </div>
+    <div itemscope itemprop="recipient" itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Bugs Bunny" />
+    </div>
+    <div itemscope itemprop="about" itemtype="https://schema.org/Thing">
+      <meta itemprop="name" content="Rabbit Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-03-01" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Conversation">
+  <meta property="name" content="Duck Season vs Rabbit Season" />
+  <meta property="sameAs" content="https://www.youtube.com/watch?v=9-k5J4RxQdE" />
+  <div property="hasPart" typeof="Message">
+    <div property="sender" typeof="Person">
+      <meta property="name" content="Bugs Bunny" />
+    </div>
+    <div property="recipient" typeof="Person">
+      <meta property="name" content="Daffy Duck" />
+    </div>
+    <div property="about" typeof="Thing">
+      <meta property="name" content="Duck Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-02-29" />
+  </div>
+  <div property="hasPart" typeof="Message">
+    <div property="sender" typeof="Person">
+      <meta property="name" content="Daffy Duck" />
+    </div>
+    <div property="recipient" typeof="Person">
+      <meta property="name" content="Bugs Bunny" />
+    </div>
+    <div property="about" typeof="Thing">
+      <meta property="name" content="Rabbit Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-03-01" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Conversation",
+  "name": "Duck Season vs Rabbit Season",
+  "sameAs": "https://www.youtube.com/watch?v=9-k5J4RxQdE",
+  "hasPart": [
+    {
+      "@type": "Message",
+      "sender": {
+        "@type": "Person",
+        "name": "Bugs Bunny"
+      },
+      "recipient": {
+        "@type": "Person",
+        "name": "Daffy Duck"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Duck Season"
+      },
+      "datePublished": "2016-02-29"
+    },
+    {
+      "@type": "Message",
+      "sender": {
+        "@type": "Person",
+        "name": "Daffy Duck"
+      },
+      "recipient": {
+        "@type": "Person",
+        "name": "Bugs Bunny"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Rabbit Season"
+      },
+      "datePublished": "2016-03-01"
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0342 Message
+
+PRE-MARKUP:
+
+A message from Dom Portwood to Peter Gibbons about TPS reports.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Message">
+  <div itemscope itemprop="sender" itemtype="https://schema.org/Person">
+    <meta itemprop="name" content="Dom Portwood" />
+  </div>
+  <div itemscope itemprop="recipient" itemtype="https://schema.org/Person">
+    <meta itemprop="name" content="Peter Gibbons" />
+  </div>
+  <div itemscope itemprop="about" itemtype="https://schema.org/Thing">
+    <meta itemprop="name" content="TPS reports" />
+  </div>
+  <meta itemprop="datePublished" content="2016-02-29" />
+  <meta itemprop="dateRead" content="2016-03-03" />
+  <div itemscope itemprop="messageAttachment" itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="name" content="New coversheet" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Message">
+  <div property="sender" typeof="Person">
+    <meta property="name" content="Dom Portwood" />
+  </div>
+  <div property="recipient" typeof="Person">
+    <meta property="name" content="Peter Gibbons" />
+  </div>
+  <div property="about" typeof="Thing">
+    <meta property="name" content="TPS reports" />
+  </div>
+  <meta property="datePublished" content="2016-02-29" />
+  <meta property="dateRead" content="2016-03-03" />
+  <div property="messageAttachment" typeof="CreativeWork">
+    <meta property="name" content="New coversheet" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Message",
+  "sender": {
+    "@type": "Person",
+    "name": "Dom Portwood"
+  },
+  "recipient": {
+    "@type": "Person",
+    "name": "Peter Gibbons"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "TPS reports"
+  },
+  "datePublished": "2016-02-29",
+  "dateRead": "2016-03-03",
+  "messageAttachment": {
+    "@type": "CreativeWork",
+    "name": "New coversheet"
+  }
+}
+</script>
+
+TYPES: #eg-0343 EmailMessage, toRecipient, bccRecipient, ccRecipient
+
+PRE-MARKUP:
+
+An message from Dom Portwood to Peter Gibbons about TPS reports, cc'ing Bill Lumbergh and bcc'ing tps-consulting@example.com
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/EmailMessage">
+  <div itemscope itemprop="sender" itemtype="https://schema.org/Person">
+    <meta itemprop="name" content="Dom Portwood" />
+    <span itemprop="email">dportwood@example.com</span>
+  </div>
+  <div itemscope itemprop="toRecipient" itemtype="https://schema.org/Person">
+    <meta itemprop="name" content="Peter Gibbons" />
+    <span itemprop="email">pgibbons@example.com</span>
+  </div>
+  <div itemscope itemprop="ccRecipient" itemtype="https://schema.org/Person">
+    <meta itemprop="name" content="Bill Lumbergh" />
+    <span itemprop="email">blumbergh@example.com</span>
+  </div>
+  <div itemscope itemprop="bccRecipient" itemtype="https://schema.org/ContactPoint">
+    <span itemprop="email">tps-consulting@example.com</span>
+  </div>
+  <div itemscope itemprop="about" itemtype="https://schema.org/Thing">
+    <meta itemprop="name" content="TPS reports" />
+  </div>
+  <meta itemprop="datePublished" content="2016-02-29" />
+  <meta itemprop="dateRead" content="2016-03-03" />
+  <div itemscope itemprop="messageAttachment" itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="name" content="New coversheet" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="EmailMessage">
+  <div property="sender" typeof="Person">
+    <meta property="name" content="Dom Portwood" />
+    <span property="email">dportwood@example.com</span>
+  </div>
+  <div property="toRecipient" typeof="Person">
+    <meta property="name" content="Peter Gibbons" />
+    <span property="email">pgibbons@example.com</span>
+  </div>
+  <div property="ccRecipient" typeof="Person">
+    <meta property="name" content="Bill Lumbergh" />
+    <span property="email">blumbergh@example.com</span>
+  </div>
+  <div property="bccRecipient" typeof="ContactPoint">
+    <span property="email">tps-consulting@example.com</span>
+  </div>
+  <div property="about" typeof="Thing">
+    <meta property="name" content="TPS reports" />
+  </div>
+  <meta property="datePublished" content="2016-02-29" />
+  <meta property="dateRead" content="2016-03-03" />
+  <div property="messageAttachment" typeof="CreativeWork">
+    <meta property="name" content="New coversheet" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "EmailMessage",
+  "sender": {
+    "@type": "Person",
+    "name": "Dom Portwood",
+    "email": "dportwood@example.com"
+  },
+  "toRecipient": {
+    "@type": "Person",
+    "name": "Peter Gibbons",
+    "email": "pgibbons@example.com"
+  },
+  "ccRecipient": {
+    "@type": "Person",
+    "name": "Bill Lumbergh",
+    "email": "blumbergh@example.com"
+  },
+  "ccRecipient": {
+    "@type": "ContactPoint",
+    "email": "tps-consulting@example.com"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "TPS reports"
+  },
+  "datePublished": "2016-02-29",
+  "dateRead": "2016-03-03",
+  "messageAttachment": {
+    "@type": "CreativeWork",
+    "name": "New coversheet"
+  }
+}
+</script>
+

@@ -1,0 +1,307 @@
+TYPES: #eg-0314 DefinedTerm, termCode
+
+PRE-MARKUP:
+
+<div>
+   <h1>Library of Congress Resource Type: <b>Manuscript</b></h1>
+   Code: <b>Man</b>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/DefinedTerm">
+   <h1>Library of Congress Resource Type: <b><span itemprop="name">Manuscript</span></b></h1>
+   Code: <b><span itemprop="termCode">Man</span></b>
+   <link itemprop="inDefinedTermSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="DefinedTerm">
+   <h1>Library of Congress Resource Type: <b><span property="name">Manuscript</span></b></h1>
+   Code: <b><span property="termCode">Man</span></b>
+   <link property="inDefinedTermSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
+</div>
+
+JSON:
+
+{
+ "@context": "https://schema.org/",
+ "@type": "DefinedTerm",
+ "termCode": "Man",
+ "inDefinedTermSet": "http://id.loc.gov/vocabulary/resourceTypes"
+}
+
+TYPES: #eg-0315 DefinedTerm, DefinedTermSet, inDefinedTermSet
+
+PRE-MARKUP:
+
+<div>
+	<div>
+	 <h1><a href="http://openjurist.org/dictionary/Ballentine">Ballentine&apos;s Law Dictionary</a></h1>
+	</div>
+	<div>
+		<h2>Dictionary term</h2>
+		Name: calendar year<br/>
+		Description: The period from January 1st to December 31st, inclusive, of any year.<br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+	</div>
+	<div>
+		<h2>Dictionary term</h2>
+		Name: schema<br/>
+		Description: A representation of a plan or theory in the form of an outline or model.<br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+	</div>
+</div>
+
+MICRODATA:
+
+<div>
+	<div itemscope itemtype="https://schema.org/DefinedTermSet">
+	<link itemprop="additionalType" href="https://schema.org/Book">
+	 <h1><a itemprop="url" href="http://openjurist.org/dictionary/Ballentine"><span itemprop="name">Ballentine&apos;s Law Dictionary</span></a></h1>
+	</div>
+	<div itemscope itemtype="https://schema.org/DefinedTerm">
+		<h2>Dictionary term</h2>
+		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
+		Name: <span itemprop="name">calendar year</span><br/>
+		Description: <span itemprop="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+	</div>
+	<div itemscope itemtype="https://schema.org/DefinedTerm">
+		<h2>Dictionary term</h2>
+		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
+		Name: <span itemprop="name">schema</span><br/>
+		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+	</div>
+</div>
+
+
+RDFA:
+
+<div  vocab="https://schema.org/">
+	<div typeof="DefinedTermSet Book">
+	 <h1><a property="url" href="http://openjurist.org/dictionary/Ballentine"><span property="name">Ballentine&apos;s Law Dictionary</span></a></h1>
+	</div>
+	<div typeof="DefinedTerm">
+		<h2>Dictionary term</h2>
+		<link property="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
+		Name: <span property="name">calendar year</span><br/>
+		Description: <span property="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+	</div>
+	<div typeof="DefinedTerm">
+		<h2>Dictionary term</h2>
+		<link propery="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
+		Name: <span property="name">schema</span><br/>
+		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+	</div>
+</div>
+
+JSON:
+
+[
+	{
+		"@context": "https://schema.org/"
+	},
+	{
+		"@type": ["DefinedTermSet","Book"],
+		"@id": "http://openjurist.org/dictionary/Ballentine",
+		"name": "Ballentine's Law Dictionary"
+	},
+	{
+		"@type": "DefinedTerm",
+		"@id": "http://openjurist.org/dictionary/Ballentine/term/calendar-year",
+		"name": "calendar year",
+		"description": "The period from January 1st to December 31st, inclusive, of any year.",
+		"inDefinedTermSet": "http://openjurist.org/dictionary/Ballentine"
+	},
+	{
+		"@type": "DefinedTerm",
+		"@id": "http://openjurist.org/dictionary/Ballentine/term/schema",
+		"name": "schema",
+		"description": "A representation of a plan or theory in the form of an outline or model.",
+		"inDefinedTermSet": "http://openjurist.org/dictionary/Ballentine"
+	}
+]
+
+TYPES: #eg-0316 DefinedTerm, inDefinedTermSet, termCode
+
+PRE-MARKUP:
+
+<div>
+	<h1>Occupation Term defined by <a href="http://onetonline.org">O*Net Online</a></h1>
+	<h2>51-6042.00 - Shoe Machine Operators and Tenders</h2>
+	Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/DefinedTerm">
+	<h1>Occupation Term defined by <a itemprop="inDefinedTermSet" href="http://onetonline.org">O*Net Online</a></h1>
+	<h2><span itemprop="termCode">51-6042.00</span> - <span itemprop="name">Shoe Machine Operators and Tenders</span></h2>
+	<span itemprop="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="DefinedTerm">
+	<h1>Occupation Term defined by <a property="inDefinedTermSet" href="http://onetonline.org">O*Net Online</a></h1>
+	<h2><span property="termCode">51-6042.00</span> - <span property="name">Shoe Machine Operators and Tenders</span></h2>
+	<span property="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
+</div>
+
+JSON:
+
+{
+ "@context": "https://schema.org/",
+ "@type": "DefinedTerm",
+ "name": "Shoe Machine Operators and Tenders",
+ "termCode": "51-6042.00",
+ "description": "Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.",
+ "inDefinedTermSet": "http://onetonline.org"
+}
+
+TYPES: #eg-0317 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
+
+PRE-MARKUP:
+
+<div>
+	 <h1 >Defined Values in The Mammal Classification List</h1>
+	 <ul>
+		<li>Carnivore - A mammal that feeds on other animals</li>
+	 </ul>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/CategoryCodeSet" id="C1">
+	 <h1>Defined Values in <span itemprop="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li itemprop="hasCategoryCode" itemscope itemtype="https://schema.org/CategoryCode">
+			<span itemprop="name">Carnivore</span> - <span itemprop="description">A mammal that feeds on other animals</span>
+			<link itemprop="inCodeSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="CategoryCodeSet" id="C1">
+	 <h1>Defined Values in <span property="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li property="hasCategoryCode" typeof="CategoryCode">
+			<span property="name">Carnivore</span> - <span property="description">A mammal that feeds on other animals</span>
+			<link property="inCodeSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+JSON:
+
+{
+ "@context": "https://schema.org/",
+ "@type": "CategoryCodeSet",
+ "@id": "_C1",
+ "name": "The Mammal Classification List",
+ "hasCategoryCode": {
+	"@type": "CategoryCode",
+	"name": "Carnivore",
+	"description": "A mammal that feeds on other animals",
+	"inCodeSet": "_C1"
+	}
+}
+
+TYPES: #eg-0318 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
+
+PRE-MARKUP:
+
+<div>
+	<h1>ISO 639-2: Codes for the Representation of Names of Languages<h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li>cze</li>
+		<li>...</li>
+	</ul>
+</div>
+<div>
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	English: Czech<br/>
+	French: tchèque<br/>
+	German: Tschechisch<br/>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/CategoryCodeSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
+	<h1 itemprop="name">ISO 639-2: Codes for the Representation of Names of Languages</h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li><span itemprop="hasCategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li>...</li>
+	</ul>
+</div>
+<div itemscope itemtype="https://schema.org/CategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta itemprop="codeValue" content="cze">
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<link itemprop="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	<span itemprop="name" xml:lang="en" content="Czech">English: Czech</span><br/>
+	<span itemprop="name" xml:lang="fr" content="tchèque">French: tchèque</span><br/>
+	<span itemprop="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span><br/>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="CategoryCodeSet" resource="http://id.loc.gov/vocabulary/iso639-2">
+	<h1 property="name">ISO 639-2: Codes for the Representation of Names of Languages</h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li><span property="hasCategoryCode" resource="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li>...</li>
+	</ul>
+</div>
+<div vocab="https://schema.org/" typeof="CategoryCode" resource="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta property="codeValue" content="cze">
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<link property="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	<span property="name" xml:lang="en" content="Czech">English: Czech</span><br/>
+	<span property="name" xml:lang="fr" content="tchèque">French: tchèque</span><br/>
+	<span property="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span><br/>
+</div>
+
+JSON:
+
+[
+	{
+		"@context": "https://schema.org/"
+	},
+	{
+		"@type": "CategoryCodeSet",
+		"@id": "http://id.loc.gov/vocabulary/iso639-2",
+		"name": "ISO 639-2: Codes for the Representation of Names of Languages",
+		"hasCategoryCode": "http://id.loc.gov/vocabulary/iso639-2/cze"
+	},
+	{
+		"@type": "CategoryCode",
+		"@id": "http://id.loc.gov/vocabulary/iso639-2/cze",
+		"codeValue": "cze",
+		"name": {
+			"en": "Czech",
+			"fr": "tchèque",
+			"de": "Tschechisch"
+		},
+		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"
+	}
+]

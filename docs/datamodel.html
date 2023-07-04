@@ -3,84 +3,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Data Model - schema.org</title>
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js">
-    </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-    $('.atn').each(function(i) {
-      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
-        $(this).addClass('custom');
-    });
-
-        }, 500);
-      });
-</script>
-
-<style>
-
-  .tag    { color: #000; }    /* div, span, etc   */
-  .atn    { color: #000; }    /* href, datetime,  */
-  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
-
-</style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
+  <!-- #### Static Doc Insert PageHead goes here -->
 
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
-
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li class="activelink">
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
-
-  <div id="mainContent">
+<div id="mainContent">
 
 <h1>Data Model</h1>
 
@@ -90,71 +21,126 @@
 </p>
 
 <p>
-The data model used is very generic and derived from RDF Schema (which in turn was
-derived from CycL, which in turn ...).
+The data model used is very generic and derived from <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDF Schema</a> (which in turn was
+derived from <a href="https://en.wikipedia.org/wiki/CycL">CycL</a>, see <a href="#history">History</a> section for details ...).
 </p>
 <ol>
-<li> We have a set of types, arranged in a multiple inheritance hierarchy
-where each type may be a sub class of multiple types.
-<li> We have a set of properties:
+<li> We have a set of <b>types</b>, arranged in a <b>multiple inheritance hierarchy</b>
+where each type may be a sub-class of multiple types.</li>
+<li> We have a set of <b>properties</b>:
   <ol>
     <li> each property may have one or more types as its domains. The property may be used
-      for instances of any of these types.
+      for instances of any of these types.</li>
     <li> each property may have one or more types as its ranges. The value(s) of the property should
-      be instances of at least one of these types.
+      be instances of at least one of these types.</li>
   </ol>
+</li>
 </ol>
 <p>
 The decision to allow multiple domains and ranges was purely pragmatic. While the
 computational properties of systems with a single domain and range are easier to
-understand, in practice, this forces the creation of a lot of artifical types,
+understand, in practice, this forces the creation of a lot of artificial types,
 which are there purely to act as the domain/range of some properties.
 </p>
 <p>
 Like many other systems, the schema presented here can be extended (with
-a few types like Type and Property and a few properties like domainIncludes and rangeIncludes)
+a few types like <a href="http://meta.schema.org/Class">Class</a> and <a href="http://meta.schema.org/Property">Property</a>
+and a few properties like <a href="http://meta.schema.org/domainIncludes">domainIncludes</a> and <a href="http://meta.schema.org/rangeIncludes">rangeIncludes</a>)
 to allow for reflection, i.e., for the schema to be represented in terms of itself.
 </p>
 
-<p>The canonical machine representation of schema.org is in RDFa:</p>
-
-<ul>
-<li><a href="schema_org_rdfa.html">schema_org_rdfa.html</a></li>
-</ul>
+<p>The canonical machine representation of schema.org is in RDF/Turtle. See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
 
 <p>
-Now-obsolete snapshots of <a href='https://web.archive.org/web/20150414142113/http://schema.org/docs/full_md.html'>Microdata</a> and <a href='schemaorg.owl'>OWL</a> experimental
-data dumps were previously published. See also <a href="http://topbraid.org/schema/">TopBraid's version</a>.
+The type hierarchy presented on this site is not intended to be a 'global ontology' of the world.
+When founded in 2011 it was strictly focused around the types of entities
+for which the project's founders (Microsoft, Yahoo!, Google and Yandex), could reasonably expect to
+provide some special treatment for via search engines. As the project has <a href="http://queue.acm.org/detail.cfm?id=2857276">evolved</a>,
+introducing more community collaboration and extension mechanisms, its scope has expanded gradually.
+However it is still the case that schema.org is not intended as a universal ontology. We expect it to be used
+alongside other vocabulary that shares our basic datamodel and our use of underlying standards like JSON-LD, Microdata
+and RDFa.
 </p>
 
-<p>
- The type hierarchy presented on this site is not intended to be a
-'global ontology' of the world.  It only covers the types of entities
-for which we (Microsoft, Yahoo!, Google and Yandex), think we can
-provide some special treatment for, through our search engines, in the
-near future.
-</p>
+<h2 id="conformance">Conformance</h2>
 
-<h2>Conformance</h2>
+<!--
+2011-2016
 <p>
- While we would like all the markup we get to follow the schema, in practice, we expect a lot
+While we would like all the markup we get to follow the schema, in practice, we expect a lot
 of data that does not. We expect schema.org properties to be used with new types. We also expect
 that often, where we expect a property value of type Person, Place, Organization or some other
 subClassOf Thing, we will get a text string. In the spirit of "some data is better than none",
-we will accept this markup and do the best we can.
+we will accept this markup and do the best they can.
+</p>
+-->
+
+<p>
+Although it might be helpful for search applications if structured data markup always followed schema.org very
+strictly, in practice this is unrealistic. Our schemas also continue to evolve in response to
+feedback, discussion and new applications of the data. Where possible we <a href="https://schema.org/docs/howwework.html">amend</a> existing definitions incrementally
+rather than introducing lots of new properties for similar use cases. We have consequently based schema.org on a
+very flexible datamodel, and take a pragmatic view of conformance.
 </p>
 
+<p>
+We expect schema.org properties to be used with new types, both from schema.org and from external extensions.
+We also expect that often, where we expect a property value of type Person, Place, Organization or some other
+subClassOf Thing, we will get a text string, even if our schemas don't formally document that expectation.
+In the spirit of "some data is better than none", search engines will often accept this markup and do the best we can.
+Similarly, some types such as <a href="/Role">Role</a> and <a href="/URL">URL</a> can be used with all properties,
+and we encourage this kind of experimentation amongst data consumers.
+</p>
+
+<h3 id="toolmakers">Notes for toolmakers and schema authors</h3>
+
+<p><em>This section is oriented towards extension authors and tool makers, i.e. creators of applications that
+consume, check or transform schema.org-based data. Most publishers and webmasters needn't worry about these details</em>.</p>
+
+<p>
+Applications of schema.org can address conformance in several ways. Tools such as validators can check for
+application-specific patterns, such as the data structures required for some specific functionality.
+They may also check compliance with underlying formats (JSON-LD, Microdata, RDFa etc.), or offer additional
+hints that go beyond formal conformance (e.g. checking for readability issues or implausible data).
+</p>
+
+<p>
+While it is appropriate and useful for such checkers to warn about published data that may be difficult or ambiguous
+for consumers, they are not obliged to treat unexpected structures as errors. Schema.org's underlying datamodel
+is naturally flexible, and provides an <a href="extension.html">extensible</a> basis for rich structured data.
+We encourage both publishers and consumers to continue to explore and <a href="https://www.w3.org/community/schemaorg/">share</a>
+new vocabulary ideas for <a href="/docs/releases.html">evolving</a> schema.org.
+</p>
+
+<p id="mtes">
+It is not an error for a schema.org entity description to include properties from several independent types, e.g. something
+might simultaneously be both a <a href="/Book">Book</a> and a <a href="/Product">Product</a> and be usefully described with
+properties from both types. It is useful but not required for the relevant types to be included in such a description. This
+flexibility allows schema.org types to be developed with some decentralization, and for vocabulary to be re-used and combined
+in useful ways. When we list the expected types associated with a property (or vice-versa) we aim to indicate the main ways
+in which these terms will be combined in practice. This aspect of schema.org is naturally imperfect. For example the
+schemas for <a href="/Volcano">Volcano</a> suggest that since volcanoes are places, they may have fax numbers. Similarly,
+we list the unlikely (but not infeasible) possibility of a <a href="/Country">Country</a> having "opening hours".
+We do not attempt to perfect this aspect of schema.org's structure, and instead rely heavily on an extensive collection of
+illustrative examples that capture common and useful combinations of schema.org terms. The type/properties associations of
+schema.org are closer to "guidelines" than to formal rules, and improvements to the guidelines are
+always <a href="https://www.w3.org/community/schemaorg/">welcome</a>.
+</p>
+
+<p>
+See also: <a href="https://en.wikipedia.org/wiki/Robustness_principle">Postel's Law</a>
+</p>
 
 <h2>Mapping to RDFa Lite </h2>
 
- Our use of Microdata maps easily into <a href=http://www.w3.org/TR/rdfa-lite/>RDFa Lite</a>.
-In fact, all of Schema.org can be used
-with the RDFa Lite syntax. The RDFa Lite version of the markup looks almost isomorphic
+Our use of Microdata maps easily into <a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a>, and
+many of our examples now show both variations (alongside the newer <a href="https://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> syntax).
+All of Schema.org can be used with the RDFa Lite syntax. The RDFa Lite version of the markup looks almost isomorphic
 to the Microdata version. The following sample demonstrates the use of RDFa Lite to
-mark up a <a href=../Product>Product</a> type example:
+mark up a <a href="/Product">Product</a> type example:
 
 <pre  class="prettyprint lang-html linenums">
-&lt;div vocab="http://schema.org/" typeof="Product"&gt;
+&lt;div vocab="https://schema.org/" typeof="Product"&gt;
   &lt;img property="image" src="dell-30in-lcd.jpg" /&gt;
   &lt;span property="name"&gt;Dell UltraSharp 30" LCD Monitor&lt;/span&gt;
 
@@ -194,13 +180,16 @@ More specifically:
 </ol>
 <p>
 In addition, the attribute value
-pair <code>vocab="http://schema.org/"</code> is added to the body or
+pair <code>vocab="https://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
 
 
+<h2 id="bgnotes">Background notes</h2>
 
-<h2 id="mainEntityBackground">mainEntity(OfPage)</h2>
+<p>The following sections provide additional information for some of schema.org's more general/abstract terms.</p>
+
+<h3 id="mainEntityBackground">mainEntity(OfPage) property</h3>
 
 <p>Background information on <a href="/mainEntityOfPage">mainEntityOfPage</a> / <a href="/mainEntity">mainEntity</a> properties.</p>
 
@@ -217,12 +206,42 @@ some other enclosing tag.
 <p><a href="/about">about</a> is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics, while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself describes some other entity. For example, one web page may display a news article about a particular person. Another page may display a product review for a particular product. In these cases, mainEntity for the pages should refer to the news article or review, respectively, while about would more properly refer to the person or product.</p>
 
 <br/><br/>
-  </div>
 
 
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
+
+<h3 id="identifierBg">"identifier" property</h3>
+
+<p>Background information on the 'identifier' property and its sub-properties.</p>
+
+<p>The <a href="/identifier">identifier</a> property and its sub-properties are primarily useful in cases where the content is expressed as a textual string. Increasingly there are canonical URL/URI representations for each of these. All schema.org syntaxes already have built-in representation for URIs and URLs, e.g. in Microdata 'itemid', in RDFa 1.1, 'resource', in JSON-LD, '@id'. Generally it is preferable to use these unless there is a specific requirement to explicitly state the kind of identifier, or to provide additional / alternative identifiers (e.g., DOIs). Such requirements are common e.g. for scientific dataset description.</p>
+
+<p>In some cases the values of the <a href="/identifier">identifier</a> property indicate a set of (somewhat) interchangeable entities rather than a single distinct real world entity.
+Such sets could be viewed as corresponding to classes, but we do not explore that possibility here. For example <a href="/sku">sku</a> and the various product-related GTIN codes.
+However <a href="/identifier">identifier</a> is not intended to cover broader categorization and classification mechanisms. For example, although the <a href="/isicV4">isicV4</a> property has values that are in some sense identifiers,
+we do not treat <a href="/isicV4">isicV4</a> as a subproperty of <a href="/identifier">identifier</a> since it serves to identify a category not an individual Thing (specifically, <a href="/Person">Person</a>). Similarly, very many
+schema.org properties can have values that are written as URLs, but we do not treat those properties as specializations of <a href="/identifier">identifier</a>.</p>
+
+<p>
+In the most complex case, there is sometimes a need to represent the type of an identifier. In this case, a <a href="/PropertyValue">PropertyValue</a> pair ('name', 'identifier') pair can be used
+when a standard URI form of the identifier is unavailable. We do not currently have a recommended identifier scheme for identifier schemes, but in most cases there is a
+conventional short name for most identifier schemes (which should be used in lowercase form).
+</p>
+
+<h3 id="history">History</h3>
+
+<p>Previous related work:</p>
+
+<ul>
+<li><a href="https://www.w3.org/TR/rdf-schema/">RDF Schema</a></li>
+<li><a href="https://www.w3.org/TR/NOTE-MCF-XML-970606">Meta Content Framework (MCF) Using XML</a> (and <a href="https://www.w3.org/TR/NOTE-MCF-XML/MCF-tutorial.html">Tutorial</a>).</li>
+<li><a href="http://www.guha.com/mcf/wp.html">MCF whitepaper</a>, <a href="http://www.guha.com/mcf/mcf_spec.html">spec</a> and <a href="http://www.guha.com/mcf/vocab.html">basic vocabulary</a>.</li>
+<li>See also <a href="https://en.wikipedia.org/wiki/Semantic_network">Semantic network</a> article on Wikipedia.</li>
+</ul>
+
+
 </div>
+
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

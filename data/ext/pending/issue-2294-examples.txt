@@ -1,0 +1,36 @@
+TYPES: #eg-0280 JobPosting, qualifications
+
+PRE-MARKUP:
+
+JobPosting for a position that requires applicants
+to have a bachelor of science in computer science
+from a program accredited by ABET.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "Systems Research Engineer",
+  "qualifications": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Bachelor of Science",
+    "about": "Computer Science",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "ABET",
+      "url": "https://www.abet.org/"
+    }
+  }
+}
+</script>
+

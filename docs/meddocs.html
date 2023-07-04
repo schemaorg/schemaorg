@@ -3,85 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Documentation - schema.org</title>
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js">
-    </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-  $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
-  $('.new + .pun + .atv').addClass('curl');
-
-        }, 500);
-      });
-</script>
-
-<style>
-
-  .pln    { color: #444;    } /* plain text                 */
-  .tag    { color: #515484; } /* div, span, a, etc          */
-  .atn,
-  .atv    { color: #314B17; } /* href, datetime             */
-  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
-  .curl   { color: #080;    } /* new url                    */
-
-</style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
+<!-- #### Static Doc Insert PageHead goes here -->
 
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
-
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li class="activelink">
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
-
-  <div id="mainContent">
+<div id="mainContent">
 
   <h1>Documentation for health/medical types</h1>
 
@@ -209,14 +138,14 @@ a treatment for headache, thus allowing this content to be surfaced in
 response to queries about headache treatments:
 
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype="http://schema.org/Drug"&gt;
+&lt;div itemscope itemtype="https://schema.org/Drug"&gt;
   &lt;span itemprop="name"&gt;Ibuprofen&lt;/span&gt; is a non-steroidal
   anti-inflammatory medication, indicated for temporary relief
   of minor aches and pains due to
-  &lt;span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication"&gt;
+  &lt;span itemprop="indication" itemscope itemtype="https://schema.org/TreatmentIndication"&gt;
     &lt;span itemprop="name"&gt;headache&lt;/span&gt;
   &lt;/span&gt;,
-  &lt;span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication"&gt;
+  &lt;span itemprop="indication" itemscope itemtype="https://schema.org/TreatmentIndication"&gt;
     &lt;span itemprop="name"&gt;toothache&lt;/span&gt;
   &lt;/span&gt;, ...
 &lt;/div&gt;
@@ -249,10 +178,7 @@ described on the page (diagnosis, treatment, etc).
 
   </div>
 
-
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

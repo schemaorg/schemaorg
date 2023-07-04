@@ -1,9 +1,8 @@
-TYPES: CreativeWork,Book, translator, translationOfWork, workTranslation
+TYPES: #eg-0220 CreativeWork, Book, translator, translationOfWork, workTranslation
 
 PRE-MARKUP:
 
-A CreativeWork and it's translation.
-
+A CreativeWork and its translation.
 
 <div>
 <div>
@@ -26,88 +25,77 @@ A CreativeWork and it's translation.
 MICRODATA:
 
 <div>
-<div itemscope itemtype="http://schema.org/Book" itemid="http://worldcat.org/entity/work/id/2292573321">
+<div itemscope itemtype="https://schema.org/Book" itemid="http://worldcat.org/entity/work/id/2292573321">
 	<h1><span itemprop="name">Rouge et le noir</span></h1>
-    <div>Author: <span property="itemprop" itemscope itemtype="http://schema.org/Person" itemid="http://viaf.org/viaf/17823">Stendhal</span></div>
-	<div>Language: <span itemprop="inLanguage" content="fr">French</span></div>
-	<div>Has Translation: <span itemprop="workTranslation" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://worldcat.org/entity/work/id/460647">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></div>
+    <div>Author: <span itemprop="author" itemscope itemtype="https://schema.org/Person" itemid="http://viaf.org/viaf/17823">Stendhal</span></div>
+	<div>Language: <meta itemprop="inLanguage" content="fr" />French</div>
+	<div>Has Translation: <span itemprop="workTranslation" itemscope itemtype="https://schema.org/CreativeWork" itemid="http://worldcat.org/entity/work/id/460647">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></div>
 </div>
-<div itemscope itemtype="http://schema.org/Book" itemid="http://worldcat.org/entity/work/id/460647">
+<div itemscope itemtype="https://schema.org/Book" itemid="http://worldcat.org/entity/work/id/460647">
     <h1><span itemprop="name">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></h1>
-    <div>Author: <span itemprop="author" itemscope itemtype="http://schema.org/Person" itemid="http://viaf.org/viaf/17823">Stendhal</span></div>
-	<div>Language: <span itemprop="inLanguage" content="en">English</span></div>
+    <div>Author: <span itemprop="author" itemscope itemtype="https://schema.org/Person" itemid="http://viaf.org/viaf/17823">Stendhal</span></div>
+	<div>Language: <meta itemprop="inLanguage" content="en" />English</div>
 	<div>Subject: <span itemprop="about">Psychological fiction, French</span></div>
-	<div>Translation of: <span itemprop="translationOfWork" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://worldcat.org/entity/work/id/2292573321">Rouge et le noir</span></div>
-	<div>Translator: <span property="itemprop" itemscope itemtype="http://schema.org/Person" itemid="http://viaf.org/viaf/8453420">Robert Martin Adams</span></div>
+	<div>Translation of: <span itemprop="translationOfWork" itemscope itemtype="https://schema.org/CreativeWork" itemid="http://worldcat.org/entity/work/id/2292573321">Rouge et le noir</span></div>
+	<div>Translator: <span itemprop="translator" itemscope itemtype="https://schema.org/Person" itemid="http://viaf.org/viaf/8453420">Robert Martin Adams</span></div>
 </div>
 </div>
-
 
 RDFA:
 
-<div vocab="http://schema.org/">
+<div vocab="https://schema.org/">
 <div typeof="Book" resource="http://worldcat.org/entity/work/id/2292573321">
 	<h1><span property="name">Rouge et le noir</span></h1>
-    <div>Author: <span property="author" typeOf="Person" resource="http://viaf.org/viaf/17823">Stendhal</span></div>
+    <div>Author: <span property="author" typeof="Person" resource="http://viaf.org/viaf/17823">Stendhal</span></div>
 	<div>Language: <span property="inLanguage" content="fr">French</span></div>
-	<div>Has Translation: <span property="workTranslation" typeOf="CreativeWork" resource="http://worldcat.org/entity/work/id/460647">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></div>
+	<div>Has Translation: <span property="workTranslation" typeof="CreativeWork" resource="http://worldcat.org/entity/work/id/460647">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></div>
 </div>
 <div typeof="Book" resource="http://worldcat.org/entity/work/id/460647">
     <h1><span property="name">Red and Black : A New Translation, Backgrounds and Sources, Criticism</span></h1>
-    <div>Author: <span property="author" typeOf="Person" resource="http://viaf.org/viaf/17823">Stendhal</span></div>
+    <div>Author: <span property="author" typeof="Person" resource="http://viaf.org/viaf/17823">Stendhal</span></div>
 	<div>Language: <span property="inLanguage" content="en">English</span></div>
 	<div>Subject: <span property="about">Psychological fiction, French</span></div>
-	<div>Translation of: <span property="translationOfWork" typeOf="CreativeWork" resource="http://worldcat.org/entity/work/id/2292573321">Rouge et le noir</span></div>
-	<div>Translator: <span property="translator" typeOf="Person" resource="http://viaf.org/viaf/8453420">Robert Martin Adams</span></div>
+	<div>Translation of: <span property="translationOfWork" typeof="CreativeWork" resource="http://worldcat.org/entity/work/id/2292573321">Rouge et le noir</span></div>
+	<div>Translator: <span property="translator" typeof="Person" resource="http://viaf.org/viaf/8453420">Robert Martin Adams</span></div>
 </div>
 </div>
 
 JSON:
 
 <script type="application/ld+json">
-{
-  "@context": {
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfa": "http://www.w3.org/ns/rdfa#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "http://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },
-  "@graph": [
     {
-      "@id": "",
-      "rdfa:usesVocabulary": {
-        "@id": "schema:"
-      }
-    },
-    {
-      "@id": "http://worldcat.org/entity/work/id/2292573321",
-      "@type": "schema:Book",
-      "schema:author": {
-        "@id": "http://viaf.org/viaf/17823"
-      },
-      "schema:inLanguage": "fr",
-      "schema:name": "Rouge et le noir",
-      "schema:workTranslation": {
-        "@id": "http://worldcat.org/entity/work/id/460647"
-      }
-    },
-    {
-      "@id": "http://worldcat.org/entity/work/id/460647",
-      "@type": "schema:Book",
-      "schema:about": "Psychological fiction, French",
-      "schema:author": {
-        "@id": "http://viaf.org/viaf/17823"
-      },
-      "schema:inLanguage": "en",
-      "schema:name": "Red and Black : A New Translation, Backgrounds and Sources, Criticism",
-      "schema:translationOfWork": {
-        "@id": "http://worldcat.org/entity/work/id/2292573321"
-      },
-      "schema:translator": {
-        "@id": "http://viaf.org/viaf/8453420"
-      }
+        "@context": "https://schema.org/",
+        "@graph": [
+            {
+                "@id": "http://worldcat.org/entity/work/id/2292573321",
+                "@type": "Book",
+                "author": {
+                    "@id": "http://viaf.org/viaf/17823"
+                },
+                "inLanguage": "fr",
+                "name": "Rouge et le noir",
+                "workTranslation": {
+                    "@type": "Book",
+                    "@id": "http://worldcat.org/entity/work/id/460647"
+                }
+            },
+            {
+                "@id": "http://worldcat.org/entity/work/id/460647",
+                "@type": "Book",
+                "about": "Psychological fiction, French",
+                "author": {
+                    "@id": "http://viaf.org/viaf/17823"
+                },
+                "inLanguage": "en",
+                "name": "Red and Black : A New Translation, Backgrounds and Sources, Criticism",
+                "translationOfWork": {
+                    "@id": "http://worldcat.org/entity/work/id/2292573321"
+                },
+                "translator": {
+                    "@id": "http://viaf.org/viaf/8453420"
+                }
+            }
+        ]
     }
-  ]
-}
 </script>
+

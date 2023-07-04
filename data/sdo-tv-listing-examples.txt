@@ -1,21 +1,24 @@
-TYPES: #tv-listing1 Organization,BroadcastService
+TYPES: #eg-0442 Organization, BroadcastService
 
 PRE-MARKUP:
+
 WAAY is an affiliate of the ABC network and broadcasts in SD.
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/BroadcastService">
+
+<div itemscope itemtype="https://schema.org/BroadcastService">
   <span itemprop="name">WAAY-TV</span>
   <span itemprop="broadcastDisplayName">ABC</span>
   <span itemprop="videoFormat">SD</span>
   <span itemprop="broadcastTimezone" content="-8:00">PST</span>
-  <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
+  <div itemprop="broadcastAffiliateOf" itemscope itemtype="https://schema.org/Organization">
     <span itemprop="name">ABC</span>
   </div>
 </div>
 
 RDFA:
-<div vocab="http://schema.org" typeof="BroadcastService">
+
+<div vocab="https://schema.org" typeof="BroadcastService">
   <span property="name">WAAY-TV</span>
   <span property="broadcastDisplayName">ABC</span>
   <span property="videoFormat">SD</span>
@@ -25,11 +28,11 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@type":"BroadcastService",
   "name":"WAAY-TV",
   "broadcastDisplayName":"ABC",
@@ -42,31 +45,33 @@ JSON:
 }
 </script>
 
-TYPES: #tv-listing2 Organization,BroadcastService,TelevisionChannel,CableOrSatelliteService
-
+TYPES: #eg-0443 Organization, BroadcastService, TelevisionChannel, CableOrSatelliteService
 
 PRE-MARKUP:
+
 WAAY is channel 7 on Comcast cable.
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/TelevisionChannel">
+
+<div itemscope itemtype="https://schema.org/TelevisionChannel">
   <span itemprop="name">WAAY 7</span>
   <span itemprop="broadcastChannelId">7</span>
   <span itemprop="broadcastServiceTier">Premium</span>
-  <div itemprop="inBroadcastLineup" itemscope itemtype="http://schema.org/CableOrSatelliteProvider">
+  <div itemprop="inBroadcastLineup" itemscope itemtype="https://schema.org/CableOrSatelliteService">
     <span itemprop="name">Comcast</span>
   </div>
-  <div itemprop="providesBroadcastService" itemscope itemtype="http://schema.org/BroadcastService">
+  <div itemprop="providesBroadcastService" itemscope itemtype="https://schema.org/BroadcastService">
     <span itemprop="name">WAAY-TV</span>
     <span itemprop="broadcastDisplayName">ABC</span>
-    <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
+    <div itemprop="broadcastAffiliateOf" itemscope itemtype="https://schema.org/Organization">
       <span itemprop="name">ABC</span>
     </div>
   </div>
 </div>
 
 RDFA:
-<div vocab="http://schema.org" typeof="TelevisionChannel">
+
+<div vocab="https://schema.org" typeof="TelevisionChannel">
   <span property="name">WAAY 7</span>
   <span property="broadcastChannelId">7</span>
   <span property="broadcastServiceTier">Premium</span>
@@ -82,18 +87,18 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@type":"TelevisionChannel",
   "name": "WAAY 7",
   "broadcastChannelId":"7",
   "broadcastServiceTier":"Premium",
   "inBroadcastLineup":{
     "@type":"CableOrSatelliteService",
-    "name": "Comcast",
+    "name": "Comcast"
   },
   "providesBroadcastService":{
     "@type":"BroadcastService",
@@ -107,36 +112,37 @@ JSON:
 }
 </script>
 
-
-TYPES: #tv-listing3 BroadcastEvent,BroadcastService,TVEpisode
-
+TYPES: #eg-0444 BroadcastEvent, BroadcastService, TVEpisode
 
 PRE-MARKUP:
+
 WAAY is broadcasting Modern Family at 9:00PM on October 12, 2014 in English with Spanish subtitles available.
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/BroadcastEvent">
+
+<div itemscope itemtype="https://schema.org/BroadcastEvent">
   <span itemprop="name">Modern Family - S6E8 - Three Turkeys</span>
   <span itemprop="description">Phil and Luke take over Thanksgiving duties.</span>
-  <meta itemprop="isLiveBroadcast" content="http://schema.org/False" />
+  <link itemprop="isLiveBroadcast" href="https://schema.org/False" />
   <span itemprop="videoFormat">HD</span>
   <span itemprop="inLanguage">en</span>
   <span itemprop="subtitleLanguage">es</span>
   <span itemprop="startDate" content="2014-10-12T21:00">starts 10/12/2014 9:00PM</span>
   <span itemprop="endDate" content="2014-10-12T21:30">ends 10/12/2014 9:30PM</span>
-  <div itemprop="publishedOn" itemscope itemtype="http://schema.org/BroadcastService">
+  <div itemprop="publishedOn" itemscope itemtype="https://schema.org/BroadcastService">
     <span itemprop="name">WAAY-TV</span>
   </div>
-  <div itemprop="workPerformed" itemscope itemtype="http://schema.org/TVEpisode">
+  <div itemprop="workPerformed" itemscope itemtype="https://schema.org/TVEpisode">
     <span itemprop="name">Modern Family: Three Turkeys</span>
   </div>
 </div>
 
 RDFA:
-<div vocab="http://schema.org" typeof="BroadcastEvent">
+
+<div vocab="https://schema.org" typeof="BroadcastEvent">
   <span property="name">Modern Family - S6E8 - Three Turkeys</span>
   <span property="description">Phil and Luke take over Thanksgiving duties.</span>
-  <meta property="isLiveBroadcast" content="http://schema.org/False" />
+  <link property="isLiveBroadcast" href="https://schema.org/True" />
   <span property="videoFormat">HD</span>
   <span property="inLanguage">en</span>
   <span property="subtitleLanguage">es</span>
@@ -150,17 +156,17 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@type":"BroadcastEvent",
   "startDate":"2014-10-12T21:00",
   "endDate":"2014-10-12T21:30",
   "publishedOn":{
     "@type":"BroadcastService",
-    "name: "WAAY-TV"
+    "name": "WAAY-TV"
   },
   "workPerformed":{
     "@type":"CreativeWork",
@@ -169,35 +175,36 @@ JSON:
   "inLanguage":"en",
   "subtitleLanguage":"es",
   "videoFormat":"HD",
-  "isLiveBroadcast":"False",
+  "isLiveBroadcast":false,
   "name":"Modern Family - S6E8 - Three Turkeys",
   "description":"Phil and Luke take over Thanksgiving duties."
 }
 </script>
 
-TYPES: #tv-listing4 BroadcastEvent,SportsEvent, broadcastOfEvent, isLiveBroadcast, videoFormat, competitor
-
+TYPES: #eg-0445 BroadcastEvent, SportsEvent, broadcastOfEvent, isLiveBroadcast, videoFormat, competitor
 
 PRE-MARKUP:
+
 A broadcast of the FIFA Women's World Cup 2015 final.
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/BroadcastEvent">
+
+<div itemscope itemtype="https://schema.org/BroadcastEvent">
   <span itemprop="name">FIFA Women's World Cup Final</span>
   <span itemprop="description">US vs. Japan</span>
-  <meta itemprop="isLiveBroadcast" content="http://schema.org/True" />
+  <link itemprop="isLiveBroadcast" href="https://schema.org/True" />
   <span itemprop="videoFormat">HD</span>
   <span itemprop="startDate" content="2015-07-05T15:30-07:00">starts 07/05/2015 3:30PM</span>
-  <div itemprop="broadcastOfEvent" itemscope itemtype="http://schema.org/SportsEvent">
+  <div itemprop="broadcastOfEvent" itemscope itemtype="https://schema.org/SportsEvent">
     <span itemprop="name">FIFA Women's World Cup Final 2015</span>
-    <div itemprop="competitor" itemscope itemtype="http://schema.org/SportsTeam">
+    <div itemprop="competitor" itemscope itemtype="https://schema.org/SportsTeam">
       <meta itemprop="name" content="United States" />
     </div>
-    <div itemprop="competitor" itemscope itemtype="http://schema.org/SportsTeam">
+    <div itemprop="competitor" itemscope itemtype="https://schema.org/SportsTeam">
       <meta itemprop="name" content="Japan" />
     </div>
     <meta itemprop="startDate" content="2015-07-05T16:00-07:00" />
-    <div itemprop="location" itemscope itemtype="http://schema.org/City">
+    <div itemprop="location" itemscope itemtype="https://schema.org/City">
       Played in <span itemprop="name">Vancouver</span>
     </div>
   </div>
@@ -205,10 +212,10 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="BroadcastEvent">
+<div vocab="https://schema.org/" typeof="BroadcastEvent">
   <span property="name">FIFA Women's World Cup Final</span>
   <span property="description">US vs. Japan</span>
-  <meta property="isLiveBroadcast" content="http://schema.org/True" />
+  <link property="isLiveBroadcast" href="https://schema.org/True" />
   <span property="videoFormat">HD</span>
   <span property="startDate" content="2015-07-05T15:30-07:00">starts 07/05/2015 3:30PM</span>
   <div property="broadcastOfEvent" typeof="SportsEvent">
@@ -226,15 +233,15 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@type":"BroadcastEvent",
   "name": "FIFA Women's World Cup Final",
   "description": "US vs. Japan",
-  "isLiveBroadcast": "http://schema.org/True",
+  "isLiveBroadcast": true,
   "videoFormat": "HD",
   "startDate": "2015-07-05T15:30-07:00",
   "broadcastOfEvent": {
@@ -258,3 +265,4 @@ JSON:
   }
 }
 </script>
+

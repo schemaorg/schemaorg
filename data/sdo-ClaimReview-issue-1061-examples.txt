@@ -1,0 +1,194 @@
+TYPES: #eg-0324 ClaimReview
+
+PRE-MARKUP:
+
+This would be part of a page such as
+http://www.politifact.com/texas/statements/2014/jul/23/rick-perry/rick-perry-claim-about-3000-homicides-illegal-immi/
+
+Simple example based on material from that page.
+Earlier examples included Review and ClaimReview types while the latter
+design was under discussion, but this is not strictly needed now.
+
+<p>
+An example paragraph reviewing a claim expressed in another document.
+<dl>
+  <dt>Date published:</dt>
+  <dd>2014-07-23</dd>
+
+  <dt>Review url:</dt>
+  <dd>http://www.politifact.com/texas/statements/2014/jul/23/rick-perry/rick-perry-claim-about-3000-homicides-illegal-immi/</dd>
+
+  <dt>Review by:</dt>
+  <dd><a href="http://www.politifact.com/">Politifact</a>
+  <img src="http://static.politifact.com/mediapage/jpgs/politifact-logo-big.jpg" alt="Politifact" />
+  </dd>
+</dl>
+
+<h3>Claim reviewed:</h3>
+<blockquote>
+More than 3,000 homicides were committed by 'illegal aliens' over the past six years.
+</blockquote>
+
+<div>Rating: 1 (best score: 6), "True".</div>
+<img src="http://static.politifact.com.s3.amazonaws.com/rulings/tom-pantsonfire.gif" alt="Politifact Pants on Fire rating logo" />
+
+<h4>Item reviewed:</h4>
+
+<ul>
+  <li>Claim author's name: Rich Perry. Job title: "Former Governor of Texas".</li>
+  <li>Claim original document: "The St. Petersburg Times interview" (2014-07-17)</li>
+</ul>
+<img
+ src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Gov._Perry_CPAC_February_2015.jpg/440px-Gov._Perry_CPAC_February_2015.jpg"
+ alt="photo of R.Perry."/>
+</p>
+
+MICRODATA:
+
+<div itemscope="" itemtype="https://schema.org/ClaimReview">
+  An example paragraph reviewing a claim expressed in another document.
+  <dl>
+    <dt>Date published:</dt>
+    <dd itemprop="datePublished">2014-07-23</dd>
+
+    <dt>Review url:</dt>
+    <dd itemprop="url">http://www.politifact.com/texas/statements/2014/jul/23/rick-perry/rick-perry-claim-about-3000-homicides-illegal-immi/</dd>
+
+    <dt>Review by:</dt>
+    <dd>
+     <span itemprop="author" itemscope="" itemtype="https://schema.org/Organization">
+         <span itemprop="name"><a itemprop="url" href="http://www.politifact.com/">Politifact</a></span>
+         <img itemprop="image" src="http://static.politifact.com/mediapage/jpgs/politifact-logo-big.jpg" alt="Politifact" />
+         <link itemprop="sameAs" href="http://twitter.com/politifact"/>
+     </span>
+    </dd>
+  </dl>
+  <h3>Claim reviewed:</h3>
+    <blockquote itemprop="claimReviewed">
+    More than 3,000 homicides were committed by 'illegal aliens' over the past six years.
+    </blockquote>
+    <span itemprop="reviewRating" itemscope="" itemtype="https://schema.org/Rating">
+      Rating: <span itemprop="ratingValue">1</span>
+      (best score: <span itemprop="bestRating">6</span>),
+      "<span itemprop="alternateName">True</span>".
+      <img itemprop="image" src="http://static.politifact.com.s3.amazonaws.com/rulings/tom-pantsonfire.gif" alt="Politifact Pants on Fire rating logo" />
+    </span>
+  <h4>Item reviewed:</h4>
+  <div itemprop="itemReviewed" itemscope="" itemtype="https://schema.org/CreativeWork">
+   <ul>
+    <li itemprop="author" itemscope="" itemtype="https://schema.org/Person">Claim author's name: <span itemprop="name">Rich Perry</span>.
+        Job title: "<span itemprop="jobTitle">Former Governor of Texas</span>".
+        <link itemprop="sameAs" href="https://en.wikipedia.org/wiki/Rick_Perry"/>
+        <a itemprop="sameAs" href="https://rickperry.org/">rickperry.org</a>
+        <img itemprop="image"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Gov._Perry_CPAC_February_2015.jpg/440px-Gov._Perry_CPAC_February_2015.jpg"
+         alt="photo of R.Perry."/>
+    </li>
+    <li>Claim original document: "<span itemprop="name">The St. Petersburg Times interview</span>"
+      (<span itemprop="datePublished">2014-07-17</span>)</li>
+   </ul>
+  </div>
+</div>
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ClaimReview",
+    "datePublished": "2014-07-23",
+    "url": "http://www.politifact.com/texas/statements/2014/jul/23/rick-perry/rick-perry-claim-about-3000-homicides-illegal-immi/",
+    "author": {
+        "@type": "Organization",
+        "url": "http://www.politifact.com/",
+        "image": "http://static.politifact.com/mediapage/jpgs/politifact-logo-big.jpg",
+        "sameAs": "https://twitter.com/politifact"
+    },
+    "claimReviewed": "More than 3,000 homicides were committed by \"illegal aliens\" over the past six years.",
+    "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 1,
+        "bestRating": 6,
+        "image": "http://static.politifact.com.s3.amazonaws.com/rulings/tom-pantsonfire.gif",
+        "alternateName": "True"
+    },
+    "itemReviewed": {
+        "@type": "CreativeWork",
+        "author": {
+            "@type": "Person",
+            "name": "Rich Perry",
+            "jobTitle": "Former Governor of Texas",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Gov._Perry_CPAC_February_2015.jpg/440px-Gov._Perry_CPAC_February_2015.jpg",
+            "sameAs": [
+                "https://en.wikipedia.org/wiki/Rick_Perry",
+                "https://rickperry.org/"
+            ]
+        },
+        "datePublished": "2014-07-17",
+        "name": "The St. Petersburg Times interview [...]"
+    }
+}
+</script>
+
+TYPES: #eg-0325 ClaimReview
+
+PRE-MARKUP:
+
+An extended ClaimReview example for fact-check of a TV Clip (JSON-LD only).
+
+The content is Dan's review of Obama's claim about Iran, where the item
+reviewed is a Clip, which is part of a larger VideoObject.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClaimReview",
+  "datePublished": "2017-07-06",
+  "url": "http://danbri.org/2017/TODO",
+  "author": {
+    "@type": "Person",
+    "url": "http://danbri.org/",
+    "sameAs": "https://twitter.com/danbri"
+  },
+  "claimReviewed": "In the middle of the Cold War, the United States played a role in the overthrow of a democratically-elected Iranian government.",
+  "reviewBody": "This claim is true. The UK also played a role.",
+  "itemReviewed": {
+    "@type": "Clip",
+    "startOffset": "350",
+    "endOffset": "370",
+    "isPartOf": {
+        "@type": "VideoObject",
+        "url": "https://www.youtube.com/watch?v=B_889oBKkNU",
+        "name": "Clip from President Obama Speech to Muslim World in Cairo",
+        "transcript": "http://www.nytimes.com/2009/06/04/us/politics/04obama.text.html"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Barack Obama",
+        "jobTitle": "44th President of the United States of America",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/President_Barack_Obama.jpg",
+        "sameAs": [
+          "https://twitter.com/barackobama",
+          "https://www.wikidata.org/wiki/Q76"
+        ]
+    },
+    "datePublished": "2009-06-04",
+    "name": "President Obama Speech to Muslim World in Cairo"
+  }
+}
+</script>
+

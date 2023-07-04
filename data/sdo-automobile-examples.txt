@@ -1,4 +1,4 @@
-TYPES: Car
+TYPES: #eg-0328 Car
 
 PRE-MARKUP:
 
@@ -17,24 +17,23 @@ PRE-MARKUP:
     <p><strong>Color: </strong>Black</p>
     <p><strong>Number of gears: </strong>6</p>
     <p><strong>Engine: </strong>4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</p>
-    <p><strong>Number of airbags: </strong>6</p>
 </div>
 
 MICRODATA:
 
 <!-- Seller Details -->
-<div itemscope itemtype="http://schema.org/Person">
+<div itemscope itemtype="https://schema.org/Person">
   <strong>Contact Name: </strong> <span itemprop="name givenName">Brent</span>
-  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer" itemref="product">
+  <div itemprop="makesOffer" itemscope itemtype="https://schema.org/Offer" itemref="product">
     <span itemprop="priceSpecification" itemscope
-        itemtype="http://schema.org/UnitPriceSpecification">
+        itemtype="https://schema.org/UnitPriceSpecification">
       <meta itemprop="priceCurrency" content="USD">$
       <meta itemprop="price" content="18000">18,000
      </span>
    </div>
 </div>
 <!-- Car Details -->
-<div id="product" itemprop="itemOffered" itemscope itemtype="http://schema.org/Car">
+<div id="product" itemprop="itemOffered" itemscope itemtype="https://schema.org/Car">
   <strong itemprop="name">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox</strong>
   <p itemprop="description">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
   mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes
@@ -43,19 +42,17 @@ MICRODATA:
   <img itemprop="image" href="2009_Volkswagen_Golf_V_GTI_MY09.png" />
   <p><strong>Color: </strong><span itemprop="color">Black</span></p>
   <p><strong>Number of gears: </strong><span itemprop="numberOfForwardGears">6</span></p>
-  <div itemprop="vehicleEngine" itemscope itemtype="http://schema.org/EngineSpecification">
+  <div itemprop="vehicleEngine" itemscope itemtype="https://schema.org/EngineSpecification">
     <p><strong>Engine: </strong>
       <span itemprop="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
     </p>
   </div>
-  <p><strong>Number of airbags: </strong><span itemprop="airbags">6</span></p>
 </div>
-
 
 RDFA:
 
 <!-- Seller Details -->
-<div vocab="http://schema.org/" typeof="Person">
+<div vocab="https://schema.org/" typeof="Person">
 <strong>Contact Name: </strong> <span property="name givenName">Brent</span>
   <div property="makesOffer" typeof="Offer">
     <span property="priceSpecification" typeof="UnitPriceSpecification">
@@ -78,7 +75,6 @@ RDFA:
           <span property="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
         </p>
       </div>
-      <p><strong>Number of airbags: </strong><span property="airbags">6</span></p>
     </div>
   </div>
 </div>
@@ -87,7 +83,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Person",
   "name" : "Brent",
   "makesOffer" : {
@@ -106,23 +102,13 @@ JSON:
         "vehicleEngine" : {
             "@type": "EngineSpecification",
             "name" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)"
-            },
-        "numberOfAirbags" : "6"
+            }
         }
     }
 }
 </script>
 
-
-
-
-
-
-
-
-
-
-TYPES: FULLEXAMPLEFORAUTOEXTENSIONCar
+TYPES: #eg-0329 Car, makesOffer
 
 PRE-MARKUP:
 
@@ -141,24 +127,23 @@ PRE-MARKUP:
     <p><strong>Color: </strong>Black</p>
     <p><strong>Number of gears: </strong>6</p>
     <p><strong>Engine: </strong>4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</p>
-    <p><strong>Number of airbags: </strong>6</p>
 </div>
 
 MICRODATA:
 
 <!-- Seller Details -->
-<div itemscope itemtype="http://schema.org/Person">
+<div itemscope itemtype="https://schema.org/Person">
   <strong>Contact Name: </strong> <span itemprop="name givenName">Brent</span>
-  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer" itemref="product">
+  <div itemprop="makesOffer" itemscope itemtype="https://schema.org/Offer" itemref="product">
     <span itemprop="priceSpecification" itemscope
-        itemtype="http://schema.org/UnitPriceSpecification">
+        itemtype="https://schema.org/UnitPriceSpecification">
       <meta itemprop="priceCurrency" content="USD">$
       <meta itemprop="price" content="18000">18,000
      </span>
    </div>
 </div>
 <!-- Car Details -->
-<div id="product" itemprop="itemOffered" itemscope itemtype="http://schema.org/Car">
+<div id="product" itemprop="itemOffered" itemscope itemtype="https://schema.org/Car">
   <strong itemprop="name">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox</strong>
   <p itemprop="description">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
   mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes
@@ -167,19 +152,17 @@ MICRODATA:
   <img itemprop="image" href="2009_Volkswagen_Golf_V_GTI_MY09.png" />
   <p><strong>Color: </strong><span itemprop="color">Black</span></p>
   <p><strong>Number of gears: </strong><span itemprop="numberOfForwardGears">6</span></p>
-  <div itemprop="vehicleEngine" itemscope itemtype="http://schema.org/EngineSpecification">
+  <div itemprop="vehicleEngine" itemscope itemtype="https://schema.org/EngineSpecification">
     <p><strong>Engine: </strong>
       <span itemprop="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
     </p>
   </div>
-  <p><strong>Number of airbags: </strong><span itemprop="airbags">6</span></p>
 </div>
-
 
 RDFA:
 
 <!-- Seller Details -->
-<div vocab="http://schema.org/" typeof="Person">
+<div vocab="https://schema.org/" typeof="Person">
 <strong>Contact Name: </strong> <span property="name givenName">Brent</span>
   <div property="makesOffer" typeof="Offer">
     <span property="priceSpecification" typeof="UnitPriceSpecification">
@@ -202,7 +185,6 @@ RDFA:
           <span property="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
         </p>
       </div>
-      <p><strong>Number of airbags: </strong><span property="airbags">6</span></p>
     </div>
   </div>
 </div>
@@ -211,7 +193,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Person",
   "name" : "Brent",
   "makesOffer" : {
@@ -230,18 +212,9 @@ JSON:
         "vehicleEngine" : {
             "@type": "EngineSpecification",
             "name" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)"
-            },
-        "airbags" : "6",
+            }
         }
     }
 }
 </script>
 
-
-
-
-TYPES:  FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:

@@ -1,0 +1,64 @@
+TYPES: #eg-0313 EventSeries
+
+PRE-MARKUP:
+
+An example of an EventSeries in JSON-LD.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+[{
+  "@context" : "https://schema.org",
+  "@type" : "EventSeries",
+  "@id" : "http://www.olympic.org/olympic-games",
+  "name" : "Olympic Games",
+  "subEvent" : "http://www.olympic.org/rio-2016-summer-olympics",
+  "subEvent" : "http://www.olympic.org/london-2012-summer-olympics"
+},
+{
+  "@context" : "https://schema.org",
+  "@type" : "Event",
+  "@id" : "http://www.olympic.org/rio-2016-summer-olympics",
+  "name" : "The Rio 2016 Summer Olympics",
+  "startDate" : "2016-08-05",
+  "endDate" : "2016-08-21",
+  "url" : "http://www.rio2016.com",
+  "offers" : {
+     "@type" : "Offer",
+     "url" : "http://www.rio2016.com/en/tourist-information"
+  },
+  "superEvent" : "http://www.olympic.org/olympic-games",
+  "subEvent" : "http://www.rio2016.com/en/rowing"
+},
+{
+  "@context" : "https://schema.org",
+  "@type" : "Event",
+  "@id" : "http://www.rio2016.com/en/rowing",
+  "location" : {
+     "@type" : "Place",
+     "name" : "Lagoa Stadium",
+     "address" : "Av. Borges de Medeiros, 1524 - Lagoa, Rio de Janeiro - RJ, 22470-003, Brazil"
+  },
+  "startDate" : "2016-08-06",
+  "endDate" : "2016-08-13",
+  "superEvent": "http://www.olympic.org/rio-2016-summer-olympics"
+},
+{
+  "@context" : "https://schema.org",
+  "@type": "Event",
+  "@id" : "http://www.olympic.org/london-2012-summer-olympics",
+  "name" : "The London 2012 Summer Olympics",
+  "startDate" : "2012-07-27",
+  "endDate" : "2012-08-12",
+  "superEvent" : "http://www.olympic.org/olympic-games"
+}]
+</script>
+

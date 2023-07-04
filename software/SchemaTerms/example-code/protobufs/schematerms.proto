@@ -1,0 +1,89 @@
+syntax = "proto2";
+package SchemaTerms;
+
+//Term description types
+enum TermType {                   
+    TYPE = 0;
+    PROPERTY = 1;
+    DATATYPE = 2;
+    ENUMERATION = 3;
+    ENUMERATIONVALUE = 4;
+    REFERENCE = 5;
+    }
+
+message SuperPath {
+    repeated string superPath = 1;
+}
+
+//Common sub-message for all except Reference
+message SDOTerm {                      
+    required TermType termType = 1;
+    required string uri = 2;
+    required string label = 3;
+    required string comment = 4;
+    required bool pending = 5;
+    required bool retired = 6;
+    repeated SuperPath superPaths = 7;   //superpaths are an array of string arrays
+    repeated string acknowledgements = 8;
+    repeated string equivalents = 9;
+    optional string supersededBy = 10;
+    repeated string supersedes = 11;
+    repeated string sources = 12;
+}
+
+//SimpleType/DataType/Enumeration message
+message SDOBaseType {                
+    required string id = 1;
+    repeated SDOTerm termdescriptor = 2;
+    repeated string properties = 3;
+    repeated string allproperties = 4;
+    repeated string expectedTypeFor = 5;
+    repeated string enumerationMembers = 6;
+    repeated string subs = 7;
+    repeated string supers = 8;
+    repeated string termStack = 9;
+}
+
+//Simple & Expanded Property message
+message SDOProperty {                
+    required string id = 1;
+    repeated SDOTerm termdescriptor = 2;
+    repeated string domainIncludes = 3;
+    repeated string rangeIncludes = 4;
+    repeated string subs = 5;
+    repeated string supers = 6;
+    optional string inverse = 7;
+    repeated string termStack = 8;
+}
+
+//Simple & expanded EnumerationValue message
+message SDOEnumerationValue {       
+    required string id = 1;
+    repeated SDOTerm termdescriptor = 2;
+    required string enumerationParent = 3;
+}
+
+//Reference message
+message SDOReference {             
+    required string id = 1;
+    required string uri = 2;
+}
+
+//Expanded Type/DataType/Enumeration message
+message SDOBaseTypeExpanded {       
+    required string id = 1;
+    repeated SDOTerm termdescriptor = 2;
+    repeated SDOProperty properties = 3;
+    repeated SDOProperty expectedTypeFor = 4;
+    repeated string enumerationMembers = 5;
+    repeated string subs = 6;
+    repeated string supers = 7;
+    repeated string termStack = 8;
+}
+
+
+
+
+
+
+

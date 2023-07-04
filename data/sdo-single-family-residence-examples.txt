@@ -1,0 +1,55 @@
+TYPES: #eg-0422 SingleFamilyResidence, Accommodation, occupancy, floorSize, leaseLength
+
+PRE-MARKUP:
+
+Single family residence example with min and max occupancy limits, floor size of 2500 square foots and lease length of 6 months(JSON-LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SingleFamilyResidence",
+        "name": "1331 St George Street - Family House",
+        "description": "Great opportunity to own this 2500 sqft originally built in 1988 family home with 4 bedroom, 3 bathroom. which was RENOVATED IN 2014:( New Windows, New Bathroom, New Hardwood Floors, Air Condition, New Kitchen, etc.)",
+        "numberOfRooms": 5,
+        "occupancy": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 5
+        },
+        "floorSize": {
+            "@type": "QuantitativeValue",
+            "value": 2500,
+            "unitCode": "FTK"
+        },
+        "leaseLength": {
+            "@type": "QuantitativeValue",
+            "value": 6,
+            "unitText": "months"
+        },
+        "numberOfBathroomsTotal": 3,
+        "numberOfBedrooms": 4,
+        "permittedUsage": "Perfectly suitable for a family with two kids.",
+        "petsAllowed": "Only cats are allowed",
+        "yearBuilt": 1988,
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "CA",
+            "addressLocality": "Vancouver",
+            "addressRegion": "British Columbia",
+            "postalCode": "V5T 1Z7",
+            "streetAddress": "1331 St George Street"
+        },
+        "telephone": "+1-604-829-6070"
+    }
+</script>
+

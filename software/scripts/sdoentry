@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+import sys
+
+print 'Number of arguments:', len(sys.argv), 'arguments.'
+print 'Argument List:', str(sys.argv)
+
+if len(sys.argv) > 1: 
+  print "Issue number: ", sys.argv[1]
+  n = sys.argv[1]
+  x = '<li id="g%s"><a href="https://github.com/schemaorg/schemaorg/issues/%s">Issue #%s</a>: ...</li>' % (n, n, n)
+  print x

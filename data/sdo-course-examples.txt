@@ -1,0 +1,510 @@
+TYPES: #eg-0332 Course, CourseInstance, hasCourseInstance, courseMode
+
+PRE-MARKUP:
+
+<body vocab="https://schema.org/">
+<!-- A MOOC / free online course. As a simple one-off course -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main>
+  <h1>The Data Scientist's Toolbox</h1>
+  <h2>About this Course</h2>
+  <p>In this course you will get an introduction to the main tools and ideas in the
+       data scientist's toolbox...</p>
+  <div>
+    <h2>Session dates</h2>
+    <span>February 15</span> -
+    <span>March 21</span>
+  </div>
+</main>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/">
+<!-- A MOOC / free online course. As a simple one-off course -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main typeof="Course">
+  <h1 property="name">The Data Scientist's Toolbox</h1>
+  <h2>About this Course</h2>
+  <p property="description">
+       In this course you will get an introduction to the main tools and ideas in the
+       data scientist's toolbox...</p>
+  <div rel="hasCourseInstance" typeof="CourseInstance">
+    <meta property="courseMode" content="MOOC" />
+    <meta property="courseMode" content="online" />
+    <h2>Session dates</h2>
+    <span property="startDate" content="2019-02-15">February 15</span> -
+    <span property="endDate" content="2019-03-21">March 21</span>
+  </div>
+</main>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "description": "In this course you will get an introduction to the main tools and ideas in the data scientist's toolbox...",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": ["MOOC","online"],
+    "endDate": "2019-03-21",
+    "startDate": "2019-02-15"
+  }
+}
+</script>
+
+TYPES: #eg-0333 Course, CourseInstance, hasCourseInstance, courseMode
+
+PRE-MARKUP:
+
+<body vocab="https://schema.org/" typeof="Course">
+<!-- A college course offered at several locations -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2>HNC Accounting</h2>
+    <p>This course is designed for those wishing to take up
+       a career in Accounting and Financial Administration within a range of
+       organisations....</p>
+  <h2>This course is currently offered on the date(s) and venue(s) listed below.</h2>
+    <table >
+      <tbody>
+        <tr >
+          <th scope="col" >Method of Study</th>
+          <th scope="col" >Starts</th>
+          <th scope="col" >Ends</th>
+          <th scope="col" >Based at</th>
+        </tr>
+        <tr>
+          <td>Full-time</td>
+          <td>29 Aug 2016</td>
+          <td>23 Jun 2017</td>
+          <td>St Brycedale Campus Kirkcaldy</td>
+        </tr>
+        <tr>
+          <td>Full-time</td>
+          <td>29 Aug 2016</td>
+          <td>23 Jun 2017</td>
+          <td>Halbeath Campus Dunfermline</td>
+        </tr>
+        <tr>
+          <td>Evenings only and weekends</td>
+          <td>31 Aug 2016</td>
+          <td>21 Jun 2017</td>
+          <td>St Brycedale Campus Kirkcaldy</td>
+        </tr>
+      </tbody>
+    </table>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/" typeof="Course">
+<!-- A college course offered at several locations -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2 property="name">HNC Accounting</h2>
+    <p property="description">This course is designed for those wishing to take up
+       a career in Accounting and Financial Administration within a range of
+       organisations....</p>
+  <h2>This course is currently offered on the date(s) and venue(s) listed below.</h2>
+    <table >
+      <tbody>
+        <tr >
+          <th scope="col" >Method of Study</th>
+          <th scope="col" >Starts</th>
+          <th scope="col" >Ends</th>
+          <th scope="col" >Based at</th>
+        </tr>
+        <tr rel="hasCourseInstance" typeof="CourseInstance">
+          <td property="courseMode">full-time</td>
+          <td property="startDate" content="2016-08-29" datatype="schema:date">29 Aug 2016</td>
+          <td property="endDate" content="2017-06-23" datatype="schema:date">23 Jun 2017</td>
+          <td property="location">St Brycedale Campus Kirkcaldy</td>
+        </tr>
+        <tr rel="hasCourseInstance" typeof="CourseInstance">
+          <td property="courseMode">full-time</td>
+          <td property="startDate" content="2016-08-29" datatype="schema:date">29 Aug 2016</td>
+          <td property="endDate" content="2017-06-23" datatype="schema:date">23 Jun 2017</td>
+          <td  property="location">Halbeath Campus Dunfermline</td>
+        </tr>
+        <tr rel="hasCourseInstance" typeof="CourseInstance">
+          <td><meta property="courseMode" content="part-time">
+              Evenings only and weekends</td>
+          <td property="startDate" content="2016-08-31" datatype="schema:date">31 Aug 2016</td>
+          <td property="endDate" content="2017-06-21" datatype="schema:date">21 Jun 2017</td>
+          <td  property="location">St Brycedale Campus Kirkcaldy</td>
+        </tr>
+      </tbody>
+    </table>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@id": "./",
+  "@type": "Course",
+  "name": "HNC Accounting",
+  "description": "This course is designed for those wishing to take up \r\n       a career in Accounting and Financial Administration within a range of \r\n       organisations....",
+  "hasCourseInstance": [
+    {
+      "@type": "CourseInstance",
+      "courseMode": "part-time",
+      "endDate": "2017-06-21",
+      "location": "St Brycedale Campus Kirkcaldy",
+      "startDate": "2016-08-31"
+    },
+    {
+      "@type": "CourseInstance",
+      "courseMode": "full-time",
+      "endDate": "2017-06-23",
+      "location": "Halbeath Campus Dunfermline",
+      "startDate": "2016-08-29"
+    },
+    {
+      "courseMode": "full-time",
+      "endDate": "2017-06-23",
+      "location": "St Brycedale Campus Kirkcaldy",
+      "startDate": "2016-08-29"
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0334 Course, CourseInstance, hasCourseInstance, courseMode
+
+PRE-MARKUP:
+
+<body>
+<!--A self-paced distance learning course (no events)-->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<div>
+  <h1>Basic Proofreading</h1>
+  <p>The distance learning training course that takes you
+        from complete beginner to PQB qualified proofreader in one step.</p>
+  <div>
+    Online, cost: £395
+  </div>
+  <div>
+    Posted, cost:£440
+  </div>
+</div>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/">
+<!--A self-paced distance learning course (no events)-->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<div typeof="Course">
+  <h1 property="name">Basic Proofreading</h1>
+  <p property="description">The distance learning training course that takes you
+        from complete beginner to PQB qualified proofreader in one step.</p>
+  <div rel="hasCourseInstance" typeof="CourseInstance">
+    <meta property="courseMode" content="distance learning" />
+    <span property="courseMode">Online</span>,
+    <div rel="offers" typeof="Offer">
+      cost:<meta property="priceCurrency" content="GBP" />
+           £<span property="price">395</span>
+    </div>
+  </div>
+  <div rel="hasCourseInstance" typeof="CourseInstance">
+    <meta property="courseMode" content="distance learning" />
+    <span property="courseMode">Posted</span>,
+    <div rel="offers" typeof="Offer">
+      cost:<meta property="priceCurrency" content="GBP" />
+           £<span property="price">440</span>
+    </div>
+  </div>
+</div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "Basic Proofreading",
+  "description": "The distance learning training course that takes you \r\n        from complete beginner to PQB qualified proofreader in one step.",
+  "hasCourseInstance": [
+    {
+      "@type": "CourseInstance",
+      "courseMode": [
+        "distance learning",
+        "Online"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "395",
+        "priceCurrency": "GBP"
+      }
+    },
+    {
+      "@type": "CourseInstance",
+      "courseMode": [
+        "Posted",
+        "distance learning"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "440",
+        "priceCurrency": "GBP"
+      }
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0335 educationalCredentialAwarded
+
+PRE-MARKUP:
+
+<body>
+<!-- A college course leading to an HNC in Accounting -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2>HNC Accounting</h2>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/" typeof="Course">
+<!-- A college course leading to an HNC in Accounting -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2 property="name">HNC Accounting</h2>
+  <meta property="educationalCredentialAwarded" content="Higher National Certificate in Accounting" />
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "educationalCredentialAwarded": "Higher National Certificate in Accounting",
+  "name": "HNC Accounting"
+}
+</script>
+
+TYPES: #eg-0336 educationalCredentialAwarded
+
+PRE-MARKUP:
+
+<!-- Certificate for a distance learning course -->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<body>
+  <div>
+    <h1>Basic Proofreading</h1>
+    <h2>What is Included?</h2>
+    <h3>Certificate</h3>
+    <p>A completion certificate from PQB showing whether you have achieved a
+      pass, merit or distinction in your work.</p>
+  </div>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<!-- Certificate for a distance learning course -->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<body vocab="https://schema.org/">
+  <div typeof="Course">
+    <h1 property="name">Basic Proofreading</h1>
+    <h2>What is Included?</h2>
+    <h3>Certificate</h3>
+    <p>A <span property= "educationalCredentialAwarded">completion certificate from
+      PQB</span> showing whether you have achieved a pass, merit or distinction in your
+      work.</p>
+  </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "educationalCredentialAwarded": "completion certificate from \r\n      PQB",
+  "name": "Basic Proofreading"
+}
+</script>
+
+TYPES: #eg-0337 instructor, provider
+
+PRE-MARKUP:
+
+<body>
+<!-- A MOOC created by an Institution, offered through a MOOC platform, with named instructor -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main>
+  <h1>The Data Scientist's Toolbox</h1>
+  <h2>
+    Johns Hopkins University
+  </h2>
+  <h2>About this Course</h2>
+  <div>
+    <h2>Instructors</h2>
+    <div>
+      <a href="http://example.org/instructor/~315" >
+        <p>Jeff Leek, PhD</p>
+        <div>Associate Professor, Biostatistics</div>
+        <div>Bloomberg School of Public Health </div>
+      </a>
+    </div>
+  </div>
+</main>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/">
+<!-- A MOOC created by an Institution, offered through a MOOC platform, with named instructor -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main typeof="Course">
+  <h1 property="name">The Data Scientist's Toolbox</h1>
+  <h2 property="provider" typeof="EducationalOrganization">
+    <span property="name">Johns Hopkins University</span>
+  </h2>
+  <h2>About this Course</h2>
+  <div rel="hasCourseInstance" typeof="CourseInstance">
+    <meta property="courseMode" content="MOOC" />
+    <meta property="courseMode" content="online" />
+    <span rel="offers" typeOf="Offer">
+      <meta property="price" content="0" />
+      <meta property="offeredBy" content="Coursera">
+    </span>
+    <h2  >Instructors</h2>
+    <div property="instructor" typeof="Person">
+      <a property="url" href="http://example.org/instructor/~315" >
+        <p  property="name">Jeff Leek, PhD</p>
+        <div property="jobTitle" >Associate Professor, Biostatistics</div>
+        <div  property="worksFor" >Bloomberg School of Public Health </div>
+      </a>
+    </div>
+  </div>
+</main>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": [
+      "MOOC",
+      "online"
+    ],
+    "instructor": {
+      "@type": "Person",
+      "jobTitle": "Associate Professor, Biostatistics",
+      "name": "Jeff Leek, PhD",
+      "url": {"@id": "http://example.org/instructor/~315"},
+      "worksFor": "Bloomberg School of Public Health "
+    },
+    "offers": {
+      "@type": "Offer",
+      "offeredBy": "Coursera",
+      "price": "0"
+    }
+  },
+  "name": "The Data Scientist's Toolbox",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "Johns Hopkins University"
+  }
+}
+</script>
+
+TYPES: #eg-0338 Course, courseCode, provider
+
+PRE-MARKUP:
+
+<body>
+<!--A Bachellor's programme provided by a University, referencing the course code-->
+<!--based on http://search.ucas.com/course/summary/463149/physics -->
+    <div>
+        <h2>Physics</h2>
+        <div>
+            <a href="/provider/324/university-of-bristol">
+                <span>University of Bristol</span>
+            </a>
+        </div>
+        <div>
+            Course code: F300
+        </div>
+    </div>
+</body>
+
+MICRODATA:
+
+No Microdata
+
+RDFA:
+
+<body vocab="https://schema.org/">
+<!--A Bachellor's programme provided by a University, referencing the course code-->
+<!--based on http://search.ucas.com/course/summary/463149/physics -->
+    <div typeof="Course">
+        <h2 property="name">Physics</h2>
+        <div property="provider" typeOf="CollegeOrUniversity">
+            <a property="url" href="/provider/324/university-of-bristol">
+                <span property="name">University of Bristol</span>
+            </a>
+        </div>
+        <div>
+            Course code <span property="courseCode">F300</span>
+        </div>
+    </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "courseCode": "F300",
+  "name": "Physics",
+  "provider": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Bristol",
+    "url": {"@id": "/provider/324/university-of-bristol"}
+  }
+}
+</script>
+

@@ -1,0 +1,160 @@
+TYPES: #eg-0385 Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
+
+PRE-MARKUP:
+
+A simple menu example with a single menu section for tacos and a taco menu item.
+Note that additional menus are possible for specific languages using the
+inLanguage property.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context":"https://schema.org",
+   "@type":"Restaurant",
+   "url":"http://www.somerestaurant.com",
+   "name":"Some Restaurant",
+   "description":"This is the Some Restaurant located on 345 Spear St. San Francisco, 94105 CA. It serves Indian-Mexican fusion cuisine",
+   "servesCuisine":[
+      "Indian-Mexican Fusion"
+   ],
+   "hasMenu":{
+      "@type":"Menu",
+      "hasMenuSection":{
+         "@type":"MenuSection",
+         "name":"Tacos",
+         "description":"Tacos inspired by India cuisine.",
+         "image":[
+            "https://somerestaurant.com/some_tacos.jpg",
+            "https://somerestaurant.com/more_tacos.jpg"
+         ],
+         "offers":{
+            "@type":"Offer",
+            "availabilityEnds":"2017-03-02T08:22:00",
+            "availabilityStarts":"2017-03-02T08:22:00"
+         },
+         "hasMenuItem":{
+            "@type":"MenuItem",
+            "name":"Aloo Gobi Taco",
+            "description":"Mexico City-style street corn tortilla taco filled with a flavorful mixture of mildly south Indian spiced cauliflower, potato, tomato, onions and bell peppers.",
+            "offers":{
+               "@type":"Offer",
+               "price":"3.50",
+               "priceCurrency":"USD"
+            },
+            "nutrition":{
+               "@type":"NutritionInformation",
+               "calories":"170 calories",
+               "fatContent":"3 grams",
+               "fiberContent":"2 grams",
+               "proteinContent":"4 grams"
+            },
+            "suitableForDiet":"https://schema.org/GlutenFreeDiet"
+         }
+      },
+      "inLanguage":"English"
+   }
+}
+</script>
+
+TYPES: #eg-0386 Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
+
+PRE-MARKUP:
+
+An example of a menu with nested MenuSections.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context":"https://schema.org",
+   "@type":"Restaurant",
+   "url":"http://www.thisisarestaurant.com",
+   "name":"The Restaurant",
+   "image":"http://www.example.com/image-of-some-restaurant.jpg",
+   "description":"This is an example restaurant that serves American cuisine.",
+   "servesCuisine":[
+      "American cuisine"
+   ],
+   "hasMenu":{
+      "@type":"Menu",
+      "name":"Dine-In Menu",
+      "description":"Menu for in-restaurant dining only.",
+      "hasMenuSection":[
+         {
+            "@type":"MenuSection",
+            "name":"Dinner",
+            "description":"Dinner dishes",
+            "image":"https://thisisarestaurant.com/dinner_dishes.jpg",
+            "offers":{
+               "@type":"Offer",
+               "availabilityEnds":"2017-03-02T08:22:00",
+               "availabilityStarts":"2017-03-02T08:22:00"
+            },
+            "hasMenuSection":[
+               {
+                  "@type":"MenuSection",
+                  "name":"Starters",
+                  "description":"Appetizers and such",
+                  "image":"https://thisisarestaurant.com/starter_dishes.jpg",
+                  "offers":{
+                     "@type":"Offer",
+                     "availabilityEnds":"2017-03-02T08:22:00",
+                     "availabilityStarts":"2017-03-02T08:22:00"
+                  },
+                  "hasMenuItem":{
+                     "@type":"MenuItem",
+                     "name":"Potato Skins",
+                     "description":"Small serving of stuffed potato skins.",
+                     "offers":{
+                        "@type":"Offer",
+                        "price":"7.49",
+                        "priceCurrency":"USD"
+                     },
+                     "suitableForDiet":"https://schema.org/GlutenFreeDiet"
+                  }
+               },
+               {
+                  "@type":"MenuSection",
+                  "name":"Soups & Salads",
+                  "description":"Salads and a few choices of soup",
+                  "image":"https://thisisarestaurant.com/soup_and_salad_dishes.jpg",
+                  "offers":{
+                     "@type":"Offer",
+                     "availabilityEnds":"2017-03-02T08:22:00",
+                     "availabilityStarts":"2017-03-02T08:22:00"
+                  },
+                  "hasMenuItem":{
+                     "@type":"MenuItem",
+                     "name":"Pea Soup",
+                     "description":"Creamy pea soup topped with melted cheese and sourdough croutons.",
+                     "offers":{
+                        "@type":"Offer",
+                        "price":"3.49",
+                        "priceCurrency":"USD"
+                     }
+                  }
+               }
+            ]
+         }
+      ]
+   }
+}
+</script>
+

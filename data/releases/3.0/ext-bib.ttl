@@ -1,0 +1,243 @@
+@prefix ns1: <http://schema.org/> .
+@prefix ns2: <http://purl.org/dc/terms/> .
+@prefix ns3: <http://www.w3.org/ns/rdfa#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:Atlas a rdfs:Class ;
+    rdfs:label "bib:Atlas"@en ;
+    ns2:source <http://www.productontology.org/id/Atlas> ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:Audiobook a rdfs:Class ;
+    rdfs:label "bib:Audiobook"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "An audiobook." ;
+    rdfs:subClassOf ns1:AudioObject,
+        ns1:Book .
+
+ns1:Chapter a rdfs:Class ;
+    rdfs:label "bib:Chapter"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "One of the sections into which a book is divided. A chapter usually has a section number or a name." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:Collection a rdfs:Class ;
+    rdfs:label "bib:Collection"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "A created collection of Creative Works or other artefacts." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:ComicCoverArt a rdfs:Class ;
+    rdfs:label "bib:ComicCoverArt"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "The artwork on the cover of a comic." ;
+    rdfs:subClassOf ns1:ComicStory,
+        ns1:CoverArt .
+
+ns1:ComicIssue a rdfs:Class ;
+    rdfs:label "bib:ComicIssue"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment """Individual comic issues are serially published as
+    part of a larger series. For the sake of consistency, even one-shot issues
+    belong to a series comprised of a single issue. All comic issues can be
+    uniquely identified by: the combination of the name and volume number of the
+    series to which the issue belongs; the issue number; and the variant
+    description of the issue (if any).""" ;
+    rdfs:subClassOf ns1:PublicationIssue .
+
+ns1:ComicSeries a rdfs:Class ;
+    rdfs:label "bib:ComicSeries"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment """A sequential publication of comic stories under a
+    unifying title, for example "The Amazing Spider-Man" or "Groo the
+    Wanderer".""" ;
+    rdfs:subClassOf ns1:Periodical .
+
+ns1:ComicStory a rdfs:Class ;
+    rdfs:label "bib:ComicStory"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment """The term "story" is any indivisible, re-printable
+    unit of a comic, including the interior stories, covers, and backmatter. Most
+    comics have at least two stories: a cover (ComicCoverArt) and an interior story.""" ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:CoverArt a rdfs:Class ;
+    rdfs:label "bib:CoverArt"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "The artwork on the outer surface of a CreativeWork." ;
+    rdfs:subClassOf ns1:VisualArtwork .
+
+ns1:Newspaper a rdfs:Class ;
+    rdfs:label "bib:Newspaper"@en ;
+    ns2:source <http://www.productontology.org/id/Newspaper> ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily." ;
+    rdfs:subClassOf ns1:Periodical .
+
+ns1:Thesis a rdfs:Class ;
+    rdfs:label "bib:Thesis"@en ;
+    ns2:source <http://www.productontology.org/id/Thesis> ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa> ns1:softwareVersion "bib.schema.org Version 0.1"@en ;
+    ns3:usesVocabulary <http://schema.org> .
+
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa> ns1:softwareVersion "bib extension - version 0.1"@en ;
+    ns3:usesVocabulary ns1: .
+
+ns1:GraphicNovel a ns1:BookFormatType ;
+    rdfs:label "GraphicNovel"@en ;
+    ns1:category "Comics"@en ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    rdfs:comment "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances." .
+
+ns1:abridged a rdf:Property ;
+    rdfs:label "bib:abridged"@en ;
+    ns1:domainIncludes ns1:Book ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Boolean ;
+    rdfs:comment "Indicates whether the book is an abridged edition." .
+
+ns1:artist a rdf:Property ;
+    rdfs:label "bib:artist"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue,
+        ns1:ComicStory,
+        ns1:VisualArtwork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment """The primary artist for a work 
+    in a medium other than pencils or digital line art--for example, if the
+    primary artwork is done in watercolors or digital paints.""" .
+
+ns1:colorist a rdf:Property ;
+    rdfs:label "bib:colorist"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue,
+        ns1:ComicStory,
+        ns1:VisualArtwork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "The individual who adds color to inked drawings." .
+
+ns1:duration a rdf:Property ;
+    ns1:domainIncludes ns1:Audiobook .
+
+ns1:inSupportOf a rdf:Property ;
+    rdfs:label "bib:inSupportOf"@en ;
+    ns1:domainIncludes ns1:Thesis ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "Qualification, candidature, degree, application that Thesis supports." .
+
+ns1:inker a rdf:Property ;
+    rdfs:label "bib:inker"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue,
+        ns1:ComicStory,
+        ns1:VisualArtwork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "The individual who traces over the pencil drawings in ink after pencils are complete." .
+
+ns1:letterer a rdf:Property ;
+    rdfs:label "bib:letterer"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue,
+        ns1:ComicStory,
+        ns1:VisualArtwork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "The individual who adds lettering, including speech balloons and sound effects, to artwork." .
+
+ns1:pageEnd a rdf:Property ;
+    rdfs:label "schema:pageEnd"@en ;
+    ns1:domainIncludes ns1:Chapter .
+
+ns1:pageStart a rdf:Property ;
+    rdfs:label "schema:pageStart"@en ;
+    ns1:domainIncludes ns1:Chapter .
+
+ns1:pagination a rdf:Property ;
+    rdfs:label "schema:pagination"@en ;
+    ns1:domainIncludes ns1:Chapter .
+
+ns1:penciler a rdf:Property ;
+    rdfs:label "bib:penciler"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue,
+        ns1:ComicStory,
+        ns1:VisualArtwork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "The individual who draws the primary narrative artwork." .
+
+ns1:publishedBy a rdf:Property ;
+    rdfs:label "bib:publishedBy"@en ;
+    ns1:domainIncludes ns1:PublicationEvent ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Organization,
+        ns1:Person ;
+    rdfs:comment "An agent associated with the publication event." .
+
+ns1:publisherImprint a rdf:Property ;
+    rdfs:label "bib:publisherImprint"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Organization ;
+    rdfs:comment "The publishing division which published the comic." .
+
+ns1:readBy a rdf:Property ;
+    rdfs:label "bib:readBy"@en ;
+    ns1:domainIncludes ns1:Audiobook ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "A person who reads (performs) the audiobook." ;
+    rdfs:subPropertyOf ns1:actor .
+
+ns1:translator a rdf:Property ;
+    rdfs:label "bib:translator"@en ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:rangeIncludes ns1:Organization,
+        ns1:Person ;
+    rdfs:comment "An agent responsible for rendering a translated work from a source work" .
+
+ns1:variantCover a rdf:Property ;
+    rdfs:label "bib:variantCover"@en ;
+    ns1:category "Comics"@en ;
+    ns1:domainIncludes ns1:ComicIssue ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment """A description of the variant cover
+    for the issue, if the issue is a variant printing. For example, "Bryan Hitch
+    Variant Cover" or "2nd Printing Variant".""" .
+
+ns1:translationOfWork a rdf:Property ;
+    rdfs:label "bib:translationOfWork"@en ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:inverseOf ns1:workTranslation ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:CreativeWork ;
+    rdfs:comment "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”" .
+
+ns1:workTranslation a rdf:Property ;
+    rdfs:label "bib:workTranslation"@en ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:inverseOf ns1:translationOfWork ;
+    ns1:isPartOf <http://bib.schema.org> ;
+    ns1:rangeIncludes ns1:CreativeWork ;
+    rdfs:comment "A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo." .
+

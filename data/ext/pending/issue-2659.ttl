@@ -1,0 +1,22 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:copyrightNotice a rdf:Property ;
+    rdfs:label "copyrightNotice" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2659> ;
+    rdfs:comment "Text of a notice appropriate for describing the copyright aspects of this Creative Work, ideally indicating the owner of the copyright for the Work." .
+
+:creditText a rdf:Property ;
+    rdfs:label "creditText" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2659> ;
+    rdfs:comment "Text that can be used to credit person(s) and/or organization(s) associated with a published Creative Work." .
+

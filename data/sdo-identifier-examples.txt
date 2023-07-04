@@ -1,0 +1,101 @@
+TYPES: #eg-0372 identifier
+
+PRE-MARKUP:
+
+<p>
+Title: Library linked data in the cloud : OCLC's experiments with new models of resource description<br/>
+Author: Carol Jean Godby<br/>
+ISBN: 9781627052191<br/>
+oclcnum: 889647468<br/>
+Details: <a href="http://www.worldcat.org/oclc/889647468">WorldCat.org</a>
+</p>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Book">
+    Title: <span itemprop="name">Library linked data in the cloud : OCLC's experiments with new models of resource description</span><br>
+    Author: <span itemprop="author">Carol Jean Godby</span><br>
+    ISBN: <span itemprop="isbn">9781627052191</span><br>
+    <div itemscope itemprop="identifier" itemtype="https://schema.org/PropertyValue">
+        <span itemprop="propertyID">OCoLC</span>: <span itemprop="value">889647468</span>
+    </div><br>
+    Details: <a itemprop="sameAs" href="http://www.worldcat.org/oclc/889647468">WorldCat.org</a>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Book">
+    Title: <span property="name">Library linked data in the cloud : OCLC's experiments with new models of resource description</span><br>
+    Author: <span property="author">Carol Jean Godby</span><br>
+    ISBN: <span property="isbn">9781627052191</span><br>
+    <div property="identifier" typeof="PropertyValue">
+        <span property="propertyID">OCoLC</span>: <span property="value">889647468</span>
+    </div>
+</div>
+    <br>
+    Details: <a property="sameAs" href="http://www.worldcat.org/oclc/889647468">WorldCat.org</a>
+
+JSON:
+
+{
+ "@context": "https://schema.org/",
+ "@type": "Book",
+ "name": "Library linked data in the cloud : OCLC's experiments with new models of resource description",
+ "author": "Carol Jean Godby",
+ "isbn": "9781627052191",
+ "identifier": {
+ "@type": "PropertyValue",
+   "propertyID": "OCoLC",
+   "value":  "889647468"
+  },
+ "sameAs": "http://www.worldcat.org/oclc/889647468"
+}
+
+TYPES: #eg-0373 identifier
+
+PRE-MARKUP:
+
+<div">
+Company Record
+<h1>A UK Organization Ltd</h1>
+Registered office address: 1 A Street, London<br/>
+Company Number: 99065782
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/LocalBusiness">
+    Company Record
+    <h1 itemprop="name">A UK Organization Ltd</h1>
+    Registered office address: <span itemprop="address">1 A Street, London</span><br>
+    <div itemscope="" itemprop="identifier" itemptype="https://schema.org/PropertyValue">
+        <span itemprop="propertyID">Company Number</span>: <span itemprop="value">99065782</span>
+    </div><br>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="LocalBusiness">
+    Company Record
+    <h1 property="name">
+        A UK Organization Ltd</h1>
+        Registered office address: <span property="address">1 A Street, London</span><br>
+    <div property="identifier" typeof="PropertyValue">
+        <span property="propertyID">Company Number</span>: <span property="value">99065782</span>
+    </div><br>
+</div>
+
+JSON:
+
+{
+  "@context": "https://schema.org/",
+  "@type": "LocalBusiness",
+  "name": "A UK Organization Ltd",
+  "address": "1 A Street, London",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "Company Number",
+    "value":  "99065782"
+  }
+}
+

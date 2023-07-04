@@ -1,0 +1,2361 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix snomed: <http://purl.bioontology.org/ontology/SNOMEDCT/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd1: <hhttp://www.w3.org/2001/XMLSchema#> .
+
+<http://schema.org/3DModel> a rdfs:Class ;
+    rdfs:label "3DModel" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2140> ;
+    schema:category "issue-2140" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A 3D model represents some kind of 3D content, which may have <a class="localLink" href="http://schema.org/encoding">encoding</a>s in one or more <a class="localLink" href="http://schema.org/MediaObject">MediaObject</a>s. Many 3D formats are available (e.g. see <a href="https://en.wikipedia.org/wiki/Category:3D_graphics_file_formats">Wikipedia</a>); specific encoding formats can be represented using the <a class="localLink" href="http://schema.org/encodingFormat">encodingFormat</a> property applied to the relevant <a class="localLink" href="http://schema.org/MediaObject">MediaObject</a>. For the
+case of a single file published after Zip compression, the convention of appending '+zip' to the <a class="localLink" href="http://schema.org/encodingFormat">encodingFormat</a> can be used. Geospatial, AR/VR, artistic/animation, gaming, engineering and scientific content can all be represented using <a class="localLink" href="http://schema.org/3DModel">3DModel</a>.""" ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:AdvertiserContentArticle a rdfs:Class ;
+    rdfs:label "AdvertiserContentArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a> that an external entity has paid to place or to produce to its specifications. Includes <a href=\"https://en.wikipedia.org/wiki/Advertorial\">advertorials</a>, sponsored content, native advertising and other paid content." ;
+    rdfs:subClassOf schema:Article .
+
+schema:AnalysisNewsArticle a rdfs:Class ;
+    rdfs:label "AnalysisNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An AnalysisNewsArticle is a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> that, while based on factual reporting, incorporates the expertise of the author/producer, offering interpretations and conclusions." ;
+    rdfs:subClassOf schema:NewsArticle .
+
+schema:ArchiveComponent a rdfs:Class ;
+    rdfs:label "ArchiveComponent"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    schema:category "issue-1758"@en ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An intangible type to be applied to any archive content, carrying with it a set of properties required to describe archival items and collections." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:ArchiveOrganization a rdfs:Class ;
+    rdfs:label "ArchiveOrganization"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    schema:category "issue-1758"@en ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An organization with archival holdings. An organization which keeps and preserves archival material and typically makes it accessible to the public." ;
+    rdfs:subClassOf schema:LocalBusiness .
+
+schema:AskPublicNewsArticle a rdfs:Class ;
+    rdfs:label "AskPublicNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> expressing an open call by a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> asking the public for input, insights, clarifications, anecdotes, documentation, etc., on an issue, for reporting purposes." ;
+    rdfs:subClassOf schema:NewsArticle .
+
+schema:BackgroundNewsArticle a rdfs:Class ;
+    rdfs:label "BackgroundNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> providing historical context, definition and detail on a specific topic (aka \"explainer\" or \"backgrounder\"). For example, an in-depth article or frequently-asked-questions (<a href=\"https://en.wikipedia.org/wiki/FAQ\">FAQ</a>) document on topics such as Climate Change or the European Union. Other kinds of background material from a non-news setting are often described using <a class=\"localLink\" href=\"http://schema.org/Book\">Book</a> or <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, in particular <a class=\"localLink\" href=\"http://schema.org/ScholarlyArticle\">ScholarlyArticle</a>. See also <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> for related vocabulary from a learning/education perspective." ;
+    rdfs:subClassOf schema:NewsArticle .
+
+schema:BrokerageAccount a rdfs:Class ;
+    rdfs:label "BrokerageAccount" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An account that allows an investor to deposit funds and place investment orders with a licensed broker or brokerage firm." ;
+    rdfs:subClassOf schema:InvestmentOrDeposit .
+
+schema:CategoryCode a rdfs:Class ;
+    rdfs:label "CategoryCode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Category Code." ;
+    rdfs:subClassOf schema:DefinedTerm .
+
+schema:CategoryCodeSet a rdfs:Class ;
+    rdfs:label "CategoryCodeSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A set of Category Code values." ;
+    rdfs:subClassOf schema:DefinedTermSet .
+
+schema:Claim a rdfs:Class ;
+    rdfs:label "Claim" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1828> ;
+    schema:category "issue-1828" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A <a class="localLink" href="http://schema.org/Claim">Claim</a> in Schema.org represents a specific, factually-oriented claim that could be the <a class="localLink" href="http://schema.org/itemReviewed">itemReviewed</a> in a <a class="localLink" href="http://schema.org/ClaimReview">ClaimReview</a>. The content of a claim can be summarized with the <a class="localLink" href="http://schema.org/text">text</a> property. Variations on well known claims can have their common identity indicated via <a class="localLink" href="http://schema.org/sameAs">sameAs</a> links, and summarized with a <a class="localLink" href="http://schema.org/name">name</a>. Ideally, a <a class="localLink" href="http://schema.org/Claim">Claim</a> description includes enough contextual information to minimize the risk of ambiguity or inclarity. In practice, many claims are better understood in the context in which they appear or the interpretations provided by claim reviews.<br/><br/>
+
+Beyond <a class="localLink" href="http://schema.org/ClaimReview">ClaimReview</a>, the Claim type can be associated with related creative works - for example a <a class="localLink" href="http://schema.org/ScholaryArticle">ScholaryArticle</a> or <a class="localLink" href="http://schema.org/Question">Question</a> might be <a class="localLink" href="http://schema.org/about">about</a> some <a class="localLink" href="http://schema.org/Claim">Claim</a>.<br/><br/>
+
+At this time, Schema.org does not define any types of relationship between claims. This is a natural area for future exploration.""" ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:CompleteDataFeed a rdfs:Class ;
+    rdfs:label "CompleteDataFeed" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1397> ;
+    schema:category "issue-1397" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A <a class="localLink" href="http://schema.org/CompleteDataFeed">CompleteDataFeed</a> is a <a class="localLink" href="http://schema.org/DataFeed">DataFeed</a> whose standard representation includes content for every item currently in the feed.<br/><br/>
+
+This is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href="https://tools.ietf.org/html/rfc5005">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. "Top Twenty Records") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.""" ;
+    rdfs:subClassOf schema:DataFeed .
+
+schema:Consortium a rdfs:Class ;
+    rdfs:label "Consortium" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1559> ;
+    schema:category "issue-1559" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Consortium is a membership <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> whose members are typically Organizations." ;
+    rdfs:subClassOf schema:Organization .
+
+schema:CorrectionComment a rdfs:Class ;
+    rdfs:label "CorrectionComment" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1950> ;
+    schema:category "issue-1950" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/comment\">comment</a> that corrects <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>." ;
+    rdfs:subClassOf schema:Comment .
+
+schema:CriticReview a rdfs:Class ;
+    rdfs:label "CriticReview" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1589> ;
+    schema:category "issue-1589" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a> is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a>s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the <a class=\"localLink\" href=\"http://schema.org/UserReview\">UserReview</a> type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources." ;
+    rdfs:subClassOf schema:Review .
+
+schema:CssSelectorType a rdfs:Class ;
+    rdfs:label "CssSelectorType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1672> ;
+    schema:category "issue-1672" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Text representing a CSS selector." ;
+    rdfs:subClassOf schema:Text .
+
+schema:DefinedTerm a rdfs:Class ;
+    rdfs:label "DefinedTerm" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:DefinedTermSet a rdfs:Class ;
+    rdfs:label "DefinedTermSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A set of defined terms for example a set of categories or a classification scheme, a glossary, dictionary or enumeration." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:Drawing a rdfs:Class ;
+    rdfs:label "Drawing" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1448> ;
+    schema:category "issue-1448" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A picture or diagram made with a pencil, pen, or crayon rather than paint." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:EducationalOccupationalCredential a rdfs:Class ;
+    rdfs:label "EducationalOccupationalCredential" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1779" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:EducationalOccupationalProgram a rdfs:Class ;
+    rdfs:label "EducationalOccupationalProgram" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree)." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:EmployerReview a rdfs:Class ;
+    rdfs:label "EmployerReview" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1589> ;
+    schema:category "issue-1576" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/EmployerReview\">EmployerReview</a> is a review of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> regarding its role as an employer, written by a current or former employee of that organization." ;
+    rdfs:subClassOf schema:Review .
+
+schema:EventSeries a rdfs:Class ;
+    rdfs:label "EventSeries" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/447> ;
+    schema:category "issue-447" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A series of <a class="localLink" href="http://schema.org/Event">Event</a>s. Included events can relate with the series using the <a class="localLink" href="http://schema.org/superEvent">superEvent</a> property.<br/><br/>
+
+An EventSeries is a collection of events that share some unifying characteristic. For example, "The Olympic Games" is a series, which
+is repeated regularly. The "2012 London Olympics" can be presented both as an <a class="localLink" href="http://schema.org/Event">Event</a> in the series "Olympic Games", and as an
+<a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> that included a number of sporting competitions as Events.<br/><br/>
+
+The nature of the association between the events in an <a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> can vary, but typical examples could
+include a thematic event series (e.g. topical meetups or classes), or a series of regular events that share a location, attendee group and/or organizers.<br/><br/>
+
+EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event context without
+worrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries
+may seem more Event-like when the period of time is compact and when aspects such as location are fixed, but
+it may also sometimes prove useful to describe a longer-term series as an Event.""" ;
+    rdfs:subClassOf schema:Event,
+        schema:Series .
+
+schema:ExchangeRateSpecification a rdfs:Class ;
+    rdfs:label "ExchangeRateSpecification" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A structured value representing exchange rate." ;
+    rdfs:subClassOf schema:StructuredValue .
+
+schema:FundingAgency a rdfs:Class ;
+    rdfs:label "FundingAgency" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A FundingAgency is an organization that implements one or more <a class="localLink" href="http://schema.org/FundingScheme">FundingScheme</a>s and manages
+    the granting process (via <a class="localLink" href="http://schema.org/Grant">Grant</a>s, typically <a class="localLink" href="http://schema.org/MonetaryGrant">MonetaryGrant</a>s).
+    A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.<br/><br/>
+
+<pre><code>Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Foundation...
+</code></pre>
+""" ;
+    rdfs:subClassOf schema:Project .
+
+schema:FundingScheme a rdfs:Class ;
+    rdfs:label "FundingScheme" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A FundingScheme combines organizational, project and policy aspects of grant-based funding
+    that sets guidelines, principles and mechanisms to support other kinds of projects and activities.
+    Funding is typically organized via <a class="localLink" href="http://schema.org/Grant">Grant</a> funding. Examples of funding schemes: Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the NIH-R01 Grant Program; Wellcome institutional strategic support fund. For large scale public sector funding, the management and administration of grant awards is often handled by other, dedicated, organizations - <a class="localLink" href="http://schema.org/FundingAgency">FundingAgency</a>s such as ERC, REA, ...""" ;
+    rdfs:subClassOf schema:Organization .
+
+schema:GeospatialGeometry a rdfs:Class ;
+    rdfs:label "GeospatialGeometry" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1375> ;
+    schema:category "issue-1375" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:Grant a rdfs:Class ;
+    rdfs:label "Grant" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A grant, typically financial or otherwise quantifiable, of resources. Typically a <a class="localLink" href="http://schema.org/funder">funder</a> sponsors some <a class="localLink" href="http://schema.org/MonetaryAmount">MonetaryAmount</a> to an <a class="localLink" href="http://schema.org/Organization">Organization</a> or <a class="localLink" href="http://schema.org/Person">Person</a>,
+    sometimes not necessarily via a dedicated or long-lived <a class="localLink" href="http://schema.org/Project">Project</a>, resulting in one or more outputs, or <a class="localLink" href="http://schema.org/fundedItem">fundedItem</a>s. For financial sponsorship, indicate the <a class="localLink" href="http://schema.org/funder">funder</a> of a <a class="localLink" href="http://schema.org/MonetaryGrant">MonetaryGrant</a>. For non-financial support, indicate <a class="localLink" href="http://schema.org/sponsor">sponsor</a> of <a class="localLink" href="http://schema.org/Grant">Grant</a>s of resources (e.g. office space).<br/><br/>
+
+Grants support  activities directed towards some agreed collective goals, often but not always organized as <a class="localLink" href="http://schema.org/Project">Project</a>s. Long-lived projects are sometimes sponsored by a variety of grants over time, but it is also common for a project to be associated with a single grant.<br/><br/>
+
+The amount of a <a class="localLink" href="http://schema.org/Grant">Grant</a> is represented using <a class="localLink" href="http://schema.org/amount">amount</a> as a <a class="localLink" href="http://schema.org/MonetaryAmount">MonetaryAmount</a>.""" ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:HealthInsurancePlan a rdfs:Class ;
+    rdfs:label "HealthInsurancePlan" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A US-style health insurance plan, including PPOs, EPOs, and HMOs." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:HealthPlanCostSharingSpecification a rdfs:Class ;
+    rdfs:label "HealthPlanCostSharingSpecification" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A description of costs to the patient under a given network or formulary." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:HealthPlanFormulary a rdfs:Class ;
+    rdfs:label "HealthPlanFormulary" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "For a given health insurance plan, the specification for costs and coverage of prescription drugs." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:HealthPlanNetwork a rdfs:Class ;
+    rdfs:label "HealthPlanNetwork" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A US-style health insurance plan network." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:InvestmentFund a rdfs:Class ;
+    rdfs:label "InvestmentFund" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A company or fund that gathers capital from a number of investors to create a pool of money that is then re-invested into stocks, bonds and other assets." ;
+    rdfs:subClassOf schema:InvestmentOrDeposit .
+
+schema:LegalForceStatus a rdfs:Class ;
+    rdfs:label "LegalForceStatus" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
+    rdfs:subClassOf schema:Enumeration ;
+    skos:exactMatch eli:InForce .
+
+schema:LegalValueLevel a rdfs:Class ;
+    rdfs:label "LegalValueLevel" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
+    rdfs:subClassOf schema:Enumeration ;
+    skos:closeMatch eli:LegalValue .
+
+schema:Legislation a rdfs:Class ;
+    rdfs:label "Legislation" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
+    rdfs:subClassOf schema:CreativeWork ;
+    skos:closeMatch eli:LegalExpression,
+        eli:LegalResource .
+
+schema:LegislationObject a rdfs:Class ;
+    rdfs:label "LegislationObject" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
+    rdfs:subClassOf schema:Legislation,
+        schema:MediaObject ;
+    skos:closeMatch eli:Format .
+
+schema:LibrarySystem a rdfs:Class ;
+    rdfs:label "LibrarySystem" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1495> ;
+    schema:category "issue-1495" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/LibrarySystem\">LibrarySystem</a> is a collaborative system amongst several libraries." ;
+    rdfs:subClassOf schema:Organization .
+
+schema:LinkRole a rdfs:Class ;
+    rdfs:label "LinkRole" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1045> ;
+    schema:category "issue-1045" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds." ;
+    rdfs:subClassOf schema:Role .
+
+schema:Manuscript a rdfs:Class ;
+    rdfs:label "Manuscript" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1448> ;
+    schema:category "issue-1448" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A book, document, or piece of music written by hand rather than typed or printed." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:MonetaryGrant a rdfs:Class ;
+    rdfs:label "MonetaryGrant" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A monetary grant." ;
+    rdfs:subClassOf schema:Grant .
+
+schema:MoneyTransfer a rdfs:Class ;
+    rdfs:label "MoneyTransfer" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "The act of transferring money from one place to another place. This may occur electronically or physically." ;
+    rdfs:subClassOf schema:TransferAction .
+
+schema:MortgageLoan a rdfs:Class ;
+    rdfs:label "MortgageLoan" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A loan in which property or real estate is used as collateral. (A loan securitized against some real estate.)" ;
+    rdfs:subClassOf schema:LoanOrCredit .
+
+schema:NewsMediaOrganization a rdfs:Class ;
+    rdfs:label "NewsMediaOrganization" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A News/Media organization such as a newspaper or TV station." ;
+    rdfs:subClassOf schema:Organization .
+
+schema:Observation a rdfs:Class ;
+    rdfs:label "Observation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """Instances of the class <a class="localLink" href="http://schema.org/Observation">Observation</a> are used to specify observations about an entity (which may or may not be an instance of a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a>), at a particular time. The principal properties of an <a class="localLink" href="http://schema.org/Observation">Observation</a> are <a class="localLink" href="http://schema.org/observedNode">observedNode</a>, <a class="localLink" href="http://schema.org/measuredProperty">measuredProperty</a>, <a class="localLink" href="http://schema.org/measuredValue">measuredValue</a> (or <a class="localLink" href="http://schema.org/median">median</a>, etc.) and <a class="localLink" href="http://schema.org/observationDate">observationDate</a> (<a class="localLink" href="http://schema.org/measuredProperty">measuredProperty</a> properties can, but need not always, be W3C RDF Data Cube "measure properties", as in the <a href="https://www.w3.org/TR/vocab-data-cube/#dsd-example">lifeExpectancy example</a>).
+See also <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details.""" ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:OpinionNewsArticle a rdfs:Class ;
+    rdfs:label "OpinionNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/OpinionNewsArticle\">OpinionNewsArticle</a> is a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> that primarily expresses opinions rather than journalistic reporting of news and events. For example, a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> consisting of a column or <a class=\"localLink\" href=\"http://schema.org/Blog\">Blog</a>/<a class=\"localLink\" href=\"http://schema.org/BlogPosting\">BlogPosting</a> entry in the Opinions section of a news publication." ;
+    rdfs:subClassOf schema:NewsArticle .
+
+schema:Play a rdfs:Class ;
+    rdfs:label "Play" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1816> ;
+    schema:category "issue-1816" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A play is a form of literature, usually consisting of dialogue between characters, intended for theatrical performance rather than just reading. Note the peformance of a Play would be a <a class=\"localLink\" href=\"http://schema.org/TheaterEvent\">TheaterEvent</a> - the <em>Play</em> being the <a class=\"localLink\" href=\"http://schema.org/workPerformed\">workPerformed</a>." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:Poster a rdfs:Class ;
+    rdfs:label "Poster" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1448> ;
+    schema:category "issue-1448" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A large, usually printed placard, bill, or announcement, often illustrated, that is posted to advertise or publicize something." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:ProductReturnEnumeration a rdfs:Class ;
+    rdfs:label "ProductReturnEnumeration" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:ProductReturnPolicy a rdfs:Class ;
+    rdfs:label "ProductReturnPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:Project a rdfs:Class ;
+    rdfs:label "Project" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
+Use properties from <a class="localLink" href="http://schema.org/Organization">Organization</a>, <a class="localLink" href="http://schema.org/subOrganization">subOrganization</a>/<a class="localLink" href="http://schema.org/parentOrganization">parentOrganization</a> to indicate project sub-structures.""" ;
+    rdfs:subClassOf schema:Organization .
+
+schema:PublicToilet a rdfs:Class ;
+    rdfs:label "PublicToilet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1624> ;
+    schema:category "issue-1624" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A public toilet is a room or small building containing one or more toilets (and possibly also urinals) which is available for use by the general public, or by customers or employees of certain businesses." ;
+    rdfs:subClassOf schema:CivicStructure .
+
+schema:Quotation a rdfs:Class ;
+    rdfs:label "Quotation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/271> ;
+    schema:category "issue-271" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A quotation. Often but not necessarily from some written work, attributable to a real world author and - if associated with a fictional character - to any fictional Person. Use <a class=\"localLink\" href=\"http://schema.org/isBasedOn\">isBasedOn</a> to link to source/origin. The <a class=\"localLink\" href=\"http://schema.org/recordedIn\">recordedIn</a> property can be used to reference a Quotation from an <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a>." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:RadioBroadcastService a rdfs:Class ;
+    rdfs:label "RadioBroadcastService" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2109> ;
+    schema:category "issue-2109" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A delivery service through which radio content is provided via broadcast over the air or online." ;
+    rdfs:subClassOf schema:BroadcastService .
+
+schema:RefundTypeEnumeration a rdfs:Class ;
+    rdfs:label "RefundTypeEnumeration" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "RefundTypeEnumeration enumerates several kinds of product return refund types." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:RepaymentSpecification a rdfs:Class ;
+    rdfs:label "RepaymentSpecification" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A structured value representing repayment." ;
+    rdfs:subClassOf schema:StructuredValue .
+
+schema:ReportageNewsArticle a rdfs:Class ;
+    rdfs:label "ReportageNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """The <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> type is a subtype of <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> representing
+ news articles which are the result of journalistic news reporting conventions.<br/><br/>
+
+In practice many news publishers produce a wide variety of article types, many of which might be considered a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> but not a <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a>. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.<br/><br/>
+
+The <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.<br/><br/>
+
+A <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> which goes deeper into analysis can also be marked with an additional type of <a class="localLink" href="http://schema.org/AnalysisNewsArticle">AnalysisNewsArticle</a>.""" ;
+    rdfs:subClassOf schema:NewsArticle .
+
+schema:ResearchProject a rdfs:Class ;
+    rdfs:label "ResearchProject" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab> ;
+    schema:category "issue-383" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Research project." ;
+    rdfs:subClassOf schema:Project .
+
+schema:ReturnFeesEnumeration a rdfs:Class ;
+    rdfs:label "ReturnFeesEnumeration" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ReturnFeesEnumeration expresses policies for return fees." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:ReviewNewsArticle a rdfs:Class ;
+    rdfs:label "ReviewNewsArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> and <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a> providing a professional critic's assessment of a service, product, performance, or artistic or literary work." ;
+    rdfs:subClassOf schema:CriticReview,
+        schema:NewsArticle .
+
+schema:SatiricalArticle a rdfs:Class ;
+    rdfs:label "SatiricalArticle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a> whose content is primarily <a href=\"https://en.wikipedia.org/wiki/Satire\">[satirical]</a> in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a>. <a class=\"localLink\" href=\"http://schema.org/ScholarlyArticle\">ScholarlyArticle</a>s are also sometimes satirized." ;
+    rdfs:subClassOf schema:Article .
+
+schema:Schedule a rdfs:Class ;
+    rdfs:label "Schedule" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A schedule defines a repeating time period used to describe a regularly occurring <a class="localLink" href="http://schema.org/Event">Event</a>. At a minimum a schedule will specify <a class="localLink" href="http://schema.org/repeatFrequency">repeatFrequency</a> which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. 
+      This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also
+      have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.""" ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:SheetMusic a rdfs:Class ;
+    rdfs:label "SheetMusic" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1448> ;
+    schema:category "issue-1448" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Printed music, as opposed to performed or recorded music." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:ShortStory a rdfs:Class ;
+    rdfs:label "ShortStory" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1976> ;
+    schema:category "issue-1976" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Short story or tale. A brief work of literature, usually written in narrative prose." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:StatisticalPopulation a rdfs:Class ;
+    rdfs:label "StatisticalPopulation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property <a class="localLink" href="http://schema.org/populationType">populationType</a> is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> representing all <a class="localLink" href="http://schema.org/Person">Person</a>s with a <a class="localLink" href="http://schema.org/homeLocation">homeLocation</a> of East Podunk California, would be described by applying the appropriate <a class="localLink" href="http://schema.org/homeLocation">homeLocation</a> and <a class="localLink" href="http://schema.org/populationType">populationType</a> properties to a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> item that stands for that set of people.
+The properties <a class="localLink" href="http://schema.org/numConstraints">numConstraints</a> and <a class="localLink" href="http://schema.org/constrainingProperties">constrainingProperties</a> are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a <a class="localLink" href="http://schema.org/populationType">populationType</a> of <a class="localLink" href="http://schema.org/Event">Event</a> or <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> could be used. See also <a class="localLink" href="http://schema.org/Observation">Observation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details.""" ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:TouristDestination a rdfs:Class ;
+    rdfs:label "TouristDestination" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A tourist destination. In principle any <a class="localLink" href="http://schema.org/Place">Place</a> can be a <a class="localLink" href="http://schema.org/TouristDestination">TouristDestination</a> from a <a class="localLink" href="http://schema.org/City">City</a>, <a class="localLink" href="http://schema.org/Region">Region</a> or <a class="localLink" href="http://schema.org/Country">Country</a> to an <a class="localLink" href="http://schema.org/AmusementPark">AmusementPark</a> or <a class="localLink" href="http://schema.org/Hotel">Hotel</a>. This Type can be used on its own to describe a general <a class="localLink" href="http://schema.org/TouristDestination">TouristDestination</a>, or be used as an <a class="localLink" href="http://schema.org/additionalType">additionalType</a> to add tourist relevant properties to any other <a class="localLink" href="http://schema.org/Place">Place</a>.  A <a class="localLink" href="http://schema.org/TouristDestination">TouristDestination</a> is defined as a <a class="localLink" href="http://schema.org/Place">Place</a> that contains, or is colocated with, one or more <a class="localLink" href="http://schema.org/TouristAttraction">TouristAttraction</a>s, often linked by a similar theme or interest to a particular <a class="localLink" href="http://schema.org/touristType">touristType</a>. The <a href="http://www2.unwto.org/">UNWTO</a> defines Destination (main destination of a tourism trip) as the place visited that is central to the decision to take the trip.
+  (See examples below).""" ;
+    rdfs:subClassOf schema:Place .
+
+schema:TouristTrip a rdfs:Class ;
+    rdfs:label "TouristTrip" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A tourist trip. A created itinerary of visits to one or more places of interest (<a class="localLink" href="http://schema.org/TouristAttraction">TouristAttraction</a>/<a class="localLink" href="http://schema.org/TouristDestination">TouristDestination</a>) often linked by a similar theme, geographic area, or interest to a particular <a class="localLink" href="http://schema.org/touristType">touristType</a>. The <a href="http://www2.unwto.org/">UNWTO</a> defines tourism trip as the Trip taken by visitors.
+  (See examples below).""" ;
+    rdfs:subClassOf schema:Trip .
+
+schema:UserReview a rdfs:Class ;
+    rdfs:label "UserReview" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1589> ;
+    schema:category "issue-1589" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A review created by an end-user (e.g. consumer, purchaser, attendee etc.), in contrast with <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a>." ;
+    rdfs:subClassOf schema:Review .
+
+schema:WebAPI a rdfs:Class ;
+    rdfs:label "WebAPI" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    schema:category "issue-1423" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An application programming interface accessible over Web/Internet technologies." ;
+    rdfs:subClassOf schema:Service .
+
+schema:WorkBasedProgram a rdfs:Class ;
+    rdfs:label "WorkBasedProgram" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs." ;
+    rdfs:subClassOf schema:EducationalOccupationalProgram .
+
+schema:XPathType a rdfs:Class ;
+    rdfs:label "XPathType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1672> ;
+    schema:category "issue-1672" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Text representing an XPath (typically but not necessarily version 1.0)." ;
+    rdfs:subClassOf schema:Text .
+
+schema:AuthoritativeLegalValue a schema:LegalValueLevel ;
+    rdfs:label "AuthoritativeLegalValue" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also <a class=\"localLink\" href=\"http://schema.org/OfficialLegalValue\">OfficialLegalValue</a>\"." ;
+    skos:exactMatch eli:LegalValue-authoritative .
+
+schema:DefinitiveLegalValue a schema:LegalValueLevel ;
+    rdfs:label "DefinitiveLegalValue" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also <a class="localLink" href="http://schema.org/AuthoritativeLegalValue">AuthoritativeLegalValue</a>.""" ;
+    skos:exactMatch eli:LegalValue-definitive .
+
+schema:ExchangeRefund a schema:RefundTypeEnumeration ;
+    rdfs:label "ExchangeRefund" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A ExchangeRefund ..." .
+
+schema:FullRefund a schema:RefundTypeEnumeration ;
+    rdfs:label "FullRefund" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A FullRefund ..." .
+
+schema:InForce a schema:LegalForceStatus ;
+    rdfs:label "InForce" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Indicates that a legislation is in force." ;
+    skos:exactMatch eli:InForce-inForce .
+
+schema:NotInForce a schema:LegalForceStatus ;
+    rdfs:label "NotInForce" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Indicates that a legislation is currently not in force." ;
+    skos:exactMatch eli:InForce-notInForce .
+
+schema:OfficialLegalValue a schema:LegalValueLevel ;
+    rdfs:label "OfficialLegalValue" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    skos:exactMatch eli:LegalValue-official .
+
+schema:OriginalShippingFees a schema:ReturnFeesEnumeration ;
+    rdfs:label "OriginalShippingFees" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "OriginalShippingFees ..." .
+
+schema:PartiallyInForce a schema:LegalForceStatus ;
+    rdfs:label "PartiallyInForce" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
+    skos:exactMatch eli:InForce-partiallyInForce .
+
+schema:ProductReturnFiniteReturnWindow a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnFiniteReturnWindow" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." .
+
+schema:ProductReturnNotPermitted a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnNotPermitted" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." .
+
+schema:ProductReturnUnlimitedWindow a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnlimitedWindow" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." .
+
+schema:ProductReturnUnspecified a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnspecified" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." .
+
+schema:RestockingFees a schema:ReturnFeesEnumeration ;
+    rdfs:label "RestockingFees" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "RestockingFees ..." .
+
+schema:ReturnShippingFees a schema:ReturnFeesEnumeration ;
+    rdfs:label "ReturnShippingFees" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "ReturnShippingFees ..." .
+
+schema:StoreCreditRefund a schema:RefundTypeEnumeration ;
+    rdfs:label "StoreCreditRefund" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A StoreCreditRefund ..." .
+
+schema:UnofficialLegalValue a schema:LegalValueLevel ;
+    rdfs:label "UnofficialLegalValue" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
+    skos:exactMatch eli:LegalValue-unofficial .
+
+schema:accountMinimumInflow a rdf:Property ;
+    rdfs:label "accountMinimumInflow" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:BankAccount ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "A minimum amount that has to be paid in every month." .
+
+schema:accountOverdraftLimit a rdf:Property ;
+    rdfs:label "accountOverdraftLimit" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:BankAccount ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money." .
+
+schema:actionableFeedbackPolicy a rdf:Property ;
+    rdfs:label "actionableFeedbackPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other news-related <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:appearance a rdf:Property ;
+    rdfs:label "appearance" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1828> ;
+    schema:category "issue-1828" ;
+    schema:domainIncludes schema:Claim ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork ;
+    rdfs:comment "Indicates an occurence of a <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> in some <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>." ;
+    rdfs:subPropertyOf schema:workExample .
+
+schema:applicantLocationRequirements a rdf:Property ;
+    rdfs:label "applicantLocationRequirements" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2083> ;
+    schema:category "issue-2083" ;
+    schema:domainIncludes schema:JobPosting ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:AdministrativeArea ;
+    rdfs:comment "The location(s) applicants can apply from. This is usually used for telecommuting jobs where the applicant does not need to be in a physical office. Note: This should not be used for citizenship or work visa requirements." .
+
+schema:backstory a rdf:Property ;
+    rdfs:label "backstory" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1688>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688" ;
+    schema:domainIncludes schema:Article ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:Text ;
+    rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, typically a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a>, the backstory property provides a textual summary giving a brief explanation of why and how an article was created. In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc." .
+
+schema:bankAccountType a rdf:Property ;
+    rdfs:label "bankAccountType" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:BankAccount ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "The type of a bank account." .
+
+schema:beneficiaryBank a rdf:Property ;
+    rdfs:label "beneficiaryBank" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:MoneyTransfer ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:BankOrCreditUnion,
+        schema:Text ;
+    rdfs:comment "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary" .
+
+schema:benefitsSummaryUrl a rdf:Property ;
+    rdfs:label "benefitsSummaryUrl" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL ;
+    rdfs:comment "The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation." .
+
+schema:broadcastSignalModulation a rdf:Property ;
+    rdfs:label "broadcastSignalModulation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2111> ;
+    schema:category "issue-2111" ;
+    schema:domainIncludes schema:BroadcastFrequencySpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:QualitativeValue,
+        schema:Text ;
+    rdfs:comment "The modulation (e.g. FM, AM, etc) used by a particular broadcast service" .
+
+schema:broadcastSubChannel a rdf:Property ;
+    rdfs:label "broadcastSubChannel" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2111> ;
+    schema:category "issue-2111" ;
+    schema:domainIncludes schema:BroadcastFrequencySpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The subchannel used for the broadcast." .
+
+schema:byDay a rdf:Property ;
+    rdfs:label "byDay" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DayOfWeek ;
+    rdfs:comment "Defines the day(s) of the week on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place" .
+
+schema:byMonth a rdf:Property ;
+    rdfs:label "byMonth" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "Defines the month(s) of the year on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place. Specified as an <a class=\"localLink\" href=\"http://schema.org/Integer\">Integer</a> between 1-12. January is 1." .
+
+schema:byMonthDay a rdf:Property ;
+    rdfs:label "byMonthDay" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "Defines the day(s) of the month on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place. Specified as an <a class=\"localLink\" href=\"http://schema.org/Integer\">Integer</a> between 1-31." .
+
+schema:callSign a rdf:Property ;
+    rdfs:label "callSign" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2109> ;
+    schema:category "issue-2109" ;
+    schema:domainIncludes schema:RadioBroadcastService ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The official callsign for the radio broadcast." .
+
+schema:cashBack a rdf:Property ;
+    rdfs:label "cashBack" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:PaymentCard ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Number ;
+    rdfs:comment "A cardholder benefit that pays the cardholder a small percentage of their net expenditures." .
+
+schema:codeValue a rdf:Property ;
+    rdfs:label "codeValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:CategoryCode,
+        schema:MedicalCode ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A short textual code that uniquely identifies the value." ;
+    rdfs:subPropertyOf schema:termCode .
+
+schema:collectionSize a rdf:Property ;
+    rdfs:label "collectionSize"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1759> ;
+    schema:category "issue-1759"@en ;
+    schema:domainIncludes schema:Collection ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "The number of items in the <a class=\"localLink\" href=\"http://schema.org/Collection\">Collection</a>." .
+
+schema:competencyRequired a rdf:Property ;
+    rdfs:label "competencyRequired" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1779" ;
+    schema:domainIncludes schema:EducationalOccupationalCredential ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity." .
+
+schema:conditionsOfAccess a rdf:Property ;
+    rdfs:label "conditionsOfAccess" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2173> ;
+    schema:category "issue-2173" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment """Conditions that affect the availability of, or method(s) of access to, an item. Typically used for real world items such as an <a class="localLink" href="http://schema.org/ArchiveComponent">ArchiveComponent</a> held by an <a class="localLink" href="http://schema.org/ArchiveOrganization">ArchiveOrganization</a>. This property is not suitable for use as a general Web access control mechanism. It is expressed only in natural language.<br/><br/>
+
+For example "Available by appointment from the Reading Room" or "Accessible only from logged-in accounts ".""" .
+
+schema:constrainingProperty a rdf:Property ;
+    rdfs:label "constrainingProperty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment """Indicates a property used as a constraint to define a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> with respect to the set of entities
+  corresponding to an indicated type (via <a class="localLink" href="http://schema.org/populationType">populationType</a>).""" .
+
+schema:contactlessPayment a rdf:Property ;
+    rdfs:label "contactlessPayment" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:PaymentCard ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology." .
+
+schema:contentReferenceTime a rdf:Property ;
+    rdfs:label "contentReferenceTime" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1050> ;
+    schema:category "issue-1050" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DateTime ;
+    rdfs:comment "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event." .
+
+schema:correction a rdf:Property ;
+    rdfs:label "correction" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1950>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688",
+        "issue-1950" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CorrectionComment,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "Indicates a correction to a <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>, either via a <a class=\"localLink\" href=\"http://schema.org/CorrectionComment\">CorrectionComment</a>, textually or in another document." .
+
+schema:correctionsPolicy a rdf:Property ;
+    rdfs:label "correctionsPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (e.g. <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:courseWorkload a rdf:Property ;
+    rdfs:label "courseWorkload" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1909> ;
+    schema:category "issue-1909" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The amount of work expected of students taking the course, often provided as a figure per week or per month, and may be broken down by type. For example, \"2 hours of lectures, 1 hour of lab work and 3 hours of independent study per week\"." .
+
+schema:creativeWorkStatus a rdf:Property ;
+    rdfs:label "creativeWorkStatus" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/987> ;
+    schema:category "issue-987" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text ;
+    rdfs:comment "The status of a creative work in terms of its stage in a lifecycle. Example terms include Incomplete, Draft, Published, Obsolete. Some organizations define a set of terms for the stages of their publication lifecycle." .
+
+schema:credentialCategory a rdf:Property ;
+    rdfs:label "credentialCategory" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1779" ;
+    schema:domainIncludes schema:EducationalOccupationalCredential ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "The category or type of credential being described, for example \"degree”, “certificate”, “badge”, or more specific term." .
+
+schema:currentExchangeRate a rdf:Property ;
+    rdfs:label "currentExchangeRate" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:ExchangeRateSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:UnitPriceSpecification ;
+    rdfs:comment "The current price of a currency." .
+
+schema:diversityPolicy a rdf:Property ;
+    rdfs:label "diversityPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "Statement on diversity policy by an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> e.g. a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>. For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, a statement describing the newsroom’s diversity policy on both staffing and sources, typically providing staffing data." .
+
+schema:diversityStaffingReport a rdf:Property ;
+    rdfs:label "diversityStaffingReport" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Article,
+        schema:URL ;
+    rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (often but not necessarily a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a report on staffing diversity issues. In a news context this might be for example ASNE or RTDNA (US) reports, or self-reported." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:documentation a rdf:Property ;
+    rdfs:label "documentation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    schema:category "issue-1423" ;
+    schema:domainIncludes schema:WebAPI ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "Further documentation describing the Web API in more detail." .
+
+schema:domiciledMortgage a rdf:Property ;
+    rdfs:label "domiciledMortgage" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:MortgageLoan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Whether borrower is a resident of the jurisdiction where the property is located." .
+
+schema:downPayment a rdf:Property ;
+    rdfs:label "downPayment" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:RepaymentSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount,
+        schema:Number ;
+    rdfs:comment "a type of payment made in cash during the onset of the purchase of an expensive good/service. The payment typically represents only a percentage of the full purchase price." .
+
+schema:earlyPrepaymentPenalty a rdf:Property ;
+    rdfs:label "earlyPrepaymentPenalty" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:RepaymentSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "The amount to be paid as a penalty in the event of early payment of the loan." .
+
+schema:educationRequirements a rdf:Property ;
+    rdfs:label "educationRequirements" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1698>,
+        <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1698",
+        "issue-1779" ;
+    schema:domainIncludes schema:JobPosting,
+        schema:Occupation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:EducationalOccupationalCredential,
+        schema:Text ;
+    rdfs:comment "Educational background needed for the position or Occupation." .
+
+schema:educationalLevel a rdf:Property ;
+    rdfs:label "educationalLevel" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1779" ;
+    schema:domainIncludes schema:EducationalOccupationalCredential ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "The level in terms of progression through an educational or training context. Examples of educational levels include 'beginner', 'intermediate' or 'advanced', and formal sets of level indicators." .
+
+schema:endOffset a rdf:Property ;
+    rdfs:label "endOffset" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2021> ;
+    schema:category "issue-2021" ;
+    schema:domainIncludes schema:Clip ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "The end time of the clip expressed as the number of seconds from the beginning of the work." .
+
+schema:ethicsPolicy a rdf:Property ;
+    rdfs:label "ethicsPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "Statement about ethics policy, e.g. of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class=\"localLink\" href=\"http://schema.org/Restaurant\">Restaurant</a>, a page describing food source policies. In the case of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization." .
+
+schema:eventSchedule a rdf:Property ;
+    rdfs:label "eventSchedule" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Duration ;
+    rdfs:comment """Associates an <a class="localLink" href="http://schema.org/Event">Event</a> with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. There are circumstances where it is preferable to share a schedule for a series of
+      repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly
+      gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An <a class="localLink" href="http://schema.org/Event">Event</a> that
+      is associated with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> using this property should not have <a class="localLink" href="http://schema.org/startDate">startDate</a> or <a class="localLink" href="http://schema.org/endDate">endDate</a> properties. These are instead defined within the associated
+      <a class="localLink" href="http://schema.org/Schedule">Schedule</a>, this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months
+      or seasons.""" .
+
+schema:exceptDate a rdf:Property ;
+    rdfs:label "exceptDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Date,
+        schema:DateTime ;
+    rdfs:comment """Defines a <a class="localLink" href="http://schema.org/Date">Date</a> or <a class="localLink" href="http://schema.org/DateTime">DateTime</a> during which a scheduled <a class="localLink" href="http://schema.org/Event">Event</a> will not take place. The property allows exceptions to
+      a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> to be specified. If an exception is specified as a <a class="localLink" href="http://schema.org/DateTime">DateTime</a> then only the event that would have started at that specific date and time
+      should be excluded from the schedule. If an exception is specified as a <a class="localLink" href="http://schema.org/Date">Date</a> then any event that is scheduled for that 24 hour period should be
+      excluded from the schedule. This allows a whole day to be excluded from the schedule without having to itemise every scheduled event.""" .
+
+schema:exchangeRateSpread a rdf:Property ;
+    rdfs:label "exchangeRateSpread" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:ExchangeRateSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount,
+        schema:Number ;
+    rdfs:comment "The difference between the price at which a broker or other intermediary buys and sells foreign currency." .
+
+schema:firstAppearance a rdf:Property ;
+    rdfs:label "firstAppearance" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1828> ;
+    schema:category "issue-1828" ;
+    schema:domainIncludes schema:Claim ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork ;
+    rdfs:comment "Indicates the first known occurence of a <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> in some <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>." ;
+    rdfs:subPropertyOf schema:workExample .
+
+schema:floorLimit a rdf:Property ;
+    rdfs:label "floorLimit" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:PaymentCard ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "A floor limit is the amount of money above which credit card transactions must be authorized." .
+
+schema:fundedItem a rdf:Property ;
+    rdfs:label "fundedItem" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1950>,
+        <https://github.com/schemaorg/schemaorg/issues/383>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688",
+        "issue-383" ;
+    schema:domainIncludes schema:Grant ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Thing ;
+    rdfs:comment "Indicates an item funded or sponsored through a <a class=\"localLink\" href=\"http://schema.org/Grant\">Grant</a>." .
+
+schema:gracePeriod a rdf:Property ;
+    rdfs:label "gracePeriod" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:LoanOrCredit ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Duration ;
+    rdfs:comment "The period of time after any due date that the borrower has to fulfil its obligations before a default (failure to pay) is deemed to have occurred." .
+
+schema:gtin a rdf:Property ;
+    rdfs:label "gtin" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-1244" ;
+    schema:domainIncludes schema:Demand,
+        schema:Offer,
+        schema:Product ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A Global Trade Item Number (<a href=\"https://www.gs1.org/standards/id-keys/gtin\">GTIN</a>). GTINs identify trade items, including products and services, using numeric identification codes. The <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> property generalizes the earlier <a class=\"localLink\" href=\"http://schema.org/gtin8\">gtin8</a>, <a class=\"localLink\" href=\"http://schema.org/gtin12\">gtin12</a>, <a class=\"localLink\" href=\"http://schema.org/gtin13\">gtin13</a>, and <a class=\"localLink\" href=\"http://schema.org/gtin14\">gtin14</a> properties. The GS1 <a href=\"https://www.gs1.org/standards/Digital-Link/\">digital link specifications</a> express GTINs as URLs. A correct <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> value should be a valid GTIN, which means that it should be an all-numeric string of either 8, 12, 13 or 14 digits, or a \"GS1 Digital Link\" URL based on such a string. The numeric component should also have a <a href=\"https://www.gs1.org/services/check-digit-calculator\">valid GS1 check digit</a> and meet the other rules for valid GTINs. See also <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1's GTIN Summary</a> and <a href=\"https://en.wikipedia.org/wiki/Global_Trade_Item_Number\">Wikipedia</a> for more details. Left-padding of the gtin values is not required or encouraged." ;
+    rdfs:subPropertyOf schema:identifier .
+
+schema:hasCategoryCode a rdf:Property ;
+    rdfs:label "hasCategoryCode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:CategoryCodeSet ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CategoryCode ;
+    rdfs:comment "A Category code contained in this code set." ;
+    rdfs:subPropertyOf schema:hasDefinedTerm .
+
+schema:hasCredential a rdf:Property ;
+    rdfs:label "hasCredential" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:Organization,
+        schema:Person ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:EducationalOccupationalCredential ;
+    rdfs:comment "A credential awarded to the Person or Organization." .
+
+schema:hasProductReturnPolicy a rdf:Property ;
+    rdfs:label "hasProductReturnPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:Organization,
+        schema:Product ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ProductReturnPolicy ;
+    rdfs:comment "Indicates a ProductReturnPolicy that may be applicable." .
+
+schema:healthPlanCoinsuranceOption a rdf:Property ;
+    rdfs:label "healthPlanCoinsuranceOption" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanCostSharingSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?" .
+
+schema:healthPlanCoinsuranceRate a rdf:Property ;
+    rdfs:label "healthPlanCoinsuranceRate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanCostSharingSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "Whether The rate of coinsurance expressed as a number between 0.0 and 1.0." .
+
+schema:healthPlanCopay a rdf:Property ;
+    rdfs:label "healthPlanCopay" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanCostSharingSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:PriceSpecification ;
+    rdfs:comment "Whether The copay amount." .
+
+schema:healthPlanCopayOption a rdf:Property ;
+    rdfs:label "healthPlanCopayOption" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanCostSharingSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?" .
+
+schema:healthPlanCostSharing a rdf:Property ;
+    rdfs:label "healthPlanCostSharing" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanFormulary,
+        schema:HealthPlanNetwork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Whether The costs to the patient for services under this network or formulary." .
+
+schema:healthPlanDrugOption a rdf:Property ;
+    rdfs:label "healthPlanDrugOption" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "TODO." .
+
+schema:healthPlanDrugTier a rdf:Property ;
+    rdfs:label "healthPlanDrugTier" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan,
+        schema:HealthPlanFormulary ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The tier(s) of drugs offered by this formulary or insurance plan." .
+
+schema:healthPlanId a rdf:Property ;
+    rdfs:label "healthPlanId" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)" .
+
+schema:healthPlanMarketingUrl a rdf:Property ;
+    rdfs:label "healthPlanMarketingUrl" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL ;
+    rdfs:comment "The URL that goes directly to the plan brochure for the specific standard plan or plan variation." .
+
+schema:healthPlanNetworkId a rdf:Property ;
+    rdfs:label "healthPlanNetworkId" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanNetwork,
+        schema:MedicalOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Name or unique ID of network. (Networks are often reused across different insurance plans)." .
+
+schema:healthPlanNetworkTier a rdf:Property ;
+    rdfs:label "healthPlanNetworkTier" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanNetwork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The tier(s) for this network." .
+
+schema:healthPlanPharmacyCategory a rdf:Property ;
+    rdfs:label "healthPlanPharmacyCategory" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanCostSharingSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The category or type of pharmacy associated with this cost sharing." .
+
+schema:inCodeSet a rdf:Property ;
+    rdfs:label "inCodeSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:CategoryCode ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CategoryCodeSet,
+        schema:URL ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/CategoryCodeSet\">CategoryCodeSet</a> that contains this category code." ;
+    rdfs:subPropertyOf schema:inDefinedTermSet .
+
+schema:inStoreReturnsOffered a rdf:Property ;
+    rdfs:label "inStoreReturnsOffered" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Are in-store returns offered?" .
+
+schema:includedInHealthInsurancePlan a rdf:Property ;
+    rdfs:label "includedInHealthInsurancePlan" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:Drug ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:HealthInsurancePlan ;
+    rdfs:comment "The insurance plans that cover this drug." .
+
+schema:includesAttraction a rdf:Property ;
+    rdfs:label "includesAttraction" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:TouristDestination ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:TouristAttraction ;
+    rdfs:comment "Attraction located at destination." .
+
+schema:includesHealthPlanFormulary a rdf:Property ;
+    rdfs:label "includesHealthPlanFormulary" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:HealthPlanFormulary ;
+    rdfs:comment "Formularies covered by this plan." .
+
+schema:includesHealthPlanNetwork a rdf:Property ;
+    rdfs:label "includesHealthPlanNetwork" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:HealthPlanNetwork ;
+    rdfs:comment "Networks covered by this plan." .
+
+schema:isAcceptingNewPatients a rdf:Property ;
+    rdfs:label "isAcceptingNewPatients" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:MedicalOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Whether the provider is accepting new patients." .
+
+schema:itemLocation a rdf:Property ;
+    rdfs:label "itemLocation"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    schema:category "issue-1758"@en ;
+    schema:domainIncludes schema:ArchiveComponent ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Place,
+        schema:PostalAddress,
+        schema:Text ;
+    rdfs:comment "Current location of the item." ;
+    rdfs:subPropertyOf schema:location .
+
+schema:itinerary a rdf:Property ;
+    rdfs:label "itinerary" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ItemList,
+        schema:Place ;
+    rdfs:comment "Destination(s) ( <a class=\"localLink\" href=\"http://schema.org/Place\">Place</a> ) that make up a trip. For a trip where destination order is important use <a class=\"localLink\" href=\"http://schema.org/ItemList\">ItemList</a> to specify that order (see examples)." .
+
+schema:jobImmediateStart a rdf:Property ;
+    rdfs:label "jobImmediateStart" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2244> ;
+    schema:category "issue-2244" ;
+    schema:domainIncludes schema:JobPosting ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "An indicator as to whether a position is available for an immediate start." .
+
+schema:jobLocationType a rdf:Property ;
+    rdfs:label "jobLocationType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1591> ;
+    schema:category "issue-1591" ;
+    schema:domainIncludes schema:JobPosting ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A description of the job location (e.g TELECOMMUTE for telecommute jobs)." .
+
+schema:jobStartDate a rdf:Property ;
+    rdfs:label "jobStartDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2244> ;
+    schema:category "issue-2244" ;
+    schema:domainIncludes schema:JobPosting ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Date,
+        schema:Text ;
+    rdfs:comment "The date on which a successful applicant for this job would be expected to start work. Choose a specific date in the future or use the jobImmediateStart property to indicate the position is to be filled as soon as possible." .
+
+schema:jobTitle a rdf:Property ;
+    rdfs:label "jobTitle" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2192> ;
+    schema:category "issue-2192" ;
+    schema:domainIncludes schema:Person ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text ;
+    rdfs:comment "The job title of the person (for example, Financial Manager)." .
+
+schema:knowsAbout a rdf:Property ;
+    rdfs:label "knowsAbout" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1688>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688" ;
+    schema:domainIncludes schema:Organization,
+        schema:Person ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:Thing,
+        schema:URL ;
+    rdfs:comment "Of a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a>, and less typically of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, to indicate a topic that is known about - suggesting possible expertise but not implying it. We do not distinguish skill levels here, or relate this to educational content, events, objectives or <a class=\"localLink\" href=\"http://schema.org/JobPosting\">JobPosting</a> descriptions." .
+
+schema:knowsLanguage a rdf:Property ;
+    rdfs:label "knowsLanguage" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1688>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688" ;
+    schema:domainIncludes schema:Organization,
+        schema:Person ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Language,
+        schema:Text ;
+    rdfs:comment "Of a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a>, and less typically of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, to indicate a known language. We do not distinguish skill levels or reading/writing/speaking/signing here. Use language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>." .
+
+schema:legislationChanges a rdf:Property ;
+    rdfs:label "legislationChanges" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Legislation ;
+    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
+    owl:equivalentProperty eli:changes ;
+    skos:exactMatch eli:changes .
+
+schema:legislationConsolidates a rdf:Property ;
+    rdfs:label "legislationConsolidates" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Legislation ;
+    rdfs:comment "Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change." ;
+    owl:equivalentProperty eli:consolidates ;
+    skos:exactMatch eli:consolidates .
+
+schema:legislationDate a rdf:Property ;
+    rdfs:label "legislationDate" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Date ;
+    rdfs:comment "The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force." ;
+    rdfs:subPropertyOf schema:dateCreated ;
+    owl:equivalentProperty eli:date_document ;
+    skos:exactMatch eli:date_document .
+
+schema:legislationDateVersion a rdf:Property ;
+    rdfs:label "legislationDateVersion" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Date ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    owl:equivalentProperty eli:version_date ;
+    skos:exactMatch eli:version_date .
+
+schema:legislationIdentifier a rdf:Property ;
+    rdfs:label "legislationIdentifier" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
+    rdfs:subPropertyOf schema:identifier ;
+    skos:closeMatch eli:id_local .
+
+schema:legislationJurisdiction a rdf:Property ;
+    rdfs:label "legislationJurisdiction" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:AdministrativeArea,
+        schema:Text ;
+    rdfs:comment "The jurisdiction from which the legislation originates." ;
+    rdfs:subPropertyOf schema:spatialCoverage ;
+    owl:equivalentProperty eli:jurisdiction ;
+    skos:exactMatch eli:jurisdiction .
+
+schema:legislationLegalForce a rdf:Property ;
+    rdfs:label "legislationLegalForce" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:LegalForceStatus ;
+    rdfs:comment "Whether the legislation is currently in force, not in force, or partially in force." ;
+    owl:equivalentProperty eli:in_force ;
+    skos:exactMatch eli:in_force .
+
+schema:legislationLegalValue a rdf:Property ;
+    rdfs:label "legislationLegalValue" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:LegislationObject ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:LegalValueLevel ;
+    rdfs:comment "The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a \"stronger\" legal value than the HTML file of the same act." ;
+    owl:equivalentProperty eli:legal_value ;
+    skos:exactMatch eli:legal_value .
+
+schema:legislationPassedBy a rdf:Property ;
+    rdfs:label "legislationPassedBy" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
+    rdfs:comment "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    rdfs:subPropertyOf schema:creator ;
+    owl:equivalentProperty eli:passed_by ;
+    skos:exactMatch eli:passed_by .
+
+schema:legislationResponsible a rdf:Property ;
+    rdfs:label "legislationResponsible" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
+    rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
+    owl:equivalentProperty eli:responsibility_of ;
+    skos:exactMatch eli:responsibility_of .
+
+schema:legislationTransposes a rdf:Property ;
+    rdfs:label "legislationTransposes" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Legislation ;
+    rdfs:comment "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations." ;
+    rdfs:subPropertyOf schema:legislationApplies ;
+    owl:equivalentProperty eli:transposes ;
+    skos:exactMatch eli:transposes .
+
+schema:legislationType a rdf:Property ;
+    rdfs:label "legislationType" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CategoryCode,
+        schema:Text ;
+    rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
+    rdfs:subPropertyOf schema:genre ;
+    owl:equivalentProperty eli:type_document ;
+    skos:exactMatch eli:type_document .
+
+schema:linkRelationship a rdf:Property ;
+    rdfs:label "linkRelationship" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1045> ;
+    schema:category "issue-1045" ;
+    schema:domainIncludes schema:LinkRole ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Indicates the relationship type of a Web link." .
+
+schema:loanMortgageMandateAmount a rdf:Property ;
+    rdfs:label "loanMortgageMandateAmount" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:MortgageLoan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "Amount of mortgage mandate that can be converted into a proper mortgage at a later stage." .
+
+schema:loanPaymentAmount a rdf:Property ;
+    rdfs:label "loanPaymentAmount" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:RepaymentSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount ;
+    rdfs:comment "The amount of money to pay in a single payment." .
+
+schema:loanPaymentFrequency a rdf:Property ;
+    rdfs:label "loanPaymentFrequency" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:RepaymentSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "Frequency of payments due, i.e. number of months between payments. This is defined as a frequency, i.e. the reciprocal of a period of time." .
+
+schema:loanRepaymentForm a rdf:Property ;
+    rdfs:label "loanRepaymentForm" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:LoanOrCredit ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:RepaymentSpecification ;
+    rdfs:comment "A form of paying back money previously borrowed from a lender. Repayment usually takes the form of periodic payments that normally include part principal plus interest in each payment." .
+
+schema:loanType a rdf:Property ;
+    rdfs:label "loanType" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:LoanOrCredit ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "The type of a loan or credit." .
+
+schema:marginOfError a rdf:Property ;
+    rdfs:label "marginOfError" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DateTime ;
+    rdfs:comment "A marginOfError for an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
+
+schema:masthead a rdf:Property ;
+    rdfs:label "masthead" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, a link to the masthead page or a page listing top editorial management." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:materialExtent a rdf:Property ;
+    rdfs:label "materialExtent"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1759> ;
+    schema:category "issue-1759"@en ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:QuantitativeValue,
+        schema:Text ;
+    rdfs:comment "The quantity of the materials being described or an expression of the physical space they occupy." .
+
+schema:measuredProperty a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Property ;
+    rdfs:comment "The measuredProperty of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, either a schema.org property, a property from other RDF-compatible systems e.g. W3C RDF Data Cube, or schema.org extensions such as <a href=\"https://www.gs1.org/voc/?show=properties\">GS1's</a>." .
+
+schema:measuredValue a rdf:Property ;
+    rdfs:label "measuredValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DataType ;
+    rdfs:comment "The measuredValue of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
+
+schema:measurementTechnique a rdf:Property ;
+    rdfs:label "measurementTechnique" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1425> ;
+    schema:category "issue-1425" ;
+    schema:domainIncludes schema:DataCatalog,
+        schema:DataDownload,
+        schema:Dataset,
+        schema:PropertyValue ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment """A technique or technology used in a <a class="localLink" href="http://schema.org/Dataset">Dataset</a> (or <a class="localLink" href="http://schema.org/DataDownload">DataDownload</a>, <a class="localLink" href="http://schema.org/DataCatalog">DataCatalog</a>),
+corresponding to the method used for measuring the corresponding variable(s) (described using <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a>). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.<br/><br/>
+
+For example, if <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> is: molecule concentration, <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a> could be: "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or "immunofluorescence".<br/><br/>
+
+If the <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> is "depression rating", the <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a> could be "Zung Scale" or "HAM-D" or "Beck Depression Inventory".<br/><br/>
+
+If there are several <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> properties recorded for some given data object, use a <a class="localLink" href="http://schema.org/PropertyValue">PropertyValue</a> for each <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> and attach the corresponding <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a>.""" .
+
+schema:membershipPointsEarned a rdf:Property ;
+    rdfs:label "membershipPointsEarned" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2085> ;
+    schema:category "issue-2085" ;
+    schema:domainIncludes schema:ProgramMembership ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number,
+        schema:QuantitativeValue ;
+    rdfs:comment "The number of membership points earned by the member. If necessary, the unitText can be used to express the units the points are issued in. (e.g. stars, miles, etc.)" .
+
+schema:missionCoveragePrioritiesPolicy a rdf:Property ;
+    rdfs:label "missionCoveragePrioritiesPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, a statement on coverage priorities, including any public agenda or stance on issues." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:monthlyMinimumRepaymentAmount a rdf:Property ;
+    rdfs:label "monthlyMinimumRepaymentAmount" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:CreditCard ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmount,
+        schema:Number ;
+    rdfs:comment "The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month." .
+
+schema:noBylinesPolicy a rdf:Property ;
+    rdfs:label "noBylinesPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1688>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1688" ;
+    schema:domainIncludes schema:NewsMediaOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other news-related <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, a statement explaining when authors of articles are not named in bylines." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:nsn a rdf:Property ;
+    rdfs:label "nsn" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2126> ;
+    schema:category "issue-2126" ;
+    schema:domainIncludes schema:Product ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Indicates the <a href=\"https://en.wikipedia.org/wiki/NATO_Stock_Number\">NATO stock number</a> (nsn) of a <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>." ;
+    rdfs:subPropertyOf schema:identifier .
+
+schema:numConstraints a rdf:Property ;
+    rdfs:label "numConstraints" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "Indicates the number of constraints (not counting <a class=\"localLink\" href=\"http://schema.org/populationType\">populationType</a>) defined for a particular <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>. This helps applications understand if they have access to a sufficiently complete description of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
+
+schema:numberOfLoanPayments a rdf:Property ;
+    rdfs:label "numberOfLoanPayments" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:RepaymentSpecification ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "The number of payments contractually required at origination to repay the loan. For monthly paying loans this is the number of months from the contractual first payment date to the maturity date." .
+
+schema:observationDate a rdf:Property ;
+    rdfs:label "observationDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DateTime ;
+    rdfs:comment "The observationDate of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
+
+schema:observedNode a rdf:Property ;
+    rdfs:label "observedNode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:StatisticalPopulation ;
+    rdfs:comment "The observedNode of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, often a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
+
+schema:occupationalCredentialAwarded a rdf:Property ;
+    rdfs:label "occupationalCredentialAwarded" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:Course,
+        schema:EducationalOccupationalProgram ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:EducationalOccupationalCredential,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program." .
+
+schema:offersPrescriptionByMail a rdf:Property ;
+    rdfs:label "offersPrescriptionByMail" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthPlanFormulary ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Whether prescriptions can be delivered by mail." .
+
+schema:ownershipFundingInfo a rdf:Property ;
+    rdfs:label "ownershipFundingInfo" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:AboutPage,
+        schema:CreativeWork,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (often but not necessarily a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a description of organizational ownership structure; funding and grants. In a news/media setting, this is with particular reference to editorial independence.   Note that the <a class=\"localLink\" href=\"http://schema.org/funder\">funder</a> is also available and can be used to make basic funder information machine-readable." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:populationType a rdf:Property ;
+    rdfs:label "populationType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Class ;
+    rdfs:comment "Indicates the populationType common to all members of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
+
+schema:productReturnDays a rdf:Property ;
+    rdfs:label "productReturnDays" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable." .
+
+schema:productReturnLink a rdf:Property ;
+    rdfs:label "productReturnLink" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL ;
+    rdfs:comment "Indicates a Web page or service by URL, for product return." .
+
+schema:programPrerequisites a rdf:Property ;
+    rdfs:label "programPrerequisites" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:EducationalOccupationalProgram ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:AlignmentObject,
+        schema:Course,
+        schema:EducationalOccupationalCredential,
+        schema:Text ;
+    rdfs:comment "Prerequisites for enrolling in the program." .
+
+schema:qualifications a rdf:Property ;
+    rdfs:label "qualifications" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1698>,
+        <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1698",
+        "issue-1779" ;
+    schema:domainIncludes schema:JobPosting,
+        schema:Occupation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:EducationalOccupationalCredential,
+        schema:Text ;
+    rdfs:comment "Specific qualifications required for this role or Occupation." .
+
+schema:ratingExplanation a rdf:Property ;
+    rdfs:label "ratingExplanation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2300> ;
+    schema:category "issue-2300" ;
+    schema:domainIncludes schema:Rating ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A short explanation (e.g. one to two sentences) providing background context and other information that led to the conclusion expressed in the rating. This is particularly applicable to ratings associated with \"fact check\" markup using <a class=\"localLink\" href=\"http://schema.org/ClaimReview\">ClaimReview</a>." .
+
+schema:recognizedBy a rdf:Property ;
+    rdfs:label "recognizedBy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
+    schema:category "issue-1779" ;
+    schema:domainIncludes schema:EducationalOccupationalCredential ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization ;
+    rdfs:comment "An organization that acknowledges the validity, value or utility of a credential. Note: recognition may include a process of quality assurance or accreditation." .
+
+schema:recourseLoan a rdf:Property ;
+    rdfs:label "recourseLoan" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:LoanOrCredit ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "The only way you get the money back in the event of default is the security. Recourse is where you still have the opportunity to go back to the borrower for the rest of the money." .
+
+schema:refundType a rdf:Property ;
+    rdfs:label "refundType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:RefundTypeEnumeration ;
+    rdfs:comment "A refundType, from an enumerated list." .
+
+schema:renegotiableLoan a rdf:Property ;
+    rdfs:label "renegotiableLoan" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <https://github.com/schemaorg/schemaorg/issues/1253> ;
+    schema:category "issue-1253" ;
+    schema:domainIncludes schema:LoanOrCredit ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Whether the terms for payment of interest can be renegotiated during the life of the loan." .
+
+schema:repeatCount a rdf:Property ;
+    rdfs:label "repeatCount" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "Defines the number of times a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> will take place" .
+
+schema:repeatFrequency a rdf:Property ;
+    rdfs:label "repeatFrequency" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
+    schema:category "issue-1457" ;
+    schema:domainIncludes schema:Schedule ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Duration,
+        schema:Text ;
+    rdfs:comment """Defines the frequency at which <a class="localLink" href="http://schema.org/Events">Events</a> will occur according to a schedule <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. The intervals between
+      events should be defined as a <a class="localLink" href="http://schema.org/Duration">Duration</a> of time.""" ;
+    rdfs:subPropertyOf schema:frequency .
+
+schema:returnFees a rdf:Property ;
+    rdfs:label "returnFees" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ReturnFeesEnumeration ;
+    rdfs:comment "Indicates (via enumerated options) the return fees policy for a ProductReturnPolicy" .
+
+schema:returnPolicyCategory a rdf:Property ;
+    rdfs:label "returnPolicyCategory" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ProductReturnEnumeration ;
+    rdfs:comment "A returnPolicyCategory expresses at most one of several enumerated kinds of return." .
+
+schema:rxcui a rdf:Property ;
+    rdfs:label "rxcui" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:Drug ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The RxCUI drug identifier from RXNORM." .
+
+schema:salaryUponCompletion a rdf:Property ;
+    rdfs:label "salaryUponCompletion" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:EducationalOccupationalProgram ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmountDistribution ;
+    rdfs:comment "The expected salary upon completing the training." .
+
+schema:sdDatePublished a rdf:Property ;
+    rdfs:label "sdDatePublished" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    schema:category "issue-1886" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Date ;
+    rdfs:comment "Indicates the date on which the current structured data was generated / published. Typically used alongside <a class=\"localLink\" href=\"http://schema.org/sdPublisher\">sdPublisher</a>" .
+
+schema:sdLicense a rdf:Property ;
+    rdfs:label "sdLicense" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    schema:category "issue-1886" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "A license document that applies to this structured data, typically indicated by URL." .
+
+schema:sdPublisher a rdf:Property ;
+    rdfs:label "sdPublisher" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    schema:category "issue-1886" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
+    rdfs:comment """Indicates the party responsible for generating and publishing the current structured data markup, typically in cases where the structured data is derived automatically from existing published content but published on a different site. For example, student projects and open data initiatives often re-publish existing content with more explicitly structured metadata. The
+<a class="localLink" href="http://schema.org/sdPublisher">sdPublisher</a> property helps make such practices more explicit.""" .
+
+schema:spokenByCharacter a rdf:Property ;
+    rdfs:label "spokenByCharacter" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/271> ;
+    schema:category "issue-271" ;
+    schema:domainIncludes schema:Quotation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
+    rdfs:comment "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork." .
+
+schema:startOffset a rdf:Property ;
+    rdfs:label "startOffset" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2021> ;
+    schema:category "issue-2021" ;
+    schema:domainIncludes schema:Clip ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "The start time of the clip expressed as the number of seconds from the beginning of the work." .
+
+schema:termsOfService a rdf:Property ;
+    rdfs:label "termsOfService" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    schema:category "issue-1423" ;
+    schema:domainIncludes schema:Service ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "Human-readable terms of service documentation." .
+
+schema:timeToComplete a rdf:Property ;
+    rdfs:label "timeToComplete" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:EducationalOccupationalProgram ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Duration ;
+    rdfs:comment "The expected length of time to complete the program if attending full-time." .
+
+schema:trainingSalary a rdf:Property ;
+    rdfs:label "trainingSalary" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:domainIncludes schema:WorkBasedProgram ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MonetaryAmountDistribution ;
+    rdfs:comment "The estimated salary earned while in the program." .
+
+schema:unnamedSourcesPolicy a rdf:Property ;
+    rdfs:label "unnamedSourcesPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization,
+        schema:Organization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (typically a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a statement about policy on use of unnamed sources and the decision process required." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:usesHealthPlanIdStandard a rdf:Property ;
+    rdfs:label "usesHealthPlanIdStandard" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    schema:category "issue-1062" ;
+    schema:domainIncludes schema:HealthInsurancePlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare &amp; Medicaid Services for more details." .
+
+schema:variableMeasured a rdf:Property ;
+    rdfs:label "variableMeasured" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1083> ;
+    schema:category "issue-1083" ;
+    schema:domainIncludes schema:Dataset ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text ;
+    rdfs:comment "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+
+schema:verificationFactCheckingPolicy a rdf:Property ;
+    rdfs:label "verificationFactCheckingPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    schema:category "issue-1525" ;
+    schema:domainIncludes schema:NewsMediaOrganization ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
+    rdfs:comment "Disclosure about verification and fact-checking processes for a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other fact-checking <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>." ;
+    rdfs:subPropertyOf schema:publishingPrinciples .
+
+schema:archiveHeld a rdf:Property ;
+    rdfs:label "archiveHeld"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    schema:category "issue-1758"@en ;
+    schema:domainIncludes schema:ArchiveOrganization ;
+    schema:inverseOf schema:holdingArchive ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ArchiveComponent ;
+    rdfs:comment "Collection, <a href=\"https://en.wikipedia.org/wiki/Fonds\">fonds</a>, or item held, kept or maintained by an <a class=\"localLink\" href=\"http://schema.org/ArchiveOrganization\">ArchiveOrganization</a>." .
+
+schema:hasDefinedTerm a rdf:Property ;
+    rdfs:label "hasDefinedTerm" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:DefinedTermSet ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTerm ;
+    rdfs:comment "A Defined Term contained in this term set." ;
+    rdfs:subPropertyOf schema:hasPart .
+
+schema:holdingArchive a rdf:Property ;
+    rdfs:label "holdingArchive"@en ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    schema:category "issue-1758"@en ;
+    schema:domainIncludes schema:ArchiveComponent ;
+    schema:inverseOf schema:archiveHeld ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:ArchiveOrganization ;
+    rdfs:comment "<a class=\"localLink\" href=\"http://schema.org/ArchiveOrganization\">ArchiveOrganization</a> that holds, keeps or maintains the <a class=\"localLink\" href=\"http://schema.org/ArchiveComponent\">ArchiveComponent</a>." .
+
+schema:inDefinedTermSet a rdf:Property ;
+    rdfs:label "inDefinedTermSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:DefinedTerm ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:DefinedTermSet,
+        schema:URL ;
+    rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a> that contains this term." ;
+    rdfs:subPropertyOf schema:isPartOf .
+
+schema:legislationApplies a rdf:Property ;
+    rdfs:label "legislationApplies" ;
+    dct:source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    schema:category "issue-1156" ;
+    schema:domainIncludes schema:Legislation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Legislation ;
+    rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
+    owl:equivalentProperty eli:implements ;
+    skos:exactMatch eli:implements .
+
+schema:partOfTrip a rdf:Property ;
+    rdfs:label "partOfTrip" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:inverseOf schema:subTrip ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Trip ;
+    rdfs:comment "Identifies that this <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
+
+schema:subTrip a rdf:Property ;
+    rdfs:label "subTrip" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:inverseOf schema:partOfTrip ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Trip ;
+    rdfs:comment "Identifies a <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> that is a subTrip of this Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
+
+schema:termCode a rdf:Property ;
+    rdfs:label "termCode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:DefinedTerm ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A code that identifies this <a class=\"localLink\" href=\"http://schema.org/DefinedTerm\">DefinedTerm</a> within a <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a>" .
+

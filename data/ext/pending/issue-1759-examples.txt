@@ -1,0 +1,96 @@
+TYPES: #eg-0257 materialExtent, CreativeWork
+
+PRE-MARKUP:
+
+<div>
+  Name: Assorted collection of items<br/>
+  Extent: 285 A boxes, 8 OS boxes (plus 45 T boxes, 50 A boxes, 13 OS boxes / items uncatalogued)<br/>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/CreativeWork">
+  <link itemprop="additionalType" href="https://schema.org/ArchiveComponent"/>
+  Name: <span itemprop="name">Assorted collection of items</span><br/>
+  Extent: <span itemprop="materialExtent">285 A boxes, 8 OS boxes (plus 45 T boxes, 50 A boxes, 13 OS boxes / items uncatalogued)</span><br/>
+</div>
+
+RDFA:
+
+<div  vocab="https://schema.org/" type="CreativeWork ArchiveComponent">
+  Name: <span property="name">Assorted collection of items</span><br/>
+  Extent: <span property="materialExtent">285 A boxes, 8 OS boxes (plus 45 T boxes, 50 A boxes, 13 OS boxes / items uncatalogued)</span><br/>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["CreativeWork","ArchiveComponent"],
+  "name": "Assorted collection of items",
+  "materialExtent": "285 A boxes, 8 OS boxes (plus 45 T boxes, 50 A boxes, 13 OS boxes / items uncatalogued)"
+}
+</script>
+
+TYPES: #eg-0258 materialExtent, CreativeWork
+
+PRE-MARKUP:
+
+<div>
+  Name: Assorted collection of items<br/>
+  Extent: 1 folder containing 5 design drawings<br/>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/CreativeWork">
+  <link itemprop="additionalType" href="https://schema.org/ArchiveComponent"/>
+  Name: <span itemprop="name">Assorted collection of items</span><br/>
+  Extent: <div>
+            <div itemprop="materialExtent" itemscope itemtype="https://schema.org/QuantitativeValue">
+              <span itemprop="value">1</span> <span itemprop="unitText">folder</span>
+			</div>
+			containing
+            <div itemprop="materialExtent" itemscope itemtype="https://schema.org/QuantitativeValue">
+              <span itemprop="value">5</span> <span itemprop="unitText">design drawings</span>
+			</div>
+          </div><br/>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" type="CreativeWork ArchiveComponent">
+  Name: <span property="name">Assorted collection of items</span><br/>
+  Extent: <div>
+             <div property="materialExtent" type="QuantitativeValue">
+              <span property="value">1</span> <span property="unitText">folder</span>
+			 </div>
+			 containing
+             <div property="materialExtent" type="QuantitativeValue">
+              <span property="value">5</span> <span property="unitText">design drawings</span>
+			 </div>
+          </div><br/>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["CreativeWork","ArchiveComponent"],
+  "materialExtent": [
+          {
+            "@type": "QuantitativeValue",
+            "unitText": "folder",
+            "value": "1"
+          },
+          {
+            "@type": "QuantitativeValue",
+            "unitText": "design drawings",
+            "value": "5"
+          }
+       ]
+}
+</script>
+

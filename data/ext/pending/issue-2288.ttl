@@ -1,0 +1,78 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductReturnEnumeration a rdfs:Class ;
+    rdfs:label "ProductReturnEnumeration" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnEnumeration ;
+    rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
+    rdfs:subClassOf :Enumeration .
+
+:ProductReturnPolicy a rdfs:Class ;
+    rdfs:label "ProductReturnPolicy" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnPolicy ;
+    rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]]." ;
+    rdfs:subClassOf :Intangible .
+
+:ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnFiniteReturnWindow" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnFiniteReturnWindow ;
+    rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." .
+
+:ProductReturnNotPermitted a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnNotPermitted" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnNotPermitted ;
+    rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." .
+
+:ProductReturnUnlimitedWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnlimitedWindow" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnlimitedWindow ;
+    rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." .
+
+:ProductReturnUnspecified a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnspecified" ;
+    :isPartOf <https://attic.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnspecified ;
+    rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." .
+
+:hasProductReturnPolicy a rdf:Property ;
+    rdfs:label "hasProductReturnPolicy" ;
+    :domainIncludes :Organization,
+        :Product ;
+    :isPartOf <https://attic.schema.org> ;
+    :rangeIncludes :ProductReturnPolicy ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :hasMerchantReturnPolicy ;
+    rdfs:comment "Indicates a ProductReturnPolicy that may be applicable." .
+
+:productReturnDays a rdf:Property ;
+    rdfs:label "productReturnDays" ;
+    :domainIncludes :ProductReturnPolicy ;
+    :isPartOf <https://attic.schema.org> ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnDays ;
+    rdfs:comment "The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable." .
+
+:productReturnLink a rdf:Property ;
+    rdfs:label "productReturnLink" ;
+    :domainIncludes :ProductReturnPolicy ;
+    :isPartOf <https://attic.schema.org> ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnLink ;
+    rdfs:comment "Indicates a Web page or service by URL, for product return." .
+

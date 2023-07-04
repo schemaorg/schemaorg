@@ -1,0 +1,554 @@
+TYPES: #eg-0371 HowTo, estimatedCost, totalTime, tool, supply, steps, HowToSection, HowToStep, HowToDirection, HowToTip, afterMedia, beforeMedia, duringMedia
+
+PRE-MARKUP:
+
+<div>
+  <strong><span>Change a Flat Tire</span></strong>
+  <div>About <span>$20</span></div>
+  <div>About <span>30 minutes</span></div>
+  <div>Necessary Items:</div>
+  <div>Spare tire</div>
+  <div>Lug wrench</div>
+  <div>Jack</div>
+  <div>Wheel wedges</div>
+  <div>Flares</div>
+  <div id="steps">
+    <div>Preparation</div>
+    <div>
+      <div>
+        Turn on your hazard lights and set the flares.
+      </div>
+      <div>
+        You're going to need space and want to be visible.</div>
+      <div>
+        <div>
+          Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat.
+        </div>
+        <div>
+          You don't want the car to move while you're working on it.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="steps">
+    <div>Raise the car</div>
+    <div>
+      <div>
+        <span><img alt="image showing positioning of jack" src="position-jack.jpg" /></span>
+        Position the jack underneath the car, next to the flat tire.
+      </div>
+    </div>
+    <div>
+      <div>
+        <span><img alt="image showing car while still on the ground" src="car-on-ground.jpg" /></span>
+        Raise the jack until the flat tire is just barely off of the ground.
+        <span><img alt="image showing car raised by jack" src="car-raised.jpg" /></span>
+      </div>
+      <div>
+        It doesn't need to be too high.
+      </div>
+    </div>
+    <div>
+      <div>
+        Remove the hubcap and loosen the lug nuts.
+      </div>
+    </div>
+    <div>
+      <div>
+        Remove the flat tire and put the spare tire on the exposed lug bolts.
+      </div>
+    </div>
+    <div>
+      <div>
+        Tighten the lug nuts by hand.
+      </div>
+      <div>
+        Don't use the wrench just yet.
+      </div>
+    </div>
+  </div>
+  <div id="steps">
+    <div>Finishing up</div>
+    <div>
+      <div>
+        Lower the jack and tighten the lug nuts with the wrench.
+      </div>
+    </div>
+    <div>
+      <div>
+        Replace the hubcap.
+      </div>
+    </div>
+    <div>
+      <div>
+        Put the equipment and the flat tire away.
+      </div>
+    </div>
+  </div>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/HowTo">
+  <strong><span itemprop="name">Change a Flat Tire</span></strong>
+  <div>About <span itemprop="estimatedCost" itemscope itemtype="https://schema.org/MonetaryAmount">
+    <meta itemprop="currency" content="USD"/>
+    <meta itemprop="value" content="20"/>
+  </span>$20</div>
+  <div>About <span itemprop="totalTime" content="PT30M">30 minutes</span></div>
+  <div>Necessary Items:</div>
+  <div itemprop="tool">Spare tire</div>
+  <div itemprop="tool" itemscope itemtype="https://schema.org/HowToTool">
+    <span itemprop="name">Lug wrench</span>
+    <img alt="image of a lug wrench" itemprop="image" src="lug-wrench.jpg"/>
+  </div>
+  <div itemprop="tool">Jack</div>
+  <div itemprop="tool" itemscope itemtype="https://schema.org/HowToTool">
+    <span itemprop="name">Wheel wedges</span>
+    <img alt="image showing wheel wedges" itemprop="image" src="wheel-wedges.jpg"/>
+  </div>
+  <div itemprop="supply" itemscope itemtype="https://schema.org/HowToSupply">
+    <span itemprop="name">Flares</span>
+    <img alt="image of flares" itemprop="image" src="flares.jpg"/>
+  </div>
+  <div itemprop="step" itemscope itemtype="https://schema.org/HowToSection">
+    <div itemprop="name">Preparation</div>
+    <meta itemprop="position" content="1"/>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="1"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Turn on your hazard lights and set the flares.</div>
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToTip">
+        <meta itemprop="position" content="2"/>
+        <div itemprop="text">You're going to need space and want to be visible.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="2"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat.</div>
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToTip">
+        <meta itemprop="position" content="2"/>
+        <div itemprop="text">You don't want the car to move while you're working on it.</div>
+      </div>
+    </div>
+  </div>
+  <div itemprop="step" itemscope itemtype="https://schema.org/HowToSection">
+    <div itemprop="name">Raise the car</div>
+    <meta itemprop="position" content="2"/>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="1"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <img alt="image showing positioning of jack" itemprop="duringMedia" src="position-jack.jpg" />
+        <div itemprop="text">Position the jack underneath the car, next to the flat tire.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="2"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="beforeMedia" itemscope itemtype="https://schema.org/ImageObject">
+          <img alt="image showing car while still on the ground" itemprop="contentUrl" src="car-on-ground.jpg" />
+        </div>
+        <div itemprop="text">Raise the jack until the flat tire is just barely off of the ground.</div>
+        <div itemprop="afterMedia" itemscope itemtype="https://schema.org/ImageObject">
+          <img alt="image showing car raised by jack" itemprop="contentUrl" src="car-raised.jpg" />
+        </div>
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToTip">
+        <meta itemprop="position" content="2"/>
+        <div itemprop="text">It doesn't need to be too high.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="3"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Remove the hubcap and loosen the lug nuts.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="4"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Remove the flat tire and put the spare tire on the exposed lug bolts.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="5"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Tighten the lug nuts by hand.</div>
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToTip">
+        <meta itemprop="position" content="2"/>
+        <div itemprop="text">Don't use the wrench just yet.</div>
+      </div>
+    </div>
+  </div>
+  <div itemprop="step" itemscope itemtype="https://schema.org/HowToSection">
+    <div itemprop="name">Finishing up</div>
+    <meta itemprop="position" content="3"/>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="1"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1">
+        <div itemprop="text">Lower the jack and tighten the lug nuts with the wrench.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="2"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Replace the hubcap.</div>
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep">
+      <meta itemprop="position" content="3"/>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToDirection">
+        <meta itemprop="position" content="1"/>
+        <div itemprop="text">Put the equipment and the flat tire away.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="HowTo">
+  <strong><span property="name">Change a Flat Tire</span></strong>
+  <div>About <span property="estimatedCost" typeof="MonetaryAmount">
+    <meta property="currency" content="USD"/>
+    <meta property="value" content="20"/>
+  </span>$20</div>
+  <div>About <span property="totalTime" content="PT30M">30 minutes</span></div>
+  <div>Necessary Items:</div>
+  <div property="tool">Spare tire</div>
+  <div property="tool" typeof="HowToTool">
+    <span property="name">Lug wrench</span>
+    <img alt="image of a lug wrench" property="image" src="lug-wrench.jpg"/>
+  </div>
+  <div property="tool">Jack</div>
+  <div property="tool" typeof="HowToTool">
+    <span property="name">Wheel wedges</span>
+    <img alt="image showing wheel wedges" property="image" src="wheel-wedges.jpg"/>
+  </div>
+  <div property="supply" typeof="HowToSupply">
+    <span property="name">Flares</span>
+    <img alt="image of flares" property="image" src="flares.jpg"/>
+  </div>
+  <div property="step" typeof="HowToSection">
+    <div property="name">Preparation</div>
+    <meta property="position" content="1"/>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="1"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Turn on your hazard lights and set the flares.</div>
+      </div>
+      <div property="itemListElement" typeof="HowToTip">
+        <meta property="position" content="2"/>
+        <div property="text">You're going to need space and want to be visible.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="2"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat.</div>
+      </div>
+      <div property="itemListElement" typeof="HowToTip">
+        <meta property="position" content="2"/>
+        <div property="text">You don't want the car to move while you're working on it.</div>
+      </div>
+    </div>
+  </div>
+  <div property="step" typeof="HowToSection">
+    <div property="name">Raise the car</div>
+    <meta property="position" content="2"/>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="1"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <img alt="image showing positioning of jack" property="duringMedia" src="position-jack.jpg" />
+        <div property="text">Position the jack underneath the car, next to the flat tire.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="2"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="beforeMedia" typeof="ImageObject">
+          <img alt="image showing car while still on the ground" property="contentUrl" src="car-on-ground.jpg" />
+        </div>
+        <div property="text">Raise the jack until the flat tire is just barely off of the ground.</div>
+        <div property="afterMedia" typeof="ImageObject">
+          <img alt="image showing car raised by jack" property="contentUrl" src="car-raised.jpg" />
+        </div>
+      </div>
+      <div property="itemListElement" typeof="HowToTip">
+        <meta property="position" content="2"/>
+        <div property="text">It doesn't need to be too high.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="3"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Remove the hubcap and loosen the lug nuts.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="4"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Remove the flat tire and put the spare tire on the exposed lug bolts.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="5"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Tighten the lug nuts by hand.</div>
+      </div>
+      <div property="itemListElement" typeof="HowToTip">
+        <meta property="position" content="2"/>
+        <div property="text">Don't use the wrench just yet.</div>
+      </div>
+    </div>
+  </div>
+  <div property="step" typeof="HowToSection">
+    <div property="name">Finishing up</div>
+    <meta property="position" content="3"/>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="1"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1">
+        <div property="text">Lower the jack and tighten the lug nuts with the wrench.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="2"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Replace the hubcap.</div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="HowToStep">
+      <meta property="position" content="3"/>
+      <div property="itemListElement" typeof="HowToDirection">
+        <meta property="position" content="1"/>
+        <div property="text">Put the equipment and the flat tire away.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Change a Flat Tire",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "20"
+  },
+  "totalTime": "PT30M",
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "Spare tire"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Lug wrench",
+      "image": "lug-wrench.jpg"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Jack"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Wheel wedges",
+      "image": "wheel-wedges.jpg"
+    }
+  ],
+  "supply": {
+    "@type": "HowToSupply",
+    "name": "Flares",
+    "image": "flares.jpg"
+  },
+  "step": [
+    {
+      "@type": "HowToSection",
+      "name": "Preparation",
+      "position": "1",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "position": "1",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Turn on your hazard lights and set the flares."
+            },
+            {
+              "@type": "HowToTip",
+              "position": "2",
+              "text": "You're going to need space and want to be visible."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "2",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat"
+            },
+            {
+              "@type": "HowToTip",
+              "position": "2",
+              "text": "You don't want the car to move while you're working on it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Raise the car",
+      "position": "2",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "position": "1",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "duringMedia": "position-jack.jpg",
+              "text": "Position the jack underneath the car, next to the flat tire."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "2",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "beforeMedia": {
+                  "@type": "ImageObject",
+                  "contentUrl": "car-on-ground.jpg"
+              },
+              "afterMedia": {
+                  "@type": "ImageObject",
+                  "contentUrl": "car-raised.jpg"
+              },
+              "text": "Raise the jack until the flat tire is just barely off of the ground."
+            },
+            {
+              "@type": "HowToTip",
+              "position": "2",
+              "text": "It doesn't need to be too high."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "3",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Remove the hubcap and loosen the lug nuts."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "4",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Remove the flat tire and put the spare tire on the exposed lug bolts."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "5",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Tighten the lug nuts by hand."
+            },
+            {
+              "@type": "HowToTip",
+              "position": "2",
+              "text": "Don't use the wrench just yet."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Finishing up",
+      "position": "3",
+      "itemListElement": [
+        {
+          "@type": "HowToStep",
+          "position": "1",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Lower the jack and tighten the lug nuts with the wrench."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "2",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Replace the hubcap."
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": "3",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "position": "1",
+              "text": "Put the equipment and the flat tire away."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</script>
+

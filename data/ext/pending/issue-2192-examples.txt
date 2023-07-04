@@ -1,0 +1,71 @@
+TYPES: #eg-0275 Occupation, occupationalCategory
+
+PRE-MARKUP:
+
+<!-- occupationalCategory utilising CategoryCode -->
+<!-- JSONLD only example -->
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<!-- occupationalCategory utilising CategoryCode -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Occupation",
+      "occupationalCategory": {
+         "@type": "CategoryCode",
+         "inCodeSet": {
+              "@type": "CategoryCodeSet",
+              "name": "O*Net-SOC",
+              "dateModified": "2019",
+              "url": "https://www.onetonline.org/"
+           },
+         "codeValue": "15-1211.00",
+         "name": "Computer Systems Analysts",
+         "url": "https://www.onetonline.org/link/summary/15-1121.00"
+     }
+    }
+    </script>
+
+
+TYPES: #eg-0276 Person, jobTitle
+
+PRE-MARKUP:
+
+<!-- jobTitle utilising DefinedTerm -->
+<!-- JSONLD only example -->
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<!-- jobTitle utilising DefinedTerm -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "A. N. Other",
+    "jobTitle": {
+        "@type": "DefinedTerm",
+        "inDefinedTermSet": "https://targetjobs.co.uk/careers-advice/job-descriptions",
+        "termCode": "277133-aid-workerhumanitarian-worker-job-description",
+        "name": "Aid worker/humanitarian worker",
+        "url": "https://targetjobs.co.uk/careers-advice/job-descriptions/277133-aid-workerhumanitarian-worker-job-description"
+    }
+}
+</script>
+

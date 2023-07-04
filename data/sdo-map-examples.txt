@@ -1,4 +1,4 @@
-TYPES: #map-1 Map, VenueMap
+TYPES: #eg-0384 Map, VenueMap
 
 PRE-MARKUP:
 
@@ -9,41 +9,34 @@ Here is our <a href="/map1234/">venue map</a>
 
 MICRODATA:
 
-<p itemscope itemtype="http://schema.org/Museum">
-Welcome to a fictional <span itemprop="name">SF art museum.</name>
+<p itemscope itemtype="https://schema.org/Museum">
+Welcome to a fictional <span itemprop="name">SF art museum.</span>
 Here is our
-<span itemscope itemprop="hasMap" itemtype="http://schema.org/Map">
-<link itemprop="mapType" href="http://schema.org/VenueMap" />
+<span itemscope itemprop="hasMap" itemtype="https://schema.org/Map">
+<link itemprop="mapType" href="https://schema.org/VenueMap" />
 <a itemprop="url" href="/map1234/">venue map</a></span>
 </p>
 
 RDFA:
 
-<p vocab="http://schema.org/" typeof="Museum">
-Welcome to a fictional <span property="name">SF art museum.</name>
+<p vocab="https://schema.org/" typeof="Museum">
+Welcome to a fictional <span property="name">SF art museum.</span>
 Here is our
 <span property="hasMap" typeof="Map">
-<link itemprop="mapType" href="http://schema.org/VenueMap" />
+<link itemprop="mapType" href="https://schema.org/VenueMap" />
 <a property="url" href="/map1234/">venue map</a></span>
 </p>
 
 JSON:
 
 {
- "@context": "http://schema.org/",
+ "@context": "https://schema.org/",
  "@type": "Museum",
  "name": "SF art museum",
  "hasMap": {
  "@type": "Map",
-   "mapType": { "@id": "http://schema.org/VenueMap" },
+   "mapType": { "@id": "https://schema.org/VenueMap" },
    "url":  "http://art-sf.example.com/map1234/"
    }
 }
-
-
-TYPES: FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:
 

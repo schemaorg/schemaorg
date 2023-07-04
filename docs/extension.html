@@ -3,322 +3,63 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Extending Schemas - schema.org</title>
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
 
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
+<!-- #### Static Doc Insert PageHead goes here -->
 
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
+<div id="mainContent" class="faq">
 
+<h1>Schema.org Extensions</h1>
 
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li class="activelink">
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
-
-  <div id="mainContent" class="faq">
-
-<h1>Extension Mechanism</h1>
-
-<p><b>Status Note:</b>
-<br/>This page introduces the new extension mechanism adopted in May
-    2015. Documentation on the old 'slash-based' extension mechanism
-    can be found <a href="old_extension.html">here</a>.
-</p>
-
-<hr />
-
-<h3>Motivation</h3>
-    <p>
-    Schema.org provides a core, basic vocabulary for describing the kind of
-    entities the most common web applications need. There is often a
-    need for more specialized and/or deeper vocabularies, that build
-    upon the core. The extension mechanisms facilitate the creation of
-    such additional vocabularies.
-   </p>
-
-    <p>
-    With most extensions, we expect that some small frequently used
-    set of terms will be in core schema.org, with a long tail of more
-    specialized terms in the extension.
-    </p>
-
-<h3>Types of Extensions</h3>
-
-    <p>
-There are two kinds of extensions: reviewed/hosted extensions and external extensions. Both kinds of extensions typically add subclasses and properties to the core. Properties may be added to existing and/or new classes. More generally, they are an overlay on top of the core, and so they may add domains/ranges, superclasses, etc. as well. Extensions have to be consistent with the core schema.org. Every item in the core (i.e., http://schema.org/) is also in every extension. Extensions might overlap with each other in concepts (e.g., two extensions defining terms for financial institutions, one calling it FinancialBank and other calling it FinancialInstitution), but we should not have the same term being reused to mean something completely different (e.g., we should not have two extensions, one using Bank to mean river bank and the other using Bank to mean financial institution).
-</p>
-
-
-<h3>Reviewed/hosted Extensions</h3>
-
-    <p>
-Each reviewed extension (say, e1), gets its own chunk of schema.org namespace: e1.schema.org. The items in that extension are created and maintained by the creators of that extension.  Reviewed extensions are very different from proposals. A proposal, if accepted, with modifications could either go into the core or become a reviewed extension.
-
+<p>
+Over the years, we have experimented with a couple of different extension mechanisms (see
+<a href="/docs/old_extension.html">2011-2014</a> and
+<a href="/docs/old_extension_2015.html">2014-2018</a> docs for details).
 </p>
 
 <p>
-
-A reviewed extension is something that has been looked at and discussed by the community, albeit not as much as something in the core. We also expect a reviewed extension to have strong community support, preferably in the form of a few deployments.
-
-</p>
-
-<h3>External Extensions</h3>
-<p>Sometimes there might be a need for a third party (such as an app
-developer) to create extensions specific to their application. For
-example, Pinterest might want to extend the schema.org concept of
-‘Sharing’ with ‘Pinning’. In such a case, they can create
-schema.pinterest.com and put up their extensions, specifying how it
-links with core schema.org. We will refer to these as external
-extensions.
-</p><p>
-There are also cases where a third party might want to host a
-broadly applicable extension themselves. In such cases, the extension
-may go through the kind of feedback process that reviewed extensions
-go through, but can be hosted on the third party's site.
-</p>
-
-
-<h3>How it works for webmasters</h3>
-<p>
- All of Schema.org core and all of the reviewed extensions will be available from the schema.org website. Each extension will be linked to from each of the touch points it has with the core. So, if an extension (say, having to do with Legal stuff) creates legal.schema.org/LegalPerson which is a subclass of schema.org/Person, the Person will link to LegalPerson.  Typically, a webpage / email will use only a single extension (e.g., legal), in which case, instead of ‘schema.org’ they say ‘legal.schema.org’ and use all of the vocabulary in legal.schema.org and schema.org.
-</p>
-<p>
-As appropriate, the main schema.org site will also link to relevant external extensions. With external extensions, the use of multiple namespaces is unavoidable.
-</p>
-
-<h3>What does someone creating an extension need to do</h3>
-<p>
-  We would like extension creators to not have to worry about running a website for their extension. Once the extension is approved, they simply upload a file with their extension into a certain directory on github. Changes are made through the same mechanism.
-</p>
-<p>
-Since the source code for schema.org is publicly available, we encourage creators of external extensions to use the same application.
-</p>
-
-<h3>Examples</h3>
-
-<b>Archives example in RDFa</b>
-
-<p>
-This example uses a type that makes sense for archival and bibliographic applications but which is not currently in the schema.org core: Microform, defined as "Any form, either film or paper, containing microreproductions of documents for transmission, storage, reading, and printing. (Microfilm, microfiche, microcards, etc.)"
+The primary motivation behind these models was to enable decentralized extension of the vocabulary.
+However, we have come to realize that for adoption, we need a simpler model, where publishers
+can be sure that a piece of vocabulary is indeed part of Schema.org. Until April 2019,
+we relied primarily on the  '<a href="/docs/old_extension_2015.html">hosted extensions</a>' mechanism
+that used hosted subdomains of schema.org (such as bib.schema.org for the bibliography extension and
+autos.schema.org for the autos extension). Going forward, the content of these hosted extensions are being
+folded into schema.org, although each will retain an "entry point" page as before.
 </p>
 
 <p>
-The extension type is taken from  http://bibliograph.net/Microform, (which on this proposed model would move to bib.schema.org) which is a version of the opensource schema.org codebases that overlays bibliographic extras onto the core schema.org types. The example is adapted from http://schema.org/workExample.
-</p>
-
-<pre>
-&lt;div vocab="http://bib.schema.org/"&gt;
-    &lt;p typeof="Book" resource="http://www.freebase.com/m/0h35m"&gt;
-        &lt;em property="name"&gt;The Fellowship of the Rings&lt;/em&gt; was written by
-        &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
-        in the &lt;span property="publisher" typeof="Organization"&gt;
-            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
-            &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
-        &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
-        The book has been republished many times, including editions by
-        &lt;span property="workExample" typeof="Book"&gt;
-            &lt;span property="publisher" typeof="Organization"&gt;
-                &lt;span property="name"&gt;HarperCollins&lt;/span&gt;
-            &lt;/span&gt; in &lt;time property="datePublished"&gt;1974&lt;/time&gt;
-            (ISBN: &lt;span property="isbn"&gt;0007149212&lt;/span&gt;)
-        &lt;/span&gt; and by
-        &lt;span property="workExample" typeof="Book Microform"&gt;
-            &lt;span property="publisher" typeof="Organization"&gt;
-                &lt;span property="name"&gt;Microfiche Press&lt;/span&gt;
-            &lt;/span&gt; in &lt;time property="datePublished"&gt;2016&lt;/time&gt;
-            (ISBN: &lt;span property="isbn"&gt;12341234&lt;/span&gt;).
-        &lt;/span&gt;
-    &lt;/p&gt;
-&lt;/div&gt;
-
-</pre>
-
-
-<b>Alternative RDFa:</b>
-
-<p>
-The example above puts all data into the extension namespace. Although this can be mapped back into normal schema.org it puts more work onto consumers. Here is how it would look using multiple vocabularies:
-</p>
-
-<pre>
-&lt;div vocab="http://schema.org/" prefix="bib: http://bib.schema.org/"&gt;
-    &lt;p typeof="Book" resource="http://www.freebase.com/m/0h35m"&gt;
-        &lt;em property="name"&gt;The Fellowship of the Rings&lt;/em&gt; was written by
-        &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
-        in the &lt;span property="publisher" typeof="Organization"&gt;
-            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
-            &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
-        &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
-        The book has been republished many times, including editions by
-        &lt;span property="workExample" typeof="Book"&gt;
-            &lt;span property="publisher" typeof="Organization"&gt;
-                &lt;span property="name"&gt;HarperCollins&lt;/span&gt;
-            &lt;/span&gt; in &lt;time property="datePublished"&gt;1974&lt;/time&gt;
-            (ISBN: &lt;span property="isbn"&gt;0007149212&lt;/span&gt;)
-        &lt;/span&gt; and by
-        &lt;span property="workExample" typeof="Book bib:Microform"&gt;
-            &lt;span property="publisher" typeof="Organization"&gt;
-                &lt;span property="name"&gt;Microfiche Press&lt;/span&gt;
-            &lt;/span&gt; in &lt;time property="datePublished"&gt;2016&lt;/time&gt;
-            (ISBN: &lt;span property="isbn"&gt;12341234&lt;/span&gt;).
-        &lt;/span&gt;
-    &lt;/p&gt;
-&lt;/div&gt;
-
-</pre>
-
-<p>
-
-Here is that last approach written in JSON-LD (it works today, but would be even more concise if the schema.org JSON-LD context file was updated to declare the 'bib' extension):
-
-</p>
-
-<pre>
-&lt;script type="application/ld+json"&gt;
-{
-  "@context": [ "http://schema.org/",
-       { "bib": "http://bib.schema.org/" } ],
-  "@id": "http://www.freebase.com/m/0h35m",
-  "@type": "Book",
-  "name": "The Fellowship of the Rings",
-  "author": "J.R.R Tolkien",
-  "publisher": {
-     "@type": "Organization",
-  },
-  "location": "United Kingdom",
-  "name": "George Allen & Unwin",
- },
-  "datePublished": "1954",
-  "workExample": {
-    "@type": "Book",
-    "name": "Harper Collins",
-    "datePublished": "1974",
-    "isbn": "0007149212"
-  },
-  "workExample": {
-    "@type": ["Book", "bib:Microform"],
-    "name": "Microfiche Press",
-    "datePublished": "2016",
-    "isbn": "12341234"
-  }
-}
-&lt;/script&gt;
-</pre>
-
-<p>
-<b>GS1 Example</b>
-
-
-<pre>
-&lt;script type="application/ld+json"&gt;
-{
-    "@context": "http://schema.org/",
-    "@vocab": "http://gs1.schema.org/",
-    "@id": "http://id.manufacturer.com/gtin/05011476100885",
-    "gtin13": "5011476100885",
-    "@type": "TradeItem",
-    "tradeItemDescription": "Deliciously crunchy Os, packed with 4 whole grains. Say Yes to Cheerios",
-    "healthClaimDescription": "8 Vitamins & Iron, Source of Calcium & High in Fibre",
-    "hasAllergenRelatedInformation": {
-        "@type": "gs1:AllergenRelatedInformation",
-        "allergenStatement": "May contain nut traces"
-    },
-    "hasIngredients": {
-        "@type": "gs1:FoodAndBeverageIngredient",
-        "hasIngredientDetail": [
-            {
-                "@type": "Ingredient",
-                "ingredientseq": "1",
-                "ingredientname": "Cereal Grains",
-                "ingredientpercentage": "77.5"
-            },
-            {
-                "@type": "Ingredient",
-                "ingredientseq": "2",
-                "ingredientname": "Whole Grain OATS",
-                "ingredientpercentage": "38.0"
-            }
-      ]
-    },
-    "nutrientBasisQuantity": {
-        "@type": "Measurement",
-        "value": "100",
-        "unit": "GRM"
-    },
-    "energyPerNutrientBasis": [
-        {
-            "@type": "Measurement",
-            "value": "1615",
-            "unit": "KJO"
-        },
-        {
-            "@type": "Measurement",
-            "value": "382",
-            "unit": "E14"
-        }
-    ],
-    "proteinPerNutrientBasis": {
-        "@type": "Measurement",
-        "value": "8.6",
-        "unit": "GRM"
-    }
-}
-
-&lt;/script&gt;
-</pre>
-
+Terms from these hosted extensions are now considered fully part of schema.org, although they
+remain tagged with a label corresponding to the extension it originated from. Over a period
+of time, as usage of these terms gets intermingled with other terms, these labels may be dropped
+or simplified.
 </p>
 
 <p>
-This example shows a possible encoding of the GS1 schemas overlaid onto schema.org. It uses JSON-LD syntax, which would support several variations on this approach. It is based on examples from GS1's proposal circulated to the schema.org community recently.
-(https://lists.w3.org/Archives/Public/public-vocabs/2015Jan/0069.html). Instead of writing
-    "@context": "http://schema.org/",   "@vocab": "http://gs1.schema.org/", it would be possible to simply write "@context": "http://gs1.schema.org/".
-
+One label --- '<a href="/docs/extension.html">pending</a>' --- is kept reserved for enabling us to more rapidly introduce
+terms into schema.org, on an experimental basis. After a period of time of being in a
+pending status, depending on usage, adoption, discussions etc. a term will be incorporated into
+the core or get dropped.
 </p>
 
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
+<p>
+External extensions, where a third party might want to host a broadly applicable extension
+themselves (e.g., <a href="http://gs1.org/voc">http://gs1.org/voc</a>) will continue as before.
+</p>
+
+<p>
+We continue to welcome improvements and additions to Schema.org, and to encourage public discussion
+towards this in various groups both at W3C and elsewhere. Additions to schema.org will now come in
+primarily via Pending. As always we place high emphasis on vocabulary that is likely to be consumed,
+rather than merely published.
+</p>
+
 </div>
+
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

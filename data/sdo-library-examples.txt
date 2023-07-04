@@ -1,6 +1,7 @@
-TYPES: #library-1 Library, OpeningHoursSpecification
+TYPES: #eg-0378 Library, OpeningHoursSpecification, openingHoursSpecification
 
 PRE-MARKUP:
+
 <div>
 <h1>Music Resource Centre</h1>
 <h2>Opening hours</h2>
@@ -19,10 +20,9 @@ PRE-MARKUP:
 
 <div>Sunday: <time> 9:00 AM</time> - <time> 5:00 PM</time></div>
 
-
     <h2 >Contact information</h2>
-        <div>Email address: <a href="mailto:dscott@laurentian.ca">dscott@laurentian.ca</a></div>
-
+        <div>Email address:
+        <a href="mailto:dscott@laurentian.ca">dscott@laurentian.ca</a></div>
 
     <div>
         <div>
@@ -40,90 +40,185 @@ PRE-MARKUP:
         <a href="/eg/opac/library/LUSYS">Laurentian University</a>
     </div>
 
-
 MICRODATA:
-<div itemscope itemtype="http://schema.org/Library">
-<h1 itemprop="name">Music Resource Centre</h1>
-<h2>Opening hours</h2>
 
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link property="itemprop" href="http://purl.org/goodrelations/v1#Monday" />Monday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Tuesday" />Tuesday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Wednesday" />Wednesday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />Thursday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Friday" />Friday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Saturday" />Saturday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div itemprop="openingHoursSpecification" itemtype="http://schema.org/OpeningHoursSpecification"><link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Sunday" />Sunday: <time itemprop="opens" content="09:00:00"> 9:00 AM</time> - <time itemprop="closes" content="17:00:00"> 5:00 PM</time></div>
-
-
-    <h2 >Contact information</h2>
-        <div>Email address: <a href="mailto:dscott@laurentian.ca" itemprop="email">dscott@laurentian.ca</a></div>
-
-
+<div itemscope itemtype="https://schema.org/Library">
+    <h1 itemprop="name">
+        Music Resource Centre
+    </h1>
+    <h2>
+        Opening hours
+    </h2>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Monday">Monday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Tuesday">Tuesday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Wednesday">Wednesday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Thursday">Thursday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Friday">Friday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Saturday">Saturday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+        <link itemprop="dayOfWeek" href="https://schema.org/Sunday">Sunday: <time itemprop="opens" content="09:00:00">9:00 AM</time> - <time itemprop="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <h2>
+        Contact information
+    </h2>
     <div>
-        <div itemprop="location address" itemtype="http://schema.org/PostalAddress">
-            <h3 itemprop="contactType">Mailing address</h3>
-            <span itemprop="streetAddress">School of Education - Music Resource Centre<br />Laurentian University
-            </span><br />
-            <span itemprop="addressLocality">Sudbury</span><br />
-            <span itemprop="addressRegion">ON</span><br />
-            <span itemprop="addressCountry">Canada</span><br />
-            <span itemprop="postalCode">P3E 2C6</span><br />
+        Email address: <a href="mailto:dscott@laurentian.ca" itemprop="email">dscott@laurentian.ca</a>
+    </div>
+    <div>
+        <div itemprop="location address" itemscope itemtype="https://schema.org/PostalAddress">
+            <h3 itemprop="contactType">
+                Mailing address
+            </h3><span itemprop="streetAddress">School of Education - Music Resource Centre<br>
+            Laurentian University</span><br>
+            <span itemprop="addressLocality">Sudbury</span><br>
+            <span itemprop="addressRegion">ON</span><br>
+            <span itemprop="addressCountry">Canada</span><br>
+            <span itemprop="postalCode">P3E 2C6</span><br>
         </div>
     </div>
-
-    <h2>Branch relationship</h2>
-    <div>Parent library:
-        <a itemprop="branchOf" href="/eg/opac/library/LUSYS">Laurentian University</a>
+    <h2>
+        Branch relationship
+    </h2>
+    <div>
+        Parent library: <a itemprop="parentOrganization" href="/eg/opac/library/LUSYS">Laurentian University</a>
     </div>
-
+</div>
 
 RDFA:
-<div vocab="http://schema.org/" typeof="Library">
-<h1 property="name">Music Resource Centre</h1>
-<h2>Opening hours</h2>
 
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Monday" />Monday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Tuesday" />Tuesday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Wednesday" />Wednesday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />Thursday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Friday" />Friday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Saturday" />Saturday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-<div property="openingHoursSpecification" typeof="OpeningHoursSpecification"><link property="dayOfWeek" href="http://purl.org/goodrelations/v1#Sunday" />Sunday: <time property="opens" content="09:00:00"> 9:00 AM</time> - <time property="closes" content="17:00:00"> 5:00 PM</time></div>
-
-
-    <h2 >Contact information</h2>
-        <div>Email address: <a href="mailto:dscott@laurentian.ca" property="email">dscott@laurentian.ca</a></div>
-
-
+<div vocab="https://schema.org/" typeof="Library">
+    <h1 property="name">
+        Music Resource Centre
+    </h1>
+    <h2>
+        Opening hours
+    </h2>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Monday">Monday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Tuesday">Tuesday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Wednesday">Wednesday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Thursday">Thursday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Friday">Friday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Saturday">Saturday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+        <link property="dayOfWeek" href="https://schema.org/Sunday">Sunday: <time property="opens" content="09:00:00">9:00 AM</time> - <time property="closes" content="17:00:00">5:00 PM</time>
+    </div>
+    <h2>
+        Contact information
+    </h2>
+    <div>
+        Email address: <a href="mailto:dscott@laurentian.ca" property="email">dscott@laurentian.ca</a>
+    </div>
     <div>
         <div property="location address" typeof="PostalAddress">
-            <h3 property="contactType">Mailing address</h3>
-            <span property="streetAddress">School of Education - Music Resource Centre<br />Laurentian University
-            </span><br />
-            <span property="addressLocality">Sudbury</span><br />
-            <span property="addressRegion">ON</span><br />
-            <span property="addressCountry">Canada</span><br />
-            <span property="postalCode">P3E 2C6</span><br />
+            <h3 property="contactType">
+                Mailing address
+            </h3><span property="streetAddress">School of Education - Music Resource Centre<br>
+            Laurentian University</span><br>
+            <span property="addressLocality">Sudbury</span><br>
+            <span property="addressRegion">ON</span><br>
+            <span property="addressCountry">Canada</span><br>
+            <span property="postalCode">P3E 2C6</span><br>
         </div>
     </div>
-
-    <h2>Branch relationship</h2>
-    <div>Parent library:
-        <a property="branchOf" href="/eg/opac/library/LUSYS">Laurentian University</a>
+    <h2>
+        Branch relationship
+    </h2>
+    <div>
+        Parent library: <a property="parentOrganization" href="/eg/opac/library/LUSYS">Laurentian University</a>
     </div>
+</div>
 
 JSON:
 
-No JSON-LD example yet.
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    { "@language": "en-ca" }
+  ],
+  "@type": "Library",
+  "address":  {
+    "@id": "_:school_edu_library_1",
+    "@type": "PostalAddress",
+    "addressCountry": "Canada",
+    "addressLocality": "Sudbury",
+    "addressRegion": "ON",
+    "contactType": "Mailing address",
+    "postalCode": "P3E 2C6",
+    "streetAddress": "School of Education - Music Resource Centre Laurentian University"
+  },
+  "email":  "mailto:dscott@laurentian.ca",
+  "location": { "@id": "_:school_edu_library_1" },
+  "name":  "Music Resource Centre",
+  "parentOrganization": "https://laurentian.concat.ca/eg/opac/library/LUSYS",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes":  "17:00:00",
+      "dayOfWeek": "https://schema.org/Sunday",
+      "opens":  "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00" ,
+      "dayOfWeek": "https://schema.org/Saturday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes":  "17:00:00",
+      "dayOfWeek": "https://schema.org/Thursday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek": "https://schema.org/Tuesday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek":  "https://schema.org/Friday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek": "https://schema.org/Monday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek":  "https://schema.org/Wednesday",
+      "opens": "09:00:00"
+    }
+  ]
+}
+</script>
+

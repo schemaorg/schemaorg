@@ -1,4 +1,4 @@
-TYPES: #website-1 SearchAction, WebSite
+TYPES: #eg-0457 SearchAction, WebSite
 
 PRE-MARKUP:
 
@@ -6,43 +6,38 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/WebSite">
+<div itemscope itemtype="https://schema.org/WebSite">
     <link itemprop="url" href="http://www.example.com/"/>
-    <form itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+    <form itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
 	  <meta itemprop="target" content="http://example.com/search?q={query}"/>
-      <input itemprop="query-input" type="text" name="query"/>
+      <input itemprop="query" type="text" name="query"/>
       <input type="submit"/>
     </form>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="WebSite">
-   <link property="url" href="http://example.com/"/>
-   <form property="potentialAction" typeof="SearchAction">
-      <meta property="target" content="http://example.com/search?q={query}"/>
-      <input property="query-input" type="text" name="query"/>
-      <input type="submit"/>
-  </form>
+<div vocab="https://schema.org/" typeof="WebSite">
+    <link property="url" href="http://www.example.com/"/>
+    <form property="potentialAction" typeof="https://schema.org/SearchAction">
+      <meta property="target" content="http://www.example.com/search?q={query}"/>
+      <input property="query" type="text" name="query">
+      <input type="submit">
+    </form>
 </div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebSite",
     "url": "http://example.com/",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "http://example.com/search?&q={query}",
-      "query-input": "required"
+      "query": "required"
     }
 }
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:

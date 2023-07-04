@@ -1,15 +1,7 @@
-schema.org 2.0
-==================
+schema.org 2.1: see http://schema.org/version/2.1/
 
-* http://schema.org/version/2.1/
-* http://schema.org/version/2.1/schema.nt
-* http://schema.org/version/2.1/schema.rdfa
+Github repository has full history: http://github.com/schemaorg/schemaorg
 
+Snapshots of releases are in data/releases/{version}/
 
-Source
--------
-* https://github.com/schemaorg/schemaorg/tree/master/data/releases/2.1
-  * https://github.com/schemaorg/schemaorg/blob/master/data/releases/2.1/schema-all.html
-  * https://github.com/schemaorg/schemaorg/blob/master/data/releases/2.1/schema.nt
-  * https://github.com/schemaorg/schemaorg/blob/master/data/releases/2.1/schema.rdfa
-
+http://schema.org/docs/releases.html for release details.

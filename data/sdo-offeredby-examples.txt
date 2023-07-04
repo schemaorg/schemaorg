@@ -1,4 +1,4 @@
-TYPES: #offer-1 Offer, offeredBy, Book, additionalType
+TYPES: #eg-0393 Offer, offeredBy, Book, additionalType
 
 PRE-MARKUP:
 
@@ -6,100 +6,126 @@ PRE-MARKUP:
 
  <div>
    <h3>Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td>Ferchault, Guy</td>
-     </tr>
-   </table>
+   <div>
+       Bibliographic Details
+       <table>
+         <tr>
+           <th>Main Author: </th>
+           <td>Ferchault, Guy</td>
+         </tr>
+       </table>
+   </div>
  </div>
 
- <table summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr>
-     <th>Copy </th>
-     <td>Available
-       <div>Barcode: <span>CONC91000937</span></div>
-       <div>Call number: <span>780 R2</span></div>
-       <div>Library: <span>Anytown City Library</span></div>
-     </td>
-   </tr>
- <table>
+ <div>
+     Holdings details from Anytown City Library
+     <table>
+       <!-- Example of a copy available for loan -->
+       <tr>
+         <th>Copy </th>
+         <td>Available
+           <div>Barcode: <span>CONC91000937</span></div>
+           <div>Call number: <span>780 R2</span></div>
+           <div>Library: <span>Anytown City Library</span></div>
+         </td>
+       </tr>
+     <table>
+ </div>
 
 MICRODATA:
 
  <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
 
- <div itemscope itemtype="http://schema.org/Book" itemid="#record">
-   <link itemprop="additionalType" href="http://schema.org/Product"/>
+ <div itemscope itemtype="https://schema.org/Book" itemid="#record">
+   <link itemprop="additionalType" href="https://schema.org/Product"/>
    <h3 itemprop="name">Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td itemprop="author">Ferchault, Guy</td>
-     </tr>
-   </table>
+   <div>
+       Bibliographic Details
+       <table>
+         <tr>
+           <th>Main Author: </th>
+           <td itemprop="author">Ferchault, Guy</td>
+         </tr>
+       </table>
+   </div>
  </div>
 
- <table summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr itemscope itemtype="http://schema.org/Offer">
-     <th>Copy </th>
-     <td>Available
-       <link itemprop="availability" href="http://schema.org/InStock">
-       <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
-       <div>Call number: <span itemprop="sku">780 R2</span></div>
-       <div>Library: <span itemprop="offeredBy" itemtype="http://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
-       <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
-       <link itemprop="itemOffered" href="#record">
-     </td>
-   </tr>
- <table>
+ <div>
+     Holdings details from Anytown City Library
+     <table>
+       <!-- Example of a copy available for loan -->
+       <tr itemscope itemtype="https://schema.org/Offer">
+         <th>Copy </th>
+         <td>Available
+           <link itemprop="availability" href="https://schema.org/InStock">
+           <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
+           <div>Call number: <span itemprop="sku">780 R2</span></div>
+           <div>Library: <span itemprop="offeredBy" itemscope itemtype="https://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
+           <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+           <link itemprop="itemOffered" href="#record">
+         </td>
+       </tr>
+     </table>
+ </div>
 
 RDFA:
 
  <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
- <div vocab="http://schema.org/" resource="#record" typeof="Book Product">
-   <h3 property="name">Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td property="author">Ferchault, Guy</td>
-     </tr>
-   </table>
- </div>
-
- <table vocab="http://schema.org/" summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr typeof="Offer">
-     <th>Copy </th>
-     <td>Available
-       <link property="availability" href="http://schema.org/InStock">
-       <div>Barcode: <span property="serialNumber">CONC91000937</span></div>
-       <div>Call number: <span property="sku">780 R2</span></div>
-       <div>Library: <span property="offeredBy" typeof="Library" resource="http://library.anytown.gov.uk" >Anytown City Library</span></div>
-       <link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
-       <link property="itemOffered" href="#record">
-     </td>
-   </tr>
- <table>
+<div vocab="https://schema.org/" resource="#record" typeof="Book Product">
+    <h3 property="name">
+        Le concerto
+    </h3>
+    <div>
+        Bibliographic Details
+        <table>
+            <tr>
+                <th>
+                    Main Author:
+                </th>
+                <td property="author">
+                    Ferchault, Guy
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div>
+    Holdings details from Anytown City Library
+    <table vocab="https://schema.org/">
+        <!-- Example of a copy available for loan -->
+        <tr typeof="Offer">
+            <th>
+                Copy
+            </th>
+            <td>
+                Available
+                <div>
+                    Barcode: <span property="serialNumber">CONC91000937</span>
+                </div>
+                <div>
+                    Call number: <span property="sku">780 R2</span>
+                </div>
+                <div>
+                    Library: <span property="offeredBy" typeof="Library" resource="http://library.anytown.gov.uk">Anytown City Library</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context":  "http://schema.org/",
-  "@graph": [
-    {
-      "@id": "#record",
-        "@type": "Book",
-      "additionalType": "Product",
-      "name": "Le concerto",
-      "author": "Ferchault, Guy"
-    },
-    {
+  "@context":  "https://schema.org/",
+  "@id": "#record",
+  "@type": "Book",
+  "additionalType": "Product",
+  "name": "Le concerto",
+  "author": "Ferchault, Guy",
+  "offers":{
       "@type": "Offer",
-      "availability": "http://schema.org/InStock",
+      "availability": "https://schema.org/InStock",
       "serialNumber": "CONC91000937",
       "sku": "780 R2",
       "offeredBy": {
@@ -110,13 +136,13 @@ JSON:
       "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
       "itemOffered": "#record"
     }
-]
 }
 </script>
 
-TYPES: #offer-2 Offer, makesOffer
+TYPES: #eg-0394 Offer, makesOffer
 
 PRE-MARKUP:
+
 <body>
   <main>
     <article>
@@ -147,11 +173,11 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<!— No Microdata example yet —>
+No Microdata
 
 RDFA:
 
-<body vocab="http://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
+<body vocab="https://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
   <link property="copyrightHolder publisher" href="#Organization" />
   <main>
     <article resource="#Product" property="mainEntity" typeof="Product">
@@ -190,9 +216,10 @@ RDFA:
 </body>
 
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@id":"http://example.com/explosive-tennis-balls",
   "@type":"ItemPage",
   "copyrightYear":"2015",
@@ -210,7 +237,7 @@ JSON:
       "@type":"Offer",
       "priceCurrency":"USD",
       "price":"1000.00",
-      "availability":"http://schema.org/InStock",
+      "availability":"https://schema.org/InStock",
       "itemOffered":{"@id":"#Product"},
         "offeredBy":{
           "@id":"#Organization",
@@ -225,9 +252,10 @@ JSON:
 }
 </script>
 
-TYPES: #offeredBy-1 offeredBy, Book
+TYPES: #eg-0395 offeredBy, Book
 
 PRE-MARKUP:
+
 <!-- A Library Example with Holdings -->
 <body>
 <h1>In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
@@ -257,12 +285,15 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype='http://schema.org/Movie Product' itemid="#schemarecord">
-<link itemprop="additionalType" href="http://schema.org/Product"/>
+<body itemscope itemtype='https://schema.org/Movie'>
+<link itemprop="url" href="#schemarecord"/>
+<link itemprop="additionalType" href="https://schema.org/Product"/>
 <h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
-	<li><strong>Publisher:</strong> <span itemprop="publisher" itemtype="Organization"><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span></li>
+	<li><div itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><strong>Publisher:</strong> <span ><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span>
+</div>
+<span itemprop="datePublished" content="2011-01-01">[2011]</span></li>
 </ul>
 <table>
 		<tr><td>Subject:</td>
@@ -273,15 +304,15 @@ MICRODATA:
 		</tr>
 </table>
 <table>
-    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
-	<tr itemprop="offers" itemtype="Offer">
-		<td><a itemprop="offeredBy" itemtype="Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th></tr>
+	<tr itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+		<td><a itemprop="offeredBy" itemscope itemtype="https://schema.org/Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
 		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
 		<td itemprop="serialNumber">30007008812793</td>
 		<td itemprop="availableAtOrFrom">Circulation</td>
 		<td>&nbsp;<link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
 			<meta itemprop="price" content="0.00">
-			<link itemprop="availability" href="http://schema.org/InStock">
+			<link itemprop="availability" href="https://schema.org/InStock">
 		</td>
 	</tr>
 </table>
@@ -289,11 +320,11 @@ MICRODATA:
 
 RDFA:
 
-<body vocab="http://schema.org" typeof='Movie Product' resource="#schemarecord">
+<body vocab="https://schema.org" typeof='Movie Product' resource="#schemarecord">
 <h1 property="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
-	<li><strong>Publisher:</strong> <span property="publisher" typeof="Organization"><span property="location">[Brighton, UK] :</span> <span property="name">Seventh Art Productions,</span></span> <span property="datePublished">[2011]</span></li>
+	<li><strong>Publisher:</strong> <span property="publisher" typeof="Organization"><span property="location">[Brighton, UK] :</span> <span property="name">Seventh Art Productions,</span></span> <span property="datePublished" content="2011-01-01">[2011]</span></li>
 </ul>
 <table>
 		<tr><td>Subject:</td>
@@ -312,7 +343,7 @@ RDFA:
 		<td property="availableAtOrFrom">Circulation</td>
 		<td>&nbsp;<link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
 			<meta property="price" content="0.00">
-			<link property="availability" href="http://schema.org/InStock">
+			<link property="availability" href="https://schema.org/InStock">
 		</td>
 	</tr>
 </table>
@@ -322,7 +353,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-"@context":"http://schema.org",
+"@context":"https://schema.org",
 "@graph": [
   {
     "@id": "https://laurentian.concat.ca/eg/opac/library/MRC",
@@ -331,18 +362,17 @@ JSON:
   },
   {
     "@id": "https://laurentian.concat.ca/eg/opac/record/2845929#schemarecord",
-    "@type": "Movie",
-    "additionalType": "Product",
+    "@type": ["Movie","Product"],
     "about": [
         "Composers > Austria > Biography.",
         "Haydn, Joseph, 1732-1809.",
         "Documentary films."
     ],
-    "datePublished": "[2011]",
+    "datePublished": "2011-01-01",
     "name": "In search of Haydn [videorecording] / Phil Grabsky Films.com & Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.",
     "offers": {
       "@type": "Offer",
-      "availability": "http://schema.org/InStock",
+      "availability": "https://schema.org/InStock",
       "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
       "availableAtOrFrom": "Circulation",
       "price": "0.00",
@@ -362,70 +392,83 @@ JSON:
 }
 </script>
 
-TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
+TYPES: #eg-0396 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
 
 PRE-MARKUP:
 
 ACME Home Cleaning offers a variety of services in Massachusetts, including:
 <ul>
-  <li>Apartment light cleaning</li>
-  <li>House light cleaning up to 2 bedrooms</li>
-  <li>House light cleaning 3+ bedrooms</li>
-  <li>Window washing</li>
-  <li>Carpet deep cleaning</li>
-  <li>Move in/out cleaning</li>
+  <li>House cleaning</li>
+  <ul>
+    <li>Apartment light cleaning</li>
+    <li>House light cleaning up to 2 bedrooms</li>
+    <li>House light cleaning 3+ bedrooms</li>
+  </ul>
+  <li>One-time services</li>
+  <ul>
+    <li>Window washing</li>
+    <li>Carpet deep cleaning</li>
+    <li>Move in/out cleaning</li>
+  </ul>
 </ul>
-
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Service">
+<div itemscope itemtype="https://schema.org/Service">
   <meta itemprop="serviceType" content="Home cleaning" />
-  <span itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+  <span itemprop="provider" itemscope itemtype="https://schema.org/LocalBusiness">
     <span itemprop="name">ACME Home Cleaning</span>
   </span>
   offers a variety of services in
-  <span itemprop="areaServed" itemscope itemtype="http://schema.org/State">
+  <span itemprop="areaServed" itemscope itemtype="https://schema.org/State">
     <span itemprop="name">Massachusetts</span>, including
   </span>
-  <ul itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">Apartment light cleaning</span>
-      </div>
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">House light cleaning up to 2 bedrooms</span>
-      </div>
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">House light cleaning 3+ bedrooms</span>
-      </div>
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">Window washing</span>
-      </div>
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">Carpet deep cleaning</span>
-      </div>
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
-        <span itemprop="name">Move in/out cleaning</span>
-      </div>
+  <ul itemprop="hasOfferCatalog" itemscope itemtype="https://schema.org/OfferCatalog">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+      <span itemprop="name">House cleaning</span>
+      <ul itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">Apartment light cleaning</span>
+          </div>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">House light cleaning up to 2 bedrooms</span>
+          </div>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">House light cleaning 3+ bedrooms</span>
+          </div>
+        </li>
+      </ul>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+      <span itemprop="name">One-time services</span>
+      <ul itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">Window washing</span>
+          </div>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">Carpet deep cleaning</span>
+          </div>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
+            <span itemprop="name">Move in/out cleaning</span>
+          </div>
+        </li>
+      </ul>
     </li>
   </ul>
 </div>
 
-
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Service">
+<div vocab="https://schema.org/" typeof="Service">
   <meta property="serviceType" content="Home cleaning" />
   <span property="provider" typeof="LocalBusiness">
     <span property="name">ACME Home Cleaning</span>
@@ -435,35 +478,44 @@ RDFA:
     <span property="name">Massachusetts</span>, including
   </span>
   <ul property="hasOfferCatalog" typeof="OfferCatalog">
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">Apartment light cleaning</span>
-      </div>
-    </li>
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">House light cleaning up to 2 bedrooms</span>
-      </div>
-    </li>
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">House light cleaning 3+ bedrooms</span>
-      </div>
-    </li>
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">Window washing</span>
-      </div>
-    </li>
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">Carpet deep cleaning</span>
-      </div>
-    </li>
-    <li property="itemListElement" typeof="Offer">
-      <div property="itemOffered" typeof="Service">
-        <span property="name">Move in/out cleaning</span>
-      </div>
+    <li property="itemListElement" typeof="OfferCatalog">
+      <span property="name">House cleaning</span>
+      <ul property="itemListElement" typeof="OfferCatalog">
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">Apartment light cleaning</span>
+          </div>
+        </li>
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">House light cleaning up to 2 bedrooms</span>
+          </div>
+        </li>
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">House light cleaning 3+ bedrooms</span>
+          </div>
+        </li>
+      </ul>
+    <li property="itemListElement" typeof="OfferCatalog">
+      <span property="name">One-time services</span>
+      <ul property="itemListElement" typeof="OfferCatalog">
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">Window washing</span>
+          </div>
+        </li>
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">Carpet deep cleaning</span>
+          </div>
+        </li>
+        <li property="itemListElement" typeof="Offer">
+          <div property="itemOffered" typeof="Service">
+            <span property="name">Move in/out cleaning</span>
+          </div>
+        </li>
+      </ul>
     </li>
   </ul>
 </div>
@@ -472,9 +524,9 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Service",
-  "serviceType": "Home cleaning",
+  "serviceType": "Weekly home cleaning",
   "provider": {
     "@type": "LocalBusiness",
     "name": "ACME Home Cleaning"
@@ -485,56 +537,68 @@ JSON:
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
+    "name": "Cleaning services",
     "itemListElement": [
       {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Apartment light cleaning"
-        }
+        "@type": "OfferCatalog",
+        "name": "House Cleaning",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Apartment light cleaning"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "House light cleaning up to 2 bedrooms"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "House light cleaning 3+ bedrooms"
+            }
+          }
+        ]
       },
       {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "House light cleaning up to 2 bedrooms"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "House light cleaning 3+ bedrooms"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Window washing"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Carpet cleaning"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Move in/out cleaning"
-        }
+        "@type": "OfferCatalog",
+        "name": "One-time services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Window washing"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Carpet cleaning"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Move in/out cleaning"
+            }
+          }
+        ]
       }
     ]
   }
 }
-
 </script>
 
-TYPES: #offer-4 Offer, FoodEstablishment, GeoCircle, DeliveryChargeSpecification, PriceSpecification
+TYPES: #eg-0397 Offer, FoodEstablishment, GeoCircle, DeliveryChargeSpecification, PriceSpecification
 
 PRE-MARKUP:
 
@@ -543,33 +607,32 @@ Joes' Pizza
 Cambridge, MA 02142
 delivers within 5 km of its store with a minimum order of $20.
 
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/FoodEstablishment">
+<div itemscope itemtype="https://schema.org/FoodEstablishment">
   <span itemprop="name">Joe's Pizza</span>
-  <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+  <div itemprop="location" itemscope itemtype="https://schema.org/PostalAddress">
     <span itemprop="streetAddress">123 Main Street</span>
     <span itemprop="addressLocality">Cambridge</span>
     <span itemprop="addressRegion">MA</span>
     <span itemprop="postalCode">02142</span>
   </div>
   delivers within 5 km of its store
-  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer">
-    <div itemprop="availableAtOrFrom" itemscope itemtype="http://schema.org/GeoCircle">
-      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+  <div itemprop="makesOffer" itemscope itemtype="https://schema.org/Offer">
+    <div itemprop="eligibleRegion" itemscope itemtype="https://schema.org/GeoCircle">
+      <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
         <meta itemprop="streetAddress" content="123 Main Street" />
         <meta itemprop="addressLocality" content="Cambridge" />
         <meta itemprop="addressRegion" content="MA" />
-        <meta itemprop="postalCode" cotent="02142" />
+        <meta itemprop="postalCode" content="02142" />
       </div>
       <meta itemprop="geoRadius" content="5000" />
     </div>
 
     with a minium order of $20.
-    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/DeliveryChargeSpecification">
+    <div itemprop="priceSpecification" itemscope itemtype="https://schema.org/DeliveryChargeSpecification">
       <meta itemprop="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
-      <div itemprop="eligibleTransactionVolume" itemscope itemtype="http://schema.org/PriceSpecification">
+      <div itemprop="eligibleTransactionVolume" itemscope itemtype="https://schema.org/PriceSpecification">
         <meta itemprop="price" content="20.00" />
         <meta itemprop="priceCurrency" content="USD" />
       </div>
@@ -579,7 +642,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="FoodEstablishment">
+<div vocab="https://schema.org/" typeof="FoodEstablishment">
   <span property="name">Joe's Pizza</span>
   <div property="location" typeof="PostalAddress">
     <span property="streetAddress">123 Main Street</span>
@@ -600,7 +663,7 @@ RDFA:
           <meta property="streetAddress" content="123 Main Street" />
           <meta property="addressLocality" content="Cambridge" />
           <meta property="addressRegion" content="MA" />
-          <meta property="postalCode" cotent="02142" />
+          <meta property="postalCode" content="02142" />
         </div>
         <meta property="geoRadius" content="5000" />
       </div>
@@ -609,9 +672,10 @@ RDFA:
 </div>
 
 JSON:
+
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "FoodEstablishment",
     "name": "Joe's Pizza",
     "location": {
@@ -643,3 +707,4 @@ JSON:
     }
   }
 </script>
+

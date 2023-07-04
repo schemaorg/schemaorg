@@ -1,0 +1,81 @@
+TYPES: #eg-0237 speakable, cssSelector, SpeakableSpecification
+
+PRE-MARKUP:
+
+An example of 'speakable' markup (JSON-LD only, initially).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+{
+"@context": "https://schema.org/",
+"@type": "WebPage",
+"name": "Jane Doe's homepage",
+"speakable":
+{
+"@type": "SpeakableSpecification",
+"cssSelector": ["headline", "summary"]
+},
+"url": "http://www.janedoe.com"
+}
+
+TYPES: #eg-0474 speakable
+
+PRE-MARKUP:
+
+An example of 'speakable' markup (JSON-LD only, initially).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+{
+  "@context": "https://schema.org/",
+  "@type": "WebPage",
+  "name": "Jane Doe's homepage",
+  "speakable": [ "#myhead1", "#thesummary"],
+  "url": "http://www.janedoe.com"
+}
+
+TYPES: #eg-0238 speakable, cssSelector, SpeakableSpecification
+
+PRE-MARKUP:
+
+An example of speakable markup in Microdata in HTML head section.
+
+MICRODATA:
+
+<!DOCTYPE html>
+<html>
+<head rel="home" href="/" itemid=""  itemscope itemtype="https://schema.org/SpeakableSpecification">
+<title>Example showing complex structures in HTML head</title>
+<meta itemprop="cssSelector" content=".title" />
+<meta itemprop="xpath" content="/html/body/h3" />
+</head>
+<body>
+<h1 class="title">Complex Microdata in HTML head</h1>
+<p>...</p>
+</body>
+</html>
+
+RDFA:
+
+This example is in microdata only
+
+JSON:
+
+This example is in microdata only
+

@@ -1,0 +1,90 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CategoryCode a rdfs:Class ;
+    rdfs:label "CategoryCode" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A Category Code." ;
+    rdfs:subClassOf :DefinedTerm .
+
+:CategoryCodeSet a rdfs:Class ;
+    rdfs:label "CategoryCodeSet" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A set of Category Code values." ;
+    rdfs:subClassOf :DefinedTermSet .
+
+:DefinedTerm a rdfs:Class ;
+    rdfs:label "DefinedTerm" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term." ;
+    rdfs:subClassOf :Intangible .
+
+:DefinedTermSet a rdfs:Class ;
+    rdfs:label "DefinedTermSet" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A set of defined terms, for example a set of categories or a classification scheme, a glossary, dictionary or enumeration." ;
+    rdfs:subClassOf :CreativeWork .
+
+:codeValue a rdf:Property ;
+    rdfs:label "codeValue" ;
+    :domainIncludes :CategoryCode ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A short textual code that uniquely identifies the value." ;
+    rdfs:subPropertyOf :termCode .
+
+:hasCategoryCode a rdf:Property ;
+    rdfs:label "hasCategoryCode" ;
+    :domainIncludes :CategoryCodeSet ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :CategoryCode ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A Category code contained in this code set." ;
+    rdfs:subPropertyOf :hasDefinedTerm .
+
+:inCodeSet a rdf:Property ;
+    rdfs:label "inCodeSet" ;
+    :domainIncludes :CategoryCode ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :CategoryCodeSet,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A [[CategoryCodeSet]] that contains this category code." ;
+    rdfs:subPropertyOf :inDefinedTermSet .
+
+:hasDefinedTerm a rdf:Property ;
+    rdfs:label "hasDefinedTerm" ;
+    :domainIncludes :DefinedTermSet ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A Defined Term contained in this term set." .
+
+:inDefinedTermSet a rdf:Property ;
+    rdfs:label "inDefinedTermSet" ;
+    :domainIncludes :DefinedTerm ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTermSet,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A [[DefinedTermSet]] that contains this term." ;
+    rdfs:subPropertyOf :isPartOf .
+
+:termCode a rdf:Property ;
+    rdfs:label "termCode" ;
+    :domainIncludes :DefinedTerm ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    rdfs:comment "A code that identifies this [[DefinedTerm]] within a [[DefinedTermSet]]" .
+
+:category a rdf:Property ;
+    :rangeIncludes :CategoryCode .

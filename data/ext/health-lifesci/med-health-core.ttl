@@ -1,0 +1,2360 @@
+@prefix : <https://schema.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AnatomicalStructure a rdfs:Class ;
+    rdfs:label "AnatomicalStructure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any part of the human body, typically a component of an anatomical system. Organs, tissues, and cells are all anatomical structures." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:AnatomicalSystem a rdfs:Class ;
+    rdfs:label "AnatomicalSystem" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An anatomical system is a group of anatomical structures that work together to perform a certain task. Anatomical systems, such as organ systems, are one organizing principle of anatomy, and can include circulatory, digestive, endocrine, integumentary, immune, lymphatic, muscular, nervous, reproductive, respiratory, skeletal, urinary, vestibular, and other systems." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:ApprovedIndication a rdfs:Class ;
+    rdfs:label "ApprovedIndication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An indication for a medical therapy that has been formally specified or approved by a regulatory body that regulates use of the therapy; for example, the US FDA approves indications for most drugs in the US." ;
+    rdfs:subClassOf :MedicalIndication .
+
+:Artery a rdfs:Class ;
+    rdfs:label "Artery" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of blood vessel that specifically carries blood away from the heart." ;
+    rdfs:subClassOf :Vessel ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/51114001> .
+
+:BloodTest a rdfs:Class ;
+    rdfs:label "BloodTest" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical test performed on a sample of a patient's blood." ;
+    rdfs:subClassOf :MedicalTest .
+
+:Bone a rdfs:Class ;
+    rdfs:label "Bone" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Rigid connective tissue that comprises up the skeletal structure of the human body." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:BrainStructure a rdfs:Class ;
+    rdfs:label "BrainStructure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any anatomical structure which pertains to the soft nervous tissue functioning as the coordinating center of sensation and intellectual and nervous activity." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:DDxElement a rdfs:Class ;
+    rdfs:label "DDxElement" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An alternative, closely-related condition typically considered later in the differential diagnosis process along with the signs that are used to distinguish it." ;
+    rdfs:subClassOf :MedicalIntangible .
+
+:Dentist a rdfs:Class ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:DiagnosticLab a rdfs:Class ;
+    rdfs:label "DiagnosticLab" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical laboratory that offers on-site or off-site diagnostic services." ;
+    rdfs:subClassOf :MedicalOrganization .
+
+:DiagnosticProcedure a rdfs:Class ;
+    rdfs:label "DiagnosticProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical procedure intended primarily for diagnostic, as opposed to therapeutic, purposes." ;
+    rdfs:subClassOf :MedicalProcedure .
+
+:Diet a rdfs:Class ;
+    rdfs:label "Diet" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A strategy of regulating the intake of food to achieve or maintain a specific health-related goal." ;
+    rdfs:subClassOf :CreativeWork,
+        :LifestyleModification .
+
+:DietarySupplement a rdfs:Class ;
+    rdfs:label "DietarySupplement" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A product taken by mouth that contains a dietary ingredient intended to supplement the diet. Dietary ingredients may include vitamins, minerals, herbs or other botanicals, amino acids, and substances such as enzymes, organ tissues, glandulars and metabolites." ;
+    rdfs:subClassOf :Substance, :Product .
+
+:DoseSchedule a rdfs:Class ;
+    rdfs:label "DoseSchedule" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific dosing schedule for a drug or supplement." ;
+    rdfs:subClassOf :MedicalIntangible .
+
+:Drug a rdfs:Class ;
+    rdfs:label "Drug" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge makes a clear difference between them." ;
+    rdfs:subClassOf :Substance, :Product ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/410942007> .
+
+:DrugClass a rdfs:Class ;
+    rdfs:label "DrugClass" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A class of medical drugs, e.g., statins. Classes can represent general pharmacological class, common mechanisms of action, common physiological effects, etc." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:DrugCost a rdfs:Class ;
+    rdfs:label "DrugCost" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The cost per unit of a medical drug. Note that this type is not meant to represent the price in an offer of a drug for sale; see the Offer type for that. This type will typically be used to tag wholesale or average retail cost of a drug, or maximum reimbursable cost. Costs of medical drugs vary widely depending on how and where they are paid for, so while this type captures some of the variables, costs should be used with caution by consumers of this schema's markup." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:DrugCostCategory a rdfs:Class ;
+    rdfs:label "DrugCostCategory" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Enumerated categories of medical drug costs." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:DrugLegalStatus a rdfs:Class ;
+    rdfs:label "DrugLegalStatus" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The legal availability status of a medical drug." ;
+    rdfs:subClassOf :MedicalIntangible .
+
+:DrugPregnancyCategory a rdfs:Class ;
+    rdfs:label "DrugPregnancyCategory" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Categories that represent an assessment of the risk of fetal injury due to a drug or pharmaceutical used as directed by the mother during pregnancy." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:DrugPrescriptionStatus a rdfs:Class ;
+    rdfs:label "DrugPrescriptionStatus" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Indicates whether this drug is available by prescription or over-the-counter." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:DrugStrength a rdfs:Class ;
+    rdfs:label "DrugStrength" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific strength in which a medical drug is available in a specific country." ;
+    rdfs:subClassOf :MedicalIntangible .
+
+:ImagingTest a rdfs:Class ;
+    rdfs:label "ImagingTest" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any medical imaging modality typically used for diagnostic purposes." ;
+    rdfs:subClassOf :MedicalTest .
+
+:InfectiousAgentClass a rdfs:Class ;
+    rdfs:label "InfectiousAgentClass" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Classes of agents or pathogens that transmit infectious diseases. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:InfectiousDisease a rdfs:Class ;
+    rdfs:label "InfectiousDisease" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An infectious disease is a clinically evident human disease resulting from the presence of pathogenic microbial agents, like pathogenic viruses, pathogenic bacteria, fungi, protozoa, multicellular parasites, and prions. To be considered an infectious disease, such pathogens are known to be able to cause this disease." ;
+    rdfs:subClassOf :MedicalCondition .
+
+:Joint a rdfs:Class ;
+    rdfs:label "Joint" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The anatomical location at which two or more bones make contact." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:LifestyleModification a rdfs:Class ;
+    rdfs:label "LifestyleModification" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A process of care involving exercise, changes to diet, fitness routines, and other lifestyle changes aimed at improving a health condition." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:Ligament a rdfs:Class ;
+    rdfs:label "Ligament" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A short band of tough, flexible, fibrous connective tissue that functions to connect multiple bones, cartilages, and structurally support joints." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:LymphaticVessel a rdfs:Class ;
+    rdfs:label "LymphaticVessel" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of blood vessel that specifically carries lymph fluid unidirectionally toward the heart." ;
+    rdfs:subClassOf :Vessel .
+
+:MaximumDoseSchedule a rdfs:Class ;
+    rdfs:label "MaximumDoseSchedule" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The maximum dosing schedule considered safe for a drug or supplement as recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity." ;
+    rdfs:subClassOf :DoseSchedule .
+
+:MedicalAudience a rdfs:Class ;
+    rdfs:label "MedicalAudience" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Target audiences for medical web pages." ;
+    rdfs:subClassOf :Audience,
+        :PeopleAudience .
+
+:MedicalAudienceType a rdfs:Class ;
+    rdfs:label "MedicalAudienceType" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Target audiences types for medical web pages. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalBusiness a rdfs:Class ;
+    rdfs:label "MedicalBusiness" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A particular physical or virtual business of an organization for medical purposes. Examples of MedicalBusiness include different businesses run by health professionals." ;
+    rdfs:subClassOf :LocalBusiness .
+
+:MedicalCause a rdfs:Class ;
+    rdfs:label "MedicalCause" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The causative agent(s) that are responsible for the pathophysiologic process that eventually results in a medical condition, symptom or sign. In this schema, unless otherwise specified this is meant to be the proximate cause of the medical condition, symptom or sign. The proximate cause is defined as the causative agent that most directly results in the medical condition, symptom or sign. For example, the HIV virus could be considered a cause of AIDS. Or in a diagnostic context, if a patient fell and sustained a hip fracture and two days later sustained a pulmonary embolism which eventuated in a cardiac arrest, the cause of the cardiac arrest (the proximate cause) would be the pulmonary embolism and not the fall. Medical causes can include cardiovascular, chemical, dermatologic, endocrine, environmental, gastroenterologic, genetic, hematologic, gynecologic, iatrogenic, infectious, musculoskeletal, neurologic, nutritional, obstetric, oncologic, otolaryngologic, pharmacologic, psychiatric, pulmonary, renal, rheumatologic, toxic, traumatic, or urologic causes; medical conditions can be causes as well." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalClinic a rdfs:Class ;
+    rdfs:label "MedicalClinic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A facility, often associated with a hospital or medical school, that is devoted to the specific diagnosis and/or healthcare. Previously limited to outpatients but with evolution it may be open to inpatients as well." ;
+    rdfs:subClassOf :MedicalBusiness,
+        :MedicalOrganization .
+
+:MedicalCode a rdfs:Class ;
+    rdfs:label "MedicalCode" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A code for a medical entity." ;
+    rdfs:subClassOf :CategoryCode,
+        :MedicalIntangible .
+
+:MedicalCondition a rdfs:Class ;
+    rdfs:label "MedicalCondition" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any condition of the human body that affects the normal functioning of a person, whether physically or mentally. Includes diseases, injuries, disabilities, disorders, syndromes, etc." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalConditionStage a rdfs:Class ;
+    rdfs:label "MedicalConditionStage" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A stage of a medical condition, such as 'Stage IIIa'." ;
+    rdfs:subClassOf :MedicalIntangible .
+
+:MedicalContraindication a rdfs:Class ;
+    rdfs:label "MedicalContraindication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A condition or factor that serves as a reason to withhold a certain medical therapy. Contraindications can be absolute (there are no reasonable circumstances for undertaking a course of action) or relative (the patient is at higher risk of complications, but these risks may be outweighed by other considerations or mitigated by other measures)." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalDevice a rdfs:Class ;
+    rdfs:label "MedicalDevice" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any object used in a medical capacity, such as to diagnose or treat a patient." ;
+    rdfs:subClassOf :MedicalEntity ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/63653004> .
+
+:MedicalDevicePurpose a rdfs:Class ;
+    rdfs:label "MedicalDevicePurpose" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Categories of medical devices, organized by the purpose or intended use of the device." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalEntity a rdfs:Class ;
+    rdfs:label "MedicalEntity" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The most generic type of entity related to health and the practice of medicine." ;
+    rdfs:subClassOf :Thing .
+
+:MedicalEnumeration a rdfs:Class ;
+    rdfs:label "MedicalEnumeration" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Enumerations related to health and the practice of medicine: A concept that is used to attribute a quality to another concept, as a qualifier, a collection of items or a listing of all of the elements of a set in medicine practice." ;
+    rdfs:subClassOf :Enumeration .
+
+:MedicalEvidenceLevel a rdfs:Class ;
+    rdfs:label "MedicalEvidenceLevel" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Level of evidence for a medical guideline. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalGuideline a rdfs:Class ;
+    rdfs:label "MedicalGuideline" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any recommendation made by a standard society (e.g. ACC/AHA) or consensus statement that denotes how to diagnose and treat a particular condition. Note: this type should be used to tag the actual guideline recommendation; if the guideline recommendation occurs in a larger scholarly article, use MedicalScholarlyArticle to tag the overall article, not this type. Note also: the organization making the recommendation should be captured in the recognizingAuthority base property of MedicalEntity." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalGuidelineContraindication a rdfs:Class ;
+    rdfs:label "MedicalGuidelineContraindication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A guideline contraindication that designates a process as harmful and where quality of the data supporting the contraindication is sound." ;
+    rdfs:subClassOf :MedicalGuideline .
+
+:MedicalGuidelineRecommendation a rdfs:Class ;
+    rdfs:label "MedicalGuidelineRecommendation" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A guideline recommendation that is regarded as efficacious and where quality of the data supporting the recommendation is sound." ;
+    rdfs:subClassOf :MedicalGuideline .
+
+:MedicalImagingTechnique a rdfs:Class ;
+    rdfs:label "MedicalImagingTechnique" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any medical imaging modality typically used for diagnostic purposes. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalIndication a rdfs:Class ;
+    rdfs:label "MedicalIndication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A condition or factor that indicates use of a medical therapy, including signs, symptoms, risk factors, anatomical states, etc." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalIntangible a rdfs:Class ;
+    rdfs:label "MedicalIntangible" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A utility class that serves as the umbrella for a number of 'intangible' things in the medical space." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalObservationalStudy a rdfs:Class ;
+    rdfs:label "MedicalObservationalStudy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An observational study is a type of medical study that attempts to infer the possible effect of a treatment through observation of a cohort of subjects over a period of time. In an observational study, the assignment of subjects into treatment groups versus control groups is outside the control of the investigator. This is in contrast with controlled studies, such as the randomized controlled trials represented by MedicalTrial, where each subject is randomly assigned to a treatment group or a control group before the start of the treatment." ;
+    rdfs:subClassOf :MedicalStudy .
+
+:MedicalObservationalStudyDesign a rdfs:Class ;
+    rdfs:label "MedicalObservationalStudyDesign" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Design models for observational medical studies. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalProcedure a rdfs:Class ;
+    rdfs:label "MedicalProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A process of care used in either a diagnostic, therapeutic, preventive or palliative capacity that relies on invasive (surgical), non-invasive, or other techniques." ;
+    rdfs:subClassOf :MedicalEntity ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/50731006> .
+
+:MedicalProcedureType a rdfs:Class ;
+    rdfs:label "MedicalProcedureType" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An enumeration that describes different types of medical procedures." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalRiskCalculator a rdfs:Class ;
+    rdfs:label "MedicalRiskCalculator" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A complex mathematical calculation requiring an online calculator, used to assess prognosis. Note: use the url property of Thing to record any URLs for online calculators." ;
+    rdfs:subClassOf :MedicalRiskEstimator .
+
+:MedicalRiskEstimator a rdfs:Class ;
+    rdfs:label "MedicalRiskEstimator" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any rule set or interactive tool for estimating the risk of developing a complication or condition." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalRiskFactor a rdfs:Class ;
+    rdfs:label "MedicalRiskFactor" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A risk factor is anything that increases a person's likelihood of developing or contracting a disease, medical condition, or complication." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalRiskScore a rdfs:Class ;
+    rdfs:label "MedicalRiskScore" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A simple system that adds up the number of risk factors to yield a score that is associated with prognosis, e.g. CHAD score, TIMI risk score." ;
+    rdfs:subClassOf :MedicalRiskEstimator .
+
+:MedicalScholarlyArticle a rdfs:Class ;
+    rdfs:label "MedicalScholarlyArticle" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A scholarly article in the medical domain." ;
+    rdfs:subClassOf :ScholarlyArticle .
+
+:MedicalSign a rdfs:Class ;
+    rdfs:label "MedicalSign" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any physical manifestation of a person's medical condition discoverable by objective diagnostic tests or physical examination." ;
+    rdfs:subClassOf :MedicalSignOrSymptom .
+
+:MedicalSignOrSymptom a rdfs:Class ;
+    rdfs:label "MedicalSignOrSymptom" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any feature associated or not with a medical condition. In medicine a symptom is generally subjective while a sign is objective." ;
+    rdfs:subClassOf :MedicalCondition .
+
+:MedicalSpecialty a rdfs:Class ;
+    rdfs:label "MedicalSpecialty" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any specific branch of medical science or practice. Medical specialities include clinical specialties that pertain to particular organ systems and their respective disease states, as well as allied health specialties. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration,
+        :Specialty .
+
+:MedicalStudy a rdfs:Class ;
+    rdfs:label "MedicalStudy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical study is an umbrella type covering all kinds of research studies relating to human medicine or health, including observational studies and interventional trials and registries, randomized, controlled or not. When the specific type of study is known, use one of the extensions of this type, such as MedicalTrial or MedicalObservationalStudy. Also, note that this type should be used to mark up data that describes the study itself; to tag an article that publishes the results of a study, use MedicalScholarlyArticle. Note: use the code property of MedicalEntity to store study IDs, e.g. clinicaltrials.gov ID." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalStudyStatus a rdfs:Class ;
+    rdfs:label "MedicalStudyStatus" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The status of a medical study. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalSymptom a rdfs:Class ;
+    rdfs:label "MedicalSymptom" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any complaint sensed and expressed by the patient (therefore defined as subjective)  like stomachache, lower-back pain, or fatigue." ;
+    rdfs:subClassOf :MedicalSignOrSymptom .
+
+:MedicalTest a rdfs:Class ;
+    rdfs:label "MedicalTest" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any medical test, typically performed for diagnostic purposes." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:MedicalTestPanel a rdfs:Class ;
+    rdfs:label "MedicalTestPanel" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any collection of tests commonly ordered together." ;
+    rdfs:subClassOf :MedicalTest .
+
+:MedicalTherapy a rdfs:Class ;
+    rdfs:label "MedicalTherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any medical intervention designed to prevent, treat, and cure human diseases and medical conditions, including both curative and palliative therapies. Medical therapies are typically processes of care relying upon pharmacotherapy, behavioral therapy, supportive therapy (with fluid or nutrition for example), or detoxification (e.g. hemodialysis) aimed at improving or preventing a health condition." ;
+    rdfs:subClassOf :TherapeuticProcedure .
+
+:MedicalTrial a rdfs:Class ;
+    rdfs:label "MedicalTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical trial is a type of medical study that uses a scientific process to compare the safety and efficacy of medical therapies or medical procedures. In general, medical trials are controlled and subjects are allocated at random to the different treatment and/or control groups." ;
+    rdfs:subClassOf :MedicalStudy .
+
+:MedicalTrialDesign a rdfs:Class ;
+    rdfs:label "MedicalTrialDesign" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :contributor <https://schema.org/docs/collab/WikiDoc> ;
+    rdfs:comment "Design models for medical trials. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:MedicalWebPage a rdfs:Class ;
+    rdfs:label "MedicalWebPage" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A web page that provides medical information." ;
+    rdfs:subClassOf :WebPage .
+
+:MedicineSystem a rdfs:Class ;
+    rdfs:label "MedicineSystem" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Systems of medical practice." ;
+    rdfs:subClassOf :MedicalEnumeration .
+
+:Muscle a rdfs:Class ;
+    rdfs:label "Muscle" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A muscle is an anatomical structure consisting of a contractile form of tissue that animals use to effect movement." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:Nerve a rdfs:Class ;
+    rdfs:label "Nerve" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A common pathway for the electrochemical nerve impulses that are transmitted along each of the axons." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:OccupationalTherapy a rdfs:Class ;
+    rdfs:label "OccupationalTherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems." ;
+    rdfs:subClassOf :MedicalTherapy .
+
+:Optician a rdfs:Class ;
+    rdfs:label "Optician" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A store that sells reading glasses and similar devices for improving vision." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PalliativeProcedure a rdfs:Class ;
+    rdfs:label "PalliativeProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical procedure intended primarily for palliative purposes, aimed at relieving the symptoms of an underlying health condition." ;
+    rdfs:subClassOf :MedicalProcedure,
+        :MedicalTherapy .
+
+:PathologyTest a rdfs:Class ;
+    rdfs:label "PathologyTest" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical test performed by a laboratory that typically involves examination of a tissue sample by a pathologist." ;
+    rdfs:subClassOf :MedicalTest .
+
+:Patient a rdfs:Class ;
+    rdfs:label "Patient" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A patient is any person recipient of health care services." ;
+    rdfs:subClassOf :MedicalAudience,
+        :Person ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/116154003> .
+
+:Pharmacy a rdfs:Class ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PhysicalExam a rdfs:Class ;
+    rdfs:label "PhysicalExam" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of physical examination of a patient performed by a physician. " ;
+    rdfs:subClassOf :MedicalEnumeration,
+        :MedicalProcedure .
+
+:PhysicalTherapy a rdfs:Class ;
+    rdfs:label "PhysicalTherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A process of progressive physical care and rehabilitation aimed at improving a health condition." ;
+    rdfs:subClassOf :MedicalTherapy .
+
+:Physician a rdfs:Class ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PreventionIndication a rdfs:Class ;
+    rdfs:label "PreventionIndication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An indication for preventing an underlying condition, symptom, etc." ;
+    rdfs:subClassOf :MedicalIndication .
+
+:PsychologicalTreatment a rdfs:Class ;
+    rdfs:label "PsychologicalTreatment" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A process of care relying upon counseling, dialogue and communication  aimed at improving a mental health condition without use of drugs." ;
+    rdfs:subClassOf :TherapeuticProcedure .
+
+:RadiationTherapy a rdfs:Class ;
+    rdfs:label "RadiationTherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A process of care using radiation aimed at improving a health condition." ;
+    rdfs:subClassOf :MedicalTherapy .
+
+:RecommendedDoseSchedule a rdfs:Class ;
+    rdfs:label "RecommendedDoseSchedule" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A recommended dosing schedule for a drug or supplement as prescribed or recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity." ;
+    rdfs:subClassOf :DoseSchedule .
+
+:ReportedDoseSchedule a rdfs:Class ;
+    rdfs:label "ReportedDoseSchedule" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A patient-reported or observed dosing schedule for a drug or supplement." ;
+    rdfs:subClassOf :DoseSchedule .
+
+:Substance a rdfs:Class ;
+    rdfs:label "Substance" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Any matter of defined composition that has discrete existence, whose origin may be biological, mineral or chemical." ;
+    rdfs:subClassOf :MedicalEntity ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/105590001> .
+
+:SuperficialAnatomy a rdfs:Class ;
+    rdfs:label "SuperficialAnatomy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Anatomical features that can be observed by sight (without dissection), including the form and proportions of the human body as well as surface landmarks that correspond to deeper subcutaneous structures. Superficial anatomy plays an important role in sports medicine, phlebotomy, and other medical specialties as underlying anatomical structures can be identified through surface palpation. For example, during back surgery, superficial anatomy can be used to palpate and count vertebrae to find the site of incision. Or in phlebotomy, superficial anatomy can be used to locate an underlying vein; for example, the median cubital vein can be located by palpating the borders of the cubital fossa (such as the epicondyles of the humerus) and then looking for the superficial signs of the vein, such as size, prominence, ability to refill after depression, and feel of surrounding tissue support. As another example, in a subluxation (dislocation) of the glenohumeral joint, the bony structure becomes pronounced with the deltoid muscle failing to cover the glenohumeral joint allowing the edges of the scapula to be superficially visible. Here, the superficial anatomy is the visible edges of the scapula, implying the underlying dislocation of the joint (the related anatomical structure)." ;
+    rdfs:subClassOf :MedicalEntity .
+
+:SurgicalProcedure a rdfs:Class ;
+    rdfs:label "SurgicalProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
+    rdfs:subClassOf :MedicalProcedure ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
+
+:TherapeuticProcedure a rdfs:Class ;
+    rdfs:label "TherapeuticProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition." ;
+    rdfs:subClassOf :MedicalProcedure ;
+    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/277132007> .
+
+:TreatmentIndication a rdfs:Class ;
+    rdfs:label "TreatmentIndication" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An indication for treating an underlying condition, symptom, etc." ;
+    rdfs:subClassOf :MedicalIndication .
+
+:Vein a rdfs:Class ;
+    rdfs:label "Vein" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of blood vessel that specifically carries blood to the heart." ;
+    rdfs:subClassOf :Vessel .
+
+:Vessel a rdfs:Class ;
+    rdfs:label "Vessel" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A component of the human body circulatory system comprised of an intricate network of hollow tubes that transport blood throughout the entire body." ;
+    rdfs:subClassOf :AnatomicalStructure .
+
+:VeterinaryCare a rdfs:Class ;
+    rdfs:label "VeterinaryCare" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A vet's office." ;
+    rdfs:subClassOf :MedicalOrganization .
+
+:VitalSign a rdfs:Class ;
+    rdfs:label "VitalSign" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Vital signs are measures of various physiological functions in order to assess the most basic body functions." ;
+    rdfs:subClassOf :MedicalSign .
+
+:Abdomen a :PhysicalExam ;
+    rdfs:label "Abdomen" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Abdomen clinical examination." .
+
+:ActiveNotRecruiting a :MedicalStudyStatus ;
+    rdfs:label "ActiveNotRecruiting" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Active, but not recruiting new participants." .
+
+:Anesthesia a :MedicalSpecialty ;
+    rdfs:label "Anesthesia" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to study of anesthetics and their application." .
+
+:Appearance a :PhysicalExam ;
+    rdfs:label "Appearance" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Appearance assessment with clinical examination." .
+
+:Ayurvedic a :MedicineSystem ;
+    rdfs:label "Ayurvedic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A system of medicine that originated in India over thousands of years and that focuses on integrating and balancing the body, mind, and spirit." .
+
+:Bacteria a :InfectiousAgentClass ;
+    rdfs:label "Bacteria" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Pathogenic bacteria that cause bacterial infection." .
+
+:CT a :MedicalImagingTechnique ;
+    rdfs:label "CT" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "X-ray computed tomography imaging." .
+
+:Cardiovascular a :MedicalSpecialty ;
+    rdfs:label "Cardiovascular" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of heart and vasculature." .
+
+:CardiovascularExam a :PhysicalExam ;
+    rdfs:label "CardiovascularExam" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Cardiovascular system assessment with clinical examination." .
+
+:CaseSeries a :MedicalObservationalStudyDesign ;
+    rdfs:label "CaseSeries" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A case series (also known as a clinical series) is a medical research study that tracks patients with a known exposure given similar treatment or examines their medical records for exposure and outcome. A case series can be retrospective or prospective and usually involves a smaller number of patients than the more powerful case-control studies or randomized controlled trials. Case series may be consecutive or non-consecutive, depending on whether all cases presenting to the reporting authors over a period of time were included, or only a selection." .
+
+:Chiropractic a :MedicineSystem ;
+    rdfs:label "Chiropractic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A system of medicine focused on the relationship between the body's structure, mainly the spine, and its functioning." .
+
+:Clinician a :MedicalAudienceType ;
+    rdfs:label "Clinician" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Medical clinicians, including practicing physicians and other medical professionals involved in clinical practice." .
+
+:CohortStudy a :MedicalObservationalStudyDesign ;
+    rdfs:label "CohortStudy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Also known as a panel study. A cohort study is a form of longitudinal study used in medicine and social science. It is one type of study design and should be compared with a cross-sectional study.  A cohort is a group of people who share a common characteristic or experience within a defined period (e.g., are born, leave school, lose their job, are exposed to a drug or a vaccine, etc.). The comparison group may be the general population from which the cohort is drawn, or it may be another cohort of persons thought to have had little or no exposure to the substance under investigation, but otherwise similar. Alternatively, subgroups within the cohort may be compared with each other." .
+
+:CommunityHealth a :MedicalSpecialty ;
+    rdfs:label "CommunityHealth" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A field of public health focusing on improving health characteristics of a defined population in relation with their geographical or environment areas." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Completed a :MedicalStudyStatus ;
+    rdfs:label "Completed" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Completed." .
+
+:CrossSectional a :MedicalObservationalStudyDesign ;
+    rdfs:label "CrossSectional" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Studies carried out on pre-existing data (usually from 'snapshot' surveys), such as that collected by the Census Bureau. Sometimes called Prevalence Studies." .
+
+:Dentistry a :MedicalSpecialty ;
+    rdfs:label "Dentistry" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A branch of medicine that is involved in the dental care." .
+
+:Dermatologic a :MedicalSpecialty ;
+    rdfs:label "Dermatologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :supersededBy :Dermatology ;
+    rdfs:comment "Something relating to or practicing dermatology." .
+
+:Diagnostic a :MedicalDevicePurpose ;
+    rdfs:label "Diagnostic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical device used for diagnostic purposes." .
+
+:DietNutrition a :MedicalSpecialty ;
+    rdfs:label "DietNutrition" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Dietetics and nutrition as a medical specialty." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:DoubleBlindedTrial a :MedicalTrialDesign ;
+    rdfs:label "DoubleBlindedTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial design in which neither the researcher nor the patient knows the details of the treatment the patient was randomly assigned to." .
+
+:Ear a :PhysicalExam ;
+    rdfs:label "Ear" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Ear function assessment with clinical examination." .
+
+:Emergency a :MedicalSpecialty ;
+    rdfs:label "Emergency" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that deals with the evaluation and initial treatment of medical conditions caused by trauma or sudden illness." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Endocrine a :MedicalSpecialty ;
+    rdfs:label "Endocrine" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of endocrine glands and their secretions." .
+
+:EnrollingByInvitation a :MedicalStudyStatus ;
+    rdfs:label "EnrollingByInvitation" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Enrolling participants by invitation only." .
+
+:EvidenceLevelA a :MedicalEvidenceLevel ;
+    rdfs:label "EvidenceLevelA" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Data derived from multiple randomized clinical trials or meta-analyses." .
+
+:EvidenceLevelB a :MedicalEvidenceLevel ;
+    rdfs:label "EvidenceLevelB" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Data derived from a single randomized trial, or nonrandomized studies." .
+
+:EvidenceLevelC a :MedicalEvidenceLevel ;
+    rdfs:label "EvidenceLevelC" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Only consensus opinion of experts, case studies, or standard-of-care." .
+
+:Eye a :PhysicalExam ;
+    rdfs:label "Eye" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Eye or ophthalmological function assessment with clinical examination." .
+
+:FDAcategoryA a :DrugPregnancyCategory ;
+    rdfs:label "FDAcategoryA" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation by the US FDA signifying that adequate and well-controlled studies have failed to demonstrate a risk to the fetus in the first trimester of pregnancy (and there is no evidence of risk in later trimesters)." .
+
+:FDAcategoryB a :DrugPregnancyCategory ;
+    rdfs:label "FDAcategoryB" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation by the US FDA signifying that animal reproduction studies have failed to demonstrate a risk to the fetus and there are no adequate and well-controlled studies in pregnant women." .
+
+:FDAcategoryC a :DrugPregnancyCategory ;
+    rdfs:label "FDAcategoryC" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation by the US FDA signifying that animal reproduction studies have shown an adverse effect on the fetus and there are no adequate and well-controlled studies in humans, but potential benefits may warrant use of the drug in pregnant women despite potential risks." .
+
+:FDAcategoryD a :DrugPregnancyCategory ;
+    rdfs:label "FDAcategoryD" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation by the US FDA signifying that there is positive evidence of human fetal risk based on adverse reaction data from investigational or marketing experience or studies in humans, but potential benefits may warrant use of the drug in pregnant women despite potential risks." .
+
+:FDAcategoryX a :DrugPregnancyCategory ;
+    rdfs:label "FDAcategoryX" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation by the US FDA signifying that studies in animals or humans have demonstrated fetal abnormalities and/or there is positive evidence of human fetal risk based on adverse reaction data from investigational or marketing experience, and the risks involved in use of the drug in pregnant women clearly outweigh potential benefits." .
+
+:FDAnotEvaluated a :DrugPregnancyCategory ;
+    rdfs:label "FDAnotEvaluated" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A designation that the drug in question has not been assigned a pregnancy category designation by the US FDA." .
+
+:Fungus a :InfectiousAgentClass ;
+    rdfs:label "Fungus" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Pathogenic fungus." .
+
+:Gastroenterologic a :MedicalSpecialty ;
+    rdfs:label "Gastroenterologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of digestive system." .
+
+:Genetic a :MedicalSpecialty ;
+    rdfs:label "Genetic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to hereditary transmission and the variation of inherited characteristics and disorders." .
+
+:Genitourinary a :PhysicalExam ;
+    rdfs:label "Genitourinary" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Genitourinary system function assessment with clinical examination." .
+
+:Geriatric a :MedicalSpecialty ;
+    rdfs:label "Geriatric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with the diagnosis and treatment of diseases, debilities and provision of care to the aged." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Gynecologic a :MedicalSpecialty ;
+    rdfs:label "Gynecologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to the health care of women, particularly in the diagnosis and treatment of disorders affecting the female reproductive system." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Head a :PhysicalExam ;
+    rdfs:label "Head" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Head assessment with clinical examination." .
+
+:Hematologic a :MedicalSpecialty ;
+    rdfs:label "Hematologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of blood and blood producing organs." .
+
+:Homeopathic a :MedicineSystem ;
+    rdfs:label "Homeopathic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A system of medicine based on the principle that a disease can be cured by a substance that produces similar symptoms in healthy people." .
+
+:Infectious a :MedicalSpecialty ;
+    rdfs:label "Infectious" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Something in medical science that pertains to infectious diseases, i.e. caused by bacterial, viral, fungal or parasitic infections." .
+
+:InternationalTrial a :MedicalTrialDesign ;
+    rdfs:label "InternationalTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An international trial." .
+
+:LaboratoryScience a :MedicalSpecialty ;
+    rdfs:label "LaboratoryScience" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical science pertaining to chemical, hematological, immunologic, microscopic, or bacteriological diagnostic analyses or research." .
+
+:Longitudinal a :MedicalObservationalStudyDesign ;
+    rdfs:label "Longitudinal" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Unlike cross-sectional studies, longitudinal studies track the same people, and therefore the differences observed in those people are less likely to be the result of cultural differences across generations. Longitudinal studies are also used in medicine to uncover predictors of certain diseases." .
+
+:Lung a :PhysicalExam ;
+    rdfs:label "Lung" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Lung and respiratory system clinical examination." .
+
+:MRI a :MedicalImagingTechnique ;
+    rdfs:label "MRI" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Magnetic resonance imaging." .
+
+:MedicalResearcher a :MedicalAudienceType ;
+    rdfs:label "MedicalResearcher" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Medical researchers." .
+
+:Midwifery a :MedicalSpecialty ;
+    rdfs:label "Midwifery" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A nurse-like health profession that deals with pregnancy, childbirth, and the postpartum period (including care of the newborn), besides sexual and reproductive health of women throughout their lives." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:MultiCenterTrial a :MedicalTrialDesign ;
+    rdfs:label "MultiCenterTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial that takes place at multiple centers." .
+
+:MulticellularParasite a :InfectiousAgentClass ;
+    rdfs:label "MulticellularParasite" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Multicellular parasite that causes an infection." .
+
+:Musculoskeletal a :MedicalSpecialty ;
+    rdfs:label "Musculoskeletal" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of muscles, ligaments and skeletal system." .
+
+:MusculoskeletalExam a :PhysicalExam ;
+    rdfs:label "MusculoskeletalExam" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Musculoskeletal system clinical examination." .
+
+:Neck a :PhysicalExam ;
+    rdfs:label "Neck" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Neck assessment with clinical examination." .
+
+:Neuro a :PhysicalExam ;
+    rdfs:label "Neuro" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Neurological system clinical examination." .
+
+:Neurologic a :MedicalSpecialty ;
+    rdfs:label "Neurologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that studies the nerves and nervous system and its respective disease states." .
+
+:NoninvasiveProcedure a :MedicalProcedureType ;
+    rdfs:label "NoninvasiveProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of medical procedure that involves noninvasive techniques." .
+
+:Nose a :PhysicalExam ;
+    rdfs:label "Nose" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Nose function assessment with clinical examination." .
+
+:NotYetRecruiting a :MedicalStudyStatus ;
+    rdfs:label "NotYetRecruiting" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Not yet recruiting." .
+
+:Nursing a :MedicalSpecialty ;
+    rdfs:label "Nursing" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A health profession of a person formally educated and trained in the care of the sick or infirm person." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:OTC a :DrugPrescriptionStatus ;
+    rdfs:label "OTC" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The character of a medical substance, typically a medicine, of being available over the counter or not." .
+
+:Observational a :MedicalObservationalStudyDesign ;
+    rdfs:label "Observational" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "An observational study design." .
+
+:Obstetric a :MedicalSpecialty ;
+    rdfs:label "Obstetric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that specializes in the care of women during the prenatal and postnatal care and with the delivery of the child." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Oncologic a :MedicalSpecialty ;
+    rdfs:label "Oncologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that deals with benign and malignant tumors, including the study of their development, diagnosis, treatment and prevention." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:OpenTrial a :MedicalTrialDesign ;
+    rdfs:label "OpenTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial design in which the researcher knows the full details of the treatment, and so does the patient." .
+
+:Optometric a :MedicalSpecialty ;
+    rdfs:label "Optometric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The science or practice of testing visual acuity and prescribing corrective lenses." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Osteopathic a :MedicineSystem ;
+    rdfs:label "Osteopathic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A system of medicine focused on promoting the body's innate ability to heal itself." .
+
+:Otolaryngologic a :MedicalSpecialty ;
+    rdfs:label "Otolaryngologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with the ear, nose and throat and their respective disease states." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PET a :MedicalImagingTechnique ;
+    rdfs:label "PET" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Positron emission tomography imaging." .
+
+:Pathology a :MedicalSpecialty ;
+    rdfs:label "Pathology" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with the study of the cause, origin and nature of a disease state, including its consequences as a result of manifestation of the disease. In clinical care, the term is used to designate a branch of medicine using laboratory tests to diagnose and determine the prognostic significance of illness." .
+
+:Pediatric a :MedicalSpecialty ;
+    rdfs:label "Pediatric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that specializes in the care of infants, children and adolescents." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PercutaneousProcedure a :MedicalProcedureType ;
+    rdfs:label "PercutaneousProcedure" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A type of medical procedure that involves percutaneous techniques, where access to organs or tissue is achieved via needle-puncture of the skin. For example, catheter-based procedures like stent delivery." .
+
+:PharmacySpecialty a :MedicalSpecialty ;
+    rdfs:label "PharmacySpecialty" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The practice or art and science of preparing and dispensing drugs and medicines." .
+
+:Physiotherapy a :MedicalSpecialty ;
+    rdfs:label "Physiotherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The practice of treatment of disease, injury, or deformity by physical methods such as massage, heat treatment, and exercise rather than by drugs or surgery." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PlaceboControlledTrial a :MedicalTrialDesign ;
+    rdfs:label "PlaceboControlledTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A placebo-controlled trial design." .
+
+:PlasticSurgery a :MedicalSpecialty ;
+    rdfs:label "PlasticSurgery" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to therapeutic or cosmetic repair or re-formation of missing, injured or malformed tissues or body parts by manual and instrumental means." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Podiatric a :MedicalSpecialty ;
+    rdfs:label "Podiatric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Podiatry is the care of the human foot, especially the diagnosis and treatment of foot disorders." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PrescriptionOnly a :DrugPrescriptionStatus ;
+    rdfs:label "PrescriptionOnly" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Available by prescription only." .
+
+:PrimaryCare a :MedicalSpecialty ;
+    rdfs:label "PrimaryCare" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The medical care by a physician, or other health-care professional, who is the patient's first contact with the health-care system and who may recommend a specialist if necessary." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Prion a :InfectiousAgentClass ;
+    rdfs:label "Prion" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A prion is an infectious agent composed of protein in a misfolded form." .
+
+:Protozoa a :InfectiousAgentClass ;
+    rdfs:label "Protozoa" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Single-celled organism that causes an infection." .
+
+:Psychiatric a :MedicalSpecialty ;
+    rdfs:label "Psychiatric" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with the study, treatment, and prevention of mental illness, using both medical and psychological therapies." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:PublicHealth a :MedicalSpecialty ;
+    rdfs:label "PublicHealth" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Branch of medicine that pertains to the health services to improve and protect community health, especially epidemiology, sanitation, immunization, and preventive medicine." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:Pulmonary a :MedicalSpecialty ;
+    rdfs:label "Pulmonary" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to the study of the respiratory system and its respective disease states." .
+
+:Radiography a :MedicalImagingTechnique,
+        :MedicalSpecialty ;
+    rdfs:label "Radiography" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Radiography is an imaging technique that uses electromagnetic radiation other than visible light, especially X-rays, to view the internal structure of a non-uniformly composed and opaque object such as the human body." .
+
+:RandomizedTrial a :MedicalTrialDesign ;
+    rdfs:label "RandomizedTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A randomized trial design." .
+
+:Recruiting a :MedicalStudyStatus ;
+    rdfs:label "Recruiting" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Recruiting participants." .
+
+:Registry a :MedicalObservationalStudyDesign ;
+    rdfs:label "Registry" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A registry-based study design." .
+
+:ReimbursementCap a :DrugCostCategory ;
+    rdfs:label "ReimbursementCap" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The drug's cost represents the maximum reimbursement paid by an insurer for the drug." .
+
+:Renal a :MedicalSpecialty ;
+    rdfs:label "Renal" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to the study of the kidneys and its respective disease states." .
+
+:RespiratoryTherapy a :MedicalSpecialty ;
+    rdfs:label "RespiratoryTherapy" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The therapy that is concerned with the maintenance or improvement of respiratory function (as in patients with pulmonary disease)." ;
+    rdfs:subClassOf :MedicalTherapy .
+
+:ResultsAvailable a :MedicalStudyStatus ;
+    rdfs:label "ResultsAvailable" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Results are available." .
+
+:ResultsNotAvailable a :MedicalStudyStatus ;
+    rdfs:label "ResultsNotAvailable" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Results are not available." .
+
+:Retail a :DrugCostCategory ;
+    rdfs:label "Retail" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The drug's cost represents the retail cost of the drug." .
+
+:Rheumatologic a :MedicalSpecialty ;
+    rdfs:label "Rheumatologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that deals with the study and treatment of rheumatic, autoimmune or joint diseases." .
+
+:SingleBlindedTrial a :MedicalTrialDesign ;
+    rdfs:label "SingleBlindedTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial design in which the researcher knows which treatment the patient was randomly assigned to but the patient does not." .
+
+:SingleCenterTrial a :MedicalTrialDesign ;
+    rdfs:label "SingleCenterTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial that takes place at a single center." .
+
+:Skin a :PhysicalExam ;
+    rdfs:label "Skin" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Skin assessment with clinical examination." .
+
+:SpeechPathology a :MedicalSpecialty ;
+    rdfs:label "SpeechPathology" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The scientific study and treatment of defects, disorders, and malfunctions of speech and voice, as stuttering, lisping, or lalling, and of language disturbances, as aphasia or delayed language acquisition." .
+
+:Surgical a :MedicalSpecialty ;
+    rdfs:label "Surgical" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to treating diseases, injuries and deformities by manual and instrumental means." .
+
+:Suspended a :MedicalStudyStatus ;
+    rdfs:label "Suspended" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Suspended." .
+
+:Terminated a :MedicalStudyStatus ;
+    rdfs:label "Terminated" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Terminated." .
+
+:Therapeutic a :MedicalDevicePurpose ;
+    rdfs:label "Therapeutic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A medical device used for therapeutic purposes." .
+
+:Throat a :PhysicalExam ;
+    rdfs:label "Throat" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Throat assessment with  clinical examination." .
+
+:Toxicologic a :MedicalSpecialty ;
+    rdfs:label "Toxicologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with poisons, their nature, effects and detection and involved in the treatment of poisoning." .
+
+:TraditionalChinese a :MedicineSystem ;
+    rdfs:label "TraditionalChinese" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A system of medicine based on common theoretical concepts that originated in China and evolved over thousands of years, that uses herbs, acupuncture, exercise, massage, dietary therapy, and other methods to treat a wide range of conditions." .
+
+:TripleBlindedTrial a :MedicalTrialDesign ;
+    rdfs:label "TripleBlindedTrial" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A trial design in which neither the researcher, the person administering the therapy nor the patient knows the details of the treatment the patient was randomly assigned to." .
+
+:Ultrasound a :MedicalImagingTechnique ;
+    rdfs:label "Ultrasound" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Ultrasound imaging." .
+
+:Urologic a :MedicalSpecialty ;
+    rdfs:label "Urologic" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that is concerned with the diagnosis and treatment of diseases pertaining to the urinary tract and the urogenital system." .
+
+:Virus a :InfectiousAgentClass ;
+    rdfs:label "Virus" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Pathogenic virus that causes viral infection." .
+
+:WesternConventional a :MedicineSystem ;
+    rdfs:label "WesternConventional" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The conventional Western system of medicine, that aims to apply the best available evidence gained from the scientific method to clinical decision making. Also known as conventional or Western medicine." .
+
+:Wholesale a :DrugCostCategory ;
+    rdfs:label "Wholesale" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "The drug's cost represents the wholesale acquisition cost of the drug." .
+
+:Withdrawn a :MedicalStudyStatus ;
+    rdfs:label "Withdrawn" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "Withdrawn." .
+
+:XRay a :MedicalImagingTechnique ;
+    rdfs:label "XRay" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "X-ray imaging." .
+
+:activeIngredient a rdf:Property ;
+    rdfs:label "activeIngredient" ;
+    :domainIncludes :DietarySupplement,
+        :Drug,
+        :DrugStrength,
+        :Substance ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "An active ingredient, typically chemical compounds and/or biologic substances." .
+
+:administrationRoute a rdf:Property ;
+    rdfs:label "administrationRoute" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A route by which this drug may be administered, e.g. 'oral'." .
+
+:adverseOutcome a rdf:Property ;
+    rdfs:label "adverseOutcome" ;
+    :domainIncludes :MedicalDevice,
+        :TherapeuticProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "A possible complication and/or side effect of this therapy. If it is known that an adverse outcome is serious (resulting in death, disability, or permanent damage; requiring hospitalization; or otherwise life-threatening or requiring immediate medical attention), tag it as a seriousAdverseOutcome instead." .
+
+:affectedBy a rdf:Property ;
+    rdfs:label "affectedBy" ;
+    :domainIncludes :MedicalTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Drug ;
+    rdfs:comment "Drugs that affect the test's results." .
+
+:alcoholWarning a rdf:Property ;
+    rdfs:label "alcoholWarning" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any precaution, guidance, contraindication, etc. related to consumption of alcohol while taking this drug." .
+
+:algorithm a rdf:Property ;
+    rdfs:label "algorithm" ;
+    :domainIncludes :MedicalRiskScore ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The algorithm or rules to follow to compute the score." .
+
+:antagonist a rdf:Property ;
+    rdfs:label "antagonist" ;
+    :domainIncludes :Muscle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Muscle ;
+    rdfs:comment "The muscle whose action counteracts the specified muscle." .
+
+:applicableLocation a rdf:Property ;
+    rdfs:label "applicableLocation" ;
+    :domainIncludes :DrugCost,
+        :DrugLegalStatus ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AdministrativeArea ;
+    rdfs:comment "The location in which the status applies." .
+
+:aspect a rdf:Property ;
+    rdfs:label "aspect" ;
+    :domainIncludes :MedicalWebPage ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    :supersededBy :mainContentOfPage ;
+    rdfs:comment "An aspect of medical practice that is considered on the page, such as 'diagnosis', 'treatment', 'causes', 'prognosis', 'etiology', 'epidemiology', etc." .
+
+:associatedAnatomy a rdf:Property ;
+    rdfs:label "associatedAnatomy" ;
+    :domainIncludes :MedicalCondition,
+        :PhysicalActivity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure,
+        :AnatomicalSystem,
+        :SuperficialAnatomy ;
+    rdfs:comment "The anatomy of the underlying organ system or structures associated with this entity." .
+
+:associatedPathophysiology a rdf:Property ;
+    rdfs:label "associatedPathophysiology" ;
+    :domainIncludes :AnatomicalStructure,
+        :AnatomicalSystem,
+        :SuperficialAnatomy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "If applicable, a description of the pathophysiology associated with the anatomical system, including potential abnormal changes in the mechanical, physical, and biochemical functions of the system." .
+
+:availableIn a rdf:Property ;
+    rdfs:label "availableIn" ;
+    :domainIncludes :DrugStrength ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AdministrativeArea ;
+    rdfs:comment "The location in which the strength is available." .
+
+:availableService a rdf:Property ;
+    rdfs:label "availableService" ;
+    :domainIncludes :Hospital,
+        :MedicalClinic,
+        :Physician ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalProcedure,
+        :MedicalTest,
+        :MedicalTherapy ;
+    rdfs:comment "A medical service available from this provider." .
+
+:availableStrength a rdf:Property ;
+    rdfs:label "availableStrength" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugStrength ;
+    rdfs:comment "An available dosage strength for the drug." .
+
+:availableTest a rdf:Property ;
+    rdfs:label "availableTest" ;
+    :domainIncludes :DiagnosticLab ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTest ;
+    rdfs:comment "A diagnostic test or procedure offered by this lab." .
+
+:biomechnicalClass a rdf:Property ;
+    rdfs:label "biomechnicalClass" ;
+    :domainIncludes :Joint ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The biomechanical properties of the bone." .
+
+:bloodSupply a rdf:Property ;
+    rdfs:label "bloodSupply" ;
+    :domainIncludes :Muscle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Vessel ;
+    rdfs:comment "The blood vessel that carries blood from the heart to the muscle." .
+
+:bodyLocation a rdf:Property ;
+    rdfs:label "bodyLocation" ;
+    :domainIncludes :AnatomicalStructure,
+        :MedicalProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Location in the body of the anatomical structure." .
+
+:branch a rdf:Property ;
+    rdfs:label "branch" ;
+    :domainIncludes :Nerve ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    :supersededBy :arterialBranch;
+    rdfs:comment "The branches that delineate from the nerve bundle. Not to be confused with [[branchOf]]." .
+
+:breastfeedingWarning a rdf:Property ;
+    rdfs:label "breastfeedingWarning" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any precaution, guidance, contraindication, etc. related to this drug's use by breastfeeding mothers." .
+
+:causeOf a rdf:Property ;
+    rdfs:label "causeOf" ;
+    :domainIncludes :MedicalCause ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "The condition, complication, symptom, sign, etc. caused." .
+
+:clincalPharmacology a rdf:Property ;
+    rdfs:label "clincalPharmacology" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    :supersededBy :clinicalPharmacology ;
+    rdfs:comment "Description of the absorption and elimination of drugs, including their concentration (pharmacokinetics, pK) and biological effects (pharmacodynamics, pD)." .
+
+:code a rdf:Property ;
+    rdfs:label "code" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCode ;
+    rdfs:comment "A medical code for the entity, taken from a controlled vocabulary or ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc." .
+
+:codeValue a rdf:Property ;
+    rdfs:label "codeValue" ;
+    :domainIncludes :MedicalCode .
+
+:codingSystem a rdf:Property ;
+    rdfs:label "codingSystem" ;
+    :domainIncludes :MedicalCode ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The coding system, e.g. 'ICD-10'." .
+
+:comprisedOf a rdf:Property ;
+    rdfs:label "comprisedOf" ;
+    :domainIncludes :AnatomicalSystem ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure,
+        :AnatomicalSystem ;
+    rdfs:comment "Specifying something physically contained by something else. Typically used here for the underlying anatomical structures, such as organs, that comprise the anatomical system." .
+
+:connectedTo a rdf:Property ;
+    rdfs:label "connectedTo" ;
+    :domainIncludes :AnatomicalStructure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "Other anatomical structures to which this structure is connected." .
+
+:contraindication a rdf:Property ;
+    rdfs:label "contraindication" ;
+    :domainIncludes :MedicalDevice,
+        :MedicalTherapy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalContraindication,
+        :Text ;
+    rdfs:comment "A contraindication for this therapy." .
+
+:costCategory a rdf:Property ;
+    rdfs:label "costCategory" ;
+    :domainIncludes :DrugCost ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugCostCategory ;
+    rdfs:comment "The category of cost, such as wholesale, retail, reimbursement cap, etc." .
+
+:costCurrency a rdf:Property ;
+    rdfs:label "costCurrency" ;
+    :domainIncludes :DrugCost ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The currency (in 3-letter) of the drug cost. See: http://en.wikipedia.org/wiki/ISO_4217. " .
+
+:costOrigin a rdf:Property ;
+    rdfs:label "costOrigin" ;
+    :domainIncludes :DrugCost ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Additional details to capture the origin of the cost data. For example, 'Medicare Part B'." .
+
+:costPerUnit a rdf:Property ;
+    rdfs:label "costPerUnit" ;
+    :domainIncludes :DrugCost ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Number,
+        :QualitativeValue,
+        :Text ;
+    rdfs:comment "The cost per unit of the drug." .
+
+:diagnosis a rdf:Property ;
+    rdfs:label "diagnosis" ;
+    :domainIncludes :DDxElement,
+        :Patient ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCondition ;
+    rdfs:comment "One or more alternative conditions considered in the differential diagnosis process as output of a diagnosis process." .
+
+:diagram a rdf:Property ;
+    rdfs:label "diagram" ;
+    :domainIncludes :AnatomicalStructure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :ImageObject ;
+    rdfs:comment "An image containing a diagram that illustrates the structure and/or its component substructures and/or connections with other structures." .
+
+:diet a rdf:Property ;
+    rdfs:label "diet" ;
+    :domainIncludes :ExerciseAction ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Diet ;
+    rdfs:comment "A sub property of instrument. The diet used in this action." ;
+    rdfs:subPropertyOf :instrument .
+
+:dietFeatures a rdf:Property ;
+    rdfs:label "dietFeatures" ;
+    :domainIncludes :Diet ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines." .
+
+:differentialDiagnosis a rdf:Property ;
+    rdfs:label "differentialDiagnosis" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DDxElement ;
+    rdfs:comment "One of a set of differential diagnoses for the condition. Specifically, a closely-related or competing diagnosis typically considered later in the cognitive process whereby this medical condition is distinguished from others most likely responsible for a similar collection of signs and symptoms to reach the most parsimonious diagnosis or diagnoses in a patient." .
+
+:distinguishingSign a rdf:Property ;
+    rdfs:label "distinguishingSign" ;
+    :domainIncludes :DDxElement ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalSignOrSymptom ;
+    rdfs:comment "One of a set of signs and symptoms that can be used to distinguish this diagnosis from others in the differential diagnosis." .
+
+:dosageForm a rdf:Property ;
+    rdfs:label "dosageForm" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A dosage form in which this drug/supplement is available, e.g. 'tablet', 'suspension', 'injection'." .
+
+:doseSchedule a rdf:Property ;
+    rdfs:label "doseSchedule" ;
+    :domainIncludes :Drug,
+        :TherapeuticProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DoseSchedule ;
+    rdfs:comment "A dosing schedule for the drug for a given population, either observed, recommended, or maximum dose based on the type used." .
+
+:doseUnit a rdf:Property ;
+    rdfs:label "doseUnit" ;
+    :domainIncludes :DoseSchedule ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The unit of the dose, e.g. 'mg'." .
+
+:doseValue a rdf:Property ;
+    rdfs:label "doseValue" ;
+    :domainIncludes :DoseSchedule ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Number,
+        :QualitativeValue ;
+    rdfs:comment "The value of the dose, e.g. 500." .
+
+:drainsTo a rdf:Property ;
+    rdfs:label "drainsTo" ;
+    :domainIncludes :Vein ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Vessel ;
+    rdfs:comment "The vasculature that the vein drains into." .
+
+:drug a rdf:Property ;
+    rdfs:label "drug" ;
+    :domainIncludes :DrugClass,
+        :MedicalCondition,
+        :Patient,
+        :TherapeuticProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Drug ;
+    rdfs:comment "Specifying a drug or medicine used in a medication procedure." .
+
+:drugClass a rdf:Property ;
+    rdfs:label "drugClass" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugClass ;
+    rdfs:comment "The class of drug this belongs to (e.g., statins)." .
+
+:drugUnit a rdf:Property ;
+    rdfs:label "drugUnit" ;
+    :domainIncludes :Drug,
+        :DrugCost ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The unit in which the drug is measured, e.g. '5 mg tablet'." .
+
+:duplicateTherapy a rdf:Property ;
+    rdfs:label "duplicateTherapy" ;
+    :domainIncludes :MedicalTherapy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTherapy ;
+    rdfs:comment "A therapy that duplicates or overlaps this one." .
+
+:endorsers a rdf:Property ;
+    rdfs:label "endorsers" ;
+    :domainIncludes :Diet ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Organization,
+        :Person ;
+    rdfs:comment "People or organizations that endorse the plan." .
+
+:epidemiology a rdf:Property ;
+    rdfs:label "epidemiology" ;
+    :domainIncludes :MedicalCondition,
+        :PhysicalActivity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The characteristics of associated patients, such as age, gender, race etc." .
+
+:estimatesRiskOf a rdf:Property ;
+    rdfs:label "estimatesRiskOf" ;
+    :domainIncludes :MedicalRiskEstimator ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "The condition, complication, or symptom whose risk is being estimated." .
+
+:evidenceLevel a rdf:Property ;
+    rdfs:label "evidenceLevel" ;
+    :domainIncludes :MedicalGuideline ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEvidenceLevel ;
+    rdfs:comment "Strength of evidence of the data used to formulate the guideline (enumerated)." .
+
+:evidenceOrigin a rdf:Property ;
+    rdfs:label "evidenceOrigin" ;
+    :domainIncludes :MedicalGuideline ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Source of the data used to formulate the guidance, e.g. RCT, consensus opinion, etc." .
+
+:exerciseRelatedDiet a rdf:Property ;
+    rdfs:label "exerciseRelatedDiet" ;
+    :domainIncludes :ExerciseAction ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Diet ;
+    rdfs:comment "A sub property of instrument. The diet used in this action." ;
+    rdfs:subPropertyOf :instrument .
+
+:expectedPrognosis a rdf:Property ;
+    rdfs:label "expectedPrognosis" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The likely outcome in either the short term or long term of the medical condition." .
+
+:expertConsiderations a rdf:Property ;
+    rdfs:label "expertConsiderations" ;
+    :domainIncludes :Diet ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Medical expert advice related to the plan." .
+
+:followup a rdf:Property ;
+    rdfs:label "followup" ;
+    :domainIncludes :MedicalProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Typical or recommended followup care after the procedure is performed." .
+
+:foodWarning a rdf:Property ;
+    rdfs:label "foodWarning" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any precaution, guidance, contraindication, etc. related to consumption of specific foods while taking this drug." .
+
+:frequency a rdf:Property ;
+    rdfs:label "frequency" ;
+    :domainIncludes :DoseSchedule ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "How often the dose is taken, e.g. 'daily'." .
+
+:functionalClass a rdf:Property ;
+    rdfs:label "functionalClass" ;
+    :domainIncludes :Joint ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity,
+        :Text ;
+    rdfs:comment "The degree of mobility the joint allows." .
+
+:guideline a rdf:Property ;
+    rdfs:label "guideline" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalGuideline ;
+    rdfs:comment "A medical guideline related to this entity." .
+
+:guidelineDate a rdf:Property ;
+    rdfs:label "guidelineDate" ;
+    :domainIncludes :MedicalGuideline ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Date ;
+    rdfs:comment "Date on which this guideline's recommendation was made." .
+
+:guidelineSubject a rdf:Property ;
+    rdfs:label "guidelineSubject" ;
+    :domainIncludes :MedicalGuideline ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "The medical conditions, treatments, etc. that are the subject of the guideline." .
+
+:healthCondition a rdf:Property ;
+    rdfs:label "healthCondition" ;
+    :domainIncludes :MedicalStudy,
+        :Patient,
+        :PeopleAudience ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCondition ;
+    rdfs:comment "Specifying the health condition(s) of a patient, medical study, or other target audience." .
+
+:hospitalAffiliation a rdf:Property ;
+    rdfs:label "hospitalAffiliation" ;
+    :domainIncludes :Physician ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Hospital ;
+    rdfs:comment "A hospital with which the physician or office is affiliated." .
+
+:howPerformed a rdf:Property ;
+    rdfs:label "howPerformed" ;
+    :domainIncludes :MedicalProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "How the procedure is performed." .
+
+:identifyingExam a rdf:Property ;
+    rdfs:label "identifyingExam" ;
+    :domainIncludes :MedicalSign ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :PhysicalExam ;
+    rdfs:comment "A physical examination that can identify this sign." .
+
+:identifyingTest a rdf:Property ;
+    rdfs:label "identifyingTest" ;
+    :domainIncludes :MedicalSign ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTest ;
+    rdfs:comment "A diagnostic test that can identify this sign." .
+
+:imagingTechnique a rdf:Property ;
+    rdfs:label "imagingTechnique" ;
+    :domainIncludes :ImagingTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalImagingTechnique ;
+    rdfs:comment "Imaging technique used." .
+
+:includedRiskFactor a rdf:Property ;
+    rdfs:label "includedRiskFactor" ;
+    :domainIncludes :MedicalRiskEstimator ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalRiskFactor ;
+    rdfs:comment "A modifiable or non-modifiable risk factor included in the calculation, e.g. age, coexisting condition." .
+
+:increasesRiskOf a rdf:Property ;
+    rdfs:label "increasesRiskOf" ;
+    :domainIncludes :MedicalRiskFactor ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "The condition, complication, etc. influenced by this factor." .
+
+:infectiousAgent a rdf:Property ;
+    rdfs:label "infectiousAgent" ;
+    :domainIncludes :InfectiousDisease ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The actual infectious agent, such as a specific bacterium." .
+
+:infectiousAgentClass a rdf:Property ;
+    rdfs:label "infectiousAgentClass" ;
+    :domainIncludes :InfectiousDisease ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :InfectiousAgentClass ;
+    rdfs:comment "The class of infectious agent (bacteria, prion, etc.) that causes the disease." .
+
+:insertion a rdf:Property ;
+    rdfs:label "insertion" ;
+    :domainIncludes :Muscle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "The place of attachment of a muscle, or what the muscle moves." .
+
+:interactingDrug a rdf:Property ;
+    rdfs:label "interactingDrug" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Drug ;
+    rdfs:comment "Another drug that is known to interact with this drug in a way that impacts the effect of this drug or causes a risk to the patient. Note: disease interactions are typically captured as contraindications." .
+
+:isAvailableGenerically a rdf:Property ;
+    rdfs:label "isAvailableGenerically" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Boolean ;
+    rdfs:comment "True if the drug is available in a generic form (regardless of name)." .
+
+:isProprietary a rdf:Property ;
+    rdfs:label "isProprietary" ;
+    :domainIncludes :DietarySupplement,
+        :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Boolean ;
+    rdfs:comment "True if this item's name is a proprietary/brand name (vs. generic name)." .
+
+:labelDetails a rdf:Property ;
+    rdfs:label "labelDetails" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :URL ;
+    rdfs:comment "Link to the drug's label details." .
+
+:legalStatus a rdf:Property ;
+    rdfs:label "legalStatus" ;
+    :domainIncludes :DietarySupplement,
+        :Drug,
+        :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugLegalStatus,
+        :MedicalEnumeration,
+        :Text ;
+    rdfs:comment "The drug or supplement's legal status, including any controlled substance schedules that apply." .
+
+:maximumIntake a rdf:Property ;
+    rdfs:label "maximumIntake" ;
+    :domainIncludes :DietarySupplement,
+        :Drug,
+        :DrugStrength,
+        :Substance ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MaximumDoseSchedule ;
+    rdfs:comment "Recommended intake of this supplement for a given population as defined by a specific recommending authority." .
+
+:mechanismOfAction a rdf:Property ;
+    rdfs:label "mechanismOfAction" ;
+    :domainIncludes :DietarySupplement,
+        :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The specific biochemical interaction through which this drug or supplement produces its pharmacological effect." .
+
+:medicalAudience a rdf:Property ;
+    rdfs:label "medicalAudience" ;
+    :domainIncludes :MedicalWebPage ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalAudience,
+        :MedicalAudienceType ;
+    rdfs:comment "Medical audience for page." .
+
+:medicalSpecialty a rdf:Property ;
+    rdfs:label "medicalSpecialty" ;
+    :domainIncludes :Hospital,
+        :MedicalClinic,
+        :MedicalOrganization,
+        :Physician ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalSpecialty ;
+    rdfs:comment "A medical specialty of the provider." .
+
+:medicineSystem a rdf:Property ;
+    rdfs:label "medicineSystem" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicineSystem ;
+    rdfs:comment "The system of medicine that includes this MedicalEntity, for example 'evidence-based', 'homeopathic', 'chiropractic', etc." .
+
+:muscleAction a rdf:Property ;
+    rdfs:label "muscleAction" ;
+    :domainIncludes :Muscle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The movement the muscle generates." .
+
+:naturalProgression a rdf:Property ;
+    rdfs:label "naturalProgression" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The expected progression of the condition if it is not treated and allowed to progress naturally." .
+
+:nerve a rdf:Property ;
+    rdfs:label "nerve" ;
+    :domainIncludes :Muscle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Nerve ;
+    rdfs:comment "The underlying innervation associated with the muscle." .
+
+:nerveMotor a rdf:Property ;
+    rdfs:label "nerveMotor" ;
+    :domainIncludes :Nerve ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Muscle ;
+    rdfs:comment "The neurological pathway extension that involves muscle control." .
+
+:nonProprietaryName a rdf:Property ;
+    rdfs:label "nonProprietaryName" ;
+    :domainIncludes :DietarySupplement,
+        :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The generic name of this drug or supplement." .
+
+:normalRange a rdf:Property ;
+    rdfs:label "normalRange" ;
+    :domainIncludes :MedicalTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEnumeration,
+        :Text ;
+    rdfs:comment "Range of acceptable values for a typical patient, when applicable." .
+
+:originatesFrom a rdf:Property ;
+    rdfs:label "originatesFrom" ;
+    :domainIncludes :LymphaticVessel ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Vessel ;
+    rdfs:comment "The vasculature the lymphatic structure originates, or afferents, from." .
+
+:overdosage a rdf:Property ;
+    rdfs:label "overdosage" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any information related to overdose on a drug, including signs or symptoms, treatments, contact information for emergency response." .
+
+:partOfSystem a rdf:Property ;
+    rdfs:label "partOfSystem" ;
+    :domainIncludes :AnatomicalStructure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalSystem ;
+    rdfs:comment "The anatomical or organ system that this structure is part of." .
+
+:pathophysiology a rdf:Property ;
+    rdfs:label "pathophysiology" ;
+    :domainIncludes :MedicalCondition,
+        :PhysicalActivity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Changes in the normal mechanical, physical, and biochemical functions that are associated with this activity or condition." .
+
+:physiologicalBenefits a rdf:Property ;
+    rdfs:label "physiologicalBenefits" ;
+    :domainIncludes :Diet ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Specific physiologic benefits associated to the plan." .
+
+:possibleComplication a rdf:Property ;
+    rdfs:label "possibleComplication" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A possible unexpected and unfavorable evolution of a medical condition. Complications may include worsening of the signs or symptoms of the disease, extension of the condition to other organ systems, etc." .
+
+:possibleTreatment a rdf:Property ;
+    rdfs:label "possibleTreatment" ;
+    :domainIncludes :MedicalCondition,
+        :MedicalSignOrSymptom ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTherapy ;
+    rdfs:comment "A possible treatment to address this condition, sign or symptom." .
+
+:postOp a rdf:Property ;
+    rdfs:label "postOp" ;
+    :domainIncludes :MedicalDevice ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A description of the postoperative procedures, care, and/or followups for this device." .
+
+:preOp a rdf:Property ;
+    rdfs:label "preOp" ;
+    :domainIncludes :MedicalDevice ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A description of the workup, testing, and other preparations required before implanting this device." .
+
+:pregnancyCategory a rdf:Property ;
+    rdfs:label "pregnancyCategory" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugPregnancyCategory ;
+    rdfs:comment "Pregnancy category of this drug." .
+
+:pregnancyWarning a rdf:Property ;
+    rdfs:label "pregnancyWarning" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any precaution, guidance, contraindication, etc. related to this drug's use during pregnancy." .
+
+:preparation a rdf:Property ;
+    rdfs:label "preparation" ;
+    :domainIncludes :MedicalProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity,
+        :Text ;
+    rdfs:comment "Typical preparation that a patient must undergo before having the procedure performed." .
+
+:prescribingInfo a rdf:Property ;
+    rdfs:label "prescribingInfo" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :URL ;
+    rdfs:comment "Link to prescribing information for the drug." .
+
+:prescriptionStatus a rdf:Property ;
+    rdfs:label "prescriptionStatus" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :DrugPrescriptionStatus,
+        :Text ;
+    rdfs:comment "Indicates the status of drug prescription, e.g. local catalogs classifications or whether the drug is available by prescription or over-the-counter, etc." .
+
+:primaryPrevention a rdf:Property ;
+    rdfs:label "primaryPrevention" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTherapy ;
+    rdfs:comment "A preventative therapy used to prevent an initial occurrence of the medical condition, such as vaccination." .
+
+:procedure a rdf:Property ;
+    rdfs:label "procedure" ;
+    :domainIncludes :MedicalDevice ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A description of the procedure involved in setting up, using, and/or installing the device." .
+
+:procedureType a rdf:Property ;
+    rdfs:label "procedureType" ;
+    :domainIncludes :MedicalProcedure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalProcedureType ;
+    rdfs:comment "The type of procedure, for example Surgical, Noninvasive, or Percutaneous." .
+
+:proprietaryName a rdf:Property ;
+    rdfs:label "proprietaryName" ;
+    :domainIncludes :DietarySupplement,
+        :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Proprietary name given to the diet plan, typically by its originator or creator." .
+
+:publicationType a rdf:Property ;
+    rdfs:label "publicationType" ;
+    :domainIncludes :MedicalScholarlyArticle ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The type of the medical article, taken from the US NLM MeSH publication type catalog. See also [MeSH documentation](http://www.nlm.nih.gov/mesh/pubtypes.html)." .
+
+:recognizingAuthority a rdf:Property ;
+    rdfs:label "recognizingAuthority" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Organization ;
+    rdfs:comment "If applicable, the organization that officially recognizes this entity as part of its endorsed system of medicine." .
+
+:recommendationStrength a rdf:Property ;
+    rdfs:label "recommendationStrength" ;
+    :domainIncludes :MedicalGuidelineRecommendation ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Strength of the guideline's recommendation (e.g. 'class I')." .
+
+:recommendedIntake a rdf:Property ;
+    rdfs:label "recommendedIntake" ;
+    :domainIncludes :DietarySupplement ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :RecommendedDoseSchedule ;
+    rdfs:comment "Recommended intake of this supplement for a given population as defined by a specific recommending authority." .
+
+:regionDrained a rdf:Property ;
+    rdfs:label "regionDrained" ;
+    :domainIncludes :LymphaticVessel,
+        :Vein ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure,
+        :AnatomicalSystem ;
+    rdfs:comment "The anatomical or organ system drained by this vessel; generally refers to a specific part of an organ." .
+
+:relatedAnatomy a rdf:Property ;
+    rdfs:label "relatedAnatomy" ;
+    :domainIncludes :SuperficialAnatomy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure,
+        :AnatomicalSystem ;
+    rdfs:comment "Anatomical systems or structures that relate to the superficial anatomy." .
+
+:relatedCondition a rdf:Property ;
+    rdfs:label "relatedCondition" ;
+    :domainIncludes :AnatomicalStructure,
+        :AnatomicalSystem,
+        :SuperficialAnatomy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCondition ;
+    rdfs:comment "A medical condition associated with this anatomy." .
+
+:relatedDrug a rdf:Property ;
+    rdfs:label "relatedDrug" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Drug ;
+    rdfs:comment "Any other drug related to this one, for example commonly-prescribed alternatives." .
+
+:relatedStructure a rdf:Property ;
+    rdfs:label "relatedStructure" ;
+    :domainIncludes :AnatomicalSystem ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "Related anatomical structure(s) that are not part of the system but relate or connect to it, such as vascular bundles associated with an organ system." .
+
+:relatedTherapy a rdf:Property ;
+    rdfs:label "relatedTherapy" ;
+    :domainIncludes :AnatomicalStructure,
+        :AnatomicalSystem,
+        :SuperficialAnatomy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTherapy ;
+    rdfs:comment "A medical therapy related to this anatomy." .
+
+:relevantSpecialty a rdf:Property ;
+    rdfs:label "relevantSpecialty" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalSpecialty ;
+    rdfs:comment "If applicable, a medical specialty in which this entity is relevant." .
+
+:riskFactor a rdf:Property ;
+    rdfs:label "riskFactor" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalRiskFactor ;
+    rdfs:comment "A modifiable or non-modifiable factor that increases the risk of a patient contracting this condition, e.g. age,  coexisting condition." .
+
+:risks a rdf:Property ;
+    rdfs:label "risks" ;
+    :domainIncludes :Diet ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Specific physiologic risks associated to the diet plan." .
+
+:runsTo a rdf:Property ;
+    rdfs:label "runsTo" ;
+    :domainIncludes :LymphaticVessel ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Vessel ;
+    rdfs:comment "The vasculature the lymphatic structure runs, or efferents, to." .
+
+:safetyConsideration a rdf:Property ;
+    rdfs:label "safetyConsideration" ;
+    :domainIncludes :DietarySupplement ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Any potential safety concern associated with the supplement. May include interactions with other drugs and foods, pregnancy, breastfeeding, known adverse reactions, and documented efficacy of the supplement." .
+
+:secondaryPrevention a rdf:Property ;
+    rdfs:label "secondaryPrevention" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTherapy ;
+    rdfs:comment "A preventative therapy used to prevent reoccurrence of the medical condition after an initial episode of the condition." .
+
+:sensoryUnit a rdf:Property ;
+    rdfs:label "sensoryUnit" ;
+    :domainIncludes :Nerve ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure,
+        :SuperficialAnatomy ;
+    rdfs:comment "The neurological pathway extension that inputs and sends information to the brain or spinal cord." .
+
+:seriousAdverseOutcome a rdf:Property ;
+    rdfs:label "seriousAdverseOutcome" ;
+    :domainIncludes :MedicalDevice,
+        :MedicalTherapy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "A possible serious complication and/or serious side effect of this therapy. Serious adverse outcomes include those that are life-threatening; result in death, disability, or permanent damage; require hospitalization or prolong existing hospitalization; cause congenital anomalies or birth defects; or jeopardize the patient and may require medical or surgical intervention to prevent one of the outcomes in this definition." .
+
+:signDetected a rdf:Property ;
+    rdfs:label "signDetected" ;
+    :domainIncludes :MedicalTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalSign ;
+    rdfs:comment "A sign detected by the test." .
+
+:signOrSymptom a rdf:Property ;
+    rdfs:label "signOrSymptom" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalSignOrSymptom ;
+    rdfs:comment "A sign or symptom of this condition. Signs are objective or physically observable manifestations of the medical condition while symptoms are the subjective experience of the medical condition." .
+
+:significance a rdf:Property ;
+    rdfs:label "significance" ;
+    :domainIncludes :SuperficialAnatomy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The significance associated with the superficial anatomy; as an example, how characteristics of the superficial anatomy can suggest underlying medical conditions or courses of treatment." .
+
+:sourcedFrom a rdf:Property ;
+    rdfs:label "sourcedFrom" ;
+    :domainIncludes :Nerve ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :BrainStructure ;
+    rdfs:comment "The neurological pathway that originates the neurons." .
+
+:sponsor a rdf:Property ;
+    :domainIncludes :MedicalStudy ;
+    :rangeIncludes :Organization .
+
+:stage a rdf:Property ;
+    rdfs:label "stage" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalConditionStage ;
+    rdfs:comment "The stage of the condition, if applicable." .
+
+:stageAsNumber a rdf:Property ;
+    rdfs:label "stageAsNumber" ;
+    :domainIncludes :MedicalConditionStage ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Number ;
+    rdfs:comment "The stage represented as a number, e.g. 3." .
+
+:status a rdf:Property ;
+    rdfs:label "status" ;
+    :domainIncludes :MedicalCondition,
+        :MedicalProcedure,
+        :MedicalStudy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :EventStatusType,
+        :MedicalStudyStatus,
+        :Text ;
+    rdfs:comment "The status of the study (enumerated)." .
+
+:strengthUnit a rdf:Property ;
+    rdfs:label "strengthUnit" ;
+    :domainIncludes :DrugStrength ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The units of an active ingredient's strength, e.g. mg." .
+
+:strengthValue a rdf:Property ;
+    rdfs:label "strengthValue" ;
+    :domainIncludes :DrugStrength ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Number ;
+    rdfs:comment "The value of an active ingredient's strength, e.g. 325." .
+
+:structuralClass a rdf:Property ;
+    rdfs:label "structuralClass" ;
+    :domainIncludes :Joint ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The name given to how bone physically connects to each other." .
+
+:study a rdf:Property ;
+    rdfs:label "study" ;
+    :domainIncludes :MedicalEntity ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalStudy ;
+    rdfs:comment "A medical study or trial related to this entity." .
+
+:studyDesign a rdf:Property ;
+    rdfs:label "studyDesign" ;
+    :domainIncludes :MedicalObservationalStudy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalObservationalStudyDesign ;
+    rdfs:comment "Specifics about the observational study design (enumerated)." .
+
+:studyLocation a rdf:Property ;
+    rdfs:label "studyLocation" ;
+    :domainIncludes :MedicalStudy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AdministrativeArea ;
+    rdfs:comment "The location in which the study is taking/took place." .
+
+:studySubject a rdf:Property ;
+    rdfs:label "studySubject" ;
+    :domainIncludes :MedicalStudy ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalEntity ;
+    rdfs:comment "A subject of the study, i.e. one of the medical conditions, therapies, devices, drugs, etc. investigated by the study." .
+
+:subStageSuffix a rdf:Property ;
+    rdfs:label "subStageSuffix" ;
+    :domainIncludes :MedicalConditionStage ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The substage, e.g. 'a' for Stage IIIa." .
+
+:subStructure a rdf:Property ;
+    rdfs:label "subStructure" ;
+    :domainIncludes :AnatomicalStructure ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "Component (sub-)structure(s) that comprise this anatomical structure." .
+
+:subTest a rdf:Property ;
+    rdfs:label "subTest" ;
+    :domainIncludes :MedicalTestPanel ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTest ;
+    rdfs:comment "A component test of the panel." .
+
+:supplyTo a rdf:Property ;
+    rdfs:label "supplyTo" ;
+    :domainIncludes :Artery ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "The area to which the artery supplies blood." .
+
+:targetPopulation a rdf:Property ;
+    rdfs:label "targetPopulation" ;
+    :domainIncludes :DietarySupplement,
+        :DoseSchedule ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Characteristics of the population for which this is intended, or which typically uses it, e.g. 'adults'." .
+
+:tissueSample a rdf:Property ;
+    rdfs:label "tissueSample" ;
+    :domainIncludes :PathologyTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The type of tissue sample required for the test." .
+
+:transmissionMethod a rdf:Property ;
+    rdfs:label "transmissionMethod" ;
+    :domainIncludes :InfectiousDisease ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "How the disease spreads, either as a route or vector, for example 'direct contact', 'Aedes aegypti', etc." .
+
+:trialDesign a rdf:Property ;
+    rdfs:label "trialDesign" ;
+    :domainIncludes :MedicalTrial ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTrialDesign ;
+    rdfs:comment "Specifics about the trial design (enumerated)." .
+
+:tributary a rdf:Property ;
+    rdfs:label "tributary" ;
+    :domainIncludes :Vein ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "The anatomical or organ system that the vein flows into; a larger structure that the vein connects to." .
+
+:typicalTest a rdf:Property ;
+    rdfs:label "typicalTest" ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalTest ;
+    rdfs:comment "A medical test typically performed given this condition." .
+
+:usedToDiagnose a rdf:Property ;
+    rdfs:label "usedToDiagnose" ;
+    :domainIncludes :MedicalTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCondition ;
+    rdfs:comment "A condition the test is used to diagnose." .
+
+:usesDevice a rdf:Property ;
+    rdfs:label "usesDevice" ;
+    :domainIncludes :MedicalTest ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalDevice ;
+    rdfs:comment "Device used to perform the test." .
+
+:warning a rdf:Property ;
+    rdfs:label "warning" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text,
+        :URL ;
+    rdfs:comment "Any FDA or other warnings about the drug (text or URL)." .
+
+:Dermatology a :MedicalSpecialty ;
+    rdfs:label "Dermatology" ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of skin." ;
+    rdfs:subClassOf :MedicalBusiness .
+
+:arterialBranch a rdf:Property ;
+    rdfs:label "arterialBranch" ;
+    :domainIncludes :Artery ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :AnatomicalStructure ;
+    rdfs:comment "The branches that comprise the arterial structure." .
+
+:clinicalPharmacology a rdf:Property ;
+    rdfs:label "clinicalPharmacology" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Description of the absorption and elimination of drugs, including their concentration (pharmacokinetics, pK) and biological effects (pharmacodynamics, pD)." .
+

@@ -1,0 +1,38 @@
+TYPES: #eg-0266 CorrectionComment, correction
+
+PRE-MARKUP:
+
+An example showing a CorrectionComment associated with an article.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "https://schema.org",
+   "@type": "ReportageNewsArticle",
+   "url": "https://www.nytimes.com/2018/01/23/movies/oscars-snubs-surprises.html",
+   "publisher":{
+       "@type": "Organization",
+       "name": "New York Times",
+       "@id": "https://www.nytimes.com"
+       },
+   "datePublished":"2018-01-23",
+   "dateModified":"2018-01-23",
+   "headline":"The Snubs and Surprises of the 2018 Oscar Nominations",
+   "mainEntityOfPage": "https://www.nytimes.com/2018/01/23/movies/oscars-snubs-surprises.html",
+   "correction": {
+      "@type": "CorrectionComment",
+      "text": "An earlier version of this article misstated the number of times Denzel Washington has been nominated for an Oscar. His nod for 'Roman J. Israel, Esq.' brings the total to nine, not eight.",
+      "datePublished": "2018-01-23"
+   }
+}
+</script>
+

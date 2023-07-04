@@ -1,742 +1,620 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta charset="UTF-8" />
-    <title>Schema.org Actions - schema.org</title>
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Schema.org Actions - schema.org</title>
 
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-    $('.atn').each(function(i) {
-      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
-        $(this).addClass('custom');
-    });
-
-        }, 500);
-      });
-</script>
-
-<style>
-  .tag    { color: #000; }    /* div, span, etc. */
-  .atn    { color: #000; }    /* href, datetime */
-  .custom { color: #660003; } /* itemscope, itemtype, etc. */
-
-  table {
-    border-collapse:collapse;
-    border:1px solid #ccc;
-  }
-  tbody, tr, td {
-    border:inherit;
-    border-collapse:inherit;
-  }
-  td {
-    padding:5px;
-  }
-  .style0 {
-    border:1px solid #000000;
-    font-family: monospace;
-    line-height: 0.8;
-    white-space: pre;
-  }
-</style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
-<body onload="prettyPrint();">
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
+<body>
 
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
-
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li class="activelink">
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
+<!-- #### Static Doc Insert PageHead goes here -->
 
   <div id="mainContent">
 
-<h1>Potential Actions</h1>
+    <h1>Potential Actions</h1>
 
-<p> What follows describes some terminology and conventions for use with
-    <a href="http://schema.org/Action">http://schema.org/Action</a>.
-    The purpose is to enable describing the capability to perform an action in the future, as well as how that capability
-    can be exercised. See the blog post
-    <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">Schema.org Actions</a> (April 2014) for more
-    background. Earlier drafts and alternate formats are available from the <a href="https://www.w3.org/wiki/WebSchemas/ActivityActions">W3C Wiki</a>.
-</p>
+    <p> What follows describes some terminology and conventions for use with
+      <a href="https://schema.org/Action">https://schema.org/Action</a>.
+      The purpose is to enable describing the capability to perform an action in the future, as well as how that
+      capability
+      can be exercised. See the blog post
+      <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">Schema.org Actions</a> (April 2014) for
+      more
+      background. Earlier drafts and alternate formats are available from the <a
+        href="https://www.w3.org/wiki/WebSchemas/ActivityActions">W3C Wiki</a>.
+    </p>
 
-<h2 id="part-1">Part 1: Action status</h2>
-<p>First, we need a mechanism for differentiating potential actions from actions that have actually taken place or are even still in-progress. The expectation is that the status of an action will often be self-evident based on the usage context, so this property can often be elided.  However, it may still be necessary for resolving ambiguous cases when they arise. For this we introduce a new property of Action called "actionStatus.</p>
+    <h2 id="part-1"><strong>Part 1: Action status</strong></h2>
+    <p>First, we need a mechanism for differentiating potential actions from actions that have actually taken place or
+      are even still in-progress.
+      The expectation is that the status of an action will often be self-evident based on the usage context, so this
+      property can often be elided.
+      However, it may still be necessary for resolving ambiguous cases when they arise. For this we introduce a new
+      property of Action called <a href="/actionStatus">actionStatus</a>.</p>
 
-<h3>Thing &gt; Action</h3>
+    <br />
+    <div style="margin-left: 20px;">
+      <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Action</span></div>
 
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Property</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>actionStatus</i><br/>
-</td>
-<td>ActionStatusType<br/>
-</td>
-<td>Indicates the current disposition of the Action.<br/>
-</td>
-</tr>
-</tbody>
-</table>
+      <div style="overflow-x: scroll; width: 960px;">
+        <table class="definition-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Expected Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr>
+            <th class="prop-nam"><code>actionStatus</code></th>
+            </td>
+            <td class="prop-ect">ActionStatusType</td>
+            <td class="prop-desc">Indicates the current disposition of the Action.</td>
+          </tr>
+        </table>
+      </div>
 
-
-<h3>Thing &gt; Intangible &gt; Enumeration &gt; ActionStatusType</h3>
-<ul>
-<li><b>PotentialActionStatus</b> - A description of an action that is supported</li>
-<li><b>ActiveActionStatus</b> - An in-progress action (e..g, while watching the movie, or driving to a location)</li>
-<li><b>CompletedActionStatus</b> - An action that has already taken place.</li>
-</ul>
-
-<h4>Example: actionStatus</h4>
-
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "WatchAction",<br/>
-<b>  "actionStatus": "CompletedActionStatus"</b>,<br/>
-  "agent" : {<br/>
-    "@type": "Person",<br/>
-    "name": "Kevin Bacon"<br/>
-  },<br/>
-  "object" : {<br/>
-    "@type": "Movie",<br/>
-    "name": "Footloose"<br/>
-  },<br/>
-  "startTime" : "2014-03-01"<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="part-2">Part 2:  Connecting Actions to Things</h2>
-
-<p>Frequently actions are taken or offered in the context of an object (e.g., watch this movie, review this article, share this webpage, etc.).  We introduce a new property called potentialAction for describing the "prototype" of an action that can be taken on that Thing.</p>
-
-<h3>Thing</h3>
-
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Property</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>potentialAction</i><br/>
-</td>
-<td>Action<br/>
-</td>
-<td>Indicates a potential Action, which describes an idealised action in which this thing would play the 'object' role.<br/>
-</td>
-</tr>
-</tbody>
-</table>
+      <br />
+      <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Intangible</span> &gt; <span
+          class="crumb">Enumeration</span> &gt; <span class="crumb">ActionStatusType</span></div>
+      <di>
+        <p>The status of an Action.</p>
+        <p><strong>Enumeration members</strong>
+        <p>
+        <ul>
+          <li><a href="/ActiveActionStatus">ActiveActionStatus</a> - An in-progress action (e..g, while watching the
+            movie, or driving to a location).</li>
+          <li><a href="/CompletedActionStatus">CompletedActionStatus</a> - An action that has already taken place.</li>
+          <li><a href="/FailedActionStatus">FailedActionStatus</a> - An action that failed to complete.</li>
+          <li><a href="/PotentialActionStatus">PotentialActionStatus</a> - A description of an action that is supported.
+          </li>
+        </ul>
 
 
-<h4>Example: Thing.potentialAction</h4>
+        <p><strong>Example: actionStatus</strong></p>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "Movie",<br/>
-  "name": "Footloose",<br/>
-  <b>"potentialAction"</b> : {<br/>
-    "@type": "WatchAction"<br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-<h2 id="part-3">Part 3: Action EntryPoints</h2>
-<p>Potential actions are materialized via execution against the target EntryPoint of an Action.</p>
-
-<h4>Example: Action target URL</h4>
-
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "Movie",<br/>
-  "name": "Footloose",<br/>
-  <b>"</b>potentialAction<b>"</b> : {<br/>
-    "@type": "WatchAction",<br/>
-<b>    "target" : "http://example.com/player?id=123"</b><br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
-
-<p>For some platforms and use cases, however, a simple URL is insufficient for formulating a request and/or processing the result, so we are introducing a new EntryPoint class for specifying that additional context beyond a URL when necessary.</p>
-
-<h3>Action</h3>
-
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Property</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>target</i><br/>
-</td>
-<td>EntryPoint<br/>
-</td>
-<td>An entrypoint used to execute the action.<br/>
-</td>
-</tr>
-</tbody>
-</table>
+        <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+          <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "WatchAction",
+  "actionStatus": "CompletedActionStatus",
+  "agent" : {
+    "@type": "Person",
+    "name": "Kevin Bacon"
+  },
+  "object" : {
+    "@type": "Movie",
+    "name": "Footloose"
+  },
+  "startTime" : "2014-03-01"
+}</pre>
+        </div>
 
 
-<h3>Thing &gt; Intangible &gt; EntryPoint</h3>
+        <h2 id="part-2"><strong>Part 2: Connecting Actions to Things</strong></h2>
 
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Property</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>urlTemplate</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>An url template (RFC6570) that will be used to construct the target of the execution of the action.<br/>
-</td>
-</tr>
-<tr>
-<td><i>encodingType</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>Supported MIME type(s) for the request<br/>
-</td>
-</tr>
-<tr>
-<td><i>contentType</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>Supported MIME type(s) of the response<br/>
-</td>
-</tr>
-<tr>
-<td><i>httpMethod</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>An HTTP method that specifies the appropriate HTTP method for a request to an HTTP Entrypoint. Values are capitalized strings as used in HTTP.<br/>
-</td>
-</tr>
-<tr>
-<td><i>application</i><br/>
-</td>
-<td>SoftwareApplication<br/>
-</td>
-<td>The host application<br/>
-</td>
-</tr>
-</tbody>
-</table>
+        <p>Frequently actions are taken or offered in the context of an object (e.g., watch this movie, review this
+          article, share this webpage, etc.). We introduce a new property called potentialAction for describing the
+          "prototype" of an action that can be taken on that Thing.</p>
+        <br />
+        <div style="margin-left: 20px;">
+          <div class="superPaths"><span class="crumb">Thing</span></div>
+
+          <div style="overflow-x: scroll; width: 960px;">
+            <table class="definition-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Expected Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+
+              </tr>
+              <tr>
+                <th class="prop-nam"><code>potentialAction</code></th>
+                <td class="prop-ect">Action</td>
+                <td class="prop-desc">Indicates a potential Action, which describes an idealised action in which this
+                  thing would play the 'object' role.</td>
+              </tr>
+            </table>
+          </div>
+
+          <p><strong>Example: Thing.potentialAction</strong></p>
+
+          <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+            <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "Movie",
+  "name": "Footloose",
+  "potentialAction": {
+    "@type": "WatchAction"
+  }
+}</pre>
+          </div>
+        </div>
 
 
-<h3>Scheme-based encoding of EntryPoint</h3>
-<p>Ideally, the simple "deep link" use cases should work with just a simple URL template.  In some cases, new schemes might even be created to make that possible for some platforms, for example:</p>
-<div><pre class="prettyprint">
+
+        <h2 id="part-3"><strong>Part 3: Action EntryPoints</strong></h2>
+        <p>Potential actions are materialized via execution against the target EntryPoint of an Action.</p>
+        <div style="margin-left: 20px;">
+          <p><strong>Example: Action target URL</strong></p>
+
+          <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+            <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "Movie",
+  "name": "Footloose",
+  "potentialAction": {
+    "@type": "WatchAction",
+    "target" : "http://example.com/player?id=123"
+  }
+}</pre>
+          </div>
+        </div>
+        <br />
+        <p>For some platforms and use cases, however, a simple URL is insufficient for formulating
+          a request and/or processing the result, so we are introducing a new <a href="/EntryPoint">EntryPoint</a> class
+          for specifying that additional context beyond a URL when necessary.</p>
+        <br />
+        <div style="margin-left: 20px;">
+          <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Action</span></div>
+
+          <div style="overflow-x: scroll; width: 960px;">
+            <table class="definition-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Expected Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tr>
+                <th class="prop-nam"><code>target</code></th>
+                <td class="prop-ect">EntryPoint</td>
+                <td class="prop-desc">An entrypoint used to execute the action.</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <br />
+        <div style="margin-left: 20px;">
+          <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Intangible</span> &gt; <span
+              class="crumb">EntryPoint</span></div>
+
+          <div style="overflow-x: scroll; width: 960px;">
+            <table class="definition-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Expected Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tr>
+                <th class="prop-nam"><code>urlTemplate</code></th>
+                <td class="prop-ect">Text</td>
+                <td class="prop-desc">An url template (RFC6570) that will be used to construct the target of the
+                  execution of the action.</td>
+              </tr>
+              <tr>
+                <th class="prop-nam"><code>encodingType</code></th>
+                <td class="prop-ect">Text</td>
+                <td class="prop-desc">Supported MIME type(s) for the request.</td>
+              </tr>
+              <tr>
+                <th class="prop-nam"><code>contentType</code></th>
+                <td class="prop-ect">Text</td>
+                <td class="prop-desc">Supported MIME type(s) of the response.</td>
+              </tr>
+              <tr>
+                <th class="prop-nam"><code>httpMethod</code></th>
+                <td class="prop-ect">Text</td>
+                <td class="prop-desc">An HTTP method that specifies the appropriate HTTP method for a request to an HTTP
+                  Entrypoint. Values are capitalized strings as used in HTTP.</td>
+              </tr>
+              <tr>
+                <th class="prop-nam"><code>application</code></th>
+                <td class="prop-ect">SoftwareApplication</td>
+                <td class="prop-desc">The host application.</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <br />
+        <strong>Scheme-based encoding of EntryPoint</strong>
+        <p>Ideally, the simple "deep link" use cases should work with just a simple URL template. In some cases, new
+          schemes might even be created to make that possible for some platforms, for example:</p>
+        <div>
+          <pre>
 android-app://{package_id}/{scheme}/{host_path}
-</pre></div>
+</pre>
+        </div>
+
+        <br />
+        <strong>Example: Multiple platform URLs</strong>
+        <p>Note: we expect the detail of platform-specific bindings to evolve and be clarified through
+          implementation experience. These examples indicate the general approach rather than the exact
+          information needs of each platform. Also note that the example syntax shown here is not
+          strictly JSON; inline comments have been added for readability.</p>
+
+        <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+          <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Tartine Bakery",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": [
+      /* Web deep link */
+      "http://www.urbanspoon.com/r/6/92204",
+      /* HTTP API that returns JSON-LD */
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "http://api.urbanspoon.com/r/6/92204",
+        "contentType": "application/json+ld"
+      },
+      /* Android app deep link */
+      "android-app://com.urbanspoon/http/www.urbanspoon.com/r/6/92204",
+      /* iOS deep link */
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "urbanspoon://r/6/92204",
+        "application": {
+          "@type": "SoftwareApplication",
+          "@id": "284708449",
+          "name": "Urbanspoon iPhone and iPad App",
+          "operatingSystem": "iOS"
+        }
+      },
+      /* Windows Phone deep link */
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "urbanspoon://r/6/92204",
+        "application": {
+          "@type": "SoftwareApplication",
+          "@id": "5b23b738-bb64-4829-9296-5bcb59bb0d2d",
+          "name": "Windows Phone App",
+          "operatingSystem": "Windows Phone 8"
+        }
+      }
+    ]
+  }
+}</pre>
+        </div>
+    </div>
 
 
-<h4>Example: Multiple platform URLs</h4>
-<p>Note: we expect the detail of platform-specific bindings to evolve and be clarified through implementation experience. These examples indicate the general approach rather than the exact information needs of each platform. Also note that the example syntax shown here is not strictly JSON; inline comments have been added for readability.</p>
-
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "<a href="http://schema.org">http://schema.org</a>",<br/>
-  "@type": "Restaurant",<br/>
-  "name": "Tartine Bakery",<br/>
-  "potentialAction": {<br/>
-    "@type": "ViewAction",<br/>
-    "target": [<br/>
-<b>      /* Web deep link */</b><br/>
-<b>      "http://www.urbanspoon.com/r/6/92204",</b><br/>
-<b>      /* HTTP API that returns JSON-LD */</b><br/>
-<b>      {</b><br/>
-<b>        "@type": "EntryPoint",</b><br/>
-<b>        "urlTemplate": "http://api.urbanspoon.com/r/6/92204",</b><br/>
-<b>        "contentType": "application/json+ld"</b><br/>
-<b>      },</b><br/>
-<b>      /* Android app deep link */</b><br/>
-<b>      "android-app://com.urbanspoon/http/www.urbanspoon.com/r/6/92204",</b><br/>
-<b>      /* iOS deep link */</b><br/>
-<b>      {</b><br/>
-<b>        "@type": "EntryPoint",</b><br/>
-<b>        "urlTemplate": "urbanspoon://r/6/92204",</b><br/>
-<b>        "application": {</b><br/>
-<b>          "@type": "SoftwareApplication",</b><br/>
-<b>          "@id": "284708449",</b><br/>
-<b>          "name": "Urbanspoon iPhone and iPad App",</b><br/>
-<b>          "operatingSystem": "iOS"</b><br/>
-<b>        }</b><br/>
-<b>      },</b><br/>
-<b>      /* Windows Phone deep link */</b><br/>
-<b>      {</b><br/>
-<b>        "@type": "EntryPoint",</b><br/>
-<b>        "urlTemplate": "urbanspoon://r/6/92204",</b><br/>
-<b>        "application": {</b><br/>
-<b>          "@type": "SoftwareApplication",</b><br/>
-<b>          "@id": "5b23b738-bb64-4829-9296-5bcb59bb0d2d",</b><br/>
-<b>          "name": "Windows Phone App",</b><br/>
-<b>          "operatingSystem": "Windows Phone 8"</b><br/>
-<b>        }</b><br/>
-<b>      }</b><br/>
-    ]<br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
 
 
+    <h2 id="part-4"><strong>Part 4: Input and Output constraints</strong></h2>
+    <p>Additional information is often required from a user or client in order to formulate a complete request. To
+      facilitate this process we need the ability to describe within a potential action how to construct these inputs.
+      Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property
+      annotations using a hyphen ("-") delimiter. For example, by specifying a "location-input" property on a potential
+      action we are indicating that "location" is a supported input for completing the action.</p>
+    <p>Similarly, it is also helpful to indicate to clients what will be included in the final completed version of an
+      action, so we introduce the corresponding -output annotation for indicating which properties will be present in
+      the completed action.</p>
+    <br />
+    <div style="margin-left: 20px;">
+      <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Intangible</span> &gt; <span
+          class="crumb">EntryPoint</span></div>
+
+      <div style="overflow-x: scroll; width: 960px;">
+        <table class="definition-table">
+          <thead>
+            <tr>
+              <th>Annotation</th>
+              <th>Expected Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr>
+
+          <tr>
+            <th class="prop-nam"><code><i>&lt;property&gt;-input</i></code></th>
+            <td class="prop-ect">PropertyValueSpecification</td>
+            <td class="prop-desc">Indicates how a property should be filled in before initiating the action.</td>
+          </tr>
+          <tr>
+            <th style="white-space: nowrap;" class="prop-nam"><code><i>&lt;property&gt;-output</i></code></th>
+            </td>
+            <td class="prop-ect">PropertyValueSpecification</td>
+            <td class="prop-desc">Indicates how the field will be filled in when the action is completed.<br />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br />
+    <div style="margin-left: 20px;">
+      <div class="superPaths"><span class="crumb">Thing</span> &gt; <span class="crumb">Intangible</span> &gt; <span
+          class="crumb">PropertyValueSpecification</span></div>
+      <p>A property value specification.</p>
+
+      <div style="overflow-x: scroll; width: 960px;">
+        <table class="definition-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Expected Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr>
+            <th class="prop-nam"><code>valueRequired</code></th>
+            <td class="prop-ect">Boolean</td>
+            <td class="prop-desc">Whether the property must be filled in to complete the action. Default is false.
+              <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-required-attribute">input@required</a>.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>defaultValue</code></th>
+            <td class="prop-ect">Thing, DataType</td>
+            <td class="prop-desc">The default value for the property. For properties that expect a DataType, <br />
+              it's a literal value, for properties that expect an object, it's an ID <br />
+              reference to one of the current values. Equivalent to HTML's input@value.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>valueName</code></th>
+            <td class="prop-ect">Text</td>
+            <td class="prop-desc">Indicates the name of the PropertyValueSpecification to be used in URL templates
+              <br />
+              and form encoding in a manner analogous to HTML's input@name.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>readonlyValue</code></th>
+            <td class="prop-ect">Boolean</td>
+            <td class="prop-desc">Whether or not a property is mutable. Default is false. <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-readonly-attribute">input@readonly</a>.
+              Specifying this for a property that also has a value makes it act <br />
+              similar to a "hidden" input in an HTML form.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>multipleValues</code></th>
+            <td class="prop-ect">Boolean</td>
+            <td class="prop-desc">Whether multiple values are allowed for the property. Default is false. <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-multiple-attribute">input@multiple</a>.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>valueMinLength</code></th>
+            <td class="prop-ect">Number</td>
+            <td class="prop-desc">Specifies the minimum number of characters in a literal value. <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@minlength</a>.
+            </td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>valueMaxLength</code></th>
+            <td class="prop-ect">Number</td>
+            <td class="prop-desc">Specifies the maximum number of characters in a literal value. <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@maxlength</a>.
+            </td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>valuePattern</code></th>
+            <td class="prop-ect">Text</td>
+            <td class="prop-desc">Specifies a regular expression for testing literal values <br />
+              Equivalent to HTML's <a
+                href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">input@pattern</a>.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>minValue</code></th>
+            <td class="prop-ect">Number, Date, Time, DateTime</td>
+            <td class="prop-desc">Specifies the allowed range and intervals for literal values. <br />
+              Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min,
+                max, step</a>.The lower value of some characteristic or property.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>maxValue</code></th>
+            <td class="prop-ect">Number, Date, Time, DateTime</td>
+            <td class="prop-desc">The upper value of some characteristic or property. <br />
+              Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min,
+                max, step</a>.</td>
+          </tr>
+          <tr>
+            <th class="prop-nam"><code>stepValue</code></th>
+            <td class="prop-ect">Number</td>
+            <td> class="prop-desc"The step attribute indicates the granularity that is expected (and required) of the
+              value.</td>
+          </tr>
+        </table>
+      </div>
 
 
-<h2 id="part-4">Part 4: Input and Output constraints</h2>
-<p>Additional information is often required from a user or client in order to formulate a complete request.  To facilitate this process we need the ability to describe within a potential action how to construct these inputs.  Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property annotations using a hypen ("-") delimiter. For example, by specifying a "location-input" property on a potential action we are indicating that "location" is a supported input for completing the action.</p>
-<p>Similarly, it is also helpful to indicate to clients what will be included in the final completed version of an action, so we introduce the corresponding -output annotation for indicating which properties will be present in the completed action.</p>
-
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Annotation</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>&lt;property&gt;-input</i><br/>
-</td>
-<td>PropertyValueSpecification<br/>
-</td>
-<td>Indicates how a property should be filled in before initiating the action.  <br/>
-</td>
-</tr>
-<tr>
-<td><i>&lt;property&gt;-output</i><br/>
-</td>
-<td>PropertyValueSpecification<br/>
-</td>
-<td>Indicates how the field will be filled in when the action is completed.<br/>
-</td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>Thing &gt; Intangible &gt; PropertyValueSpecification</h3>
-<p>A property value specification.</p>
-
-<table class="style0">
-<tbody>
-<tr>
-<td><b>Property</b><br/>
-</td>
-<td><b>Expected Type</b><br/>
-</td>
-<td><b>Description</b><br/>
-</td>
-</tr>
-<tr>
-<td><i>valueRequired</i><br/>
-</td>
-<td>Boolean<br/>
-</td>
-<td>Whether the property must be filled in to complete the action. Default is false. <br/>
-Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-required-attribute">input@required</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>defaultValue</i><br/>
-</td>
-<td>Thing, DataType<br/>
-</td>
-<td>The default value for the property.  For properties that expect a DataType, <br/>
-    it's a literal value, for properties that expect an object, it's an ID <br/>
-    reference to one of the current values. Equivalent to HTML's input@value.<br/>
-</td>
-</tr>
-<tr>
-<td><i>valueName</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>Indicates the name of the PropertyValueSpecification to be used in URL templates <br/>
-    and form encoding in a manner analogous to HTML's input@name.<br/>
-</td>
-</tr>
-<tr>
-<td><i>readonlyValue</i><br/>
-</td>
-<td>Boolean<br/>
-</td>
-<td>Whether or not a property is mutable.  Default is false. <br/>
-    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-readonly-attribute">input@readonly</a>.
-    Specifying this for a property that also has a value makes it act <br/>
-    similar to a "hidden" input in an HTML form<a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">.</a>
-    <br/>
-</td>
-</tr>
-<tr>
-<td><i><a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">multi</a>pleValues</i><br/>
-</td>
-<td>Boolean<br/>
-</td>
-<td>Whether multiple values are allowed for the property.  Default is false. <br/>
-    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-multiple-attribute">input@multiple</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>valueMinLength</i><br/>
-</td>
-<td>Number<br/>
-</td>
-<td>Specifies the minimum number of characters in a literal value. <br/>
-    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@minlength</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>valueMaxLength</i><br/>
-</td>
-<td>Number<br/>
-</td>
-<td>Specifies the maximum number of characters in a literal value. <br/>
-    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@maxlength</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>valuePattern</i><br/>
-</td>
-<td>Text<br/>
-</td>
-<td>Specifies a regular expression for testing literal values <br/>
-    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">input@pattern</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>minValue </i><br/>
-</td>
-<td>Number, Date, Time, DateTime<br/>
-</td>
-<td>Specifies the allowed range and intervals for literal values.  <br/>
-Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.The lower value of some characteristic or property<br/>
-</td>
-</tr>
-<tr>
-<td><i>maxValue</i><br/>
-</td>
-<td>Number, Date, Time, DateTime<br/>
-</td>
-<td>The upper value of some characteristic or property. <br/>
-Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.<br/>
-</td>
-</tr>
-<tr>
-<td><i>stepValue</i><br/>
-</td>
-<td>Number<br/>
-</td>
-<td>The step attribute indicates the granularity that is expected (and required) of the value.<br/>
-</td>
-</tr>
-</tbody>
-</table>
-
-<p>The minValue, maxValue and stepValue properties specify the allowed range and intervals for literal values and are equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>. It should also be noted that if both a property and its -input annotation are present, the value of the un-annotated property should be treated as the allowed options for input (similar to &lt;select&gt;&lt;option&gt; in HTML) unless the Input indicates that the value is also readonly, in which case the value(s) should all be returned in a manner analogous to hidden inputs in forms.</p>
-<p><b>Textual representations of Input and Output</b><br/>
-For convenience, we also support a textual short-hand for both of these types that is formatted and named similarly to how they would appear in their HTML equivalent.  For example:</p>
-<div><pre class="prettyprint">
+      <p>The minValue, maxValue and stepValue properties specify the allowed range and intervals for literal values and
+        are equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min,
+          max, step</a>. It should also be noted that if both a property and its -input annotation are present, the
+        value of the un-annotated property should be treated as the allowed options for input (similar to
+        &lt;select&gt;&lt;option&gt; in HTML) unless the Input indicates that the value is also readonly, in which case
+        the value(s) should all be returned in a manner analogous to hidden inputs in forms.</p>
+    </div>
+    <p><b>Textual representations of Input and Output</b><br />
+      For convenience, we also support a textual short-hand for both of these types that is formatted and named
+      similarly to how they would appear in their HTML equivalent. For example:</p>
+    <div style="margin-left: 20px;">
+      <pre>
 "&lt;property&gt;-input": {
   "@type": "PropertyValueSpecification",
   "valueRequired": true,
   "valueMaxlength": 100,
   "valueName": "q"
 }
-</pre></div>
+</pre>
+    </div>
 
-<p>Can also be expressed as:</p>
-<div><pre class="prettyprint">
+    <p>Can also be expressed as:</p>
+    <div style="margin-left: 20px;">
+      <pre>
 &lt;property&gt;-input: "required maxlength=100 name=q"
-</pre></div>
+</pre>
+    </div>
 
-<p><b>URI Templates</b><br/>
-Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html/rfc6570">RFC6570</a>) for inlining the resulting value of -input properties into action URLs. The allowed references in the templates for substitution are dotted schema paths to the filled-in properties (relative to the Action object).</p>
+    <p><b>URI Templates</b><br />
+      Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html/rfc6570">RFC6570</a>) for
+      inlining the resulting value of -input properties into action URLs.
+      The allowed references in the templates for substitution are dotted schema paths to the filled-in properties
+      (relative to the Action object).</p>
 
-<h4>Example: Text search deep link with -input</h4>
-<p><span style="color:#666666"><u>description</u></span></p>
+    <br /><strong>Example: Text search deep link with -input </strong><br />
+    <br /><span style="margin-left: 20px;"><strong><em>description</em></strong></span>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "<a href="http://schema.org">http://schema.org</a>",<br/>
-  "@type": "WebSite",<br/>
-  "name": "Example.com",<br/>
-  "potentialAction": {<br/>
-    "@type": "SearchAction",<br/>
-<b>    </b>"target": "http://example.com/search?q=<b>{q}",</b><br/>
-<b>    "query-input": "required maxlength=100 name=q"</b><br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+    <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+      <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Example.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "http://example.com/search?q=<b>{q}</b>",
+    <b>"query-input": "required maxlength=100 name=q"</b>
+  }
+}</pre>
+    </div>
 
+    <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-<h5>request</h5>
-
-<table class="style0">
-<tbody>
-<tr>
-<td>GET <a href="http://example.com/search?q=the+search">http://example.com/search?q=the+search</a><br/>
-</td>
-</tr>
-</tbody>
-</table>
+    <pre>GET http://example.com/search?q=the+search
+</pre>
 
 
-<h4>Example: Product purchase API call with -output</h4>
+    <br /><strong>Example: Product purchase API call with -output</strong><br />
 
-<h5>description</h5>
+    <br /><span style="margin-left: 20px;"><strong><em>description</em></strong></span>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@type": "Product",<br/>
-<span style="color:#222222">  "url": "http://example.com/products/ipod",</span><br/>
-  "potentialAction": {<br/>
-    "@type": "BuyAction",<br/>
-    "target": {<br/>
-      "@type": "EntryPoint",<br/>
-<span style="color:#222222">      "urlTemplate": "https://example.com/products/ipod/buy",</span><br/>
-      "encodingType": "application/ld+json",<br/>
-      "contentType": "application/ld+json"<br/>
-    },<br/>
-    "result": {<br/>
-      "@type": "Order",<br/>
-<span style="color:#222222"><b>      "url-output": "required",</b></span><br/>
-<span style="color:#222222"><b>      "confirmationNumber-output": "required",</b></span><br/>
-<span style="color:#222222"><b>      "orderNumber-output": "required",</b></span><br/>
-<span style="color:#222222"><b>      "orderStatus-output": "required"</b></span><br/>
-    }<br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+    <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+      <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@type": "Product",
+  <b>"url": "http://example.com/products/ipod"</b>,
+  "potentialAction": {
+    "@type": "BuyAction",
+    "target": {
+      "@type": "EntryPoint",
+      <b>"urlTemplate": "https://example.com/products/ipod/buy"</b>,
+      "encodingType": "application/ld+json",
+      "contentType": "application/ld+json"
+    },
+    "result": {
+      "@type": "Order",
+      <b>"url-output": "required",</b>
+      <b>"confirmationNumber-output": "required",</b>
+      <b>"orderNumber-output": "required",</b>
+      <b>orderStatus-output": "required"</b>
+    }
+  }
+}</pre>
+    </div>
 
 
-<h5>request</h5>
+    <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-<table class="style0">
-<tbody>
-<tr>
-<td><span style="color:#222222">POST <a href="https://example.com/products/ipod/buy">https://example.com/products/ipod/buy</a></span><br/>
-</td>
-</tr>
-</tbody>
-</table>
+    <pre>POST https://example.com/products/ipod/buy</span><br/>
+</pre>
 
 
-<h5>response</h5>
+    <br /><span style="margin-left: 20px;"><strong><em>response</em></strong></span>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@type": "BuyAction",<br/>
-  "actionStatus": "CompletedActionStatus",<br/>
-<span style="color:#222222">  "object": "https://example.com/products/ipod",</span><br/>
-  "result": {<br/>
-    "@type": "Order",<br/>
-<span style="color:#222222"><b>    "url": "http://example.com/orders/1199334"</b></span><br/>
-<span style="color:#222222"><b>    "confirmationNumber": "1ABBCDDF23234",</b></span><br/>
-<span style="color:#222222"><b>    "orderNumber": "1199334",</b></span><br/>
-<span style="color:#222222"><b>    "orderStatus": "PROCESSING"</b></span><br/>
+    <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+      <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@type": "BuyAction",
+  "actionStatus": "CompletedActionStatus",
+  "object": "https://example.com/products/ipod",
+  "result": {
+      "@type": "Order",
+      <b>"url": "http://example.com/orders/1199334"</b>
+      <b>"confirmationNumber": "1ABBCDDF23234",</b>
+      <b>"orderNumber": "1199334",</b>
+      <b>"orderStatus": "PROCESSING"</b>
+  }
+}
+</pre>
+
+
+      <strong>Example: Movie review site API with -input and -output</strong>
+
+      <br /><span style="margin-left: 20px;"><strong><em>description</em></strong></span>
+
+      <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+        <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "ReviewAction",
+  "target": {
+    "@type": "EntryPoint",
+    "<b>urlTemplate</b>": "https://api.example.com/review",
+    "encodingType": "application/ld+json",
+    "contentType": "application/ld+json"
   },<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+  <b>"object" : {</b>
+    "@type": "Movie",
+    <b>"url-input": "required",</b>
+  },
+  "result": {
+    "@type": "Review",
+    <b>"url-output": "required",</b>
+    <b>"reviewBody-input": "required",</b>
+    "reviewRating": {
+    <b>"ratingValue-input": "required"</b>
+    }
+  }
+}
+  </pre>
+
+      </div>
 
 
-<h4>Example: Movie review site API with -input and -output</h4>
+      <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-<h5>description</h5>
-
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "ReviewAction",<br/>
-  "target": {<br/>
-    "@type": "EntryPoint",<br/>
-<span style="color:#222222">    <b>"</b>urlTemplate<b>"</b>: "https://api.example.com/review",</span><br/>
-    "encodingType": "application/ld+json",<br/>
-    "contentType": "application/ld+json"<br/>
-  },<br/>
-<span style="color:#222222"><b>  "object" : {</b></span><br/>
-    "@type": "Movie",<br/>
-<span style="color:#222222"><b>    "url-input": "required",</b></span><br/>
-<span style="color:#222222"><b>  },</b></span><br/>
-  "result": {<br/>
-    "@type": "Review",<br/>
-<span style="color:#222222"><b>    "url-output": "required",</b></span><br/>
-<span style="color:#222222"><b>    "reviewBody-input": "required",</b></span><br/>
-    "reviewRating": {<br/>
-<span style="color:#222222"><b>      "ratingValue-input": "required"</b></span><br/>
-    }<br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+      <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+        <pre class="small prettyprint lang-html linenums jsonld ">POST https://api.example.com/review
+    
+  {
+  "@context": "https://schema.org",
+  "@type": "ReviewAction",
+  "object" : {
+  "@id": "http://example.com/movies/123"
+  },
+  "result": {
+    "@type": "Review",
+    "reviewBody": "yada, yada, yada",
+    "reviewRating": {
+      "ratingValue": "4"
+    }
+  }
+}
+  </pre>
+      </div>
 
 
-<h5>request</h5>
+      <br /><span style="margin-left: 20px;"><strong><em>response</em></strong></span>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>POST <a href="https://api.example.com/review">https://api.example.com/review</a><br/>
-{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "ReviewAction",<br/>
-  "object" : {<br/>
-<span style="color:#222222">    "@id": "http://example.com/movies/123"</span><br/>
-  },<br/>
-  "result": {<br/>
-    "@type": "Review",<br/>
-    "reviewBody": "yada, yada, yada",<br/>
-    "reviewRating": {<br/>
-      "ratingValue": "4"<br/>
-    }<br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+      <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
+        <pre class="small prettyprint lang-html linenums jsonld ">{
+  "@context": "https://schema.org",
+  "@type": "ReviewAction",
+  "actionStatus": "CompletedActionStatus",
+  "result" : {
+    "@type": "Review",
+    "url"<b>: "http://example.com/reviews/abc"</b>
+  }
+}
+  </pre>
+      </div>
 
 
-<h5>response</h5>
+    </div>
 
-<table class="style0">
-<tbody>
-<tr>
-<td>{<br/>
-  "@context": "http://schema.org",<br/>
-  "@type": "ReviewAction",<br/>
-  "actionStatus": "CompletedActionStatus",<br/>
-<span style="color:#222222">  "result" : {<br/>
-    "@type": "Review",<br/>
-    "url"<b>: "http://example.com/reviews/abc"</b></span><br/>
-  }<br/>
-}<br/>
-</td>
-</tr>
-</tbody>
-</table>
+<!-- #### Static Doc Insert Footer here -->
 
-
-</div>
 </body>
 </html>

@@ -1,0 +1,51 @@
+TYPES: #eg-0253 ActionAccessSpecification, MediaSubscription, ListenAction
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "MusicRecording",
+  "potentialAction": {
+    "@type": "ListenAction",
+    "actionAccessibilityRequirement": {
+      "@type": "ActionAccessSpecification",
+      "availabilityStarts": "2017-01-01T00:00",
+      "availabilityEnds": "2017-12-31T00:00",
+      "eligibleRegion": {
+        "@type": "Country",
+        "sameAs": "https://www.wikidata.org/wiki/Q166433",
+        "name": "US"
+      },
+      "requiresSubscription": {
+        "@type": "MediaSubscription",
+        "name": "ACME streaming music monthly subscription",
+        "authenticator": {
+          "@type": "Organization",
+          "name": "ACME Media"
+        }
+      },
+      "expectsAcceptanceOf": {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "MusicRecording",
+          "name": "Song I want to stream that is only available for streaming after I buy it."
+        }
+      }
+    }
+  }
+}
+</script>
+

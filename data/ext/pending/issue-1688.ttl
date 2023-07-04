@@ -1,0 +1,49 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:backstory a rdf:Property ;
+    rdfs:label "backstory" ;
+    :domainIncludes :Article ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :CreativeWork,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688>;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    rdfs:comment "For an [[Article]], typically a [[NewsArticle]], the backstory property provides a textual summary giving a brief explanation of why and how an article was created. In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc." .
+
+:knowsAbout a rdf:Property ;
+    rdfs:label "knowsAbout" ;
+    :domainIncludes :Organization,
+        :Person ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text,
+        :Thing,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688>;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    rdfs:comment "Of a [[Person]], and less typically of an [[Organization]], to indicate a topic that is known about - suggesting possible expertise but not implying it. We do not distinguish skill levels here, or relate this to educational content, events, objectives or [[JobPosting]] descriptions." .
+
+:knowsLanguage a rdf:Property ;
+    rdfs:label "knowsLanguage" ;
+    :domainIncludes :Organization,
+        :Person ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Language,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688>;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    rdfs:comment "Of a [[Person]], and less typically of an [[Organization]], to indicate a known language. We do not distinguish skill levels or reading/writing/speaking/signing here. Use language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47)." .
+
+:noBylinesPolicy a rdf:Property ;
+    rdfs:label "noBylinesPolicy" ;
+    :domainIncludes :NewsMediaOrganization ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688>;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    rdfs:comment "For a [[NewsMediaOrganization]] or other news-related [[Organization]], a statement explaining when authors of articles are not named in bylines." ;
+    rdfs:subPropertyOf :publishingPrinciples .

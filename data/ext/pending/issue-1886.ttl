@@ -1,0 +1,33 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:sdDatePublished a rdf:Property ;
+    rdfs:label "sdDatePublished" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    rdfs:comment "Indicates the date on which the current structured data was generated / published. Typically used alongside [[sdPublisher]]" .
+
+:sdLicense a rdf:Property ;
+    rdfs:label "sdLicense" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    rdfs:comment "A license document that applies to this structured data, typically indicated by URL." .
+
+:sdPublisher a rdf:Property ;
+    rdfs:label "sdPublisher" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> ;
+    rdfs:comment """Indicates the party responsible for generating and publishing the current structured data markup, typically in cases where the structured data is derived automatically from existing published content but published on a different site. For example, student projects and open data initiatives often re-publish existing content with more explicitly structured metadata. The
+[[sdPublisher]] property helps make such practices more explicit.""" .
+

@@ -1,0 +1,588 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://schema.org/ComicSeries",
+      "@type": "rdfs:Class",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "ComicSeries"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
+      }
+    },
+    {
+      "@id": "http://schema.org/publisherImprint",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Organization"
+      },
+      "rdfs:comment": "The publishing division which published the comic.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "publisherImprint"
+      }
+    },
+    {
+      "@id": "http://schema.org/Thesis",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Thesis"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Thesis"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/pagination",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Chapter"
+      }
+    },
+    {
+      "@id": "http://schema.org/Newspaper",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Newspaper"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Newspaper"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
+      }
+    },
+    {
+      "@id": "http://schema.org/artist",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The primary artist for a work\n    in a medium other than pencils or digital line art--for example, if the\n    primary artwork is done in watercolors or digital paints.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "artist"
+      }
+    },
+    {
+      "@id": "http://schema.org/abridged",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Book"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Indicates whether the book is an abridged edition.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "abridged"
+      }
+    },
+    {
+      "@id": "http://schema.org/ComicCoverArt",
+      "@type": "rdfs:Class",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "The artwork on the cover of a comic.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "ComicCoverArt"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "http://schema.org/CoverArt"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ]
+    },
+    {
+      "@id": "http://schema.org/ComicStory",
+      "@type": "rdfs:Class",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "The term \"story\" is any indivisible, re-printable\n    unit of a comic, including the interior stories, covers, and backmatter. Most\n    comics have at least two stories: a cover (ComicCoverArt) and an interior story.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "ComicStory"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/publishedBy",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/PublicationEvent"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Person"
+        },
+        {
+          "@id": "http://schema.org/Organization"
+        }
+      ],
+      "rdfs:comment": "An agent associated with the publication event.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "publishedBy"
+      }
+    },
+    {
+      "@id": "http://schema.org/workTranslation",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/translationOfWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "rdfs:comment": "A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "workTranslation"
+      }
+    },
+    {
+      "@id": "http://schema.org/variantCover",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ComicIssue"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "variantCover"
+      }
+    },
+    {
+      "@id": "http://schema.org/ComicIssue",
+      "@type": "rdfs:Class",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "Individual comic issues are serially published as\n    part of a larger series. For the sake of consistency, even one-shot issues\n    belong to a series comprised of a single issue. All comic issues can be\n    uniquely identified by: the combination of the name and volume number of the\n    series to which the issue belongs; the issue number; and the variant\n    description of the issue (if any).",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "ComicIssue"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/PublicationIssue"
+      }
+    },
+    {
+      "@id": "http://schema.org/Audiobook",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "An audiobook.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Audiobook"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "http://schema.org/AudioObject"
+        },
+        {
+          "@id": "http://schema.org/Book"
+        }
+      ]
+    },
+    {
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
+      "http://schema.org/softwareVersion": {
+        "@language": "en",
+        "@value": "bib.schema.org Version 0.1"
+      }
+    },
+    {
+      "@id": "http://schema.org/colorist",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who adds color to inked drawings.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "colorist"
+      }
+    },
+    {
+      "@id": "http://schema.org/inker",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who traces over the pencil drawings in ink after pencils are complete.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "inker"
+      }
+    },
+    {
+      "@id": "http://schema.org/pageStart",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Chapter"
+      }
+    },
+    {
+      "@id": "http://schema.org/inSupportOf",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Thesis"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Qualification, candidature, degree, application that Thesis supports.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "inSupportOf"
+      }
+    },
+    {
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa",
+      "http://schema.org/softwareVersion": {
+        "@language": "en",
+        "@value": "bib extension - version 0.1"
+      }
+    },
+    {
+      "@id": "http://schema.org/penciler",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who draws the primary narrative artwork.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "penciler"
+      }
+    },
+    {
+      "@id": "http://schema.org/Chapter",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "One of the sections into which a book is divided. A chapter usually has a section number or a name.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Chapter"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/Collection",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Collection"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/GraphicNovel",
+      "@type": "http://schema.org/BookFormatType",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "GraphicNovel"
+      }
+    },
+    {
+      "@id": "http://schema.org/translationOfWork",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "translationOfWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/Atlas",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Atlas"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Atlas"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/duration",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
+      }
+    },
+    {
+      "@id": "http://schema.org/letterer",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who adds lettering, including speech balloons and sound effects, to artwork.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "letterer"
+      }
+    },
+    {
+      "@id": "http://schema.org/pageEnd",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Chapter"
+      }
+    },
+    {
+      "@id": "http://schema.org/readBy",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "A person who reads (performs) the audiobook.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "readBy"
+      },
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/actor"
+      }
+    },
+    {
+      "@id": "http://schema.org/CoverArt",
+      "@type": "rdfs:Class",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "The artwork on the outer surface of a CreativeWork.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "CoverArt"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/VisualArtwork"
+      }
+    }
+  ],
+  "@id": "http://bib.schema.org/#3.2"
+}

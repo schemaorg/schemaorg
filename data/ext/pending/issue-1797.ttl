@@ -1,0 +1,75 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductGroup a rdfs:Class ;
+    rdfs:label "ProductGroup" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
+
+While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ ;
+    rdfs:subClassOf :Product .
+
+:inProductGroupWithID a rdf:Property ;
+    rdfs:label "inProductGroupWithID" ;
+    :domainIncludes :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " .
+
+:pattern a rdf:Property ;
+    rdfs:label "pattern" ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." .
+
+:productGroupID a rdf:Property ;
+    rdfs:label "productGroupID" ;
+    :domainIncludes :ProductGroup ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates a textual identifier for a ProductGroup." .
+
+:size a rdf:Property ;
+    rdfs:label "size" ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :QuantitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "A standardized size of a product or creative work, specified either through a simple textual string (for example 'XL', '32Wx34L'), a  QuantitativeValue with a unitCode, or a comprehensive and structured [[SizeSpecification]]; in other cases, the [[width]], [[height]], [[depth]] and [[weight]] properties may be more applicable. " .
+
+:variesBy a rdf:Property ;
+    rdfs:label "variesBy" ;
+    :domainIncludes :ProductGroup ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs." .
+
+:hasVariant a rdf:Property ;
+    rdfs:label "hasVariant" ;
+    :domainIncludes :ProductGroup ;
+    :inverseOf :isVariantOf ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." .
+
+:isVariantOf a rdf:Property ;
+    :domainIncludes :Product ;
+    :inverseOf :hasVariant ;
+    :rangeIncludes :ProductGroup .
+

@@ -1,0 +1,119 @@
+TYPES: #eg-0224 MedicalGuideline, MedicalGuidelineRecommendation, MedicalGuidelineContraindication
+
+PRE-MARKUP:
+
+<h1>Guidelines</h1>
+<ul>
+  <li>Recommendation: NewvoDrug is indicated for initial treatment of cardiac
+  failure for all adult patients. (Strong recommendation;
+  Class I, based on multiple randomized clinical trials)</li>
+  <li>Contraindication: cardiac failure should never be treated with
+  appendectomy in adults. (Class III, standard of care)</li>
+</ul>
+
+MICRODATA:
+
+<h1>Guidelines</h1>
+<ul>
+  <li>Recommendation:
+  <span itemscope itemtype="https://schema.org/MedicalGuidelineRecommendation">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/Drug">
+      <span itemprop="name">NewvoDrug</span>
+    </span>
+    is indicated for initial treatment of
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/MedicalCondition">
+      <span itemprop="name">cardiac failure</span>
+    </span>
+    for all adult patients.
+    (<span itemprop="recommendationStrength">Strong recommendation</span>;
+    <a itemprop="evidenceLevel" href="https://schema.org/EvidenceLevelA">Class I</a>,
+    based on
+    <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
+  </span>
+  </li>
+  <li>Contraindication:
+  <span itemscope itemtype="https://schema.org/MedicalGuidelineContraindication">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/MedicalCondition">
+      <span itemprop="name">cardiac failure</span></span> should never
+    be treated with
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/TherapeuticProcedure">
+      <span itemprop="name">appendectomy</span></span> in adults.
+    (Class III, <link itemprop="evidenceLevel" href="https://schema.org/EvidenceLevelC"/>
+    <span itemprop="evidenceOrigin">standard of care</span>)
+  </span></li>
+</ul>
+
+RDFA:
+
+<h1>Guidelines</h1>
+<ul>
+  <li>Recommendation:
+  <span  typeof="MedicalGuidelineRecommendation">
+    <span property="guidelineSubject"  typeof="Drug">
+      <span property="name">NewvoDrug</span>
+    </span>
+    is indicated for initial treatment of
+    <span property="guidelineSubject"  typeof="MedicalCondition">
+      <span property="name">cardiac failure</span>
+    </span>
+    for all adult patients.
+    (<span property="recommendationStrength">Strong recommendation</span>;
+    <a property="evidenceLevel" href="https://schema.org/EvidenceLevelA">
+      Class I</a>,
+    based on
+    <span property="evidenceOrigin">multiple randomized clinical trials</span>)
+  </span>
+  </li>
+  <li>Contraindication:
+  <span  typeof="MedicalGuidelineContraindication">
+    <span property="guidelineSubject"  typeof="MedicalCondition">
+      <span property="name">cardiac failure</span></span> should never
+    be treated with
+    <span property="guidelineSubject"  typeof="TherapeuticProcedure">
+      <span property="name">appendectomy</span></span> in adults.
+    (Class III, <link property="evidenceLevel" href="https://schema.org/EvidenceLevelC"/>
+    <span property="evidenceOrigin">standard of care</span>)
+  </span></li>
+</ul>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalGuidelineRecommendation",
+      "evidenceLevel": "https://schema.org/EvidenceLevelA",
+      "evidenceOrigin": "multiple randomized clinical trials",
+      "recommendationStrength": "Strong recommendation",
+      "guidelineSubject": [
+        {
+          "@type": "Drug",
+          "name": "NewvoDrug"
+        },
+        {
+          "@type": "MedicalCondition",
+          "name": "cardiac failure"
+        }
+      ]
+    },
+    {
+      "@type": "MedicalGuidelineContraindication",
+      "evidenceLevel": "https://schema.org/EvidenceLevelC",
+      "evidenceOrigin": "standard of care",
+      "guidelineSubject": [
+        {
+          "@type": "MedicalCondition",
+          "name": "cardiac failure"
+        },
+        {
+          "@type": "TherapeuticProcedure",
+          "name": "appendectomy"
+        }
+      ]
+    }
+  ]
+}
+</script>
+

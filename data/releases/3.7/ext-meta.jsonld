@@ -1,0 +1,116 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://schema.org/supersededBy",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Class"
+        },
+        {
+          "@id": "http://schema.org/Enumeration"
+        },
+        {
+          "@id": "http://schema.org/Property"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Enumeration"
+        },
+        {
+          "@id": "http://schema.org/Class"
+        },
+        {
+          "@id": "http://schema.org/Property"
+        }
+      ],
+      "rdfs:comment": "Relates a term (i.e. a property, class or enumeration) to one that supersedes it.",
+      "rdfs:label": "supersededBy"
+    },
+    {
+      "@id": "http://schema.org/Class",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://www.w3.org/2002/07/owl#equivalentClass": {
+        "@id": "rdfs:Class"
+      },
+      "rdfs:comment": "A class, also often called a 'Type'; equivalent to rdfs:Class.",
+      "rdfs:label": "Class",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/Property",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://www.w3.org/2002/07/owl#equivalentClass": {
+        "@id": "rdf:Property"
+      },
+      "rdfs:comment": "A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property.",
+      "rdfs:label": "Property",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/inverseOf",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Property"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Property"
+      },
+      "rdfs:comment": "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used.",
+      "rdfs:label": "inverseOf"
+    },
+    {
+      "@id": "http://schema.org/domainIncludes",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Property"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Class"
+      },
+      "rdfs:comment": "Relates a property to a class that is (one of) the type(s) the property is expected to be used on.",
+      "rdfs:label": "domainIncludes"
+    },
+    {
+      "@id": "http://schema.org/rangeIncludes",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Property"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://meta.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Class"
+      },
+      "rdfs:comment": "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property.",
+      "rdfs:label": "rangeIncludes"
+    }
+  ],
+  "@id": "http://schema.org/#3.7"
+}

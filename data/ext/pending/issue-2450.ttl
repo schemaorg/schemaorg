@@ -1,0 +1,285 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Issue 2450 + also based on https://github.com/schemaorg/schemaorg/issues/2844
+
+:MediaManipulationRatingEnumeration a rdfs:Class ;
+rdfs:label "MediaManipulationRatingEnumeration" ;
+:isPartOf <https://pending.schema.org> ;
+:source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+rdfs:comment """ Codes for use with the [[mediaAuthenticityCategory]] property, indicating the authenticity of a media object (in the context of how it was published or shared). In general these codes are not mutually exclusive, although some combinations (such as 'original' versus 'transformed', 'edited' and 'staged') would be contradictory if applied in the same [[MediaReview]]. Note that the application of these codes is with regard to a piece of media shared or published in a particular context.""" ;
+rdfs:subClassOf :Enumeration .
+
+:MediaReview a rdfs:Class ;
+    rdfs:label "MediaReview" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
+    For more general reviews of media in the broader sense, use [[UserReview]], [[CriticReview]] or other [[Review]] types. This definition is
+    a work in progress. While the [[MediaManipulationRatingEnumeration]] list reflects significant community review amongst fact-checkers and others working
+    to combat misinformation, the specific structures for representing media objects, their versions and publication context, are still evolving. Similarly, best practices for the relationship between [[MediaReview]] and [[ClaimReview]] markup have not yet been finalized.""" ;
+    rdfs:subClassOf :Review .
+
+:mediaAuthenticityCategory a rdf:Property ;
+    rdfs:label "mediaAuthenticityCategory" ;
+    :domainIncludes :MediaReview ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :MediaManipulationRatingEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "Indicates a MediaManipulationRatingEnumeration classification of a media object (in the context of how it was published or shared)." .
+
+
+
+
+
+
+:OriginalMediaContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "OriginalMediaContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'as original media content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'original': No evidence the footage has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+
+For an [[ImageObject]] to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[ImageObject]] with embedded text to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[AudioObject]] to be 'original': No evidence the audio has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+""" .
+
+
+
+
+
+:DecontextualizedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "DecontextualizedContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'missing context' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'missing context': Presenting unaltered video in an inaccurate manner that misrepresents the footage. For example, using incorrect dates or locations, altering the transcript or sharing brief clips from a longer video to mislead viewers. (A video rated 'original' can also be missing context.)
+
+For an [[ImageObject]] to be 'missing context': Presenting unaltered images in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An image rated 'original' can also be missing context.)
+
+For an [[ImageObject]] with embedded text to be 'missing context': An unaltered image presented in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An 'original' image with inaccurate text would generally fall in this category.)
+
+For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an inaccurate manner that misrepresents it. For example, using incorrect dates or locations, or sharing brief clips from a longer recording to mislead viewers. (Audio rated “original” can also be missing context.)
+""" .
+
+
+
+
+
+:EditedOrCroppedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "EditedOrCroppedContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'edited or cropped content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'edited or cropped content': The video has been edited or rearranged. This category applies to time edits, including editing multiple videos together to alter the story being told or editing out large portions from a video.
+
+For an [[ImageObject]] to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[ImageObject]] with embedded text to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[AudioObject]] to be 'edited or cropped content': The audio has been edited or rearranged. This category applies to time edits, including editing multiple audio clips together to alter the story being told or editing out large portions from the recording.
+""" .
+
+
+
+
+
+:TransformedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "TransformedContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'transformed content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'transformed content':  or all of the video has been manipulated to transform the footage itself. This category includes using tools like the Adobe Suite to change the speed of the video, add or remove visual elements or dub audio. Deepfakes are also a subset of transformation.
+
+For an [[ImageObject]] to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[ImageObject]] with embedded text to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[AudioObject]] to be 'transformed content': Part or all of the audio has been manipulated to alter the words or sounds, or the audio has been synthetically generated, such as to create a sound-alike voice.
+""" .
+
+
+
+
+
+:StagedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "StagedContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'staged content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'staged content': A video that has been created using actors or similarly contrived.
+
+For an [[ImageObject]] to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[ImageObject]] with embedded text to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[AudioObject]] to be 'staged content': Audio that has been created using actors or similarly contrived.
+""" .
+
+
+
+
+:SatireOrParodyContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "SatireOrParodyContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment  """Content coded 'satire or parody content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'satire or parody content': A video that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] with embedded text to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[AudioObject]] to be 'satire or parody content': Audio that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+""" .
+
+
+
+
+
+:originalMediaContextDescription a rdf:Property ;
+    rdfs:label "originalMediaContextDescription" ;
+    :domainIncludes :MediaReview ;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "Describes, in a [[MediaReview]] when dealing with [[DecontextualizedContent]], background information that can contribute to better interpretation of the [[MediaObject]]." .
+
+:sha256 a rdf:Property ;
+    rdfs:label "sha256" ;
+    :domainIncludes :MediaObject ;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'" .
+
+:interpretedAsClaim a rdf:Property ;
+    rdfs:label "interpretedAsClaim" ;
+    :domainIncludes :MediaObject, :CreativeWork;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Claim ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Used to indicate a specific claim contained, implied, translated or refined from the content of a [[MediaObject]] or other [[CreativeWork]]. The interpreting party can be indicated using [[claimInterpreter]].""" .
+
+:claimInterpreter a rdf:Property ;
+    rdfs:label "claimInterpreter" ;
+    :domainIncludes :Claim ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Person, :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """For a [[Claim]] interpreted from [[MediaObject]] content
+    sed to indicate a claim contained, implied or refined from the content of a [[MediaObject]].""" .
+
+:archivedAt a rdf:Property ;
+    rdfs:label "archivedAt" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :URL, :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Indicates a page or other link involved in archival of a [[CreativeWork]]. In the case of [[MediaReview]], the items in a [[MediaReviewItem]] may often become inaccessible, but be archived by archival, journalistic, activist, or law enforcement organizations. In such cases, the referenced page may not directly publish the content.""".
+
+:originalMediaLink a rdf:Property ;
+    rdfs:label "originalMediaLink" ;
+    :domainIncludes :MediaReview ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :URL, :MediaObject, :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Link to the page containing an original version of the content, or directly to an online copy of the original [[MediaObject]] content, e.g. video file.""".
+
+
+
+# This is more general than fact-checking etc., so we create a bland superproperty (in Pending; it may not be worth keeping, feedback welcomed)
+
+:associatedReview a rdf:Property ;
+    rdfs:label "associatedReview" ;
+    :domainIncludes :Review;
+    :rangeIncludes :Review ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """An associated [[Review]].""" .
+
+:associatedClaimReview a rdf:Property ;
+    rdfs:label "associatedClaimReview" ;
+    :domainIncludes :Review;
+    :rangeIncludes :Review ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subPropertyOf :associatedReview ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """An associated [[ClaimReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[relatedClaimReview]] would be used on [[MediaReview]].""" .
+
+:associatedMediaReview a rdf:Property ;
+    rdfs:label "associatedMediaReview" ;
+    :domainIncludes :Review;
+    :rangeIncludes :Review ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subPropertyOf :associatedReview ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """An associated [[MediaReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[relatedClaimReview]] would be used on [[MediaReview]].""" .
+
+:embeddedTextCaption a rdf:Property ;
+    rdfs:label "embeddedTextCaption" ;
+    :domainIncludes :ImageObject, :AudioObject, :VideoObject ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subPropertyOf :caption ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'." .
+
+:mediaItemAppearance a rdf:Property ;
+    rdfs:label "mediaItemAppearance" ;
+    :domainIncludes :MediaReviewItem ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :MediaObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "In the context of a [[MediaReview]], indicates specific media item(s) that are grouped using a [[MediaReviewItem]]." .
+
+
+# To consider: create a common supertype of the snapshot types.
+
+:ImageObjectSnapshot a rdfs:Class ;
+    rdfs:label "ImageObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :ImageObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of an [[ImageObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata (e.g. XMP, EXIF) the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+:AudioObjectSnapshot a rdfs:Class ;
+    rdfs:label "AudioObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :AudioObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of an [[AudioObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+:VideoObjectSnapshot a rdfs:Class ;
+    rdfs:label "VideoObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :VideoObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of a [[VideoObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+# We could be clearer about authorship, vs. model this as an Intangible.
+:MediaReviewItem a rdfs:Class ;
+    rdfs:label "MediaReviewItem" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Represents an item or group of closely related items treated as a unit for the sake of evaluation in a [[MediaReview]]. Authorship etc. apply to the items rather than to the curation/grouping or reviewing party."""
+    .

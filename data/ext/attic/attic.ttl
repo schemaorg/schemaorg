@@ -1,0 +1,28 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StupidType a rdfs:Class ;
+    rdfs:label "StupidType" ;
+    :isPartOf <https://attic.schema.org> ;
+    rdfs:comment "A StupidType for testing." ;
+    rdfs:subClassOf :Thing .
+
+:stupidProperty a rdf:Property ;
+    rdfs:label "stupidProperty" ;
+    :domainIncludes :StupidType,
+        :Vehicle ;
+    :isPartOf <https://attic.schema.org> ;
+    :rangeIncludes :QuantitativeValue ;
+    rdfs:comment "This is a StupidProperty! - for testing only" .
+
+:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    :domainIncludes :Dataset ;
+    :isPartOf <https://attic.schema.org> ;
+    :rangeIncludes :PropertyValue,
+        :Text ;
+    rdfs:comment "Originally named [[variablesMeasured]], the [[variableMeasured]] property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+

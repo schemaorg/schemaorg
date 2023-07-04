@@ -1,0 +1,32 @@
+TYPES: SeekToAction
+
+PRE-MARKUP:
+
+Skip to a specific time point in a video.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Example Video Title",
+  "url":  "https://video.example.com/watch/videoID"
+  "potentialAction": {
+      "@type": "SeekToAction",      
+      "target": "https://video.example.com/watch/videoID?t={seek_to_second_number}",     
+      "startOffset-input": "required name=seek_to_second_number"
+  }
+}
+
+
+</script>

@@ -1,0 +1,43 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix snomed: <http://purl.bioontology.org/ontology/SNOMEDCT/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd1: <hhttp://www.w3.org/2001/XMLSchema#> .
+
+schema:StupidType a rdfs:Class ;
+    rdfs:label "StupidType" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    rdfs:comment "A StupidType for testing." ;
+    rdfs:subClassOf schema:Thing .
+
+schema:stupidProperty a rdf:Property ;
+    rdfs:label "stupidProperty" ;
+    schema:domainIncludes schema:StupidType,
+        schema:Vehicle ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:QuantitativeValue ;
+    rdfs:comment "This is a StupidProperty! - for testing only" .
+
+schema:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    schema:domainIncludes schema:Dataset ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text ;
+    rdfs:comment "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+

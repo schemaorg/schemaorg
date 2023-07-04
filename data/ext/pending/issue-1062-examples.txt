@@ -1,0 +1,99 @@
+TYPES: #eg-0229 HealthInsurancePlan, HealthPlanFormulary, HealthPlanCostSharingSpecification
+
+PRE-MARKUP:
+
+See JSON example.
+
+Background, https://docs.google.com/document/d/1LNew5OEon4uir2D5Zzp0AkUPA7c9nO8reJ_M1pOy-3s/edit#
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+
+    {
+        "@context": "http://health-lifesci.schema.org/",
+        "@type": "HealthInsurancePlan",
+        "usesHealthPlanIdType": "http://healthplan.schema.org/HealthPlanIdTypeHIOS",
+        "healthPlanId": "12345XX9876543",
+        "name": "Sample Gold Health Plan",
+        "summaryUrl": "http://url/to/summary/benefits/coverage",
+        "marketingUrl": "http://url/to/health/plan/information",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "email@address.com"
+        },
+        "healthPlanNetworkTiers": ["http://healthplan.schema.org/PreferredNetwork",
+                                  "http://healthplan.schema.org/NonPreferredNetwork"],
+        "includesHealthPlanFormulary": [
+            {
+                "@type": "HealthPlanFormulary",
+                "healthPlanDrugTier": "http://healthplan.schema.org/DrugTierGeneric",
+                "offersPrescriptionByMail": true,
+                "healthPlanCostSharing": [
+                    {
+                        "@type": "HealthPlanCostSharingSpecification",
+                        "healthPlanPharmacyType": "1-MONTH-IN-RETAIL",
+                        "healthPlanCopay": {
+                            "@type": "PriceSpecification",
+                            "price": 20,
+                            "currency": "USD"
+                        },
+                        "healthPlanCopayOption": "http://healthplan.schema.org/HealthPlanCopayAfterDeductable",
+                        "healthPlanCoinsuranceRate": 0.1,
+                        "healthPlanCoinsuranceOption": "http://healthplan.schema.org/HealthPlanCoinsuranceBeforeDeductable"
+                    },
+                    {
+                       "@type": "HealthPlanCostSharingSpecification",
+                        "healthPlanPharmacyType": "1-MONTH-IN-MAIL",
+                         "healthPlanCopay": {
+                            "@type": "PriceSpecification",
+                            "price": 0,
+                            "currency": "USD"
+                        },
+                        "healthPlanCopayOption": "http://healthplan.schema.org/HealthPlanCoPayNoCharge",
+                        "healthPlanCoinsuranceRate": 0.2,
+                        "healthPlanCoinsuranceOption": "http://healthplan.schema.org/HealthPlanCoinsuranceNone"
+                    }
+                ],
+                "healthPlanDrugTier": "http://healthplan.schema.org/DrugTierBrand",
+                "offersPrescriptionByMail": true,
+                "healthPlanCostSharing": [
+                    {
+                       "@type": "HealthPlanCostSharingSpecification",
+                        "healthPlanPharmacyType": "1-MONTH-IN-RETAIL",
+                        "healthPlanCopay": {
+                            "@type": "PriceSpecification",
+                            "price": 15,
+                            "currency": "USD"
+                        },
+                        "healthPlanCopayOption": "http://healthplan.schema.org/HealthPlanCopayNone",
+                        "healthPlanCoinsuranceRate": 0,
+                        "healthPlanCoinsuranceOption": "http://healthplan.schema.org/HealthPlanCoinsuranceNone"
+                    },
+                    {
+                       "@type": "HealthPlanCostSharingSpecification",
+                        "healthPlanPharmacyType": "1-MONTH-IN-MAIL",
+                        "healthPlanCopay": {
+                            "@type": "PriceSpecification",
+                            "price": 20,
+                            "currency": "USD"
+                        },
+                        "healthPlanCopayOption": "http://healthplan.schema.org/HealthPlanCopayAfterDeductible",
+                        "healthPlanCoinsuranceRate": 0.1,
+                        "healthPlanCoinsuranceOption": "http://healthplan.schema.org/HealthPlanCoinsuranceBeforeDeductible"
+                    }
+                ]
+            }
+        ]
+    }
+
+</script>
+

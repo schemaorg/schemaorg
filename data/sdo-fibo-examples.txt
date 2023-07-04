@@ -1,0 +1,1126 @@
+TYPES: #eg-0350 CreditCard, MonetaryAmount, UnitPriceSpecification
+
+PRE-MARKUP:
+
+Wells Fargo Secured Visa® Credit Card
+Requires a minimum $300 security deposit.
+When you apply, you provide a minimum security deposit of at least $300, or up to $10,000.
+Annual fee $25
+Annual Percentage Rate (APR) Currently, a variable 18.99% APR on purchases. (These APRs do not apply to cash advances.)
+<a href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/CreditCard">
+    <span itemprop="name">Wells Fargo Secured Visa® Credit Card</span>
+    <span itemprop="requiredCollateral">Requires a minimum $300 security deposit.</span>
+    <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least
+      <span itemprop="currency" content="USD">$</span>
+      <span itemprop="minValue">300</span>, or up to $
+      <span itemprop="maxValue" content="10000">10,000</span>.
+    </span>
+    <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      <meta itemprop="offeredBy" content="Wells Fargo"/>
+      <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/UnitPriceSpecification">Annual fee
+        <span itemprop="priceCurrency" content="USD">$</span>
+        <span itemprop="price">25</span>
+        <span itemprop="referenceQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+            <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
+        </span>
+      </span>
+    </span>
+    <span>Annual Percentage Rate (APR) Currently, a variable
+      <span itemprop="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
+    </span>
+    <a itemprop="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="CreditCard">
+    <span property="name">Wells Fargo Secured Visa® Credit Card</span>
+    <span property="requiredCollateral">Requires a minimum $300 security deposit.</span>
+    <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least
+      <span property="currency" content="USD">$</span>
+      <span property="minValue">300</span>, or up to $
+      <span property="maxValue" content="10000">10,000</span>.
+    </span>
+    <span property="offers" typeof="Offer">
+      <meta property="offeredBy" content="Wells Fargo"/>
+      <span property="priceSpecification" typeof="UnitPriceSpecification">Annual fee
+        <span property="priceCurrency" content="USD">$</span>
+        <span property="price">25</span>
+        <span property="referenceQuantity" typeof="QuantitativeValue">
+            <meta property="value" content="1"/>
+            <meta property="unitCode" content="ANN"/>
+        </span>
+      </span>
+    </span>
+    <span>Annual Percentage Rate (APR) Currently, a variable
+      <span property="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
+    </span>
+    <a property="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreditCard",
+  "name": "Wells Fargo Secured Visa® Credit Card",
+  "requiredCollateral": "Requires a minimum $300 security deposit.",
+  "amount": {
+      "@type": "MonetaryAmount",
+      "minValue": "300",
+      "maxValue": "10000",
+      "currency": "USD"
+  },
+  "offers": {
+      "@type": "Offer",
+      "offeredBy": {
+        "@type": "BankOrCreditUnion",
+        "name":"Wells Fargo"
+      },
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "25",
+        "priceCurrency": "USD",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "ANN"
+        }
+      }
+  },
+  "annualPercentageRate": "18.99",
+  "feesAndCommissionsSpecification": "https://www.wellsfargo.com/credit-cards/secured/terms/"
+}
+</script>
+
+TYPES: #eg-0351 LoanOrCredit, MonetaryAmount
+
+PRE-MARKUP:
+
+<div>
+Wells Fargo GraduateSM Student Loan
+You'll have up to 15 years to repay the loan.
+
+Competitive Annual Percentage Rate (APR)
+
+        Variable interest rates range from 3.22% APR (with discount) to 8.74% APR (without discount).
+
+        Fixed interest rates range from 6.36% APR (with discount) to 10.61% APR (without discount).
+
+The lifetime limit for this loan combined with all other education-related debt is $180,000 for law and business, and $120,000 for other fields of study.
+</div>
+
+MICRODATA:
+
+<!-- Wells Fargo GraduateSM Student Loan -->
+
+<div itemscope itemtype="https://schema.org/LoanOrCredit">
+  <span itemprop="name">Wells Fargo GraduateSM Student Loan</span>
+  You'll have up to
+  <div itemprop="loanTerm" itemscope itemtype="https://schema.org/QuantitativeValue">
+    <span itemprop="value" content="15">15</span>
+    <span itemprop="unitCode" content="ANN">years</span>
+  </div>
+  to repay the loan.
+
+  Competitive Annual Percentage Rate (APR)
+  <div itemprop="annualPercentageRate" itemscope itemtype="https://schema.org/QuantitativeValue">
+    <span itemprop="name">Variable interest rates</span>
+    range from
+    <span itemprop="minValue" content="3.22">3.22%</span> APR (with discount) to
+    <span itemprop="maxValue" content="8.74">8.74%</span> APR (without discount).
+  </div>
+
+  <div itemprop="annualPercentageRate" itemscope itemtype="https://schema.org/QuantitativeValue">
+    <span itemprop="name">Fixed interest rates</span>
+    range from
+    <span itemprop="minValue" content="6.36">6.36%</span> APR (with discount) to
+    <span itemprop="maxValue" content="10.61">10.61%</span> APR (without discount).
+  </div>
+
+  The lifetime limit for this loan combined with all other education-related debt is
+  <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">
+    <span itemprop="currency" content="USD">$</span>
+    <span itemprop="value" content="180000">180,000</span>
+    <span itemprop="name">for law and business</span>,
+  </div>
+  and
+  <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">
+    <span itemprop="currency" content="USD">$</span>
+    <span itemprop="value" content="120000">120,000</span>
+    <span itemprop="name">for other fields of study</span>.
+  </div>
+</div>
+
+RDFA:
+
+<!-- Wells Fargo GraduateSM Student Loan -->
+
+<div vocab="https://schema.org/" typeof="LoanOrCredit">
+  <span property="name">Wells Fargo GraduateSM Student Loan</span>
+
+  You'll have up to
+  <div property="loanTerm" typeof="QuantitativeValue">
+       <span property="value" content="15">15</span>
+       <span property="unitCode" content="ANN">years</span>
+  </div>
+  to repay the loan.
+
+  Competitive Annual Percentage Rate (APR)
+  <div property="annualPercentageRate" typeof="QuantitativeValue">
+    <span property="name">Variable interest rates</span>
+    range from
+    <span property="minValue" content="3.22">3.22%</span> APR (with discount) to
+    <span property="maxValue" content="8.74">8.74%</span> APR (without discount).
+  </div>
+
+  <div property="annualPercentageRate" typeof="QuantitativeValue">
+    <span property="name">Fixed interest rates</span>
+    range from
+    <span property="minValue" content="6.36">6.36%</span> APR (with discount) to
+    <span property="maxValue" content="10.61">10.61%</span> APR (without discount).
+  </div>
+
+  The lifetime limit for this loan combined with all other education-related debt is
+  <div property="amount" typeof="MonetaryAmount">
+    <span property="currency" content="USD">$</span>
+    <span property="value" content="180000">180,000</span>
+    <span property="name">for law and business</span>,
+  </div>
+  and
+  <div property="amount" typeof="MonetaryAmount">
+    <span property="currency" content="USD">$</span>
+    <span property="value" content="120000">120,000</span>
+    <span property="name">for other fields of study</span>.
+  </div>
+</div>
+
+JSON:
+
+<!-- Wells Fargo GraduateSM Student Loan -->
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"LoanOrCredit",
+"name":"Wells Fargo GraduateSM Student Loan",
+"loanTerm":{
+    "@type":"QuantitativeValue",
+    "value":"15",
+    "unitCode": "ANN"
+},
+"annualPercentageRate":[
+  {
+    "@type":"QuantitativeValue",
+    "name": "variable interest rates",
+    "minValue":"3.22",
+    "maxValue":"8.74"
+  },
+  {
+    "@type":"QuantitativeValue",
+    "name": "fixed interest rates",
+    "minValue":"6.36",
+    "maxValue":"10.61"
+  }
+  ],
+"amount":[
+  {
+    "@type": "MonetaryAmount",
+    "name":"debt for law and business",
+    "value":"180000",
+    "currency":"USD"
+  },
+  {
+    "@type": "MonetaryAmount",
+    "name":"debt for other fields of study than law and business",
+    "value":"120000",
+    "currency":"USD"
+  }
+  ]
+}
+</script>
+
+TYPES: #eg-0352 BankAccount
+
+PRE-MARKUP:
+
+<div>
+    <h1>RBS current accounts</h1>
+    <h2>Most popular accounts</h2>
+    <ul>
+        <li><b>Select Account</b><br/>
+            - No monthly account fee<br/>
+            - You need to be aged 18 or over, and UK resident to apply
+        </li>
+        <li><b>Select Silver Account</b><br/>
+            - £10 per month<br/>
+            - You need to be aged 18 or over, and UK resident to apply
+        </li>
+        <li><b>Select Platinum Account</b><br/>
+            - £16 per month<br/>
+            - You need to be aged 18 or over, and UK resident to apply
+        </li>
+        <li><b>Black Account</b>Select Platinum Account</b><br/>
+                - £24 per month<br/>
+                - You need to be aged 18 or over, and UK resident to apply, with either:
+                <ul>
+                    <li>£100,000 sole income paid into this account</li>
+                    <li>a RBS mortgage of at lease £300,000</li>
+                    <li>£100,000 in RBS savings and investments</li>
+                </ul>
+        </li>
+    </ul>
+    <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
+<div>
+
+MICRODATA:
+
+<div>
+    <h1>RBS current accounts</h1>
+    <h2>Most popular accounts</h2>
+    <ul>
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
+                    <meta itemprop="name" content="RBS"/>
+                    <link itemprop="url" href="http://rbs.co.uk"/>
+                </span>
+            -   <span itemprop="description">No monthly account fee<br/>- You need to be aged 18 or over, and UK resident to apply</span>
+                <meta itemprop="price" content="0"/>
+            </span>
+            <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Silver Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+                    <meta itemprop="priceCurrency" content="GBP"/>
+                    - £<span itemprop="price">10</span> per month<br/>
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                        <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
+                    </span>
+                </span>
+            -   <span itemprop="description">You need to be aged 18 or over, and UK resident to apply</span>
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
+                    <meta itemprop="name" content="RBS"/>
+                    <link itemprop="url" href="http://rbs.co.uk"/>
+                </span>
+            </span>
+            <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Platinum Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+                    <meta itemprop="priceCurrency" content="GBP"/>
+                    - £<span itemprop="price">16</span> per month<br/>
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                        <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
+                    </span>
+                </span>
+            -   <span itemprop="description">You need to be aged 18 or over, and UK resident to apply</span>
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
+                    <meta itemprop="name" content="RBS"/>
+                    <link itemprop="url" href="http://rbs.co.uk"/>
+                </span>
+            </span>
+            <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Black Account</span></b><br/>
+            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser">
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+                    <meta itemprop="priceCurrency" content="GBP"/>
+                    - £<span itemprop="price">24</span> per month<br/>
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                        <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
+                    </span>
+                </span>
+            -   <div itemprop="description">   You need to be aged 18 or over, and UK resident to apply, with either:
+                <ul>
+                    <li>£100,000 sole income paid into this account</li>
+                    <li>a RBS mortgage of at lease £300,000</li>
+                    <li>£100,000 in RBS savings and investments</li>
+                </ul></div>
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
+                    <meta itemprop="name" content="RBS"/>
+                    <link itemprop="url" href="http://rbs.co.uk"/>
+                </span>
+            </div>
+            <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+    </ul>
+    <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/">
+    <h1>RBS current accounts</h1>
+    <h2>Most popular accounts</h2>
+    <ul>
+        <li typeof="BankAccount"><b><span property="name">Select Account</span></b><br/>
+            <span property="offers" typeof="Offer">
+                <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+            -   <span property="description">No monthly account fee<br/>- You need to be aged 18 or over, and UK resident to apply</span>
+                <meta property="price" content="0"/>
+                <span property="offeredBy" typeof="BankOrCreditUnion">
+                    <meta property="name" content="RBS"/>
+                    <link property="url" href="http://rbs.co.uk"/>
+                </span>
+            </span>
+            <link property="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li typeof="BankAccount"><b><span property="name">Select Silver Account</span></b><br/>
+            <span property="offers" typeof="Offer">
+                <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <span property="priceSpecification" typeof="PriceSpecification">
+                    <meta property="priceCurrency" content="GBP"/>
+                    - £<span property="price">10</span> per month<br/>
+                    <span property="eligibleQuantity" typeof="QuantitativeValue">
+                        <meta property="value" content="1"/><meta property="unitCode" content="ANN"/>
+                    </span>
+                </span>
+            -   <span property="description">You need to be aged 18 or over, and UK resident to apply</span>
+                <span property="offeredBy" typeof="BankOrCreditUnion">
+                    <meta property="name" content="RBS"/>
+                    <link property="url" href="http://rbs.co.uk"/>
+                </span>
+            </span>
+            <link property="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li typeof="BankAccount"><b><span property="name">Select Platinum Account</span></b><br/>
+            <span property="offers" typeof="Offer">
+                <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <span property="priceSpecification" typeof="PriceSpecification">
+                    <meta property="priceCurrency" content="GBP"/>
+                    - £<span property="price">16</span> per month<br/>
+                    <span property="eligibleQuantity" typeof="QuantitativeValue">
+                        <meta property="value" content="1"/><meta property="unitCode" content="ANN"/>
+                    </span>
+                </span>
+            -   <span property="description">You need to be aged 18 or over, and UK resident to apply</span>
+                <span property="offeredBy" typeof="BankOrCreditUnion">
+                    <meta property="name" content="RBS"/>
+                    <link property="url" href="http://rbs.co.uk"/>
+                </span>
+            </span>
+            <link property="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+        <li typeof="BankAccount"><b><span property="name">Black Account</span></b><br/>
+            <div property="offers" typeof="https://schema.org/Offer">
+                <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
+                <div property="priceSpecification" typeof="PriceSpecification">
+                    <meta property="priceCurrency" content="GBP"/>
+                    - £<span property="price">24</span> per month<br/>
+                    <span property="eligibleQuantity" typeof="QuantitativeValue">
+                        <meta property="value" content="1"/><meta property="unitCode" content="ANN"/>
+                    </span>
+                </div>
+            -   <div property="description">You need to be aged 18 or over, and UK resident to apply, with either:
+                <ul>
+                    <li>£100,000 sole income paid into this account</li>
+                    <li>a RBS mortgage of at lease £300,000</li>
+                    <li>£100,000 in RBS savings and investments</li>
+                </ul>
+                </div>
+                <span property="offeredBy" typeof="BankOrCreditUnion">
+                    <meta property="name" content="RBS"/>
+                    <link property="url" href="http://rbs.co.uk"/>
+                </span>
+            </div>
+            <link property="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
+        </li>
+    </ul>
+    <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@graph": [
+    {
+        "@type": "BankAccount",
+        "name": "Select  account",
+        "offers": {
+            "@type": "Offer",
+            "eligibleCustomerType": {
+                "@id":"http://purl.org/goodrelations/v1#Enduser"
+            },
+            "price": "0",
+            "description": "You need to be aged 18 or over, and UK resident to apply.",
+            "offeredBy": {
+                "@type": "BankOrCreditUnion",
+                "@id": "http://rbs.co.uk",
+                "name": "RBS"
+            }
+        },
+        "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
+    },
+    {
+        "@type": "BankAccount",
+        "name": "Select Silver account",
+        "offers": {
+            "@type": "Offer",
+            "eligibleCustomerType": "http://purl.org/goodrelations/v1#Enduser",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "GBP",
+                "price": "10",
+                "eligibleQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value":"1",
+                    "unitCode": "ANN"
+                }
+            },
+            "description": "You need to be aged 18 or over, and UK resident to apply.",
+            "offeredBy": {
+                "@type": "BankOrCreditUnion",
+                "@id": "http://rbs.co.uk",
+                "name": "RBS"
+            }
+        },
+        "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
+    },
+    {
+        "@type": "BankAccount",
+        "name": "Select Platinum account",
+        "offers": {
+            "@type": "Offer",
+            "eligibleCustomerType": "http://purl.org/goodrelations/v1#Enduser",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "GBP",
+                "price": "16",
+                "eligibleQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value":"1",
+                    "unitCode": "ANN"
+                }
+            },
+            "description": "You need to be aged 18 or over, and UK resident to apply.",
+            "offeredBy": {
+                "@type": "BankOrCreditUnion",
+                "@id": "http://rbs.co.uk",
+                "name": "RBS"
+            }
+        },
+        "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
+    },
+    {
+        "@type": "BankAccount",
+        "name": "Black account",
+        "offers": {
+            "@type": "Offer",
+            "eligibleCustomerType": "http://purl.org/goodrelations/v1#Enduser",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "GBP",
+                "price": "24",
+                "eligibleQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value":"1",
+                    "unitCode": "ANN"
+                }
+            },
+            "description": "You need to be aged 18 or over, and UK resident to apply, with either:<ul><li>£100,000 sole income paid into this account<\/li><li>a RBS mortgage of at lease £300,000<\/li><li>£100,000 in RBS savings and investments<\/li><\/ul>",
+            "offeredBy": {
+                "@type": "BankOrCreditUnion",
+                "@id": "http://rbs.co.uk",
+                "name": "RBS"
+            }
+        },
+        "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
+
+    }
+    ]
+}</script>
+
+TYPES: #eg-0353 DepositAccount, MonetaryAmount
+
+PRE-MARKUP:
+
+<body>
+    <h1>Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
+
+    <div>
+        <table>
+        <tr>
+            <th>Bank</th><th>Account</th><th>Interest Rate</th><th>Min/Max Opening Amount</th><th>Access</th>
+        </tr>
+        <tr>
+            <td><a href="https://www.rcibank.co.uk">RCI Bank</a></td>
+            <td>Freedom Savings Account</td>
+            <td>1.65% Variable</td>
+            <td>&#163;100 to &#163;1,000,000</td>
+            <td>Internet, Post, Telephone</td>
+        </tr>
+        <tr>
+            <td><a href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
+            <td>Online Instant Access Savings Issue 4</td>
+            <td>1.25% Variable</td>
+            <td>&#163;500 to &#163;1,000,000</td>
+            <td>Internet, In Branch</td>
+        </tr>
+        <tr>
+            <td><a href="http://www.aldermore.co.uk/">Aldermore</a></td>
+            <td>Easy Access Issue 9</td>
+            <td>1.25% Variable</td>
+            <td>&#163;1,000 to &#163;1,000,000</td>
+            <td>Internet, Post, Telephone</td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+MICRODATA:
+
+<body itemscope itemtype="https://schema.org/WebPage">
+    <h1 itemprop="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
+
+    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
+        <meta itemprop="name" content="Easy access accounts Comparison List"/>
+        <table>
+        <tr>
+            <th>Bank</th><th>Account</th><th>Interest Rate</th><th>Min/Max Opening Amount</th><th>Access</th>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
+            <td><a itemprop="provider" href="https://www.rcibank.co.uk">RCI Bank</a></td>
+            <td itemprop="name">Freedom Savings Account</td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.65</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="100">100</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
+            <td><a itemprop="provider" href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
+            <td itemprop="name">Online Instant Access Savings Issue 4</td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="500">500</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">In Branch</span></td>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
+            <td><a itemprop="provider" href="http://www.aldermore.co.uk/">Aldermore</a></td>
+            <td itemprop="name">Easy Access Issue 9</td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="1000">1,000</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+RDFA:
+
+<body vocab="https://schema.org/" typeof="WebPage">
+    <h1 property="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
+
+    <div property="mainEntity" typeof="ItemList">
+        <meta property="name" content="Easy access accounts Comparison List"/>
+        <table>
+        <tr>
+            <th>Bank</th><th>Account</th><th>Interest Rate</th><th>Min/Max Opening Amount</th><th>Access</th>
+        </tr>
+        <tr property="itemListElement" typeof="DepositAccount">
+            <td><a property="provider" href="https://www.rcibank.co.uk">RCI Bank</a></td>
+            <td property="name">Freedom Savings Account</td>
+            <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.65</span>% <span property="valueReference">Variable</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="100">100</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
+            <td><span property="availableChannel">Internet</span>, <span property="availableChannel">Post</span>, <span property="availableChannel">Telephone</span></td>
+        </tr>
+        <tr property="itemListElement" typeof="DepositAccount">
+            <td><a property="provider" href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
+            <td property="name">Online Instant Access Savings Issue 4</td>
+            <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.25</span>% <span property="valueReference">Variable</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="500">500</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
+            <td><span property="availableChannel">Internet</span>, <span property="availableChannel">In Branch</span></td>
+        </tr>
+        <tr property="itemListElement" typeof="DepositAccount">
+            <td><a property="provider" href="http://www.aldermore.co.uk/">Aldermore</a></td>
+            <td property="name">Easy Access Issue 9</td>
+            <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.25</span>% <span property="valueReference">Variable</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="1000">1,000</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
+            <td><span property="availableChannel">Internet</span>, <span property="availableChannel">Post</span>, <span property="availableChannel">Telephone</span></td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Easy access accounts Comparison - Ordered by interest rate (AER)",
+    "mainEntity": {
+        "@type": "ItemList",
+        "name": "Easy access accounts Comparison List",
+        "itemListElement": [
+        {
+            "@type": "DepositAccount",
+            "provider": {
+                "@id": "https://www.rcibank.co.uk",
+                "name": "RCI Bank"
+            },
+            "name": "Freedom Savings Account",
+            "interestRate": {
+                "@type": "QuantitativeValue",
+                "value": "1.65",
+                "valueReference": "Variable"
+            },
+            "amount": {
+                "@type": "MonetaryAmount",
+                "currency": "GBP",
+                "minValue": "100",
+                "maxValue": "1000000"
+            },
+            "availableChannel": ["Internet","Post","Telephone"]
+        },
+        {
+            "@type": "DepositAccount",
+            "provider": {
+                "@id": "https://sbiukonlinesavings.com/",
+                "name": "State Bank of India"
+            },
+            "name": "Online Instant Access Savings Issue 4",
+            "interestRate": {
+                "@type": "QuantitativeValue",
+                "value": "1.25",
+                "valueReference": "Variable"
+            },
+            "amount": {
+                "@type": "MonetaryAmount",
+                "currency": "GBP",
+                "minValue": "500",
+                "maxValue": "1000000"
+            },
+            "availableChannel": ["Internet","In Branch"]
+        },
+        {
+            "@type": "DepositAccount",
+            "provider": {
+                "@id": "http://www.aldermore.co.uk/",
+                "name": "Aldermore"
+            },
+            "name": "Easy Access Issue 9",
+            "interestRate": {
+                "@type": "QuantitativeValue",
+                "value": "1.65",
+                "valueReference": "Variable"
+            },
+            "amount": {
+                "@type": "MonetaryAmount",
+                "currency": "GBP",
+                "minValue": "1000",
+                "maxValue": "1000000"
+            },
+            "availableChannel": ["Internet","Post","Telephone"]
+        }
+        ]
+    }
+}
+</script>
+
+TYPES: #eg-0354 PaymentCard
+
+PRE-MARKUP:
+
+<b>Wells Fargo Platinum Debit Card.</b>
+Customers with an eligible Wells Fargo Checking account can make everyday purchases using their Platinum debit card worldwide at participating retailers and service providers – including online or by phone. Pay with confidence knowing your Wells Fargo Debit Card comes with many protection features and is a safe way to pay.
+<a href="https://www.wellsfargo.com/debit-card/#overview">Overview</a>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/PaymentCard">
+  <b><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+    <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
+      <span itemprop="name">Wells Fargo</span>
+    </span>
+    <link itemprop="businessFunction" content="http://purl.org/goodrelations/v1#ProvideService" />
+  </span>
+  <span itemprop="name">Platinum Debit Card.</span></b>
+  <meta itemprop="category" content="Debit Card"/>
+  <p itemprop="description">
+    Customers with an eligible Wells Fargo Checking account can make everyday purchases using their Platinum debit card worldwide at participating retailers and service providers – including online or by phone. Pay with confidence knowing your Wells Fargo Debit Card comes with many protection features and is a safe way to pay.
+  </p>
+  <a itemprop="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/debit-card/#overview">Overview</a>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org" typeof="PaymentCard">
+  <b><span property="offers" typeof="Offer">
+    <span property="offeredBy" typeof="https://schema.org/BankOrCreditUnion">
+      <span property="name">Wells Fargo</span>
+    </span>
+    <link property="businessFunction" content="http://purl.org/goodrelations/v1#ProvideService" />
+  </span>
+  <span property="name">Platinum Debit Card.</span></b>
+  <meta property="category" content="Debit Card"/>
+  <p property="description">
+    Customers with an eligible Wells Fargo Checking account can make everyday purchases using their Platinum debit card worldwide at participating retailers and service providers – including online or by phone. Pay with confidence knowing your Wells Fargo Debit Card comes with many protection features and is a safe way to pay.
+  </p>
+  <a property="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/debit-card/#overview">Overview</a>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PaymentCard",
+  "name": "Platinum Debit Card",
+  "category": "Debit Card",
+  "offers": {
+      "@type": "Offer",
+      "offeredBy": {
+        "@type": "BankOrCreditUnion",
+        "name":"Wells Fargo"
+      },
+      "businessFunction": "http://purl.org/goodrelations/v1#ProvideService"
+  },
+  "description": "Customers with an eligible Wells Fargo Checking account can make everyday purchases using their Platinum debit card worldwide at participating retailers and service providers – including online or by phone. Pay with confidence knowing your Wells Fargo Debit Card comes with many protection features and is a safe way to pay.",
+  "feesAndCommissionsSpecification": "https://www.wellsfargo.com/debit-card/#overview"
+}
+</script>
+
+TYPES: #eg-0355 PaymentService
+
+PRE-MARKUP:
+
+<h1>Payment Fees</h1>
+<h2>Selling is $0.15 - $0.50 per sale.</h2>
+<div>
+  <div>
+    <p>That's a small price to pay for accepting all forms of payments from over million customers worldwide. There are no hidden fees. You don't have to pay anything until you get paid for selling something. Our rates are some of the most competitive in the industry – keeping you in business and your customers happy.</p>
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th>Sales within the US</th>
+        <td>$0.30 per transaction</td>
+      </tr>
+      <tr>
+        <th>Discounted rate for eligible nonprofits</th>
+        <td>$0.25 per transaction</td>
+      </tr>
+      <tr>
+        <th>International sales</th>
+        <td>$0.50 per transaction</td>
+      </tr>
+      <tr>
+        <th>Card reader</th>
+        <td>$0.15 for manually entered transactions</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+MICRODATA:
+
+<body itemscope itemtype="https://schema.org/WebPage">
+  <h1 itemprop="name">Payment Fees</h1>
+  <h2>Selling is $0.15 - $0.50 per sale.</h2>
+  <div>
+    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
+      <meta itemprop="name" content="Payment List"/>
+      <table>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
+          <th itemprop="name">Sales within the US</th>
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.30</span>
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                    <span itemprop="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
+          <th itemprop="name">Discounted rate for eligible nonprofits</th>
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.25</span>
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                    <span itemprop="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
+          <th itemprop="name">International sales</th>
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.50</span>
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                    <span itemprop="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
+          <th itemprop="name">Card reader</th>
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.15</span>
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
+                    <span itemprop="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+
+RDFA:
+
+<body vocab="https://schema.org/" typeof="WebPage">
+  <h1 property="name">Payment Fees</h1>
+  <h2>Selling is $0.15 - $0.50 per sale.</h2>
+  <div>
+    <div property="mainEntity" typeof="ItemList">
+      <meta property="name" content="Payment List"/>
+      <table>
+        <tr property="itemListElement" typeof="PaymentService">
+          <th property="name">Sales within the US</th>
+          <td property="offers" typeof="Offer">
+            <span property="priceSpecification" typeof="PriceSpecification">
+              <span property="priceCurrency" content="USD">$</span><span property="price">0.30</span>
+            </span>
+          </td>
+        </tr>
+        <tr property="itemListElement" typeof="PaymentService">
+          <th property="name">Discounted rate for eligible nonprofits</th>
+          <td property="offers" typeof="Offer">
+            <span property="priceSpecification" typeof="PriceSpecification">
+              <span property="priceCurrency" content="USD">$</span><span property="price">0.25</span>
+              <span property="eligibleQuantity" typeof="QuantitativeValue">
+                    <span property="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr property="itemListElement" typeof="PaymentService">
+          <th property="name">International sales</th>
+          <td property="offers" typeof="Offer">
+            <span property="priceSpecification" typeof="PriceSpecification">
+              <span property="priceCurrency" content="USD">$</span><span property="price">0.50</span>
+              <span property="eligibleQuantity" typeof="QuantitativeValue">
+                    <span property="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr property="itemListElement" typeof="PaymentService">
+          <th property="name">Card reader</th>
+          <td property="offers" typeof="Offer">
+            <span property="priceSpecification" typeof="PriceSpecification">
+              <span property="priceCurrency" content="USD">$</span><span property="price">0.15</span>
+              <span property="eligibleQuantity" typeof="QuantitativeValue">
+                    <span property="unitText">per transaction</span>
+              </span>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Payment Fees",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Payment List",
+      "itemListElement": [
+      {
+        "@type": "PaymentService",
+        "name": "Sales within the US",
+        "offers": {
+          "@type": "Offer",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "eligibleQuantity":{
+                "@type": "QuantitativeValue",
+                "unitText": "per transaction"
+            },
+            "priceCurrency": "USD",
+            "price": "0.30"
+          }
+        }
+      },
+      {
+        "@type": "PaymentService",
+        "name": "Discounted rate for eligible nonprofits",
+        "offers": {
+          "@type": "Offer",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "eligibleQuantity":{
+                "@type": "QuantitativeValue",
+                "unitText": "per transaction"
+            },
+            "priceCurrency": "USD",
+            "price": "0.30"
+          }
+        }
+      },
+      {
+        "@type": "PaymentService",
+        "name": "International sales",
+        "offers": {
+          "@type": "Offer",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "eligibleQuantity":{
+                "@type": "QuantitativeValue",
+                "unitText": "per transaction"
+            },
+            "priceCurrency": "USD",
+            "price": "0.30"
+          }
+        }
+      },
+      {
+        "@type": "PaymentService",
+        "name": "Card reader",
+        "offers": {
+          "@type": "Offer",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "eligibleQuantity":{
+                "@type": "QuantitativeValue",
+                "unitText": "per transaction"
+            },
+            "priceCurrency": "USD",
+            "price": "0.30"
+          }
+        }
+      } ]
+    }
+  }
+</script>
+
+TYPES: #eg-0356 FinancialProduct
+
+PRE-MARKUP:
+
+<body>
+    <h1>Life Insurance</h1>
+    <div>
+      <h3>Term Life Insurance</h3>
+      <p>For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
+      <div>Coverage amounts $100,000 - $1,000,000</div>
+      <div>Available through <a href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
+    </div>
+    <div>
+      <h3>Simplified Term Life</h3>
+      <div>Coverage amounts $50,000 - $250,000</div>
+      <div>Available through <a href="https://www.prudential.com/personal/life-insurance">Prudential Financial</a></div>
+    </div>
+</body>
+
+MICRODATA:
+
+<body>
+    <h1>Life Insurance</h1>
+    <div itemscope itemtype="https://schema.org/FinancialProduct">
+      <h3 itemprop="name">Term Life Insurance</h3>
+      <p itemprop="description">For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
+      <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">Available through <a itemprop="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
+    </div>
+</body>
+
+RDFA:
+
+<body vocab="https://schema.org/">
+    <h1>Life Insurance</h1>
+    <div typeof="FinancialProduct">
+      <h3 property="name">Term Life Insurance</h3>
+      <p property="description">For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
+      <div property="offers" typeof="Offer">Available through <a property="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
+    </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FinancialProduct",
+  "name": "Term Life Insurance",
+  "description": "For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.",
+  "offers": {
+    "@type": "Offer",
+    "offeredBy": "http://www.icinsure.com/acce/"
+  }
+}
+</script>
+
+TYPES: #eg-0357 InvestmentOrDeposit
+
+PRE-MARKUP:
+
+<body>
+  <div>
+    <h1>Guaranteed Interest Fund</h1>
+    <p>This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
+    <div>Amount to be invested $25,000 to $99,999</div>
+    <div>Guaranteed interest rate 1.25%</div>
+  </div>
+</body>
+
+MICRODATA:
+
+<body>
+  <div itemscope itemtype="https://schema.org/InvestmentOrDeposit">
+    <h1 itemprop="name">Guaranteed Interest Fund</h1>
+    <p itemprop="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
+    <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="25000">25,000</span> to $<span itemprop="maxValue" content="99000">99,999</span></div>
+    <div>Guaranteed interest rate <span itemprop="interestRate" content="1.25">1.25%</span></div>
+  </div>
+</body>
+
+RDFA:
+
+<body vocab="https://schema.org/">
+  <div typeof="https://schema.org/InvestmentOrDeposit">
+    <h1 property="name">Guaranteed Interest Fund</h1>
+    <p property="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
+    <div property="amount" typeof="https://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minValue" content="25000">25,000</span> to $<span property="maxValue" content="99000">99,999</span></div>
+    <div>Guaranteed interest rate <span property="interestRate" content="1.25">1.25%</span></div>
+  </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InvestmentOrDeposit",
+  "name": "Guaranteed Interest Fund",
+  "description": "This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.",
+  "amount": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "minValue": "25000",
+    "maxValue": "90000"
+  },
+  "interestRate": "1.25"
+}
+</script>
+

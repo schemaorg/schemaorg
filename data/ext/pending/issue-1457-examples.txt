@@ -1,0 +1,191 @@
+TYPES: #eg-0240 Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+A Tai-Chi class runs throughout 2017. The class occurs weekly, every Wednesday at 7pm.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A weekly Tai-Chi class",
+  "duration": "PT60M",
+  "eventSchedule": {
+     "@type": "Schedule",
+     "startDate": "2017-01-01",
+     "endDate": "2017-12-31",
+     "repeatFrequency": "P1W",
+     "byDay": "https://schema.org/Wednesday",
+     "startTime": "19:00:00",
+     "endTime": "20:00:00",
+     "scheduleTimezone": "Europe/London"
+  }
+}
+</script>
+
+TYPES: #eg-0241 Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+A Meetup takes place on the 1st and 15th of every month between 9-10am
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Event",
+  "name": "Example Meetup",
+  "eventSchedule": {
+     "@type": "Schedule",
+     "repeatFrequency": "P1M",
+     "byMonthDay": [1,15],
+     "startTime": "09:00:00",
+     "endTime": "10:00:00",
+     "scheduleTimezone": "America/Glace_Bay"
+  }
+}
+</script>
+
+TYPES: #eg-0242 Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+Starting from 2th December an Event will run daily between 9-10am for 10 occurences.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Count Example",
+      "eventSchedule":
+        {
+          "@type": "Schedule",
+          "startDate": "2016-12-24",
+          "repeatFrequency": "P1D",
+          "repeatCount": 10,
+          "startTime": "09:00:00",
+          "endTime": "10:00:00",
+          "scheduleTimezone": "Europe/London"
+        }
+    }
+</script>
+
+TYPES: #eg-0243 Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+An Event runs twice a day, at 9am-10am and 2pm-3pm but only Monday to Friday
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Example",
+  "eventSchedule": [
+    {
+      "@type": "Schedule",
+      "repeatFrequency": "P1D",
+      "byDay": [
+        "https://schema.org/Monday",
+        "https://schema.org/Tuesday",
+        "https://schema.org/Wednesday",
+        "https://schema.org/Thursday",
+        "https://schema.org/Friday"
+      ],
+      "startTime": "09:00:00",
+      "endTime": "10:00:00",
+      "scheduleTimezone": "America/Glace_Bay"
+    },
+    {
+      "@type": "Schedule",
+      "repeatFrequency": "P1D",
+      "byDay": [
+        "https://schema.org/Monday",
+        "https://schema.org/Tuesday",
+        "https://schema.org/Wednesday",
+        "https://schema.org/Thursday",
+        "https://schema.org/Friday"
+      ],
+      "startTime": "14:00:00",
+      "endTime": "15:00:00",
+      "scheduleTimezone": "America/Glace_Bay"
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0244 Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+An Event runs on the second Monday of every month, from 6pm-7:30pm. Because this kind of recurrence goes beyond that expressible using <a href="https://schema.org/DayOfWeek">https://schema.org/DayOfWeek</a>, it is specified instead using iCal's <a href="https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html">syntax for byDay recurrence rules</a>.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Example",
+  "eventSchedule": [
+    {
+      "@type": "Schedule",
+      "repeatFrequency": "P1M",
+      "byDay": "2MO",
+      "startTime": "18:00:00",
+      "endTime": "19:30:00",
+      "scheduleTimezone": "Asia/Shanghai"
+    }
+  ]
+}
+</script>
+

@@ -1,0 +1,63 @@
+{
+    "@context": {
+		"schema": "http://schema.org/"
+	},
+	"schema:name": "Schema.org Hosted Extensions",
+    "@graph": [
+		{
+		    "@id": "http://meta.schema.org",
+			"schema:name": "Meta Extension",
+			"schema:disambiguatingDescription": "terms used within schema.org for schema definitions.",
+		    "schema:softwareVersion": "1.0",
+			"rdfs:comment": "The meta extension contains terms primarily designed to support the implementation of the Schema.org vocabulary itself. It includes terms such as [[Class]], [[Property]], [[domainIncludes]] and [[supersededBy]]. They are not currently advocated for widespread use across the web."
+		},
+		{
+		    "@id": "http://attic.schema.org",
+		  	"schema:name": "Attic Area",
+			"schema:disambiguatingDescription": "these terms have been either deprecated from the core or extentions, or removed from [pending](/docs/howwework.html#pending) as not accepted into the full vocabulary.",
+		    "schema:softwareVersion": "0.0",
+		  	"rdfs:comment": "The attic area is an archive area for terms which are no longer part of the core vocabulary or its extensions. _Attic_ terms are preserved here to satisfy previous links to them.\n\nImplementors and publishers are gently encouraged not to use terms in the attic area."
+		},
+		{
+		    "@id": "http://pending.schema.org",
+		  	"schema:name": "Pending Extension",
+			"schema:disambiguatingDescription": "these terms are [pending](/docs/howwework.html#pending) wider review. Feedback is welcomed!",
+		  	"rdfs:comment": "The pending extension is a staging area for work-in-progress terms which have yet to be accepted into the core vocabulary. _Pending_ terms are subject to change and should be used with caution.\n\nImplementors and publishers are cautioned that terms in the pending extension may lack consensus and that terminology and definitions could still change significantly after community and steering group review. Consumers of schema.org data who encourage use of such terms are strongly encouraged to update implementations and documentation to track any evolving changes, and to share early implementation feedback with the wider community."
+		},
+		{
+		    "@id": "http://auto.schema.org",
+			"schema:name": "Auto Extension",
+			"schema:disambiguatingDescription": "terms relating to automobiles.",
+		    "schema:softwareVersion": "1.0",
+			"rdfs:comment": "You are viewing the Auto Extension within [schema.org](http://schema.org/). It defines terms such as [[MotorizedBicycle]] and adds terms to [[Car]]. For more details see the W3C [Automotive Ontology Working Group](https://www.w3.org/community/gao/)."
+		},
+		{
+		    "@id": "http://bib.schema.org",
+			"schema:name": "Bibliographic Extension",
+			"schema:disambiguatingDescription": "terms relating to books and bibliography.",
+		    "schema:softwareVersion": "1.0",
+			"rdfs:comment": "The Bibliographic Extension within [schema.org](http://schema.org) defines terms such as [[Audiobook]], [[Thesis]], [[ComicStory]], and [[workTranslation]]. For more details see the W3C BibExtend Community Group's [wiki](http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0)."
+		},
+		{
+		    "@id": "http://health-lifesci.schema.org/",
+			"schema:name": "Health and Lifesciences Extension",
+			"schema:disambiguatingDescription": "terms relating to healthcare, medicine and the life sciences.",
+		    "schema:softwareVersion": "0.8",
+			"rdfs:comment": "You are viewing the Health and Lifesciences extension within [schema.org](http://schema.org). It defines many medical terms such as  [[MedicalCondition]], [[AnatomicalStructure]] and [[MedicalSpecialty]]. See full list below.  \n\nThe terms defined in this extension may be considered moderately stable, but some changes are still likely (including renaming and restructuring) through ongoing community collaboration. Organizations using this data are encouraged to join the community discussions linked here, and share their usage scenarios to help improve the schemas.\n\nThe schema.org [medical vocabulary](/docs/meddocs.html) was [originally created](http://blog.schema.org/2012/06/health-and-medical-vocabulary-for.html) in collaboration with [WikiDoc](http://www.wikidoc.org/index.php/Main_Page) and others. Recent improvements including the migration into the health-lifesci extension has been led by the Healthcare Schema ([schemed](https://www.w3.org/community/schemed/)) community group at W3C.  The health-lifesci schema.org extension is [available](https://github.com/schemaorg/schemaorg/issues/1116) for other collaborative schema.org extensions in topics centred on healthcare, medicine and the lifesciences (e.g. see also [Bioschemas](https://github.com/schemaorg/schemaorg/issues/1028), and the [pending](http://pending.schema.org/) proposals for describing [US healthcare insurance networks](https://github.com/schemaorg/schemaorg/issues/1062))."
+		},
+    {
+      "@id": "http://bio.schema.org/",
+      "schema:name": "Bioschemas",
+      "schema:disambiguatingDescription": "Terms relating to life sciences.",
+      "schema.softwareVersion": "0.1",
+      "rdfs:comment": "Extension proposed by the [Bioschemas Community](http://bioschemas.org)."
+    },
+                {
+                    "@id": "http://iot.schema.org/",
+                        "schema:name": "IoT + Schema.org",
+                        "schema:disambiguatingDescription": "Exploration of Schema.org for IoT.",
+                    "schema:softwareVersion": "0.1",
+                        "rdfs:comment": "This is an entry point for all work relating schema.org to the Internet of Things field. At the current time there is a [mailing list](https://groups.google.com/forum/#!forum/sdo-iot-sync), an [initial discussion document](/docs/iot-gettingstarted.html), and a [GitHub issue](https://github.com/schemaorg/schemaorg/issues/1272)."
+                }
+	]
+}

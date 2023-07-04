@@ -1,4 +1,4 @@
-TYPES:  #music-1 MusicAlbum, MusicGroup, MusicRelease, AlbumRelease, StudioAlbum
+TYPES: #eg-0387 MusicAlbum, MusicGroup, MusicRelease, AlbumRelease, StudioAlbum
 
 PRE-MARKUP:
 
@@ -16,7 +16,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "MusicAlbum",
     "@id": "http://musicbrainz.org/release-group/bff544a7-56e0-3ed6-9e0f-3b676cca9111",
     "name": "Let It Be",
@@ -25,8 +25,8 @@ JSON:
         "http://www.wikidata.org/wiki/Q199585"
     ],
     "image": "http://coverartarchive.org/release-group/bff544a7-56e0-3ed6-9e0f-3b676cca9111/front.jpg",
-    "albumProductionType": "http://schema.org/StudioAlbum",
-    "albumReleaseType": "http://schema.org/AlbumRelease",
+    "albumProductionType": "https://schema.org/StudioAlbum",
+    "albumReleaseType": "https://schema.org/AlbumRelease",
     "genre": "rock",
     "byArtist": {
         "@type": "MusicGroup",
@@ -38,7 +38,7 @@ JSON:
         "name": "Let It Be",
         "@id": "http://musicbrainz.org/release/8d5347a5-9ecb-44be-a213-860aaaf5d0b8"
     },
-    track: {
+    "track": {
 	    "@type": "ItemList",
 	    "numberOfItems": 12,
 	    "itemListElement": [
@@ -71,9 +71,7 @@ JSON:
 }
 </script>
 
-TYPES: #music-2 Person, MusicComposition, Organization
-
-ID: music-2
+TYPES: #eg-0388 Person, MusicComposition, Organization
 
 PRE-MARKUP:
 
@@ -93,7 +91,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "MusicComposition",
     "@id": "http://musicbrainz.org/work/fd1aa4f2-ba26-3a05-b72d-4392c35a073c",
     "name": "A Day in the Life",
@@ -110,7 +108,6 @@ JSON:
         }
     ],
     "iswcCode": "T-010.140.236-1",
-    "inLanguage": "EN",
     "publisher": {
         "@type": "Organization",
         "name": "Northern Songs, Ltd.",
@@ -119,12 +116,13 @@ JSON:
     "datePublished": "1967",
     "lyrics": {
       "@type": "CreativeWork",
+      "inLanguage": "EN",
       "text": "I  read the news today oh boy..."
     }
 }
 </script>
 
-TYPES: #music-3 MusicGroup, City, MusicAlbum
+TYPES: #eg-0389 MusicGroup, City, MusicAlbum
 
 PRE-MARKUP:
 
@@ -144,7 +142,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "MusicGroup",
     "@id": "http://musicbrainz.org/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
     "name": "Beatles",
@@ -208,7 +206,7 @@ JSON:
 }
 </script>
 
-TYPES: #music-4  MusicRecording, MusicComposition
+TYPES: #eg-0390 MusicRecording, MusicComposition
 
 PRE-MARKUP:
 
@@ -226,7 +224,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "MusicRecording",
     "@id": "http://musicbrainz.org/recording/3566e453-8f10-4a45-ac85-2c72eb183ca1",
     "name": "Back in the U.S.S.R.",
@@ -243,7 +241,7 @@ JSON:
 }
 </script>
 
-TYPES: #music-5 MusicRecording, MusicComposition, PublicationEvent, MusicRelease
+TYPES: #eg-0391 PublicationEvent, MusicRelease
 
 PRE-MARKUP:
 
@@ -263,11 +261,11 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "MusicRelease",
     "name": "The Beatles",
     "alternateName": "White Album",
-    "musicReleaseFormat": "http://schema.org/VinylFormat",
+    "musicReleaseFormat": "https://schema.org/VinylFormat",
     "duration": "PT1H33M50S",
     "inLanguage": "EN",
     "recordLabel": {
@@ -307,4 +305,3 @@ JSON:
 }
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay

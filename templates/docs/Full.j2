@@ -1,0 +1,90 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Full.j2 -->
+    {% macro head_insert() -%}
+      <link rel="stylesheet" type="text/css" href="detailTree/detailTree.css" />
+      <script src="detailTree/detailTree.js"></script>
+    {%- endmacro %}
+    {% set head_insert_available = true %}
+
+
+    {% include 'docs/DocsHead.j2' with context %}
+
+
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+
+      <h3>Full Hierarchy</h3>
+
+      <p>
+      Schema.org is defined as two hierarchies: one for textual property values, and one for the things that they describe. 
+      </p> 
+
+      <p>This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types. Although a type may have more than one super-type, here we show each type in one branch of the tree only. There is also a parallel hierarchy for <a href="#datatype_tree">data types</a>.</p>
+
+      <br/>
+     
+    {% for node in listings recursive %}
+      {% if loop.depth == 1 %}
+      <div class="dttTreeContainer">
+        <div>
+            {% if node.title %}<h4 id="Listing{{loop.index}}">{{node.title}}</h4>{% endif %}
+            <span class="ddtCloseAll" role="button" data-treeid="tree{{loop.index}}">Close hierarchy</span> / 
+            <span class="ddtOpenAll" role="button" data-treeid="tree{{loop.index}}">Open hierarchy</span>
+            <br/>
+        </div>
+
+        <ul class="dttTree" id="tree{{loop.index}}">
+
+      {% endif %}
+      {% if not node.retired %}
+        {% if node.subs %}
+          <li 
+            class="dttBranch" 
+            {% if loop.depth == 1 %}
+              data-dttState="treeopen"
+            {% else %}
+              data-dttState="treeclosed"
+            {% endif %} 
+            id="C.{{node.id}}">
+            <span class="rowicon"></span>
+            <div class="dttLabel">
+              {{ sdotermlink(node)|safe }}
+           </div>
+           <span class="plusminus"> </span>
+             <details class="dttDetails" {% if loop.depth == 1 %} open {% else %} {% endif %}>
+              <summary aria-label="{{node.id}}"></summary>
+              <ul class="dttSubTree" >
+                {{ loop(node.subs) }}
+              </ul>
+            </details>
+          </li>
+        {% else %}
+          <li 
+            class="dttLeaf">
+            <span class="rowicon"></span>
+            {% if node.termType == "Enumerationvalue" %}::{% endif %}
+            {{ sdotermlink(node)|safe }}
+         </li>
+        {% endif %}
+
+     {% endif %}
+     {% if loop.depth == 1 %}
+        </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+            
+              
+      
+</div><!-- mainContent -->
+
+
+{% include 'PageFooter.j2' with context %}
+
+</body>
+</html>
+      
+      

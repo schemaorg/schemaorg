@@ -1,0 +1,161 @@
+TYPES: #eg-0277 CollegeOrUniversity
+
+PRE-MARKUP:
+
+A university with an accreditation.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "CollegeOrUniversity",
+  "name": "ACME Community College",
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Accreditation",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Accrediting Commission of Career Schools and Colleges"
+    }
+  }
+}
+</script>
+
+TYPES: #eg-0278 EducationalOccupationalProgram
+
+PRE-MARKUP:
+
+A 4 year educational program from a local university.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "EducationalOccupationalProgram",
+  "name": "Undergraduate CS degree from ACME College",
+  "url": "http://www.acme.edu/CS",
+  "provider": {
+    "@type": "CollegeOrUniversity",
+    "name": "ACME Community College",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Main Street",
+      "addressLocality": "Boston",
+      "addressRegion": "MA",
+      "postalCode": "02134"
+    }
+  },
+  "timeToComplete": "P4Y",
+  "educationalCredentialAwarded": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Bachelor of Science in Computer Science"
+  },
+  "programPrerequisites": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "High school diploma"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "category": "Resident Tuition",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": 16278,
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Offer",
+      "category": "International Tuition",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": 37344,
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Offer",
+      "category": "Other Tuition",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": 35599,
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Offer",
+      "category": "Room and Board",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": 13588,
+        "priceCurrency": "USD"
+      }
+    }
+  ]
+}
+
+</script>
+
+TYPES: #eg-0279 WorkBasedProgram
+
+PRE-MARKUP:
+
+a wage-based training program like a union apprenticeship in the United States.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+    "@type": "WorkBasedProgram",
+  "name": "IBEW Apprenticeship",
+  "offeredBy": {
+    "@type": "WorkersUnion",
+    "name": "International Brotherhood of Electrical Workers"
+  },
+  "occupationalCategory": "47-2111.00",
+  "occupationalCredentialAwarded": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Electrical workers license"
+  },
+  "salaryUponCompletion": {
+    "@type": "MonetaryAmountDistribution",
+    "currency": "USD",
+    "duration": "P1Y",
+    "median": 41500.00
+  },
+  "trainingSalary": {
+    "@type": "MonetaryAmountDistribution",
+    "currency": "USD",
+    "duration": "PT1H",
+    "median": "16.00"
+  }
+}
+</script>
+

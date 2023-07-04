@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Markup for Autos - schema.org</title>
+
+        <!-- #### Static Doc Insert Head goes here -->
+
+</head>
+    <body>
+
+        <!-- #### Static Doc Insert PageHead goes here -->
+
+<div id="mainContent">
+            <h1>Markup for Autos</h1>
+
+            <h2>Table of contents</h2>
+
+            <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#conceptual_map">Conceptual map</a></li>
+              <li><a href="#hierarchy_of_terms">Hierarchy of terms</a>
+                <ul>
+                        <li><a href="#schemaTypes">Types</a></li>
+                        <li><a href="#schemaProperties">Properties</a></li>
+                        <li><a href="#schemaEnumerations">Enumerations</a></li>
+                </ul></li>                          
+              <li><a href="#extensions_objects">Basic models</a>
+                <ul>
+                        <li><a href="#vehicle_type_subtypes">Vehicle type and its subtypes</a></li>
+                        <li><a href="#vehicle_type_properties">Vehicle type and its properties</a></li>
+                        <li><a href="#car_acriss_code_roofLoad">Car acriss code and the roofLoad</a></li>
+                        <li><a href="#drive_wheel_configuration">Drive wheel configuration for a vehicle</a></li>
+                        <li><a href="#vehicle_engine_steering_position_usage">Vehicle engine, steering position and car usage specification</a></li>
+                        <li><a href="#offer_car">Using properties of the type Offer to describe a car</a></li>
+                </ul></li>
+              <li><a href="#usage_examples">Usage Examples</a>
+                <ul>
+                        <li><a href="#used_car">Example 1. Used car</a></li>
+                        <li><a href="#hybrid_car">Example 2. New, hybrid car</a></li>
+                        <li><a href="#used_car_with_damages">Example 3. Used car with damages</a></li>
+                        <li><a href="#rental_car_acriss_code">Example 4. Rental car with the acriss code</a></li>
+                </ul></li>
+              <li><a href="#acknowledgements">Acknowledgements</a></li>
+            </ul>
+            
+            <h2 id="introduction">Introduction</h2>
+            
+            <p>
+                This page provides background Information on the use of schema.org for marking up automobiles. For more information and communication with the community behind the project, please refer to: <a href="http://w3.org/community/gao/">http://w3.org/community/gao/</a>. This work has its roots in the GAO project (<a href="http://www.automotive-ontology.org/">Generic Automotive Ontology</a>) and existing ontologies such as the <a href="http://www.heppnetz.de/ontologies/vso/ns">Vehicle Sales Ontology (VSO)</a>, <a href="https://lov.linkeddata.es/dataset/lov/vocabs/coo">Car Options Ontology (COO)</a> and <a href="http://purl.org/uco">Used Cars Ontology (UCO)</a>.
+            </p>
+             
+            <h2 id="overview">Overview</h2>        
+            
+            <p>
+                The automotive extension of schema.org (auto.schema.org) refers to the most important real-world objects related to popular vehicles like cars, buses (coaches) and motorcycles. Whilst the extension allows for a fair description of all kinds of vehicles, it focuses predominantly on passenger automobiles from the retail market perspective.
+            </p>
+            
+            <p>
+                There are four major classes of objects reflected in the extension:
+            </p>
+            
+            <ul>
+                <li>The most popular types of automobiles and their usage</li>
+                
+                <li>The automobile configuration</li>
+                
+                <li>The engines and their characteristics</li>
+                
+                <li>The features of the automobiles that relate to their commercial aspects as products</li>
+            </ul>
+
+            <p>
+                In the selection of types and properties for each of the classes of objects, the extension authors (see "Acknowledgments") were motivated by the principles of simplicity and practicality. 'Simplicity' led to an extremely small set of terms, resulting in a lean extension, whilst 'practicality' limited the scope of terms to reflect the most important objects, as seen from the automotive market perspective.
+            </p>
+
+            <p>
+                The principle of 'Occam's Razor' dictated the focus on terms, reflecting general consumer preferences observed from the perspective of their searches and typical digital activities related to automobiles.
+            </p>
+            
+            <p>
+                Some of the types and properties that reflect these objects and describe their features, were already defined in schema.org almost from its beginning. Others have entered into life in the "core" vocabulary in May 2015 with the publication of <a href="https://schema.org/docs/releases.html#v2.0">schema.org v2.0</a>, and the totality of the terms was made available in May 2016 with the publication of <a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/3.0/schema-all.html">schema.org v3.0</a>, alongside the creation of <a href="http://auto.schema.org">http://auto.schema.org</a>.
+            </p>
+            
+            <p>
+                Despite these various origins, in this page we treat them all equally using the umbrella term "automotive extension", as all of them exist in the common shared schema.org namespace.
+            </p>
+
+            <p>
+                There is no doubt that the extension in its current form cannot satisfy all the needs of the automotive industry. However, what this extension does do is to create a framework that can be utilised now and can bring huge benefits despite its small footprint.
+            </p>
+            
+            <p>
+                The authors of this project are committed to the future development of the automotive 'face' of the schema.org vocabulary. This is particularly important in the years to come as the whole automotive industry is dramatically changing with the proliferation of electric vehicles, popularity of "connected cars" and the advent of autonomous autos.
+            </p>
+            
+            <p>
+                This on-going activity will include both the addition and amendment of the most important types and properties to the schema.org core, to the auto.schema.org extension and also to the future "external" automotive extensions of schema.org that need not be limited by the minimalism of the earlier "lean" approach.
+            </p>
+            
+            <h2 id="conceptual_map">The conceptual map and hierarchy of the automotive extension</h2>
+            
+            <p>
+                The following diagrams represent the conceptual map of the extension. As explained before, the map contains elements from both the schema.org "core" and the actual automotive extension (at <a href="http://auto.schema.org">http://auto.schema.org</a>).
+            </p>
+            
+            <p class="img-box">
+                <img alt="Mind Map for schema.org automotive extension" src="automotive-img/VehicleHierarchy.png" title="Mind Map for schema.org automotive extension" />
+            </p>
+
+            <p class="img-box">
+                <img alt="Mind Map for schema.org automotive extension" src="automotive-img/CarHierarchy.png" title="Mind Map for schema.org automotive extension" style="width: 94%; height: 94%"/>
+            </p>
+            
+            <p>
+                The terms depicted on the <span style="background-color: #9999ff">violet background</span> are documented in auto.schema.org, the remaining terms are part of the core vocabulary of schema.org.
+            </p>
+            
+            <p>
+                Please note that the map shows the extension properties for the type "Car", which, together with "BusOrCoach", "Motorcycle" and "MotorizedBicycle" is sub-classed from the "Vehicle" type already existing in schema.org.
+            </p>
+            
+            <h2 id="hierarchy_of_terms">The complete hierarchy of all terms in the automotive extension (plus their hypernyms)</h2>
+            
+            <h3 id="schemaTypes">Types:</h3>            
+            
+            <div class="scroll-ul">
+            <ul>
+                <li>
+                    <a href="https://schema.org/Thing">Thing</a>
+                    <ul>
+                        <li>
+                            <a href="https://schema.org/Product">Product</a>
+                            <ul>
+                                <li>
+                                    <a href="https://schema.org/Vehicle">Vehicle</a>
+                                    <ul>
+                                        <li>
+                                            <a href="https://schema.org/Car">Car</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/BusOrCoach">BusOrCoach</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/Motorcycle">Motorcycle</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/MotorizedBicycle">MotorizedBicycle</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://schema.org/Intangible">Intangible</a>
+                            <ul>
+                                <li>
+                                    <a href="https://schema.org/Enumeration">Enumeration</a>
+                                    <ul>
+                                        <li>
+                                            <a href="https://schema.org/QualitativeValue">QualitativeValue</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="https://schema.org/CarUsageType">CarUsageType</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/SteeringPositionValue">SteeringPositionValue</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/StructuredValue">StructuredValue</a>
+                                    <ul>
+                                        <li>
+                                            <a href="https://schema.org/EngineSpecification">EngineSpecification</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+            <h3 id="schemaProperties">Properties:</h3>
+            
+
+            <div class="scroll-ul">
+                            <ul>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/accelerationTime">accelerationTime</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/acrissCode">acrissCode</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/bodyType">bodyType</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/cargoVolume">cargoVolume</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/dateVehicleFirstRegistered">dateVehicleFirstRegistered</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/driveWheelConfiguration">driveWheelConfiguration</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/emissionsCO2">emissionsCO2</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/engineDisplacement">engineDisplacement</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/enginePower">enginePower</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/engineType">engineType</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/fuelCapacity">fuelCapacity</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/fuelConsumption">fuelConsumption</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/fuelEfficiency">fuelEfficiency</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/fuelType">fuelType</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/knownVehicleDamages">knownVehicleDamages</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/meetsEmissionStandard">meetsEmissionStandard</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/mileageFromOdometer">mileageFromOdometer</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/modelDate">modelDate</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/numberOfAirbags">numberOfAirbags</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/numberOfAxles">numberOfAxles</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/numberOfDoors">numberOfDoors</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/numberOfForwardGears">numberOfForwardGears</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/numberOfPreviousOwners">numberOfPreviousOwners</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/payload">payload</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/productionDate">productionDate</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/purchaseDate">purchaseDate</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/roofLoad">roofLoad</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/seatingCapacity">seatingCapacity</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/speed">speed</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/steeringPosition">steeringPosition</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/tongueWeight">tongueWeight</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/torque">torque</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/trailerWeight">trailerWeight</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleConfiguration">vehicleConfiguration</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleEngine">vehicleEngine</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleIdentificationNumber">vehicleIdentificationNumber</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleInteriorColor">vehicleInteriorColor</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleInteriorType">vehicleInteriorType</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleModelDate">vehicleModelDate</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleSeatingCapacity">vehicleSeatingCapacity</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleSpecialUsage">vehicleSpecialUsage</a>
+                                </li>
+                                <li>
+                                    <a href="https://schema.org/vehicleTransmission">vehicleTransmission</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/weightTotal">weightTotal</a>
+                                </li>
+                                <li>
+                                    <a style="color:#0000aa" href="http://auto.schema.org/wheelbase">wheelbase</a>
+                                </li>
+                            </ul>
+                        </div>
+
+            <h3 id="schemaEnumerations">Enumerations (per type):</h3>            
+            
+            <div class="scroll-ul">
+                    <ul>
+                        <li>
+                            <a style="color:#0000aa" href="http://auto.schema.org/CarUsageType">CarUsageType</a> (type)
+
+                                    <ul>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/DrivingSchoolVehicleUsage">DrivingSchoolVehicleUsage</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/RentalVehicleUsage">RentalVehicleUsage</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/TaxiVehicleUsage">TaxiVehicleUsage</a>
+                                        </li>
+                                    </ul>
+                        </li>
+                        <li>
+                            <a href="https://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a> (type)
+     
+                                            <ul>
+                                                <li>
+                                                    <a href="https://schema.org/AllWheelDriveConfiguration">AllWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/FourWheelDriveConfiguration">FourWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/FrontWheelDriveConfiguration">FrontWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/RearWheelDriveConfiguration">RearWheelDriveConfiguration</a>
+                                                </li>
+                                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="https://schema.org/SteeringPositionValue">SteeringPositionValue</a> (type)
+     
+                                            <ul>
+                                                <li>
+                                                    <a href="https://schema.org/LeftHandDriving">LeftHandDriving</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://schema.org/RightHandDriving">RightHandDriving</a>
+                                                </li>
+                                            </ul>
+
+                        </li>                       
+                    </ul>
+                </div>
+            
+            <h2 id="extensions_objects">The basic models of the objects in the automotive extension</h2>
+            
+            <p>
+                The diagram below illustrates the basic pattern for the description of the main classes of the objects of interest in the extension.
+            </p>
+            
+            <h3 id="vehicle_type_subtypes">The Vehicle type and its subtypes</h3>
+            
+            <p class="img-box">
+                <img alt="schema.org Vehicle type and its subtypes" src="automotive-img/VehicleTypeAndItsSubtypes.png" title="schema.org Vehicle type and its subtypes" />
+            </p>
+            
+            <p>
+                The top 'type' for the description of the vehicles, <a href="https://schema.org/Vehicle">Vehicle</a>, (which is a subtype of <a href="https://schema.org/Product">Product</a>) is specified by the most important specified types: <a href="https://schema.org/MotorizedBicycle">MotorizedBicycle</a>, <a href="https://schema.org/Motorcycle">Motorcycle</a>, <a href="https://schema.org/Car">Car</a> and <a href="https://schema.org/BusOrCoach">BusOrCoach</a>.
+            </p>
+            
+            <h3 id="vehicle_type_properties">The Vehicle type and its properties</h3>
+            
+            <p class="img-box">
+                <img alt="schema.org Vehicle type and its properties" src="automotive-img/VehicleTypeAndItsProperties.png" title="schema.org Vehicle type and its properties" />            
+            </p>
+            
+            <p>
+                The vehicle can be identified by the following schema.org properties: <a href="https://schema.org/cargoVolume">cargoVolume</a>, <a href="https://schema.org/dateVehicleFirstRegistered">dateVehicleFirstRegistered</a>, <a href="https://schema.org/driveWheelConfiguration">driveWheelConfiguration</a>, <a href="https://schema.org/fuelConsumption">fuelConsumption</a>, <a href="https://schema.org/fuelEfficiency">fuelEfficiency</a>, <a href="https://schema.org/fuelType">fuelType</a>, <a href="https://schema.org/knownVehicleDamages">knownVehicleDamages</a>, <a href="https://schema.org/mileageFromOdometer">mileageFromOdometer</a>, <a href="https://schema.org/numberOfAirbags">numberOfAirbags</a>, <a href="https://schema.org/numberOfAxles">numberOfAxles</a>, <a href="https://schema.org/numberOfDoors">numberOfDoors</a>, <a href="https://schema.org/numberOfForwardGears">numberOfForwardGears</a>, <a href="https://schema.org/numberOfPreviousOwners">numberOfPreviousOwners</a>, <a href="https://schema.org/productionDate">productionDate</a>, <a href="https://schema.org/purchaseDate">purchaseDate</a>, <a href="https://schema.org/steeringPosition">stffeeringPosition</a>, <a href="https://schema.org/vehicleConfiguration">vehicleConfiguration</a>, <a href="https://schema.org/vehicleEngine">vehicleEngine</a>, <a href="https://schema.org/vehicleIdentificationNumber">vehicleIdentificationNumber</a>, <a href="https://schema.org/vehicleInteriorColor">vehicleInteriorColor</a>, <a href="https://schema.org/vehicleInteriorType">vehicleInteriorType</a>, <a href="https://schema.org/vehicleModelDate">vehicleModelDate</a>, <a href="https://schema.org/vehicleSeatingCapacity">vehicleSeatingCapacity</a>, <a href="https://schema.org/vehicleSpecialUsage">vehicleSpecialUsage</a> and <a href="https://schema.org/vehicleTransmission">vehicleTransmission</a>.
+            </p>
+            
+            <p>
+                The auto.schema.org extension adds the following properties: <a href="http://auto.schema.org/accelerationTime">accelerationTime</a>, <a href="http://auto.schema.org/bodyType">bodyType</a>, <a href="http://auto.schema.org/emissionsCO2">emissionsCO2</a>, <a href="http://auto.schema.org/fuelCapacity">fuelCapacity</a>, <a href="http://auto.schema.org/meetsEmissionStandard">meetsEmissionStandard</a>, <a href="http://auto.schema.org/modelDate">modelDate</a>, <a href="http://auto.schema.org/payload">payload</a>, <a href="http://auto.schema.org/seatingCapacity">seatingCapacity</a>, <a href="http://auto.schema.org/speed">speed</a>, <a href="http://auto.schema.org/tongueWeight">tongueWeight</a>, <a href="http://auto.schema.org/trailerWeight">trailerWeight</a>, <a href="http://auto.schema.org/weightTotal">weightTotal</a> and <a href="http://auto.schema.org/wheelbase">wheelbase</a>.
+            </p>
+            
+            <h3 id="car_acriss_code_roofLoad">The car acriss code and the roof load</h3>
+            
+            <p class="img-box">
+                <img alt="schema.org Car acriss code and roofLoad" src="automotive-img/CarAcrissCodeAndRoofLoad.png" title="schema.org Car acriss code and roofLoad" />                        
+            </p>
+            
+            <p>
+                Apart from all the properties from <a href="https://schema.org/Vehicle">Vehicle</a> that the types <a href="https://schema.org/Car">Car</a> and <a href="https://schema.org/BusOrCoach">BusOrCoach</a> inherit, they also possess two extra properties, namely: <a href="http://auto.schema.org/acrissCode">acrissCode</a> and <a href="http://auto.schema.org/roofLoad">roofLoad</a>. 
+            </p>
+            
+            <h3 id="drive_wheel_configuration">The drive wheel configuration for a vehicle</h3>
+            
+            <p class="img-box">
+                <img alt="schema.org Vehicle Drive and Wheel Configuration" src="automotive-img/VehicleDriveAndWheelConfiguration.png" title="schema.org Vehicle Drive and Wheel Configuration" />                                    
+            </p>
+            
+            <p>
+                The <a href="https://schema.org/driveWheelConfiguration">driveWheelConfiguration</a> of the <a href="https://schema.org/Vehicle">Vehicle</a> is described either by <a href="https://schema.org/Text">Text</a> or through the following members of <a href="https://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a>: <a href="http://auto.schema.org/AllWheelDriveConfiguration">AllWheelDriveConfiguration</a>, <a href="http://auto.schema.org/FourWheelDriveConfiguration">FourWheelDriveConfiguration</a>, <a href="http://auto.schema.org/FrontWheelDriveConfiguration">FrontWheelDriveConfiguration</a> and <a href="http://auto.schema.org/RearWheelDriveConfiguration">RearWheelDriveConfiguration</a>.
+            </p>
+            
+            <h3 id="vehicle_engine_steering_position_usage">The vehicle engine, steering position and car usage specification</h3>
+            
+            <p class="img-box">
+                <img alt="schema.org Vehicle engine, the steering position and the car usage specification" src="automotive-img/VehicleEngineSteeringPositionAndCarUsageSpecification.png" title="schema.org Vehicle engine, the steering position and the car usage specification" />                                                
+            </p>
+            
+            <p>
+                The vehicle's engine can be identified by the <a href="https://schema.org/vehicleEngine">vehicleEngine</a> property and <a href="http://auto.schema.org/EngineSpecification">EngineSpecification</a> type. <a href="http://auto.schema.org/EngineSpecification">EngineSpecification</a> can be then characterized by the following properties: <a href="https://schema.org/fuelType">fuelType</a>, <a href="http://auto.schema.org/engineDisplacement">engineDisplacement</a>, <a href="http://auto.schema.org/enginePower">enginePower</a>, <a href="http://auto.schema.org/engineType">engineType</a> and <a href="http://auto.schema.org/torque">torque</a>.
+            </p>
+            
+            <p>
+                To indicate whether the vehicle has been used for special purposes, one should use the <a href="https://schema.org/vehicleSpecialUsage">vehicleSpecialUsage</a> property and the following members of <a href="http://auto.schema.org/CarUsageType">CarUsageType</a>: <a href="http://auto.schema.org/DrivingSchoolVehicleUsage">DrivingSchoolVehicleUsage</a>, <a href="http://auto.schema.org/RentalVehicleUsage">RentalVehicleUsage</a> and <a href="http://auto.schema.org/TaxiVehicleUsage">TaxiVehicleUsage</a>.
+            </p>
+            
+            <p>
+                The vehicle's <a href="https://schema.org/steeringPosition">steeringPosition</a> is described by the <a href="http://auto.schema.org/SteeringPositionValue">SteeringPositionValue</a> type and its two members: <a href="http://auto.schema.org/LeftHandDriving">LeftHandDriving</a> and <a href="http://auto.schema.org/RightHandDriving">RightHandDriving</a>.
+            </p>
+            
+            <h3 id="offer_car">Using properties of the type Offer to describe a car</h3>
+            
+            <p class="img-box">
+                <img alt="Using properties of the type Offer to describe a car" src="automotive-img/VehicleOffer.png" title="Using properties of the type Offer to describe a car" />
+            </p>
+            
+            <p>
+                In this example, the type <a href="https://schema.org/Offer">Offer</a> is used to describe <a href="https://schema.org/Car">Car</a> (a sub-class of <a href="https://schema.org/Vehicle">Vehicle</a> which is a sub-class of <a href="https://schema.org/Product">Product</a>) as a product offered to the client. This allows for the expression of the offered price for the car, the currency (<a href="https://schema.org/priceCurrency">priceCurrency</a>) and the <a href="https://schema.org/Organization">Organization</a> offering the product.
+            </p>
+            
+            <h2 id="usage_examples">Usage Examples</h2>
+            
+            <p>In this section of the document we present several examples of the use of the auto.schema.org mark-up in the HTML pages. Here are examples for: </p>
+            
+            <h3 id="used_car">EXAMPLE 1. A used car</h3>
+            
+            <p>
+                PRE-MARKUP
+            </p>
+            
+            <pre class="prettyprint lang-html linenums original_html selected">
+&lt;!-- Seller Details --&gt;
+&lt;div&gt;
+&nbsp; &lt;strong&gt;Contact Name: &lt;/strong&gt; &lt;span&gt;Brent&lt;/span&gt;
+&nbsp; &lt;div&gt;$18,000&lt;/div&gt;
+&lt;!-- Car Details --&gt;
+&nbsp; &lt;div id=&quot;product&quot;&gt;
+&nbsp; &nbsp; &lt;strong&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox&lt;/strong&gt;
+&nbsp; &nbsp; &lt;p&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
+&nbsp; &nbsp; mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine 
+    makes every drive a fun experience. Well looked after by one owner with full     
+    service history. 
+    It drives like new and has only done 50,000kms. (...)&lt;/p&gt;
+&nbsp; &nbsp; &lt;img href=&quot;2009_Volkswagen_Golf_V_GTI_MY09.png&quot; /&gt;
+&nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Color: &lt;/strong&gt;Black&lt;/p&gt;
+&nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Number of gears: &lt;/strong&gt;6&lt;/p&gt;
+&nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Engine:&lt;/strong&gt;
+               4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)&lt;/p&gt;
+&nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Number of airbags: &lt;/strong&gt;6&lt;/p&gt;
+&lt;/div&gt;
+            </pre>
+            
+            <p>
+                MICRODATA Markup   
+            </p>
+            
+            <pre class="prettyprint lang-html linenums microdata  selected">
+
+&lt;!-- Seller Details --&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Person&quot;&gt;
+&nbsp; &lt;strong&gt;Contact Name: &lt;/strong&gt; &lt;span itemprop=&quot;name givenName&quot;&gt;Brent&lt;/span&gt;
+&nbsp; &lt;div itemprop=&quot;makesOffer&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot; itemref=&quot;product&quot;&gt;
+&nbsp; &nbsp; &lt;span itemprop=&quot;priceSpecification&quot; itemscope
+&nbsp; &nbsp; &nbsp; &nbsp; itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
+&nbsp; &nbsp; &nbsp; &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;$
+&nbsp; &nbsp; &nbsp; &lt;meta itemprop=&quot;price&quot; content=&quot;18000&quot;&gt;18,000
+&nbsp; &nbsp; &nbsp;&lt;/span&gt;
+&nbsp; &nbsp;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Car Details --&gt;
+&lt;div id=&quot;product&quot; itemprop=&quot;itemOffered&quot; itemscope itemtype=&quot;https://schema.org/Car&quot;&gt;
+&nbsp; &lt;strong itemprop=&quot;name&quot;&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox&lt;/strong&gt;
+&nbsp; &lt;p itemprop=&quot;description&quot;&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
+&nbsp; mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes
+&nbsp; every drive a fun experience. Well looked after by one owner with full service history.
+&nbsp; It drives like new and has only done 50,000kms. (...)&lt;/p&gt;
+&nbsp; &lt;img itemprop=&quot;image&quot; href=&quot;2009_Volkswagen_Golf_V_GTI_MY09.png&quot; /&gt;
+&nbsp; &lt;p&gt;&lt;strong&gt;Color: &lt;/strong&gt;&lt;span itemprop=&quot;color&quot;&gt;Black&lt;/span&gt;&lt;/p&gt;
+&nbsp; &lt;p&gt;&lt;strong&gt;Number of gears: &lt;/strong&gt;&lt;span itemprop=&quot;numberOfForwardGears&quot;&gt;6&lt;/span&gt;&lt;/p&gt;
+&nbsp; &lt;div itemprop=&quot;vehicleEngine&quot; itemscope itemtype=&quot;https://schema.org/EngineSpecification&quot;&gt;
+&nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Engine: &lt;/strong&gt;
+&nbsp; &nbsp; &nbsp; &lt;span itemprop=&quot;name&quot;&gt;4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)&lt;/span&gt;
+&nbsp; &nbsp; &lt;/p&gt;
+&nbsp; &lt;/div&gt;
+&nbsp; &lt;p&gt;&lt;strong&gt;Number of airbags: &lt;/strong&gt;&lt;span itemprop=&quot;numberOfAirbags&quot;&gt;6&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;                    
+            </pre>
+            
+            <p>
+                RDFa Markup                
+            </p>    
+
+            <pre class="prettyprint lang-html linenums rdfa  selected">
+
+&lt;!-- Seller Details --&gt;
+&lt;div vocab=&quot;https://schema.org/&quot; typeof=&quot;Person&quot;&gt;
+&lt;strong&gt;Contact Name: &lt;/strong&gt; &lt;span property=&quot;name givenName&quot;&gt;Brent&lt;/span&gt;
+&nbsp; &lt;div property=&quot;makesOffer&quot; typeof=&quot;Offer&quot;&gt;
+&nbsp; &nbsp; &lt;span property=&quot;priceSpecification&quot; typeof=&quot;UnitPriceSpecification&quot;&gt;
+&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;price&quot; content=&quot;18000&quot; /&gt;18,000
+&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;priceCurrency&quot; content=&quot;USD&quot; /&gt;$
+&nbsp; &nbsp; &lt;/span&gt;
+&lt;!-- Car Details --&gt;
+&nbsp; &nbsp; &lt;div id=&quot;product&quot; property=&quot;itemOffered&quot; typeof=&quot;Car&quot;&gt;
+&nbsp; &nbsp; &nbsp; &lt;strong property=&quot;name&quot;&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox&lt;/strong&gt;
+&nbsp; &nbsp; &nbsp; &lt;p property=&quot;description&quot;&gt;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
+&nbsp; &nbsp; &nbsp; &nbsp; mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes
+&nbsp; &nbsp; &nbsp; &nbsp; every drive a fun experience. Well looked after by one owner with full service history.
+&nbsp; &nbsp; &nbsp; &nbsp; It drives like new and has only done 50,000kms. (...)
+&nbsp; &nbsp; &nbsp; &lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &lt;img property=&quot;image&quot; href=&quot;2009_Volkswagen_Golf_V_GTI_MY09.png&quot; /&gt;
+&nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Color: &lt;/strong&gt;&lt;span property=&quot;color&quot;&gt;Black&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Number of gears: &lt;/strong&gt;&lt;span property=&quot;numberOfForwardGears&quot;&gt;6&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &lt;div property=&quot;vehicleEngine&quot; typeOf=&quot;EngineSpecification&quot;&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Engine: &lt;/strong&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span property=&quot;name&quot;&gt;4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;strong&gt;Number of airbags: &lt;/strong&gt;&lt;span property=&quot;numberOfAirbags&quot;&gt;6&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &lt;/div&gt;
+&lt;/div&gt;                    
+            </pre>
+            
+            <p>
+                JSON-LD Markup
+            </p>
+            
+            <pre class="prettyprint lang-html linenums jsonld selected">
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name" : "Brent",
+  "makesOffer" : {
+        "@type" :"Offer",
+        "priceSpecification" : {
+            "@type" : "UnitPriceSpecification",
+            "priceCurrency" : "USD",
+            "price" : "18000" },
+        "itemOffered" : {
+            "@type" : "Car",
+            "name" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox",
+            "description" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes every drive a fun experience. Well looked after by one owner with full service history. It drives like new and has only done 50,000kms. (...)",
+        "image" : "2009_Volkswagen_Golf_V_GTI_MY09.png",
+        "color" : "Black",
+        "numberOfForwardGears" : "6",
+        "vehicleEngine" : {
+            "@type": "EngineSpecification",
+            "name" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)"
+            },
+        "numberOfAirbags" : "6"
+        }
+    }
+}
+&lt;/script&gt;                    
+            </pre>
+            
+            <h3 id="hybrid_car">EXAMPLE 2. A new, hybrid car</h3>
+            
+            <p>
+                PRE-MARKUP
+            </p>
+            
+            <pre class="prettyprint lang-html linenums original_html selected">
+&lt;!-- new car, hybrid car --&gt;
+&lt;div&gt;
+&lt;h3&gt;Exemplary Hybrid Car Model Name, 2017&lt;/h3&gt;
+&lt;p&gt;release date 2016&lt;/p&gt;
+&lt;p&gt;91800.00 PLN&lt;/p&gt;
+&lt;p&gt;VIN: 1HTLCZWN0JH503089&lt;/p&gt;
+&lt;p&gt;White, hatchback, limited edition&lt;/p&gt;
+&lt;p&gt;leather, beige interior&lt;/p&gt;
+&lt;p&gt;4 doors, 6 airbags&lt;/p&gt;
+&lt;p&gt;5 passengers&lt;/p&gt;
+&lt;ul&gt;
+&nbsp; &lt;li&gt;Steering position: left side steering&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;ENGINE Type:&lt;/strong&gt; &nbsp;1580cc&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Horsepower:&lt;/strong&gt; &nbsp;104 hp @ 5,700 rpm&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Torque:&lt;/strong&gt; &nbsp;109 lb.-ft. @ 4,000 rpm&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Fuel tank capacity:&lt;/strong&gt; 11.9 gallons&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Electric Motor Type:&lt;/strong&gt; &nbsp;AC Synchronous Permanent Magnet Motor&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Horsepower:&lt;/strong&gt; &nbsp;43 hp&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Torque:&lt;/strong&gt; &nbsp;125 lb.-ft.&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Battery Capacity:&lt;/strong&gt; &nbsp;6.5 Ah&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Battery Energy:&lt;/strong&gt;  1.56 kWh&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;CO2 emissions:&lt;/strong&gt; 88g/km&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Wheel configuration:&lt;/strong&gt; RWD&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Number of axles:&lt;/strong&gt; 2&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Transmission Type:&lt;/strong&gt; 6-speed dual clutch automatic transmission (DCT)&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Wheelbase:&lt;/strong&gt; 106.3 in.&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Luggage capacity, rear seats upright:&lt;/strong&gt; 19.4 cu. ft.&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Weight:&lt;/strong&gt; 1425 kg&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Acceleration 0..100 km/h:&lt;/strong&gt; 11.5 s&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Top speed:&lt;/strong&gt; 210 km/h&lt;/li&gt;
+&nbsp; &lt;li&gt;&lt;strong&gt;Fuel consumption:&lt;/strong&gt; 3.5l/100km&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Car Company S.A.&lt;/p&gt;
+&lt;p&gt;Write to us: ul. Borowa 16, 20-170 Łaziska Górne&lt;/p&gt;
+&lt;p&gt;Telephone: 670 000 070&lt;/p&gt;
+&lt;p&gt;Available from 29 May, 2017&lt;/p&gt;
+&lt;/div&gt;                    
+            </pre>
+
+            <p>
+                JSON-LD Markup                
+            </p>
+            
+            <pre class="prettyprint lang-html linenums jsonld selected">
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  "@context":"https://schema.org/",
+  "@type":"Car",
+  "name":"Exemplary Car Model Name",
+  "manufacturer":"Exemplary Car Manufacturer",   
+  "vehicleConfiguration":"limited edition",
+  "vehicleIdentificationNumber":"1HTLCZWN0JH503089",
+  "productionDate":"2017",      
+  "modelDate":"2016",
+  "bodyType":"hatchback",
+  "steeringPosition":{"@id":"https://schema.org/LeftHandDriving"},    
+  "driveWheelConfiguration":{"@id":"https://schema.org/RearWheelDriveConfiguration"},
+  "color":"White",   
+  "vehicleInteriorType":"leather",
+  "vehicleInteriorColor":"beige",  
+  "numberOfAirbags" : "6",   
+  "numberOfAxles":"2",
+  "numberOfDoors": "5",
+  "seatingCapacity": "5", 
+  "cargoVolume":{
+        "@type":"QuantitativeValue",
+        "value":"19.4",
+        "unitCode":"FTQ"},        
+  "weightTotal":{
+        "@type":"QuantitativeValue",
+        "maxValue":"1425",
+        "unitCode":"KGM"},         
+
+  "wheelbase":{
+        "@type":"QuantitativeValue",
+        "value":"106.3",
+        "unitCode":"INH"},    
+
+  "vehicleTransmission": "automatic gearbox",   
+  "numberOfForwardGears" : "6",   
+
+  "vehicleEngine":[
+      {
+     "@type":"EngineSpecification",
+     "engineType":"internal combustion engine",
+     "fuelType":"petrol",
+     "engineDisplacement":{
+        "@type":"QuantitativeValue",
+        "value":"1580",
+        "unitCode":"CMQ"},
+     "torque":{
+        "@type":"QuantitativeValue",
+        "value":"109",
+        "unitCode":"F17"},   
+     "enginePower":{
+        "@type":"QuantitativeValue",
+        "value":"104",
+        "unitCode":"BHP"}},
+     {
+     "@type":"EngineSpecification",
+     "engineType":"electric motor",
+     "torque":{
+        "@type":"QuantitativeValue",
+        "value":"125",
+        "unitCode":"F17"},       
+     "enginePower":{
+        "@type":"QuantitativeValue",
+        "value":"43",
+        "unitCode":"BHP"}}
+  ], 
+
+  "accelerationTime":{
+     "@type":"QuantitativeValue",
+     "value":"11.5",
+     "unitCode":"SEC",
+     "valueReference":{
+        "@type":"QuantitativeValue",
+       "unitText":"0..100 km/h"
+     }}, 
+
+   "speed":{
+        "@type":"QuantitativeValue",
+        "maxValue":"210",
+        "unitCode":"KMH"},   
+
+  "fuelCapacity":[{
+        "@type":"QuantitativeValue",
+        "value":"11.9",
+        "unitCode":"GLL"},
+        {
+        "@type":"QuantitativeValue",
+        "value":"6.5",
+        "unitCode":"AMH",
+        "description":"Battery Energy 1.56 kWh"}
+        ],
+
+  "fuelConsumption":{
+        "@type":"QuantitativeValue",
+        "value":"3.5",
+        "unitText":"L/100km"},
+
+  "mileageFromOdometer":{
+     "@type":"QuantitativeValue",
+     "value":"1",
+     "unitCode":"KMT"
+  },
+
+  "emissionsCO2": "88",  
+
+  "offers":{
+     "@type":"Offer",
+     "price":"91800.00",
+     "priceCurrency":"PLN",
+     "availabilityStarts":"2017-05-29",
+     "seller":{
+        "@type":"Organization",
+        "address":{
+           "@type":"PostalAddress",
+           "addressCountry":"PL",
+           "streetAddress":"Borowa 16",
+           "postalCode":"20-170",
+           "addressLocality":"Łaziska Górne"
+        },
+        "telephone":"670 000 070",
+        "name":"Car Company S.A."
+     }
+  }
+}
+&lt;/script&gt;                
+            </pre>
+            
+            <h3 id="used_car_with_damages">EXAMPLE 3. A used car with damages</h3>
+            
+            <p>
+                PRE-MARKUP                
+            </p>
+            
+            <pre class="prettyprint lang-html linenums original_html selected">
+&lt;!-- used car with damages --&gt;
+&lt;div&gt;
+&lt;h3&gt;Ex Driving School Car For Sale&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt;Exemplary Car Model Name&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reg. date:&lt;/strong&gt; 12/06/2008&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Purchase date:&lt;/strong&gt; 17/01/2010&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Previous owners excl. current:&lt;/strong&gt; 1&lt;/p&gt;
+&lt;p&gt;excellent condition apart from damaged area
+car has damage to passenger front corner;
+no chassis damaged, no radiators damaged, no airbags deployed&lt;/p&gt;
+&lt;/div&gt;                
+            </pre>
+            
+            <p>
+                JSON-LD Markup                
+            </p>
+            
+            <pre class="prettyprint lang-html linenums jsonld selected">
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  "@context":"https://schema.org/",
+  "@type":"Car",
+  "name":"Exemplary Car Model Name",
+  "knownVehicleDamages":"excellent condition apart from damaged area car has damage to passenger front corner; no chassis damaged, no radiators damaged, no airbags deployed",
+  "dateVehicleFirstRegistered":"2008-06-12",
+  "purchaseDate":"2010-01-17",
+  "numberOfPreviousOwners":"2",
+  "vehicleSpecialUsage":{"@id":"https://schema.org/DrivingSchoolVehicleUsage"}
+}
+&lt;/script&gt;
+            </pre>
+            
+            <h3 id="rental_car_acriss_code">EXAMPLE 4. A rental car with the Acriss code</h3>
+            
+            <p>
+                PRE-MARKUP
+            </p>
+            
+            <pre class="prettyprint lang-html linenums original_html selected">
+&lt;!-- rental car with acriss code --&gt;
+&lt;div&gt;
+&lt;h2&gt;Rent Car Company&lt;/h2&gt;
+&lt;img href=&quot;http://AutoRental.com/rent_company.jpg&quot;/&gt;
+&lt;h3&gt;Exemplary Car Model Name | &lt;strong&gt;SCAR&lt;/strong&gt; &lt;/h3&gt;
+&lt;p&gt;Rental price per day: EUR 20&lt;/p&gt;
+&lt;p&gt;Equipment, seats and luggage&lt;/p&gt;
+&lt;ul&gt;
+&nbsp; &lt;li&gt;Air conditioning available
+&nbsp; &lt;li&gt;4 Doors&lt;/li&gt;
+&nbsp; &lt;li&gt;5 Passengers&lt;/li&gt;
+&nbsp; &lt;li&gt;2 Suitcase(s)&lt;/li&gt;
+&nbsp; &lt;li&gt;2 Bag(s)&lt;/li&gt;
+&nbsp; &lt;li&gt;Automatic transmission&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;                
+            </pre>
+            
+            <p>
+                JSON-LD Markup                
+            </p>
+            
+            <pre class="prettyprint lang-html linenums jsonld selected">
+
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+   "@context":"https://schema.org/",
+   "@type":"Car",
+   "name":"Exemplary Car Model Name",
+   "acrissCode":"SCAR",
+   "seatingCapacity": "5",
+   "numberOfDoors": "4",
+   "vehicleTransmission": "automatic gearbox",
+   "cargoVolume":[{
+         "@type":"QuantitativeValue",
+         "value":"2",
+         "unitText":"bags"},
+         {
+         "@type":"QuantitativeValue",
+         "value":"2",
+         "unitText":"suitcases"}],
+   "additionalProperty":{
+        "@type":"PropertyValue",
+        "name":"air conditioning"
+        },
+   "offers":{
+     "@type":"Offer",
+     "offeredBy": {
+        "@type": "AutoRental",
+        "name":"Rent Car Company",
+        "image": "http://AutoRental.com/rent_company.jpg"
+      },    
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "20",
+        "priceCurrency": "EUR",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "DAY"
+        }
+      }
+  }   
+}  
+&lt;/script&gt;                
+            </pre>
+            
+            <h2 id="acknowledgements">Acknowledgments</h2>
+            
+            <p>
+                We would like to thank the following individuals: Martin Hepp, Dominik Kuzinski, Robert Trypuz and Karol Szczepański, coordinated by Mirek Sopek of MakoLab SA for creating the automotive extension and this document.                
+            </p>
+            
+            <p>
+                The maintenance and proposals for new elements and discussions are coordinated by the W3C Community for the Generic Automotive Ontology: <a href="https://www.w3.org/community/gao/">https://www.w3.org/community/gao/</a>.
+            </p>
+            <br/><br/>
+        </div>
+        
+         <table style="width: 180px; display: none; top: 51px; left: 1186px; position: absolute;" class="gstl_50 gssb_c"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table>
+    
+    <!-- #### Static Doc Insert Footer here -->
+
+</body>
+</html>

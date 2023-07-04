@@ -1,0 +1,43 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:eligibilityToWorkRequirement a rdf:Property ;
+    rdfs:label "eligibilityToWorkRequirement" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> ;
+    rdfs:comment "The legal requirements such as citizenship, visa and other documentation required for an applicant to this job." .
+
+:physicalRequirement a rdf:Property ;
+    rdfs:label "physicalRequirement" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> ;
+    rdfs:comment "A description of the types of physical activity associated with the job. Defined terms such as those in O*net may be used, but note that there is no way to specify the level of ability as well as its nature when using a defined term." .
+
+:securityClearanceRequirement a rdf:Property ;
+    rdfs:label "securityClearanceRequirement" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> ;
+    rdfs:comment "A description of any security clearance requirements of the job." .
+
+:sensoryRequirement a rdf:Property ;
+    rdfs:label "sensoryRequirement" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> ;
+    rdfs:comment "A description of any sensory requirements and levels necessary to function on the job, including hearing and vision. Defined terms such as those in O*net may be used, but note that there is no way to specify the level of ability as well as its nature when using a defined term." .
+

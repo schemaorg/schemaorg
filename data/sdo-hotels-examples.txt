@@ -1,0 +1,466 @@
+TYPES: #eg-0358 Hotel
+
+PRE-MARKUP:
+
+<h1>ACME Hotel Innsbruck</h1>
+<span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span>Technikerstrasse 21</span>
+  <span>6020</span>
+  <span>Innsbruck</span>
+  <span>Tyrol</span>,
+  <span>Austria</span>
+  </div>
+  Phone: +43 512 8000-0
+  <img src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: ****
+  Room rates: $100 - $240
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+    <span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+    <span itemprop="addressCountry">Austria</span>
+  </div>
+  Phone: <span itemprop="telephone">+43 512 8000-0</span>
+  <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <span itemprop="starRating" itemscope itemtype="https://schema.org/Rating">
+    <meta itemprop="ratingValue" content="4">****</span>
+  Room rates: <span itemprop="priceRange">$100 - $240</span>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Hotel">
+  <h1><span property="name">ACME Hotel Innsbruck</span></h1>
+  <span property="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div property="address" typeof="PostalAddress">
+    <span property="streetAddress">Technikerstrasse 21</span>
+    <span property="postalCode">6020</span>
+    <span property="addressLocality">Innsbruck</span>
+    <span property="addressRegion">Tyrol</span>,
+    <span property="addressCountry">Austria</span>
+  </div>
+  Phone: <span property="telephone">+43 512 8000-0</span>
+  <img property="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <span property="starRating" typeof="Rating">
+    <meta property="ratingValue" content="4">****</span>
+  Room rates: <span property="priceRange">$100 - $240</span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "ACME Hotel Innsbruck",
+    "description": "A beautifully located business hotel right in the heart of the alps. Watch the sun rise over the scenic Inn valley while enjoying your morning coffee.",
+    "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "AT",
+        "addressLocality": "Innsbruck",
+        "addressRegion": "Tyrol",
+        "postalCode": "6020",
+        "streetAddress": "Technikerstrasse 21"
+    },
+    "telephone": "+43 512 8000-0",
+    "photo": "http://www.acme-innsbruck.at//media/hotel_front.png",
+    "starRating": {
+        "@type": "Rating",
+        "ratingValue": "4"
+    },
+    "priceRange": "$100 - $240"
+}</script>
+
+TYPES: #eg-0359 starRating
+
+PRE-MARKUP:
+
+<h1>ACME Hotel Innsbruck</h1>
+<span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Star rating: ****
+  Room rates: $100 - $240
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Star rating: <span itemprop="starRating" itemscope itemtype="https://schema.org/Rating">
+    <meta itemprop="ratingValue" content="4">****</span>
+  Room rates: <span itemprop="priceRange">$100 - $240</span>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0360 starRating
+
+PRE-MARKUP:
+
+<h1>ACME Hotel Innsbruck</h1>
+<span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Star rating: **** (DEHOGA)
+  Room rates: $100 - $240
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Star rating: <span itemprop="starRating" itemscope itemtype="https://schema.org/Rating">
+    <span itemprop="author" itemscope itemtype="https://schema.org/Organization">
+      <span itemprop="name">DEHOGA</span>
+    </span>
+    <meta itemprop="ratingValue" content="4">****
+  </span>
+  Room rates: <span itemprop="priceRange">$100 - $240</span>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0361 Hotel, logo, image
+
+PRE-MARKUP:
+
+<h1>ACME Hotel Innsbruck</h1>
+  <img src="../media/logo.png" alt="hotel logo" />
+  <span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <img src="../media/hotel_front.png" alt="Front view of the hotel" />
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <img itemprop="logo" src="../media/logo.png" alt="hotel logo" />
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0362 hasMap
+
+PRE-MARKUP:
+
+<h1>ACME Hotel Innsbruck</h1>
+  <span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <a href="https://www.google.com/maps?ie=UTF8&hq&ll=47.1234,11.1234&z=13">Click here for a map.</a>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <a itemprop="hasMap" href="https://www.google.com/maps?ie=UTF8&hq&ll=47.1234,11.1234&z=13">Click here for a map.</a>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0363 GeoCoordinates, geo
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+    <span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+    <span itemprop="addressCountry">Austria</span>
+  </div>
+  <div itemprop="geo" itemscope itemtype="https://schema.org/GeoCoordinates">
+    <meta itemprop="latitude" content="47.2649990" />
+    <meta itemprop="longitude" content="11.3428720" />
+  </div>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0364 numberOfRooms
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span itemprop="numberOfRooms">60</span> rooms.
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0365 numberOfRooms
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span itemprop="numberOfRooms" itemscope itemtype="https://schema.org/QuantitativeValue">
+     <span itemprop="value">45</span>
+     <span itemprop="unitText">double rooms</span>
+  </span>
+  <span itemprop="numberOfRooms" itemscope itemtype="https://schema.org/QuantitativeValue">
+     <span itemprop="value">15</span>
+     <span itemprop="unitText">single rooms</span>
+  </span>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0366 amenityFeature, LocationFeatureSpecification
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Hotel Features:
+  <ul>
+  <li itemprop="amenityFeature" itemscope itemtype="https://schema.org/LocationFeatureSpecification">
+    <span itemprop="name">Sauna</span>
+    <meta itemprop="value" content="True">
+  </li>
+  <li itemprop="amenityFeature" itemscope itemtype="https://schema.org/LocationFeatureSpecification">
+    <span itemprop="name">Gym</span>
+    <meta itemprop="value" content="True">
+  </li>
+  </ul>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0367 amenityFeature, LocationFeatureSpecification, hoursAvailable
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Hotel Features:
+  <ul>
+  <li itemprop="amenityFeature" itemscope itemtype="https://schema.org/LocationFeatureSpecification">
+    <span itemprop="name">Sauna</span>
+    <meta itemprop="value" content="True">
+    <div itemprop="hoursAvailable" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+      <link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />(Open Thursdays
+      <time itemprop="opens" content="16:00:00"> 4:00 PM</time> -
+      <time itemprop="closes" content="21:00:00"> 9:00 PM</time>)
+    </div>
+  </li>
+  </ul>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0368 checkinTime, checkoutTime
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <img itemprop="logo" src="../media/logo.png" alt="hotel logo" />
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Check-in: <meta itemprop="checkinTime" content="14:00:00">2:00 PM
+  Check-out: <meta itemprop="checkoutTime" content="11:00:00">11:00 AM
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0369 availableLanguage, Language
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  We speak:
+  <ul>
+    <li itemprop="availableLanguage" itemscope itemtype="https://schema.org/Language">
+      <span itemprop="name">English</span>
+    </li>
+    <li itemprop="availableLanguage" itemscope itemtype="https://schema.org/Language">
+      <span itemprop="name">German</span>
+    </li>
+  </ul>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+
+TYPES: #eg-0370 HotelRoom, Hotel
+
+PRE-MARKUP:
+
+This example is in microdata only.
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Hotel">
+    <h1>
+        <span itemprop="name">ACME Hotel Innsbruck</span>
+    </h1><span itemprop="description">A beautifully located business hotel right in the heart of the alps. Watch the sun rise over the scenic Inn valley while enjoying your morning coffee.</span>
+    <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <span itemprop="streetAddress">Technikerstrasse 21</span> <span itemprop="postalCode">6020</span> <span itemprop="addressLocality">Innsbruck</span> <span itemprop="addressRegion">Tyrol</span>, <span itemprop="addressCountry">Austria</span>
+    </div>Phone: <span itemprop="telephone">+43 512 8000-0</span>
+    <div itemprop="containsPlace" itemscope itemtype="https://schema.org/HotelRoom">
+        <span itemprop="name">Standard Double Room</span> <span itemprop="description">Our standard double rooms include a double bed, a full bathroom with tub, shower and toilet</span> <img itemprop="photo" src="../media/single_room1.png">
+    </div>Available rates:
+    <div itemprop="makesOffer" itemscope itemtype="https://schema.org/Offer">
+        <span itemprop="name">Flex-rate</span> <span itemprop="description">Terms and conditions go here...</span>
+        <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut"><span itemprop="priceSpecification" itemscope itemtype="https://schema.org/UnitPriceSpecification">
+        <meta itemprop="priceCurrency" content="EUR">€ <span itemprop="price">99</span>
+        <meta itemprop="unitCode" content="DAY">per room per day To save this rate, book by
+        <meta itemprop="validThrough" content="2016-08-31">August 31, 2016</span>
+    </div>
+</div>
+
+RDFA:
+
+This example is in microdata only.
+
+JSON:
+
+This example is in microdata only.
+

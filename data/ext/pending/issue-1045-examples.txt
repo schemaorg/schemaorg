@@ -1,0 +1,64 @@
+TYPES: #eg-0226 ReserveAction, LinkRole
+
+PRE-MARKUP:
+
+A restaurant has links to reserve tables. One caters to Japanese speakers.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org/",
+ "@type": "Restaurant",
+ "potentialAction": {
+   "@type": "ReserveAction",
+   "target": [
+     "http://www.example.com/Reserve",
+     {
+       "@type": "LinkRole",
+       "target": "http://www.example.com/Reserve-JP",
+       "inLanguage": "jp",
+       "linkRelationship": "alternate"
+     }
+   ]
+ }
+}
+</script>
+
+TYPES: #eg-0227 ReserveAction, LinkRole
+
+PRE-MARKUP:
+
+An article is available using AMP HTML.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org/",
+ "@type": "Article",
+ "url": "http://www.example.com/article",
+ "url": {
+     "@type": "LinkRole",
+     "url": "http://www.example.com/article-amp",
+     "linkRelationship": "amphtml"
+   }
+}
+</script>
+

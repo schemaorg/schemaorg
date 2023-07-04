@@ -1,0 +1,26 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:assesses a rdf:Property ;
+    rdfs:label "assesses" ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2427> ;
+    rdfs:comment "The item being described is intended to assess the competency or learning outcome defined by the referenced term." .
+
+:teaches a rdf:Property ;
+    rdfs:label "teaches" ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2427> ;
+    rdfs:comment "The item being described is intended to help a person learn the competency or learning outcome defined by the referenced term." .
+

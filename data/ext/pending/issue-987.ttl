@@ -1,0 +1,15 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:creativeWorkStatus a rdf:Property ;
+    rdfs:label "creativeWorkStatus" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/987> ;
+    rdfs:comment "The status of a creative work in terms of its stage in a lifecycle. Example terms include Incomplete, Draft, Published, Obsolete. Some organizations define a set of terms for the stages of their publication lifecycle." .
+

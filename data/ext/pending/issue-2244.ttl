@@ -1,0 +1,23 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:jobImmediateStart a rdf:Property ;
+    rdfs:label "jobImmediateStart" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2244> ;
+    rdfs:comment "An indicator as to whether a position is available for an immediate start." .
+
+:jobStartDate a rdf:Property ;
+    rdfs:label "jobStartDate" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Date,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2244> ;
+    rdfs:comment "The date on which a successful applicant for this job would be expected to start work. Choose a specific date in the future or use the jobImmediateStart property to indicate the position is to be filled as soon as possible." .
+

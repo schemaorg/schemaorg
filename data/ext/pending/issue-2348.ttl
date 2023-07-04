@@ -1,0 +1,35 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OfferForLease a rdfs:Class ;
+    rdfs:label "OfferForLease" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2348> ;
+    rdfs:comment """An [[OfferForLease]] in Schema.org represents an [[Offer]] to lease out something, i.e. an [[Offer]] whose
+  [[businessFunction]] is [lease out](http://purl.org/goodrelations/v1#LeaseOut.). See [Good Relations](https://en.wikipedia.org/wiki/GoodRelations) for
+  background on the underlying concepts.
+  """ ;
+    rdfs:subClassOf :Offer .
+
+:OfferForPurchase a rdfs:Class ;
+    rdfs:label "OfferForPurchase" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2348> ;
+    rdfs:comment """An [[OfferForPurchase]] in Schema.org represents an [[Offer]] to sell something, i.e. an [[Offer]] whose
+  [[businessFunction]] is [sell](http://purl.org/goodrelations/v1#Sell.). See [Good Relations](https://en.wikipedia.org/wiki/GoodRelations) for
+  background on the underlying concepts.
+  """ ;
+    rdfs:subClassOf :Offer .
+
+:RealEstateListing a rdfs:Class ;
+    rdfs:label "RealEstateListing" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2348> ;
+    rdfs:comment """A [[RealEstateListing]] is a listing that describes one or more real-estate [[Offer]]s (whose [[businessFunction]] is typically to lease out, or to sell).
+  The [[RealEstateListing]] type itself represents the overall listing, as manifested in some [[WebPage]].
+  """ ;
+    rdfs:subClassOf :WebPage .
+

@@ -1,0 +1,116 @@
+TYPES: #eg-0225 MedicalWebPage, DrugClass
+
+PRE-MARKUP:
+
+<h1>About High Blood Pressure (hypertension)</h1>
+
+<h2>Diagnosis</h2>
+High blood pressure is diagnosed by measuring ...
+...
+<h2>Treatment</h2>
+There are many common treatments for high blood pressure,
+including beta-blocker drugs such as propanaolol (Innopran)
+and atenonlol (Tenormin) ...
+
+MICRODATA:
+
+<body itemscope itemtype="https://schema.org/MedicalWebPage">
+  <link itemprop="audience" href="https://schema.org/Patient" />
+  <link itemprop="specialty" href="https://schema.org/Cardiovascular" />
+  <meta itemprop="lastReviewed" content="2011-09-14"/>
+  <h1>About
+    <span itemprop="about" itemscope itemtype="https://schema.org/MedicalCondition">
+      <span itemprop="name">High Blood Pressure</span>
+      (<span itemprop="name">hypertension</span>)</span>
+  </h1>
+  ...
+  <h2><span itemprop="mainContentOfPage">Diagnosis</span></h2>
+  High blood pressure is diagnosed by measuring ...
+  ...
+  <h2><span itemprop="mainContentOfPage">Treatment</span></h2>
+  There are many common treatments for high blood pressure,
+  including
+  <span itemscope itemtype="https://schema.org/DrugClass">
+    <span itemprop="name">beta-blocker</span> drugs such as
+    <span itemprop="drug" itemscope itemtype="https://schema.org/Drug">
+      <span itemprop="nonProprietaryName">propanaolol</span>
+      (<span itemprop="alternateName">Innopran</span>)
+    </span>
+  </span>
+  and
+    <span itemprop="drug" itemscope itemtype="https://schema.org/Drug">
+      <span itemprop="nonProprietaryName">atenolol</span>
+      (<span itemprop="alternateName">Tenormin</span>)
+    </span> ...
+  ...
+</body>
+
+RDFA:
+
+<body vocab="https://schema.org/" typeof="MedicalWebPage">
+  <link property="audience" href="https://schema.org/Patient" />
+  <link property="specialty" href="https://schema.org/Cardiovascular" />
+  <meta property="lastReviewed" content="2011-09-14"/>
+  <h1>About
+    <span property="about"  typeof="MedicalCondition">
+      <span property="name">High Blood Pressure</span>
+      (<span property="name">hypertension</span>)</span>
+  </h1>
+  ...
+  <h2><span property="mainContentOfPage">Diagnosis</span></h2>
+  High blood pressure is diagnosed by measuring ...
+  ...
+  <h2><span property="mainContentOfPage">Treatment</span></h2>
+  There are many common treatments for high blood pressure,
+  including
+  <span  typeof="DrugClass">
+    <span property="name">beta-blocker</span> drugs such as
+    <span property="drug"  typeof="Drug">
+      <span property="nonProprietaryName">propanaolol</span>
+      (<span property="alternateName">Innopran</span>)
+    </span>
+  </span>
+  and
+    <span property="drug"  typeof="Drug">
+      <span property="nonProprietaryName">atenolol</span>
+      (<span property="alternateName">Tenormin</span>)
+    </span> ...
+  ...
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "about": {
+    "@type": "MedicalCondition",
+    "name": [
+      "High Blood Pressure",
+      "hypertension"
+    ]
+  },
+  "mainContentOfPage": [
+    "Diagnosis",
+    "Treatment"
+  ],
+  "audience": "https://schema.org/Patient",
+  "drug": [
+    {
+      "@type": "Drug",
+      "nonProprietaryName": "propanaolol",
+      "alternateName": "Innopran"
+    },
+    {
+      "@type": "Drug",
+      "nonProprietaryName": "atenolol",
+      "alternateName": "Tenormin"
+    }
+  ],
+  "lastReviewed": "2011-09-14",
+  "name": "beta-blocker",
+  "specialty": "https://schema.org/Cardiovascular"
+}
+</script>
+

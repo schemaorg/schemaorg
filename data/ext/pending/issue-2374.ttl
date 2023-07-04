@@ -1,0 +1,210 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:HealthAspectEnumeration a rdfs:Class ;
+    rdfs:label "HealthAspectEnumeration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "HealthAspectEnumeration enumerates several aspects of health content online, each of which might be described using [[hasHealthAspect]] and [[HealthTopicContent]]." ;
+    rdfs:subClassOf :Enumeration .
+
+:HealthTopicContent a rdfs:Class ;
+    rdfs:label "HealthTopicContent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment """[[HealthTopicContent]] is [[WebContent]] that is about some aspect of a health topic, e.g. a condition, its symptoms or treatments. Such content may be comprised of several parts or sections and use different types of media. Multiple instances of [[WebContent]] (and hence [[HealthTopicContent]]) can be related using [[hasPart]] / [[isPartOf]] where there is some kind of content hierarchy, and their content described with [[about]] and [[mentions]] e.g. building upon the existing [[MedicalCondition]] vocabulary.
+  """ ;
+    rdfs:subClassOf :WebContent .
+
+:BenefitsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "BenefitsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about the benefits and advantages of usage or utilization of topic." .
+
+:CausesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "CausesHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about the causes and main actions that gave rise to the topic." .
+
+:ContagiousnessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "ContagiousnessHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about contagion mechanisms and contagiousness information over the topic." .
+
+:HowOrWhereHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "HowOrWhereHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about how or where to find a topic. Also may contain location data that can be used for where to look for help if the topic is observed." .
+# This is confusing. Who is using it?
+
+:LivingWithHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "LivingWithHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about coping or life related to the topic." .
+
+:MayTreatHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "MayTreatHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Related topics may be treated by a Topic." .
+
+:MisconceptionsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "MisconceptionsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about common misconceptions and myths that are related to a topic." .
+
+:OverviewHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "OverviewHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Overview of the content. Contains a summarized view of the topic with the most relevant information for an introduction." .
+
+:PatientExperienceHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PatientExperienceHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about the real life experience of patients or people that have lived a similar experience about the topic. May be forums, topics, Q-and-A and related material." .
+
+:PreventionHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PreventionHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about actions or measures that can be taken to avoid getting the topic or reaching a critical situation related to the topic." .
+
+:PrognosisHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PrognosisHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Typical progression and happenings of life course of the topic." .
+
+:RelatedTopicsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "RelatedTopicsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Other prominent or relevant topics tied to the main topic." .
+
+:RisksOrComplicationsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "RisksOrComplicationsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about the risk factors and possible complications that may follow a topic." .
+
+:ScreeningHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "ScreeningHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about how to screen or further filter a topic." .
+
+:SeeDoctorHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SeeDoctorHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Information about questions that may be asked, when to see a professional, measures before seeing a doctor or content about the first consultation." .
+
+:SelfCareHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SelfCareHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Self care actions or measures that can be taken to sooth, health or avoid a topic. This may be carried at home and can be carried/managed by the person itself." .
+
+:SideEffectsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SideEffectsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Side effects that can be observed from the usage of the topic." .
+
+:StagesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "StagesHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Stages that can be observed from a topic." .
+
+:SymptomsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SymptomsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Symptoms or related symptoms of a Topic." .
+
+:TreatmentsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "TreatmentsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Treatments or related therapies for a Topic." .
+
+:TypesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "TypesHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Categorization and other types related to a topic." .
+
+:UsageOrScheduleHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "UsageOrScheduleHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> ;
+    rdfs:comment "Content about how, when, frequency and dosage of a topic." .
+
+:hasHealthAspect a rdf:Property ;
+    rdfs:label "hasHealthAspect" ;
+    :domainIncludes :HealthTopicContent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :HealthAspectEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
+    rdfs:comment "Indicates the aspect or aspects specifically addressed in some [[HealthTopicContent]]. For example, that the content is an overview, or that it talks about treatment, self-care, treatments or their side-effects." .
+
+
+
+# Todo for #2799
+# Adding aspects for SafetyHealthAspect; EffectivenessHealthAspect; PregnancyHealthAspect; AllergiesHealthAspect; IngredientsHealthAspect; HowItWorksHealthAspect
+# also clarified distribution/location above.
+
+:AllergiesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "AllergiesHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content about the allergy-related aspects of a health topic." .
+
+:SafetyHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SafetyHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content about the safety-related aspects of a health topic." .
+
+:EffectivenessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "EffectivenessHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content about the effectiveness-related aspects of a health topic." .
+
+:PregnancyHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PregnancyHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content discussing pregnancy-related aspects of a health topic." .
+
+:IngredientsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "IngredientsHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content discussing ingredients-related aspects of a health topic." .
+
+:HowItWorksHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "HowItWorksHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content that discusses and explains how a particular health-related topic works, e.g. in terms of mechanisms and underlying science." .
+
+
+:GettingAccessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "GettingAccessHealthAspect" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> ;
+    rdfs:comment "Content that discusses practical and policy aspects for getting access to specific kinds of healthcare (e.g. distribution mechanisms for vaccines)." .

@@ -1,0 +1,15 @@
+<!-- List subs (Subtypes/subproperties/enumeration members/etc.) for Term -->
+
+{% for sub in SUBLIST %}
+    {% if loop.first %}
+    <br/>
+    <div id="subtypes" title="{{SUBTITLE}}" class="jumptarget" title="Value for"><h4>{{SUBLABEL}}</h4></div>
+    <ul>
+    {% endif %}
+    {% if not sub.retired and not sub.superseded %}
+        <li>{{ sdotermlink(sub)|safe }}</li>
+    {% endif %}
+    {% if loop.last %}
+     </ul>
+    {% endif %}
+{% endfor %}

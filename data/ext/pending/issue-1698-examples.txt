@@ -1,0 +1,158 @@
+TYPES: #eg-0249 Person, Occupation
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "Peter Venkman",
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Parapsychologist",
+    "educationRequirements": "PhD in parapsychology"
+  }
+}
+</script>
+
+TYPES: #eg-0250 Person, Occupation, Role, occupationalCategory
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "Albert Einstein",
+  "hasOccupation": [
+    {
+      "@type": "Role",
+      "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Patent examiner",
+        "occupationalCategory": "23-2099.00"
+      },
+      "startDate": "1901",
+      "endDate": "1906"
+    },
+    {
+      "@type": "Occupation",
+      "name": "Professor of Physics",
+      "educationRequirements": "PhD in Physics"
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0251 JobPosting, Occupation, occupationalCategory
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "name": "Mobile App Developer",
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": "ACME Software"
+  },
+  "relevantOccupation": {
+    "@type": "Occupation",
+    "name": "Software Developers, Applications",
+    "occupationalCategory": {
+             "@type": "CategoryCode",
+             "inCodeSet": {
+                  "@type": "CategoryCodeSet",
+                  "name": "O*Net-SOC",
+                  "dateModified": "2019",
+                  "url": "https://www.onetonline.org/"
+               },
+             "codeValue": "15-1132.00",
+             "name": "Software Developers, Applications",
+             "url": "https://www.onetonline.org/link/summary/15-1132.00"
+         }
+  }
+}
+</script>
+
+TYPES: #eg-0252 Occupation, MonetaryAmountDistribution
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Occupation",
+  "name": "Nurse Practioner",
+  "educationRequirements": "Graduate degree in nursing",
+  "occupationalCategory": "29-1171.00",
+  "occupationLocation": {
+    "@type": "Country",
+    "name": "USA",
+    "sameAs": "https://www.wikidata.org/wiki/Q30"
+  },
+  "qualifications": "Registered nurse licensure in state where practicing",
+  "responsibilities": "Diagnose and treat acute, episodic, or chronic illness, independently or as part of a healthcare team.",
+  "skills": ["Active listening", "Critical thinking", "Social awareness"],
+  "estimatedSalary": {
+    "@type": "MonetaryAmountDistribution",
+    "duration": "1Y",
+    "currency": "USD",
+    "percentile10": 72000,
+    "percentile25": 86000,
+    "median": 109000,
+    "percentile75": 120000,
+    "percentile90": 140000
+  }
+}
+</script>
+

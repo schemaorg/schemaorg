@@ -1,0 +1,503 @@
+@prefix ns1: <http://schema.org/> .
+@prefix ns2: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:BroadcastFrequencySpecification a rdfs:Class ;
+    rdfs:label "BroadcastFrequencySpecification" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
+    ns1:category "issue-1004" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "The frequency in MHz and the modulation used for a particular BroadcastService." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:ClaimReview a rdfs:Class ;
+    rdfs:label "ClaimReview" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1061> ;
+    ns1:category "issue-1061" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed)." ;
+    rdfs:subClassOf ns1:Review .
+
+ns1:Course a rdfs:Class ;
+    rdfs:label "Course" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A description of an educational course which may be offered as distinct instances at different times and places, or through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:CourseInstance a rdfs:Class ;
+    rdfs:label "CourseInstance" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An instance of a Course offered at a specific time and place or through specific media or mode of study or to a specific section of students." ;
+    rdfs:subClassOf ns1:Event .
+
+ns1:Distillery a rdfs:Class ;
+    rdfs:label "Distillery" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/743> ;
+    ns1:category "issue-743" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A distillery." ;
+    rdfs:subClassOf ns1:FoodEstablishment .
+
+ns1:EventSeries a rdfs:Class ;
+    rdfs:label "EventSeries" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/447> ;
+    ns1:category "issue-447" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A series of <a class="localLink" href="/Event">Event</a>s. Included events can relate with the series using the <a class="localLink" href="/superEvent">superEvent</a> property.</p>
+<p>An EventSeries is a collection of events that share some unifying characteristic. For example, "The Olympic Games" is a series, which
+is repeated regularly. The "2012 London Olympics" can be presented both as an <a class="localLink" href="/Event">Event</a> in the series "Olympic Games", and as an
+<a class="localLink" href="/EventSeries">EventSeries</a> that included a number of sporting competitions as Events.</p>
+<p>The nature of the association between the events in an <a class="localLink" href="/EventSeries">EventSeries</a> can vary, but typical examples could
+include a thematic event series (e.g. topical meetups or classes), or a series of regular events that share a location, attendee group and/or organizers.</p>
+<p>EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event context without
+worrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries
+may seem more Event-like when the period of time is compact and when aspects such as location are fixed, but
+it may also sometimes prove useful to describe a longer-term series as an Event.""" ;
+    rdfs:subClassOf ns1:Event .
+
+ns1:HealthInsurancePlan a rdfs:Class ;
+    rdfs:label "HealthInsurancePlan" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A US-style health insurance plan, including PPOs, EPOs, and HMOs." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:HealthPlanCostSharingSpecification a rdfs:Class ;
+    rdfs:label "HealthPlanCostSharingSpecification" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A description of costs to the patient under a given network or formulary." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:HealthPlanFormulary a rdfs:Class ;
+    rdfs:label "HealthPlanFormulary" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "For a given health insurance plan, the specification for costs and coverage of prescription drugs." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:HealthPlanNetwork a rdfs:Class ;
+    rdfs:label "HealthPlanNetwork" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A US-style health insurance plan network." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:LinkRole a rdfs:Class ;
+    rdfs:label "LinkRole" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1045> ;
+    ns1:category "issue-1045" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds." ;
+    rdfs:subClassOf ns1:Role .
+
+ns1:PreOrderAction a rdfs:Class ;
+    rdfs:label "PreOrderAction" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1125> ;
+    ns1:category "issue-1125" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An agent orders a (not yet released) object/product/service to be delivered/sent." ;
+    rdfs:subClassOf ns1:TradeAction .
+
+ns1:Quotation a rdfs:Class ;
+    rdfs:label "Quotation" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/271> ;
+    ns1:category "issue-271" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A quotation from some work, attributable to real world author and - if associated with a fictional character - to any fictional Person. Use isBasedOnUrl to link to source/origin." ;
+    rdfs:subClassOf ns1:CreativeWork .
+
+ns1:WorkersUnion a rdfs:Class ;
+    rdfs:label "WorkersUnion" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/243> ;
+    ns1:category "issue-243" ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying." ;
+    rdfs:subClassOf ns1:Organization .
+
+ns1:accessMode a rdf:Property ;
+    rdfs:label "accessMode" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    ns1:category "issue-1110" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual." .
+
+ns1:accessModeSufficient a rdf:Property ;
+    rdfs:label "accessModeSufficient" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    ns1:category "issue-1110" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual." .
+
+ns1:accessibilitySummary a rdf:Property ;
+    rdfs:label "accessibilitySummary" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    ns1:category "issue-1110" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as \"short descriptions are present but long descriptions will be needed for non-visual users\" or \"short descriptions are present and no long descriptions are needed.\"" .
+
+ns1:benefitsSummaryUrl a rdf:Property ;
+    rdfs:label "benefitsSummaryUrl" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Url ;
+    rdfs:comment "The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation." .
+
+ns1:broadcastFrequency a rdf:Property ;
+    rdfs:label "broadcastFrequency" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
+    ns1:category "issue-1004" ;
+    ns1:domainIncludes ns1:BroadcastService ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:BroadcastFrequencySpecification,
+        ns1:Text ;
+    rdfs:comment "The frequency used for over-the-air broadcasts." .
+
+ns1:broadcastFrequencyValue a rdf:Property ;
+    rdfs:label "broadcastFrequencyValue" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
+    ns1:category "issue-1004" ;
+    ns1:domainIncludes ns1:BroadcastFrequencySpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Number,
+        ns1:QuantitativeValue ;
+    rdfs:comment "The frequency in MHz for a particular broadcast." .
+
+ns1:broadcastSignalModulation a rdf:Property ;
+    rdfs:label "broadcastSignalModulation" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
+    ns1:category "issue-1004" ;
+    ns1:domainIncludes ns1:BroadcastFrequencySpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:QualitativeValue,
+        ns1:Text ;
+    rdfs:comment "The modulation (e.g. FM, AM, etc) used by a particular broadcast service" .
+
+ns1:claimReviewed a rdf:Property ;
+    rdfs:label "claimReviewed" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1061> ;
+    ns1:category "issue-1061" ;
+    ns1:domainIncludes ns1:ClaimReview ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "A short summary of the specific claims reviewed in a ClaimReview." .
+
+ns1:contactPoint a rdf:Property ;
+    rdfs:label "contactPoint" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:ContactPoint ;
+    rdfs:comment "TODO: Unify description" .
+
+ns1:contentReferenceTime a rdf:Property ;
+    rdfs:label "contentReferenceTime" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1050> ;
+    ns1:category "issue-1050" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:DateTime ;
+    rdfs:comment "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event." .
+
+ns1:courseCode a rdf:Property ;
+    rdfs:label "courseCode" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The identifier used for the Course (e.g. CS101 or 6.001)" .
+
+ns1:courseCredits a rdf:Property ;
+    rdfs:label "courseCredits" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Number,
+        ns1:Text ;
+    rdfs:comment "The number of credits offered for the Course toward an academic goal." .
+
+ns1:courseCreditsUnit a rdf:Property ;
+    rdfs:label "courseCreditsUnit" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text,
+        ns1:URL ;
+    rdfs:comment "The type of credit associated with the credits earned for the Course. (e.g. TODO NoCredit, Quarter, Semester, CarnegieUnits, ContinuingEducationUnits, ClockHours, Other)" .
+
+ns1:courseMode a rdf:Property ;
+    rdfs:label "courseMode" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:CourseInstance ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The medium or means of delivery of the course, or the mode of study." .
+
+ns1:coursePrerequisites a rdf:Property ;
+    rdfs:label "coursePrerequisites" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:AlignmentObject,
+        ns1:Course,
+        ns1:Text ;
+    rdfs:comment "Requirements for taking the Course. May be completion of another Course or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using AlignmentObject." .
+
+ns1:grantsCredential a rdf:Property ;
+    rdfs:label "grantsCredential" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Credential ;
+    rdfs:comment "A Credential granted upon successfully completing the Course." .
+
+ns1:hasCourseInstance a rdf:Property ;
+    rdfs:label "hasCourseInstance" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:CourseInstance ;
+    rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." .
+
+ns1:healthPlanCoinsuranceOption a rdf:Property ;
+    rdfs:label "healthPlanCoinsuranceOption" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanCostSharingSpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?" .
+
+ns1:healthPlanCoinsuranceRate a rdf:Property ;
+    rdfs:label "healthPlanCoinsuranceRate" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanCostSharingSpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Number ;
+    rdfs:comment "Whether The rate of coinsurance expressed as a number between 0.0 and 1.0." .
+
+ns1:healthPlanCopay a rdf:Property ;
+    rdfs:label "healthPlanCopay" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanCostSharingSpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:PriceSpecification ;
+    rdfs:comment "Whether The copay amount." .
+
+ns1:healthPlanCopayOption a rdf:Property ;
+    rdfs:label "healthPlanCopayOption" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanCostSharingSpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?" .
+
+ns1:healthPlanCostSharing a rdf:Property ;
+    rdfs:label "offersPrescriptionByMail" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanFormulary,
+        ns1:HealthPlanNetwork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Boolean ;
+    rdfs:comment "Whether The costs to the patient for services under this network or formulary." .
+
+ns1:healthPlanDrugOption a rdf:Property ;
+    rdfs:label "healthPlanDrugOption" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "TODO." .
+
+ns1:healthPlanDrugTier a rdf:Property ;
+    rdfs:label "healthPlanDrugTier" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan,
+        ns1:HealthPlanFormulary ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The tier(s) of drugs offered by this formulary or insurance plan." .
+
+ns1:healthPlanId a rdf:Property ;
+    rdfs:label "healthPlanId" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)" .
+
+ns1:healthPlanMarketingUrl a rdf:Property ;
+    rdfs:label "healthPlanMarketingUrl" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Url ;
+    rdfs:comment "The URL that goes directly to the plan brochure for the specific standard plan or plan variation." .
+
+ns1:healthPlanNetworkId a rdf:Property ;
+    rdfs:label "healthPlanNetworkId" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanNetwork,
+        ns1:MedicalOrganization ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "Name or unique ID of network. (Networks are often reused across different insurance plans)." .
+
+ns1:healthPlanNetworkTier a rdf:Property ;
+    rdfs:label "healthPlanNetworkTier" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanNetwork ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The tier(s) for this network." .
+
+ns1:healthPlanPharmacyCategory a rdf:Property ;
+    rdfs:label "healthPlanPharmacyCategory" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanCostSharingSpecification ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The category or type of pharmacy associated with this cost sharing." .
+
+ns1:inLanguage a rdf:Property ;
+    ns1:domainIncludes ns1:LinkRole .
+
+ns1:includedInHealthInsurancePlan a rdf:Property ;
+    rdfs:label "includedInHealthInsurancePlan" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:Drug ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:HealthInsurancePlan ;
+    rdfs:comment "The insurance plans that cover this drug." .
+
+ns1:includesHealthPlanFormulary a rdf:Property ;
+    rdfs:label "includesHealthPlanFormulary" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:HealthPlanFormulary ;
+    rdfs:comment "Formularies covered by this plan." .
+
+ns1:includesHealthPlanNetwork a rdf:Property ;
+    rdfs:label "includesHealthPlanNetwork" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:HealthPlanNetwork ;
+    rdfs:comment "Networks covered by this plan." .
+
+ns1:instructor a rdf:Property ;
+    rdfs:label "instructor" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:CourseInstance ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Person ;
+    rdfs:comment "A person assigned to instruct or provide instructional assistance for the CourseInstance." .
+
+ns1:isAcceptingNewPatients a rdf:Property ;
+    rdfs:label "isAcceptingNewPatients" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:MedicalOrganization ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Boolean ;
+    rdfs:comment "Whether the provider is accepting new patients." .
+
+ns1:linkRelationship a rdf:Property ;
+    rdfs:label "linkRelationship" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1045> ;
+    ns1:category "issue-1045" ;
+    ns1:domainIncludes ns1:LinkRole ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "Indicates the relationship type of a Web link." .
+
+ns1:offersPrescriptionByMail a rdf:Property ;
+    rdfs:label "offersPrescriptionByMail" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthPlanFormulary ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Boolean ;
+    rdfs:comment "Whether prescriptions can be delivered by mail." .
+
+ns1:previewUrl a rdf:Property ;
+    rdfs:label "previewUrl" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/195> ;
+    ns1:category "issue-195" ;
+    ns1:domainIncludes ns1:Course ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:URL ;
+    rdfs:comment "A link to a site where a preview of the course is offered." .
+
+ns1:rxcui a rdf:Property ;
+    rdfs:label "rxcui" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:Drug ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The RxCUI drug identifier from RXNORM." .
+
+ns1:spokenByCharacter a rdf:Property ;
+    rdfs:label "spokenByCharacter" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/271> ;
+    ns1:category "issue-271" ;
+    ns1:domainIncludes ns1:Quotation ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Organization,
+        ns1:Person ;
+    rdfs:comment "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork." .
+
+ns1:usesHealthPlanIdStandard a rdf:Property ;
+    rdfs:label "usesHealthPlanIdStandard" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
+    ns1:category "issue-1062" ;
+    ns1:domainIncludes ns1:HealthInsurancePlan ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text,
+        ns1:URL ;
+    rdfs:comment "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare &amp; Medicaid Services for more details." .
+
