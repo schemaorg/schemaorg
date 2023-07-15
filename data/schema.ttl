@@ -7761,7 +7761,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :price a rdf:Property ;
     rdfs:label "price" ;
-    :domainIncludes :Offer,
+    :domainIncludes :DonateAction,
+        :Offer,
         :PriceSpecification,
         :TradeAction ;
     :rangeIncludes :Number,
@@ -7778,7 +7779,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :priceCurrency a rdf:Property ;
     rdfs:label "priceCurrency" ;
-    :domainIncludes :Offer,
+    :domainIncludes  :DonateAction,
+        :Offer,
         :PriceSpecification,
         :Reservation,
         :Ticket,
@@ -7795,6 +7797,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :priceSpecification a rdf:Property ;
     rdfs:label "priceSpecification" ;
     :domainIncludes :Demand,
+        :DonateAction,
         :Offer,
         :TradeAction ;
     :rangeIncludes :PriceSpecification ;
