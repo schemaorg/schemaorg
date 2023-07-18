@@ -125,9 +125,9 @@ class ColoredTestResult(unittest.TextTestResult):
 
     def addSkip(self, test, reason):
         super(unittest.TextTestResult, self).addSkip(test, reason)
-        self._colorPrint("Skipped", color=colorama.Fore.BLUE, short='S')
+        self._colorPrint("Skipped", color=colorama.Fore.CYAN, short='S')
         if reason:
-          self._colorPrint(reason, color=colorama.Fore.LIGHTBLUE_EX)
+          self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
     def printErrorList(self, flavour, errors):
         super(unittest.TextTestResult, self).addSkip(flavour, errors)
