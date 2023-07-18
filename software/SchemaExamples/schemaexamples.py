@@ -19,10 +19,11 @@ DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
 class Example ():
+    """Representation of an example file, with accessors for the various parts."""
     ExamplesCount = 0
     MaxId = 0
 
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, exmeta):
+    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, exmeta, jsonld_offset=None):
         self.terms = terms
         if not len(terms):
             log.info("No terms for ex: %s in file %s" % (exmeta["filepos"],exmeta["file"]) )
@@ -33,6 +34,7 @@ class Example ():
         self.microdata = microdata
         self.rdfa = rdfa
         self.jsonld = jsonld
+        self.jsonld_offset = jsonld_offset
         self.exmeta = exmeta
         self.keyvalue = self.exmeta.get('id',None)
         if not self.keyvalue:
@@ -100,25 +102,25 @@ class Example ():
 
     def hasHtml(self):
         return len(self.original_html.strip()) > 0
-        
+
     def hasMicrodata(self):
         content = self.microdata.strip()
         if len(content) > 0:
             if "itemtype" in content and "itemprop" in content:
                 return True
-        return False 
+        return False
     def hasRdfa(self):
         content = self.rdfa.strip()
         if len(content) > 0:
             if "typeof" in content and "property" in content:
                 return True
-        return False 
+        return False
     def hasJsonld(self):
         content = self.jsonld.strip()
         if len(content) > 0:
             if "@type" in content:
                 return True
-        return False 
+        return False
 
     def setMeta(self,name,val):
         self.exmeta[name] = val
@@ -273,8 +275,8 @@ class ExampleFileParser():
 
     def __init__ (self):
         logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-        self.file = ""
-        self.filepos = 0
+        self.file = ""    # File being parsed.
+        self.filepos = 0  # Part index.
         self.initFields()
         self.idcache = []
 
@@ -286,11 +288,11 @@ class ExampleFileParser():
         self.microdataStr = ""
         self.rdfaStr = ""
         self.jsonStr = ""
+        self.jsonld_offset = None
         self.state= ""
 
     def nextPart(self, next):
         self.trimCurrentStr()
-
         if (self.state == 'PRE-MARKUP:'):
             self.preMarkupStr = "".join(self.currentStr)
         elif (self.state ==  'MICRODATA:'):
@@ -299,6 +301,7 @@ class ExampleFileParser():
             self.rdfaStr = "".join(self.currentStr)
         elif (self.state == 'JSON:'):
             self.jsonStr = "".join(self.currentStr)
+
         self.state = next
         self.currentStr = []
 
@@ -337,6 +340,12 @@ class ExampleFileParser():
         self.exmeta["id"] = ident
         return ''
 
+    def makeExample(self):
+        """Build an example out of the current state"""
+        return Example(
+            terms=self.terms, original_html=self.preMarkupStr, microdata=self.microdataStr, rdfa=self.rdfaStr,
+            jsonld=self.jsonStr, exmeta=self.exmeta, jsonld_offset=self.jsonld_offset)
+
     def parse (self, filen):
         import codecs
         import requests
@@ -359,7 +368,7 @@ class ExampleFileParser():
         lines = re.split('\n|\r', content)
         first = True
         boilerplate = False
-        for line in lines:
+        for lineno, line in enumerate(lines):
             # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
             line = line.rstrip()
 
@@ -371,7 +380,7 @@ class ExampleFileParser():
                     first = False
                 else:
                     if not boilerplate:
-                        examples.append(Example(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.exmeta))
+                        examples.append(self.makeExample())
                     boilerplate = False
                     self.initFields()
                 self.exmeta['file'] = self.file
@@ -387,7 +396,10 @@ class ExampleFileParser():
                         else:
                             boilerplate = True
             else:
-                tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
+                # Heuristic to find the start line that will be used by `getJsonldRaw`.
+                if '<script type="application/ld+json">' in line:
+                    self.jsonld_offset = lineno + 1
+                tokens = ("PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:")
                 for tk in tokens:
                     ltk = len(tk)
                     if line.startswith(tk):
@@ -399,7 +411,7 @@ class ExampleFileParser():
         if not boilerplate:
             self.exmeta['file'] = self.file
             self.exmeta['filepos'] = self.filepos
-            examples.append(Example(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.exmeta)) # should flush last one
+            examples.append(self.makeExample()) # should flush last one
         self.initFields()
         return examples
 

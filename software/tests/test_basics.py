@@ -375,7 +375,8 @@ class JsonExampleTests(unittest.TestCase):
 
   def testAllExamples(self):
     for example in SchemaExamples.allExamples():
-      with self.subTest(key=example.getKey(), file=example.getMeta("file")):
+      source_filename = example.getMeta("file")
+      with self.subTest(key=example.getKey(), file=source_filename):
         if not example.hasJsonld():
           continue
         json_source = example.getJsonldRaw()
@@ -385,8 +386,21 @@ class JsonExampleTests(unittest.TestCase):
           continue
         try:
           parsed = json.loads(json_source)
+        except json.decoder.JSONDecodeError as json_error:
+          # Display a helpful error message showing where the JSON error is.
+          lines = json_error.doc.split('\n')
+          snippet = lines[json_error.lineno - 1] + '\n' + '^'.rjust(json_error.colno)
+          # Show up to three lines above the error, often the problem is a missing comma above.
+          if json_error.lineno > 2:
+            for i in range(2, min(json_error.lineno, 5)):
+              snippet = lines[json_error.lineno - i] + '\n' + snippet
+          # Adjust by the offset inside the example file.
+          lineno = json_error.lineno + (example.jsonld_offset or 0)
+          self.fail("JSON parsing error: '%s' in file %s:%d:%d \n%s" % (json_error.msg, source_filename, lineno, json_error.colno, snippet))
         except Exception as exception:
-          self.fail("Could not parse JSON '%s' error: %s file: %s" % (json_source, exception, example.getMeta("file")))
+          self.fail("Could not parse JSON '%s' error: %s file: %s" % (json_source, exception, source_filename))
+
+
 
 # TODO: Unwritten tests
 #
