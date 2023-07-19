@@ -26,7 +26,7 @@ TYPECOUNT_LOWERBOUND = 500
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-from sdotermsource import SdoTermSource 
+from sdotermsource import SdoTermSource
 VOCABURI = SdoTermSource.vocabUri()
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
@@ -38,7 +38,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       if not SdoTermSource.SOURCEGRAPH:
         SdoTermSource.loadSourceGraph("default")
       self.rdflib_data = SdoTermSource.sourceGraph()
-      
+
 
   @classmethod
   def setUpClass(self):
@@ -88,8 +88,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
     # rdfs:subClassOf+ should work but seems not to.
-    ndi1 = ('''SELECT ?prop ?c1 ?c2 
-           WHERE { 
+    ndi1 = ('''SELECT ?prop ?c1 ?c2
+           WHERE {
            ?prop <https://schema.org/domainIncludes> ?c1 .
            ?prop <https://schema.org/domainIncludes> ?c2 .
            ?c1 rdfs:subClassOf ?c2 .
@@ -114,8 +114,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
-    nri1= ('''SELECT ?prop ?c1 ?c2 
-         WHERE { 
+    nri1= ('''SELECT ?prop ?c1 ?c2
+         WHERE {
          ?prop <https://schema.org/rangeIncludes> ?c1 .
          ?prop <https://schema.org/rangeIncludes> ?c2 .
          ?c1 rdfs:subClassOf ?c2 .
@@ -197,7 +197,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes value should lack a type. Found: %s " % len(ndi1_results ) )
 
   def test_labelMatchesTermId(self):
-    nri1= ('''select ?term ?label where { 
+    nri1= ('''select ?term ?label where {
        ?term rdfs:label ?label.
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
@@ -212,14 +212,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Term should have matching rdfs:label. Found: %s" % len(nri1_results))
 
   def test_superTypesExist(self):
-    nri1= ('''select ?term ?super where { 
+    nri1= ('''select ?term ?super where {
        ?term rdfs:subClassOf ?super.
        ?term rdf:type rdfs:Class.
        FILTER NOT EXISTS { ?super rdf:type rdfs:Class }
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-       
+
        BIND(STR(?super) AS ?superStrVal)
        FILTER(STRLEN(?superStrVal) >= 19 && SUBSTR(?superStrVal, 1, 19) = "https://schema.org/")
         FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
@@ -231,7 +231,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Types with nonexistent SuperTypes. Found: %s" % len(nri1_results))
-    
+
     def test_propswitoutdomain(self):
         nri1= (''' select ?term where {
             ?term a rdf:Property.
@@ -259,11 +259,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         self.assertEqual(len(nri1_results), 0, "Property without range extensions  Found: %s" % len(nri1_results))
 
   def test_superPropertiesExist(self):
-    nri1= ('''select ?term ?super where { 
+    nri1= ('''select ?term ?super where {
        ?term rdf:type rdf:Property.
        ?term rdfs:subPropertyOf ?super.
        FILTER NOT EXISTS { ?super rdf:type rdf:Property }
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
 
@@ -280,13 +280,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Properties with nonexistent SuperProperties. Found: %s" % len(nri1_results))
 
   def test_selfReferencingInverse(self):
-    nri1= ('''select ?term ?inverse where { 
+    nri1= ('''select ?term ?inverse where {
        ?term rdf:type rdf:Property.
        ?term <https://schema.org/inverseOf> ?inverse.
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-       
+
        FILTER(str(?term) = str(?inverse))
         FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
 
@@ -300,14 +300,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Types with self referencing inverseOf Found: %s" % len(nri1_results))
 
   def test_sameInverseAndSupercededByTarget(self):
-    nri1= ('''select ?term ?inverse ?super where { 
+    nri1= ('''select ?term ?inverse ?super where {
        ?term rdf:type rdf:Property.
        ?term <https://schema.org/inverseOf> ?inverse.
        ?term <https://schema.org/supercededBy> ?super.
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
-       
+
        FILTER(str(?inverse) = str(?super))
         FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
 
@@ -320,29 +320,25 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' defined ase inverseOf AND supercededBy %s" % (row["term"], row["inverse"]))
     self.assertEqual(len(nri1_results), 0, "Types with inverseOf supercededBy shared target Found: %s" % len(nri1_results))
 
-  @unittest.expectedFailure 
   def test_commentEndWithPeriod(self):
-    nri1= ('''select ?term ?com where { 
+    """Validate that class and property RDF comments end with a punctuation."""
+    nri1= ('''select ?term ?com where {
        ?term rdfs:comment ?com.
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
 
-       FILTER (!(regex(str(?com), '\\\\.\\\\s*$') || regex(str(?com), 'n\\\\* .*')))
+       FILTER (!(regex(str(?com), '[\\\\.\\\\)\\\\?]\\\\s*$') || regex(str(?com), 'n\\\\* .*')))
     }
     ORDER BY ?term  ''')
-    nri1_results = self.rdflib_data.query(nri1)
-    if len(nri1_results):
-        log.info("Comment without ending '.' errors!!!\n")
-        for row in nri1_results:
-            log.info("Term '%s' has a comment without an ending '.'" % (row["term"]))
-    self.assertEqual(len(nri1_results), 0, "Comment without ending '.' Found: %s" % len(nri1_results))
+    nri1_results = tuple(map(str, self.rdflib_data.query(nri1)))
+    self.assertFalse(nri1_results, "Comment without ending '.', ')' or '?' Found: %s" % '\n'.join(nri1_results))
 
   def test_typeLabelCase(self):
-    nri1= ('''select ?term ?label where { 
+    nri1= ('''select ?term ?label where {
        ?term rdf:type rdfs:Class.
        ?term rdfs:label ?label.
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
 
@@ -355,12 +351,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Type '%s' has a label without upper case 1st character" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Type label not [A-Z] 1st non-numeric char Found: %s" % len(nri1_results))
-    
+
   def test_propertyLabelCase(self):
-    nri1= ('''select ?term ?label where { 
+    nri1= ('''select ?term ?label where {
        ?term rdf:type rdf:Property.
        ?term rdfs:label ?label.
-       
+
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
 
@@ -375,7 +371,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Property label not [a-z] 1st char Found: %s" % len(nri1_results))
 
   def test_superTypeInAttic(self):
-    nri1= ('''select ?term ?super where { 
+    nri1= ('''select ?term ?super where {
        {
            ?term rdfs:subClassOf ?super.
        }
@@ -395,7 +391,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Super-term in attic  Found: %s" % len(nri1_results))
 
   def test_referenceTermInAttic(self):
-    nri1= ('''select ?term ?rel ?ref where { 
+    nri1= ('''select ?term ?rel ?ref where {
        {
            ?term <https://schema.org/domainIncludes> ?ref.
            ?term ?rel ?ref.
@@ -427,7 +423,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "Reference to attic term  Found: %s" % len(nri1_results))
 
   def test_termIn2PlusExtensions(self):
-    nri1= ('''select ?term (count(?part) as ?count) where { 
+    nri1= ('''select ?term (count(?part) as ?count) where {
         ?term <https://schema.org/isPartOf> ?part.
     }
     GROUP BY ?term
@@ -459,8 +455,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     nri1= ('''prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     prefix schema: <https://schema.org/>
     select ?term ?target where {
-  
-      ?term schema:domainIncludes | 
+
+      ?term schema:domainIncludes |
             schema:rangeIncludes |
             rdfs:subClassOf |
             rdfs:subPropertyOf |
@@ -483,22 +479,22 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     select ?term  ?partof where {
       ?term schema:isPartOf ?partof .
       MINUS{
-        ?term schema:isPartOf <https://attic.schema.org> 
+        ?term schema:isPartOf <https://attic.schema.org>
       }
       MINUS{
-        ?term schema:isPartOf <https://auto.schema.org> 
+        ?term schema:isPartOf <https://auto.schema.org>
       }
       MINUS{
-        ?term schema:isPartOf <https://bib.schema.org> 
+        ?term schema:isPartOf <https://bib.schema.org>
       }
       MINUS{
-        ?term schema:isPartOf <https://health-lifesci.schema.org> 
+        ?term schema:isPartOf <https://health-lifesci.schema.org>
       }
       MINUS{
-        ?term schema:isPartOf <https://meta.schema.org> 
+        ?term schema:isPartOf <https://meta.schema.org>
       }
       MINUS{
-        ?term schema:isPartOf <https://pending.schema.org> 
+        ?term schema:isPartOf <https://pending.schema.org>
       }
     }
     ORDER BY ?term
@@ -514,11 +510,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
-    nri1= ('''select ?term where { 
+    nri1= ('''select ?term where {
         ?term a rdfs:subClassOf+ <https://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
-    } 
+    }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
