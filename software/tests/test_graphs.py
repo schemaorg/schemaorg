@@ -82,7 +82,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       self.assertTrue(result[0] != result[1],
                       "%s should not be equal to %s" % (result[0], result[1]) )
 
-  @unittest.expectedFailure # autos
   def test_needlessDomainIncludes(self):
     global warnings
     # check immediate subtypes don't declare same domainIncludes
@@ -100,15 +99,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            }
            ORDER BY ?prop ''')
     ndi1_results = self.rdflib_data.query(ndi1)
-    if (len(ndi1_results) > 0):
+    if ndi1_results:
         for row in ndi1_results:
-            warn = "WARNING property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            #warnings.append(warn)
-            log.info(warn + "\n")
-    self.assertEqual(len(ndi1_results), 0,
-                     "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
+            with self.subTest(property=str(row["prop"])):
+                warn = "WARNING property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
+                self.fail(warn)
 
-  @unittest.expectedFailure
   def test_needlessRangeIncludes(self):
     global warnings
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
@@ -127,12 +123,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
              }
              ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
-    if (len(nri1_results)>0):
+    if nri1_results:
         for row in nri1_results:
-            warn = "WARNING property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            #warnings.append(warn)
-            log.info(warn + "\n")
-    self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
+            with self.subTest(property=str(row["prop"])):
+                warn = "WARNING property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
+                self.fail(warn)
 
 #  def test_supersededByAreLabelled(self):
 #    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <https://schema.org/supersededBy> ?y . ?y <https://schema.org/name> ?z }")
