@@ -83,7 +83,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                       "%s should not be equal to %s" % (result[0], result[1]) )
 
   def test_needlessDomainIncludes(self):
-    global warnings
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
     # rdfs:subClassOf+ should work but seems not to.
@@ -106,7 +105,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                 self.fail(warn)
 
   def test_needlessRangeIncludes(self):
-    global warnings
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
