@@ -9176,8 +9176,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :uploadDate a rdf:Property ;
     rdfs:label "uploadDate" ;
     :domainIncludes :MediaObject ;
-    :rangeIncludes :Date ;
-    rdfs:comment "Date when this media object was uploaded to this site." .
+    :rangeIncludes :Date, :DateTime ;
+    rdfs:comment "Date (including time if available) when this media object was uploaded to this site." .
 
 :upvoteCount a rdf:Property ;
     rdfs:label "upvoteCount" ;
