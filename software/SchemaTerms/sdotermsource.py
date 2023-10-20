@@ -16,6 +16,7 @@ log = logging.getLogger(__name__)
 import threading
 import os
 import re
+import traceback
 import rdflib
 from rdflib import URIRef
 import io
@@ -993,6 +994,7 @@ class SdoTermSource():
                 g.parse(source=f, format=format)
                 SdoTermSource.SOURCEGRAPH += g
             except Exception as e:
+                print("Error parsing source file '%s': %s" % (f,e))
                 raise Exception("Error loading graph source %s: %s" % (f,e))
 
     @staticmethod
