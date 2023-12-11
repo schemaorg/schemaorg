@@ -1,0 +1,146 @@
+TYPES: #eg-0482 Certification
+
+PRE-MARKUP:
+
+Example of a product with an EU [EPREL](https://eprel.ec.europa.eu/) certification.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "sku": "1234-5678",
+    "image": "https://www.example.com/waterheater.jpg",
+    "name": "Water heater",
+    "description": "Large capacity water heater",
+    "gtin14": "12345678901231",
+    "mpn": "WH1234",
+    "brand": {
+      "@type": "Brand",
+      "name": "ExampleWaterHeaterBrand"
+    },
+    "hasCertification": {
+      "@type": "Certification",
+      "issuedBy": {
+        "@type": "Organization",
+        "name:": "EC"
+      },
+      "name": "EPREL",
+      "code": "1854552"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.example.com/hotwaterheater",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "price": 1799,
+      "priceCurrency": "EUR"
+    }
+  }
+]
+</script>
+
+TYPES: #eg-0483 Certification
+
+PRE-MARKUP:
+
+Example of a product certification for carbon footprint with a quantitative measure
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "hasCertification": {
+      "@type": "Certification",
+      "name": "CO2 Measured",
+      "certificationStatus": "http://schema.org/CertificationActive",
+      "authority": {
+        "@type": "Organisation",
+        "name": "CO2 Trust",
+        "url": "https://www.co2trust.com/"
+      },
+      "logo": "https://www.co2trust.com/c02-measured-logo.jpg",
+      "hasMeasurement": {
+        "@type": "QuantitativeValue",
+        "name": "CO2e",
+        "value": 0.158,
+        "unitCode": "KGM"
+      }
+    }
+  }
+]
+</script>
+
+TYPES: #eg-0484 Certification
+
+PRE-MARKUP:
+
+A mobile phone product certified by the FCC and bearing the CE mark. 
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "hasCertification": [
+      {
+        "@type": "Certification",
+        "name": "FCC",
+        "certificationStatus": "http://schema.org/CertificationActive",
+        "certificationRegistration": {
+          "@type": "DefinedTerm",
+          "termCode": "BCG-E3307A",
+          "inDefinedTermSet": "https://apps.fcc.gov/coresWeb/publicHome.do"
+        },
+        "logo": "https://www.fcc.gov/sites/default/files/fcc-logo-black-2020-large.png",
+        "issuedBy": {
+          "@type": "Organisation",
+          "url": "https://www.fcc.gov/",
+          "name": "Federal Communications Commission"
+        }
+      },
+      {
+        "@type": "Certification",
+        "certificationStatus": "http://schema.org/CertificationActive",
+        "name": "CE",
+        "issuedBy": {
+          "@type": "Organisation",
+          "url": "https://europa.eu/",
+          "name": "European Commission"
+        }
+      }
+    ]
+  }
+]
+</script>
