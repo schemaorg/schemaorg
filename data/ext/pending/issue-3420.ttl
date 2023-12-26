@@ -1,0 +1,34 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+
+
+:usNPI a rdf:Property ;
+    rdfs:label "usNPI" ;
+    :domainIncludes :Physician ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text,
+        ;Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3420> ;
+    rdfs:comment """An NationalPoviderIdentifier(NPI) is a unique identification number for covered health care providers, created to help send health information electronically more quickly and effectively.""";
+    rdfs:subPropertyOf :identifier .
+
+:IndividualPhysician a rdfs:Class ;
+    rdfs:label "IndividualPhysician" ;
+    rdfs:comment """An individual medical practitioner. For their official address use [[address]], for affiliations to hospitals use [[hospitalAffiliation]]. 
+The [[practicesAt]] property can be used to indicate [[MedicalOrganization]] hospitals, clinics, pharmacies etc. where this physician practices.""" ;
+    rdfs:subClassOf :Physician .
+
+:PhysiciansOffice a rdfs:Class ;
+    rdfs:label "PhysiciansOffice" ;
+    rdfs:comment """A doctor's office or clinic.""" ;
+    rdfs:subClassOf :Physician .
+
+:practicesAt a rdf:Property ;
+    rdfs:label "practicesAt" ;
+    :domainIncludes :IndividualPhysician ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :MedicalOrganization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3420> ;
+    rdfs:comment "A [[MedicalOrganization]] where the [[IndividualPhysician]] practices." ;
