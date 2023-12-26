@@ -8,21 +8,20 @@
     rdfs:label "usNPI" ;
     :domainIncludes :Physician ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Text,
-        ;Number ;
+    :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/3420> ;
-    rdfs:comment """An NationalPoviderIdentifier(NPI) is a unique identification number for covered health care providers, created to help send health information electronically more quickly and effectively.""";
+    rdfs:comment  """An NationalPoviderIdentifier(NPI) is a unique identification number for covered health care providers, created to help send health information electronically more quickly and effectively.""";
     rdfs:subPropertyOf :identifier .
 
 :IndividualPhysician a rdfs:Class ;
     rdfs:label "IndividualPhysician" ;
-    rdfs:comment """An individual medical practitioner. For their official address use [[address]], for affiliations to hospitals use [[hospitalAffiliation]]. 
+    rdfs:comment  """An individual medical practitioner. For their official address use [[address]], for affiliations to hospitals use [[hospitalAffiliation]]. 
 The [[practicesAt]] property can be used to indicate [[MedicalOrganization]] hospitals, clinics, pharmacies etc. where this physician practices.""" ;
     rdfs:subClassOf :Physician .
 
 :PhysiciansOffice a rdfs:Class ;
     rdfs:label "PhysiciansOffice" ;
-    rdfs:comment """A doctor's office or clinic.""" ;
+    rdfs:comment  """A doctor's office or clinic.""" ;
     rdfs:subClassOf :Physician .
 
 :practicesAt a rdf:Property ;
@@ -31,4 +30,4 @@ The [[practicesAt]] property can be used to indicate [[MedicalOrganization]] hos
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MedicalOrganization ;
     :source <https://github.com/schemaorg/schemaorg/issues/3420> ;
-    rdfs:comment "A [[MedicalOrganization]] where the [[IndividualPhysician]] practices." ;
+    rdfs:comment  """A [[MedicalOrganization]] where the [[IndividualPhysician]] practices.""" ;
