@@ -1,0 +1,362 @@
+TYPES: #eg-0482 Certification
+
+PRE-MARKUP:
+
+Complete example of a certification object for a product registered in the EU EPREL 
+(https://eprel.ec.europa.eu/) database. Illustrates all relevant fields of the Certification 
+type.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Certification",
+  "name": "EPREL",
+  "description": "Registration of products in the European Product Registry for Energy Labeling (EPREL)",
+  "url": "https://eprel.ec.europa.eu/screen/product/dishwashers2019/1779994",
+  "about": {
+    "@type": "Product",
+    "@id": "https://www.dishwashers.com/en/built-in-dishwashers/1377-built-in-dishwasher-gsi1399xx"
+  },
+  "issuedBy": {
+    "@type": "Organization",
+    "name": [
+      "European Commission, Directorate-General for Energy",
+      "EC"
+    ],
+    "url": "https://eprel.ec.europa.eu/screen/home"
+  },
+  "certificationStatus": "https://schema.org/CertificationActive",
+  "expires": "2026-05-12",
+  "datePublished": "2023-06-01",
+  "validFrom": "2023-05-12",
+  "auditDate": "2023-10-01",
+  "validIn": {
+    "@type": "AdministrativeArea",
+    "name": "European Union",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": ["AT","BE","BG","CY","CZ","DE","DK","EE","ES","FI","FR","GR",
+                         "HR","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO",
+                         "SE","SI","SK"]
+    }
+  },
+  "logo": "https://eprel.ec.europa.eu/assets/images/label/thumbnails/E-Left-LightOrange-WithAGScale.png",
+  "certificationIdentification": "1779994",
+  "hasMeasurement": {
+    "@type": "QuantitativeValue",
+    "name": "Energy Efficiency Index (EEI)",
+    "valueReference": "https://eur-lex.europa.eu/eli/reg_del/2019/2017/2021-05-01#anx_IV",
+    "value": 55.9
+  }
+}
+</script>
+
+TYPES: #eg-0483 Certification
+
+PRE-MARKUP:
+
+The previous example illustrates a certificate as it could be published on the site of a 
+registration/certification body. A product from a manufacturer, supplier, or merchant could 
+then reference this certificate as follows using the hasCertificate property (using @id 
+to reference the Certification object on the site of the certification body instead of 
+embedding the full Certification within the Product object itself):
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">  
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "sku": "1234-5678",
+  "image": "https://www.example.com/dishwasher1234.jpg",
+  "name": "Household Dishwasher",
+  "description": "Large capacity household dishwasher",
+  "gtin14": "12345678901231",
+  "mpn": "DW1234",
+  "brand": {
+    "@type": "Brand",
+    "name": "Household applicance brand"
+  },
+  "hasCertification": {
+    "@type": "Certification",
+    "@id": "https://eprel.ec.europa.eu/qr/1779994",
+    "url": "https://eprel.ec.europa.eu/screen/product/dishwashers2019/1779994"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.example.com/dishwasher1234",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "price": 499,
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+TYPES: #eg-0484 Certification
+
+PRE-MARKUP:
+
+Example of a certification for carbon footprint of a product with a W3C verifiable 
+credential (https://w3c.github.io/vc-data-model). The certification information is copied 
+and embedded within the Product.
+
+Note the use of id and type instead of @id and @type, using the mappings defined in 
+https://www.w3.org/ns/credentials/v2, for lighter-weight credential-type specific processing.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "http://certification.example/credentials/3732",
+  "type": [
+    "VerifiableCredential",
+    "CertificationCredential"
+  ],
+  "issuer": "https://certification.example/issuers/14",
+  "validFrom": "2023-01-01T19:23:24Z",
+  "credentialSubject": {
+    "type": "Product",
+    "id": "https://www.example.com/12345678901231",
+    "hasCertification": {
+      "type": "Certification",
+      "name": "CO2 Measured",
+      "certificationStatus": "CertificationActive",
+      "authority": {
+        "type": "Organization",
+        "name": "CO2 Trust",
+        "url": "https://www.co2trust.com/"
+      },
+      "logo": "https://www.co2trust.com/c02-measured-logo.jpg",
+      "hasMeasurement": {
+        "@type": "QuantitativeValue",
+        "name": "CO2e",
+        "value": 0.158,
+        "unitCode": "KGM"
+      }
+    }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "ecdsa-rdfc-2019",
+    "created": "2023-12-11T14:58:20Z",
+    "verificationMethod": "https://certification.example/issuers/14#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z5dqTceMhzmpFSfwEphYDnWJJiAtcGaitiZ2FgpRWEcLJmfQBRMUpaTihmhpdHbiMJN9Ranx1PXLaGSePQjV74nLC"
+  }
+}
+</script>
+
+TYPES: #eg-0485 Certification
+
+PRE-MARKUP:
+
+Example of a product certification for carbon footprint and a W3C verifiable credential
+(https://w3c.github.io/vc-data-model/). In this example the certification information is 
+assumed to be present on another url. The verifiable credential is specified separate 
+from the product itself on the same url.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "@id": "https://www.example.com/12345678901231",
+    "sku": "1234-5678",
+    "image": "https://www.example.com/waterheater.jpg",
+    "name": "Water heater",
+    "description": "Large capacity water heater",
+    "gtin14": "12345678901231",
+    "mpn": "WH1234",
+    "brand": {
+      "@type": "Brand",
+      "name": "ExampleWaterHeaterBrand"
+    },
+    "hasCertification": {
+      "@type": "Certification",
+      "@id": "https://www.co2trust.com/12345678901231"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.example.com/hotwaterheater",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "price": 1799,
+      "priceCurrency": "EUR"
+    }
+  },
+  {
+    "@context": [
+      "https://schema.org",
+	  "https://www.w3.org/ns/credentials/v2"
+    ],
+    "id": "http://certification.example/credentials/3732",
+    "type": [
+      "VerifiableCredential",
+      "CertificationCredential"
+    ],
+    "issuer": "https://certification.example/issuers/14",
+    "validFrom": "2023-01-01T19:23:24Z",
+    "credentialSubject": {
+      "type": "Product",
+      "id": "https://www.example.com/12345678901231"
+    },
+    "proof": {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "ecdsa-rdfc-2019",
+      "created": "2023-12-11T14:58:20Z",
+      "verificationMethod": "https://certification.example/issuers/14#key-1",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z5dqTceMhzmpFSfwEphYDnWJJiAtcGaitiZ2FgpRWEcLJmfQBRMUpaTihmhpdHbiMJN9Ranx1PXLaGSePQjV74nLC"
+    }
+  }
+]
+</script>
+
+TYPES: #eg-0486 Certification
+
+PRE-MARKUP:
+
+A mobile phone product certified by the FCC and bearing the CE mark. 
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "hasCertification": [
+      {
+        "@type": "Certification",
+        "name": "FCC",
+        "certificationStatus": "http://schema.org/CertificationActive",
+        "certificationIdentification": {
+          "@type": "DefinedTerm",
+          "termCode": "BCG-E3307A",
+          "inDefinedTermSet": "https://apps.fcc.gov/coresWeb/publicHome.do"
+        },
+        "logo": "https://www.fcc.gov/sites/default/files/fcc-logo-black-2020-large.png",
+        "issuedBy": {
+          "@type": "Organization",
+          "url": "https://www.fcc.gov/",
+          "name": "Federal Communications Commission"
+        }
+      },
+      {
+        "@type": "Certification",
+        "certificationStatus": "http://schema.org/CertificationActive",
+        "name": "CE",
+        "issuedBy": {
+          "@type": "Organization",
+          "url": "https://europa.eu/",
+          "name": "European Commission"
+        }
+      }
+    ]
+  }
+</script>
+
+TYPES: #eg-0487 Certification
+
+PRE-MARKUP:
+
+A FIPS compliant hardware security module, with the actual certification files hosted by
+NIST (https://csrc.nist.gov). We assume there is no Schema.org Certification object present 
+on the actual certification page hosted by the certification body, so we include it in the 
+product itself. 
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "@type": "VerifiableCredential",
+  "validFrom": "2022-01-01T16:00:00Z",
+  "id": "http://certification.example/credentials/99876",
+  "issuer": "https://certification.example/issuers/1562",
+  "credentialSubject": {
+    "type": "Product",
+    "name": "WolfCrypt",
+    "hasCertification": {
+      "type": "Certification",
+      "name": "FIPS compliance",
+      "url": "https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/3389",
+      "certificationStatus": "CertificationActive",
+      "issuedBy": {
+        "type": "Organization",
+        "name": "NIST",
+        "url": "https://www.nist.gov"
+      },
+      "certificationIdentification": "3389",
+      "expires": "2024-03-03"
+    }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "ecdsa-rdfc-2019",
+    "created": "2023-12-11T13:00:00Z",
+    "verificationMethod": "https://certification.example/issuers/1562#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "998qTceMhzmpFSfwEphYDnWJJiAtcGaitiZ2FgpRWEcLJmfQBRMUpaTihmhpdHbiMJN9Ranx1PXLaGSePQjV74nLC"
+  }
+}
+</script>

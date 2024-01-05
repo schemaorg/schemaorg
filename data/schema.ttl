@@ -4052,6 +4052,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :additionalProperty a rdf:Property ;
     rdfs:label "additionalProperty" ;
     :domainIncludes :Place,
+        :Offer,
         :Product,
         :MerchantReturnPolicy,
         :QualitativeValue,
@@ -5296,10 +5297,11 @@ In the case of products, the country of origin of the product. The exact interpr
 
 :datePublished a rdf:Property ;
     rdfs:label "datePublished" ;
-    :domainIncludes :CreativeWork ;
+    :domainIncludes :CreativeWork,
+		:Certification;
     :rangeIncludes :Date,
-        :DateTime ;
-    rdfs:comment "Date of first broadcast/publication." .
+        :DateTime;
+    rdfs:comment "Date of first publication or broadcast. For example the date a [[CreativeWork]] was broadcast or a [[Certification]] was issued." .
 
 :dateRead a rdf:Property ;
     rdfs:label "dateRead" ;
@@ -5873,10 +5875,11 @@ This property should not be used where the nature of the alignment can be descri
 
 :expires a rdf:Property ;
     rdfs:label "expires" ;
-    :domainIncludes :CreativeWork ;
+    :domainIncludes :CreativeWork,
+		 :Certification;
     :rangeIncludes :Date,
          :DateTime;
-    rdfs:comment "Date the content expires and is no longer useful or available. For example a [[VideoObject]] or [[NewsArticle]] whose availability or relevance is time-limited, or a [[ClaimReview]] fact check whose publisher wants to indicate that it may no longer be relevant (or helpful to highlight) after some date." .
+    rdfs:comment "Date the content expires and is no longer useful or available. For example a [[VideoObject]] or [[NewsArticle]] whose availability or relevance is time-limited, a [[ClaimReview]] fact check whose publisher wants to indicate that it may no longer be relevant (or helpful to highlight) after some date, or a [[Certification]] the validity has expired." .
 
 :familyName a rdf:Property ;
     rdfs:label "familyName" ;
@@ -6601,9 +6604,10 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :issuedBy a rdf:Property ;
     rdfs:label "issuedBy" ;
     :domainIncludes :Permit,
-        :Ticket ;
+        :Ticket,
+		:Certification ;
     :rangeIncludes :Organization ;
-    rdfs:comment "The organization issuing the ticket or permit." .
+    rdfs:comment "The organization issuing the item, for example a [[Permit]], [[Ticket]], or [[Certification]]." .
 
 :issuedThrough a rdf:Property ;
     rdfs:label "issuedThrough" ;
@@ -9217,16 +9221,18 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :Offer,
         :OpeningHoursSpecification,
         :Permit,
-        :PriceSpecification ;
+        :PriceSpecification,
+		:Certification ;
     :rangeIncludes :Date,
         :DateTime ;
     rdfs:comment "The date when the item becomes valid." .
 
 :validIn a rdf:Property ;
     rdfs:label "validIn" ;
-    :domainIncludes :Permit ;
+    :domainIncludes :Permit,
+		 :Certification;
     :rangeIncludes :AdministrativeArea ;
-    rdfs:comment "The geographic area where a permit or similar thing is valid." .
+    rdfs:comment "The geographic area where the item is valid. Applies for example to a [[Permit]], a [[Certification]], or an [[EducationalOccupationalCredential]]. " .
 
 :validThrough a rdf:Property ;
     rdfs:label "validThrough" ;
@@ -10240,7 +10246,8 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "about" ;
     :domainIncludes :CommunicateAction,
         :CreativeWork,
-        :Event ;
+        :Event,
+		:Certification ;
     :inverseOf :subjectOf ;
     :rangeIncludes :Thing ;
     :source <https://github.com/schemaorg/schemaorg/issues/1670> ;
