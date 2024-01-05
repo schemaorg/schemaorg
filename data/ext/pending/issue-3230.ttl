@@ -8,8 +8,8 @@
 	rdfs:label "Certification" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;	
-    rdfs:comment """A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a person can be a certified professional. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Same as GS1's [CertificationDetails](https://www.gs1.org/voc/CertificationDetails) type.""" ;
-    rdfs:subClassOf :StructuredValue .
+    rdfs:comment """A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a Person can be a certified professional, a Place can be certified for food processing. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Mapped from the [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary.""" ;
+    rdfs:subClassOf :CreativeWork .
 
 :auditDate a rdf:Property ;
     rdfs:label "auditDate" ;
@@ -17,24 +17,16 @@
     :rangeIncludes :Date,
         :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-    rdfs:comment "Date when a certification was last audited. See also GS1 [certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." .
+    rdfs:comment "Date when a certification was last audited. See also  [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." .
 	
-:certificationRegistration a rdf:Property ;
-    rdfs:label "certificationRegistration" ;
+:certificationIdentification a rdf:Property ;
+    rdfs:label "certificationIdentification" ;
     :domainIncludes :Certification ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-    rdfs:comment "Registration key with an independent certification body. Typically this key can be used to consult and verify the certification. See also GS1 [certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." .
-		
-:certificationType a rdf:Property ;
-    rdfs:label "certificationType" ;
-    :domainIncludes :Certification ;
-    :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Thing;
-    :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-    rdfs:comment "Indicates the type of certification. See also GS1 [certificationType](https://www.gs1.org/voc/certificationType)." .
+    rdfs:comment "Identifier of a certification instance (as registered with an independent certification body). Typically this identifier can be used to consult and verify the certification instance. See also [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." .
 
 :CertificationStatusEnumeration a rdfs:Class ;
     rdfs:label "CertificationStatusEnumeration" ;
@@ -60,15 +52,18 @@
     :domainIncludes :Certification ;
     :rangeIncludes :CertificationStatusEnumeration;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-    rdfs:comment "Indicates the current status of a certification: active or inactive. See also GS1 [certificationStatus](https://www.gs1.org/voc/certificationStatus)." .
+    rdfs:comment "Indicates the current status of a certification: active or inactive. See also  [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus)." .
 	
 :hasCertification a rdf:Property ;
 	rdfs:label "hasCertification" ;
 	:domainIncludes :Product,
-		 :Organization;
+		 :Organization,
+		 :Person,
+		 :Service,
+		 :Place;
 	:rangeIncludes :Certification;
 	:source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-	rdfs:comment "Certification information about a product or organization." .
+	rdfs:comment "Certification information about a product, organization, service, place, or person." .
 
 
 
