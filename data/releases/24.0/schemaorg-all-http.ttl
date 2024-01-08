@@ -2288,6 +2288,12 @@ schema:ImagingTest a rdfs:Class ;
     rdfs:subClassOf schema:MedicalTest ;
     schema:isPartOf <http://health-lifesci.schema.org> .
 
+schema:IndividualPhysician a rdfs:Class ;
+    rdfs:label "IndividualPhysician" ;
+    rdfs:comment """An individual medical practitioner. For their official address use [[address]], for affiliations to hospitals use [[hospitalAffiliation]]. 
+The [[practicesAt]] property can be used to indicate [[MedicalOrganization]] hospitals, clinics, pharmacies etc. where this physician practices.""" ;
+    rdfs:subClassOf schema:Physician .
+
 schema:IndividualProduct a rdfs:Class ;
     rdfs:label "IndividualProduct" ;
     rdfs:comment "A single, identifiable product instance (e.g. a laptop with a particular serial number)." ;
@@ -3695,9 +3701,13 @@ schema:PhysicalTherapy a rdfs:Class ;
 
 schema:Physician a rdfs:Class ;
     rdfs:label "Physician" ;
-    rdfs:comment "A doctor's office." ;
-    rdfs:subClassOf schema:MedicalBusiness,
-        schema:MedicalOrganization .
+    rdfs:comment "An individual physician or a physician's office considered as a [[MedicalOrganization]]." ;
+    rdfs:subClassOf schema:MedicalOrganization .
+
+schema:PhysiciansOffice a rdfs:Class ;
+    rdfs:label "PhysiciansOffice" ;
+    rdfs:comment "A doctor's office or clinic." ;
+    rdfs:subClassOf schema:Physician .
 
 schema:Place a rdfs:Class ;
     rdfs:label "Place" ;
@@ -14653,6 +14663,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     schema:domainIncludes schema:EducationalOccupationalProgram,
         schema:JobPosting,
         schema:Occupation,
+        schema:Physician,
         schema:WorkBasedProgram ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:CategoryCode,
@@ -14660,7 +14671,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
     schema:source <https://github.com/schemaorg/schemaorg/issues/1698>,
         <https://github.com/schemaorg/schemaorg/issues/2192>,
         <https://github.com/schemaorg/schemaorg/issues/2289>,
-        <https://github.com/schemaorg/schemaorg/issues/2460> .
+        <https://github.com/schemaorg/schemaorg/issues/2460>,
+        <https://github.com/schemaorg/schemaorg/issues/3420> .
 
 schema:occupationalCredentialAwarded a rdf:Property ;
     rdfs:label "occupationalCredentialAwarded" ;
@@ -15324,6 +15336,14 @@ schema:potentialUse a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:DefinedTerm ;
     schema:source <http://www.bioschemas.org/ChemicalSubstance> .
+
+schema:practicesAt a rdf:Property ;
+    rdfs:label "practicesAt" ;
+    rdfs:comment "A [[MedicalOrganization]] where the [[IndividualPhysician]] practices." ;
+    schema:domainIncludes schema:IndividualPhysician ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:MedicalOrganization ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/3420> .
 
 schema:preOp a rdf:Property ;
     rdfs:label "preOp" ;
@@ -17937,6 +17957,15 @@ schema:urlTemplate a rdf:Property ;
     rdfs:comment "An url template (RFC6570) that will be used to construct the target of the execution of the action." ;
     schema:domainIncludes schema:EntryPoint ;
     schema:rangeIncludes schema:Text .
+
+schema:usNPI a rdf:Property ;
+    rdfs:label "usNPI" ;
+    rdfs:comment "An NationalPoviderIdentifier(NPI) is a unique identification number for covered health care providers, created to help send health information electronically more quickly and effectively." ;
+    rdfs:subPropertyOf schema:identifier ;
+    schema:domainIncludes schema:Physician ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/3420> .
 
 schema:usedToDiagnose a rdf:Property ;
     rdfs:label "usedToDiagnose" ;

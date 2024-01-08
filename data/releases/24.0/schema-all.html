@@ -16088,18 +16088,6 @@ that are useful for publishers and consumers of schema.org data.
     
       
       
-        <li class="tbranch"  id="C.Physician">
-    
-    
-    <a href="#term_Physician" class="core" title="Physician">Physician</a>
-            
-            
-        </li>
-      
-      
-    
-      
-      
         <li class="tbranch" >
     
     
@@ -16862,11 +16850,39 @@ that are useful for publishers and consumers of schema.org data.
     
       
       
-        <li class="tbranch" >
+        <li class="tbranch"  id="C.Physician">
     
     
     <a href="#term_Physician" class="core" title="Physician">Physician</a>
-             <a href="#C.Physician">+ 
+            
+            
+                <ul>
+                    
+      
+      
+        <li class="tbranch"  id="C.IndividualPhysician">
+    
+    
+    <a href="#term_IndividualPhysician" class="core" title="IndividualPhysician">IndividualPhysician</a>
+            
+            
+        </li>
+      
+      
+    
+      
+      
+        <li class="tbranch"  id="C.PhysiciansOffice">
+    
+    
+    <a href="#term_PhysiciansOffice" class="core" title="PhysiciansOffice">PhysiciansOffice</a>
+            
+            
+        </li>
+      
+      
+    
+                </ul>
             
         </li>
       
@@ -34059,6 +34075,31 @@ In general these codes are not declared here to be mutually exclusive, although 
     
         
         <div>
+            <h4 id="term_IndividualPhysician" title="IndividualPhysician">IndividualPhysician</h4>
+            
+            <p>An individual medical practitioner. For their official address use <a class="localLink" href="/address">address</a>, for affiliations to hospitals use <a class="localLink" href="/hospitalAffiliation">hospitalAffiliation</a>. 
+The <a class="localLink" href="/practicesAt">practicesAt</a> property can be used to indicate <a class="localLink" href="/MedicalOrganization">MedicalOrganization</a> hospitals, clinics, pharmacies etc. where this physician practices.</p>
+            
+                <br/>Properties used on this type:
+                <ul>
+                    <li>
+    
+    
+    <a href="#term_practicesAt" class="ext ext-pending" title="practicesAt">practicesAt</a></li>
+                </ul>
+                
+                <br/>Properties whose values are of this type:
+                <ul>
+                    
+                </ul>
+           
+            <small>[<a href="#intro">^top</a>]</small>
+        </div>
+        <br/>
+        
+    
+        
+        <div>
             <h4 id="term_IndividualProduct" title="IndividualProduct">IndividualProduct</h4>
             
             <p>A single, identifiable product instance (e.g. a laptop with a particular serial number).</p>
@@ -37912,7 +37953,10 @@ Note: This type is for information about actual reservations, e.g. in confirmati
                 
                 <br/>Properties whose values are of this type:
                 <ul>
-                    
+                    <li>
+    
+    
+    <a href="#term_practicesAt" class="ext ext-pending" title="practicesAt">practicesAt</a></li>
                 </ul>
            
             <small>[<a href="#intro">^top</a>]</small>
@@ -46100,7 +46144,7 @@ See also <a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliogra
         <div>
             <h4 id="term_Physician" title="Physician">Physician</h4>
             
-            <p>A doctor's office.</p>
+            <p>An individual physician or a physician's office considered as a <a class="localLink" href="/MedicalOrganization">MedicalOrganization</a>.</p>
             
                 <br/>Properties used on this type:
                 <ul>
@@ -46113,7 +46157,34 @@ See also <a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliogra
     <a href="#term_hospitalAffiliation" class="core" title="hospitalAffiliation">hospitalAffiliation</a></li><li>
     
     
-    <a href="#term_medicalSpecialty" class="core" title="medicalSpecialty">medicalSpecialty</a></li>
+    <a href="#term_medicalSpecialty" class="core" title="medicalSpecialty">medicalSpecialty</a></li><li>
+    
+    
+    <a href="#term_occupationalCategory" class="ext ext-pending" title="occupationalCategory">occupationalCategory</a></li><li>
+    
+    
+    <a href="#term_usNPI" class="ext ext-pending" title="usNPI">usNPI</a></li>
+                </ul>
+                
+                <br/>Properties whose values are of this type:
+                <ul>
+                    
+                </ul>
+           
+            <small>[<a href="#intro">^top</a>]</small>
+        </div>
+        <br/>
+        
+    
+        
+        <div>
+            <h4 id="term_PhysiciansOffice" title="PhysiciansOffice">PhysiciansOffice</h4>
+            
+            <p>A doctor's office or clinic.</p>
+            
+                <br/>Properties used on this type:
+                <ul>
+                    
                 </ul>
                 
                 <br/>Properties whose values are of this type:
@@ -49156,7 +49227,7 @@ See also <a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliogra
                 <br/>Member of Enumeration: 
     
     
-    <a href="#term_MedicalSpecialty" class="core" title="MedicalSpecialty">MedicalSpecialty</a>
+    <a href="#term_MedicalImagingTechnique" class="core" title="MedicalImagingTechnique">MedicalImagingTechnique</a>
                 <br/>
             
             <small>[<a href="#intro">^top</a>]</small>
@@ -55930,6 +56001,9 @@ Note: This type is for information about actual reservations, e.g. in confirmati
     
     
     <a href="#term_urlTemplate" class="core" title="urlTemplate">urlTemplate</a></li><li>
+    
+    
+    <a href="#term_usNPI" class="ext ext-pending" title="usNPI">usNPI</a></li><li>
     
     
     <a href="#term_usesHealthPlanIdStandard" class="ext ext-pending" title="usesHealthPlanIdStandard">usesHealthPlanIdStandard</a></li><li>
@@ -66079,6 +66153,11 @@ Commonly used values:<br/><br/>
         , 
     
     
+    <a href="#term_practicesAt" class="ext ext-pending" title="practicesAt">practicesAt</a></a>
+    
+        , 
+    
+    
     <a href="#term_preOp" class="core" title="preOp">preOp</a></a>
     
         , 
@@ -67970,6 +68049,11 @@ Commonly used values:<br/><br/>
     
     
     <a href="#term_urlTemplate" class="core" title="urlTemplate">urlTemplate</a></a>
+    
+        , 
+    
+    
+    <a href="#term_usNPI" class="ext ext-pending" title="usNPI">usNPI</a></a>
     
         , 
     
@@ -91658,6 +91742,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
                 <li>
     
     
+    <a href="#term_Physician" class="core" title="Physician">Physician</a></li>
+            
+        
+            <br/>Relevant types:<ul>
+                <li>
+    
+    
     <a href="#term_WorkBasedProgram" class="core" title="WorkBasedProgram">WorkBasedProgram</a></li>
             </ul>
         
@@ -94182,6 +94273,26 @@ The property values can be expressed either as unstructured text (repeated as ne
     
     
     <a href="#term_MolecularEntity" class="core" title="MolecularEntity">MolecularEntity</a></li>
+            </ul>
+        
+        
+            <br/>Values:<ul>
+                <li></li>
+            </ul>
+        
+        <small>[<a href="#intro">^top</a>]</small>
+    </div>
+    <br/>
+    
+    <div>
+        <h4 id="term_practicesAt" title="practicesAt">practicesAt</h4>
+        <p>A <a class="localLink" href="/MedicalOrganization">MedicalOrganization</a> where the <a class="localLink" href="/IndividualPhysician">IndividualPhysician</a> practices.</p>
+        
+            <br/>Relevant types:<ul>
+                <li>
+    
+    
+    <a href="#term_IndividualPhysician" class="core" title="IndividualPhysician">IndividualPhysician</a></li>
             </ul>
         
         
@@ -103530,6 +103641,26 @@ Typical unit code(s): KGM for kilogram, LBR for pound
     
     
     <a href="#term_EntryPoint" class="core" title="EntryPoint">EntryPoint</a></li>
+            </ul>
+        
+        
+            <br/>Values:<ul>
+                <li></li>
+            </ul>
+        
+        <small>[<a href="#intro">^top</a>]</small>
+    </div>
+    <br/>
+    
+    <div>
+        <h4 id="term_usNPI" title="usNPI">usNPI</h4>
+        <p>An NationalPoviderIdentifier(NPI) is a unique identification number for covered health care providers, created to help send health information electronically more quickly and effectively.</p>
+        
+            <br/>Relevant types:<ul>
+                <li>
+    
+    
+    <a href="#term_Physician" class="core" title="Physician">Physician</a></li>
             </ul>
         
         
