@@ -78,6 +78,33 @@ A summary view of the current published release is available from: <a href="http
 
 
 <tr>
+  <td class="release">24.0<br/>2024-01-09</td>
+  <td>
+  <span id="v24.0"></span>
+  <p>
+  Version 24.0 - Adding vocabulary for digital sources (in collaboration with IPTC), and clarifying subtypes of Physician.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3420"><a href="https://github.com/schemaorg/schemaorg/issues/3420">Issue #3420</a>: 
+      Added <a href="/IndividualPhysician">IndividualPhysician</a>, <a href="/PhysiciansOffice">PhysiciansOffice</a> as subtypes of 
+      <a href="/Physician">Physician</a> to clarify the longstanding ambiguity between these two different interpretations of the 
+      <a href="/Physician">Physician</a> type. Amended <a href="/occupationalCategory">occupationalCategory</a> to be applicable 
+      here and added <a href="/usNPI">usNPI</a> for use with NPI identifiers in the US.
+      </li>
+      <li id="g3392"><a href="https://github.com/schemaorg/schemaorg/issues/3392">Issue #3392</a>: 
+        To help address situations around the responsible use of generative AI, we add a 
+        "digital source type" vocabulary based on <a href="/https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC's definitions</a>. 
+        This consists of a property <a href="/digitalSource">digitalSource</a>, 
+        an enumeration type <a href="/IPTCDigitalSourceEnumeration">IPTCDigitalSourceEnumeration</a>,
+        and a set of 14 coded values such as <a href="/TrainedAlgorithmicMediaDigitalSource">TrainedAlgorithmicMediaDigitalSource</a>
+        mapping directly to the <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC list</a>.
+      </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
   <td class="release">23.0<br/>2023-10-17</td>
   <td>
   <span id="v23.0"></span>
