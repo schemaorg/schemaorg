@@ -127,6 +127,7 @@ def initdir():
     clear()
     createMissingDir(OUTPUTDIR + "/docs")
     createMissingDir(OUTPUTDIR + "/docs/contributors")
+    createMissingDir(OUTPUTDIR + "/empty") #For apppengine 404 handler
     createMissingDir(OUTPUTDIR + "/releases/%s" % getVersion())
 
     gdir = OUTPUTDIR + "/gcloud"
