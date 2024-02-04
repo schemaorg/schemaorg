@@ -510,7 +510,7 @@ android-app://{package_id}/{scheme}/{host_path}
       <b>"url-output": "required",</b>
       <b>"confirmationNumber-output": "required",</b>
       <b>"orderNumber-output": "required",</b>
-      <b>orderStatus-output": "required"</b>
+      <b>"orderStatus-output": "required"</b>
     }
   }
 }</pre>
@@ -519,7 +519,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
     <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-    <pre>POST https://example.com/products/ipod/buy</span><br/>
+    <pre>POST https://example.com/products/ipod/buy</span>
 </pre>
 
 
@@ -531,11 +531,11 @@ android-app://{package_id}/{scheme}/{host_path}
   "actionStatus": "CompletedActionStatus",
   "object": "https://example.com/products/ipod",
   "result": {
-      "@type": "Order",
-      <b>"url": "http://example.com/orders/1199334"</b>
-      <b>"confirmationNumber": "1ABBCDDF23234",</b>
-      <b>"orderNumber": "1199334",</b>
-      <b>"orderStatus": "PROCESSING"</b>
+    "@type": "Order",
+    <b>"url": "http://example.com/orders/1199334",</b>
+    <b>"confirmationNumber": "1ABBCDDF23234",</b>
+    <b>"orderNumber": "1199334",</b>
+    <b>"orderStatus": "PROCESSING"</b>
   }
 }
 </pre>
@@ -554,8 +554,8 @@ android-app://{package_id}/{scheme}/{host_path}
     "<b>urlTemplate</b>": "https://api.example.com/review",
     "encodingType": "application/ld+json",
     "contentType": "application/ld+json"
-  },<br/>
-  <b>"object" : {</b>
+  },
+  <b>"object": {</b>
     "@type": "Movie",
     <b>"url-input": "required",</b>
   },
@@ -564,7 +564,7 @@ android-app://{package_id}/{scheme}/{host_path}
     <b>"url-output": "required",</b>
     <b>"reviewBody-input": "required",</b>
     "reviewRating": {
-    <b>"ratingValue-input": "required"</b>
+      <b>"ratingValue-input": "required"</b>
     }
   }
 }
@@ -578,11 +578,11 @@ android-app://{package_id}/{scheme}/{host_path}
       <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
         <pre class="small prettyprint lang-html linenums jsonld ">POST https://api.example.com/review
     
-  {
+{
   "@context": "https://schema.org",
   "@type": "ReviewAction",
-  "object" : {
-  "@id": "http://example.com/movies/123"
+  "object": {
+    "@id": "http://example.com/movies/123"
   },
   "result": {
     "@type": "Review",
@@ -603,7 +603,7 @@ android-app://{package_id}/{scheme}/{host_path}
   "@context": "https://schema.org",
   "@type": "ReviewAction",
   "actionStatus": "CompletedActionStatus",
-  "result" : {
+  "result": {
     "@type": "Review",
     "url"<b>: "http://example.com/reviews/abc"</b>
   }
