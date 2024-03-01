@@ -2,5 +2,6 @@
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
 skip = .git,*.pdf,*.svg,*.lock,*.css,*.min.*,.codespellrc,releases,l10n,data,*.bundle.js,examples.txt*
 check-hidden = true
-ignore-regex = (^\s*"image/\S+": ".*|\bself.aks\b)
+# some case sensitive hits and full regexes to ignore word compositions etc
+ignore-regex = (^\s*"image/\S+": ".*|\b(INH|WEE|self.aks)\b)
 ignore-words-list = ect,implementors,coo
