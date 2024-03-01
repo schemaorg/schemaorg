@@ -597,7 +597,7 @@ class Markdown(object):
         return emacs_vars
 
     def _detab_line(self, line):
-        r"""Recusively convert tabs to spaces in a single line.
+        r"""Recursively convert tabs to spaces in a single line.
 
         Called from _detab()."""
         if '\t' not in line:
