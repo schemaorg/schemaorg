@@ -46,7 +46,7 @@ def createcontext():
     vocablines = ""
     externalines = ""
     typins = ""
-    for t in SdoTermSource.getAllTerms(expanded=True,supressSourceLinks=True):
+    for t in SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
         if t.termType == SdoTerm.PROPERTY:
             range = t.rangeIncludes
         

@@ -837,7 +837,7 @@ class SdoTermSource():
 
         
     @staticmethod
-    def getAllTerms(ttype=None,layer=None,supressSourceLinks=False,expanded=False):
+    def getAllTerms(ttype=None,layer=None,suppressSourceLinks=False,expanded=False):
         global DATATYPEURI, ENUMERATIONURI
         typsel = ""
         extra = ""
@@ -858,15 +858,15 @@ class SdoTermSource():
             
         laysel = ""
         fil = ""
-        supress = ""
+        suppress = ""
         if layer:
             if layer == "core":
                 fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
             else:
                 laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
 
-        if supressSourceLinks:
-            supress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+        if suppressSourceLinks:
+            suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
             
             
         query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
@@ -888,7 +888,7 @@ class SdoTermSource():
             %s
         }
         ORDER BY ?term
-        """ % (typsel,laysel,extra,fil,supress)
+        """ % (typsel,laysel,extra,fil,suppress)
         
         #log.info("query %s" % query)
         res = SdoTermSource.query(query)

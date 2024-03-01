@@ -115,7 +115,7 @@ def sitemap(page):
     output.append("""<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 """)
-    terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
+    terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
     ver = getVersionDate(getVersion())
     for term in terms:
         if not (term.startswith("http://") or term.startswith("https://")):
@@ -274,7 +274,7 @@ def exportcsv(page):
     typedataAll = []
     propdata = []
     propdataAll = []
-    terms = SdoTermSource.getAllTerms(expanded=True,supressSourceLinks=True)
+    terms = SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True)
     for term in terms:
         if term.termType == SdoTerm.REFERENCE or term.id.startswith("http://") or term.id.startswith("https://"):
             continue
