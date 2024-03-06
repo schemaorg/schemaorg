@@ -172,7 +172,7 @@ def exportrdf(exportType):
             ?s ?p ?o;
                 schema:supersededBy ?sup.
         }""" % (protocol)
-        #Currenty superseded terms are not suppressed from 'current' file dumps
+        #Currently superseded terms are not suppressed from 'current' file dumps
         #Whereas they are suppressed from the UI
         #currentGraph.update(desuperseded)
 

@@ -670,7 +670,7 @@ class SdoTermSource():
             elif termdesc.termType == SdoTerm.ENUMERATIONVALUE:
                 termdesc.enumerationParent = SdoTermSource.termFromId(termdesc.enumerationParent)
 
-            if not depth: #Expand the indivdual termdescs in the terms' termstack but prevent recursion further.
+            if not depth: #Expand the individual termdescs in the terms' termstack but prevent recursion further.
                 stack = []
                 for t in termdesc.termStack:
                     stack.append(SdoTermSource.expandTerm(t,depth=depth +1))

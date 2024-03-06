@@ -94,7 +94,7 @@ POST-RELEASE STEPS
 
 * Tag gitub version vXX.X-release
 
-`git tag [tagname] [commmit code]` 
+`git tag [tagname] [commit code]` 
 
 eg. `git tag v14.0-release 9d691a8` Note capitalisation
 
