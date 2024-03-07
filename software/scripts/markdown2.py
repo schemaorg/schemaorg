@@ -1701,7 +1701,7 @@ class Markdown(object):
         #         <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
         #
         #       There's no arbitrary limit to the number of backticks you
-        #       can use as delimters. If you need three consecutive backticks
+        #       can use as delimiters. If you need three consecutive backticks
         #       in your code, use four for delimiters, etc.
         #
         #   *   You can use spaces to get literal backticks at the edges:

@@ -75,8 +75,8 @@ class TestExampleFileParser(unittest.TestCase):
 
 
   def test_two_examples(self):
-    """Test parsing of an Example file containing two entries, one of them synthetized."""
-    # Write one exampel
+    """Test parsing of an Example file containing two entries, one of them synthesized."""
+    # Write one example
     self.temp_file.write(THING_EXAMPLE.encode('utf8'))
     self.temp_file.write('\n'.encode('utf8'))
     # Create a test example object.

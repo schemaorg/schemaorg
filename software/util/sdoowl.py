@@ -249,13 +249,13 @@ class OwlBuild():
         for row in enums:
             self.outputNamedIndividuals(row.enum,graph,parent=row.parent)
         
-    def outputNamedIndividuals(self,idividual,graph,parent=None):
+    def outputNamedIndividuals(self,individual,graph,parent=None):
         self.namedCount += 1
         
         typ = SubElement(self.dom,"owl:NamedIndividual")
-        typ.set("rdf:about",idividual)
+        typ.set("rdf:about",individual)
         ext = None
-        for (p,o) in graph.predicate_objects(URIRef(idividual)):
+        for (p,o) in graph.predicate_objects(URIRef(individual)):
             if p == RDFS.label:
                 l = SubElement(typ,"rdfs:label")
                 l.set("xml:lang","en")
@@ -267,7 +267,7 @@ class OwlBuild():
             elif p == URIRef(VOCABURI + "isPartOf"):
                 ext = str(o)
 
-        typ.append(self.addDefined(idividual,ext))
+        typ.append(self.addDefined(individual,ext))
 
         if parent:
             s = SubElement(typ,"rdfs:subClassOf")

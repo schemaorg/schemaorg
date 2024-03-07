@@ -107,7 +107,7 @@ def RenderAndWriteSingleTerm(term_key):
 def buildTerms(terms):
   """Build the rendered version for a collection of terms."""
   if any(filter(lambda term: term in ("ALL","All","all"), terms)):
-    terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
+    terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
 
   if terms:
     print("\nBuilding %d term pages...\n" % len(terms))

@@ -37,7 +37,7 @@ def createcontext():
             if not pref in done:
                 done.append(pref)
                 if pref == "schema":
-                    pth = SCHEMAURI #Overide vocab setting to maintain http compatability
+                    pth = SCHEMAURI #Override vocab setting to maintain http compatibility
                 if pref == "geo":
                     continue
                 jsonldcontext.append("        \"%s\": \"%s\",\n" % (pref,pth))
@@ -46,7 +46,7 @@ def createcontext():
     vocablines = ""
     externalines = ""
     typins = ""
-    for t in SdoTermSource.getAllTerms(expanded=True,supressSourceLinks=True):
+    for t in SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
         if t.termType == SdoTerm.PROPERTY:
             range = t.rangeIncludes
         

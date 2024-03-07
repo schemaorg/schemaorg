@@ -4710,7 +4710,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :BroadcastFrequencySpecification,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> ;
-    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges, e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. \"87 FM\"." .
+    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges, e.g. 87-99. In addition a shortcut idiom is supported for frequencies of AM and FM radio channels, e.g. \"87 FM\"." .
 
 :broadcastFrequencyValue a rdf:Property ;
     rdfs:label "broadcastFrequencyValue" ;
@@ -6553,7 +6553,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." .
 
     # NOTE in data/ext/pending/issue-1797.ttl we tentatively amend this by extending the property as follows:
-    # The textual definition for isVariantOf has been minimally updated to accomodate ProductGroup; this could be
+    # The textual definition for isVariantOf has been minimally updated to accommodate ProductGroup; this could be
     # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
 
 :isbn a rdf:Property ;

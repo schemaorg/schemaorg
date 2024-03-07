@@ -1,7 +1,7 @@
 echo "Preparing examples"
 ./software/util/buildsite.py -f Examples
 
-echo "Install Ruby dependancies"
+echo "Install Ruby dependencies"
 bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 
 echo "Setup LATEST link"

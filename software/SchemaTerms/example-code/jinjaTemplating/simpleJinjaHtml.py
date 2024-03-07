@@ -51,7 +51,7 @@ jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
 #         or expanded (nested definitions for related terms)
 
 def templateRender(term):
-    #Basic varibles configuring UI
+    #Basic variables configuring UI
     tvars = {
         'sitename': "SchemaTerms",
         'menu_sel': "Schemas",
