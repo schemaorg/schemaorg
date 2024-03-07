@@ -8,8 +8,8 @@
     rdfs:label "Observation" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time. 
-    
+    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time.
+
 Observations can also encode a subset of simple RDF-like statements (its observationAbout, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
 
 In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observationAbout]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementMethod]].
@@ -101,7 +101,7 @@ population, and does not imply that the population consists of people. For examp
     rdfs:label "ConstraintNode" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
-    rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a 
+    rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a
     variety of purposes, and their values may sometimes be understood to indicate sets of possible values rather than single, exact and specific values.""" ;
     rdfs:subClassOf :Intangible . # there are a couple of areas around product templates (including groups), possibly Actions, where this might be applied too.
 
@@ -150,7 +150,7 @@ population, and does not imply that the population consists of people. For examp
     rdfs:label "observationAbout" ;
     :domainIncludes :Observation ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Thing, :Place ;
+    :rangeIncludes :Thing;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     rdfs:comment "The [[observationAbout]] property identifies an entity, often a [[Place]], associated with an [[Observation]]." .
 
