@@ -1,32 +1,40 @@
-Testing split_and_format_values function...
-All tests passed!
-All tests passed!
+# DEBUG: # Loaded MCF data: 39 entries
+# DEBUG: # Generating Turtle for class node: Disease
+# DEBUG: # Generating Turtle for class node: DiseaseDiseaseAssociation
+# DEBUG: # Generating Turtle for class node: DiseaseGeneAssociation
+# DEBUG: # Generating Turtle for class node: DiseaseGeneticVariantAssociation
+# DEBUG: # Generating Turtle for class node: MeSHConcept
+# DEBUG: # Generating Turtle for class node: MeSHDescriptor
+# DEBUG: # Generating Turtle for class node: MeSHQualifier
+# DEBUG: # Generating Turtle for class node: MeSHSupplementaryRecord
+# DEBUG: # Generating Turtle for class node: MeSHTerm
 
 @prefix : <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcs: <https://datacommons.org/schema/> .
 
 
 
 :Disease
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Thing ;
+  rdfs:subClassOf Thing ;
   rdfs:label "Disease" ;
   rdfs:comment "Disease - a defined disorder with a set of symptoms that effect the biological processes of a living entity and is not the direct result of physical injury."  .
 
 :DiseaseDiseaseAssociation
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Disease ;
+  rdfs:subClassOf Disease ;
   rdfs:label "DiseaseDiseaseAssociation" ;
   rdfs:comment "The association between two diseases."  .
 
 :DiseaseGeneAssociation
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Disease ;
+  rdfs:subClassOf Disease ;
   rdfs:subClassOf dcs:ICD10Code ;
   rdfs:label "DiseaseGeneAssociation" ;
   rdfs:comment "The association of a disease with a gene."  .
@@ -34,132 +42,132 @@ All tests passed!
 :DiseaseGeneticVariantAssociation
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Disease ;
+  rdfs:subClassOf Disease ;
   rdfs:label "DiseaseGeneticVariantAssociation" ;
   rdfs:comment "The association between a disease and a genetic variant."  .
 
 :MeSHConcept
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :MeSHDescriptor ;
+  rdfs:subClassOf MeSHDescriptor ;
   rdfs:label "MeSHConcept" ;
   rdfs:comment "The bearer of linguistic meaning in MeSH as defined by the ScopeNote, comprising a DescriptorRecord or SupplementalRecord or QualifierRecord, and consisting of Term elements. One of the three main objects in the MeSH XML (the others being the record, and term). A single record will have one or more concepts, one of which is the preferred concept of the record. A Concept will have one or more terms, one of which is the preferred term for the concept. Referred to uniquely by both a ConceptUI and a ConceptName."  .
 
 :MeSHDescriptor
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Intangible ;
+  rdfs:subClassOf Intangible ;
   rdfs:label "MeSHDescriptor" ;
   rdfs:comment "Cluster of one or more concepts used for subject indexing and retrieval. Identified uniquely by a DescriptorUI and DescriptorName. A Descriptor. A Descriptor record. Also known as Main Heading. (Note that this differs from the MEDLINE MeshHeading element. For example, the MEDLINE element includes both the Descriptor name and the Qualifier name assigned to a citation.)."  .
 
 :MeSHQualifier
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :Intangible ;
+  rdfs:subClassOf Intangible ;
   rdfs:label "MeSHQualifier" ;
   rdfs:comment "Seven-character alpha-numeric string uniquely identifying a QualifierRecord and, along with the QualifierName, used to represent the Qualifier record in other elements. MeSHQualifiers are used to give additional context to MeSHDescriptor. MeSH has rules governing which Qualifiers can be used with a given Descriptor, as well as which MeSHQualifers cannot be used with a given MeSHDescriptor."  .
 
 :MeSHSupplementaryRecord
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :MeSHDescriptor ;
+  rdfs:subClassOf MeSHDescriptor ;
   rdfs:label "MeSHSupplementaryRecord" ;
   rdfs:comment "Cluster of one or more concepts used for subject indexing and retrieval. Identified uniquely by a SupplementalRecordUI and SupplementalRecordName. SCR. Supplemental Record. Formerly known as Supplementary Chemical Records."  .
 
 :MeSHTerm
   a rdfs:Class ;
   :isPartOf <https://pending.schema.org> ;
-  rdfs:subClassOf :MeSHConcept ;
+  rdfs:subClassOf MeSHConcept ;
   rdfs:label "MeSHTerm" ;
   rdfs:comment "Alpha-numeric string which comprises the basic unit of the MeSH vocabulary. Also functions as the name of a Descriptor and concept. The term itself is the String element."  .
 
 :diseaseOntologyID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Disease ;
+  :domainIncludes Disease ;
+  :rangeIncludes Disease ;
   rdfs:label "diseaseOntologyID" ;
   rdfs:comment "//disease-ontology.org/."  .
 
 :associationSource
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :AssociationSourceEnum ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes AssociationSourceEnum ;
   rdfs:label "associationSource" ;
   rdfs:comment "How the association between a disease and a gene was made."  .
 
 :associationIdentifier
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :Text ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes Text ;
   rdfs:label "associationIdentifier" ;
   rdfs:comment "Identifier for disease-gene association source."  .
 
 :associationScore
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :Number ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes Number ;
   rdfs:label "associationScore" ;
   rdfs:comment "The score for the association between the disease and the gene."  .
 
 :associationConfidenceInterval
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :Number ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes Number ;
   rdfs:label "associationConfidenceInterval" ;
   rdfs:comment "The confidence interval of the score for the association between the disease and the gene."  .
 
 :associationStatus
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :DiseaseGeneAssociationStatusEnum ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes DiseaseGeneAssociationStatusEnum ;
   rdfs:label "associationStatus" ;
   rdfs:comment "The status of the association between the disease and the gene."  .
 
 :experimentSampleCount
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :Number ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes Number ;
   rdfs:label "experimentSampleCount" ;
   rdfs:comment "The number of samples in the experiment associating a gene with a disease ontology ID."  .
 
 :experimentPValue
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :DiseaseGeneAssociation ;
-  :rangeIncludes :Number ;
+  :domainIncludes DiseaseGeneAssociation ;
+  :rangeIncludes Number ;
   rdfs:label "experimentPValue" ;
   rdfs:comment "The p-value of the experiment associating a gene with a disease ontology ID."  .
 
 :nationalLibraryOfMedicineClassificationNumber
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHDescriptor ;
-  :rangeIncludes :Text ;
+  :domainIncludes MeSHDescriptor ;
+  :rangeIncludes Text ;
   rdfs:label "nationalLibraryOfMedicineClassificationNumber" ;
   rdfs:comment "Classification Number provided by the National Library of Medicine (NLM) Cataloging and Metadata Management Section (CAMMS)."  .
 
 :isPharmacologicalActionSubstance
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHDescriptor ;
+  :domainIncludes MeSHDescriptor ;
   :domainIncludes dcs:MeSHSupplementaryRecord ;
-  :rangeIncludes :Boolean ;
+  :rangeIncludes Boolean ;
   rdfs:label "isPharmacologicalActionSubstance" ;
   rdfs:comment "A MeSHDescriptor or MeSHSupplementaryRecord, which has a pharmacological action."  .
 
 :medicalSubjectHeadingConceptID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
+  :domainIncludes Disease ;
   :domainIncludes dcs:MeSHConcept ;
-  :rangeIncludes :MeSHConcept ;
+  :rangeIncludes MeSHConcept ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingConceptID" ;
   rdfs:comment "A unique ID for a Medical Subject Heading Concept record."  .
@@ -167,13 +175,13 @@ All tests passed!
 :medicalSubjectHeadingDescriptorID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
+  :domainIncludes Disease ;
   :domainIncludes dcs:GeneticVariant ;
   :domainIncludes dcs:MeSHConcept ;
   :domainIncludes dcs:MeSHDescriptor ;
   :domainIncludes dcs:MeSHQualifier ;
   :domainIncludes dcs:MeSHSupplementaryRecord ;
-  :rangeIncludes :MeSHDescriptor ;
+  :rangeIncludes MeSHDescriptor ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingDescriptorID" ;
   rdfs:comment "A unique ID for a Medical Subject Heading Descriptor record."  .
@@ -181,17 +189,17 @@ All tests passed!
 :medicalSubjectHeadingQualifierAbbreviation
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHQualifier ;
-  :rangeIncludes :Text ;
+  :domainIncludes MeSHQualifier ;
+  :rangeIncludes Text ;
   rdfs:label "medicalSubjectHeadingQualifierAbbreviation" ;
   rdfs:comment "Qualifier Abbreviation."  .
 
 :medicalSubjectHeadingSupplementaryRecordID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :ChemicalCompound ;
+  :domainIncludes ChemicalCompound ;
   :domainIncludes dcs:MeSHSupplementaryRecord ;
-  :rangeIncludes :MeSHSupplementaryRecord ;
+  :rangeIncludes MeSHSupplementaryRecord ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingSupplementaryRecordID" ;
   rdfs:comment "A unique ID for a Medical Subject Heading supplementary record."  .
@@ -199,9 +207,9 @@ All tests passed!
 :medicalSubjectHeadingTermID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHConcept ;
+  :domainIncludes MeSHConcept ;
   :domainIncludes dcs:MeSHTerm ;
-  :rangeIncludes :MeSHTerm ;
+  :rangeIncludes MeSHTerm ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingTermID" ;
   rdfs:comment "A unique ID for a Medical Subject Heading Term record."  .
@@ -209,18 +217,18 @@ All tests passed!
 :medicalSubjectHeadingTreeNumber
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHDescriptor ;
+  :domainIncludes MeSHDescriptor ;
   :domainIncludes dcs:MeSHQualifier ;
-  :rangeIncludes :Text ;
+  :rangeIncludes Text ;
   rdfs:label "medicalSubjectHeadingTreeNumber" ;
   rdfs:comment "Alpha-numeric string referring to location within a MeSH Descriptor or Qualifier hierarchy."  .
 
 :medicalSubjectHeadingQualifierID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :MeSHConcept ;
+  :domainIncludes MeSHConcept ;
   :domainIncludes dcs:MeSHQualifier ;
-  :rangeIncludes :MeSHQualifier ;
+  :rangeIncludes MeSHQualifier ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingQualifierID" ;
   rdfs:comment "A unique ID for a Medical Subject Heading Qualifier record."  .
@@ -228,102 +236,102 @@ All tests passed!
 :alternateDiseaseOntologyID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "alternateDiseaseOntologyID" ;
   rdfs:comment "An alternative disease ontology ID (DOID) associated with a disease."  .
 
 :diseaseSynonym
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "diseaseSynonym" ;
   rdfs:comment "A synonym for a disease name."  .
 
 :unifiedMedicalLanguageSystemConceptUniqueIdentifier
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "unifiedMedicalLanguageSystemConceptUniqueIdentifier" ;
   rdfs:comment "A concept is a meaning. A meaning can have many different names. A key goal of Metathesaurus construction is to understand the intended meaning of each name in each source vocabulary and to link all the names from all of the source vocabularies that mean the same thing (the synonyms). Concept Unique Identifier (CUI) contain the letter C followed by seven numbers. In the example on the right the CUI is C0018681."  .
 
 :geneticAndRareDiseasesID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "geneticAndRareDiseasesID" ;
   rdfs:comment "The identifier for the disease in the Genetic and Rare Diseases (GARD) database."  .
 
 :nationalCancerInstituteID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "nationalCancerInstituteID" ;
   rdfs:comment "The identifier for the disease in the National Cancer Institute (NCI) thesaurus."  .
 
 :internationalClassificationOfDiseasesOntologyID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "internationalClassificationOfDiseasesOntologyID" ;
   rdfs:comment "International Classification of Diseases Ontology (ICDO) is an ontology representation of the ICD system, which includes ICD-10, ICD-9, and the future ICD-11."  .
 
 :icd10CMCode
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :ICD10Code ;
+  :domainIncludes Disease ;
+  :rangeIncludes ICD10Code ;
   rdfs:label "icd10CMCode" ;
   rdfs:comment "The disease diagnosis code for version 10 of the International Classification of Diseases, Clinical Modification."  .
 
 :icd10ApproximateSynonym
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :ICD10Code ;
+  :domainIncludes Disease ;
+  :rangeIncludes ICD10Code ;
   rdfs:label "icd10ApproximateSynonym"  .
 
 :icd9CMCode
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "icd9CMCode" ;
   rdfs:comment "The disease diagnosis code for version 9 of the International Classification of Diseases, Clinical Modification."  .
 
 :icd11CMCode
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "icd11CMCode" ;
   rdfs:comment "The disease diagnosis code for version 11 of the International Classification of Diseases, Clinical Modification."  .
 
 :medDraID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "medDraID" ;
   rdfs:comment "The disease identifiers extracted from the medDRA medical terminology."  .
 
 :snomedCT
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "snomedCT" ;
   rdfs:comment "SNOMED CT is a terminology that can cross-map to other international terminologies, classifications and code systems. Maps are associations between particular concepts or terms in one system and concepts or terms in another system that have the same (or similar) meaning."  .
 
 :umlsConceptUniqueID
   a rdf:Property ;
   :isPartOf <https://pending.schema.org> ;
-  :domainIncludes :Disease ;
-  :rangeIncludes :Text ;
+  :domainIncludes Disease ;
+  :rangeIncludes Text ;
   rdfs:label "umlsConceptUniqueID" ;
   rdfs:comment "A Unified Medical Language System (UMLS) Concept Unique ID (CUI) is a unique identifier in the Metathesaurus for a concept. CUI contain the letter C followed by seven numbers. An example of a CUI is C0018681."  .

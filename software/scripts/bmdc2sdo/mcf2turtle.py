@@ -1,126 +1,146 @@
 #!/usr/bin/env python3
 
-# bmdc2sdo.py
-# find ../schema/biomedical_schema/ -name \*.mcf -exec ./bmdc2sdo.py {} \;
-
-# TODO:
-# - fix issue with multiple types in a rangeIncludes/subClassOf/domainIncludes.
-# - add enumerations exporter (and statvars?)
-
-# Usage: 
-# python mcf2turtle.py ~/working/datcom/schema/biomedical_schema/biological_taxonomy.mcf 
-# or several files
-# find ~/working/datcom/schema/biomedical_schema/ -name \*.mcf -exec ./mcf2turtle.py {} \;
-# to concatenate, or 
-# find ~/working/datcom/schema/biomedical_schema/ -name \*.mcf -exec ./mcf2turtle.py {} > ./{}.ttl \;
-# to echo filenames.
-
-# Schema.org Utility to import definitions from a Data Commons collection of MCF files.
-# Pass it a .mcf file, it should emit Schema.org configuration Turtle to STDOUT.
-
-# This allows us to spin up an instance of the Schema.org site codebase on AppSpot or elsewhere,
-# allowing draft proposals to be explored in their entirity.
-# 
-# Target TTL format is https://github.com/schemaorg/schemaorg/blob/main/data/ext/pending/issue-2862.ttl
-#
-
-# OK:
-#  via python mcf2turtle.py ~/working/datcom/schema/biomedical_schema/biological_taxonomy.mcf  > tmp/biological_taxonomy.ttl
-#
-# biological_taxonomy.mcf     
-
-# TODO:
-# GeneticVariant_alt_id_database_properties.mcf  
-# pharmGKB_id_properties.mcf
-# biomedical_stat_vars.mcf
-# GeneticVariant_GenVarSource_enums.mcf          
-# chemical_compound_enum.mcf
-# genome_annotation_enum.mcf
-# virus_taxonomic_ranking_enum.mcf
-# chemical_compound.mcf
-# genome_annotation.mcf
-# virus_taxonomy_enum.mcf
-# disease_enum.mcf
-# human_cell_type_enum.mcf
-# virus_taxonomy.mcf
-# disease.mcf
-# human_tissue_enum.mcf
-# encode.mcf
-# interaction_type_enum.mcf
-
-
-
 import os
 import sys
+import logging
+from typing import Dict, Optional, Union
+from collections import OrderedDict
 
-# We assume https://github.com/datacommonsorg/data/ and https://github.com/datacommonsorg/tools/
-# are checked out nearby:
+DEBUG = False
 
+# see readme.md
 
-# _MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
-#sys.path.insert(1, os.path.join(_MODULE_DIR, '../data/'))
+"""Convert MCF into Turtle for Schema.org. 
 
-# Ensure data/ repo is nearby (for a basic MCF parser), for example:
-sys.path.insert(1, '/home/danbri/working/datcom/data/')
+Example input:
 
-#DEBUG = os.getenv("DEBUG", "0") == "1"
-DEBUG = 0
+Node: dcid:medicalSubjectHeadingSupplementaryRecordID
+name: "medicalSubjectHeadingSupplementaryRecordID"
+typeOf: schema:Property
+rangeIncludes: dcs:MeSHSupplementaryRecord, schema:Text
+domainIncludes: dcs:ChemicalCompound, dcs:MeSHSupplementaryRecord
+description: "A unique ID for a Medical Subject Heading supplementary record.
 
-from util.mcf_dict_util import mcf_file_to_dict_list
+Example output:
+
+:medicalSubjectHeadingSupplementaryRecordID
+  a rdf:Property ;
+  :isPartOf <https://pending.schema.org> ;
+  :domainIncludes ChemicalCompound ;
+  :domainIncludes dcs:MeSHSupplementaryRecord ;
+  :rangeIncludes MeSHSupplementaryRecord ;
+  :rangeIncludes schema:Text ;
+  rdfs:label "medicalSubjectHeadingSupplementaryRecordID" ;
+  rdfs:comment "A unique ID for a Medical Subject Heading supplementary record."  .
+"""
 
 TURTLE_PREFIXES = """
 @prefix : <https://schema.org/> .
-@prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
-@prefix dcs: <https://datacommons.org/schema/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcs: <https://datacommons.org/schema/> .
 
 """
 
+# originally from datacommons/data/util/
+def my_mcf_to_dict_list(mcf_str: str) -> list:
+    """Converts MCF file string to a list of OrderedDict objects.
+
+    Args:
+        mcf_str: String read from MCF file.
+        
+    Returns:
+        List of OrderedDict objects where each object represents a node in the MCF file.
+    """
+    # TODO preserve empty lines if required
+    # split by \n\n
+    nodes_str_list = mcf_str.split('\n\n')
+    # each node
+    node_list = []
+
+    for node in nodes_str_list:
+        node = node.strip()
+        # check for comments
+        node_str_list = node.split('\n')
+        cur_node = OrderedDict()
+        comment_ctr = 0
+        is_first_prop = True
+        # add each pv to ordered dict
+        for pv_str in node_str_list:
+            # TODO handle multiple occurrences of same property within a node
+            pv_str = pv_str.strip()
+            if pv_str.startswith('#'):
+                cur_node[f'__comment{comment_ctr}'] = pv_str
+                comment_ctr += 1
+            elif is_first_prop:
+                is_first_prop = False
+                if pv_str and not pv_str.startswith('Node: '):
+                    raise ValueError(
+                        f'Missing "Node: <name>" in MCF node {node}')
+            if pv_str and not pv_str.startswith('#'):
+                # find p, prefix, v
+                pv = pv_str.split(':')
+                if pv_str.count(':') == 1:
+                    p = pv[0].strip()
+                    prefix = ''
+                    v = pv[1].strip()
+                elif pv_str.count(':') == 2:
+                    p = pv[0].strip()
+                    prefix = pv[1].strip()
+                    v = pv[2].strip()
+                else:
+                    p = pv[0].strip()
+                    prefix = pv[1].strip()
+                    v = ':'.join(pv[2:]).strip()
+                    # TODO detect colon within a str(for e.g. descriptionURL)
+                    #logging.warning(
+                    #    "# substructure detected in property value(s) using ':' found in %s",
+                    #    pv_str)
+
+                cur_node[p] = {}
+                cur_node[p]['value'] = v
+                if v.startswith('[') and v.endswith(']'):
+                    cur_node[p]['complexValue'] = re.sub(' +', ' ',
+                                                         v)[1:-1].split(' ')
+                if v.count(':') > 0 and ',' in v:
+                    # TODO better handling of multiple values
+                    cur_node[p]['multiple_values'] = []
+                    vals = v.split(',')
+                    for cur_v in vals:
+                        temp_dict = {}
+                        if ':' in cur_v:
+                            temp_dict['namespace'] = cur_v[:cur_v.
+                                                           index(':')].strip()
+                            temp_dict['value'] = cur_v[cur_v.index(':') +
+                                                       1:].strip()
+                        else:
+                            temp_dict['namespace'] = ''
+                            temp_dict['value'] = cur_v
+                cur_node[p]['namespace'] = prefix
+        node_list.append(cur_node)
+    return node_list
+
+def get_pv(node, property_name):
+    return node.get(property_name, {}).get("value", "").strip('"')
+
 def debug_print(message):
-    """
-    Print a debug message if debug mode is enabled.
-    """
     if DEBUG:
-        print(f"DEBUG: {message}")
+        print(f"# DEBUG: {message}")
 
 
-
-def split_and_format_values(value_string):
+def multiprop(node, property_name):
     """
-    Splits a string by commas and formats it, preserving namespaces.
-    Handles multiple namespaces (e.g., 'dcs:Gene,schema:Text').
-    Returns a list of formatted strings.
+    Handle multi-valued properties, e.g., subClassOf, domainIncludes, rangeIncludes.
+    Returns a set of cleaned property values.
     """
-    formatted_values = []
-    for value in value_string.split(','):
-        value = value.strip()
-        if ':' in value:
-            namespace, local_part = value.rsplit(':', 1)
-            formatted_value = f'{namespace}:{local_part}'
-        else:
-            formatted_value = f':{value}'
-        formatted_values.append(formatted_value)
-        debug_print(f"Formatted value: {formatted_value}")
-    return formatted_values
-
-# Inline test cases
-def test_split_and_format_values():
-    #print("Testing split_and_format_values function...")
-    test_cases = [
-        ("dcs:Disease,dcs:ICD10Code", ["dcs:Disease", "dcs:ICD10Code"]),
-        ("dcs:MeSHDescriptor, schema:Text", ["dcs:MeSHDescriptor", "schema:Text"]),
-        ("schema:Number,dcs:Text", ["schema:Number", "dcs:Text"]),
-    ]
-    for input_value, expected_output in test_cases:
-        assert split_and_format_values(input_value) == expected_output, f"Test failed for input: {input_value}"
-    
+    if property_name in node:
+        pv_values = node[property_name]["value"].split(",")
+        return {pv.strip() for pv in pv_values}
+    return set()
 
 def generate_class_turtle(node):
-    """Generate Turtle syntax for a class node."""
-
-    debug_print(f"Generating Turtle for class node: {node['Node']['value']}")
+    debug_print(f"# Generating Turtle for class node: {node['Node']['value']}")
 
     node_id = f':{node["Node"]["value"]}'
     lines = [
@@ -129,28 +149,27 @@ def generate_class_turtle(node):
         '  :isPartOf <https://pending.schema.org> ;'
     ]
     
-    # Prepare the label and comment values beforehand
-    name_value = node.get("name", {}).get("value", "").strip('"')
-    description_value = node.get("description", {}).get("value", "").strip('"')
+    name_value = get_pv(node, "name")
+    description_value = get_pv(node, "description")
     
-    # Handle subClassOf with potential multiple values
-    if 'subClassOf' in node:
-        sub_class_values = split_and_format_values(node["subClassOf"]["value"])
-        for sub_class_value in sub_class_values:
-            lines.append(f'  rdfs:subClassOf {sub_class_value} ;')
+    #if 'subClassOf' in node:
+    #   sub_class_values = node["subClassOf"]["value"].split(",")
+    #    for sub_class_value in sub_class_values:
+    #        lines.append(f'  rdfs:subClassOf :{sub_class_value.strip()} ;')
     
-    # Handle name and description
+    for sub_class in multiprop(node, "subClassOf"):
+        lines.append(f'  rdfs:subClassOf :{sub_class} ;')
+
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
         lines.append(f'  rdfs:comment "{description_value}" ;')
     
-    # End the statement properly
     lines[-1] = lines[-1][:-1] + ' .'
     
     return '\n'.join(lines)
+
 def generate_property_turtle(node):
-    """Generate Turtle syntax for a property node."""
     node_id = f':{node["Node"]["value"]}'
     lines = [
         f'{node_id}',
@@ -158,77 +177,86 @@ def generate_property_turtle(node):
         '  :isPartOf <https://pending.schema.org> ;'
     ]
     
-    # Prepare the label and comment values beforehand
-    name_value = node.get("name", {}).get("value", "").strip('"')
-    description_value = node.get("description", {}).get("value", "").strip('"')
+    name_value = get_pv(node, "name")
+    description_value = get_pv(node, "description")
     
-    # Handle domainIncludes and rangeIncludes with potential multiple values
     if 'domainIncludes' in node:
-        domain_values = split_and_format_values(node["domainIncludes"]["value"])
+        domain_values = node["domainIncludes"]["value"].split(",")
         for domain_value in domain_values:
-            lines.append(f'  :domainIncludes {domain_value} ;')
+            lines.append(f'  :domainIncludes :{domain_value.strip()} ;')
     
     if 'rangeIncludes' in node:
-        range_values = split_and_format_values(node["rangeIncludes"]["value"])
+        range_values = node["rangeIncludes"]["value"].split(",")
         for range_value in range_values:
-            lines.append(f'  :rangeIncludes {range_value} ;')
+            lines.append(f'  :rangeIncludes :{range_value.strip()} ;')
     
-    # Handle name and description
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
         lines.append(f'  rdfs:comment "{description_value}" ;')
     
-    # End the statement properly
     lines[-1] = lines[-1][:-1] + ' .'
     
     return '\n'.join(lines)
 
+def extract_types_from_turtle(turtle_data):
+    """Extract the types we're mentioning in our output. """
+    types = set()
+
+    for line in turtle_data:
+        if line.startswith(':'):
+            parts = line.split()
+            if len(parts) >= 2 and parts[1] == 'a':
+                if parts[2] == 'rdfs:Class':
+                    types.add(parts[0][1:])  # Remove the leading colon
+            elif len(parts) >= 2 and parts[1] in [':domainIncludes', ':rangeIncludes']:
+                if parts[2].startswith(':'):
+                    types.add(parts[2][1:])  # Remove the leading colon
+
+    return sorted(list(types))
 
 def main():
-
-
-    # Running test cases to ensure everything works as expected
-    test_split_and_format_values()
-
-    # Check if the MCF file path is provided as a command-line argument
     if len(sys.argv) < 2:
         print("Please provide the path to the MCF file as a command-line argument.")
         sys.exit(1)
 
     mcf_file_path = sys.argv[1]
 
-    # Check if the MCF file exists
     if not os.path.isfile(mcf_file_path):
         print(f"MCF file '{mcf_file_path}' does not exist.")
         sys.exit(1)
 
-    # Read and parse the MCF file
     try:
-        mcf_data = mcf_file_to_dict_list(mcf_file_path)
-        debug_print(f"Loaded MCF data: {len(mcf_data)} entries")
+        with open(mcf_file_path, 'r') as file:
+            mcf_data_str = file.read()
 
-        # Assuming mcf_data is correctly parsed
+        mcf_data = my_mcf_to_dict_list(mcf_data_str)
+        debug_print(f"# Loaded MCF data: {len(mcf_data)} entries")
 
-        turtle_data = [TURTLE_PREFIXES]  # Start with the prefixes
 
-        # Iterate over each node in mcf_data and process accordingly
+        #parse_sample_data(mcf_data_str) # danbri test
+
+        turtle_data = [TURTLE_PREFIXES]
+
         for node in mcf_data:
             if node["typeOf"]["value"] == "Class":
                 turtle_data.append(generate_class_turtle(node))
             elif node["typeOf"]["value"] == "Property":
                 turtle_data.append(generate_property_turtle(node))
 
-        # Combine all turtle data into a single string
         final_turtle_output = '\n\n'.join(turtle_data)
 
-        # Print or save the Turtle data
         print(final_turtle_output)
+
+        types = extract_types_from_turtle(final_turtle_output.split('\n'))
+        print("\n#Types mentioned in the output:")
+        for type_name in types:
+            print("# ", type_name)
+
 
     except Exception as e:
         print(f"Error parsing MCF file: {str(e)}")
         if DEBUG:
-            # In debug mode, you might want to re-raise the exception to get a stack trace.
             raise
         sys.exit(1)
 
