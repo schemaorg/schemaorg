@@ -3,6 +3,10 @@
 # bmdc2sdo.py
 # find ../schema/biomedical_schema/ -name \*.mcf -exec ./bmdc2sdo.py {} \;
 
+# TODO:
+# - fix issue with multiple types in a rangeIncludes/subClassOf/domainIncludes.
+# - add enumerations exporter (and statvars?)
+
 # Usage: 
 # python mcf2turtle.py ~/working/datcom/schema/biomedical_schema/biological_taxonomy.mcf 
 # or several files
@@ -60,7 +64,7 @@ import sys
 sys.path.insert(1, '/home/danbri/working/datcom/data/')
 
 #DEBUG = os.getenv("DEBUG", "0") == "1"
-DEBUG = 1
+DEBUG = 0
 
 from util.mcf_dict_util import mcf_file_to_dict_list
 
