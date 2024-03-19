@@ -139,10 +139,12 @@ def multiprop(node, property_name):
         return {pv.strip() for pv in pv_values}
     return set()
 
-def generate_class_turtle(node):
+def generate_class_turtle(node, terms):
     debug_print(f"# Generating Turtle for class node: {node['Node']['value']}")
 
     node_id = f':{node["Node"]["value"]}'
+    terms['types'].add(node["Node"]["value"])
+
     lines = [
         f'{node_id}',
         '  a rdfs:Class ;',
@@ -152,12 +154,8 @@ def generate_class_turtle(node):
     name_value = get_pv(node, "name")
     description_value = get_pv(node, "description")
     
-    #if 'subClassOf' in node:
-    #   sub_class_values = node["subClassOf"]["value"].split(",")
-    #    for sub_class_value in sub_class_values:
-    #        lines.append(f'  rdfs:subClassOf :{sub_class_value.strip()} ;')
-    
     for sub_class in multiprop(node, "subClassOf"):
+        terms['types'].add(sub_class)  # Add the supertype to the terms['types'] set
         lines.append(f'  rdfs:subClassOf :{sub_class} ;')
 
     if name_value:
@@ -167,10 +165,15 @@ def generate_class_turtle(node):
     
     lines[-1] = lines[-1][:-1] + ' .'
     
-    return '\n'.join(lines)
+    return {
+        'turtle': '\n'.join(lines),
+        'terms': terms
+    }
 
-def generate_property_turtle(node):
+def generate_property_turtle(node, terms):
     node_id = f':{node["Node"]["value"]}'
+    terms['properties'].add(node["Node"]["value"])
+
     lines = [
         f'{node_id}',
         '  a rdf:Property ;',
@@ -180,15 +183,13 @@ def generate_property_turtle(node):
     name_value = get_pv(node, "name")
     description_value = get_pv(node, "description")
     
-    if 'domainIncludes' in node:
-        domain_values = node["domainIncludes"]["value"].split(",")
-        for domain_value in domain_values:
-            lines.append(f'  :domainIncludes :{domain_value.strip()} ;')
+    for domain_value in multiprop(node, "domainIncludes"):
+        terms['types'].add(domain_value)
+        lines.append(f'  :domainIncludes :{domain_value} ;')
     
-    if 'rangeIncludes' in node:
-        range_values = node["rangeIncludes"]["value"].split(",")
-        for range_value in range_values:
-            lines.append(f'  :rangeIncludes :{range_value.strip()} ;')
+    for range_value in multiprop(node, "rangeIncludes"):
+        terms['types'].add(range_value)
+        lines.append(f'  :rangeIncludes :{range_value} ;')
     
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
@@ -197,21 +198,10 @@ def generate_property_turtle(node):
     
     lines[-1] = lines[-1][:-1] + ' .'
     
-    return '\n'.join(lines)
-
-def extract_types_from_turtle(turtle_data):
-    """Extract the types we're mentioning in our output. """
-    types = set()
-
-    for line in turtle_data:
-        if line.startswith(':'):
-            parts = line.split()
-            if len(parts) >= 2 and parts[1] == 'a':
-                if parts[2] == 'rdfs:Class':
-                    types.add(parts[0][1:])  # Remove the leading colon
-            elif len(parts) >= 2 and parts[1] in [':domainIncludes', ':rangeIncludes']:
-                if parts[2].startswith(':'):
-                    types.add(parts[2][1:])  # Remove the leading colon
+    return {
+        'turtle': '\n'.join(lines),
+        'terms': terms
+    }
 
     return sorted(list(types))
 
@@ -226,6 +216,12 @@ def main():
         print(f"MCF file '{mcf_file_path}' does not exist.")
         sys.exit(1)
 
+    terms = {
+        'types': set(),
+        'properties': set(),
+        'enumerations': set()
+    }
+
     try:
         with open(mcf_file_path, 'r') as file:
             mcf_data_str = file.read()
@@ -233,29 +229,33 @@ def main():
         mcf_data = my_mcf_to_dict_list(mcf_data_str)
         debug_print(f"# Loaded MCF data: {len(mcf_data)} entries")
 
-
-        #parse_sample_data(mcf_data_str) # danbri test
-
         turtle_data = [TURTLE_PREFIXES]
 
         for node in mcf_data:
             if node["typeOf"]["value"] == "Class":
-                turtle_data.append(generate_class_turtle(node))
+                result = generate_class_turtle(node, terms)
+                turtle_data.append(result['turtle'])
+                terms = result['terms']
             elif node["typeOf"]["value"] == "Property":
-                turtle_data.append(generate_property_turtle(node))
+                result = generate_property_turtle(node, terms)
+                turtle_data.append(result['turtle'])
+                terms = result['terms']
+
 
         final_turtle_output = '\n\n'.join(turtle_data)
 
         print(final_turtle_output)
-
-        types = extract_types_from_turtle(final_turtle_output.split('\n'))
-        print("\n#Types mentioned in the output:")
-        for type_name in types:
-            print("# ", type_name)
-
+        print("\n")
+        for term in terms["types"]:
+            if term not in ["Boolean", "Text", "Number", "schema:Text"]:
+                if ':' in term:
+                    ns_prefix, term_name = term.split(':', 1)
+                    print(f'{ns_prefix}:{term_name.strip()} rdfs:subClassOf :BioChemEntity .')
+                else:
+                    print(f':{term.strip()} rdfs:subClassOf :BioChemEntity .')
 
     except Exception as e:
-        print(f"Error parsing MCF file: {str(e)}")
+        print(f"Error converting MCF into Schema TTL: {str(e)}")
         if DEBUG:
             raise
         sys.exit(1)
