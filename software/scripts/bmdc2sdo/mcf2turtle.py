@@ -70,6 +70,7 @@ from util.mcf_dict_util import mcf_file_to_dict_list
 
 TURTLE_PREFIXES = """
 @prefix : <https://schema.org/> .
+@prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix dcs: <https://datacommons.org/schema/> .
@@ -95,18 +96,18 @@ def split_and_format_values(value_string):
     formatted_values = []
     for value in value_string.split(','):
         value = value.strip()
-        if ':' in value:  # Check if the value contains a namespace
-            namespace, local_part = value.split(':', 1)
+        if ':' in value:
+            namespace, local_part = value.rsplit(':', 1)
             formatted_value = f'{namespace}:{local_part}'
         else:
-            formatted_value = f':{value}'  # Default to schema: if no namespace is present
+            formatted_value = f':{value}'
         formatted_values.append(formatted_value)
         debug_print(f"Formatted value: {formatted_value}")
     return formatted_values
 
 # Inline test cases
 def test_split_and_format_values():
-    print("Testing split_and_format_values function...")
+    #print("Testing split_and_format_values function...")
     test_cases = [
         ("dcs:Disease,dcs:ICD10Code", ["dcs:Disease", "dcs:ICD10Code"]),
         ("dcs:MeSHDescriptor, schema:Text", ["dcs:MeSHDescriptor", "schema:Text"]),
@@ -114,10 +115,7 @@ def test_split_and_format_values():
     ]
     for input_value, expected_output in test_cases:
         assert split_and_format_values(input_value) == expected_output, f"Test failed for input: {input_value}"
-    print("All tests passed!")
-
-
-
+    
 
 def generate_class_turtle(node):
     """Generate Turtle syntax for a class node."""
@@ -192,7 +190,6 @@ def main():
 
     # Running test cases to ensure everything works as expected
     test_split_and_format_values()
-    print("All tests passed!")
 
     # Check if the MCF file path is provided as a command-line argument
     if len(sys.argv) < 2:
