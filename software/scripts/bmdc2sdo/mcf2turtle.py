@@ -31,7 +31,7 @@ Example output:
   :rangeIncludes MeSHSupplementaryRecord ;
   :rangeIncludes schema:Text ;
   rdfs:label "medicalSubjectHeadingSupplementaryRecordID" ;
-  rdfs:comment "A unique ID for a Medical Subject Heading supplementary record."  .
+  rdfs:comment \"\"\\"A unique ID for a Medical Subject Heading supplementary record.\"\""  .
 """
 
 TURTLE_PREFIXES = """
@@ -161,7 +161,7 @@ def generate_class_turtle(node, terms):
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
-        lines.append(f'  rdfs:comment "{description_value}" ;')
+        lines.append(f'  rdfs:comment """{description_value}""" ;')
     
     lines[-1] = lines[-1][:-1] + ' .'
     
@@ -194,7 +194,7 @@ def generate_property_turtle(node, terms):
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
-        lines.append(f'  rdfs:comment "{description_value}" ;')
+        lines.append(f'  rdfs:comment """{description_value}""" ;')
     
     lines[-1] = lines[-1][:-1] + ' .'
     
