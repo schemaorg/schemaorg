@@ -19,14 +19,25 @@
 # genome_annotation_enum.mcf
 # pharmGKB_id_properties.mcf
 
-export MCF=~/working/datcom/schema/biomedical_schema
+export MCF=/home/danbri/working/sdo/schema/biomedical_schema
 export DIR=../../../data/ext/pending
 
 echo $MCF
 ls $MCF
 
+
+# cp fixup-BMDC.ttl.dist $DIR/fixup-BMDC.ttl # fixes
+
+
 # ok
 ./mcf2turtle.py $MCF/biological_taxonomy.mcf > $DIR/bmdc_biological_taxonomy.ttl
+ # this needs genome_annotation.mcf for BiologicalElement dcs:
+
+# wip
+#./mcf2turtle.py $MCF/genome_annotation.mcf > $DIR/bmdc_genome_annotation.ttl
+
+# this .mcf needs a fix on line 41: s/ode/Node/
+#./mcf2turtle.py $MCF/chemical_compound.mcf > $DIR/bmdc_chemical_compound.ttl
 
 
 # not yet ok
