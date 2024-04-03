@@ -3,7 +3,7 @@
 
 import argparse
 import json
-from typing import Generator, Any, Union
+from typing import Generator, Any, Union, Set
 
 from rdflib import Graph
 from rdflib import BNode, URIRef
@@ -124,7 +124,7 @@ class ShExJParser:
             shex['shapes'].append(self.parse_shape(source, shape, shape in all_datatypes))
         return '{ "type": "Schema", "shapes": [\n' + ',\n'.join(map(lambda decl: json.dumps(decl), shex['shapes'])) + "\n]}\n"
 
-    def chase_subclasses(self, source: Graph, terms: Generator[Node, None, None]) -> set[URIRef]:
+    def chase_subclasses(self, source: Graph, terms: Generator[Node, None, None]) -> Set[URIRef]:
         ret: set[URIRef] = set()
         for x in terms:
             ret.add(x)

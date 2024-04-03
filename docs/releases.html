@@ -76,6 +76,66 @@ A summary view of the current published release is available from: <a href="http
     <th>Description</th>
 </tr>
 
+<!-- note: please keep this file welformed XML i.e. close li tags etc. -->
+
+<tr>
+  <td class="release">26.0<br/>2024-02-12</td>
+  <td>
+  <span id="v26.0"></span>
+  <p>
+  Version 26.0 - Restoring Physician subtype of MedicalBusiness.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3467"><a href="https://github.com/schemaorg/schemaorg/issues/3467">Issue #3467</a>: 
+      Clarifying that <a href="/PhysiciansOffice">PhysiciansOffice</a> is a subtype of <a href="/MedicalBusiness">MedicalBusiness</a>.
+      </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">25.0<br/>2024-01-22</td>
+  <td>
+  <span id="v25.0"></span>
+  <p>
+  Version 25.0 - Add support for Certifications and a few smaller updates.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3230"><a href="https://github.com/schemaorg/schemaorg/issues/3230">Issue #3230</a>: Added <a href="/Certification">Certification</a> to allow the specification of certifications for places, organizations, products, and persons. Compatible with <a href="https://gs1.org/voc/CertificationDetails">gs1:CertificationDetails</a>.</li>
+    <li id="g3423"><a href="https://github.com/schemaorg/schemaorg/issues/3423">Issue #3423</a>: Added <a href="/colorSwatch">colorSwatch</a>.</li>
+    <li id="g2880"><a href="https://github.com/schemaorg/schemaorg/issues/2880">Issue #2880</a>: Added <a href="/KeepProduct">KeepProduct</a> for <a href="/ReturnMethodEnumeration">ReturnMethodEnumeration</a>.</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">24.0<br/>2024-01-09</td>
+  <td>
+  <span id="v24.0"></span>
+  <p>
+  Version 24.0 - Adding vocabulary for describing types of digital sources (in collaboration with IPTC), and clarifying subtypes of Physician.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3420"><a href="https://github.com/schemaorg/schemaorg/issues/3420">Issue #3420</a>: 
+      Added <a href="/IndividualPhysician">IndividualPhysician</a>, <a href="/PhysiciansOffice">PhysiciansOffice</a> as subtypes of 
+      <a href="/Physician">Physician</a> to clarify the longstanding ambiguity between these two different interpretations of the 
+      <a href="/Physician">Physician</a> type. Amended <a href="/occupationalCategory">occupationalCategory</a> to be applicable 
+      here and added <a href="/usNPI">usNPI</a> for use with NPI identifiers in the US.
+      </li>
+      <li id="g3392"><a href="https://github.com/schemaorg/schemaorg/issues/3392">Issue #3392</a>: 
+        To help address situations around the responsible use of generative AI, we add a 
+        "digital source type" vocabulary based on <a href="/https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC's definitions</a>. 
+        This consists of a property <a href="/digitalSourceType">digitalSourceType</a>, 
+        an enumeration type <a href="/IPTCDigitalSourceEnumeration">IPTCDigitalSourceEnumeration</a>,
+        and a set of 14 coded values such as <a href="/TrainedAlgorithmicMediaDigitalSource">TrainedAlgorithmicMediaDigitalSource</a>
+        mapping directly to the <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC list</a>.
+      </li>
+  </ul>
+</td>
+</tr>
 
 <tr>
   <td class="release">23.0<br/>2023-10-17</td>
