@@ -90,6 +90,10 @@ class ColoredTestResult(unittest.TextTestResult):
             self.stream.write(message)
             self.stream.flush()
 
+    def addError(self, test, err):
+        super(ColoredTestResult, self).addError(test, err)  # Include the 'err' argument
+        self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
+
     def startTest(self, test):
         super(unittest.TextTestResult, self).startTest(test)
         lines = self.getDescription(test).split('\n')
@@ -106,10 +110,6 @@ class ColoredTestResult(unittest.TextTestResult):
     def addSuccess(self, test):
         super(unittest.TextTestResult, self).addSuccess(test)
         self._colorPrint("OK", color=colorama.Fore.GREEN, short=".")
-
-    def addError(self, test, err):
-        super(unittest.TextTestResult, self).addError(test)
-        self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
 
     def addFailure(self, test, err):
         super(unittest.TextTestResult, self).addFailure(test, err)
