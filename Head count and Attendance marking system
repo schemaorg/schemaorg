@@ -1,0 +1,52 @@
+https://github.com/schemaorg/schemaorg.git
+class AttendanceSystem:
+    def __init__(self):
+        self.attendance_record = {}
+
+    def mark_attendance(self, name):
+        if name in self.attendance_record:
+            print(f"{name} is already marked present.")
+        else:
+            self.attendance_record[name] = True
+            print(f"{name} is marked present.")
+
+    def get_head_count(self):
+        return len(self.attendance_record)
+
+    def get_attendance_list(self):
+        return list(self.attendance_record.keys())
+
+
+def main():
+    attendance_system = AttendanceSystem()
+
+    while True:
+        print("\n1. Mark Attendance\n2. View Head Count\n3. View Attendance List\n4. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            name = input("Enter the name of the person: ")
+            attendance_system.mark_attendance(name)
+        elif choice == '2':
+            print(f"Head count: {attendance_system.get_head_count()}")
+        elif choice == '3':
+            print("Attendance List:")
+            attendance_list = attendance_system.get_attendance_list()
+            for name in attendance_list:
+                print(name)
+        elif choice == '4':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
