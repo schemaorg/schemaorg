@@ -17,7 +17,7 @@
 # Pass it a .mcf file, it should emit Schema.org configuration Turtle to STDOUT.
 
 # This allows us to spin up an instance of the Schema.org site codebase on AppSpot or elsewhere,
-# allowing draft proposals to be explored in their entirity.
+# allowing draft proposals to be explored in their entirety.
 # 
 # Target TTL format is https://github.com/schemaorg/schemaorg/blob/main/data/ext/pending/issue-2862.ttl
 #
