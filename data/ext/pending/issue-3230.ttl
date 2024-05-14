@@ -28,6 +28,14 @@
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
     rdfs:comment "Identifier of a certification instance (as registered with an independent certification body). Typically this identifier can be used to consult and verify the certification instance. See also [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." .
 
+:certificationRating a rdf:Property ;
+    rdfs:label "certificationRating" ;
+    :domainIncludes :Certification ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Rating ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+    rdfs:comment "Rating of a certification instance (as defined by an independent certification body). Typically this rating can be used to rate the level to which the requirements of the certification instance are fulfilled. See also [gs1:certificationValue](https://www.gs1.org/voc/certificationValue)." .
+
 :CertificationStatusEnumeration a rdfs:Class ;
     rdfs:label "CertificationStatusEnumeration" ;
     :isPartOf <https://pending.schema.org> ;

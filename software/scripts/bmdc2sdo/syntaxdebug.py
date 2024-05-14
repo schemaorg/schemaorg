@@ -172,7 +172,7 @@ Node: dcid:MeSHQualifier
 name: "MeSHQualifier"
 typeOf: schema:Class
 subClassOf: schema:Intangible
-description: "Seven-character alpha-numeric string uniquely identifying a QualifierRecord and, along with the QualifierName, used to represent the Qualifier record in other elements. MeSHQualifiers are used to give additional context to MeSHDescriptor. MeSH has rules governing which Qualifiers can be used with a given Descriptor, as well as which MeSHQualifers cannot be used with a given MeSHDescriptor."
+description: "Seven-character alphanumeric string uniquely identifying a QualifierRecord and, along with the QualifierName, used to represent the Qualifier record in other elements. MeSHQualifiers are used to give additional context to MeSHDescriptor. MeSH has rules governing which Qualifiers can be used with a given Descriptor, as well as which MeSHQualifers cannot be used with a given MeSHDescriptor."
 descriptionUrl: "https://www.nlm.nih.gov/mesh/xml_data_elements.html#QualifierUI"
 
 Node: dcid:MeSHSupplementaryRecord
@@ -186,7 +186,7 @@ Node: dcid:MeSHTerm
 name: "MeSHTerm"
 typeOf: schema:Class
 subClassOf: dcs:MeSHConcept
-description: "Alpha-numeric string which comprises the basic unit of the MeSH vocabulary. Also functions as the name of a Descriptor and concept. The term itself is the String element."
+description: "Alphanumeric string which comprises the basic unit of the MeSH vocabulary. Also functions as the name of a Descriptor and concept. The term itself is the String element."
 descriptionUrl: "https://www.nlm.nih.gov/mesh/xml_data_elements.html#Term"
 
 Node: dcid:diseaseOntologyID
@@ -299,7 +299,7 @@ name: "medicalSubjectHeadingTreeNumber"
 typeOf: schema:Property
 rangeIncludes: schema:Text
 domainIncludes: dcs:MeSHDescriptor, dcs:MeSHQualifier
-description: "Alpha-numeric string referring to location within a MeSH Descriptor or Qualifier hierarchy."
+description: "Alphanumeric string referring to location within a MeSH Descriptor or Qualifier hierarchy."
 
 Node: dcid:medicalSubjectHeadingQualifierID
 name: "medicalSubjectHeadingQualifierID"

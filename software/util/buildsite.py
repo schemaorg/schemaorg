@@ -250,7 +250,7 @@ def templateRender(template_path, extra_vars=None, template_instance=None):
 
   Returns: the generated page.
   """
-  #Basic varibles configuring UI
+  #Basic variables configuring UI
   tvars = {
       'local_vars': local_vars,
       'version': getVersion(),

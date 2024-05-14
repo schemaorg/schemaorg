@@ -28,7 +28,7 @@ class collaborator():
         self.contributor = False
         self.img = self.code = self.title = self.url = None
         self.description = ""
-        self.acknowlegement = ""
+        self.acknowledgement = ""
         self.parseDesc(desc)
 
         collaborator.COLLABORATORS[self.ref]=self

@@ -45,7 +45,7 @@ If when running local scripts you receive an error of this form:
 
     ModuleNotFoundError: No module named 'module_name'  
 
-There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the cmmand: 
+There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the command: 
 
    pip install -r software/requirements.txt
 
