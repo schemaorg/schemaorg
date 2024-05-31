@@ -34,7 +34,7 @@ def docsTemplateRender(template,extra_vars=None):
 def schemasPage(page):
     extra_vars = {
         'home_page': "False",
-        'title': SITENAME + ' - Schemas',
+        'title': 'Schemas',
         'termcounts': SdoTermSource.termCounts()
     }
     return docsTemplateRender("docs/Schemas.j2",extra_vars)
@@ -46,32 +46,32 @@ def homePage(page):
     filt = None
     overrideclassval = None
     if page == "PendingHome":
-        title += " - Pending"
+        title =  "Pending"
         template = "docs/PendingHome.j2"
         filt = "pending"
         overrideclassval = 'class="ext ext-pending"'
     elif page == "AtticHome":
-        title += " - Retired"
+        title =  "Retired"
         template = "docs/AtticHome.j2"
         filt="attic"
         overrideclassval = 'class="ext ext-attic"'
     elif page == "AutoHome":
-        title += " - Auto Section"
+        title =  "Autotomotives"
         template = "docs/AutoHome.j2"
         filt="auto"
         overrideclassval = 'class="ext"'
     elif page == "BibHome":
-        title += " - Bib Section"
+        title =  "Bib"
         template = "docs/BibHome.j2"
         filt="bib"
         overrideclassval = 'class="ext"'
     elif page == "Health-lifesciHome":
-        title += " - Health-lifesci Section"
+        title =  "Health-lifesci"
         template = "docs/Health-lifesciHome.j2"
         filt="health-lifesci"
         overrideclassval = 'class="ext"'
     elif page == "MetaHome":
-        title += " - Meta"
+        title =  "Meta"
         template = "docs/MetaHome.j2"
         filt="meta"
         overrideclassval = 'class="ext"'
@@ -91,7 +91,7 @@ def homePage(page):
 
     extra_vars = {
         'home_page': "True",
-        'title': SITENAME,
+        'title': title,
         'termcount': termcount,
         'sectionterms': sectionterms
     }
@@ -214,7 +214,7 @@ def fullPage(page):
         listings.append(listingNode("DataType",title="DataTypes:"))
     extra_vars = {
         'home_page': "False",
-        'title': SITENAME,
+        'title': "Full schema hierarchy",
         'listings': listings
     }
 

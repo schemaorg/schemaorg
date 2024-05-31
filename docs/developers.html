@@ -2,23 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Developers - schema.org</title>
+    <title>Developers - Schema.org</title>
 
     <!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body onload="updatetext()">
 <!-- #### Static Doc Insert PageHead goes here -->
-<div id="mainContent" class="faq">
+<article id="mainContent" class="faq">
 
 
-<h2>Schema.org for Developers</h2>
+<h1>Schema.org for Developers</h1>
 
 <p>
 This page provides basic developer-oriented information about Schema.org. In particular it gives access to machine-readable representations of our schemas.
 </p>
 
 
+<section>
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
 <p>
@@ -42,6 +43,8 @@ This page provides basic developer-oriented information about Schema.org. In par
     the context is retrieved with http or https.</li>
 </ul>
 
+</section>
+<section>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
@@ -97,11 +100,15 @@ File <em>schemaorg-current-https</em> contains the definition of all terms in, a
 	</td></tr>
 
 	</table>
+
+</section>
+<section>
+
     <h2  id="experiments">Experimental</h2>
 
    <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
 
-   <h3 style="margin-left: 50px;" id="d3rdfs">D3 RDFS in JSON-LD</h3>
+   <h3 id="d3rdfs">D3 RDFS in JSON-LD</h3>
 
    <p>
     A simplification of the Schema.org type hierarchy, in which each type has at most one super-type, represented
@@ -111,11 +118,9 @@ File <em>schemaorg-current-https</em> contains the definition of all terms in, a
     This file is made available to support developers using the <a href="https://d3js.org/">D3</a> JavaScript library for manipulating documents based on data.
     It uses JSON-LD to declare that D3's default "children" JSON field represents "subClassOf" relationships, but expressed in the
     reverse direction (<a href="https://bl.ocks.org/danbri/1c121ea8bd2189cf411c">example usage</a>).
+	</p>
 
-
-
-
-   <h3 style="margin-left: 50px;" id="owl">OWL</h3>
+   <h3 id="owl">OWL</h3>
     <p>As an experimental feature, an <a href="https://en.wikipedia.org/wiki/Web_Ontology_Language">OWL</a> definition file <a href="/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes
         the core and all current extensions to the vocabulary.</p>
     <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> and <code>schema:rangeIncludes</code>
@@ -125,9 +130,8 @@ File <em>schemaorg-current-https</em> contains the definition of all terms in, a
     <p>This file has been made available to enable the representation of the vocabulary in some OWL-based modeling tools.
       The mapping into OWL is an approximation, and should not be considered an authoritative definition for Schema.org's terms; see <a href="/docs/datamodel.html">datamodel page</a> for details.
       As an experimental feature, there are no expectations as to its interpretation by any third party tools.</p>
-    <br/>
 
-  </div>
+		</article>
 
 
 <script>

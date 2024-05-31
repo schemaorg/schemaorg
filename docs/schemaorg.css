@@ -82,6 +82,8 @@ font-family: Courier, monospace;
 }
 
 h1 {
+  margin: 2rem 0 1rem;
+
   font-family: Manrope;
   font-size: 2.125rem;
   font-style: normal;
@@ -93,6 +95,7 @@ h1 {
 
 h2 {
   color: var(--new-schema-org-shark, #212529);
+  margin: 2rem 0 1rem;
 
   /* NewSchema.org/H2 */
   font-family: Manrope;
@@ -105,6 +108,7 @@ h2 {
 
 h3 {
   color: #212529;
+  margin: 1.5rem 0 1rem;
 
   /* NewSchema.org/H3 */
   font-family: Manrope;
@@ -121,7 +125,10 @@ h4
 /* font-size: 100%;
 margin: 0.5em 0 1em 0;
 position: relative; */
+  margin: 1rem 0 .25rem;
 color: green;
+/* margin: 0; */
+/* margin: 0.5em 0 0 0; */
 }
 
 hr
@@ -145,7 +152,7 @@ p.bold {
 pre
 {
 font-family: Courier, monospace;
-font-size: 120%;
+/* font-size: 120%; */
 background: #E1E1E1;
 width: auto;
 padding: 5px 5px 5px 10px;
@@ -155,7 +162,7 @@ overflow: auto;
 }
 
 pre.small{
-  font-size: 100%;
+  font-size: 80%;
 }
 
 small {
@@ -170,12 +177,21 @@ small {
   padding-top:5px
 }
 /* -- main content -- */
+#mainContent ul,
+#mainContent ol {
+margin: .5rem 0;
+}
 
-#mainContent ul li
+#mainContent ul li,
+#mainContent ol li
 {
 list-style: inherit;
-padding: 0 0 0 5px;
-margin: 0;
+padding: 0 0 0 .5rem;
+margin: 0 0 .5rem 0;
+}
+#mainContent li p,
+#mainContent dd p {
+  margin-top: 0;
 }
 a:link
 {
@@ -212,21 +228,20 @@ border-left: thin dotted #000;
 
 
 /* -- faq -- */
-.faq p, .faq pre, .faq ul, .faq table, .faq
+article section {
+  margin: 3rem 0;
+}
+/* .faq p, .faq pre, .faq ul, .faq table, .faq
 {
 margin: .5em 0 0 50px;
 padding-top: 0px;
 padding-bottom: 2px;
-}
-.faq h1
-{
-margin-bottom: 1em;
-}
-.faq ul, .faq ol
+} */
+/* .faq ul, .faq ol
 {
 padding-left: 30px;
 margin-left: 50px;
-}
+} */
 #mainContent .question
 {
 font-weight: bold;
@@ -566,7 +581,7 @@ a.ext.ext-attic:hover {
     } */
 
   #pagehead-left{
-    width: 12rem;
+    width: 10rem;
     font-size: 0;
     text-align: left;
     /* background-color: #990000; */
@@ -789,7 +804,7 @@ background: none !important;
 /* } */
 
 @media (min-width: 985px) {
-  article {
+  .row {
     display: grid;
     grid-template-columns: 3fr 2fr;
     /* grid-template-columns: 40rem 1fr; */
