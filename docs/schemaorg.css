@@ -82,7 +82,7 @@ font-family: Courier, monospace;
 }
 
 h1 {
-  margin: 2rem 0 1rem;
+  margin: 0 0 1rem;
 
   font-family: Manrope;
   font-size: 2.125rem;
@@ -169,13 +169,6 @@ small {
    font-size: x-small;
 }
 
-#infohead {
-  padding-bottom: 5px;
-}
-
-.superPaths{
-  padding-top:5px
-}
 /* -- main content -- */
 #mainContent ul,
 #mainContent ol {
@@ -229,7 +222,7 @@ border-left: thin dotted #000;
 
 /* -- faq -- */
 article section {
-  margin: 3rem 0;
+  margin-bottom: 3rem;
 }
 /* .faq p, .faq pre, .faq ul, .faq table, .faq
 {
@@ -254,19 +247,22 @@ padding-bottom: 2px;
 table.definition-table
 {
 margin: 1em 0 0 0;
-border: 1px solid #98A0A6;
+border: 1px solid #f0f0f0;
+font-size: .875rem
 }
 .definition-table th
 {
 text-align: left;
-background: #C7CBCE;
+background: #f0f0f0;
 padding-left: 5px;
+font-weight: 700;
 }
 .definition-table td
 {
 padding: 0 5px 2px 5px;
 margin: 0;
 vertical-align: top;
+border-bottom: 1px solid #f0f0f0;
 }
 .definition-table td p
 {
@@ -568,7 +564,7 @@ a.ext.ext-attic:hover {
     width: 100%;
     /* max-width: 960px;
     * background-color: #990000; */
-    height: var(--header-height);
+    /* height: var(--header-height); */
     /* vertical-align: middle; */
     margin-left: auto;
     margin-right: auto;
@@ -608,6 +604,7 @@ a.ext.ext-attic:hover {
     /* display: inline-block; */
     /* vertical-align: middle; */
     /* height: 100px; */
+    height: var(--header-height);
   }
 
   /* .header-block:before{
@@ -720,7 +717,7 @@ height: 46px;
 }
 
 #cse-search-form2 .gsib_a {
-padding: 3px 9px 3px 9px;
+padding: 3px 9px 3px 18px;
 }
 #cse-search-form2 .gsib_b {
 /* display: none; */
@@ -773,109 +770,102 @@ background: none !important;
     display: none;
 }
 
-/* @media all and (max-width: 750px) {
-  table.definition-table th, table.definition-table td {
-    display: inline-block;
-  }
-  table.definition-table br {
-    display: none;
-  }
-} */
-
 @media (min-width: 1440px) {
   #mainContent, .wrapper {
     margin: 0 12rem;
   }
 
-  /* article {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-column-gap: 1.5rem;
-  } */
-}
-
-/* @media (max-width: 1440px) { */
-  /* #mainContent, #footer, .wrapper { */
-  /* #mainContent, .wrapper { */
-    /* max-width: 960px; */
-    /* padding: 0 1em 1em 1em */
-    /* margin: 0 2rem; */
-  /* } */
-/* } */
-
 @media (min-width: 985px) {
   .row {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    /* grid-template-columns: 40rem 1fr; */
     grid-column-gap: 1.5rem;
   }
 }
 
-@media (max-width: 985px) {
+@media (max-width: 880px) {
+
   /** hamburger */
   #navicon2 {
     display: inline-block;
 
     a {
-      display: inline-block;
-      vertical-align: middle;
+      height: 100%;
 
-      img {
-        padding: 8px;
+      svg {
+        display: inline-block;
+        height: 100%;
+        margin-left: 12px;
+        vertical-align: middle;
       }
+    }
+
+    #open {
+      display: block !important;
+    }
+
+    #close {
+      display: none !important;
     }
   }
 
-  #pagehead1.show {
-      /* height: 220px; */
-      height: 18rem;
+  #navicon2.show {
+    #open {
+      display: none !important;
+    }
+
+    #close {
+      display: block !important;
+    }
   }
 
-  #pagehead-mid.show {
-      height: 6rem;
-      /* text-align: right; */
+  #selectionbar2 {
+    margin-bottom: 1rem;
+    width: 100%;
   }
-  #pagehead-right.show {
-      height: 6rem;
-      /* text-align: right; */
+
+  #selectionbar2 li {
+    display: list-item;
+    list-style: none;
+  }
+
+  #pagehead1 {
+    flex-wrap: wrap;
+  }
+
+  #pagehead-left {
+    flex-grow: 1;
+  }
+
+  #pagehead-right {
+    width: 50%;
   }
 
   #pagehead-mid:not(.show) #selectionbar2 {
-      display: none;
+    display: none;
+  }
+
+  #pagehead-mid.show {
+    height: auto;
+    order: 5;
+    width: 100%;
+
+    a {
+      line-height: 3rem;
+    }
   }
 }
 
-@media only screen and (max-width: 723px) {
-    #sitename2 {
-        /* float: left; */
-    }
-    /* #pagehead1:before {
-        display: none;
-    } */
-    #pagehead1:not(.show) {
-        /* height: 100px; */
-    }
-    #pagehead1.show {
-        /* height: 220px; */
-    }
+@media only screen and (max-width: 680px) {
+  #pagehead-right {
+    order: 4;
+    width: 100%;
+    height: 5rem;
+    align-items: start;
+  }
 
-    #pagehead-left {
-        /* height: 75px; */
-    }
-
-    /* #pagehead-left, #pagehead-mid, #pagehead-right {
-        display: block;
-        width: 100%;
-    } */
-
-    #selectionbar2 {
-        text-align: left;
-    }
-    #selectionbar2 li {
-        display: list-item;
-        line-height: 1.1rm;
-        list-style: none;
-    }
+  #pagehead-right.show {
+    display: none;
+  }
 
 }
