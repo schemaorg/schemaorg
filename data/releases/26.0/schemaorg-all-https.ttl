@@ -616,7 +616,7 @@ schema:BuddhistTemple a rdfs:Class ;
 
 schema:BusOrCoach a rdfs:Class ;
     rdfs:label "BusOrCoach" ;
-    rdfs:comment "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury buses, usually in service for long distance travel." ;
+    rdfs:comment "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel." ;
     rdfs:subClassOf schema:Vehicle ;
     schema:contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     schema:isPartOf <https://auto.schema.org> .
@@ -8135,11 +8135,10 @@ schema:acceptedOffer a rdf:Property ;
 
 schema:acceptedPaymentMethod a rdf:Property ;
     rdfs:label "acceptedPaymentMethod" ;
-    rdfs:comment "The payment method(s) that are accepted in general by an organization, or for some specific demand or offer." ;
+    rdfs:comment "The payment method(s) accepted by seller for this offer." ;
     schema:contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     schema:domainIncludes schema:Demand,
-        schema:Offer,
-        schema:Organization ;
+        schema:Offer ;
     schema:rangeIncludes schema:LoanOrCredit,
         schema:PaymentMethod .
 
@@ -9225,7 +9224,7 @@ schema:benefitsSummaryUrl a rdf:Property ;
 
 schema:bestRating a rdf:Property ;
     rdfs:label "bestRating" ;
-    rdfs:comment "The highest value allowed in this rating system." ;
+    rdfs:comment "The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed." ;
     schema:domainIncludes schema:Rating ;
     schema:rangeIncludes schema:Number,
         schema:Text .
@@ -9466,7 +9465,7 @@ schema:broadcastDisplayName a rdf:Property ;
 
 schema:broadcastFrequency a rdf:Property ;
     rdfs:label "broadcastFrequency" ;
-    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges, e.g. 87-99. In addition a shortcut idiom is supported for frequencies of AM and FM radio channels, e.g. \"87 FM\"." ;
+    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges, e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. \"87 FM\"." ;
     schema:domainIncludes schema:BroadcastChannel,
         schema:BroadcastService ;
     schema:rangeIncludes schema:BroadcastFrequencySpecification,
@@ -9706,14 +9705,6 @@ schema:certificationIdentification a rdf:Property ;
         schema:Text ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
-schema:certificationRating a rdf:Property ;
-    rdfs:label "certificationRating" ;
-    rdfs:comment "Rating of a certification instance (as defined by an independent certification body). Typically this rating can be used to rate the level to which the requirements of the certification instance are fulfilled. See also [gs1:certificationValue](https://www.gs1.org/voc/certificationValue)." ;
-    schema:domainIncludes schema:Certification ;
-    schema:isPartOf <https://pending.schema.org> ;
-    schema:rangeIncludes schema:Rating ;
-    schema:source <https://github.com/schemaorg/schemaorg/issues/3230> .
-
 schema:certificationStatus a rdf:Property ;
     rdfs:label "certificationStatus" ;
     rdfs:comment "Indicates the current status of a certification: active or inactive. See also  [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus)." ;
@@ -9827,7 +9818,8 @@ schema:citation a rdf:Property ;
 
 schema:claimInterpreter a rdf:Property ;
     rdfs:label "claimInterpreter" ;
-    rdfs:comment "For a [[Claim]] interpreted from [[MediaObject]] content, the [[interpretedAsClaim]] property can be used to indicate a claim contained, implied or refined from the content of a [[MediaObject]]." ;
+    rdfs:comment """For a [[Claim]] interpreted from [[MediaObject]] content
+    sed to indicate a claim contained, implied or refined from the content of a [[MediaObject]].""" ;
     schema:domainIncludes schema:Claim ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:Organization,
@@ -12410,15 +12402,6 @@ schema:hasEnergyEfficiencyCategory a rdf:Property ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:EnergyEfficiencyEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> .
-
-schema:hasGS1DigitalLink a rdf:Property ;
-    rdfs:label "hasGS1DigitalLink" ;
-    rdfs:comment "The <a href=\"https://www.gs1.org/standards/gs1-digital-link\">GS1 digital link</a> associated with the object. This URL should conform to the particular requirements of digital links. The link should only contain the Application Identifiers (AIs) that are relevant for the entity being annotated, for instance a [[Product]] or an [[Organization]], and for the correct granularity. In particular, for products:<ul><li>A Digital Link that contains a serial number (AI <code>21</code>) should only be present on instances of [[IndividualProduct]]</li><li>A Digital Link that contains a lot number (AI <code>10</code>) should be annotated as [[SomeProduct]] if only products from that lot are sold, or [[IndividualProduct]] if there is only a specific product.</li><li>A Digital Link that contains a global model number (AI <code>8013</code>)  should be attached to a [[Product]] or a [[ProductModel]].</li></ul> Other item types should be adapted similarly." ;
-    rdfs:subPropertyOf schema:identifier ;
-    schema:domainIncludes schema:Thing ;
-    schema:isPartOf <https://pending.schema.org> ;
-    schema:rangeIncludes schema:URL ;
-    schema:source <https://github.com/schemaorg/schemaorg/issues/3475> .
 
 schema:hasHealthAspect a rdf:Property ;
     rdfs:label "hasHealthAspect" ;
@@ -18533,7 +18516,7 @@ schema:worksFor a rdf:Property ;
 
 schema:worstRating a rdf:Property ;
     rdfs:label "worstRating" ;
-    rdfs:comment "The lowest value allowed in this rating system." ;
+    rdfs:comment "The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed." ;
     schema:domainIncludes schema:Rating ;
     schema:rangeIncludes schema:Number,
         schema:Text .
@@ -19857,10 +19840,7 @@ schema:gtin a rdf:Property ;
     rdfs:label "gtin" ;
     rdfs:comment """A Global Trade Item Number ([GTIN](https://www.gs1.org/standards/id-keys/gtin)). GTINs identify trade items, including products and services, using numeric identification codes.
 
-A correct [[gtin]] value should be a valid GTIN, which means that it should be an all-numeric string of either 8, 12, 13 or 14 digits, or a "GS1 Digital Link" URL based on such a string. The numeric component should also have a [valid GS1 check digit](https://www.gs1.org/services/check-digit-calculator) and meet the other rules for valid GTINs. See also [GS1's GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) and [Wikipedia](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) for more details. Left-padding of the gtin values is not required or encouraged. The [[gtin]] property generalizes the earlier [[gtin8]], [[gtin12]], [[gtin13]], and [[gtin14]] properties.
-
-The GS1 [digital link specifications](https://www.gs1.org/standards/Digital-Link/) expresses GTINs as URLs (URIs, IRIs, etc.).
-Digital Links should be populated into the [[hasGS1DigitalLink]] attribute.
+The GS1 [digital link specifications](https://www.gs1.org/standards/Digital-Link/) express GTINs as URLs (URIs, IRIs, etc.). Details including regular expression examples can be found in, Section 6 of the GS1 URI Syntax specification; see also [schema.org tracking issue](https://github.com/schemaorg/schemaorg/issues/3156#issuecomment-1209522809) for schema.org-specific discussion. A correct [[gtin]] value should be a valid GTIN, which means that it should be an all-numeric string of either 8, 12, 13 or 14 digits, or a "GS1 Digital Link" URL based on such a string. The numeric component should also have a [valid GS1 check digit](https://www.gs1.org/services/check-digit-calculator) and meet the other rules for valid GTINs. See also [GS1's GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) and [Wikipedia](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) for more details. Left-padding of the gtin values is not required or encouraged. The [[gtin]] property generalizes the earlier [[gtin8]], [[gtin12]], [[gtin13]], and [[gtin14]] properties.
 
 Note also that this is a definition for how to include GTINs in Schema.org data, and not a definition of GTINs in general - see the GS1 documentation for authoritative details.""" ;
     rdfs:subPropertyOf schema:identifier ;
