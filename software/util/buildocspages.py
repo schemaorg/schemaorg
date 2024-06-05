@@ -28,7 +28,6 @@ def docsTemplateRender(template,extra_vars=None):
     }
     if extra_vars:
         tvars.update(extra_vars)
-    print("rendering " + template)
     return templateRender(template,tvars)
 
 def schemasPage(page):
