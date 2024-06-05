@@ -3,13 +3,13 @@
 {% if examples|length > 0 %}
 <div id="examplespannel" class="jumptarget" title="Examples">
 {% for ex in examples %}
-{% if loop.first %}<h4><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></h4>{% endif %}
+{% if loop.first %}<h3>Examples</h3>{% endif %}
 
 <div class="example-head">
-        <a  id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>			<div class="tooltip">	
 				<button class="clip clipbutton {{ex.getKey()}}" data-clipboard-target=".ds-tab.selected.{{ex.getKey()}} .clipsource" title="Copy example to clipboard">
-				    <img src="{{docsdir}}/clipboard/clippy.svg" width="13" alt="Copy to clipboard">
+				    <img src="{{docsdir}}/clipboard/clippy.svg" width="18" alt="Copy to clipboard">
 				</button>
+        <a  id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>			<div class="tooltip">	
 				<span class="tooltiptext {{ex.getKey()}}">Copied</span>
 			</div>
 </div>
