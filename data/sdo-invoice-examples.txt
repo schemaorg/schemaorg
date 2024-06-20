@@ -6,19 +6,21 @@ An example of a credit card bill (invoice).
 
 ACME Bank
 Bill for: January 2015 Visa
+Invoice Date: 2015-01-01
 invoice link: http://www.acmebank.com/invoice.pdf
 Customer: Jane Doe
 account ID: xxxx-xxxx-xxxx-1234
 payment due: 2015-01-30
 minimum payment: $15.00
 total due: $200.00
-billing period: 2014-12-21 to 2015-01-20
+billing period: 30 days
 payment due
 
 MICRODATA:
 
 <div itemscope itemtype="https://schema.org/Invoice">
   <h1 itemprop="description">January 2015 Visa</h1>
+  <span itemprop="invoiceDate">2015-01-01</span>
   <a itemprop="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
   <div itemprop="broker" itemscope itemtype="https://schema.org/BankOrCreditUnion">
     <b itemprop="name">ACME Bank</b>
@@ -36,7 +38,7 @@ MICRODATA:
     <span itemprop="price">200.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
-  <meta itemprop="billingPeriod" content="P30D" />starts:2014-12-21 30 days
+  <meta itemprop="billingPeriod" content="P30D" />30 days
   <link itemprop="paymentStatus" href="https://schema.org/PaymentDue" />
 </div>
 
@@ -44,6 +46,7 @@ RDFA:
 
 <div vocab="https://schema.org/" typeof="Invoice">
   <h1 property="description">January 2015 Visa</h1>
+  <span property="invoiceDate">2015-01-01</span>
   <a property="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
   <div property="broker" typeof="BankOrCreditUnion">
     <b property="name">ACME Bank</b>
@@ -61,7 +64,7 @@ RDFA:
     <span property="price">200.00</span>
     <span property="priceCurrency">USD</span>
   </div>
-  <meta property="billingPeriod" content="P30D" />starts:2014-12-21 30 days
+  <meta property="billingPeriod" content="P30D" />30 days
   <link property="paymentStatus" href="PaymentDue" />
 </div>
 
@@ -72,6 +75,7 @@ JSON:
     "@context": "https://schema.org/",
     "@type": "Invoice",
     "description": "January 2015 Visa bill.",
+    "invoiceDate": "2015-01-30",
     "url": "http://acmebank.com/invoice.pdf",
     "broker": {
       "@type": "BankOrCreditUnion",
@@ -107,6 +111,7 @@ An example of a invoice for a purchase and installation.
 ACME Home Heating
 Bill for: New furnace and installation
 Customer: Jane Doe
+invoice Date: 2015-01-01
 payment due: 2015-01-30
 minimum payment: $0.00
 total due: $0.00
@@ -124,6 +129,7 @@ MICRODATA:
   <div itemprop="customer" itemscope itemtype="https://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
+  <span itemprop="invoiceDate">2015-01-01</span>
   <time itemprop="paymentDueDate">2015-01-30</time>
   <div itemprop="minimumPaymentDue" itemscope itemtype="https://schema.org/PriceSpecification">
     <span itemprop="price">0.00</span>
@@ -162,6 +168,7 @@ RDFA:
   <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
+  <span property="invoiceDate">2015-01-01</span>
   <time property="paymentDueDate">2015-01-30</time>
   <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">0.00</span>
@@ -205,6 +212,7 @@ JSON:
       "@type": "Person",
       "name": "Jane Doe"
     },
+    "invoiceDate": "2015-01-01",
     "paymentDueDate": "2015-01-30",
     "minimumPaymentDue": {
       "@type": "PriceSpecification",
