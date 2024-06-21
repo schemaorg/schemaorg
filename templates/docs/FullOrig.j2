@@ -7,7 +7,7 @@
     {% include 'PageHeader.j2' with context %}
   <div id="mainContent">
 
-      <h3>Full Hierarchy</h3>
+      <h1>Full schema hierarchy</h1>
 
       <p>
       Schema.org is defined as two hierarchies: one for textual property values, and one for the things that they describe. 
@@ -20,7 +20,7 @@
       {% for node in listings recursive %}
       {% if loop.depth == 1 %}
         <div class="scroll-ul" id="full_thing_tree">
-            {% if node.title %}<h4>{{node.title}}</h4>{% endif %}
+            {% if node.title %}<h2>{{node.title}}</h2>{% endif %}
         <ul> 
       {% endif %}
       {% if not node.retired %}
@@ -35,6 +35,7 @@
       {% endif %}
       {% if loop.depth == 1 %}
         </ul>
+      </div>
       {% endif %}
     {% endfor %}
                 

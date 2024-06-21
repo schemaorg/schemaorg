@@ -24,13 +24,6 @@
 </script>
 
 <style type="text/css">
-  input.gsc-input {
-    border-color: #660000;
-  }
-  input.gsc-search-button {
-    border-color: #660000;
-    background-color: #660000;
-  }
   .gsc-tabHeader.gsc-tabhInactive {
     border-color: #990000;
     background-color: #990000;
@@ -52,15 +45,15 @@
   }
   .gs-webResult.gs-result a.gs-title:link,
   .gs-webResult.gs-result a.gs-title:link b {
-    color: #660000;
+    color: var(--link-color);
   }
   .gs-webResult.gs-result a.gs-title:visited,
   .gs-webResult.gs-result a.gs-title:visited b {
-    color: #990000;
+    color: var(--link-visited-color);
   }
   .gs-webResult.gs-result a.gs-title:hover,
   .gs-webResult.gs-result a.gs-title:hover b {
-    color: #660000;
+    color: var(--link-color);
   }
   .gs-webResult.gs-result a.gs-title:active,
   .gs-webResult.gs-result a.gs-title:active b {
@@ -132,7 +125,7 @@
     color: #A25B08;
   }
   .gsc-control-cse {
-    font-family: "Lucida Grande" , "Lucida Sans Unicode" , Verdana, Tahoma, Arial, sans-serif;
+    font-family: Manrope;
     border-color: #FFFFFF;
     background-color: #FFFFFF;
     padding: 2%;
@@ -149,7 +142,7 @@
     background-color: #660000;
     border-color: #660000;
     color: #fff;
-    font-family: inherit;
+    font-family: Manrope;
     font-size: 11px;
     font-weight: normal;
     padding: 2px 8px;
@@ -162,28 +155,20 @@
   .gsc-resultsHeader {
     display:none;
   }
-  input.gsc-input {
-    border-color: #660000;
-    color: #333333;
-    font-family: "Lucida Grande" , "Lucida Sans Unicode" , Verdana, Tahoma, Arial, sans-serif;
-    font-size: 11px;
-    padding: 3px;
-    width: 99%;
-  }
-  .gsc-input input.gsc-input {
-    background: none repeat scroll 0% 0% white !important;
-    border-color: #660000;
-    padding: 3px;
-    width: 99%;
-  }
   .gsc-control-cse .gsc-table-result {
-    font-family: "Lucida Grande" , "Lucida Sans Unicode" , Verdana, Tahoma, Arial, sans-serif;
+    font-family: Manrope;
   }
   .gsc-result-info {
     display: none;
   }
   .gsc-clear-button {
     display: none;
+  }
+
+  .gsc-results .gsc-cursor-box .gsc-cursor-page {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
   }
 </style>
 

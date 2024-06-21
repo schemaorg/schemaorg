@@ -92,7 +92,7 @@ Use command `./software/gcloud/deploy2schema.org.sh`
 POST-RELEASE STEPS
 ==================
 
-* Tag gitub version vXX.X-release
+* Tag github version vXX.X-release
 
 `git tag [tagname] [commit code]` 
 
