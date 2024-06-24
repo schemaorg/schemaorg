@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Generated from Home.j2 -->
+    {% macro head_insert() -%}
+    <meta name="google-site-verification" content="sF2wOoEXHr7h_vTNkOOJXQxDWw2h-B4QwizxbkoIQC0" />
+    {%- endmacro %}
+    {% set head_insert_available = true %}
     {% include 'docs/DocsHead.j2' with context %}
 <body>
     {% include 'PageHeader.j2' with context %}

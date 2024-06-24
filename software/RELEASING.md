@@ -86,6 +86,8 @@ Use command `./software/gcloud/deploy2schema.org.sh`
 
 **Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will disable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
 
+Please use the release version as the Appengine Version ID. Update the `.` to `-` for dot releases.
+
 **Warning**: Because of Google cloud caching processes it may take several minutes before new versions of _all_ released files are supplied in response to a browser request.  As this includes javascript and css files, initial unusual behavior may be experienced.  It is recommended that a full reload of pages, at least 10 minutes after deployment and migration, is performed before analysing a new release.
 
 
