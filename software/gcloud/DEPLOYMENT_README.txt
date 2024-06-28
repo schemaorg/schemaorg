@@ -7,8 +7,8 @@ run the appropriate deploy script:
 * The schema.org live site † :
       deploy2schema.org.sh
 
-* The webschemas.org test/preview site † :
-      deploy2webschemas.org.sh
+* The staging.schema.org test/preview site † :
+      deploy2staging.schema.org.sh
 
 * Any other test site hosted on gcloud made visible at {projectname}.appspot.com
       deploy2gcloud.sh

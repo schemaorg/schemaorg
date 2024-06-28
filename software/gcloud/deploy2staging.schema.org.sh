@@ -25,7 +25,7 @@ done
 
 echo "Deploy to gcloud for webschemas.org"
 
-software/gcloud/deploy2gcloud.sh $MIG -p webschemas-g -y webschemasorg.yaml
+software/gcloud/deploy2gcloud.sh $MIG -p schemaorg-staging -y stagingschemaorg.yaml
 
     
     
