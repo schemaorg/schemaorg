@@ -140,12 +140,12 @@ To run tests: `./software/util/runtests.py`
   OK (expected failures=3)
 
 1-d) Latest candidate release branch is pushed to the generic unstable upstream site
-(i.e. webschemas.org).
+(i.e. staging.schema.org).
 
-Use command `./software/gcloud/deploy2webschemas.org.sh`
+Use command `./software/gcloud/deploy2staging.schema.org.sh`
 
 1-e) The manual QA page /docs/qa.html has been reviewed to ensure
 representative pages of each type appear to be in a healthy state.
 
-e.g. see http://webschemas.org/docs/qa.html
+e.g. see http://staging.schema.org/docs/qa.html
 
