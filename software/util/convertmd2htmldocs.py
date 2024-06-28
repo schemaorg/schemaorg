@@ -13,14 +13,14 @@ begin = """<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Schema.org: Documentation: Schema.org Feeds 1.0</title>
+<title>{title} - Schema.org</title>
 
 <!-- #### Static Doc Insert Head goes here -->
-</head><body onload="updatetext()">
- <div id="mainContent" class="faq">
-<!-- #### Static Doc Insert PageHead goes here -->"""
+</head><body>
+<!-- #### Static Doc Insert PageHead goes here -->
+<div id="mainContent" class="faq">"""
 
-end = """<!-- #### Static Doc Insert Footer goes here -->\n </div>\n</html>"""
+end = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
 
 def mddocs(sourceDir, destDir):
     docs = glob.glob(sourceDir +'/*.md')
@@ -29,13 +29,14 @@ def mddocs(sourceDir, destDir):
 
 def convert2html(doc,destdir):
     file = os.path.basename(doc)
+    title = os.path.splitext(file)[0].title()
     htf = file.rsplit('.', 1)[0] + '.html'
     with open(doc, 'r') as f:
         text = f.read()
         md_html = markdown.markdown(text)
 
     with open(destdir+'/'+htf, 'w') as f:
-        f.write(begin)
+        f.write(begin.format(title=title))
         f.write(md_html)
         f.write(end)
 

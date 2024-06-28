@@ -1430,7 +1430,7 @@ schema:Distillery a rdfs:Class ;
 schema:DonateAction a rdfs:Class ;
     rdfs:label "DonateAction" ;
     rdfs:comment "The act of providing goods, services, or money without compensation, often for philanthropic reasons." ;
-    rdfs:subClassOf schema:TradeAction .
+    rdfs:subClassOf schema:TransferAction .
 
 schema:DoseSchedule a rdfs:Class ;
     rdfs:label "DoseSchedule" ;
@@ -15523,7 +15523,8 @@ schema:price a rdf:Property ;
     rdfs:label "price" ;
     rdfs:comment """The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\\n\\nUsage guidelines:\\n\\n* Use the [[priceCurrency]] property (with standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. "Ithaca HOUR") instead of including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.
       """ ;
-    schema:domainIncludes schema:Offer,
+    schema:domainIncludes schema:DonateAction,
+        schema:Offer,
         schema:PriceSpecification,
         schema:TradeAction ;
     schema:rangeIncludes schema:Number,
@@ -15547,7 +15548,8 @@ schema:priceComponentType a rdf:Property ;
 schema:priceCurrency a rdf:Property ;
     rdfs:label "priceCurrency" ;
     rdfs:comment "The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." ;
-    schema:domainIncludes schema:Offer,
+    schema:domainIncludes schema:DonateAction,
+        schema:Offer,
         schema:PriceSpecification,
         schema:Reservation,
         schema:Ticket,
@@ -15565,6 +15567,7 @@ schema:priceSpecification a rdf:Property ;
     rdfs:comment "One or more detailed price specifications, indicating the unit price and delivery or payment charges." ;
     schema:contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     schema:domainIncludes schema:Demand,
+        schema:DonateAction,
         schema:Offer,
         schema:TradeAction ;
     schema:rangeIncludes schema:PriceSpecification .
@@ -16061,7 +16064,8 @@ schema:referencesOrder a rdf:Property ;
 schema:refundType a rdf:Property ;
     rdfs:label "refundType" ;
     rdfs:comment "A refund type, from an enumerated list." ;
-    schema:domainIncludes schema:MerchantReturnPolicy ;
+    schema:domainIncludes schema:MerchantReturnPolicy,
+        schema:MerchantReturnPolicySeasonalOverride ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:RefundTypeEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2288> .
@@ -16335,7 +16339,8 @@ schema:restPeriods a rdf:Property ;
 schema:restockingFee a rdf:Property ;
     rdfs:label "restockingFee" ;
     rdfs:comment "Use [[MonetaryAmount]] to specify a fixed restocking fee for product returns, or use [[Number]] to specify a percentage of the product price paid by the customer." ;
-    schema:domainIncludes schema:MerchantReturnPolicy ;
+    schema:domainIncludes schema:MerchantReturnPolicy,
+        schema:MerchantReturnPolicySeasonalOverride ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:MonetaryAmount,
         schema:Number ;
@@ -16359,7 +16364,8 @@ schema:resultReview a rdf:Property ;
 schema:returnFees a rdf:Property ;
     rdfs:label "returnFees" ;
     rdfs:comment "The type of return fees for purchased products (for any return reason)." ;
-    schema:domainIncludes schema:MerchantReturnPolicy ;
+    schema:domainIncludes schema:MerchantReturnPolicy,
+        schema:MerchantReturnPolicySeasonalOverride ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:ReturnFeesEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2288> .
@@ -16375,7 +16381,8 @@ schema:returnLabelSource a rdf:Property ;
 schema:returnMethod a rdf:Property ;
     rdfs:label "returnMethod" ;
     rdfs:comment "The type of return method offered, specified from an enumeration." ;
-    schema:domainIncludes schema:MerchantReturnPolicy ;
+    schema:domainIncludes schema:MerchantReturnPolicy,
+        schema:MerchantReturnPolicySeasonalOverride ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:ReturnMethodEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2880> .
@@ -16409,7 +16416,8 @@ schema:returnPolicySeasonalOverride a rdf:Property ;
 schema:returnShippingFeesAmount a rdf:Property ;
     rdfs:label "returnShippingFeesAmount" ;
     rdfs:comment "Amount of shipping costs for product returns (for any reason). Applicable when property [[returnFees]] equals [[ReturnShippingFees]]." ;
-    schema:domainIncludes schema:MerchantReturnPolicy ;
+    schema:domainIncludes schema:MerchantReturnPolicy,
+        schema:MerchantReturnPolicySeasonalOverride ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:rangeIncludes schema:MonetaryAmount ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2880> .
