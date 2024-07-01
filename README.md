@@ -16,7 +16,7 @@ should provide an overview of upcoming work, in terms of broad themes, specific 
 
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within GitHub.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
-A preview of the [draft new release notes](http://webschemas.org/docs/releases.html) can be found as part of the test site for our next release.
+A preview of the [draft new release notes](https://staging.schema.org/docs/releases.html) can be found as part of the test site for our next release.
 Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
 
 Regarding CC and opensource licenses for documents and software, see our [FAQ entry](https://schema.org/docs/faq.html#18).

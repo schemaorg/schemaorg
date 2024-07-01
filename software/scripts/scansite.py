@@ -16,7 +16,7 @@ v = '3.1'
 verbose = False
 SEARCH_TERM = "klzzwxh"
 host = "schema.org"
-#host = "webschemas.org"
+#host = "staging.schema.org"
 #host = "localhost:8080"
 
 #verbose = True
