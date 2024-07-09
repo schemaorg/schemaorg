@@ -3,7 +3,8 @@
 
 import argparse
 import json
-from typing import Generator, Any, Union
+import os
+import typing
 
 from rdflib import Graph
 from rdflib import BNode, URIRef
@@ -37,7 +38,7 @@ class ShExJParser:
         """
 
         id = replace_prefix(shape)
-        node: Union[dict[Any], None] = None
+        node: typing.Union[dict[typing.Any], None] = None
         if is_datatype:
             node = {
                 'type': 'NodeConstraint',
@@ -115,7 +116,7 @@ class ShExJParser:
         """
         shapes: list[URIRef] = list(source.subjects(RDF['type'], RDFS['Class']))
         shapes.sort(key=lambda u: str(u))
-        top_level_datatypes: Generator[Node, None, None] = g.subjects(RDF.type, SCHEMA.DataType)
+        top_level_datatypes: typing.Generator[Node, None, None] = g.subjects(RDF.type, SCHEMA.DataType)
         all_datatypes: set[URIRef] = {URIRef(SCHEMA.DataType)}
         all_datatypes.update(self.chase_subclasses(source, top_level_datatypes))
 
@@ -124,11 +125,11 @@ class ShExJParser:
             shex['shapes'].append(self.parse_shape(source, shape, shape in all_datatypes))
         return '{ "type": "Schema", "shapes": [\n' + ',\n'.join(map(lambda decl: json.dumps(decl), shex['shapes'])) + "\n]}\n"
 
-    def chase_subclasses(self, source: Graph, terms: Generator[Node, None, None]) -> set[URIRef]:
+    def chase_subclasses(self, source: Graph, terms: typing.Generator[Node, None, None]) -> typing.Set[URIRef]:
         ret: set[URIRef] = set()
         for x in terms:
             ret.add(x)
-            subclass_terms: Generator[Node, None, None] = source.subjects(RDFS.subClassOf, x)
+            subclass_terms: typing.Generator[Node, None, None] = source.subjects(RDFS.subClassOf, x)
             ret.update(self.chase_subclasses(source, subclass_terms))
         return ret
 
@@ -208,10 +209,10 @@ class ShaclParser:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s","--sourcefile", help="rdf format source file")
-    parser.add_argument("-f","--format", default="nt", help="source file format (default: .nt)")
-    parser.add_argument("-o","--outputdir", help="output directory (default: ./)")
-    parser.add_argument("-p","--outputfileprefix", default="", help="output files prefix")
+    parser.add_argument("-s", "--sourcefile", help="rdf format source file")
+    parser.add_argument("-f", "--format", default="nt", help="source file format (default: .nt)")
+    parser.add_argument("-o", "--outputdir", help="output directory (default: ./)")
+    parser.add_argument("-p", "--outputfileprefix", default="", help="output files prefix")
     args = parser.parse_args()
 
     if args.sourcefile:
@@ -222,17 +223,20 @@ if __name__ == '__main__':
     g = Graph().parse(data=term_defs, format=args.format)
     g.bind('schema', SCHEMA)
     shexj = ShExJParser().to_shex(g)
-    fn='%s/%sshapes.shexj' % (args.outputdir,args.outputfileprefix)
+    fn = os.path.join(args.outputdir, args.outputfileprefix + 'shapes.shexj')
     open(fn, 'w',encoding='utf8').write(shexj)
     print("Created %s" % fn)
 
     shacl = ShaclParser().to_shacl(g)
-    fn = '%s/%sshapes.shacl' % (args.outputdir,args.outputfileprefix)
+    fn = os.path.join(args.outputdir, args.outputfileprefix + 'shapes.shacl')
+
     open(fn, 'w',encoding='utf8').write(shacl)
     print("Created %s" % fn)
 
     subclasses_tree = ShaclParser().get_subclasses(g)
-    fn='%s/%ssubclasses.shacl' % (args.outputdir,args.outputfileprefix)
+
+    fn= os.path.join(args.outputdir, args.outputfileprefix + 'subclasses.shacl')
+
     open(fn, 'w',encoding='utf8').write(subclasses_tree)
     print("Created %s" % fn)
 
