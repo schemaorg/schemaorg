@@ -12,7 +12,7 @@
     rdfs:comment """A FundingAgency is an organization that implements one or more [[FundingScheme]]s and manages
     the granting process (via [[Grant]]s, typically [[MonetaryGrant]]s).
     A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.
-    
+
 Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Foundation, ...
     """ ;
     rdfs:subClassOf :Project .
@@ -56,7 +56,7 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
         <https://github.com/schemaorg/schemaorg/issues/383> ;
 
     rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
-Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures. 
+Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures.
    """ ;
     rdfs:subClassOf :Organization .
 
@@ -94,7 +94,7 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:comment "A [[Grant]] that directly or indirectly provide funding or sponsorship for this item. See also [[ownershipFundingInfo]]." .
 
 :funder a rdf:Property ;
-    :domainIncludes :Grant, :MonetaryGrant .
+    :domainIncludes :Grant .
 
 :sponsor a rdf:Property ;
     :domainIncludes :Grant .

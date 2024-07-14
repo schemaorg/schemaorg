@@ -1200,8 +1200,7 @@
 
 :activeIngredient a rdf:Property ;
     rdfs:label "activeIngredient" ;
-    :domainIncludes :DietarySupplement,
-        :Drug,
+    :domainIncludes
         :DrugStrength,
         :Substance ;
     :isPartOf <https://health-lifesci.schema.org> ;
@@ -1379,7 +1378,7 @@
 
 :codeValue a rdf:Property ;
     rdfs:label "codeValue" ;
-    :domainIncludes :MedicalCode .
+    :domainIncludes :CategoryCode .
 
 :codingSystem a rdf:Property ;
     rdfs:label "codingSystem" ;
@@ -1785,9 +1784,7 @@
 
 :maximumIntake a rdf:Property ;
     rdfs:label "maximumIntake" ;
-    :domainIncludes :DietarySupplement,
-        :Drug,
-        :DrugStrength,
+    :domainIncludes :DrugStrength,
         :Substance ;
     :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :MaximumDoseSchedule ;
@@ -1811,10 +1808,7 @@
 
 :medicalSpecialty a rdf:Property ;
     rdfs:label "medicalSpecialty" ;
-    :domainIncludes :Hospital,
-        :MedicalClinic,
-        :MedicalOrganization,
-        :Physician ;
+    :domainIncludes :MedicalOrganization;
     :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :MedicalSpecialty ;
     rdfs:comment "A medical specialty of the provider." .
@@ -1915,8 +1909,7 @@
 
 :possibleTreatment a rdf:Property ;
     rdfs:label "possibleTreatment" ;
-    :domainIncludes :MedicalCondition,
-        :MedicalSignOrSymptom ;
+    :domainIncludes :MedicalCondition;
     :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :MedicalTherapy ;
     rdfs:comment "A possible treatment to address this condition, sign or symptom." .
