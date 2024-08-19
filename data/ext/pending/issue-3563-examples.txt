@@ -1,0 +1,113 @@
+TYPES: #eg-0489 Certification
+
+PRE-MARKUP:
+
+Complete example of the definition of a member (loyalty) program and its tiers under an instance
+of an online store (Organization), followed by a list and member price of an Offer.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "name": "Example Online Store",
+    "url": "https://www.example.com",
+    "sameAs": [
+      "https://example.net/profile/example12",
+      "https://example.org/@example34"
+    ],
+    "logo": "https://www.example.com/assets/images/logo.png",
+    "contactPoint": {
+      "contactType": "Customer Service",
+      "email": "support@example.com",
+      "telephone": "+47-99-999-9900"
+    },
+    "vatID": "FR12345678901",
+    "iso6523Code": "0199:724500PMK2A2M1SQX229",
+    "hasMemberProgram": {
+      "@type": "MemberProgram",
+      "name": "Membership Plus",
+      "description": "For frequent shoppers this is our top-rated loyalty program",
+      "url": "https://www.example.com/membership-plus",
+      "hasTiers": [
+        {
+          "@type": "MemberProgramTier",
+          "@id": "#plus-tier-silver",
+          "name": "silver",
+          "url": "https://www.example.com/membership-plus-silver",
+          "hasTierRequirement": "https://schema.org/TierFreeToJoin",
+          "hasTierBenefit": [
+            "https://schema.org/TierBenefitLoyaltyPoints"
+          ],
+          "membershipPointsEarned": 5
+        },
+        {
+          "@type": "MemberProgramTier",
+          "@id": "#plus-tier-gold",
+          "name": "gold",
+          "url": "https://www.example.com/membership-plus-gold",
+          "hasTierRequirement": "https://schema.org/TierCreditCardRequired",
+          "creditCardRequired": "Example platinum card plus",
+          "hasTierBenefit": [
+            "https://schema.org/TierBenefitLoyaltyPrice",
+            "https://schema.org/TierBenefitLoyaltyPoints"
+          ],
+          "membershipPointsEarned": 10
+        }
+      ]
+    }
+  },
+  {
+    "@type": "Product",
+    "sku": "44E01-X1100000",
+    "gtin14": "98766051104399",
+    "image": "https://www.example.com/coat_large_lightblue.jpg",
+    "name": "Large light blue coat",
+    "description": "Large wool light blue coat for the winter season",
+    "color": "light blue",
+    "size": "large",
+    "offers": [
+      {
+        "@type": "Offer",
+        "url": "https://www.example.com/coat?size=large&color=lightblue",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/Backorder",
+        "shippingDetails": {
+          "@id": "https://www.example.com/shipping#shipping_policy"
+        },
+        "hasMerchantReturnPolicy": {
+          "@id": "https://www.example.com/com/returns#return_policy"
+        },
+        "priceSpecification": [
+          {
+            "@type": "PriceSpecification",
+            "price": 15,
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "PriceSpecification",
+            "priceType": [
+              "https://schema.org/MemberPrice"
+            ],
+            "validForMemberTier": {
+              "@id": "https://www.example.com/com/members#plus_tier_gold"
+            },
+            "price": 9.95,
+            "priceCurrency": "USD"
+          }        
+        ]
+      }
+    ]
+  }
+]
+</script>
