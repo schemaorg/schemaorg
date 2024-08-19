@@ -157,11 +157,13 @@
 
 :validForMemberTier a rdf:Property ;
     rdfs:label "validForMemberTier" ;
-    :domainIncludes :PriceSpecification,
-		 :Offer;
+    :domainIncludes :Offer,
+		 :PriceSpecification,
+		 :OfferShippingDetails,
+		 :MerchantReturnPolicy;
     :rangeIncludes :MemberProgramTier ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The tiers of a member program." .
+    rdfs:comment "The membership program tier an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." .
 
 :membershipPointsEarned a rdf:Property ;
     :domainIncludes :MemberProgramTier, 
