@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Preparing examples"
 ./software/util/buildsite.py -f Examples
 
