@@ -2,26 +2,26 @@
 # -*- coding: UTF-8 -*-
 
 # Import libraries that are needed to check version
-import sys
 import os
+import sys
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print('Python version %s.%s not supported version 3.6 or above required - exiting' % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
 
 for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples']:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 if os.path.basename(os.getcwd()) != 'schemaorg':
     print('\nScript should be run from within the "schemaorg" directory! - Exiting\n')
-    sys.exit(1)
+    sys.exit(os.EX_USAGE)
 
 for dir in ['software/util','docs','software/gcloud','data']:
     if not os.path.isdir(dir):
         print('\nRequired directory "%s" not found - Exiting\n' % dir)
-        sys.exit(1)
+        sys.exit(os.EX_CONFIG)
 
-# Import strandard python libraries
+# Import standard python libraries
 import argparse
 import glob
 import re
@@ -124,9 +124,9 @@ TERMHREFPREFIX='/'
 ###################################################
 #INITIALISE Directory
 ###################################################
-def createMissingDir(dir):
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+def createMissingDir(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
 HANDLER_TEMPLATE = 'handlers-template.yaml'
 HANDLER_FILE = 'handlers.yaml'
@@ -155,8 +155,8 @@ def initdir():
     print('Done: copied %d files' % len(gcloud_files))
     print('\nCreating %s from %s for version: %s' % (HANDLER_FILE, HANDLER_TEMPLATE, getVersion()))
     with open(os.path.join(gdir, HANDLER_TEMPLATE)) as template_file:
+      template_data = template_file.read()
       with open(os.path.join(gdir, HANDLER_FILE), mode='w') as yaml_file:
-        template_data = template_file.read()
         handler_data = template_data.replace('{{ver}}', getVersion())
         yaml_file.write(handler_data)
     print('Done\n')
@@ -290,8 +290,8 @@ CHECKEDPATHS =[]
 def checkFilePath(path):
     if not path in CHECKEDPATHS:
         CHECKEDPATHS.append(path)
-        if not os.path.isabs(path):
-            path = os.path.join(os.getcwd(), path)
+        # os.path.join ignores the first argument if `path` is absolute.
+        path = os.path.join(os.getcwd(), path)
         try:
             os.makedirs(path)
         except OSError as e:
@@ -340,17 +340,17 @@ def processFiles():
 RELEASE_DIR = 'software/site/releases'
 
 def runRubyTests():
-  print('Setting up LATEST')
-  src_dir = os.path.join(os.getcwd(), RELEASE_DIR, getVersion())
-  dst_dir = os.path.join(os.getcwd(), RELEASE_DIR, 'LATEST')
-  os.symlink(src_dir, dst_dir)
-  cmd = ['bundle', 'exec', 'rake']
-  cwd = os.path.join(os.getcwd(), 'software/scripts')
-  print('Running tests')
-  subprocess.check_call(cmd, cwd=cwd)
-  print('Cleaning up %s' % dst_dir)
-  os.unlink(dst_dir)
-  print('Done')
+    print('Setting up LATEST')
+    src_dir = os.path.join(os.getcwd(), RELEASE_DIR, getVersion())
+    dst_dir = os.path.join(os.getcwd(), RELEASE_DIR, 'LATEST')
+    os.symlink(src_dir, dst_dir)
+    cmd = ['bundle', 'exec', 'rake']
+    cwd = os.path.join(os.getcwd(), 'software/scripts')
+    print('Running tests')
+    subprocess.check_call(cmd, cwd=cwd)
+    print('Cleaning up %s' % dst_dir)
+    os.unlink(dst_dir)
+    print('Done')
 
 ###################################################
 #COPY CREATED RELEASE FILES into Data area
