@@ -4,6 +4,20 @@
 <!-- Generated from Home.j2 -->
     {% macro head_insert() -%}
     <meta name="google-site-verification" content="sF2wOoEXHr7h_vTNkOOJXQxDWw2h-B4QwizxbkoIQC0" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://schema.org",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://schema.org/docs/search_results.html?q={query}",
+          "query": "required"
+        },
+        "name": "Schema.org",
+        "description": "Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond."
+    }
+    </script>
     {%- endmacro %}
     {% set head_insert_available = true %}
     {% include 'docs/DocsHead.j2' with context %}
