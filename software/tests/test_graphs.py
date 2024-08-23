@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+
+import os
 import sys
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 
-import os
+
 for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+  sys.path.insert(1, path) #Pickup libs from local directories
 
 import unittest
 import os
-from os import getenv
-from os.path import expanduser
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
 
-warnings = []
 
-andstr = "\n AND\n  "
 TYPECOUNT_UPPERBOUND = 1000
 TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
+
 
 from sdotermsource import SdoTermSource
 VOCABURI = SdoTermSource.vocabUri()
@@ -33,23 +32,27 @@ VOCABURI = SdoTermSource.vocabUri()
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
 class SDOGraphSetupTestCase(unittest.TestCase):
 
-  @classmethod
-  def loadGraphs(self):
-      if not SdoTermSource.SOURCEGRAPH:
-        SdoTermSource.loadSourceGraph("default")
-      self.rdflib_data = SdoTermSource.sourceGraph()
-
+  log = logging.getLogger(__name__)
 
   @classmethod
-  def setUpClass(self):
-    log.info("Graph tests require rdflib.")
+  def loadGraphs(cls):
+    if not SdoTermSource.SOURCEGRAPH:
+      SdoTermSource.loadSourceGraph("default")
+    cls.rdflib_data = SdoTermSource.sourceGraph()
+
+  @classmethod
+  def setUpClass(cls):
+    cls.log.info("Graph tests require rdflib.")
     try:
-      log.info("Trying to import rdflib...")
+      cls.log.info("Trying to import rdflib...")
       import rdflib
       from rdflib import Graph
     except Exception as e:
       raise unittest.SkipTest("Need rdflib installed to do graph tests: %s" % e)
     SDOGraphSetupTestCase.loadGraphs()
+
+  def getLog(self):
+    return self.__class__.log
 
   def test_graphsLoaded(self):
     self.assertTrue(len(self.rdflib_data) > 0,
@@ -60,7 +63,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   def test_found_sixplus_inverseOf(self):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }")
-    log.info("inverseOf result count: %s" % len(inverseOf_results ) )
+    self.log.info("inverseOf result count: %s" % len(inverseOf_results ) )
     self.assertTrue(len(inverseOf_results) >= 6,
                     "Six or more inverseOf expected. Found: %s " % len(inverseOf_results ) )
 
@@ -84,7 +87,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @unittest.expectedFailure # autos
   def test_needlessDomainIncludes(self):
-    global warnings
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
     # rdfs:subClassOf+ should work but seems not to.
@@ -102,15 +104,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ndi1_results = self.rdflib_data.query(ndi1)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
-            warn = "WARNING property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            #warnings.append(warn)
-            log.info(warn + "\n")
+            warn = "property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
+            self.log.warn(warn)
     self.assertEqual(len(ndi1_results), 0,
                      "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
   @unittest.expectedFailure
   def test_needlessRangeIncludes(self):
-    global warnings
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
@@ -129,9 +129,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
         for row in nri1_results:
-            warn = "WARNING property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            #warnings.append(warn)
-            log.info(warn + "\n")
+            warn = "property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
+            self.log.warn(warn)
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
 
 #  def test_supersededByAreLabelled(self):
@@ -153,7 +152,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                  ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
     for row in nri1_results:
-        log.info("Property %s invalid rangeIncludes value: %s\n" % (row["prop"],row["c1"]))
+        self.log.info("Property %s invalid rangeIncludes value: %s\n" % (row["prop"],row["c1"]))
     self.assertEqual(len(nri1_results), 0, "RangeIncludes should define valid type. Found: %s" % len(nri1_results))
 
   def test_validDomainIncludes(self):
@@ -170,7 +169,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                  ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
     for row in nri1_results:
-        log.info("Property %s invalid domainIncludes value: %s\n" % (row["prop"],row["c1"]))
+        self.log.info("Property %s invalid domainIncludes value: %s\n" % (row["prop"],row["c1"]))
     self.assertEqual(len(nri1_results), 0, "DomainIncludes should define valid type. Found: %s" % len(nri1_results))
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
@@ -206,9 +205,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Label matching errors:")
+        self.log.info("Label matching errors:")
         for row in nri1_results:
-            log.info("Term '%s' has none-matching label: '%s'" % (row["term"],row["label"]))
+            self.log.info("Term '%s' has none-matching label: '%s'" % (row["term"],row["label"]))
     self.assertEqual(len(nri1_results), 0, "Term should have matching rdfs:label. Found: %s" % len(nri1_results))
 
   def test_superTypesExist(self):
@@ -227,9 +226,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Invalid SuperType errors!!!\n")
+        self.log.info("Invalid SuperType errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
+            self.log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Types with nonexistent SuperTypes. Found: %s" % len(nri1_results))
 
     def test_propswitoutdomain(self):
@@ -240,9 +239,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
          ''')
         nri1_results = self.rdflib_data.query(nri1)
         if len(nri1_results):
-            log.info("Property without domain errors!!!\n")
+            self.log.info("Property without domain errors!!!\n")
             for row in nri1_results:
-                log.info("Term '%s' has no domainIncludes value(s)" % (row["term"]))
+                self.log.info("Term '%s' has no domainIncludes value(s)" % (row["term"]))
         self.assertEqual(len(nri1_results), 0, "Property without domain extensions  Found: %s" % len(nri1_results))
 
     def test_propswitoutrange(self):
@@ -253,9 +252,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
          ''')
         nri1_results = self.rdflib_data.query(nri1)
         if len(nri1_results):
-            log.info("Property without domain errors!!!\n")
+            self.log.info("Property without domain errors!!!\n")
             for row in nri1_results:
-                log.info("Term '%s' has no rangeIncludes value(s)" % (row["term"]))
+                self.log.info("Term '%s' has no rangeIncludes value(s)" % (row["term"]))
         self.assertEqual(len(nri1_results), 0, "Property without range extensions  Found: %s" % len(nri1_results))
 
   def test_superPropertiesExist(self):
@@ -274,9 +273,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Invalid Super-Property errors!!!\n")
+        self.log.info("Invalid Super-Property errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' has nonexistent super-property: '%s'" % (row["term"],row["super"]))
+            self.log.info("Term '%s' has nonexistent super-property: '%s'" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Properties with nonexistent SuperProperties. Found: %s" % len(nri1_results))
 
   def test_selfReferencingInverse(self):
@@ -294,9 +293,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Self referencing inverseOf errors!!!\n")
+        self.log.info("Self referencing inverseOf errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' is defined as inverseOf self" % (row["term"]))
+            self.log.info("Term '%s' is defined as inverseOf self" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Types with self referencing inverseOf Found: %s" % len(nri1_results))
 
   def test_sameInverseAndSupercededByTarget(self):
@@ -315,9 +314,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("InverseOf supercededBy shared target errors!!!\n")
+        self.log.info("InverseOf supercededBy shared target errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' defined ase inverseOf AND supercededBy %s" % (row["term"], row["inverse"]))
+            self.log.info("Term '%s' defined ase inverseOf AND supercededBy %s" % (row["term"], row["inverse"]))
     self.assertEqual(len(nri1_results), 0, "Types with inverseOf supercededBy shared target Found: %s" % len(nri1_results))
 
   def test_commentEndWithPeriod(self):
@@ -347,9 +346,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Type label [A-Z] errors!!!\n")
+        self.log.info("Type label [A-Z] errors!!!\n")
         for row in nri1_results:
-            log.info("Type '%s' has a label without upper case 1st character" % (row["term"]))
+            self.log.info("Type '%s' has a label without upper case 1st character" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Type label not [A-Z] 1st non-numeric char Found: %s" % len(nri1_results))
 
   def test_propertyLabelCase(self):
@@ -365,9 +364,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Property label [a-z] errors!!!\n")
+        self.log.info("Property label [a-z] errors!!!\n")
         for row in nri1_results:
-            log.info("Property '%s' has a label without lower case 1st non-numeric character" % (row["term"]))
+            self.log.info("Property '%s' has a label without lower case 1st non-numeric character" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Property label not [a-z] 1st char Found: %s" % len(nri1_results))
 
   def test_superTypeInAttic(self):
@@ -385,9 +384,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Super-term in attic errors!!!\n")
+        self.log.info("Super-term in attic errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' is sub-term of %s a term in attic" % (row["term"],row["super"]))
+            self.log.info("Term '%s' is sub-term of %s a term in attic" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Super-term in attic  Found: %s" % len(nri1_results))
 
   def test_referenceTermInAttic(self):
@@ -417,9 +416,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Reference to attic term errors!!!\n")
+        self.log.info("Reference to attic term errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' makes a %s reference to %s a term in attic" % (row["term"],row["rel"],row["ref"]))
+            self.log.info("Term '%s' makes a %s reference to %s a term in attic" % (row["term"],row["rel"],row["ref"]))
     self.assertEqual(len(nri1_results), 0, "Reference to attic term  Found: %s" % len(nri1_results))
 
   def test_termIn2PlusExtensions(self):
@@ -432,9 +431,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
      ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Term in +1 extensions errors!!!\n")
+        self.log.info("Term in +1 extensions errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' isPartOf %s extensions" % (row["term"],row["count"]))
+            self.log.info("Term '%s' isPartOf %s extensions" % (row["term"],row["count"]))
     self.assertEqual(len(nri1_results), 0, "Term in +1 extensions  Found: %s" % len(nri1_results))
 
   def test_termNothttps(self):
@@ -446,9 +445,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
      ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Term defined as http errors!!!\n")
+        self.log.info("Term defined as http errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' is defined as http " % (row["term"]))
+            self.log.info("Term '%s' is defined as http " % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as http  Found: %s" % len(nri1_results))
 
   def test_targetNothttps(self):
@@ -468,7 +467,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
      ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Target defined as https errors!!!\n")
+        self.log.info("Target defined as https errors!!!\n")
         for row in nri1_results:
             log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
@@ -501,9 +500,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Invalid isPartOf value errors!!!\n")
+        self.log.info("Invalid isPartOf value errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' has invalid isPartOf value '%s'" % (row["term"],row["partof"]))
+            self.log.info("Term '%s' has invalid isPartOf value '%s'" % (row["term"],row["partof"]))
     self.assertEqual(len(nri1_results), 0, "Invalid isPartOf value errors  Found: %s" % len(nri1_results))
 
 
@@ -518,18 +517,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Enumeration Type without Enumeration value(s) errors!!!\n")
+        self.log.info("Enumeration Type without Enumeration value(s) errors!!!\n")
         for row in nri1_results:
-            log.info("Enumeration Type '%s' has no matching enum values" % (row["term"]))
+            self.log.info("Enumeration Type '%s' has no matching enum values" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Enumeration Type without Enumeration value(s)    Found: %s" % len(nri1_results))
 
-
-def tearDownModule():
-    global warnings
-    if len(warnings) > 0:
-        log.info("\nWarnings (%s):\n" % len(warnings))
-    for warn in warnings:
-        log.info("%s" % warn)
 
 # TODO: Unwritten tests (from basics; easier here?)
 #
