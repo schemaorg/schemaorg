@@ -13,11 +13,8 @@ for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/Schema
   sys.path.insert(1, path) #Pickup libs from local directories
 
 import unittest
-import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
-import sys
-
 
 TYPECOUNT_UPPERBOUND = 1000
 TYPECOUNT_LOWERBOUND = 500
@@ -104,8 +101,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     ndi1_results = self.rdflib_data.query(ndi1)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
-            warn = "property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            self.log.warn(warn)
+           self.log.warn("property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"]))
     self.assertEqual(len(ndi1_results), 0,
                      "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
