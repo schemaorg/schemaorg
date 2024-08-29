@@ -9,13 +9,28 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "url": "https://schema.org",
+        "name": "Schema.org",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://schema.org/docs/search_results.html?q={query}",
-          "query": "required"
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://schema.org/docs/search_results.html?q={query}"
+          },
+          "query-input": "required name=query"
         },
-        "name": "Schema.org",
-        "description": "Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond."
+        "about": {
+          "@type": "Project",
+          "name": "Schema.org Project",
+          "description": "Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond.",
+          "logo": "https://schema.org/docs/schemaicon.png",
+          "sameAs": "https://github.com/schemaorg/schemaorg/",
+          "foundingDate": "2011-06-2"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Schema.org Community Group",
+          "sameAs": "https://www.w3.org/community/schemaorg/"
+        }
     }
     </script>
     {%- endmacro %}
@@ -75,6 +90,6 @@
 
         <br/>
     </div> <!-- mainContent -->
-	{% include 'PageFooter.j2' with context %}
+  {% include 'PageFooter.j2' with context %}
 </body>
 </html>

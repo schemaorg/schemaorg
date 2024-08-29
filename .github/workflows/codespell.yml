@@ -21,3 +21,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Codespell
         uses: codespell-project/actions-codespell@v2
+        with:
+            source_files: README.md docs/feeds.md docs/validator.md software/CONTRIBUTING.md software/MASTER_BRANCH_RENAME.md software/RELEASING.md software/SOFTWARE_README.md
+            task_name: Markdown
