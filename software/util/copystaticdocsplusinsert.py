@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+
+""" Tool that handles includes in static html files. """
+
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
@@ -16,9 +19,9 @@ if os.path.basename(os.getcwd()) != "schemaorg":
     print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
     sys.exit(os.EX_DATAERR)
 
-for dir in ["software/util","docs","software/site","templates/static-doc-inserts"]:
-    if not os.path.isdir(dir):
-        print("\nRequired directory '%s' not found - Exiting\n" % dir)
+for directory in ("software/util","docs","software/site","templates/static-doc-inserts"):
+    if not os.path.isdir(directory):
+        print("\nRequired directory '%s' not found - Exiting\n" % directory)
         sys.exit(os.EX_NOINPUT)
 
 from shutil import *
@@ -29,13 +32,13 @@ import convertmd2htmldocs
 INSERTS = {}
 for f_path in glob.glob('./templates/static-doc-inserts/*.html'):
     fn = os.path.basename(f_path).lower()
-    fn = os.path.splitext(fn)[0]
-    with open(f_path) as ind:
-        indata = ind.read()
+    fn, _ = os.path.splitext(fn)
+    with open(f_path) as input_file:
+        indata = input_file.read()
     fn = fn[4:] #drop sdi- from file name
-    indata = indata.replace('{{version}}',getVersion())
-    indata = indata.replace('{{versiondate}}',getCurrentVersionDate())
-
+    indata = indata.replace('{{version}}', getVersion())
+    indata = indata.replace('{{versiondate}}', getCurrentVersionDate())
+    indata = indata.replace('{{docsdir}}', "/docs")
     INSERTS[fn] = indata
 
 def mycopytree(src, dst, symlinks=False, ignore=None):

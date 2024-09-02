@@ -1,6 +1,7 @@
 {% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
+{% from 'macros.j2' import term_sdotermbreadcrumlink as sdotermbreadcrumblink with context %}
 <div id="infoblock" class="jumptarget" title="Details">
-	<!-- Label /  termType  / canonical URI -->
+  <!-- Label /  termType  / canonical URI -->
     <div id="infohead">
         <h1>{{ term.label }}</h1>
         <div class="infotype">A Schema.org {{ TERMTYPE }}</div>
@@ -11,21 +12,22 @@
         {% elif term.extLayer %}<em>Defined in the <a href="/docs/{{term.extLayer}}.home.html">{{term.extLayer}}</a> section.</em>
         {% endif %}
     </div>
-	<!-- Breadcrumb display of term inheritance -->
-    <div class="superPaths">
+  <!-- Breadcrumb display of term inheritance -->
+    <div class="superPaths" itemscope itemtype="https://schema.org/BreadcrumbList">
     {% for superPath in term.superPaths %}
-        {% for super in superPath %} 
+        {% for super in superPath %}
             {% if term.termType == "Property" %}
                 {% if not loop.first %}
-                    {% if loop.index == 2 %} > {% elif loop.index == 3 %} :: {% else %} : {% endif %}
+                    {% if loop.index == 2 %} &gt; {% elif loop.index == 3 %} :: {% else %} : {% endif %}
                 {% endif %}
             {% else %}
                 {% if not loop.first %}
-                        {% if not loop.last %} > {% endif %}
+                        {% if not loop.last %} &gt; {% endif %}
                     {% endif %}
-				{% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} > {% endif %}{% endif %}{% endif %}
+        {% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} &gt; {% endif %}{% endif %}{% endif %}
             {% endif %}
-					{{ sdotermlink(super)|safe }}{% endfor %}
+          {{ sdotermbreadcrumblink(super, position=loop.index)|safe }}{% endfor %}
+
         <br/>
     {% endfor %}
     </div>
@@ -46,8 +48,8 @@
             </ul>
     </div>
     </div>
-	
-	<!-- Description of term -->
+
+  <!-- Description of term -->
     <div class="description">{{term.comment|safe}}</div>
         {% if term.termType == "Enumerationvalue" %}
        <br/> A member value for enumeration type: {{sdotermlink(term.enumerationParent)}}
@@ -59,5 +61,5 @@
             {% if loop.last %}</ul><br/>{% endif %}
         {% endif %}
     {% endfor %}
-	
+
 </div> <!-- infoblock -->
