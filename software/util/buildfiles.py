@@ -11,10 +11,14 @@ for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/Schema
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import textutils
+import shex_shacl_shapes_exporter
+
 from buildsite import *
+
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import *
 from localmarkdown import Markdown
+
 VOCABURI = SdoTermSource.vocabUri()
 ###################################################
 #MARKDOWN INITIALISE
@@ -348,10 +352,12 @@ def jsonpcounts(page):
     return content
 
 def exportshex_shacl(page):
-    reldir="./software/site/releases/%s" % getVersion()
-    cmd="./software/scripts/shex_shacl_shapes_exporter.py"
-    props=" -s %s/schemaorg-all-http.nt -f nt -o %s -p schemaorg-" % (reldir,reldir)
-    os.system(cmd+props)
+    reldir = os.path.join('./software/site/releases/', getVersion())
+    shex_shacl_shapes_exporter.generate_files(
+        term_defs_path = os.path.join(reldir, 'schemaorg-all-http.nt'),
+        outputdir = reldir,
+        outputfileprefix = 'schemaorg-')
+
 
 def examples(page):
     return SchemaExamples.allExamplesSerialised()
