@@ -1,9 +1,16 @@
-TYPES: #eg-0489 Certification
+TYPES: #eg-0489 MemberProgram, MemberProgramTier, TierBenefitEnumeration, 
 
 PRE-MARKUP:
 
-Complete example of the definition of a member (loyalty) program and its tiers under an instance
-of an online store (Organization), followed by a list and member price of an Offer.
+A member (loyalty) program provided by an OnlineStore. The program has 3 tiers:
+- The Silver tier is free to join and provides loyalty points to the member.
+- The Gold tier requires sign-up to a creditcard and has the benefit of
+  member-only pricing and more loyalty points than the silver tier
+- The Platinum tier has an annual fee of $39.99 and has the benefit of
+  member-only pricing and more loyalty points than the gold tier.
+
+Use of the MemberProgram is illustrated by an Offer which has a non-member (regular)
+price as well as a special member price for the gold and platinum member tiers.
 
 MICRODATA:
 
@@ -55,10 +62,10 @@ JSON:
           "@id": "#plus-tier-gold",
           "name": "gold",
           "url": "https://www.example.com/membership-plus-gold",
-		  "hasTierRequirement": {
-		  	"@type": "CreditCard",
-			"name":" MyStore Gold Plus"
-		  },
+          "hasTierRequirement": {
+            "@type": "CreditCard",
+            "name":" MyStore Gold Plus"
+          },
           "hasTierBenefit": [
             "https://schema.org/TierBenefitLoyaltyPrice",
             "https://schema.org/TierBenefitLoyaltyPoints"
@@ -70,21 +77,21 @@ JSON:
           "@id": "#plus-tier-platinum",
           "name": "gold",
           "url": "https://www.example.com/membership-plus-platinum",
-		  "hasTierRequirement": {
-		  	"@type": "UnitPriceSpecification",
-	        "price": "25",
-	        "priceCurrency": "USD",
-	        "referenceQuantity": {
-	          "@type": "QuantitativeValue",
-	          "value": "1",
-	          "unitCode": "ANN"
-			}
-		  },
+          "hasTierRequirement": {
+            "@type": "UnitPriceSpecification",
+            "price": "39.99",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": "1",
+              "unitCode": "ANN"
+            }
+          },
           "hasTierBenefit": [
             "https://schema.org/TierBenefitLoyaltyPrice",
             "https://schema.org/TierBenefitLoyaltyPoints"
           ],
-          "membershipPointsEarned": 10
+          "membershipPointsEarned": 15
         }
       ]
     }
@@ -125,7 +132,7 @@ JSON:
             ],
             "price": 9.95,
             "priceCurrency": "USD"
-          }        
+          }
         ]
       }
     ]
