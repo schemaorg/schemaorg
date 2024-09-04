@@ -29,10 +29,14 @@ import shutil
 import subprocess
 import textutils
 import time
+import shutil
 
 import rdflib
 import jinja2
 import fileutils
+import runtests
+import buildtermpages
+import buildocspages
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -102,19 +106,38 @@ def clear():
                 for d in dirs:
                     shutil.rmtree(os.path.join(root, d))
 
+def StartMessage(message):
+    column, lines = shutil.get_terminal_size()
+    print('▼' * column)
+    print(message)
+    return time.time()
+
+def EndMessage(message='Done', timestamp=None):
+    column, lines = shutil.get_terminal_size()
+    if timestamp:
+      elapsed = time.time() - timestamp
+      message = '%s in %s seconds' % (message, elapsed)
+    print(message)
+    print('▲' * column)
+
+
 ###################################################
 #RUN TESTS
 ###################################################
-def runtests():
-    import runtests
-    if args.runtests or args.autobuild:
-        print('Running test scripts before proceeding...\n')
-        errorcount = runtests.main('./software/tests/')
-        if errorcount:
-            print('Errors returned: %d' % errorcount)
-            sys.exit(errorcount)
-        else:
-            print('Tests successful!\n')
+def run_all_unit_tests():
+    """Run all unit-tests"""
+
+    if not args.runtests and not args.autobuild:
+        return
+    start = StartMessage("Running test scripts before proceeding..")
+    errorcount = runtests.main('./software/tests/')
+    EndMessage(timestamp=start)
+    if errorcount:
+        print('%d test failures' % errorcount)
+        sys.exit(errorcount)
+    else:
+        print('All tests successful!\n')
+
 
 DOCSDOCSDIR = '/docs'
 TERMDOCSDIR = '/docs'
@@ -131,7 +154,7 @@ HANDLER_TEMPLATE = 'handlers-template.yaml'
 HANDLER_FILE = 'handlers.yaml'
 
 def initdir():
-    print('Building site in "%s" directory' % OUTPUTDIR)
+    start = StartMessage('Building site in "%s" directory' % OUTPUTDIR)
     fileutils.createMissingDir(OUTPUTDIR)
     clear()
     fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'docs'))
@@ -258,7 +281,6 @@ def checkFilePath(path):
 #BUILD INDIVIDUAL TERM PAGES
 ###################################################
 def processTerms():
-    import buildtermpages
     global TERMS
     if len(TERMS):
         print('Building term definition pages\n')
@@ -271,7 +293,7 @@ def processTerms():
 ###################################################
 def processDocs():
     global PAGES
-    import buildocspages
+
     if len(PAGES):
         print('Building dynamic documentation pages\n')
         loadTerms()
@@ -336,7 +358,7 @@ if __name__ == '__main__':
         subprocess.check_call(cmd)
         print()
     initdir()
-    runtests()
+    run_all_unit_tests()
     processTerms()
     processDocs()
     processFiles()
