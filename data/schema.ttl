@@ -6335,9 +6335,10 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :hostingOrganization a rdf:Property ;
     rdfs:label "hostingOrganization" ;
-    :domainIncludes :ProgramMembership ;
+    :domainIncludes :ProgramMembership,
+        :MemberProgram ;
     :rangeIncludes :Organization ;
-    rdfs:comment "The organization (airline, travelers' club, etc.) the membership is made with." .
+    rdfs:comment "The Organization (airline, travelers' club, retailer, etc.) the membership is made with or which offers the  MemberProgram." .
 
 :hoursAvailable a rdf:Property ;
     rdfs:label "hoursAvailable" ;
@@ -7935,7 +7936,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "programName" ;
     :domainIncludes :ProgramMembership ;
     :rangeIncludes :Text ;
-    rdfs:comment "The program providing the membership." .
+    rdfs:comment "The program providing the membership. It is preferable to use [:program](https://schema.org/program) instead." .
 
 :programmingLanguage a rdf:Property ;
     rdfs:label "programmingLanguage" ;

@@ -8,7 +8,7 @@
 	rdfs:label "MemberProgram" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;	
-    rdfs:comment "A MemberProgram defines a loyalty (or membership) program that provides its members with certain benefits, for example better pricing, free shipping or returns, or the ability to earn membership points. Member programs typically have different tiers, for example silver and gold members, each with different benefits." ;
+    rdfs:comment "A MemberProgram defines a loyalty (or membership) program that provides its members with certain benefits, for example better pricing, free shipping or returns, or the ability to earn loyalty points. Member programs may have multiple tiers, for example silver and gold members, each with different benefits." ;
     rdfs:subClassOf :Intangible .
 	
 :MemberProgramTier a rdfs:Class ;
@@ -18,6 +18,24 @@
     rdfs:comment "A MemberProgramTier specifies a tier under a loyalty (member) program, for example \"gold\"." ;
     rdfs:subClassOf :Intangible .
 
+:isTierOf a rdf:Property ;
+    rdfs:label "isTierOf" ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :MemberProgram ;
+	:inverseOf :hasTiers ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The member program this tier is a part of." .
+
+:hasTiers a rdf:Property ;
+    rdfs:label "hasTiers" ;
+    :domainIncludes :MemberProgram ;
+    :rangeIncludes :MemberProgramTier ;
+	:inverseOf :isTierOf ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The tiers of a member program." .
+
+
+
 :hasMemberProgram a rdf:Property ;
     rdfs:label "hasMemberProgram" ;
     :domainIncludes :Organization ;
@@ -25,96 +43,22 @@
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
     rdfs:comment "MemberProgram offered by an Organization, for example an eCommerce merchant or an airline." .
 
-:forMemberProgram a rdf:Property ;
-    rdfs:label "forMemberProgram" ;
-    :domainIncludes :MemberProgramTier ;
+:program a rdf:Property ;
+    rdfs:label "program" ;
+    :domainIncludes :ProgramMembership ;
     :rangeIncludes :MemberProgram ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The member program this tier belongs to." .
-
-:hasTiers a rdf:Property ;
-    rdfs:label "hasTiers" ;
-    :domainIncludes :MemberProgram ;
-    :rangeIncludes :MemberProgramTier ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The tiers of a member program." .
-
-
-:TierRequirementEnumeration a rdfs:Class ;
-	rdfs:label "TierRequirementEnumeration" ;
-	:isPartOf <https://pending.schema.org> ;
-	:source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-	rdfs:comment "An enumeration of requirements to join a tier in a membership program." ;
-	rdfs:subClassOf :Enumeration .
+    rdfs:comment "The [MemberProgram](https://schema.org/MemberProgram) associated with a [ProgramMembership](https://schema.org/ProgramMembership)." .
 	
-:TierFreeToJoin a :TierRequirementEnumeration ;
-    rdfs:label "TierFreeToJoin" ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Membership tier is free to join." .
-	
-:TierSpendingAmountRequired a :TierRequirementEnumeration ;
-    rdfs:label "TierSpendingAmountRequired" ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Membership tier requires a minimum amount of spending." .
-
-:TierCreditCardRequired a :TierRequirementEnumeration ;
-    rdfs:label "TierCreditCardRequired" ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Membership tier requires sign up for a credit card." .
-
-:TierPeriodicFeeRequired a :TierRequirementEnumeration ;
-    rdfs:label "TierPeriodicFeeRequired" ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Membership tier requires payment of a periodic fee." .
-
 :hasTierRequirement a rdf:Property ;
     rdfs:label "hasTierRequirement" ;
     :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :TierRequirementEnumeration,
+    :rangeIncludes :MonetaryAmount,
+		 :CreditCard,
+		 :UnitPriceSpecification,
 		 :Text;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "A requirement to join a tier of a membership program." .
-
-:hasTierBenefit a rdf:Property ;
-    rdfs:label "hasTierBenefit" ;
-    :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :TierBenefitEnumeration,
-		 :Text;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "A member benefit for a tier of a membership program." .
-
-
-:minimumSpendingAmount a rdf:Property ;
-    rdfs:label "minimumSpendingAmount" ;
-    :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :MonetaryAmount ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The minimum amount of spending required to join a membership tier, corresponding to enumeration value [TierSpendingAmountRequired](https://schema.org/TierSpendingAmountRequired)." .
-	
-:creditCard a rdf:Property ;
-    rdfs:label "creditCard" ;
-    :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :Text ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Description of the credit card required to join a membership tier, corresponding to enumeration value [TierCreditCardRequired](https://schema.org/TierCreditCardRequired)." .
-
-:periodicFee a rdf:Property ;
-    rdfs:label "periodicFee" ;
-    :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :MonetaryAmount ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The periodic fee required to join a membership tier, corresponding to enumeration value [TierPeriodicFeeRequired](https://schema.org/TierPeriodicFeeRequired). Use in combination with [periodLength](https://schema.org/periodLength)." .
-
-:periodLength a rdf:Property ;
-    rdfs:label "periodLength" ;
-    :domainIncludes :MemberProgramTier ;
-    :rangeIncludes :QuantitativeValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "How long a member is part of a membership tier after paying the periodic membership fee, corresponding to enumeration value [TierPeriodicFeeRequired](https://schema.org/TierPeriodicFeeRequired). Use in combination with [periodicFee](https://schema.org/periodicFee)." .
+    rdfs:comment "A requirement for a user to join a membership tier, for example: a CreditCard if the tier requires sign up for a credit card, A UnitPriceSpecification if the user is required to pay a (periodic) fee, or a MonetaryAmount if the user needs to spend a minimum amount to join the tier. If a tier is free to join then this property does not need to be specified." .
 
 
 
@@ -148,12 +92,14 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
     rdfs:comment "Benefit of the tier is earning of loyalty points." .
-
-:MemberPrice a :PriceTypeEnumeration ;
-    rdfs:label "MemberPrice" ;
-    :isPartOf <https://pending.schema.org> ;
+	
+:hasTierBenefit a rdf:Property ;
+    rdfs:label "hasTierBenefit" ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :TierBenefitEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "Indicates the price is for members of a loyalty program only." .
+    rdfs:comment "A member benefit for a particular tier of a loyalty program." .
+
 
 :validForMemberTier a rdf:Property ;
     rdfs:label "validForMemberTier" ;

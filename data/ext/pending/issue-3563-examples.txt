@@ -45,7 +45,6 @@ JSON:
           "@id": "#plus-tier-silver",
           "name": "silver",
           "url": "https://www.example.com/membership-plus-silver",
-          "hasTierRequirement": "https://schema.org/TierFreeToJoin",
           "hasTierBenefit": [
             "https://schema.org/TierBenefitLoyaltyPoints"
           ],
@@ -56,8 +55,31 @@ JSON:
           "@id": "#plus-tier-gold",
           "name": "gold",
           "url": "https://www.example.com/membership-plus-gold",
-          "hasTierRequirement": "https://schema.org/TierCreditCardRequired",
-          "creditCardRequired": "Example platinum card plus",
+		  "hasTierRequirement": {
+		  	"@type": "CreditCard",
+			"name":" MyStore Gold Plus"
+		  },
+          "hasTierBenefit": [
+            "https://schema.org/TierBenefitLoyaltyPrice",
+            "https://schema.org/TierBenefitLoyaltyPoints"
+          ],
+          "membershipPointsEarned": 10
+        },
+        {
+          "@type": "MemberProgramTier",
+          "@id": "#plus-tier-platinum",
+          "name": "gold",
+          "url": "https://www.example.com/membership-plus-platinum",
+		  "hasTierRequirement": {
+		  	"@type": "UnitPriceSpecification",
+	        "price": "25",
+	        "priceCurrency": "USD",
+	        "referenceQuantity": {
+	          "@type": "QuantitativeValue",
+	          "value": "1",
+	          "unitCode": "ANN"
+			}
+		  },
           "hasTierBenefit": [
             "https://schema.org/TierBenefitLoyaltyPrice",
             "https://schema.org/TierBenefitLoyaltyPoints"
@@ -68,6 +90,7 @@ JSON:
     }
   },
   {
+    "@context": "https://schema.org",
     "@type": "Product",
     "sku": "44E01-X1100000",
     "gtin14": "98766051104399",
@@ -96,12 +119,10 @@ JSON:
           },
           {
             "@type": "PriceSpecification",
-            "priceType": [
-              "https://schema.org/MemberPrice"
+            "validForMemberTier": [
+              { "@id": "https://www.example.com/com/members#plus_tier_gold" },
+              { "@id": "https://www.example.com/com/members#plus_tier_platinum" }
             ],
-            "validForMemberTier": {
-              "@id": "https://www.example.com/com/members#plus_tier_gold"
-            },
             "price": 9.95,
             "priceCurrency": "USD"
           }        
