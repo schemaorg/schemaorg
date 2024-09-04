@@ -9,7 +9,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print('Python version %s.%s not supported version 3.6 or above required - exiting' % (sys.version_info.major,sys.version_info.minor))
     sys.exit(os.EX_CONFIG)
 
-for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples']:
+for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples', './software/SchemaExamples/utils']:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 if os.path.basename(os.getcwd()) != 'schemaorg':
@@ -33,6 +33,7 @@ import time
 import rdflib
 import jinja2
 import fileutils
+import assign_example_ids
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -332,8 +333,7 @@ if __name__ == '__main__':
         print('Checking Examples for assigned identifiers')
         time.sleep(2)
         print()
-        cmd = ['./software/SchemaExamples/utils/assign-example-ids.py']
-        subprocess.check_call(cmd)
+        assign_example_ids.reassign_ids()
         print()
     initdir()
     runtests()
