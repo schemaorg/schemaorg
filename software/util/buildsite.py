@@ -32,6 +32,7 @@ import time
 
 import rdflib
 import jinja2
+import fileutils
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -39,6 +40,7 @@ from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
 from schemaversion import *
+
 
 SITENAME = 'Schema.org'
 TEMPLATESDIR = 'templates'
@@ -124,24 +126,21 @@ TERMHREFPREFIX='/'
 ###################################################
 #INITIALISE Directory
 ###################################################
-def createMissingDir(dir_path):
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
 
 HANDLER_TEMPLATE = 'handlers-template.yaml'
 HANDLER_FILE = 'handlers.yaml'
 
 def initdir():
     print('Building site in "%s" directory' % OUTPUTDIR)
-    createMissingDir(OUTPUTDIR)
+    fileutils.createMissingDir(OUTPUTDIR)
     clear()
-    createMissingDir(os.path.join(OUTPUTDIR, 'docs'))
-    createMissingDir(os.path.join(OUTPUTDIR, 'docs/contributors'))
-    createMissingDir(os.path.join(OUTPUTDIR, 'empty')) #For apppengine 404 handler
-    createMissingDir(os.path.join(OUTPUTDIR, 'releases', getVersion()))
+    fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'docs'))
+    fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'docs/contributors'))
+    fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'empty')) #For apppengine 404 handler
+    fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'releases', getVersion()))
 
     gdir = os.path.join(OUTPUTDIR, 'gcloud')
-    createMissingDir(gdir)
+    fileutils.createMissingDir(gdir)
 
     print('\nCopying docs static files')
     cmd = ['./software/util/copystaticdocsplusinsert.py']
@@ -160,49 +159,6 @@ def initdir():
         handler_data = template_data.replace('{{ver}}', getVersion())
         yaml_file.write(handler_data)
     print('Done\n')
-
-
-def mycopytree(src, dst, symlinks=False, ignore=None):
-    """Copy a file-system tree, copes with already existing directories."""
-    names = os.listdir(src)
-    if ignore is not None:
-        ignored_names = ignore(src, names)
-    else:
-        ignored_names = set()
-
-    if not os.path.isdir(dst):
-        os.makedirs(dst)
-    errors = []
-    for name in names:
-        if name in ignored_names:
-            continue
-        srcname = os.path.join(src, name)
-        dstname = os.path.join(dst, name)
-        try:
-            if symlinks and os.path.islink(srcname):
-                linkto = os.readlink(srcname)
-                os.symlink(linkto, dstname)
-            elif os.path.isdir(srcname):
-                mycopytree(srcname, dstname, symlinks, ignore)
-            else:
-                # Will raise a SpecialFileError for unsupported file types
-                shutil.copy2(srcname, dstname)
-        # catch the Error from the recursive copytree so that we can
-        # continue with other files
-        except Error as err:
-            errors.extend(err.args[0])
-        except EnvironmentError as why:
-            errors.append((srcname, dstname, str(why)))
-    try:
-        shutil.copystat(src, dst)
-    except OSError as why:
-        if WindowsError is not None and isinstance(why, WindowsError):
-            # Copying file access times may fail on Windows
-            pass
-        else:
-            errors.extend((src, dst, str(why)))
-    if errors:
-        raise Error (errors)
 
 
 ###################################################
@@ -361,7 +317,7 @@ def copyReleaseFiles():
     print('Copying release files for version %s to data/releases' % getVersion() )
     SRCDIR = os.path.join(os.getcwd(), RELEASE_DIR, getVersion())
     DESTDIR = os.path.join(os.getcwd(), 'data/releases/', getVersion())
-    mycopytree(SRCDIR, DESTDIR)
+    fileutils.mycopytree(SRCDIR, DESTDIR)
     cmd = ['git', 'add', DESTDIR]
     subprocess.check_call(cmd)
 
