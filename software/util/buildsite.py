@@ -341,7 +341,7 @@ if __name__ == '__main__':
     processDocs()
     processFiles()
     if args.rubytests:
-      runRubyTests()
+        runRubyTests()
     if args.release:
         copyReleaseFiles()
 
