@@ -37,6 +37,7 @@ import fileutils
 import runtests
 import buildtermpages
 import buildocspages
+import copystaticdocsplusinsert
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
