@@ -1,34 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 import sys
+import os
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
 
-import os
-for path in [os.getcwd(),"software/Util","software/scripts","software/SchemaTerms","software/SchemaExamples"]:
+
+for path in [os.getcwd(),"software/util","software/scripts","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsite import *
+import schemaversion
+import buildsite
+
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
 from sdoterm import *
 from buildtermlist import buildlist
 
-def fileName(fn):
-    name = OUTPUTDIR + "/" +fn
+def absoluteFilePath(fn):
+    name = os.path.join(buildsite.OUTPUTDIR, fn)
     checkFilePath(os.path.dirname(name))
     return name
 
 
 def docsTemplateRender(template,extra_vars=None):
     tvars = {
-        'BUILDOPTS': BUILDOPTS,
-        'docsdir': DOCSDOCSDIR
+        'BUILDOPTS': buildsite.BUILDOPTS,
+        'docsdir': buildsite.DOCSDOCSDIR
     }
     if extra_vars:
         tvars.update(extra_vars)
-    return templateRender(template,tvars)
+    return buildsite.templateRender(template,tvars)
 
 def schemasPage(page):
     extra_vars = {
@@ -40,7 +44,7 @@ def schemasPage(page):
 
 def homePage(page):
     global STRCLASSVAL
-    title = SITENAME
+    title = buildsite.SITENAME
     template = "docs/Home.j2"
     filt = None
     overrideclassval = None
@@ -270,11 +274,9 @@ def createCollab(coll):
     }
 
     content = docsTemplateRender("docs/Collab.j2",extra_vars)
-    filename = "docs/collab/" + coll.ref + ".html"
-    fn = fileName(filename)
-    f = open(fn,"w", encoding='utf8')
-    f.write(content)
-    f.close()
+    filename = absoluteFilePath(os.path.join("docs/collab/", + coll.ref + ".html"))
+    with open(filename, 'w', encoding='utf8') as handle:
+      handle.write(content)
     print("Created %s" % fn)
 
 def termfind(file):
@@ -293,7 +295,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "Schemas": (schemasPage,["docs/schemas.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
-             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
+             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % schemaversion.getVersion()]),
              #"Collabs": (collabs,["docs/collaborators.html"]),
              "TermFind": (termfind,["docs/termfind/termlist.txt"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
@@ -310,14 +312,13 @@ def buildDocs(pages):
     for p in pages:
         print("%s:"%p)
         if p in PAGELIST.keys():
-            func, filenames = PAGELIST.get(p,None)
+            filenames, rel_path = PAGELIST.get(p,None)
             if func:
                 content = func(p)
-                for filename in filenames:
-                    fn = fileName(filename)
-                    f = open(fn,"w", encoding='utf8')
-                    f.write(content)
-                    f.close()
-                    print("Created %s" % fn)
+                for rel_path in filenames:
+                    filename = absoluteFilePath(rel_path)
+                    with open(filename, 'w', encoding='utf8') as handle:
+                      handle.write(content)
+                    print("Created %s" % filename)
         else:
             print("Unknown page name: %s" % p)

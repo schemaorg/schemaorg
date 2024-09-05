@@ -10,10 +10,12 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
+for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsite import *
+
+import jinga_render
+
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
@@ -42,7 +44,7 @@ def termFileName(termid):
 
 
 # This template will be used ~2800 times, so we reuse it.
-TEMPLATE = jenv.get_template("terms/TermPage.j2")
+TEMPLATE = jinga_render.GetJinga().get_template("terms/TermPage.j2")
 
 def termtemplateRender(term, examples, json):
   """Render the term with examples and associated JSON.
@@ -53,7 +55,7 @@ def termtemplateRender(term, examples, json):
   Returns:
     string with the generate web-page.
   """
-  
+
   for ex in examples:
     exselect = ["","","",""]
     if ex.hasHtml():
@@ -76,7 +78,7 @@ def termtemplateRender(term, examples, json):
       'jsonldPayload': json,
       'examples': examples
   }
-  return templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
+  return buildsite.templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
 
 
 def RenderAndWriteSingleTerm(term_key):

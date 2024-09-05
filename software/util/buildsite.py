@@ -29,15 +29,15 @@ import shutil
 import subprocess
 import textutils
 import time
-import shutil
 
+# Import schema.org libraries
 import rdflib
-import jinja2
 import fileutils
 import runtests
 import buildtermpages
 import buildocspages
 import copystaticdocsplusinsert
+import jinga_render
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -48,7 +48,7 @@ from schemaversion import *
 
 
 SITENAME = 'Schema.org'
-TEMPLATESDIR = 'templates'
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-a','--autobuild', default=False, action='store_true', help='clear output directory and build all components - overrides all other settings (except -examplesnum)')
@@ -107,45 +107,23 @@ def clear():
                 for d in dirs:
                     shutil.rmtree(os.path.join(root, d))
 
-def StartMessage(message):
-    column, lines = shutil.get_terminal_size()
-    print('▼' * column)
-    print(message)
-    return time.time()
-
-def EndMessage(message='Done', timestamp=None):
-    column, lines = shutil.get_terminal_size()
-    if timestamp:
-      elapsed = time.time() - timestamp
-      message = '%s in %s seconds' % (message, elapsed)
-    print(message)
-    print('▲' * column)
-
-
 ###################################################
 #RUN TESTS
 ###################################################
-def run_all_unit_tests():
-    """Run all unit-tests"""
-
-    if not args.runtests and not args.autobuild:
-        return
-    start = StartMessage("Running test scripts before proceeding..")
-    errorcount = runtests.main('./software/tests/')
-    EndMessage(timestamp=start)
-    if errorcount:
-        print('%d test failures' % errorcount)
-        sys.exit(errorcount)
-    else:
-        print('All tests successful!\n')
-
+def runtests():
+    import runtests
+    if args.runtests or args.autobuild:
+        print('Running test scripts before proceeding...\n')
+        errorcount = runtests.main('./software/tests/')
+        if errorcount:
+            print('Errors returned: %d' % errorcount)
+            sys.exit(errorcount)
+        else:
+            print('Tests successful!\n')
 
 DOCSDOCSDIR = '/docs'
 TERMDOCSDIR = '/docs'
-DOCSHREFSUFFIX=''
-DOCSHREFPREFIX='/'
-TERMHREFSUFFIX=''
-TERMHREFPREFIX='/'
+
 
 ###################################################
 #INITIALISE Directory
@@ -155,7 +133,7 @@ HANDLER_TEMPLATE = 'handlers-template.yaml'
 HANDLER_FILE = 'handlers.yaml'
 
 def initdir():
-    start = StartMessage('Building site in "%s" directory' % OUTPUTDIR)
+    print('Building site in "%s" directory' % OUTPUTDIR)
     fileutils.createMissingDir(OUTPUTDIR)
     clear()
     fileutils.createMissingDir(os.path.join(OUTPUTDIR, 'docs'))
@@ -167,8 +145,7 @@ def initdir():
     fileutils.createMissingDir(gdir)
 
     print('\nCopying docs static files')
-    cmd = ['./software/util/copystaticdocsplusinsert.py']
-    subprocess.check_call(cmd)
+    copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs', indent='▶ ')
     print('Done')
 
     print('\nPreparing GCloud files')
@@ -218,52 +195,7 @@ def loadExamples():
         SchemaExamples.loadExamplesFiles('default')
         print('Loaded %d examples ' % (SchemaExamples.count()))
 
-###################################################
-#JINJA INITIALISATION
-###################################################
-jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR), autoescape=True, cache_size=0)
 
-def jinjaDebug(text):
-    print('Jinja: %s' % text)
-    return ''
-
-jenv.filters['debug']=jinjaDebug
-
-local_vars = {}
-def set_local_var(local_vars, name, value):
-  local_vars[name] = value
-  return ''
-jenv.globals['set_local_var'] = set_local_var
-
-
-### Template rendering
-
-def templateRender(template_path, extra_vars=None, template_instance=None):
-  """Render a page template.
-
-  Returns: the generated page.
-  """
-  #Basic variables configuring UI
-  tvars = {
-      'local_vars': local_vars,
-      'version': getVersion(),
-      'versiondate': getCurrentVersionDate(),
-      'sitename': SITENAME,
-      'TERMHREFPREFIX': TERMHREFPREFIX,
-      'TERMHREFSUFFIX': TERMHREFSUFFIX,
-      'DOCSHREFPREFIX': DOCSHREFPREFIX,
-      'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
-      'home_page': 'False'
-  }
-  if extra_vars:
-      tvars.update(extra_vars)
-
-  template = template_instance or jenv.get_template(template_path)
-  return template.render(tvars)
-
-###################################################
-#JINJA INITIALISATION - End
-###################################################
 
 #Check / create file paths
 CHECKEDPATHS =[]
@@ -282,6 +214,7 @@ def checkFilePath(path):
 #BUILD INDIVIDUAL TERM PAGES
 ###################################################
 def processTerms():
+    import buildtermpages
     global TERMS
     if len(TERMS):
         print('Building term definition pages\n')
@@ -294,7 +227,7 @@ def processTerms():
 ###################################################
 def processDocs():
     global PAGES
-
+    import buildocspages
     if len(PAGES):
         print('Building dynamic documentation pages\n')
         loadTerms()
@@ -359,7 +292,7 @@ if __name__ == '__main__':
         subprocess.check_call(cmd)
         print()
     initdir()
-    run_all_unit_tests()
+    runtests()
     processTerms()
     processDocs()
     processFiles()
