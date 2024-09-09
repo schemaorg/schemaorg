@@ -3,6 +3,7 @@
 
 import multiprocessing
 import os
+import re
 import sys
 import time
 
@@ -10,11 +11,14 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 
-for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
+for path in [os.getcwd(), "software/util", "software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 
 import jinga_render
+import schema_globals
+import fileutils
+
 
 from sdotermsource import SdoTermSource
 from sdoterm import *
@@ -29,7 +33,7 @@ def termFileName(termid):
   Returns:
     File path the term page should be generated at.
   """
-  path_components = [OUTPUTDIR, "terms"]
+  path_components = [schema_globals.OUTPUTDIR, "terms"]
   if re.match('^[a-z].*',termid):
     path_components.append('properties')
   elif re.match('^[0-9A-Z].*',termid):
@@ -38,7 +42,7 @@ def termFileName(termid):
     raise ValueError("Invalid terminid: '" + termid +"'")
   path_components.append(termid[0])
   directory = os.path.join(*path_components)
-  checkFilePath(directory)
+  fileutils.checkFilePath(directory)
   filename = termid + '.html'
   return os.path.join(directory, filename)
 
@@ -72,13 +76,13 @@ def termtemplateRender(term, examples, json):
       'title': term.label,
       'menu_sel': "Schemas",
       'home_page': "False",
-      'BUILDOPTS': BUILDOPTS,
-      'docsdir': TERMDOCSDIR,
+      'BUILDOPTS': schema_globals.BUILDOPTS,
+      'docsdir': schema_globals.TERMDOCSDIR,
       'term': term,
       'jsonldPayload': json,
       'examples': examples
   }
-  return buildsite.templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
+  return jinga_render.templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
 
 
 def RenderAndWriteSingleTerm(term_key):

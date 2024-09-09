@@ -12,27 +12,30 @@ for path in [os.getcwd(),"software/util","software/scripts","software/SchemaTerm
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import schemaversion
-import buildsite
+import jinga_render
+import schema_globals
+import fileutils
+import textutils
+
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
 from sdoterm import *
-from buildtermlist import buildlist
 
 def absoluteFilePath(fn):
-    name = os.path.join(buildsite.OUTPUTDIR, fn)
-    checkFilePath(os.path.dirname(name))
+    name = os.path.join(schema_globals.OUTPUTDIR, fn)
+    fileutils.checkFilePath(os.path.dirname(name))
     return name
 
 
 def docsTemplateRender(template,extra_vars=None):
     tvars = {
-        'BUILDOPTS': buildsite.BUILDOPTS,
-        'docsdir': buildsite.DOCSDOCSDIR
+        'BUILDOPTS': schema_globals.BUILDOPTS,
+        'docsdir': schema_globals.DOCSDOCSDIR
     }
     if extra_vars:
         tvars.update(extra_vars)
-    return buildsite.templateRender(template,tvars)
+    return jinga_render.templateRender(template,tvars)
 
 def schemasPage(page):
     extra_vars = {
@@ -44,7 +47,7 @@ def schemasPage(page):
 
 def homePage(page):
     global STRCLASSVAL
-    title = buildsite.SITENAME
+    title = schema_globals.SITENAME
     template = "docs/Home.j2"
     filt = None
     overrideclassval = None
@@ -233,8 +236,8 @@ def fullReleasePage(page):
     extra_vars = {
         'home_page': "False",
         'title': "Full Release Summary",
-        'version': getVersion(),
-        'date': getCurrentVersionDate(),
+        'version': schemaversion.getVersion(),
+        'date': schemaversion.getCurrentVersionDate(),
         'listings': listings,
         'types': types,
         'properties': SdoTermSource.getAllProperties(expanded=True)
@@ -280,7 +283,10 @@ def createCollab(coll):
     print("Created %s" % fn)
 
 def termfind(file):
-    if not hasOpt("notermfinder"):
+
+    # Local import because of circular dependencies
+    from buildtermlist import buildlist
+    if not schema_globals.hasOpt("notermfinder"):
         print("Building term list")
         return buildlist(True)
     return ""
@@ -312,7 +318,7 @@ def buildDocs(pages):
     for p in pages:
         print("%s:"%p)
         if p in PAGELIST.keys():
-            filenames, rel_path = PAGELIST.get(p,None)
+            func, filenames = PAGELIST.get(p,None)
             if func:
                 content = func(p)
                 for rel_path in filenames:
