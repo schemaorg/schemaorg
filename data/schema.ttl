@@ -468,7 +468,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "BusinessEntityType" ;
     :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#Business\\n* http://purl.org/goodrelations/v1#Enduser\\n* http://purl.org/goodrelations/v1#PublicInstitution\\n* http://purl.org/goodrelations/v1#Reseller
-	  """ ;
+    """ ;
     rdfs:subClassOf :Enumeration .
 
 :BusinessEvent a rdfs:Class ;
@@ -773,7 +773,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :CreativeWorkSeries a rdfs:Class ;
     rdfs:label "CreativeWorkSeries" ;
     rdfs:comment """A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind. CreativeWorkSeries are usually organized into some order, often chronological. Unlike [[ItemList]] which is a general purpose data structure for lists of things, the emphasis with CreativeWorkSeries is on published materials (written e.g. books and periodicals, or media such as TV, radio and games).\\n\\nSpecific subtypes are available for describing [[TVSeries]], [[RadioSeries]], [[MovieSeries]], [[BookSeries]], [[Periodical]] and [[VideoGameSeries]]. In each case, the [[hasPart]] / [[isPartOf]] properties can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely just to organize these more specific and practical subtypes.\\n\\nIt is common for properties applicable to an item from the series to be usefully applied to the containing group. Schema.org attempts to anticipate some of these cases, but publishers should be free to apply properties of the series parts to the series as a whole wherever they seem appropriate.
-	  """ ;
+    """ ;
     rdfs:subClassOf :CreativeWork,
         :Series .
 
@@ -5298,7 +5298,7 @@ In the case of products, the country of origin of the product. The exact interpr
 :datePublished a rdf:Property ;
     rdfs:label "datePublished" ;
     :domainIncludes :CreativeWork,
-		:Certification;
+    :Certification;
     :rangeIncludes :Date,
         :DateTime;
     rdfs:comment "Date of first publication or broadcast. For example the date a [[CreativeWork]] was broadcast or a [[Certification]] was issued." .
@@ -5876,7 +5876,7 @@ This property should not be used where the nature of the alignment can be descri
 :expires a rdf:Property ;
     rdfs:label "expires" ;
     :domainIncludes :CreativeWork,
-		 :Certification;
+     :Certification;
     :rangeIncludes :Date,
          :DateTime;
     rdfs:comment "Date the content expires and is no longer useful or available. For example a [[VideoObject]] or [[NewsArticle]] whose availability or relevance is time-limited, a [[ClaimReview]] fact check whose publisher wants to indicate that it may no longer be relevant (or helpful to highlight) after some date, or a [[Certification]] the validity has expired." .
@@ -6327,9 +6327,10 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :hostingOrganization a rdf:Property ;
     rdfs:label "hostingOrganization" ;
-    :domainIncludes :ProgramMembership ;
+    :domainIncludes :ProgramMembership,
+        :MemberProgram ;
     :rangeIncludes :Organization ;
-    rdfs:comment "The organization (airline, travelers' club, etc.) the membership is made with." .
+    rdfs:comment "The Organization (airline, travelers' club, retailer, etc.) the membership is made with or which offers the  MemberProgram." .
 
 :hoursAvailable a rdf:Property ;
     rdfs:label "hoursAvailable" ;
@@ -6421,7 +6422,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "ineligibleRegion" ;
     :domainIncludes :DeliveryChargeSpecification,
         :Demand,
-	:MediaObject,
+  :MediaObject,
         :Offer ;
     :rangeIncludes :GeoShape,
         :Place,
@@ -6605,7 +6606,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "issuedBy" ;
     :domainIncludes :Permit,
         :Ticket,
-		:Certification ;
+    :Certification ;
     :rangeIncludes :Organization ;
     rdfs:comment "The organization issuing the item, for example a [[Permit]], [[Ticket]], or [[Certification]]." .
 
@@ -7927,7 +7928,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "programName" ;
     :domainIncludes :ProgramMembership ;
     :rangeIncludes :Text ;
-    rdfs:comment "The program providing the membership." .
+    rdfs:comment "The program providing the membership. It is preferable to use [:program](https://schema.org/program) instead." .
 
 :programmingLanguage a rdf:Property ;
     rdfs:label "programmingLanguage" ;
@@ -9226,7 +9227,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :OpeningHoursSpecification,
         :Permit,
         :PriceSpecification,
-		:Certification ;
+    :Certification ;
     :rangeIncludes :Date,
         :DateTime ;
     rdfs:comment "The date when the item becomes valid." .
@@ -9234,7 +9235,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :validIn a rdf:Property ;
     rdfs:label "validIn" ;
     :domainIncludes :Permit,
-		 :Certification;
+     :Certification;
     :rangeIncludes :AdministrativeArea ;
     rdfs:comment "The geographic area where the item is valid. Applies for example to a [[Permit]], a [[Certification]], or an [[EducationalOccupationalCredential]]. " .
 
@@ -9750,10 +9751,10 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :MusicRecording,
         :MusicRelease,
         :QuantitativeValueDistribution,
-	:Episode ;
+  :Episode ;
     :rangeIncludes :Duration ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
-    rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)." .
+    rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601)." .
 
 :employee a rdf:Property ;
     rdfs:label "employee" ;
@@ -10251,7 +10252,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event,
-		:Certification ;
+    :Certification ;
     :inverseOf :subjectOf ;
     :rangeIncludes :Thing ;
     :source <https://github.com/schemaorg/schemaorg/issues/1670> ;
