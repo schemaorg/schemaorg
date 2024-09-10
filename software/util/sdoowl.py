@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 import sys
+import os
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
 
-import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-  
 import glob
 import re
+
+for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
+
 
 import rdflib
 from rdflib import Graph
@@ -25,10 +27,11 @@ from xml.etree import ElementTree as ET
 from xml.dom import minidom
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 
-from buildsite import *
-from sdotermsource import SdoTermSource 
+from sdotermsource import SdoTermSource
 from sdoterm import *
 from localmarkdown import Markdown
+
+import schemaversion
 
 VOCABURI = SdoTermSource.vocabUri()
 
@@ -77,18 +80,20 @@ class OwlBuild():
         self.dom = Element('rdf:RDF')
         for (k,v) in NAMESPACES.items():
             self.dom.set(k,v)
-        
-        self.dom.append(Comment("\n\tGenerated from Schema.org version: %s released: %s\n\t" % (getVersion(),getVersionDate(getVersion()))))
+
+        version = schemaversion.getVersion()
+        version_date = schemaversion.getCurrentVersionDate()
+        self.dom.append(Comment("\n\tGenerated from Schema.org version: %s released: %s\n\t" % (version, version_date)))
         self.ont = SubElement(self.dom,"owl:Ontology")
         self.ont.set("rdf:about",VOCABURI)
         info = SubElement(self.ont,"owl:versionInfo")
         info.set("rdf:datatype","http://www.w3.org/2001/XMLSchema#string")
-        info.text = getVersion()
+        info.text = version
         x = SubElement(self.ont,"rdfs:label")
         x.text = "Schema.org Vocabulary"
         x = SubElement(self.ont,"dcterms:modified")
         x.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#date")
-        x.text = getVersionDate(getVersion())
+        x.text = version_date
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Definitions\n\t/////////////////////\n\n\t"))
 
     def loadGraph(self):
@@ -99,14 +104,14 @@ class OwlBuild():
         props = {}
         exts = []
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Class Definitions\n\t/////////////////////\n\t"))
-        
+
         for (s,p,o) in graph.triples((None,RDF.type,RDFS.Class)):
             if s.startswith("https://schema.org"):
                 types.update({s:graph.identifier})
 
         for t in sorted(types.keys()):
             self.outputType(t,graph)
-            
+
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Property Definitions\n\t/////////////////////\n\t"))
         for (s,p,o) in graph.triples((None,RDF.type,RDF.Property)):
             if s.startswith("https://schema.org"):
@@ -114,15 +119,15 @@ class OwlBuild():
 
         for p in sorted(props.keys()):
             self.outputProp(p,graph)
-            
+
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Named Individuals Definitions\n\t/////////////////////\n\t"))
         self.outputEnums(graph)
-        self.outputNamedIndividuals(VOCABURI + "True",graph)    
-        self.outputNamedIndividuals(VOCABURI + "False",graph)    
+        self.outputNamedIndividuals(VOCABURI + "True",graph)
+        self.outputNamedIndividuals(VOCABURI + "False",graph)
 
     def outputType(self, uri, graph):
         self.typesCount += 1
-        
+
         typ = SubElement(self.dom,"owl:Class")
         typ.set("rdf:about",uri)
         ext = None
@@ -143,16 +148,16 @@ class OwlBuild():
             elif p == RDF.type and o == URIRef(VOCABURI + "DataType"): #A datatype
                 s = SubElement(typ,"rdfs:subClassOf")
                 s.set("rdf:resource",VOCABURI + "DataType")
-        
+
         typ.append(self.addDefined(uri,ext))
-                
+
     def outputProp(self,uri, graph):
         self.propsCount += 1
         children = []
         domains = {}
         ranges = []
         datatypeonly = True
-        ext = None        
+        ext = None
         for (p,o) in graph.predicate_objects(uri):
             if p == RDFS.label:
                 l = Element("rdfs:label")
@@ -169,7 +174,7 @@ class OwlBuild():
                 subval = str(o)
                 if subval == "rdf:type":  #Fixes a special case with schema:additionalType
                     subval = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                    
+
                 sub.set("rdf:resource",subval)
                 children.append(sub)
             elif p == INVERSEOF:
@@ -188,15 +193,15 @@ class OwlBuild():
                     datatypeonly = False
             elif p == URIRef(VOCABURI + "isPartOf"):
                 ext = str(o)
-                
+
         children.append(self.addDefined(uri,ext))
-                
-                
+
+
         if not datatypeonly:
             for r in DEFAULTRANGES:
                 if r not in ranges:
                     ranges.append(r)
-                
+
         if len(domains):
             d = Element("rdfs:domain")
             children.append(d)
@@ -216,16 +221,16 @@ class OwlBuild():
             for target in ranges:
                 targ = SubElement(u,"owl:Class")
                 targ.set("rdf:about",target)
-                
-                
+
+
         if datatypeonly:
-            prop = SubElement(self.dom,"owl:DatatypeProperty")            
+            prop = SubElement(self.dom,"owl:DatatypeProperty")
         else:
             prop = SubElement(self.dom,"owl:ObjectProperty")
         prop.set("rdf:about",uri)
         for sub in children:
             prop.append(sub)
-            
+
     def addDefined(self,uri,ext=None):
         if not ext:
             ext = "https://schema.org"
@@ -234,13 +239,13 @@ class OwlBuild():
         path = "%s/%s" % (ext,os.path.basename(uri))
         defn.set("rdf:resource",path)
         return defn
-        
-                
+
+
 
     def outputEnums(self,graph):
         q = """ prefix schema: <https://schema.org/>
         select Distinct ?enum ?parent where{
-    		?parent rdfs:subClassOf schema:Enumeration.
+        ?parent rdfs:subClassOf schema:Enumeration.
             ?enum rdfs:subClassOf ?parent.
         }
         """
@@ -248,10 +253,10 @@ class OwlBuild():
         #log.info("Enum Count %s" % len(enums))
         for row in enums:
             self.outputNamedIndividuals(row.enum,graph,parent=row.parent)
-        
+
     def outputNamedIndividuals(self,individual,graph,parent=None):
         self.namedCount += 1
-        
+
         typ = SubElement(self.dom,"owl:NamedIndividual")
         typ.set("rdf:about",individual)
         ext = None
@@ -272,4 +277,4 @@ class OwlBuild():
         if parent:
             s = SubElement(typ,"rdfs:subClassOf")
             s.set("rdf:resource",parent)
- 
+

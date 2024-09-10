@@ -13,7 +13,7 @@ for path in [os.getcwd(),"software/util","software/scripts","software/SchemaTerm
 
 import schemaversion
 import jinga_render
-import schema_globals
+import schemaglobals
 import fileutils
 import textutils
 
@@ -23,15 +23,15 @@ from sdocollaborators import collaborator
 from sdoterm import *
 
 def absoluteFilePath(fn):
-    name = os.path.join(schema_globals.OUTPUTDIR, fn)
+    name = os.path.join(schemaglobals.OUTPUTDIR, fn)
     fileutils.checkFilePath(os.path.dirname(name))
     return name
 
 
 def docsTemplateRender(template,extra_vars=None):
     tvars = {
-        'BUILDOPTS': schema_globals.BUILDOPTS,
-        'docsdir': schema_globals.DOCSDOCSDIR
+        'BUILDOPTS': schemaglobals.BUILDOPTS,
+        'docsdir': schemaglobals.DOCSDOCSDIR
     }
     if extra_vars:
         tvars.update(extra_vars)
@@ -47,7 +47,7 @@ def schemasPage(page):
 
 def homePage(page):
     global STRCLASSVAL
-    title = schema_globals.SITENAME
+    title = schemaglobals.SITENAME
     template = "docs/Home.j2"
     filt = None
     overrideclassval = None
@@ -286,7 +286,7 @@ def termfind(file):
 
     # Local import because of circular dependencies
     from buildtermlist import buildlist
-    if not schema_globals.hasOpt("notermfinder"):
+    if not schemaglobals.hasOpt("notermfinder"):
         print("Building term list")
         return buildlist(True)
     return ""

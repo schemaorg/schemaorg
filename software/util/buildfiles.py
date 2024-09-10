@@ -1,20 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 import sys
+import os
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
 
-import os
 import io
+import csv
+
 for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
+import fileutils
+import schemaglobals
 import schemaversion
 import textutils
-import schema_globals
+import schemaexamples
+import rdflib
 
-from buildsite import *
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import *
 from localmarkdown import Markdown
@@ -29,9 +34,10 @@ Markdown.setWikilinkPrePath("https://schema.org/")
 Markdown.setWikilinkPostPath("")
 
 def absoluteFilePath(fn):
-    name = os.path.join(schema_globals.OUTPUTDIR, fn)
+    name = os.path.join(schemaglobals.OUTPUTDIR, fn)
     fileutils.checkFilePath(os.path.dirname(name))
     return name
+
 
 CACHECONTEXT = None
 def jsonldcontext(page):
@@ -120,12 +126,12 @@ def sitemap(page):
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 """)
     terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
-    ver = schemaversion.getVersionDate(getVersion())
+    version_date = schemaversion.getCurrentVersionDate()
     for term in terms:
         if not (term.startswith("http://") or term.startswith("https://")):
-            output.append(node % (term,ver))
+            output.append(node % (term, version_date))
     for term in STATICPAGES:
-        output.append(node % (term,ver))
+        output.append(node % (term, version_date))
     output.append("</urlset>\n")
     return "".join(output)
 
@@ -144,7 +150,7 @@ def protocols():
         altprotocol="http"
     return protocol,altprotocol
 
-import rdflib
+
 from rdflib.serializer import Serializer
 allGraph = None
 currentGraph = None
@@ -210,6 +216,8 @@ def _exportrdf(format,all,current):
     else:
         completed.append(format)
 
+    version = schemaversion.getVersion()
+
     for ver in ["current","all"]:
         if ver == "all":
             g = all
@@ -217,11 +225,11 @@ def _exportrdf(format,all,current):
             g = current
         if format == "nquads":
             gr = rdflib.Dataset()
-            qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol,getVersion())))
+            qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
-        fn = absoluteFilePath("releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,protocol,exts[format]))
-        afn = absoluteFilePath("releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,altprotocol,exts[format]))
+        fn = absoluteFilePath("releases/%s/schemaorg-%s-%s%s" % (version,ver,protocol,exts[format]))
+        afn = absoluteFilePath("releases/%s/schemaorg-%s-%s%s" % (version,ver,altprotocol,exts[format]))
         fmt = format
         if format == "rdf":
             fmt = "pretty-xml"
@@ -320,9 +328,10 @@ def exportcsv(page):
     writecsvout("types",typedataAll,typeFields,"all",protocol,altprotocol)
 
 def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
-    import csv
-    fn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,protocol,ftype))
-    afn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,altprotocol,ftype))
+
+    version = schemaversion.getVersion()
+    fn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, protocol, ftype))
+    afn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, altprotocol, ftype))
     csvout = io.StringIO()
     csvfile = open(fn,'w', encoding='utf8')
     acsvfile = open(afn,'w', encoding='utf8')
@@ -340,7 +349,7 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
 
 def jsoncounts(page):
     counts = SdoTermSource.termCounts()
-    counts['schemaorgversion'] = schema_version.getVersion()
+    counts['schemaorgversion'] = schemaversion.getVersion()
     return json.dumps(counts)
 
 def jsonpcounts(page):
@@ -352,22 +361,23 @@ def jsonpcounts(page):
     return content
 
 def exportshex_shacl(page):
-    reldir="./software/site/releases/%s" % schema_version.getVersion()
+    # TODO(wiesmann): change this into a proper Python call.
+    reldir="./software/site/releases/%s" % schemaversion.getVersion()
     cmd="./software/scripts/shex_shacl_shapes_exporter.py"
     props=" -s %s/schemaorg-all-http.nt -f nt -o %s -p schemaorg-" % (reldir,reldir)
     os.system(cmd+props)
 
 def examples(page):
-    return SchemaExamples.allExamplesSerialised()
+    return schemaexamples.SchemaExamples.allExamplesSerialised()
 
 FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
                 "docs/jsonldcontext.json","docs/jsonldcontext.json.txt",
-                "releases/%s/schemaorgcontext.jsonld" % schema_version.getVersion()]),
+                "releases/%s/schemaorgcontext.jsonld" % schemaversion.getVersion()]),
             "Tree": (jsonldtree,["docs/tree.jsonld"]),
             "jsoncounts": (jsoncounts,["docs/jsoncounts.json"]),
             "jsonpcounts": (jsonpcounts,["docs/jsonpcounts.js"]),
-            "Owl": (owl,["docs/schemaorg.owl","releases/%s/schemaorg.owl" % schema_version.getVersion()]),
-            "Httpequivs": (httpequivs,["releases/%s/httpequivs.ttl" % schema_version.getVersion()]),
+            "Owl": (owl,["docs/schemaorg.owl","releases/%s/schemaorg.owl" % schemaversion.getVersion()]),
+            "Httpequivs": (httpequivs,["releases/%s/httpequivs.ttl" % schemaversion.getVersion()]),
             "Sitemap": (sitemap,["docs/sitemap.xml"]),
             "RDFExports": (exportrdf,[""]),
             "RDFExport.turtle": (exportrdf,[""]),
@@ -377,7 +387,7 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "RDFExport.json-ld": (exportrdf,[""]),
             "Shex_Shacl": (exportshex_shacl,[""]),
             "CSVExports": (exportcsv,[""]),
-            "Examples": (examples,["releases/%s/schemaorg-all-examples.txt" % schema_version.getVersion()])
+            "Examples": (examples,["releases/%s/schemaorg-all-examples.txt" % schemaversion.getVersion()])
          }
 
 def buildFiles(files):

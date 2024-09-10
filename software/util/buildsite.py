@@ -37,7 +37,7 @@ import runtests
 import buildtermpages
 import buildocspages
 import copystaticdocsplusinsert
-import schema_globals
+import schemaglobals
 import schemaversion
 
 from sdotermsource import SdoTermSource
@@ -63,25 +63,25 @@ args = parser.parse_args()
 
 
 for op in args.buildoption:
-    schema_globals-BUILDOPTS.extend(op)
+    schemaglobals-BUILDOPTS.extend(op)
 
 
 for ter in args.terms:
-    schema_globals.TERMS.extend(ter)
+    schemaglobals.TERMS.extend(ter)
 
 for pgs in args.docspages:
-    schema_globals.PAGES.extend(pgs)
+    schemaglobals.PAGES.extend(pgs)
 
 for fls in args.files:
-    schema_globals.FILES.extend(fls)
+    schemaglobals.FILES.extend(fls)
 
 if args.output:
-    schema_globals.OUTPUTDIR = args.output
+    schemaglobals.OUTPUTDIR = args.output
 
 if args.autobuild or args.release:
-    schema_globals.TERMS = ['ALL']
-    schema_globals.PAGES = ['ALL']
-    schema_globals.FILES = ['ALL']
+    schemaglobals.TERMS = ['ALL']
+    schemaglobals.PAGES = ['ALL']
+    schemaglobals.FILES = ['ALL']
 
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
@@ -122,7 +122,7 @@ import runtests
 import buildtermpages
 import buildocspages
 import copystaticdocsplusinsert
-import schema_globals
+import schemaglobals
 import schemaversion
 
 from sdotermsource import SdoTermSource
@@ -148,33 +148,33 @@ args = parser.parse_args()
 
 
 for op in args.buildoption:
-    schema_globals-BUILDOPTS.extend(op)
+    schemaglobals-BUILDOPTS.extend(op)
 
 
 for ter in args.terms:
-    schema_globals.TERMS.extend(ter)
+    schemaglobals.TERMS.extend(ter)
 
 for pgs in args.docspages:
-    schema_globals.PAGES.extend(pgs)
+    schemaglobals.PAGES.extend(pgs)
 
 for fls in args.files:
-    schema_globals.FILES.extend(fls)
+    schemaglobals.FILES.extend(fls)
 
 if args.output:
-    schema_globals.OUTPUTDIR = args.output
+    schemaglobals.OUTPUTDIR = args.output
 
 if args.autobuild or args.release:
-    schema_globals.TERMS = ['ALL']
-    schema_globals.PAGES = ['ALL']
-    schema_globals.FILES = ['ALL']
+    schemaglobals.TERMS = ['ALL']
+    schemaglobals.PAGES = ['ALL']
+    schemaglobals.FILES = ['ALL']
 
 
 
 def clear():
     if args.clearfirst or args.autobuild:
-        print('Clearing %s directory' % schema_globals.OUTPUTDIR)
-        if os.path.isdir(schema_globals.OUTPUTDIR):
-            for root, dirs, files in os.walk(schema_globals.OUTPUTDIR):
+        print('Clearing %s directory' % schemaglobals.OUTPUTDIR)
+        if os.path.isdir(schemaglobals.OUTPUTDIR):
+            for root, dirs, files in os.walk(schemaglobals.OUTPUTDIR):
                 for f in files:
                     if f != '.gitkeep':
                         os.unlink(os.path.join(root, f))
@@ -222,8 +222,8 @@ def initdir(output_dir, handler_path):
       shutil.copy(path, gdir)
     print('Done: copied %d files' % len(gcloud_files))
     print('\nCreating %s from %s for version: %s' %
-        (handler_path, schema_globals.HANDLER_TEMPLATE, schemaversion.getVersion()))
-    with open(os.path.join(gdir, schema_globals.HANDLER_TEMPLATE)) as template_file:
+        (handler_path, schemaglobals.HANDLER_TEMPLATE, schemaversion.getVersion()))
+    with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
       template_data = template_file.read()
       with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
         handler_data = template_data.replace('{{ver}}', schemaversion.getVersion())
@@ -302,7 +302,8 @@ def processFiles(files):
 
 def runRubyTests(release_dir):
     print('Setting up LATEST')
-    src_dir = os.path.join(os.getcwd(), release_dir, getVersion())
+    version = schemaversion.getVersion()
+    src_dir = os.path.join(os.getcwd(), release_dir, version)
     dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
     os.symlink(src_dir, dst_dir)
     cmd = ['bundle', 'exec', 'rake']
@@ -319,19 +320,22 @@ def runRubyTests(release_dir):
 
 
 def copyReleaseFiles(release_dir):
-    print('Copying release files for version %s to data/releases' % getVersion() )
-    srcdir = os.path.join(os.getcwd(), release_dir, getVersion())
-    destdir = os.path.join(os.getcwd(), 'data/releases/', getVersion())
+    version = schemaversion.getVersion()
+    print('Copying release files for version %s to data/releases' % version)
+    srcdir = os.path.join(os.getcwd(), release_dir, version)
+    destdir = os.path.join(os.getcwd(), 'data/releases/', version)
     fileutils.mycopytree(srcdir, destdir)
     cmd = ['git', 'add', destdir]
     subprocess.check_call(cmd)
+
 
 ###################################################
 # Main program
 ###################################################
 
 if __name__ == '__main__':
-    print('Version: %s  Released: %s' % (schemaversion.getVersion(),schemaversion.getCurrentVersionDate()))
+    print('Starting %s \n\n' % sys.argv)
+    print('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True
         print('BUILDING RELEASE VERSION')
@@ -344,200 +348,14 @@ if __name__ == '__main__':
         cmd = ['./software/SchemaExamples/utils/assign-example-ids.py']
         subprocess.check_call(cmd)
         print()
-    initdir(output_dir=schema_globals.OUTPUTDIR, handler_path=schema_globals.HANDLER_FILE)
+    initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
-    processTerms(terms=schema_globals.TERMS)
-    processDocs(pages=schema_globals.PAGES)
-    processFiles(files=schema_globals.FILES)
+    processTerms(terms=schemaglobals.TERMS)
+    processDocs(pages=schemaglobals.PAGES)
+    processFiles(files=schemaglobals.FILES)
     if args.rubytests:
-        runRubyTests(release_dir=schema_globals.RELEASE_DIR)
+        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
     if args.release:
-        copyReleaseFiles(release_dir=schema_globals.RELEASE_DIR)
-
-
-
-def clear():
-    if args.clearfirst or args.autobuild:
-        print('Clearing %s directory' % schema_globals.OUTPUTDIR)
-        if os.path.isdir(schema_globals.OUTPUTDIR):
-            for root, dirs, files in os.walk(schema_globals.OUTPUTDIR):
-                for f in files:
-                    if f != '.gitkeep':
-                        os.unlink(os.path.join(root, f))
-                for d in dirs:
-                    shutil.rmtree(os.path.join(root, d))
-
-###################################################
-#RUN TESTS
-###################################################
-def runtests():
-    import runtests
-    if args.runtests or args.autobuild:
-        print('Running test scripts before proceeding...\n')
-        errorcount = runtests.main('./software/tests/')
-        if errorcount:
-            print('Errors returned: %d' % errorcount)
-            sys.exit(errorcount)
-        else:
-            print('Tests successful!\n')
-
-
-###################################################
-#INITIALISE Directory
-###################################################
-
-def initdir(output_dir, handler_path):
-    print('Building site in "%s" directory' % output_dir)
-    fileutils.createMissingDir(output_dir)
-    clear()
-    fileutils.createMissingDir(os.path.join(output_dir, 'docs'))
-    fileutils.createMissingDir(os.path.join(output_dir, 'docs/contributors'))
-    fileutils.createMissingDir(os.path.join(output_dir, 'empty')) #For apppengine 404 handler
-    fileutils.createMissingDir(os.path.join(output_dir, 'releases', schemaversion.getVersion()))
-
-    gdir = os.path.join(output_dir, 'gcloud')
-    fileutils.createMissingDir(gdir)
-
-    print('\nCopying docs static files')
-    copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs', indent='▶ ')
-    print('Done')
-
-    print('\nPreparing GCloud files')
-    gcloud_files = glob.glob('software/gcloud/*.yaml')
-    for path in gcloud_files:
-      shutil.copy(path, gdir)
-    print('Done: copied %d files' % len(gcloud_files))
-    print('\nCreating %s from %s for version: %s' %
-        (handler_path, schema_globals.HANDLER_TEMPLATE, schemaversion.getVersion()))
-    with open(os.path.join(gdir, schema_globals.HANDLER_TEMPLATE)) as template_file:
-      template_data = template_file.read()
-      with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
-        handler_data = template_data.replace('{{ver}}', schemaversion.getVersion())
-        yaml_file.write(handler_data)
-    print('Done\n')
-
-
-###################################################
-#MARKDOWN INITIALISE
-###################################################
-Markdown.setWikilinkCssClass('localLink')
-Markdown.setWikilinkPrePath('/')
-Markdown.setWikilinkPostPath('')
-
-###################################################
-#TERMS SOURCE LOAD
-###################################################
-LOADEDTERMS = False
-def loadTerms():
-    global LOADEDTERMS
-    if not LOADEDTERMS:
-        LOADEDTERMS = True
-        if not SdoTermSource.SOURCEGRAPH:
-            print('Loading triples files')
-            SdoTermSource.loadSourceGraph('default')
-            print ('loaded %s triples - %s terms' % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-            collaborator.loadContributors()
-
-
-###################################################
-#EXAMPLES SOURCE LOAD
-###################################################
-LOADEDEXAMPLES = False
-def loadExamples():
-    global LOADEDEXAMPLES
-    if not LOADEDEXAMPLES:
-        SchemaExamples.loadExamplesFiles('default')
-        print('Loaded %d examples ' % (SchemaExamples.count()))
-
-
-###################################################
-#BUILD INDIVIDUAL TERM PAGES
-###################################################
-def processTerms(terms):
-    import buildtermpages
-    if len(terms):
-        print('Building term definition pages\n')
-        loadTerms()
-        loadExamples()
-    buildtermpages.buildTerms(terms)
-
-###################################################
-#BUILD DYNAMIC DOCS PAGES
-###################################################
-def processDocs(pages):
-    import buildocspages
-    if len(pages):
-        print('Building dynamic documentation pages\n')
-        loadTerms()
-        buildocspages.buildDocs(pages)
-
-###################################################
-#BUILD FILES
-###################################################
-def processFiles(files):
-    import buildfiles
-    if len(files):
-        print('Building supporting files\n')
-        loadTerms()
-        loadExamples()
-        buildfiles.buildFiles(files)
-
-###################################################
-#Run ruby tests
-###################################################
-
-def runRubyTests(release_dir):
-    print('Setting up LATEST')
-    src_dir = os.path.join(os.getcwd(), release_dir, getVersion())
-    dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
-    os.symlink(src_dir, dst_dir)
-    cmd = ['bundle', 'exec', 'rake']
-    cwd = os.path.join(os.getcwd(), 'software/scripts')
-    print('Running tests')
-    subprocess.check_call(cmd, cwd=cwd)
-    print('Cleaning up %s' % dst_dir)
-    os.unlink(dst_dir)
-    print('Done')
-
-###################################################
-#COPY CREATED RELEASE FILES into Data area
-###################################################
-
-
-def copyReleaseFiles(release_dir):
-    print('Copying release files for version %s to data/releases' % getVersion() )
-    srcdir = os.path.join(os.getcwd(), release_dir, getVersion())
-    destdir = os.path.join(os.getcwd(), 'data/releases/', getVersion())
-    fileutils.mycopytree(srcdir, destdir)
-    cmd = ['git', 'add', destdir]
-    subprocess.check_call(cmd)
-
-###################################################
-# Main program
-###################################################
-
-if __name__ == '__main__':
-    print('Version: %s  Released: %s' % (schemaversion.getVersion(),schemaversion.getCurrentVersionDate()))
-    if args.release:
-        args.autobuild = True
-        print('BUILDING RELEASE VERSION')
-        time.sleep(2)
-        print()
-    if args.examplesnum or args.release or args.autobuild:
-        print('Checking Examples for assigned identifiers')
-        time.sleep(2)
-        print()
-        cmd = ['./software/SchemaExamples/utils/assign-example-ids.py']
-        subprocess.check_call(cmd)
-        print()
-    initdir(output_dir=schema_globals.OUTPUTDIR, handler_path=schema_globals.HANDLER_FILE)
-    runtests()
-    processTerms(terms=schema_globals.TERMS)
-    processDocs(pages=schema_globals.PAGES)
-    processFiles(files=schema_globals.FILES)
-    if args.rubytests:
-        runRubyTests(release_dir=schema_globals.RELEASE_DIR)
-    if args.release:
-        copyReleaseFiles(release_dir=schema_globals.RELEASE_DIR)
+        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
 
 

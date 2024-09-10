@@ -16,6 +16,7 @@ for path in [os.getcwd(),"software/SchemaTerms","software/SchemaExamples","softw
   sys.path.insert(1, path) #Pickup libs from local directories
 
 import fileutils
+import schemaversion
 
 if os.path.basename(os.getcwd()) != "schemaorg":
     print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
@@ -38,8 +39,8 @@ def _getInserts():
         with open(f_path) as input_file:
             indata = input_file.read()
         fn = fn[4:] #drop sdi- from file name
-        indata = indata.replace('{{version}}', getVersion())
-        indata = indata.replace('{{versiondate}}', getCurrentVersionDate())
+        indata = indata.replace('{{version}}', schemaversion.getVersion())
+        indata = indata.replace('{{versiondate}}', schemaversion.getCurrentVersionDate())
         indata = indata.replace('{{docsdir}}', "/docs")
         yield (fn, indata)
 

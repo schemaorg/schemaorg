@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import multiprocessing
 import os
-import re
+
 import sys
-import time
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
+
+import re
+import time
+
 
 for path in [os.getcwd(), "software/util", "software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 
 import jinga_render
-import schema_globals
+import schemaglobals
 import fileutils
 
 
@@ -33,7 +35,7 @@ def termFileName(termid):
   Returns:
     File path the term page should be generated at.
   """
-  path_components = [schema_globals.OUTPUTDIR, "terms"]
+  path_components = [schemaglobals.OUTPUTDIR, "terms"]
   if re.match('^[a-z].*',termid):
     path_components.append('properties')
   elif re.match('^[0-9A-Z].*',termid):
@@ -76,8 +78,8 @@ def termtemplateRender(term, examples, json):
       'title': term.label,
       'menu_sel': "Schemas",
       'home_page': "False",
-      'BUILDOPTS': schema_globals.BUILDOPTS,
-      'docsdir': schema_globals.TERMDOCSDIR,
+      'BUILDOPTS': schemaglobals.BUILDOPTS,
+      'docsdir': schemaglobals.TERMDOCSDIR,
       'term': term,
       'jsonldPayload': json,
       'examples': examples
@@ -104,7 +106,7 @@ def RenderAndWriteSingleTerm(term_key):
   json = SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
   pageout = termtemplateRender(term, examples, json)
   with open(termFileName(term.id), 'w', encoding='utf8') as outfile:
-    outfile.write(pageout)
+      outfile.write(pageout)
   elapsed = time.perf_counter() - tic
   print("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
   return elapsed
