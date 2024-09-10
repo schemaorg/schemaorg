@@ -64,4 +64,5 @@ class TestBuildTermPages(unittest.TestCase):
     self.assertRegex(output, ".Awesome &amp; Thingamabob.*")
 
 
-
+if __name__ == '__main__':
+    unittest.main()

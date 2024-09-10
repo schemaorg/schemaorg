@@ -9,6 +9,18 @@ def createMissingDir(dir_path):
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
+CHECKEDPATHS =[]
+def checkFilePath(path):
+    if not path in CHECKEDPATHS:
+        CHECKEDPATHS.append(path)
+        # os.path.join ignores the first argument if `path` is absolute.
+        path = os.path.join(os.getcwd(), path)
+        try:
+            os.makedirs(path)
+        except OSError as e:
+            if not os.path.isdir(path):
+                raise e
+
 
 def mycopytree(src, dst, symlinks=False, ignore=None):
     """Copy a file-system tree, copes with already existing directories."""
