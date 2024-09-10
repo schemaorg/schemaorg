@@ -83,92 +83,6 @@ if args.autobuild or args.release:
     schemaglobals.PAGES = ['ALL']
     schemaglobals.FILES = ['ALL']
 
-#!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-
-# Import libraries that are needed to check version
-import os
-import sys
-
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print('Python version %s.%s not supported version 3.6 or above required - exiting' % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
-
-for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples']:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-if os.path.basename(os.getcwd()) != 'schemaorg':
-    print('\nScript should be run from within the "schemaorg" directory! - Exiting\n')
-    sys.exit(os.EX_USAGE)
-
-for dir in ['software/util','docs','software/gcloud','data']:
-    if not os.path.isdir(dir):
-        print('\nRequired directory "%s" not found - Exiting\n' % dir)
-        sys.exit(os.EX_CONFIG)
-
-# Import standard python libraries
-import argparse
-import glob
-import re
-import shutil
-import subprocess
-import textutils
-import time
-
-# Import schema.org libraries
-import rdflib
-import fileutils
-import runtests
-import buildtermpages
-import buildocspages
-import copystaticdocsplusinsert
-import schemaglobals
-import schemaversion
-
-from sdotermsource import SdoTermSource
-from sdocollaborators import collaborator
-from sdoterm import *
-from schemaexamples import SchemaExamples
-from localmarkdown import Markdown
-
-parser = argparse.ArgumentParser()
-parser.add_argument('-a','--autobuild', default=False, action='store_true', help='clear output directory and build all components - overrides all other settings (except -examplesnum)')
-parser.add_argument('-c','--clearfirst', default=False, action='store_true', help='clear output directory before creating contents')
-parser.add_argument('-d','--docspages', default=[],action='append',nargs='*', help='create docs page(repeatable) - ALL = all pages')
-parser.add_argument('-e','--examplesnum', default=False, action='store_true', help='Add missing example ids')
-parser.add_argument('-f','--files', default=[], action='append', nargs='*', help='create files(repeatable) - ALL = all files')
-parser.add_argument('-o','--output', help='output site directory (default: ./software/site)')
-parser.add_argument('-r','--runtests', default=False, action='store_true', help='run test scripts before creating contents')
-parser.add_argument('-s','--static', default=False, action='store_true', help='Refresh static docs in site image')
-parser.add_argument('-t','--terms', default=[], action='append', nargs='*', help='create page for term (repeatable) - ALL = all terms')
-parser.add_argument('-b','--buildoption',default= [],action='append', nargs='*', help='build option(repeatable) - flags to be passed to build code')
-parser.add_argument('--rubytests', default=False, action='store_true', help='run the post generation ruby tests')
-parser.add_argument('--release', default=False, action='store_true', help='create page for term (repeatable) - ALL = all terms')
-args = parser.parse_args()
-
-
-for op in args.buildoption:
-    schemaglobals-BUILDOPTS.extend(op)
-
-
-for ter in args.terms:
-    schemaglobals.TERMS.extend(ter)
-
-for pgs in args.docspages:
-    schemaglobals.PAGES.extend(pgs)
-
-for fls in args.files:
-    schemaglobals.FILES.extend(fls)
-
-if args.output:
-    schemaglobals.OUTPUTDIR = args.output
-
-if args.autobuild or args.release:
-    schemaglobals.TERMS = ['ALL']
-    schemaglobals.PAGES = ['ALL']
-    schemaglobals.FILES = ['ALL']
-
-
 
 def clear():
     if args.clearfirst or args.autobuild:
@@ -334,7 +248,6 @@ def copyReleaseFiles(release_dir):
 ###################################################
 
 if __name__ == '__main__':
-    print('Starting %s \n\n' % sys.argv)
     print('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True
