@@ -25,7 +25,6 @@ from rdflib.namespace import RDFS, RDF
 
 from xml.etree import ElementTree
 from xml.dom import minidom
-from xml.etree.ElementTree import Element, SubElement
 
 from sdotermsource import SdoTermSource
 from sdoterm import *
