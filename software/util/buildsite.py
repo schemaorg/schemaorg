@@ -30,18 +30,21 @@ import subprocess
 import textutils
 import time
 
+# Import schema.org libraries
 import rdflib
-import jinja2
+import fileutils
+import runtests
+import buildtermpages
+import buildocspages
+import copystaticdocsplusinsert
+import schemaglobals
+import schemaversion
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
 from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
-from schemaversion import *
-
-SITENAME = 'Schema.org'
-TEMPLATESDIR = 'templates'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-a','--autobuild', default=False, action='store_true', help='clear output directory and build all components - overrides all other settings (except -examplesnum)')
@@ -58,42 +61,34 @@ parser.add_argument('--rubytests', default=False, action='store_true', help='run
 parser.add_argument('--release', default=False, action='store_true', help='create page for term (repeatable) - ALL = all terms')
 args = parser.parse_args()
 
-BUILDOPTS = []
-for op in args.buildoption:
-    BUILDOPTS.extend(op)
 
-TERMS = []
+for op in args.buildoption:
+    schemaglobals-BUILDOPTS.extend(op)
+
+
 for ter in args.terms:
-    TERMS.extend(ter)
-PAGES = []
+    schemaglobals.TERMS.extend(ter)
+
 for pgs in args.docspages:
-    PAGES.extend(pgs)
-FILES = []
+    schemaglobals.PAGES.extend(pgs)
+
 for fls in args.files:
-    FILES.extend(fls)
+    schemaglobals.FILES.extend(fls)
 
 if args.output:
-    OUTPUTDIR = args.output
-else:
-    OUTPUTDIR = 'software/site'
-
-DOCSOUTPUTDIR = os.path.join(OUTPUTDIR, 'docs')
+    schemaglobals.OUTPUTDIR = args.output
 
 if args.autobuild or args.release:
-    TERMS = ['ALL']
-    PAGES = ['ALL']
-    FILES = ['ALL']
+    schemaglobals.TERMS = ['ALL']
+    schemaglobals.PAGES = ['ALL']
+    schemaglobals.FILES = ['ALL']
 
-def hasOpt(opt):
-    if opt in BUILDOPTS:
-        return True
-    return False
 
 def clear():
     if args.clearfirst or args.autobuild:
-        print('Clearing %s directory' % OUTPUTDIR)
-        if os.path.isdir(OUTPUTDIR):
-            for root, dirs, files in os.walk(OUTPUTDIR):
+        print('Clearing %s directory' % schemaglobals.OUTPUTDIR)
+        if os.path.isdir(schemaglobals.OUTPUTDIR):
+            for root, dirs, files in os.walk(schemaglobals.OUTPUTDIR):
                 for f in files:
                     if f != '.gitkeep':
                         os.unlink(os.path.join(root, f))
@@ -114,38 +109,25 @@ def runtests():
         else:
             print('Tests successful!\n')
 
-DOCSDOCSDIR = '/docs'
-TERMDOCSDIR = '/docs'
-DOCSHREFSUFFIX=''
-DOCSHREFPREFIX='/'
-TERMHREFSUFFIX=''
-TERMHREFPREFIX='/'
 
 ###################################################
 #INITIALISE Directory
 ###################################################
-def createMissingDir(dir_path):
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
 
-HANDLER_TEMPLATE = 'handlers-template.yaml'
-HANDLER_FILE = 'handlers.yaml'
-
-def initdir():
-    print('Building site in "%s" directory' % OUTPUTDIR)
-    createMissingDir(OUTPUTDIR)
+def initdir(output_dir, handler_path):
+    print('Building site in "%s" directory' % output_dir)
+    fileutils.createMissingDir(output_dir)
     clear()
-    createMissingDir(os.path.join(OUTPUTDIR, 'docs'))
-    createMissingDir(os.path.join(OUTPUTDIR, 'docs/contributors'))
-    createMissingDir(os.path.join(OUTPUTDIR, 'empty')) #For apppengine 404 handler
-    createMissingDir(os.path.join(OUTPUTDIR, 'releases', getVersion()))
+    fileutils.createMissingDir(os.path.join(output_dir, 'docs'))
+    fileutils.createMissingDir(os.path.join(output_dir, 'docs/contributors'))
+    fileutils.createMissingDir(os.path.join(output_dir, 'empty')) #For apppengine 404 handler
+    fileutils.createMissingDir(os.path.join(output_dir, 'releases', schemaversion.getVersion()))
 
-    gdir = os.path.join(OUTPUTDIR, 'gcloud')
-    createMissingDir(gdir)
+    gdir = os.path.join(output_dir, 'gcloud')
+    fileutils.createMissingDir(gdir)
 
     print('\nCopying docs static files')
-    cmd = ['./software/util/copystaticdocsplusinsert.py']
-    subprocess.check_call(cmd)
+    copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs', indent='▶ ')
     print('Done')
 
     print('\nPreparing GCloud files')
@@ -153,56 +135,14 @@ def initdir():
     for path in gcloud_files:
       shutil.copy(path, gdir)
     print('Done: copied %d files' % len(gcloud_files))
-    print('\nCreating %s from %s for version: %s' % (HANDLER_FILE, HANDLER_TEMPLATE, getVersion()))
-    with open(os.path.join(gdir, HANDLER_TEMPLATE)) as template_file:
+    print('\nCreating %s from %s for version: %s' %
+        (handler_path, schemaglobals.HANDLER_TEMPLATE, schemaversion.getVersion()))
+    with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
       template_data = template_file.read()
-      with open(os.path.join(gdir, HANDLER_FILE), mode='w') as yaml_file:
-        handler_data = template_data.replace('{{ver}}', getVersion())
+      with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
+        handler_data = template_data.replace('{{ver}}', schemaversion.getVersion())
         yaml_file.write(handler_data)
     print('Done\n')
-
-
-def mycopytree(src, dst, symlinks=False, ignore=None):
-    """Copy a file-system tree, copes with already existing directories."""
-    names = os.listdir(src)
-    if ignore is not None:
-        ignored_names = ignore(src, names)
-    else:
-        ignored_names = set()
-
-    if not os.path.isdir(dst):
-        os.makedirs(dst)
-    errors = []
-    for name in names:
-        if name in ignored_names:
-            continue
-        srcname = os.path.join(src, name)
-        dstname = os.path.join(dst, name)
-        try:
-            if symlinks and os.path.islink(srcname):
-                linkto = os.readlink(srcname)
-                os.symlink(linkto, dstname)
-            elif os.path.isdir(srcname):
-                mycopytree(srcname, dstname, symlinks, ignore)
-            else:
-                # Will raise a SpecialFileError for unsupported file types
-                shutil.copy2(srcname, dstname)
-        # catch the Error from the recursive copytree so that we can
-        # continue with other files
-        except Error as err:
-            errors.extend(err.args[0])
-        except EnvironmentError as why:
-            errors.append((srcname, dstname, str(why)))
-    try:
-        shutil.copystat(src, dst)
-    except OSError as why:
-        if WindowsError is not None and isinstance(why, WindowsError):
-            # Copying file access times may fail on Windows
-            pass
-        else:
-            errors.extend((src, dst, str(why)))
-    if errors:
-        raise Error (errors)
 
 
 ###################################################
@@ -232,117 +172,53 @@ def loadTerms():
 ###################################################
 LOADEDEXAMPLES = False
 def loadExamples():
-
     global LOADEDEXAMPLES
     if not LOADEDEXAMPLES:
         SchemaExamples.loadExamplesFiles('default')
         print('Loaded %d examples ' % (SchemaExamples.count()))
 
-###################################################
-#JINJA INITIALISATION
-###################################################
-jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR), autoescape=True, cache_size=0)
-
-def jinjaDebug(text):
-    print('Jinja: %s' % text)
-    return ''
-
-jenv.filters['debug']=jinjaDebug
-
-local_vars = {}
-def set_local_var(local_vars, name, value):
-  local_vars[name] = value
-  return ''
-jenv.globals['set_local_var'] = set_local_var
-
-
-### Template rendering
-
-def templateRender(template_path, extra_vars=None, template_instance=None):
-  """Render a page template.
-
-  Returns: the generated page.
-  """
-  #Basic variables configuring UI
-  tvars = {
-      'local_vars': local_vars,
-      'version': getVersion(),
-      'versiondate': getCurrentVersionDate(),
-      'sitename': SITENAME,
-      'TERMHREFPREFIX': TERMHREFPREFIX,
-      'TERMHREFSUFFIX': TERMHREFSUFFIX,
-      'DOCSHREFPREFIX': DOCSHREFPREFIX,
-      'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
-      'home_page': 'False'
-  }
-  if extra_vars:
-      tvars.update(extra_vars)
-
-  template = template_instance or jenv.get_template(template_path)
-  return template.render(tvars)
-
-###################################################
-#JINJA INITIALISATION - End
-###################################################
-
-#Check / create file paths
-CHECKEDPATHS =[]
-def checkFilePath(path):
-    if not path in CHECKEDPATHS:
-        CHECKEDPATHS.append(path)
-        # os.path.join ignores the first argument if `path` is absolute.
-        path = os.path.join(os.getcwd(), path)
-        try:
-            os.makedirs(path)
-        except OSError as e:
-            if not os.path.isdir(path):
-                raise e
 
 ###################################################
 #BUILD INDIVIDUAL TERM PAGES
 ###################################################
-def processTerms():
+def processTerms(terms):
     import buildtermpages
-    global TERMS
-    if len(TERMS):
+    if len(terms):
         print('Building term definition pages\n')
         loadTerms()
         loadExamples()
-    buildtermpages.buildTerms(TERMS)
+    buildtermpages.buildTerms(terms)
 
 ###################################################
 #BUILD DYNAMIC DOCS PAGES
 ###################################################
-def processDocs():
-    global PAGES
+def processDocs(pages):
     import buildocspages
-    if len(PAGES):
+    if len(pages):
         print('Building dynamic documentation pages\n')
         loadTerms()
-        buildocspages.buildDocs(PAGES)
+        buildocspages.buildDocs(pages)
 
 ###################################################
 #BUILD FILES
 ###################################################
-def processFiles():
-    global FILES
+def processFiles(files):
     import buildfiles
-    if len(FILES):
+    if len(files):
         print('Building supporting files\n')
         loadTerms()
         loadExamples()
-        buildfiles.buildFiles(FILES)
+        buildfiles.buildFiles(files)
 
 ###################################################
 #Run ruby tests
 ###################################################
 
-RELEASE_DIR = 'software/site/releases'
-
-def runRubyTests():
+def runRubyTests(release_dir):
     print('Setting up LATEST')
-    src_dir = os.path.join(os.getcwd(), RELEASE_DIR, getVersion())
-    dst_dir = os.path.join(os.getcwd(), RELEASE_DIR, 'LATEST')
+    version = schemaversion.getVersion()
+    src_dir = os.path.join(os.getcwd(), release_dir, version)
+    dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
     os.symlink(src_dir, dst_dir)
     cmd = ['bundle', 'exec', 'rake']
     cwd = os.path.join(os.getcwd(), 'software/scripts')
@@ -357,16 +233,22 @@ def runRubyTests():
 ###################################################
 
 
-def copyReleaseFiles():
-    print('Copying release files for version %s to data/releases' % getVersion() )
-    SRCDIR = os.path.join(os.getcwd(), RELEASE_DIR, getVersion())
-    DESTDIR = os.path.join(os.getcwd(), 'data/releases/', getVersion())
-    mycopytree(SRCDIR, DESTDIR)
-    cmd = ['git', 'add', DESTDIR]
+def copyReleaseFiles(release_dir):
+    version = schemaversion.getVersion()
+    print('Copying release files for version %s to data/releases' % version)
+    srcdir = os.path.join(os.getcwd(), release_dir, version)
+    destdir = os.path.join(os.getcwd(), 'data/releases/', version)
+    fileutils.mycopytree(srcdir, destdir)
+    cmd = ['git', 'add', destdir]
     subprocess.check_call(cmd)
 
+
+###################################################
+# Main program
+###################################################
+
 if __name__ == '__main__':
-    print('Version: %s  Released: %s' % (getVersion(),getCurrentVersionDate()))
+    print('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True
         print('BUILDING RELEASE VERSION')
@@ -379,14 +261,14 @@ if __name__ == '__main__':
         cmd = ['./software/SchemaExamples/utils/assign-example-ids.py']
         subprocess.check_call(cmd)
         print()
-    initdir()
+    initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
-    processTerms()
-    processDocs()
-    processFiles()
+    processTerms(terms=schemaglobals.TERMS)
+    processDocs(pages=schemaglobals.PAGES)
+    processFiles(files=schemaglobals.FILES)
     if args.rubytests:
-      runRubyTests()
+        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
     if args.release:
-        copyReleaseFiles()
+        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
 
 

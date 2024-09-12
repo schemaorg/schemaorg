@@ -27,20 +27,20 @@ def mddocs(sourceDir, destDir):
     for d in docs:
         convert2html(d,destDir)
 
-def convert2html(doc,destdir):
-    file = os.path.basename(doc)
-    title = os.path.splitext(file)[0].title()
-    htf = file.rsplit('.', 1)[0] + '.html'
-    with open(doc, 'r') as f:
-        text = f.read()
+def convert2html(input_path, destdir):
+    filename = os.path.basename(input_path)
+    name, extension = os.path.splitext(filename)
+    with open(input_path, 'r') as in_handle:
+        text = in_handle.read()
         md_html = markdown.markdown(text)
 
-    with open(destdir+'/'+htf, 'w') as f:
-        f.write(begin.format(title=title))
-        f.write(md_html)
-        f.write(end)
+    output_path = os.path.join(destdir, name + '.html')
+    with open(output_path, 'w') as output_handle:
+        output_handle.write(begin.format(title=name.title()))
+        output_handle.write(md_html)
+        output_handle.write(end)
 
-    os.remove(doc)
+    os.remove(input_path)
 
 
 if __name__ == '__main__':

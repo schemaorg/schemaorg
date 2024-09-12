@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import multiprocessing
 import os
+
 import sys
-import time
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+    sys.exit(os.EX_CONFIG)
 
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
+import re
+import time
+
+
+for path in [os.getcwd(), "software/util", "software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsite import *
+
+import jinga_render
+import schemaglobals
+import fileutils
+
+
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
@@ -27,7 +35,7 @@ def termFileName(termid):
   Returns:
     File path the term page should be generated at.
   """
-  path_components = [OUTPUTDIR, "terms"]
+  path_components = [schemaglobals.OUTPUTDIR, "terms"]
   if re.match('^[a-z].*',termid):
     path_components.append('properties')
   elif re.match('^[0-9A-Z].*',termid):
@@ -36,13 +44,13 @@ def termFileName(termid):
     raise ValueError("Invalid terminid: '" + termid +"'")
   path_components.append(termid[0])
   directory = os.path.join(*path_components)
-  checkFilePath(directory)
+  fileutils.checkFilePath(directory)
   filename = termid + '.html'
   return os.path.join(directory, filename)
 
 
 # This template will be used ~2800 times, so we reuse it.
-TEMPLATE = jenv.get_template("terms/TermPage.j2")
+TEMPLATE = jinga_render.GetJinga().get_template("terms/TermPage.j2")
 
 def termtemplateRender(term, examples, json):
   """Render the term with examples and associated JSON.
@@ -53,7 +61,7 @@ def termtemplateRender(term, examples, json):
   Returns:
     string with the generate web-page.
   """
-  
+
   for ex in examples:
     exselect = ["","","",""]
     if ex.hasHtml():
@@ -70,13 +78,13 @@ def termtemplateRender(term, examples, json):
       'title': term.label,
       'menu_sel': "Schemas",
       'home_page': "False",
-      'BUILDOPTS': BUILDOPTS,
-      'docsdir': TERMDOCSDIR,
+      'BUILDOPTS': schemaglobals.BUILDOPTS,
+      'docsdir': schemaglobals.TERMDOCSDIR,
       'term': term,
       'jsonldPayload': json,
       'examples': examples
   }
-  return templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
+  return jinga_render.templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
 
 
 def RenderAndWriteSingleTerm(term_key):
@@ -98,7 +106,7 @@ def RenderAndWriteSingleTerm(term_key):
   json = SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
   pageout = termtemplateRender(term, examples, json)
   with open(termFileName(term.id), 'w', encoding='utf8') as outfile:
-    outfile.write(pageout)
+      outfile.write(pageout)
   elapsed = time.perf_counter() - tic
   print("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
   return elapsed

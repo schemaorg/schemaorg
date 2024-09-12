@@ -1,0 +1,115 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MemberProgram a rdfs:Class ;
+    rdfs:label "MemberProgram" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "A MemberProgram defines a loyalty (or membership) program that provides its members with certain benefits, for example better pricing, free shipping or returns, or the ability to earn loyalty points. Member programs may have multiple tiers, for example silver and gold members, each with different benefits." ;
+    rdfs:subClassOf :Intangible .
+
+:MemberProgramTier a rdfs:Class ;
+    rdfs:label "MemberProgramTier" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "A MemberProgramTier specifies a tier under a loyalty (member) program, for example \"gold\"." ;
+    rdfs:subClassOf :Intangible .
+
+:isTierOf a rdf:Property ;
+    rdfs:label "isTierOf" ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :MemberProgram ;
+    :inverseOf :hasTiers ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The member program this tier is a part of." .
+
+:hasTiers a rdf:Property ;
+    rdfs:label "hasTiers" ;
+    :domainIncludes :MemberProgram ;
+    :rangeIncludes :MemberProgramTier ;
+    :inverseOf :isTierOf ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The tiers of a member program." .
+
+:hasMemberProgram a rdf:Property ;
+    rdfs:label "hasMemberProgram" ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "MemberProgram offered by an Organization, for example an eCommerce merchant or an airline." .
+
+:program a rdf:Property ;
+    rdfs:label "program" ;
+    :domainIncludes :ProgramMembership ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The [MemberProgram](https://schema.org/MemberProgram) associated with a [ProgramMembership](https://schema.org/ProgramMembership)." .
+
+:hasTierRequirement a rdf:Property ;
+    rdfs:label "hasTierRequirement" ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :MonetaryAmount,
+         :CreditCard,
+         :UnitPriceSpecification,
+         :Text;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "A requirement for a user to join a membership tier, for example: a CreditCard if the tier requires sign up for a credit card, A UnitPriceSpecification if the user is required to pay a (periodic) fee, or a MonetaryAmount if the user needs to spend a minimum amount to join the tier. If a tier is free to join then this property does not need to be specified." .
+
+:TierBenefitEnumeration a rdfs:Class ;
+    rdfs:label "TierBenefitEnumeration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "An enumeration of possible benefits as part of a loyalty (members) program." ;
+    rdfs:subClassOf :Enumeration .
+
+:TierBenefitLoyaltyPrice a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPrice" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "Benefit of the tier is a members-only price." .
+
+:TierBenefitLoyaltyShipping a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyShipping" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "Benefit of the tier is a members-only shipping price or speed (for example free shipping or 1-day shipping)." .
+
+:TierBenefitLoyaltyReturns a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyReturns" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "Benefit of the tier is members-only returns, for example free unlimited returns." .
+
+:TierBenefitLoyaltyPoints a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPoints" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "Benefit of the tier is earning of loyalty points." .
+
+:hasTierBenefit a rdf:Property ;
+    rdfs:label "hasTierBenefit" ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :TierBenefitEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "A member benefit for a particular tier of a loyalty program." .
+
+:validForMemberTier a rdf:Property ;
+    rdfs:label "validForMemberTier" ;
+    :domainIncludes :Offer,
+         :PriceSpecification,
+         :OfferShippingDetails,
+         :MerchantReturnPolicy;
+    :rangeIncludes :MemberProgramTier ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
+    rdfs:comment "The membership program tier an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." .
+
+:membershipPointsEarned a rdf:Property ;
+    :domainIncludes :MemberProgramTier, 
+        :PriceSpecification .
+
+:memberOf a rdf:Property ;
+    :rangeIncludes :MemberProgramTier.
+
