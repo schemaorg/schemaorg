@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import os
 from typing import Generator, Any, Union, Set
 
 from rdflib import Graph
@@ -17,7 +18,7 @@ SCHEMA = Namespace('http://schema.org/')
 SHACL = Namespace('http://www.w3.org/ns/shacl#')
 
 PREFIX = 'ValidSchema'
-
+FILE_ENCODING = 'utf-8'
 
 def replace_prefix(data):
     """
@@ -27,7 +28,9 @@ def replace_prefix(data):
 
 
 class ShExJParser:
-    def parse_shape(self, source: Graph, shape: URIRef, is_datatype: bool) -> dict:
+
+    @staticmethod
+    def parse_shape(source: Graph, shape: URIRef, is_datatype: bool) -> dict:
         """
         Creates shape ShExJ shape for schema.org entity
 
@@ -47,14 +50,14 @@ class ShExJParser:
             node = {'type': 'Shape'}
             properties = list(source.subjects(SCHEMA['domainIncludes'], shape))
             # find all subclasses
-            ancestors = list(set(self.find_parent_classes(source, shape)))
+            ancestors = list(set(ShExJParser.find_parent_classes(source, shape)))
             if len(properties) > 0:
-                expression = {'type': 'EachOf', 'expressions': [self.type_constraint(ancestors + [shape])]}
+                expression = {'type': 'EachOf', 'expressions': [ShExJParser.type_constraint(ancestors + [shape])]}
                 for prop in properties:
-                    expression['expressions'].append(self.parse_property(source, prop))
+                    expression['expressions'].append(ShExJParser.parse_property(source, prop))
                 node['expression'] = expression
             else:
-                node['expression'] = self.type_constraint(ancestors + [id])
+                node['expression'] = ShExJParser.type_constraint(ancestors + [id])
             node['extra'] = [RDF.type]
             parents = [replace_prefix(x) for x in source.objects(shape, RDFS.subClassOf)]
             if len(parents) > 0:
@@ -66,7 +69,8 @@ class ShExJParser:
             'shapeExpr': node
         }
 
-    def type_constraint(self, types):
+    @staticmethod
+    def type_constraint(types):
         """
         Creates rdf:type constraints
 
@@ -77,7 +81,8 @@ class ShExJParser:
                 'valueExpr': {'type': 'NodeConstraint', 'values': types}}
         return node
 
-    def parse_property(self, source, prop):
+    @staticmethod
+    def parse_property(source, prop):
         """
         Creates property constraints
 
@@ -93,7 +98,8 @@ class ShExJParser:
             node['valueExpr'] = {'type': 'ShapeOr', 'shapeExprs': prop_range}
         return node
 
-    def find_parent_classes(self, source, shape):
+    @staticmethod
+    def find_parent_classes(source, shape):
         """
         Recursively finds all ancestors of the shape in the subclasses tree
 
@@ -103,10 +109,11 @@ class ShExJParser:
         """
         parent_classes = list(source.objects(shape, RDFS.subClassOf))
         for parent in parent_classes:
-            parent_classes.extend(self.find_parent_classes(source, parent))
+            parent_classes.extend(ShExJParser.find_parent_classes(source, parent))
         return parent_classes
 
-    def to_shex(self, source):
+    @staticmethod
+    def to_shex(source):
         """
         Creates ShExJ constraints for schema.org terms definition
 
@@ -115,26 +122,29 @@ class ShExJParser:
         """
         shapes: list[URIRef] = list(source.subjects(RDF['type'], RDFS['Class']))
         shapes.sort(key=lambda u: str(u))
-        top_level_datatypes: Generator[Node, None, None] = g.subjects(RDF.type, SCHEMA.DataType)
+        top_level_datatypes: Generator[Node, None, None] = source.subjects(RDF.type, SCHEMA.DataType)
         all_datatypes: set[URIRef] = {URIRef(SCHEMA.DataType)}
-        all_datatypes.update(self.chase_subclasses(source, top_level_datatypes))
+        all_datatypes.update(ShExJParser.chase_subclasses(source, top_level_datatypes))
 
-        shex = {'type': 'Schema', 'shapes': []}
-        for shape in shapes:
-            shex['shapes'].append(self.parse_shape(source, shape, shape in all_datatypes))
-        return '{ "type": "Schema", "shapes": [\n' + ',\n'.join(map(lambda decl: json.dumps(decl), shex['shapes'])) + "\n]}\n"
+        shex = {'type': 'Schema'}
+        shex['shapes'] = [ShExJParser.parse_shape(source, shape, is_datatype = shape in all_datatypes) for shape in shapes]
 
-    def chase_subclasses(self, source: Graph, terms: Generator[Node, None, None]) -> Set[URIRef]:
+        return json.dumps(shex)
+
+    @staticmethod
+    def chase_subclasses(source: Graph, terms: Generator[Node, None, None]) -> Set[URIRef]:
         ret: set[URIRef] = set()
-        for x in terms:
-            ret.add(x)
-            subclass_terms: Generator[Node, None, None] = source.subjects(RDFS.subClassOf, x)
-            ret.update(self.chase_subclasses(source, subclass_terms))
+        for term in terms:
+            ret.add(term)
+            subclass_terms: Generator[Node, None, None] = source.subjects(RDFS.subClassOf, term)
+            ret.update(ShExJParser.chase_subclasses(source, subclass_terms))
         return ret
 
 
 class ShaclParser:
-    def parse_shape(self, source, shape, dest):
+
+    @staticmethod
+    def parse_shape(source, shape, dest):
         """
         Creates SHACL shape for schema.org entity
 
@@ -148,9 +158,10 @@ class ShaclParser:
         dest.add((node, SHACL['nodeKind'], SHACL['BlankNodeOrIRI']))
         properties = list(source.subjects(SCHEMA['domainIncludes'], shape))
         for prop in properties:
-            dest.add((node, SHACL['property'], self.parse_property(source, prop, dest)))
+            dest.add((node, SHACL['property'], ShaclParser.parse_property(source, prop, dest)))
 
-    def parse_property(self, source, prop, dest):
+    @staticmethod
+    def parse_property(source, prop, dest):
         """
         Creates property constraints
 
@@ -174,7 +185,8 @@ class ShaclParser:
             dest.add((node, SHACL['node'], property_range[0]))
         return node
 
-    def get_subclasses(self, source):
+    @staticmethod
+    def get_subclasses(source):
         """
         Creates subclasses tree
 
@@ -189,7 +201,8 @@ class ShaclParser:
             subclasses.add([quad[0], RDFS['subClassOf'], quad[1]])
         return subclasses.serialize(format='turtle')
 
-    def to_shacl(self, source):
+    @staticmethod
+    def to_shacl(source):
         """
         Creates SHACL constraints from schema.org terms definitions
 
@@ -202,8 +215,31 @@ class ShaclParser:
         dest.namespace_manager.bind('', BASE)
         shapes = set(list(source.subjects(RDF['type'], RDFS['Class'])))
         for shape in shapes:
-            self.parse_shape(source, shape, dest)
+            ShaclParser.parse_shape(source, shape, dest)
         return dest.serialize(format='turtle')
+
+
+def generate_files(term_defs_path, outputdir, outputfileprefix='', input_format='nt'):
+    with open(term_defs_path) as term_def_file:
+        term_defs = term_def_file.read()
+    graph = Graph().parse(data=term_defs, format=input_format)
+    graph.bind('schema', SCHEMA)
+
+    shexj_path = os.path.join(outputdir, outputfileprefix + 'shapes.shexj')
+    with open(shexj_path, 'w', encoding=FILE_ENCODING) as shexj_file:
+        shexj_file.write(ShExJParser.to_shex(graph))
+    print("Created %s" % shexj_path)
+
+    shacl_path = os.path.join(outputdir, outputfileprefix + 'shapes.shacl')
+    with open(shexj_path, 'w', encoding=FILE_ENCODING) as shacl_file:
+        shacl_file.write(ShaclParser.to_shacl(graph))
+    print("Created %s" % shacl_path)
+
+    subclasses_tree = ShaclParser().get_subclasses(graph)
+    subclasses_path = os.path.join(outputdir, outputfileprefix + 'subclasses.shacl')
+    with open(subclasses_path, 'w', encoding=FILE_ENCODING) as subclasses_file:
+        subclasses_file.write(ShaclParser.get_subclasses(graph))
+    print("Created %s" % subclasses_path)
 
 
 if __name__ == '__main__':
@@ -218,21 +254,10 @@ if __name__ == '__main__':
         term_defs_path = args.sourcefile
     else:
         term_defs_path = input('.nt terms definitions path: ')
-    term_defs = open(term_defs_path).read()
-    g = Graph().parse(data=term_defs, format=args.format)
-    g.bind('schema', SCHEMA)
-    shexj = ShExJParser().to_shex(g)
-    fn='%s/%sshapes.shexj' % (args.outputdir,args.outputfileprefix)
-    open(fn, 'w',encoding='utf8').write(shexj)
-    print("Created %s" % fn)
+    generate_files(
+        term_defs_path = term_defs_path,
+        outputdir = args.outputdir,
+        outputfileprefix = args.outputfileprefix,
+        input_format = args.format)
 
-    shacl = ShaclParser().to_shacl(g)
-    fn = '%s/%sshapes.shacl' % (args.outputdir,args.outputfileprefix)
-    open(fn, 'w',encoding='utf8').write(shacl)
-    print("Created %s" % fn)
-
-    subclasses_tree = ShaclParser().get_subclasses(g)
-    fn='%s/%ssubclasses.shacl' % (args.outputdir,args.outputfileprefix)
-    open(fn, 'w',encoding='utf8').write(subclasses_tree)
-    print("Created %s" % fn)
 
