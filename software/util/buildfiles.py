@@ -10,7 +10,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 import io
 import csv
 
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
+for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import fileutils
@@ -362,7 +362,7 @@ def jsonpcounts(page):
     return content
 
 def exportshex_shacl(page):
-    reldir = os.path.join('./software/site/releases/', getVersion())
+    reldir = os.path.join('./software/site/releases/', schemaversion.getVersion())
     shex_shacl_shapes_exporter.generate_files(
         term_defs_path = os.path.join(reldir, 'schemaorg-all-http.nt'),
         outputdir = reldir,
