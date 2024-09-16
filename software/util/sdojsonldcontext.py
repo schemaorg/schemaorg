@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+# Import standard python libraries
 
+import sys
 import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-  
 import glob
 import re
 
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
 from sdotermsource import SdoTermSource,prefixedIdFromUri
 from sdoterm import *
 
@@ -42,14 +42,14 @@ def createcontext():
                     continue
                 jsonldcontext.append("        \"%s\": \"%s\",\n" % (pref,pth))
 
-    datatypepre = "schema:"    
+    datatypepre = "schema:"
     vocablines = ""
     externalines = ""
     typins = ""
     for t in SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
         if t.termType == SdoTerm.PROPERTY:
             range = t.rangeIncludes
-        
+
             types = []
 
             #If Text in range don't output a @type value
@@ -64,13 +64,13 @@ def createcontext():
             typins = ""
             for typ in types:
                 typins += ", \"@type\": \"" + typ + "\""
-            
+
             line = "        \"" + t.id + "\": { \"@id\": \"" + prefixedIdFromUri(t.uri) + "\"" + typins + "},"
         elif t.termType == SdoTerm.REFERENCE:
             continue
         else:
             line =  "        \"" + t.id + "\": {\"@id\": \"" + prefixedIdFromUri(t.uri) + "\"},"
-    
+
         if t.id.startswith("http:") or t.id.startswith("https:"):
             externalines += line
         else:
@@ -81,5 +81,5 @@ def createcontext():
     jsonldcontext.append("}}\n")
     ret = "".join(jsonldcontext)
     ret = ret.replace("},}}","}\n    }\n}")
-    ret = ret.replace("},","},\n") 
+    ret = ret.replace("},","},\n")
     return ret

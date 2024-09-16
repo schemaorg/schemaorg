@@ -1,34 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import os
-import sys
-
-if not os.getcwd() in sys.path:
-  sys.path.insert(1, os.getcwd())
-
-import software
-
 # Import standard python libraries
 import argparse
 import glob
+import os
 import os
 import re
 import shutil
 import subprocess
 import sys
-import textutils
+import sys
 import time
+import rdflib
 
 # Import schema.org libraries
-import rdflib
-import fileutils
-import runtests
-import buildtermpages
-import buildocspages
-import copystaticdocsplusinsert
-import schemaglobals
-import schemaversion
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.util.buildocspages as buildocspages
+import software.util.buildtermpages as buildtermpages
+import software.util.copystaticdocsplusinsert as copystaticdocsplusinsert
+import software.util.fileutils as fileutils
+import software.util.runtests as runtests_lib
+import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
+import software.util.textutils as textutils
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -89,10 +87,9 @@ def clear():
 #RUN TESTS
 ###################################################
 def runtests():
-    import runtests
     if args.runtests or args.autobuild:
         print('Running test scripts before proceeding...\n')
-        errorcount = runtests.main('./software/tests/')
+        errorcount = runtests_lib.main('./software/tests/')
         if errorcount:
             print('Errors returned: %d' % errorcount)
             sys.exit(errorcount)

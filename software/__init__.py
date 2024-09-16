@@ -5,7 +5,7 @@
 import os
 import sys
 
-LIB_PATHS = ('software/util', 'software/SchemaTerms','software/SchemaExamples')
+LIB_PATHS = ('software/util', 'software/scripts', 'software/SchemaTerms', 'software/SchemaExamples')
 DATA_PATHS = ('docs', 'software/gcloud','data')
 _INITIALIZED = None
 

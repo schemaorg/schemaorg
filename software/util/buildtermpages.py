@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# Import standard python libraries
+
 import os
+import re
+import time
 import sys
 
+# Import schema.org libraries
 if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
+import software.util.schemaglobals as schemaglobals
+import software.util.fileutils as fileutils
+import software.util.jinga_render as jinga_render
 
-import re
-import time
-
-import jinga_render
-import schemaglobals
-import fileutils
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples

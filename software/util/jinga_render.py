@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# Import standard python libraries
+
 import os
 import sys
-
-for path in [os.getcwd(), './software','software/util']:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-
 import jinja2
-import schemaversion
 
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.util.schemaversion as schemaversion
 
 SITENAME = 'Schema.org'
 TEMPLATESDIR = 'templates'
@@ -29,8 +31,8 @@ def _jinjaDebug(text):
 
 local_vars = {}
 def _set_local_var(local_vars, name, value):
-  local_vars[name] = value
-  return ''
+    local_vars[name] = value
+    return ''
 
 
 JENV = None
