@@ -5,11 +5,9 @@
 import argparse
 import glob
 import os
-import os
 import re
 import shutil
 import subprocess
-import sys
 import sys
 import time
 import rdflib
@@ -235,6 +233,7 @@ def copyReleaseFiles(release_dir):
 ###################################################
 
 if __name__ == '__main__':
+    software.CheckWorkingDirectory()
     print('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True
