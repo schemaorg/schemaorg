@@ -8,7 +8,6 @@ logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 import os
-import os.path
 import io
 import glob
 import re
@@ -18,7 +17,7 @@ IDPREFIX = "eg-"
 DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
-class Example ():
+class Example():
     """Representation of an example file, with accessors for the various parts."""
     ExamplesCount = 0
     MaxId = 0
@@ -141,25 +140,19 @@ class Example ():
 
 
     def serialize(self):
-        buff = []
-        termnames = ""
-        first = True
-        idd = "#%s" % self.keyvalue
-        if "-temp-" in idd:
-            idd = ""
-        for t in self.terms:
-            if first:
-                first = False
-            else:
-                termnames += ", "
-            termnames += t
+       termnames = ', '.join(self.terms)
+       idd = "#%s" % self.keyvalue
+       if "-temp-" in idd:
+           idd = ""
 
-        buff.append("TYPES: %s %s\n" % (idd,termnames))
-        buff.append("PRE-MARKUP:\n%s" % self.getHtml())
-        buff.append("MICRODATA:\n%s" % self.getMicrodata())
-        buff.append("RDFA:\n%s" % self.getRdfa())
-        buff.append("JSON:\n%s" % self.getJsonld())
-        return "\n".join(buff)
+       sections = [
+         "TYPES: %s %s\n" % (idd, termnames),
+         "PRE-MARKUP:\n%s" % self.getHtml(),
+         "MICRODATA:\n%s" % self.getMicrodata(),
+         "RDFA:\n%s" % self.getRdfa(),
+         "JSON:\n%s" % self.getJsonld(),
+       ]
+       return "\n".join(sections)
 
     @staticmethod
     def nextId():
