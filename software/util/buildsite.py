@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-# Import libraries that are needed to check version
 import os
 import sys
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print('Python version %s.%s not supported version 3.6 or above required - exiting' % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
+if not os.getcwd() in sys.path:
+  sys.path.insert(1, os.getcwd())
 
-for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples']:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-if os.path.basename(os.getcwd()) != 'schemaorg':
-    print('\nScript should be run from within the "schemaorg" directory! - Exiting\n')
-    sys.exit(os.EX_USAGE)
-
-for dir in ['software/util','docs','software/gcloud','data']:
-    if not os.path.isdir(dir):
-        print('\nRequired directory "%s" not found - Exiting\n' % dir)
-        sys.exit(os.EX_CONFIG)
+import software
 
 # Import standard python libraries
 import argparse
 import glob
+import os
 import re
 import shutil
 import subprocess
+import sys
 import textutils
 import time
 

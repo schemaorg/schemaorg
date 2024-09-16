@@ -2,26 +2,19 @@
 # -*- coding: UTF-8 -*-
 
 import os
-
 import sys
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
 
 import re
 import time
 
-
-for path in [os.getcwd(), "software/util", "software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-
 import jinga_render
 import schemaglobals
 import fileutils
-
-
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
