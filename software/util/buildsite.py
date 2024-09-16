@@ -1,44 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-# Import libraries that are needed to check version
-import os
-import sys
-
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print('Python version %s.%s not supported version 3.6 or above required - exiting' % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
-
-for path in [os.getcwd(),'./software','./software/SchemaTerms','./software/SchemaExamples']:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-if os.path.basename(os.getcwd()) != 'schemaorg':
-    print('\nScript should be run from within the "schemaorg" directory! - Exiting\n')
-    sys.exit(os.EX_USAGE)
-
-for dir in ['software/util','docs','software/gcloud','data']:
-    if not os.path.isdir(dir):
-        print('\nRequired directory "%s" not found - Exiting\n' % dir)
-        sys.exit(os.EX_CONFIG)
-
 # Import standard python libraries
 import argparse
 import glob
+import os
 import re
 import shutil
 import subprocess
-import textutils
+import sys
 import time
+import rdflib
 
 # Import schema.org libraries
-import rdflib
-import fileutils
-import runtests
-import buildtermpages
-import buildocspages
-import copystaticdocsplusinsert
-import schemaglobals
-import schemaversion
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.util.buildocspages as buildocspages
+import software.util.buildtermpages as buildtermpages
+import software.util.copystaticdocsplusinsert as copystaticdocsplusinsert
+import software.util.fileutils as fileutils
+import software.util.runtests as runtests_lib
+import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
+import software.util.textutils as textutils
 
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
@@ -99,10 +85,9 @@ def clear():
 #RUN TESTS
 ###################################################
 def runtests():
-    import runtests
     if args.runtests or args.autobuild:
         print('Running test scripts before proceeding...\n')
-        errorcount = runtests.main('./software/tests/')
+        errorcount = runtests_lib.main('./software/tests/')
         if errorcount:
             print('Errors returned: %d' % errorcount)
             sys.exit(errorcount)
@@ -248,6 +233,7 @@ def copyReleaseFiles(release_dir):
 ###################################################
 
 if __name__ == '__main__':
+    software.CheckWorkingDirectory()
     print('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True

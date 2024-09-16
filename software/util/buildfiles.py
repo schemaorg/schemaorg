@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-import sys
-import os
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
-
-import io
+# Import standard python libraries
 import csv
+import os
+import rdflib
+import sys
 
-for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-import fileutils
-import schemaglobals
-import schemaversion
-import textutils
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+
+import software.util.fileutils as fileutils
+import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
+import software.util.textutils as textutils
+
 import shex_shacl_shapes_exporter
 import schemaexamples
-import rdflib
 
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import *

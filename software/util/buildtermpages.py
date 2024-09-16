@@ -1,26 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# Import standard python libraries
+
 import os
-
-import sys
-
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_CONFIG)
-
 import re
 import time
+import sys
 
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-for path in [os.getcwd(), "software/util", "software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-
-import jinga_render
-import schemaglobals
-import fileutils
-
+import software
+import software.util.schemaglobals as schemaglobals
+import software.util.fileutils as fileutils
+import software.util.jinga_render as jinga_render
 
 from sdotermsource import SdoTermSource
 from sdoterm import *

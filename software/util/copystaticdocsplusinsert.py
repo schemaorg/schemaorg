@@ -3,33 +3,21 @@
 
 """ Tool that handles includes in static html files. """
 
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_SOFTWARE)
+# Import standard python libraries
 
+import sys
 import os
 import glob
 import re
 
-for path in [os.getcwd(),"software/SchemaTerms","software/SchemaExamples","software/util"]:
-  sys.path.insert(1, path) #Pickup libs from local directories
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-import fileutils
-import schemaversion
-
-if os.path.basename(os.getcwd()) != "schemaorg":
-    print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
-    sys.exit(os.EX_DATAERR)
-
-for directory in ("software/util","docs","software/site","templates/static-doc-inserts"):
-    if not os.path.isdir(directory):
-        print("\nRequired directory '%s' not found - Exiting\n" % directory)
-        sys.exit(os.EX_NOINPUT)
-
-
-from schemaversion import *
-import convertmd2htmldocs
+import software
+import software.util.schemaversion as schemaversion
+import software.util.fileutils as fileutils
+import software.util.convertmd2htmldocs as convertmd2htmldocs
 
 
 def _getInserts():
