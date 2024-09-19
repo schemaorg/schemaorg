@@ -147,10 +147,10 @@ class Example():
 
        sections = [
          "TYPES: %s %s\n" % (idd, termnames),
-         "PRE-MARKUP:\n%s" % self.getHtml(),
-         "MICRODATA:\n%s" % self.getMicrodata(),
-         "RDFA:\n%s" % self.getRdfa(),
-         "JSON:\n%s" % self.getJsonld(),
+         "PRE-MARKUP:", self.getHtml(),
+         "MICRODATA:", self.getMicrodata(),
+         "RDFA:", self.getRdfa(),
+         "JSON:", self.getJsonld(),
        ]
        return "\n".join(sections)
 
