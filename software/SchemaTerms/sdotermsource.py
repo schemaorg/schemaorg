@@ -299,7 +299,8 @@ class SdoTermSource():
             objs = self.loadObjects("schema:contributor") #To accept later ttl versions.
             for obj in objs:
                 cont = collaborator.getContributor(str(obj))
-                self.aks.append(cont)
+                if cont:
+                  self.aks.append(cont)
             self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
 

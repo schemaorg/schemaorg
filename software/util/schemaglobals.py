@@ -14,6 +14,7 @@ TERMDOCSDIR = '/docs'
 HANDLER_TEMPLATE = 'handlers-template.yaml'
 HANDLER_FILE = 'handlers.yaml'
 RELEASE_DIR = 'software/site/releases'
+HOMEPAGE = 'https://schema.org'
 
 def hasOpt(opt):
     """Return true if `opt` is among the build options"""
