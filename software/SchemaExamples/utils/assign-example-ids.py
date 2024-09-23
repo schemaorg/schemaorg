@@ -6,7 +6,7 @@ import sys
 import logging
 
 for path in [os.getcwd(),'./SchemaExamples','./software/SchemaExamples']:
-    sys.path.insert(1, path) #Pickup libs from shipped lib directory
+    sys.path.insert(1, path) # Pickup libs from shipped lib directory
 
 import schemaexamples
 
