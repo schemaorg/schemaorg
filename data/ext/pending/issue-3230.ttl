@@ -5,9 +5,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Certification a rdfs:Class ;
-  rdfs:label "Certification" ;
+	rdfs:label "Certification" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> ;	
     rdfs:comment """A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a Person can be a certified professional, a Place can be certified for food processing. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Mapped from the [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary.""" ;
     rdfs:subClassOf :CreativeWork .
 
@@ -18,7 +18,7 @@
         :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
     rdfs:comment "Date when a certification was last audited. See also  [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." .
-
+	
 :certificationIdentification a rdf:Property ;
     rdfs:label "certificationIdentification" ;
     :domainIncludes :Certification ;
@@ -41,8 +41,8 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
     rdfs:comment "Enumerates the different statuses of a Certification (Active and Inactive)." ;
-    rdfs:subClassOf :Enumeration .
-
+    rdfs:subClassOf :Enumeration .	
+	
 :CertificationActive a :CertificationStatusEnumeration ;
     rdfs:label "CertificationActive" ;
     :isPartOf <https://pending.schema.org> ;
@@ -54,36 +54,25 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
     rdfs:comment "Specifies that a certification is inactive (no longer in effect)." .
-
+	
 :certificationStatus a rdf:Property ;
     rdfs:label "certificationStatus" ;
     :domainIncludes :Certification ;
     :rangeIncludes :CertificationStatusEnumeration;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
     rdfs:comment "Indicates the current status of a certification: active or inactive. See also  [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus)." .
-
-:validFor a rdf:Property ;
-    rdfs:label "validFor" ;
-    :domainIncludes :Certification ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> .
-
-:validIn a rdf:Property ;
-    rdfs:label "validIn" ;
-    :domainIncludes :Certification ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> .
-
-:recognizedBy a rdf:Property ;
-    rdfs:label "recognizedBy" ;
-    :domainIncludes :Certification ;
-    :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Organization ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
-    rdfs:comment "An organization that acknowledges the validity, value or utility of a certification. Note: recognition may include a process of quality assurance or accreditation." .
-
+	
 :hasCertification a rdf:Property ;
-    rdfs:label "hasCertification" ;
-    :domainIncludes :Product, :Organization, :Person, :Service, :Place;
-    :rangeIncludes :Certification;
-    :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
-    rdfs:comment "Certification information about a product, organization, service, place, or person." .
+	rdfs:label "hasCertification" ;
+	:domainIncludes :Product,
+		 :Organization,
+		 :Person,
+		 :Service,
+		 :Place;
+	:rangeIncludes :Certification;
+	:source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+	rdfs:comment "Certification information about a product, organization, service, place, or person." .
+
+
+
 
