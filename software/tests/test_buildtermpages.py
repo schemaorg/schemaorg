@@ -5,12 +5,14 @@ import os
 import sys
 import unittest
 
-for path in (os.getcwd(), "software/util", "software/SchemaTerms"):
-  sys.path.insert(1, path) #Pickup libs from local directories
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-import buildtermpages
-import schemaexamples
-import sdoterm
+import software
+import software.SchemaExamples.schemaexamples as schemaexamples
+import software.SchemaTerms.sdoterm as sdoterm
+import software.util.buildtermpages as buildtermpages
 
 
 class TestTermFileName(unittest.TestCase):
