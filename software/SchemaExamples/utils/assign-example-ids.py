@@ -1,60 +1,49 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import sys
 import os
-for path in [os.getcwd(),"./SchemaExamples","./software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from shipped lib directory
-
+import sys
 import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
 
-from schemaexamples import SchemaExamples, Example
+for path in [os.getcwd(),'./SchemaExamples','./software/SchemaExamples']:
+    sys.path.insert(1, path) # Pickup libs from shipped lib directory
+
+import schemaexamples
+
+def AssignExampleIds():
+    """Check if all examples are assigned an identity, if not, assign one and rewrite the file."""
+    log = logging.getLogger(__name__)
+
+    schemaexamples.SchemaExamples.loadExamplesFiles('default')
+    log.info('Loaded %d examples ' % (schemaexamples.SchemaExamples.count()))
+
+    log.info('Processing')
+
+    # Map from filename to example
+    changedFiles = {}
+
+    for example in schemaexamples.SchemaExamples.allExamples(sort=True):
+        if not example.hasValidId():
+            example.setKey(schemaexamples.Example.nextId())
+            filename = example.getMeta('file')
+            if filename in changedFiles.keys():
+                log.error('Two examples with the same filename %s: %s and %s' % (filename, changedFiles[filename], example))
+                continue
+            filename[filename] = example
+
+    if not changedFiles:
+        log.info('No new identifiers assigned')
+        return
+
+    log.info('Writing %s updated examples' % len(changedFiles))
+
+    for filename, example in changedFiles.items():
+        log.info('Writing example file %s' % filename)
+        with open(filename, 'w', encoding='utf-8') as file_handle:
+            file_handle.write(example.serialize())
+            file_handle.write('\n')
 
 
-SchemaExamples.loadExamplesFiles("default")
-print("Loaded %d examples " % (SchemaExamples.count()))
-
-log.info("Processing")
-
-#Example.nextIdReset()
-changedFiles=[]
-changedCount = 0
-
-for ex in SchemaExamples.allExamples(sort=True):
-    if not ex.hasValidId():
-        ex.setKey(Example.nextId())
-        changedCount += 1
-        if not ex.getMeta('file') in changedFiles:
-            changedFiles.append(ex.getMeta('file'))
-
-filename = ""
-f = None
-
-examples = SchemaExamples.allExamples(sort=True)
-if changedCount == 0:
-    log.info("No new identifiers assigned")
-    sys.exit(0)
-
-log.info("Writing %s updated examples into %s files" % (changedCount,len(changedFiles)))
-
-#OUTFILESUFFIX = ".new"
-OUTFILESUFFIX = "" #Overwrite sourcefiles
-
-for ex in examples:
-    source = ex.getMeta('file')
-    if source not in changedFiles:
-        continue
-    if source != filename:
-        if f:
-            f.close()
-        filename = source
-        fn = filename + OUTFILESUFFIX
-        log.info("Writing %s" % fn)
-        f = open(fn,"w")
-    f.write(ex.serialize())
-    f.write("\n")
-if f:
-    f.close()
-sys.exit(0)
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+    AssignExampleIds()
