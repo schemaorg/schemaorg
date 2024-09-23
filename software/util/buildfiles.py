@@ -137,20 +137,18 @@ def sitemap(page):
     output.append("</urlset>\n")
     return "".join(output)
 
-def prtocolswap(content,protocol,altprotocol):
+def protocolSwap(content, protocol, altprotocol):
     ret = content.replace("%s://schema.org" % protocol,"%s://schema.org" % altprotocol)
     for ext in ["attic","auto","bib","health-lifesci","meta","pending"]:
         ret = ret.replace("%s://%s.schema.org" % (protocol,ext),"%s://%s.schema.org" % (altprotocol,ext))
     return ret
 
 def protocols():
+    """Return the protocols (http, https) in order of priority."""
     vocaburi = SdoTermSource.vocabUri()
-    protocol="http"
-    altprotocol="https"
     if vocaburi.startswith("https"):
-        protocol="https"
-        altprotocol="http"
-    return protocol,altprotocol
+        return 'https', 'http'
+    return 'http', 'https'
 
 
 from rdflib.serializer import Serializer
@@ -241,43 +239,28 @@ def _exportrdf(format,all,current):
         out = g.serialize(format=fmt,auto_compact=True,**kwargs)
         f.write(out)
         print(fn)
-        af.write(prtocolswap(out,protocol=protocol,altprotocol=altprotocol))
+        af.write(protocolSwap(out,protocol=protocol,altprotocol=altprotocol))
         print(afn)
         f.close()
         af.close()
 
-def array2str(ar):
-    if not ar or not len(ar):
-        return ""
-    buf = []
-    first = True
-    for i in ar:
-        if first:
-            first = False
-        else:
-            buf.append(', ')
-        buf.append(i)
-    return "".join(buf)
+def array2str(values):
+    if not values:
+      return ''
+    return ', '.join(values)
+
 
 def uriwrap(ids):
-    single = False
-    if not isinstance(ids, list):
-        single = True
-        ids = [ids]
-    ret = []
-    for i in ids:
-        if i and len(i):
-            if(i.startswith("http:") or i.startswith("https:")):#external reference
-                ret.append(i)
-            else:
-                ret.append(VOCABURI + i)
-        else:
-            ret.append("")
-    if single:
-        return ret[0]
-    if not len(ret):
-        return ""
-    return array2str(ret)
+    if not ids:
+      return ''
+    if isinstance(ids, list):
+      return array2str(map(uriwrap, ids))
+    # ids is a single element
+    if ids.startswith("http:") or ids.startswith("https:"):
+      #external reference
+      return ids
+    return VOCABURI + ids
+
 
 def exportcsv(page):
     protocol, altprotocol = protocols()
@@ -344,7 +327,7 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     csvfile.write(csvout.getvalue())
     print(fn)
     csvfile.close()
-    acsvfile.write(prtocolswap(csvout.getvalue(),protocol=protocol,altprotocol=altprotocol))
+    acsvfile.write(protocolSwap(csvout.getvalue(),protocol=protocol,altprotocol=altprotocol))
     print(afn)
     acsvfile.close()
     csvout.close()
