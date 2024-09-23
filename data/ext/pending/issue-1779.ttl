@@ -9,7 +9,7 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
     rdfs:comment "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer." ;
-    rdfs:subClassOf :CreativeWork .
+    rdfs:subClassOf :Certification .
 
 :competencyRequired a rdf:Property ;
     rdfs:label "competencyRequired" ;
@@ -52,23 +52,5 @@
 :qualifications a rdf:Property ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :EducationalOccupationalCredential ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> .
-
-:recognizedBy a rdf:Property ;
-    rdfs:label "recognizedBy" ;
-    :domainIncludes :EducationalOccupationalCredential ;
-    :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Organization ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
-    rdfs:comment "An organization that acknowledges the validity, value or utility of a credential. Note: recognition may include a process of quality assurance or accreditation." .
-
-:validFor a rdf:Property ;
-    rdfs:label "validFor" ;
-    :domainIncludes :EducationalOccupationalCredential ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1779> .
-
-:validIn a rdf:Property ;
-    rdfs:label "validIn" ;
-    :domainIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
