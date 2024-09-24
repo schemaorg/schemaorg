@@ -185,19 +185,15 @@ def main(test_path, args=None):
     suite = GetSuite(test_path, args)
     res = runner.run(suite)
     count = len(res.failures) + len(res.errors)
-    if STANDALONE:
-        sys.exit(count)
-    else:
-        return(count)
+    return(count)
 
 
 if __name__ == '__main__':
-    STANDALONE=True
     colorama.init()
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
-    main('./software/tests/', args)
+    sys.exit(main('./software/tests/', args))
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

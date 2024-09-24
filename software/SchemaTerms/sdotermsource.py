@@ -22,7 +22,6 @@ import traceback
 
 from sdoterm import *
 
-logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 DEFVOCABURI = "https://schema.org/"
@@ -956,17 +955,17 @@ class SdoTermSource():
 
             else:
                 SdoTermSource.LOADEDDEFAULT = True
-                log.info("SdoTermSource.loadSourceGraph() loading from default files found in globs: %s" % ','.join(DEFTRIPLESFILESGLOB))
+                log.info("SdoTermSource.loadSourceGraph() loading from default files found in globs: %s", ','.join(DEFTRIPLESFILESGLOB))
                 files = []
                 for g in DEFTRIPLESFILESGLOB:
                     files.extend(glob.glob(g))
         elif isinstance(files, str):
             SdoTermSource.LOADEDDEFAULT = False
-            log.info("SdoTermSource.loadSourceGraph() loading from file: %s" % files)
+            log.info("SdoTermSource.loadSourceGraph() loading from file: %s", files)
             files = [files]
         else:
             SdoTermSource.LOADEDDEFAULT = False
-            log.info("SdoTermSource.loadSourceGraph() loading from %d files" % len(files))
+            log.info("SdoTermSource.loadSourceGraph() loading from %d files", len(files))
 
         if not len(files):
             raise Exception("No triples file(s) to load")
@@ -975,6 +974,8 @@ class SdoTermSource():
 
         for file_path in files:
             SdoTermSource.SOURCEGRAPH += _loadOneSourceGraph(file_path)
+        log.info("Loaded %s triples - %s terms" , len(SdoTermSource.sourceGraph()), len(SdoTermSource.getAllTerms()))
+
 
 
     @staticmethod
@@ -1159,7 +1160,7 @@ class SdoTermSource():
             elif createReference:
                 term = SdoTermSource(fullId).getTermdesc()
             else:
-                log.debug("No definition of term %s" % fullId)
+                log.warning("No definition of term %s" % fullId)
 
         if term and expanded and not term.expanded:
             exterm = EXPANDEDTERMS.get(fullId,None)
