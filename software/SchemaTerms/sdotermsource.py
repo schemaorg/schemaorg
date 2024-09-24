@@ -894,7 +894,7 @@ class SdoTermSource():
                 if not term in terms:
                     terms.append(term)
 
-        #log.info("count %s TERMS %s" % (len(terms),len(TERMS)))
+        log.info("count %s TERMS %s" % (len(terms),len(TERMS)))
         return terms
 
     @staticmethod

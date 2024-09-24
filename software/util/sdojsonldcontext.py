@@ -13,11 +13,18 @@ if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
-from sdotermsource import SdoTermSource,prefixedIdFromUri
-from sdoterm import *
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdoterm as sdoterm
 
 def createcontext():
-    """Generates a basic JSON-LD context file for schema.org."""
+    """Generates a basic JSON-LD context file for schema.org.
+
+    TODO(wiesmann): this function is currenty buggy:
+    * it outputs invalid JSON if `getAllTerms` returns an empty set.
+    * if a property has multiple types, the @type has multiple values,
+      which is invalid JSON.
+
+    """
 
     SCHEMAURI = "http://schema.org/"
 
@@ -28,7 +35,7 @@ def createcontext():
     jsonldcontext.append("        \"HTML\": { \"@id\": \"rdf:HTML\" },\n")
     #jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
     jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SCHEMAURI)
-    ns = SdoTermSource.sourceGraph().namespaces()
+    ns = sdotermsource.SdoTermSource.sourceGraph().namespaces()
     done = []
     for n in ns:
         for n in ns:
@@ -46,8 +53,8 @@ def createcontext():
     vocablines = ""
     externalines = ""
     typins = ""
-    for t in SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
-        if t.termType == SdoTerm.PROPERTY:
+    for t in sdotermsource.SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
+        if t.termType == sdoterm.SdoTerm.PROPERTY:
             range = t.rangeIncludes
 
             types = []
@@ -65,11 +72,11 @@ def createcontext():
             for typ in types:
                 typins += ", \"@type\": \"" + typ + "\""
 
-            line = "        \"" + t.id + "\": { \"@id\": \"" + prefixedIdFromUri(t.uri) + "\"" + typins + "},"
-        elif t.termType == SdoTerm.REFERENCE:
+            line = "        \"" + t.id + "\": { \"@id\": \"" + sdotermsource.prefixedIdFromUri(t.uri) + "\"" + typins + "},"
+        elif t.termType == sdoterm.SdoTerm.REFERENCE:
             continue
         else:
-            line =  "        \"" + t.id + "\": {\"@id\": \"" + prefixedIdFromUri(t.uri) + "\"},"
+            line =  "        \"" + t.id + "\": {\"@id\": \"" + sdotermsource.prefixedIdFromUri(t.uri) + "\"},"
 
         if t.id.startswith("http:") or t.id.startswith("https:"):
             externalines += line

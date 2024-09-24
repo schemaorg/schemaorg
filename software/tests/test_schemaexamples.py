@@ -6,10 +6,13 @@ import sys
 import unittest
 import tempfile
 
-for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert(1, path) #Pickup libs from local directories
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-import schemaexamples
+import software
+import software.SchemaExamples.schemaexamples as schemaexamples
+
 
 THING_EXAMPLE = """TYPES: #eg-0999 Thing
 
