@@ -7,14 +7,16 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 import logging
-logging.basicConfig(level=logging.INFO) 
-log = logging.getLogger(__name__)
+
 
 import threading
 import os
 import re
 from sdotermsource import SdoTermSource
 from localmarkdown import Markdown
+
+log = logging.getLogger(__name__)
+
 
 class collaborator():
     COLLABORATORS = {}
@@ -90,7 +92,7 @@ class collaborator():
         line = re.sub(' ', '', line).lower()
         val = re.sub(' ', '', val).lower()
         return line.startswith(val)
-    
+
     def isContributor(self):
         return self.contributor
 
@@ -107,7 +109,7 @@ class collaborator():
         collaborator.loadCollaborators()
         coll = collaborator.COLLABORATORS.get(ref,None)
         if not coll:
-            print("No such collaborator: %s" % ref)
+            log.warning("No such collaborator: %s" % ref)
         return coll
 
     @staticmethod
@@ -116,7 +118,7 @@ class collaborator():
         collaborator.loadContributors()
         cont = collaborator.CONTRIBUTORS.get(ref,None)
         if not cont:
-            print("No such contributor: %s" % ref)
+            log.warning("No such contributor: %s" % ref)
         return cont
 
     @staticmethod
@@ -129,7 +131,7 @@ class collaborator():
                 desc = f.read()
             coll = collaborator(ref,desc=desc)
         except Exception as e:
-            print("Error loading colaborator source %s: %s" % (file,e))
+            log.error("Error loading colaborator source %s: %s" % (file,e))
 
             #raise Exception("Error loading colaborator source %s: %s" % (file,e))
 
@@ -141,7 +143,7 @@ class collaborator():
         if not len(collaborator.COLLABORATORS):
             for file in glob.glob("data/collab/*.md"):
                 collaborator.createCollaborator(file)
-            print("Loaded %s collaborators" % len(collaborator.COLLABORATORS))
+            log.info("Loaded %s collaborators" % len(collaborator.COLLABORATORS))
 
     @staticmethod
     def createContributor(ref,):
@@ -157,16 +159,16 @@ class collaborator():
     def loadContributors():
         if not len(collaborator.CONTRIBUTORS):
             collaborator.loadCollaborators()
-            query = """ 
+            query = """
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
-            }""" 
+            }"""
             res = SdoTermSource.query(query)
 
             for row in res:
                 cont = row.val
                 collaborator.createContributor(os.path.basename(str(cont)))
-            print("Loaded %s contributors" % len(collaborator.CONTRIBUTORS))
+            log.info("Loaded %s contributors" % len(collaborator.CONTRIBUTORS))
 
     @staticmethod
     def collaborators():

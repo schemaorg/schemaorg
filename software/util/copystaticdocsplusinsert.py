@@ -9,6 +9,8 @@ import sys
 import os
 import glob
 import re
+import logging
+
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -19,6 +21,7 @@ import software.util.schemaversion as schemaversion
 import software.util.fileutils as fileutils
 import software.util.convertmd2htmldocs as convertmd2htmldocs
 
+log = logging.getLogger(__name__)
 
 def _getInserts():
     for f_path in glob.glob('./templates/static-doc-inserts/*.html'):
@@ -67,24 +70,22 @@ SRCDIR = './docs'
 DESTDIR = './software/site/docs'
 
 
-def htmlinserts(destdir, indent):
+def htmlinserts(destdir):
     """Perform susbstitions on all HTML files in DESTDIR."""
-    print("%sAdding header/footer templates to all html files" % indent)
+    log.info("Adding header/footer templates to all html files")
     docs = glob.glob(os.path.join(destdir, '*.html'))
     replacer = Replacer(destdir=destdir)
-    print(indent, end='')
     for doc in docs:
         replacer.insertcopy(doc)
-        print(".", end='')
-    print("\n%sAdded" % indent)
+    log.info("Added to %d files" % len(docs))
 
 
-def copyFiles(srcdir, destdir, indent=''):
+def copyFiles(srcdir, destdir):
     fileutils.mycopytree(srcdir, destdir)
-    print("%sConverting .md docs to html" % indent)
+    log.info("Converting .md docs to html")
     convertmd2htmldocs.mddocs(DESTDIR, DESTDIR)
-    htmlinserts(destdir=destdir, indent=indent)
-    print("%sDone" % indent)
+    htmlinserts(destdir=destdir)
+    log.info("Done")
 
 
 if __name__ == '__main__':

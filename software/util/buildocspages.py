@@ -5,6 +5,7 @@
 
 import sys
 import os
+import logging
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -20,6 +21,8 @@ import software.util.textutils as textutils
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
 from sdoterm import *
+
+log = logging.getLogger(__name__)
 
 def absoluteFilePath(fn):
     name = os.path.join(schemaglobals.OUTPUTDIR, fn)
@@ -279,14 +282,14 @@ def createCollab(coll):
     filename = absoluteFilePath(os.path.join("docs/collab/", + coll.ref + ".html"))
     with open(filename, 'w', encoding='utf8') as handle:
       handle.write(content)
-    print("Created %s" % fn)
+    log.info("Created %s" % fn)
 
 def termfind(file):
 
     # Local import because of circular dependencies
     from buildtermlist import buildlist
     if not schemaglobals.hasOpt("notermfinder"):
-        print("Building term list")
+        log.info("Building term list")
         return buildlist(True)
     return ""
 
@@ -315,7 +318,7 @@ def buildDocs(pages):
 
 
     for p in pages:
-        print("%s:"%p)
+        log.debug("Preparing page %s:" % p)
         if p in PAGELIST.keys():
             func, filenames = PAGELIST.get(p,None)
             if func:
@@ -324,6 +327,6 @@ def buildDocs(pages):
                     filename = absoluteFilePath(rel_path)
                     with open(filename, 'w', encoding='utf8') as handle:
                       handle.write(content)
-                    print("Created %s" % filename)
+                    log.info("Created page %s" % filename)
         else:
-            print("Unknown page name: %s" % p)
+            log.warning("Unknown page name: %s" % p)
