@@ -7404,7 +7404,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     :domainIncludes :OrderItem ;
-    :rangeIncludes :Number ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." .
 
 :orderStatus a rdf:Property ;
