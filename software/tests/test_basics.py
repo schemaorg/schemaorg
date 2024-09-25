@@ -487,7 +487,9 @@ class BasicJSONLDTests(unittest.TestCase):
             with open("site/docs/jsonldcontext.json") as json_file:
                 self.ctx = json.load(json_file)
         except IOError:
-            pass
+            raise unittest.SkipTest(
+                "jsonldcontext.json file not loaded - bypassing tests"
+            )
 
     #    @skip("Need to think about this.")
     #    def test_jsonld_basic_jsonld_context_available(self):
@@ -495,19 +497,11 @@ class BasicJSONLDTests(unittest.TestCase):
     #        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
 
     def test_issuedBy_jsonld(self):
-        if not self.ctx:
-            raise unittest.SkipTest(
-                "jsonldcontext.json file not loaded - bypassing tests"
-            )
         self.assertIn(
             "issuedBy", self.ctx["@context"], msg="issuedBy should be defined."
         )
 
     def test_dateModified_jsonld(self):
-        if not self.ctx:
-            raise unittest.SkipTest(
-                "jsonldcontext.json file not loaded - bypassing tests"
-            )
         self.assertIn(
             "dateModified", self.ctx["@context"], msg="dateModified should be defined."
         )
