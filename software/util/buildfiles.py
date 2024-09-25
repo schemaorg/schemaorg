@@ -3,10 +3,11 @@
 
 # Import standard python libraries
 import csv
+import io
+import logging
 import os
 import rdflib
 import sys
-import logging
 
 
 # Import schema.org libraries

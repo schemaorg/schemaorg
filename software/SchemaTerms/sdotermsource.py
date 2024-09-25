@@ -1159,11 +1159,11 @@ class SdoTermSource:
             datatypes -= 1  # Datatype not counted
 
             cls.TERMCOUNTS = {}
-            cls.TERMCOUNTS[SdoTerm.TYPE] = types
-            cls.TERMCOUNTS[SdoTerm.PROPERTY] = properties
-            cls.TERMCOUNTS[SdoTerm.DATATYPE] = datatypes
-            cls.TERMCOUNTS[SdoTerm.ENUMERATION] = enums
-            cls.TERMCOUNTS[SdoTerm.ENUMERATIONVALUE] = enumvals
+            cls.TERMCOUNTS[sdoterm.SdoTerm.TYPE] = types
+            cls.TERMCOUNTS[sdoterm.SdoTerm.PROPERTY] = properties
+            cls.TERMCOUNTS[sdoterm.SdoTerm.DATATYPE] = datatypes
+            cls.TERMCOUNTS[sdoterm.SdoTerm.ENUMERATION] = enums
+            cls.TERMCOUNTS[sdoterm.SdoTerm.ENUMERATIONVALUE] = enumvals
             cls.TERMCOUNTS["All"] = types + properties + datatypes + enums + enumvals
         return cls.TERMCOUNTS
 
