@@ -520,7 +520,7 @@ class BasicJSONLDTests(unittest.TestCase):
 
 class JsonExampleTests(unittest.TestCase):
   def testAllExamples(self):
-    for example in SchemaExamples.allExamples():
+    for example in schemaexamples.SchemaExamples.allExamples():
       source_filename = example.getMeta("file")
       with self.subTest(key=example.getKey(), file=source_filename):
         if not example.hasJsonld():
