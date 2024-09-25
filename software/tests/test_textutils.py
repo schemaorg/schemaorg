@@ -7,10 +7,12 @@ import sys
 import unittest
 import tempfile
 
-for path in [os.getcwd(), "software/util"]:
-  sys.path.insert(1, path) #Pickup libs from local directories
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-import textutils
+import software
+import software.util.textutils as textutils
 
 class TestStripHtmlTags(unittest.TestCase):
   """Test for the `StripHtmlTags` function."""
