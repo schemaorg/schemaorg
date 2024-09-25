@@ -7,47 +7,47 @@
 :BusOrCoach a rdfs:Class ;
     rdfs:label "BusOrCoach" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel." ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
+    rdfs:comment "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury buses, usually in service for long distance travel." ;
     rdfs:subClassOf :Vehicle .
 
 :CarUsageType a rdfs:Class ;
     rdfs:label "CarUsageType" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi." ;
     rdfs:subClassOf :Enumeration .
 
 :Motorcycle a rdfs:Class ;
     rdfs:label "Motorcycle" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle." ;
     rdfs:subClassOf :Vehicle .
 
 :MotorizedBicycle a rdfs:Class ;
     rdfs:label "MotorizedBicycle" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A motorized bicycle is a bicycle with an attached motor used to power the vehicle, or to assist with pedaling." ;
     rdfs:subClassOf :Vehicle .
 
 :DrivingSchoolVehicleUsage a :CarUsageType ;
     rdfs:label "DrivingSchoolVehicleUsage" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Indicates the usage of the vehicle for driving school." .
 
 :RentalVehicleUsage a :CarUsageType ;
     rdfs:label "RentalVehicleUsage" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Indicates the usage of the vehicle as a rental car." .
 
 :TaxiVehicleUsage a :CarUsageType ;
     rdfs:label "TaxiVehicleUsage" ;
     :isPartOf <https://auto.schema.org> ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Indicates the usage of the car as a taxi." .
 
 :accelerationTime a rdf:Property ;
@@ -55,7 +55,7 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The time needed to accelerate the vehicle from a given start velocity to a given target velocity.\\n\\nTypical unit code(s): SEC for seconds\\n\\n* Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use \"SEC\" for seconds and indicate the velocities in the [[name]] of the [[QuantitativeValue]], or use [[valueReference]] with a [[QuantitativeValue]] of 0..60 mph or 0..100 km/h to specify the reference speeds." .
 
 :acrissCode a rdf:Property ;
@@ -64,7 +64,7 @@
         :Car ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The ACRISS Car Classification Code is a code used by many car rental companies, for classifying vehicles. ACRISS stands for Association of Car Rental Industry Systems and Standards." .
 
 :bodyType a rdf:Property ;
@@ -74,7 +74,7 @@
     :rangeIncludes :QualitativeValue,
         :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.)." .
 
 :emissionsCO2 a rdf:Property ;
@@ -82,7 +82,7 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :Number ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put \"g/km\" into the unitText property of that value, since there is no UN/CEFACT Common Code for \"g/km\"." .
 
 :engineDisplacement a rdf:Property ;
@@ -90,7 +90,7 @@
     :domainIncludes :EngineSpecification ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. \\n\\nTypical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches\\n* Note 1: You can link to information about how the given value has been determined using the [[valueReference]] property.\\n* Note 2: You can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :enginePower a rdf:Property ;
@@ -98,9 +98,9 @@
     :domainIncludes :EngineSpecification ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment """The power of the vehicle's engine.
-    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W)\\n\\n* Note 1: There are many different ways of measuring an engine's power. For an overview, see  [http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes](http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes).\\n* Note 2: You can link to information about how the given value has been determined using the [[valueReference]] property.\\n* Note 3: You can use [[minValue]] and [[maxValue]] to indicate ranges.""" .
+    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W)\\n\\n* Note 1: There are many different ways of measuring an engine's power. For an overview, see  [http://en.wikipedia.org/wiki/Horsepower#Engine\\_power\\_test\\_codes](http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes).\\n* Note 2: You can link to information about how the given value has been determined using the [[valueReference]] property.\\n* Note 3: You can use [[minValue]] and [[maxValue]] to indicate ranges.""" .
 
 :engineType a rdf:Property ;
     rdfs:label "engineType" ;
@@ -109,7 +109,7 @@
     :rangeIncludes :QualitativeValue,
         :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The type of engine or engines powering the vehicle." .
 
 :fuelCapacity a rdf:Property ;
@@ -117,7 +117,7 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The capacity of the fuel tank or in the case of electric cars, the battery. If there are multiple components for storage, this should indicate the total of all storage of the same type.\\n\\nTypical unit code(s): LTR for liters, GLL of US gallons, GLI for UK / imperial gallons, AMH for ampere-hours (for electrical vehicles)." .
 
 :meetsEmissionStandard a rdf:Property ;
@@ -127,7 +127,7 @@
     :rangeIncludes :QualitativeValue,
         :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Indicates that the vehicle meets the respective emission standard." .
 
 :modelDate a rdf:Property ;
@@ -135,7 +135,7 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :Date ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The release date of a vehicle model (often used to differentiate versions of the same make and model)." .
 
 :payload a rdf:Property ;
@@ -143,7 +143,7 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The permitted weight of passengers and cargo, EXCLUDING the weight of the empty vehicle.\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n\\n* Note 1: Many databases specify the permitted TOTAL weight instead, which is the sum of [[weight]] and [[payload]]\\n* Note 2: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 3: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]].\\n* Note 4: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :roofLoad a rdf:Property ;
@@ -152,7 +152,7 @@
         :Car ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The permitted total weight of cargo and installations (e.g. a roof rack) on top of the vehicle.\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n\\n* Note 1: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 2: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]]\\n* Note 3: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :seatingCapacity a rdf:Property ;
@@ -161,31 +161,31 @@
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.\\n\\nTypical unit code(s): C62 for persons " .
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
+    rdfs:comment "The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.\\n\\nTypical unit code(s): C62 for persons." .
 
 :speed a rdf:Property ;
     rdfs:label "speed" ;
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by [[maxValue]] should be the maximum speed achievable under regular conditions.\\n\\nTypical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot\\n\\n*Note 1: Use [[minValue]] and [[maxValue]] to indicate the range. Typically, the minimal value is zero.\\n* Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the [[valueReference]] property." .
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
+    rdfs:comment "The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by [[maxValue]]) should be the maximum speed achievable under regular conditions.\\n\\nTypical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot\\n\\n*Note 1: Use [[minValue]] and [[maxValue]] to indicate the range. Typically, the minimal value is zero.\\n* Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the [[valueReference]] property." .
 
 :tongueWeight a rdf:Property ;
     rdfs:label "tongueWeight" ;
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR)\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n\\n* Note 1: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 2: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]].\\n* Note 3: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
+    rdfs:comment "The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR).\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n\\n* Note 1: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 2: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]].\\n* Note 3: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :torque a rdf:Property ;
     rdfs:label "torque" ;
     :domainIncludes :EngineSpecification ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The torque (turning force) of the vehicle's engine.\\n\\nTypical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch\\n\\n* Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the [[valueReference]] property.\\n* Note 2: You can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :trailerWeight a rdf:Property ;
@@ -193,21 +193,21 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The permitted weight of a trailer attached to the vehicle.\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n* Note 1: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 2: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]].\\n* Note 3: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :vehicleSpecialUsage a rdf:Property ;
     rdfs:label "vehicleSpecialUsage" ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :CarUsageType ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
 
 :weightTotal a rdf:Property ;
     rdfs:label "weightTotal" ;
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.\\n\\nTypical unit code(s): KGM for kilogram, LBR for pound\\n\\n* Note 1: You can indicate additional information in the [[name]] of the [[QuantitativeValue]] node.\\n* Note 2: You may also link to a [[QualitativeValue]] node that provides additional information using [[valueReference]].\\n* Note 3: Note that you can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :wheelbase a rdf:Property ;
@@ -215,6 +215,6 @@
     :domainIncludes :Vehicle ;
     :isPartOf <https://auto.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "The distance between the centers of the front and rear wheels.\\n\\nTypical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet" .
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
+    rdfs:comment "The distance between the centers of the front and rear wheels.\\n\\nTypical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet." .
 

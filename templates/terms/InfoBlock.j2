@@ -1,38 +1,39 @@
 {% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
-<div id="infoblock">
-	<!-- Label /  termType  / canonical URI -->
+{% from 'macros.j2' import term_sdotermbreadcrumlink as sdotermbreadcrumblink with context %}
+<div id="infoblock" class="jumptarget" title="Details">
+  <!-- Label /  termType  / canonical URI -->
     <div id="infohead">
         <h1>{{ term.label }}</h1>
-        <em>A Schema.org {{ TERMTYPE }}</em>
-        <br/>
+        <div class="infotype">A Schema.org {{ TERMTYPE }}</div>
         <!-- Pending/retired/term in section -->
         {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been <a href="#supersededby">superseded</a>.</em>{% endif %}
-        {% if term.pending %}<br/><em>This term is proposed for full integration into Schema.org, <a title="this term is pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.</em>
+        {% if term.pending %}<br/><em>This term is in the "new" area - implementation feedback and adoption from applications and websites can help improve our definitions.</em>
         {% elif term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>
         {% elif term.extLayer %}<em>Defined in the <a href="/docs/{{term.extLayer}}.home.html">{{term.extLayer}}</a> section.</em>
         {% endif %}
     </div>
-	<!-- Breadcrumb display of term inheritance -->
-    <div class="superPaths">
+  <!-- Breadcrumb display of term inheritance -->
+    <div class="superPaths" itemscope itemtype="https://schema.org/BreadcrumbList">
     {% for superPath in term.superPaths %}
-        {% for super in superPath %} 
+        {% for super in superPath %}
             {% if term.termType == "Property" %}
                 {% if not loop.first %}
-                    {% if loop.index == 2 %} > {% elif loop.index == 3 %} :: {% else %} : {% endif %}
+                    {% if loop.index == 2 %} &gt; {% elif loop.index == 3 %} :: {% else %} : {% endif %}
                 {% endif %}
             {% else %}
                 {% if not loop.first %}
-                        {% if not loop.last %} > {% endif %}
+                        {% if not loop.last %} &gt; {% endif %}
                     {% endif %}
-				{% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} > {% endif %}{% endif %}{% endif %}
+        {% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} &gt; {% endif %}{% endif %}{% endif %}
             {% endif %}
-					{{ sdotermlink(super)|safe }}{% endfor %}
+          {{ sdotermbreadcrumblink(super, position=loop.index)|safe }}{% endfor %}
+
         <br/>
     {% endfor %}
     </div>
     <!-- More Block -->
     <div>
-            <div id='infobox' style='text-align: right;' role="checkbox" aria-checked="false">
+            <div id='infobox' style='text-align: right; padding-right: 5px;' role="checkbox" aria-checked="false">
                 <label for="morecheck"><b><span style="cursor: pointer;">[more...]</span></b></label>
             </div>
             <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
@@ -47,8 +48,8 @@
             </ul>
     </div>
     </div>
-	
-	<!-- Description of term -->
+
+  <!-- Description of term -->
     <div class="description">{{term.comment|safe}}</div>
         {% if term.termType == "Enumerationvalue" %}
        <br/> A member value for enumeration type: {{sdotermlink(term.enumerationParent)}}
@@ -60,5 +61,5 @@
             {% if loop.last %}</ul><br/>{% endif %}
         {% endif %}
     {% endfor %}
-	
+
 </div> <!-- infoblock -->

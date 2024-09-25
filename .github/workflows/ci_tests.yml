@@ -25,11 +25,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Setup python environment
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       
@@ -42,7 +42,7 @@ jobs:
       # Local tests prepare
       - name: Local Tests prepare
         run: |
-          software/util/buildsite.py -f RDFExport.nquads Context Examples
+          software/util/buildsite.py -e -f RDFExport.nquads Context Examples
           mkdir software/site/releases/LATEST
           (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
       
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-           ruby-version: 3.0
+           ruby-version: 3.1
 
       #Install Ruby dependencies
       - name: Install Ruby dependencies

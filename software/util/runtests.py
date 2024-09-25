@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+
 
 # Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
 # to remove a 2nd clashing google/ python lib. See
@@ -55,68 +52,148 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import argparse
 import optparse
-
+import sys
+import colorama
 import os
 import subprocess
 import unittest
-#import os
-from os import path, getenv, putenv, getcwd, environ
-from os.path import expanduser
+import io
 
 SITEDIR="software/site"
 STANDALONE=False
 
+class ColoredTestResult(unittest.TextTestResult):
+    """Color the test results."""
 
-    # Ensure that the google.appengine.* packages are available
-    # in tests as well as all bundled third-party packages.
+    def __init__(self, stream, descriptions, verbosity):
+        super().__init__(stream, descriptions, verbosity)
+        try:
+            self.is_tty = os.isatty(stream.fileno())
+        except:
+            self.is_tty = False
+        if self.is_tty:
+            term_size = os.get_terminal_size()
+            self.separator1 = '▼' * term_size.columns
+            self.separator2 = '▲' * term_size.columns
+
+    def _colorPrint(self, message, color=None, short=None, newline=True):
+        if not self.showAll and short:
+            message = short
+        if self.is_tty and color:
+            message = color + message + colorama.Fore.WHITE + colorama.Style.NORMAL
+        if newline:
+            self.stream.writeln(message)
+        else:
+            self.stream.write(message)
+            self.stream.flush()
+
+    def addError(self, test, err):
+        super(ColoredTestResult, self).addError(test, err)  # Include the 'err' argument
+        self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
+
+    def startTest(self, test):
+        super(unittest.TextTestResult, self).startTest(test)
+        lines = self.getDescription(test).split('\n')
+        for index, line in enumerate(lines):
+            color = None
+            if index > 0:
+                color=colorama.Fore.LIGHTWHITE_EX
+            lastline =  index == len(lines) - 1
+            if lastline:
+                self._colorPrint(line + " … ", color=color, newline=False)
+            else:
+                self._colorPrint(line, color=color, newline=True)
+
+    def addSuccess(self, test):
+        super(unittest.TextTestResult, self).addSuccess(test)
+        self._colorPrint("OK", color=colorama.Fore.GREEN, short=".")
+
+    def addFailure(self, test, err):
+        super(unittest.TextTestResult, self).addFailure(test, err)
+        self._colorPrint("FAIL", color=colorama.Fore.RED, short="F")
+
+    def addExpectedFailure(self, test, err):
+        super(unittest.TextTestResult, self).addExpectedFailure(test, err)
+        self._colorPrint("Expected failure", color=colorama.Fore.GREEN, short="x")
+
+    def addUnexpectedSuccess(self, test):
+        super(unittest.TextTestResult, self).addUnexpectedSuccess(test)
+        self._colorPrint("Unexpected success", color=colorama.Fore.RED, short="U")
+
+    def addSkip(self, test, reason):
+        super(unittest.TextTestResult, self).addSkip(test, reason)
+        self._colorPrint("Skipped", color=colorama.Fore.CYAN, short='S')
+        if reason:
+          self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
+
+    def printErrorList(self, flavour, errors):
+        super(unittest.TextTestResult, self).addSkip(flavour, errors)
+        color = None
+        if flavour=='ERROR':
+          color = colorama.Fore.YELLOW
+        elif flavour == 'FAIL':
+          color = colorama.Fore.LIGHTRED_EX
+        for test, err in errors:
+            self._colorPrint(self.separator1)
+            self._colorPrint(self.getDescription(test), color=color)
+            self._colorPrint(self.separator2)
+            self._colorPrint("%s" % err, color=color)
+
+
+class BasicFileTests(unittest.TestCase):
+    """Basic tests for file level integrity."""
+
+    def testNoHttpExamples(self):
+        """Test that no examples contain url of the http://schema.org (they should be https)."""
+        httpexamplescheck = "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
+        out = ""
+        try:
+            out = subprocess.check_output(httpexamplescheck,shell=True)
+            if out:
+                self.fail(
+                      "Examples file(s) found containing 'http://schema.org':\n%s\n"
+                      "Replace with 'https://schema.org and rerun.")
+        except:
+            pass
+
+    def testNoDuplicateJsonldContext(self):
+        """Test that there are no duplicated contexts in file docs/jsonldcontext.jsonld."""
+        context_path = os.path.join(SITEDIR, "docs/jsonldcontext.jsonld")
+        if not os.path.isfile(context_path):
+            self.skipTest("Bypassing jsonldcontext duplicates test: file '%s' not found" % context_path)
+        else:
+            contextCheck = "cat %s |cut -d'\"' -f2|sort|uniq -d" % context_path
+            dups = subprocess.check_output(contextCheck, shell=True)
+            if len(dups):
+                self.fail("Duplicate entries in jsonldcontext: %s" % dups)
+
+
+def GetSuite(test_path, args):
+  if args and vars(args)["skipbasics"]:
+      suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
+  else:
+      suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
+  suite.addTest(unittest.loader.TestLoader().loadTestsFromTestCase(BasicFileTests))
+  return suite
+
+
+# TODO:
+# Ensure that the google.appengine.* packages are available
+# in tests as well as all bundled third-party packages.
 def main(test_path, args=None):
-
-    httpexamplescheck = "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
-    print ("Checking examples files for use of 'http://schema.org'")
-    out=""
-    try:
-        out = subprocess.check_output(httpexamplescheck,shell=True)
-    except:
-        pass
-    if len(out):
-        print ("Examples file(s) found containing 'http://schema.org':\n%s" % out)
-        print ("Replace with 'https://schema.org and rerun")
-        sys.exit(1)
-    print ("No use of 'http://schema.org' discovered in examples\n\n")
-
-    if os.path.isfile("%s/docs/jsonldcontext.jsonld" % SITEDIR):
-        contextCheck = "cat %s/docs/jsonldcontext.jsonld |cut -d'\"' -f2|sort|uniq -d" % SITEDIR
-        print ("Checking jsonldcontext for duplicates")
-        dups = subprocess.check_output(contextCheck,shell=True)
-        if len(dups):
-            print ("Duplicate entries in jsonldcontext: %s" % dups)
-            if STANDALONE:
-                sys.exit(1)
-            return 1
-        print ("No duplicates in jsonldcontext\n\n")
-    else:
-        print("Bypassing jsonldcontext duplicates test\n")
-    
-    if args and vars(args)["skipbasics"]:
-        suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
-    else:
-        suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
-
-    res = unittest.TextTestRunner(verbosity=2).run(suite)
-    
+    runner = unittest.TextTestRunner(verbosity=2, descriptions=True, resultclass=ColoredTestResult)
+    suite = GetSuite(test_path, args)
+    res = runner.run(suite)
     count = len(res.failures) + len(res.errors)
-    if STANDALONE:
-        sys.exit(count)
-    else:
-        return(count)
-    
-    
+    return(count)
+
+
 if __name__ == '__main__':
-    STANDALONE=True
+    colorama.init()
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
-    main('./software/tests/', args)
+    sys.exit(main('./software/tests/', args))
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

@@ -1,73 +1,85 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+
+# Import standard python libraries
+
 import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
-
 import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+import logging
 
-from buildsite import *
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.util.schemaversion as schemaversion
+import software.util.jinga_render as jinga_render
+import software.util.fileutils as fileutils
+import software.util.schemaglobals as schemaglobals
+import software.util.textutils as textutils
+
 from sdotermsource import SdoTermSource
+from sdocollaborators import collaborator
 from sdoterm import *
 
-def fileName(fn):
-    name = OUTPUTDIR + "/" +fn
-    checkFilePath(os.path.dirname(name))
+log = logging.getLogger(__name__)
+
+def absoluteFilePath(fn):
+    name = os.path.join(schemaglobals.OUTPUTDIR, fn)
+    fileutils.checkFilePath(os.path.dirname(name))
     return name
 
 
 def docsTemplateRender(template,extra_vars=None):
     tvars = {
-        'docsdir': DOCSDOCSDIR
+        'BUILDOPTS': schemaglobals.BUILDOPTS,
+        'docsdir': schemaglobals.DOCSDOCSDIR
     }
     if extra_vars:
         tvars.update(extra_vars)
-    return templateRender(template,tvars)
+    return jinga_render.templateRender(template,tvars)
 
 def schemasPage(page):
     extra_vars = {
         'home_page': "False",
-        'title': SITENAME + ' - Schemas',
+        'title': 'Schemas',
         'termcounts': SdoTermSource.termCounts()
     }
     return docsTemplateRender("docs/Schemas.j2",extra_vars)
 
 def homePage(page):
     global STRCLASSVAL
-    title = SITENAME
+    title = schemaglobals.SITENAME
     template = "docs/Home.j2"
     filt = None
     overrideclassval = None
     if page == "PendingHome":
-        title += " - Pending"
+        title =  "Pending"
         template = "docs/PendingHome.j2"
         filt = "pending"
         overrideclassval = 'class="ext ext-pending"'
     elif page == "AtticHome":
-        title += " - Retired"
+        title =  "Retired"
         template = "docs/AtticHome.j2"
         filt="attic"
         overrideclassval = 'class="ext ext-attic"'
     elif page == "AutoHome":
-        title += " - Auto Section"
+        title =  "Autotomotives"
         template = "docs/AutoHome.j2"
         filt="auto"
         overrideclassval = 'class="ext"'
     elif page == "BibHome":
-        title += " - Bib Section"
+        title =  "Bib"
         template = "docs/BibHome.j2"
         filt="bib"
         overrideclassval = 'class="ext"'
     elif page == "Health-lifesciHome":
-        title += " - Health-lifesci Section"
+        title =  "Health-lifesci"
         template = "docs/Health-lifesciHome.j2"
         filt="health-lifesci"
         overrideclassval = 'class="ext"'
     elif page == "MetaHome":
-        title += " - Meta"
+        title =  "Meta"
         template = "docs/MetaHome.j2"
         filt="meta"
         overrideclassval = 'class="ext"'
@@ -81,32 +93,13 @@ def homePage(page):
                 for s in t.sources:
                     if "schemaorg/issue" in s:
                         t.cat = "issue-" + os.path.basename(s)
-                        break           
+                        break
         terms.sort(key = lambda u: (u.cat,u.id))
-
-        first = True
-        cat = None
-        for t in terms:
-            if first or t.cat != cat:
-                first = False
-                cat = t.cat
-                ttypes = {}
-                sectionterms[cat] = ttypes
-                ttypes[SdoTerm.TYPE] = []
-                ttypes[SdoTerm.PROPERTY] = []
-                ttypes[SdoTerm.DATATYPE] = []
-                ttypes[SdoTerm.ENUMERATION] = []
-                ttypes[SdoTerm.ENUMERATIONVALUE] = []
-            if t.termType == SdoTerm.REFERENCE:
-                continue
-            ttypes[t.termType].append(t)
-            termcount += 1
-    
-    sectionterms = dict(sorted(sectionterms.items()))
+        sectionterms, termcount = buildTermCatList(terms,checkCat=True)
 
     extra_vars = {
         'home_page': "True",
-        'title': SITENAME,
+        'title': title,
         'termcount': termcount,
         'sectionterms': sectionterms
     }
@@ -115,9 +108,38 @@ def homePage(page):
     STRCLASSVAL = None
     return ret
 
+def buildTermCatList(terms,checkCat=False):
+    first = True
+    cat = None
+    termcat = {}
+    termcount = 0
+    for t in terms:
+        if checkCat:
+            tcat = t.cat
+        else:
+            tcat = ""
+        if first or tcat != cat:
+            first = False
+            cat = tcat
+            ttypes = {}
+            termcat[cat] = ttypes
+            ttypes[SdoTerm.TYPE] = []
+            ttypes[SdoTerm.PROPERTY] = []
+            ttypes[SdoTerm.DATATYPE] = []
+            ttypes[SdoTerm.ENUMERATION] = []
+            ttypes[SdoTerm.ENUMERATIONVALUE] = []
+        if t.termType == SdoTerm.REFERENCE:
+            continue
+        ttypes[t.termType].append(t)
+        termcount += 1
+
+    termcat = dict(sorted(termcat.items()))
+    return termcat, termcount
+
+
 VISITLIST=[]
 class listingNode():
-    
+
     def __init__(self,term,depth=0,title="",parent=None):
         global VISITLIST
         termdesc = SdoTermSource.getTerm(term)
@@ -139,47 +161,17 @@ class listingNode():
                     self.subs.append(listingNode(enum,depth=depth+1,parent=self))
             for sub in sorted(termdesc.subs):
                 self.subs.append(listingNode(sub,depth=depth+1,parent=self))
-                
+
         else: #Visited this node before so don't parse children
             self.repeat = True
         #log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
-        
-def StripHtmlTags(source):
-    if source and len(source) > 0:
-        return re.sub('<[^<]+?>', '', source)
-    return ""
 
-def ShortenOnSentence(source,lengthHint=250):
-    if source and len(source) > lengthHint:
-        source = source.strip()
-        sentEnd = re.compile('[.!?]')
-        sentList = sentEnd.split(source)
-        com=""
-        count = 0
-        while count < len(sentList):
-            if(count > 0 ):
-                if len(com) < len(source):
-                    com += source[len(com)]
-            com += sentList[count]
-            count += 1
-            if count == len(sentList):
-                if len(com) < len(source):
-                    com += source[len(source) - 1]
-            if len(com) > lengthHint:
-                if len(com) < len(source):
-                    com += source[len(com)]
-                break
-                
-        if len(source) > len(com) + 1:
-            com += ".."
-        source = com
-    return source
 
 import json
 def jsonldtree(page):
     global VISITLIST
     VISITLIST=[]
-    
+
     term = {}
     context = {}
     context['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#"
@@ -206,7 +198,8 @@ def _jsonldtree(tid,term=None):
             term['rdfs:subClassOf'] = sups[0]
         else:
             term['rdfs:subClassOf'] = sups
-    term['description'] = ShortenOnSentence(StripHtmlTags(termdesc.comment))
+    term['description'] = textutils.ShortenOnSentence(
+        textutils.StripHtmlTags(termdesc.comment))
     if termdesc.pending:
         term['pending'] = True
     if termdesc.retired:
@@ -219,7 +212,7 @@ def _jsonldtree(tid,term=None):
                 subs.append(_jsonldtree(sub))
             term['children'] = subs
     return term
-    
+
 listings = None
 def fullPage(page):
     global listings
@@ -229,7 +222,7 @@ def fullPage(page):
         listings.append(listingNode("DataType",title="DataTypes:"))
     extra_vars = {
         'home_page': "False",
-        'title': SITENAME,
+        'title': "Full schema hierarchy",
         'listings': listings
     }
 
@@ -245,15 +238,60 @@ def fullReleasePage(page):
     extra_vars = {
         'home_page': "False",
         'title': "Full Release Summary",
-        'version': getVersion(),
-        'date': getCurrentVersionDate(),
+        'version': schemaversion.getVersion(),
+        'date': schemaversion.getCurrentVersionDate(),
         'listings': listings,
         'types': types,
         'properties': SdoTermSource.getAllProperties(expanded=True)
     }
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
-    
+def collabs(page):
+    colls = collaborator.collaborators()
+
+    #TODO Handle collaborators that are not contributors
+
+    colls = sorted(colls, key=lambda t: t.title)
+
+    for coll in colls:
+        createCollab(coll)
+
+    extra_vars = {
+        'collaborators': colls,
+        'title': 'Collaborators'
+    }
+    return docsTemplateRender("docs/Collabs.j2",extra_vars)
+
+def createCollab(coll):
+    terms = []
+    termcount = 0
+    contributor = coll.contributor
+
+    if contributor:
+        terms, termcount = buildTermCatList(coll.getTerms())
+
+    extra_vars = {
+        'coll': coll,
+        'title': coll.title,
+        'contributor': contributor,
+        'terms': terms,
+        'termcount': termcount
+    }
+
+    content = docsTemplateRender("docs/Collab.j2",extra_vars)
+    filename = absoluteFilePath(os.path.join("docs/collab/", + coll.ref + ".html"))
+    with open(filename, 'w', encoding='utf8') as handle:
+      handle.write(content)
+    log.info("Created %s" % fn)
+
+def termfind(file):
+
+    # Local import because of circular dependencies
+    from buildtermlist import buildlist
+    if not schemaglobals.hasOpt("notermfinder"):
+        log.info("Building term list")
+        return buildlist(True)
+    return ""
 
 PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "PendingHome": (homePage,["docs/pending.home.html"]),
@@ -265,7 +303,9 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "Schemas": (schemasPage,["docs/schemas.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
-             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
+             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % schemaversion.getVersion()]),
+             #"Collabs": (collabs,["docs/collaborators.html"]),
+             "TermFind": (termfind,["docs/termfind/termlist.txt"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 
@@ -278,16 +318,15 @@ def buildDocs(pages):
 
 
     for p in pages:
-        print("%s:"%p)
+        log.debug("Preparing page %s:" % p)
         if p in PAGELIST.keys():
             func, filenames = PAGELIST.get(p,None)
             if func:
                 content = func(p)
-                for filename in filenames:
-                    fn = fileName(filename)
-                    f = open(fn,"w", encoding='utf8')
-                    f.write(content)
-                    f.close()
-                    print("Created %s" % fn)
+                for rel_path in filenames:
+                    filename = absoluteFilePath(rel_path)
+                    with open(filename, 'w', encoding='utf8') as handle:
+                      handle.write(content)
+                    log.info("Created page %s" % filename)
         else:
-            print("Unknown page name: %s" % p)
+            log.warning("Unknown page name: %s" % p)

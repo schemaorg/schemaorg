@@ -5,21 +5,38 @@
     {% include 'docs/DocsHead.j2' with context %}
 <body>
     {% include 'PageHeader.j2' with context %}
-  <div id="mainContent" class="faq">
+  <article id="mainContent" class="faq">
 
-
-<h1>Organization of Schemas</h1>
+<h1>Schemas</h1>
+<section>
+<h2>Organization of Schemas</h2>
 The schemas are a set of 'types', each associated with a set of properties. The types are arranged in a hierarchy.<br/>
 The vocabulary currently consists of {{termcounts["Type"]}} Types, {{termcounts["Property"]}} Properties {{termcounts["Datatype"]}} Datatypes, {{termcounts["Enumeration"]}} Enumerations and {{termcounts["Enumerationvalue"]}} Enumeration members.<br/>
 
-<br />Browse the full hierarchy in HTML:
+<br /><b>Browse the full hierarchy in HTML:</b>
 <ul>
   <li><a href="../Thing">One page per type</a></li>
   <li><a href="full.html">Full list of types, shown on one page</a></li>
 </ul>
-<br />
+{% if not "notermfinder" in BUILDOPTS %}
+  <script src="{{docsdir}}/termfind/termfind.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{docsdir}}/termfind/termfind.css" />
 
-Or you can jump directly to a commonly used type:
+  <br /><div>
+    <b>Look up a term using the Term<em>Finder</em>:</b>
+    <div id="termfindwrap">
+      <div id="termfindprompt">
+        <input type="text" id="termfind" size="20" style="display: inline-block;" placeholder=" input 3+ characters" onkeyup="suggest(this.value)">
+      </div>
+      <div id="suggestionwrap">
+        <div id="suggestions"></div>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+<br /><b>Or you can jump directly to a commonly used type:</b>
 <ul>
   <li>Creative works: {{ sdotermlink("CreativeWork")|safe }}, {{ sdotermlink("Book")|safe }}, {{ sdotermlink("Movie")|safe }}, {{ sdotermlink("MusicRecording")|safe }}, {{ sdotermlink("Recipe")|safe }}, {{ sdotermlink("TVSeries")|safe }} ...</li>
   <li>Embedded non-text objects: {{ sdotermlink("AudioObject")|safe }}, {{ sdotermlink("ImageObject")|safe }}, {{ sdotermlink("VideoObject")|safe }}</li>
@@ -43,7 +60,8 @@ We also have a small set of <a href="../DataType">primitive data types</a> for n
 <ul>
   <li><a href="developers.html">Schema.org for Developers</a>
 </ul>
-
+</section>
+<section>
 
  <h2 id="ext">Extensions</h2>
 
@@ -53,6 +71,8 @@ We also have a small set of <a href="../DataType">primitive data types</a> for n
    they are best considered simply as views into a single collection of schema definitions.
 </p>
 
+</section>
+<section>
 
  <h3 id="hosted">Hosted Sections</h3>
 
@@ -91,6 +111,9 @@ schema.org site functionality. These terms are not intended for general usage in
 Unlike other core and section terms, these areas may be updated at any time without the need for a full <a href="releases.html">release</a>.
 </p>
 
+</section>
+<section>
+
 <h3 id="extext">External Extensions</h3>
 
 <p>The schema.org <a href="about.html#cgsg">steering group</a> does not officially approve external extensions - they are fully independent.
@@ -98,12 +121,14 @@ Unlike other core and section terms, these areas may be updated at any time with
 
 <ul>
   <li><a href="http://gs1.org/voc/">GS1 Web Vocabulary</a> (<a href="http://blog.schema.org/2016/02/gs1-milestone-first-schemaorg-external.html">blog post</a>)</li>
+  <li><a href="https://mlcommons.org/working-groups/data/croissant/">Croissant</a> is an open community-built standardized metadata vocabulary for ML datasets.</li>
 </ul>
 <br/>
-  </div><!-- mainContent -->
+</section>
+  </article><!-- mainContent -->
 
 
-	{% include 'PageFooter.j2' with context %}
+  {% include 'PageFooter.j2' with context %}
 
 </body>
 </html>

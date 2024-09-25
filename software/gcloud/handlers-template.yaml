@@ -58,6 +58,18 @@ handlers:
   redirect_http_response_code: 301
   
 
+- url: /docs/collab/(.*)$
+  mime_type: text/html
+  static_files: docs/collab/\1.html
+  upload: docs/collab/(.*).html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
 - url: /docs
   static_dir: docs
   http_headers: 
@@ -179,6 +191,30 @@ handlers:
   mime_type: text/html
   static_files: releases/{{ver}}/schema-all.html
   upload: releases/{{ver}}/schema-all.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+- url: /version/latest/(.*\.shacl)
+  mime_type: text/turtle
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.shacl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+- url: /version/latest/(.*\.shexj)
+  mime_type: application/json+shexschema
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.shexj)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -318,6 +354,31 @@ handlers:
   secure: always
   redirect_http_response_code: 301  
   
+- url: /version/(.*)/.*\.shacl
+  mime_type: text/turtle
+  static_files: releases/\1
+  upload: releases/(.*)/.*\.shacl
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+- url: /version/(.*)/.*\.shexj
+  mime_type: application/json+shexschema
+  static_files: releases/\1
+  upload: releases/(.*)/.*\.shexj
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
+
 ######
 ### Term pages
    
@@ -343,6 +404,11 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
+
+
+- url: /(.*)$
+  static_files: empty/\1
+  upload: empty/.*$
   
     
 

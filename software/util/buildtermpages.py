@@ -1,87 +1,126 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+
+# Import standard python libraries
 
 import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+import re
+import time
+import sys
+import logging
 
-from buildsite import *
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.util.schemaglobals as schemaglobals
+import software.util.fileutils as fileutils
+import software.util.jinga_render as jinga_render
+
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
 
-#Calculate filename for term page
-def termFileName(termid):
-    pth = [OUTPUTDIR]
-    if re.match('^[a-z].*',termid):
-        pth.append("/terms/properties/")
-    elif re.match('^[0-9A-Z].*',termid):
-        pth.append("/terms/types/")
-    pth.append(termid[0])
-    path = "".join(pth)
-    
-    checkFilePath(path)    
+log = logging.getLogger(__name__)
 
-    elements = [path]
-    elements.append('/')
-    elements.append(termid)
-    elements.append('.html')
-    return "".join(elements)
-    
-#Prep of rendering values for term pages
-def termtemplateRender(term,examples):
-    #Basic varibles configuring UI
-    extra_vars = {
-        'title': term.label,
-        'menu_sel': "Schemas",
-        'home_page': "False",
-        'docsdir': TERMDOCSDIR,
-        'term': term,
-        'jsonldPayload': SdoTermSource.getTermAsRdfString(term.id,"json-ld", full=True),
-        'examples': examples
-    }
-    
-    return templateRender("terms/TermPage.j2",extra_vars)
+def termFileName(termid):
+  """Generate filename for term page.
+
+  Parameters:
+    termid (str): term identifier.
+  Returns:
+    File path the term page should be generated at.
+  """
+  path_components = [schemaglobals.OUTPUTDIR, "terms"]
+  if re.match('^[a-z].*',termid):
+    path_components.append('properties')
+  elif re.match('^[0-9A-Z].*',termid):
+    path_components.append('types')
+  else:
+    raise ValueError("Invalid terminid: '" + termid +"'")
+  path_components.append(termid[0])
+  directory = os.path.join(*path_components)
+  fileutils.checkFilePath(directory)
+  filename = termid + '.html'
+  return os.path.join(directory, filename)
+
+
+# This template will be used ~2800 times, so we reuse it.
+TEMPLATE = jinga_render.GetJinga().get_template("terms/TermPage.j2")
+
+def termtemplateRender(term, examples, json):
+  """Render the term with examples and associated JSON.
+
+  Parameters:
+    term (sdoterm.SdoTerm): term to generate the page for
+    examples (schemaexamples.Example): collection of examples for the term.
+  Returns:
+    string with the generate web-page.
+  """
+
+  for ex in examples:
+    exselect = ["","","",""]
+    if ex.hasHtml():
+      exselect[0] = "selected"
+    elif ex.hasMicrodata():
+      exselect[1] = "selected"
+    elif ex.hasRdfa():
+      exselect[2] = "selected"
+    elif ex.hasJsonld():
+      exselect[3] = "selected"
+    ex.exselect = exselect
+
+  extra_vars = {
+      'title': term.label,
+      'menu_sel': "Schemas",
+      'home_page': "False",
+      'BUILDOPTS': schemaglobals.BUILDOPTS,
+      'docsdir': schemaglobals.TERMDOCSDIR,
+      'term': term,
+      'jsonldPayload': json,
+      'examples': examples
+  }
+  return jinga_render.templateRender(template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE)
+
+
+def RenderAndWriteSingleTerm(term_key):
+  """Renders a single term and write the result into a file.
+
+  Parameters:
+    term_key (str): key for the term.
+  Returns:
+    elapsed time for the generation (seconds).
+  """
+  tic = time.perf_counter()
+  term = SdoTermSource.getTerm(term_key, expanded=True)
+  if not term:
+    log.error("No such term: %s\n" % term_key)
+    return 0
+  if term.termType == SdoTerm.REFERENCE: #Don't create pages for reference types
+    return 0
+  examples = SchemaExamples.examplesForTerm(term.id)
+  json = SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
+  pageout = termtemplateRender(term, examples, json)
+  with open(termFileName(term.id), 'w', encoding='utf8') as outfile:
+      outfile.write(pageout)
+  elapsed = time.perf_counter() - tic
+  log.info("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
+  return elapsed
 
 
 def buildTerms(terms):
-    all = ["ALL","All","all"]
-    for a in all:
-        if a in terms:
-            terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
-            break
-    import time,datetime
-    start = datetime.datetime.now()
-    lastCount = 0
-    if len(terms):
-        print("\nBuilding term pages...\n")
-    for t in terms:
-        tic = datetime.datetime.now() #diagnostics
-        term = SdoTermSource.getTerm(t,expanded=True)
-        if not term:
-            print("No such term: %s\n" % t)
-            continue
+  """Build the rendered version for a collection of terms."""
+  if any(filter(lambda term: term in ("ALL","All","all"), terms)):
+    terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
 
-        if term.termType == SdoTerm.REFERENCE: #Don't create pages for reference types
-            continue
-        examples = SchemaExamples.examplesForTerm(term.id)
-        pageout = termtemplateRender(term,examples)
-        f = open(termFileName(term.id),"w", encoding='utf8')
-        f.write(pageout)
-        f.close()
+  if terms:
+    log.info("Building %d term pages..." % len(terms))
 
-        #diagnostics ##########################################
-        termsofar = len(SdoTermSource.termCache()) #diagnostics
-        termscreated = termsofar - lastCount       #diagnostics
-        lastCount = termsofar                      #diagnostics
-        print("Term: %s (%d) - %s" % (t, termscreated, str(datetime.datetime.now()-tic))) #diagnostics
-        #      Note: (%d) = number of individual newly created (not cached) term definitions to
-        #            build this expanded definition. ie. All Properties associated with a Type, etc.
-    
-    if len(terms):
-        print()
-        print ("All terms took %s seconds" % str(datetime.datetime.now()-start)) #diagnostics
+  total_elapsed = 0
+  for term_key in terms:
+    total_elapsed += RenderAndWriteSingleTerm(term_key)
+
+  log.info("%s terms generated in %0.4f seconds" % (len(terms), total_elapsed))
+
+

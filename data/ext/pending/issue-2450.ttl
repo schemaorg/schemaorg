@@ -20,7 +20,7 @@ rdfs:subClassOf :Enumeration .
     rdfs:comment """A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
     For more general reviews of media in the broader sense, use [[UserReview]], [[CriticReview]] or other [[Review]] types. This definition is
     a work in progress. While the [[MediaManipulationRatingEnumeration]] list reflects significant community review amongst fact-checkers and others working
-    to combat misinformation, the specific structures for representing media objects, their versions and publication context, is still evolving. Similarly, best practices for the relationship between [[MediaReview]] and [[ClaimReview]] markup has not yet been finalized.""" ;
+    to combat misinformation, the specific structures for representing media objects, their versions and publication context, are still evolving. Similarly, best practices for the relationship between [[MediaReview]] and [[ClaimReview]] markup have not yet been finalized.""" ;
     rdfs:subClassOf :Review .
 
 :mediaAuthenticityCategory a rdf:Property ;
@@ -101,7 +101,7 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 
 For a [[VideoObject]] to be 'transformed content':  or all of the video has been manipulated to transform the footage itself. This category includes using tools like the Adobe Suite to change the speed of the video, add or remove visual elements or dub audio. Deepfakes are also a subset of transformation.
 
-For an [[ImageObject]] to be transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+For an [[ImageObject]] to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
 
 For an [[ImageObject]] with embedded text to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
 
@@ -165,7 +165,7 @@ For an [[AudioObject]] to be 'satire or parody content': Audio that was created 
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
-    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'" .
+    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'." .
 
 :interpretedAsClaim a rdf:Property ;
     rdfs:label "interpretedAsClaim" ;
@@ -182,8 +182,7 @@ For an [[AudioObject]] to be 'satire or parody content': Audio that was created 
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Person, :Organization ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
-    rdfs:comment """For a [[Claim]] interpreted from [[MediaObject]] content
-    sed to indicate a claim contained, implied or refined from the content of a [[MediaObject]].""" .
+    rdfs:comment """For a [[Claim]] interpreted from [[MediaObject]] content, the [[interpretedAsClaim]] property can be used to indicate a claim contained, implied or refined from the content of a [[MediaObject]].""" .
 
 :archivedAt a rdf:Property ;
     rdfs:label "archivedAt" ;

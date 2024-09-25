@@ -1,82 +1,142 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
 
-import os
-import time
-import shutil
-for path in [os.getcwd(),"./software","./software/SchemaTerms","./software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-  
-if os.path.basename(os.getcwd()) != "schemaorg":
-    print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
-    sys.exit(1)
-
-for dir in ["software/util","docs","software/gcloud","data"]:
-    if not os.path.isdir(dir):
-        print("\nRequired directory '%s' not found - Exiting\n" % dir)
-        sys.exit(1)
-
-
-import glob
-import re
+# Import standard python libraries
 import argparse
+import glob
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
 import rdflib
-import jinja2 
+import logging
+import colorama
 
-from sdotermsource import SdoTermSource
-from sdoterm import *
-from schemaexamples import SchemaExamples
-from localmarkdown import Markdown
-from schemaversion import *
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-SITENAME="Schema.org"
-TEMPLATESDIR = "templates"
+import software
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-a","--autobuild",default=False, action='store_true', help="clear output directory and build all components - overrides all other settings (except -examplesnum)")
-parser.add_argument("-c","--clearfirst",default=False, action='store_true', help="clear output directory before creating contents")
-parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  help="create docs page(repeatable) - ALL = all pages")
-parser.add_argument("-e","--examplesnum",default=False, action='store_true',  help="Add missing example ids")
-parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
-parser.add_argument("-o","--output", help="output site directory (default: ./software/site)")
-parser.add_argument("-r","--runtests",default=False, action='store_true', help="run test scripts before creating contents")
-parser.add_argument("-s","--static",default=False, action='store_true',  help="Refresh static docs in site image")
-parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
-parser.add_argument("--release",default=False, action='store_true',  help="create page for term (repeatable) - ALL = all terms")
-args = parser.parse_args()
+import software.util.buildfiles as buildfiles
+import software.util.buildocspages as buildocspages
+import software.util.buildtermpages as buildtermpages
+import software.util.copystaticdocsplusinsert as copystaticdocsplusinsert
+import software.util.fileutils as fileutils
+import software.util.runtests as runtests_lib
+import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
+import software.util.textutils as textutils
 
-TERMS = []
-for ter in args.terms:
-    TERMS.extend(ter)
-PAGES = []
-for pgs in args.docspages:
-    PAGES.extend(pgs)
-FILES = []
-for fls in args.files:
-    FILES.extend(fls)
+import software.SchemaExamples.schemaexamples as schemaexamples
+import software.SchemaExamples.utils.assign_example_ids
+import software.SchemaTerms.localmarkdown
+import software.SchemaTerms.sdocollaborators as sdocollaborators
+import software.SchemaTerms.sdotermsource as sdotermsource
 
-if args.output:
-    OUTPUTDIR = args.output
-else:
-    OUTPUTDIR = "software/site"
-DOCSOUTPUTDIR = OUTPUTDIR + "/docs"
+log = logging.getLogger(__name__)
 
-if args.autobuild or args.release:
-    TERMS = ["ALL"]
-    PAGES = ["ALL"]
-    FILES = ["ALL"]
+class PrettyLogFormatter(logging.Formatter):
+    """Helper class to format the log messages from the various parts of the project."""
+
+    COLORS = {
+        'WARNING': colorama.Fore.YELLOW,
+        'INFO': colorama.Fore.CYAN,
+        'DEBUG': colorama.Fore.BLUE,
+        'CRITICAL': colorama.Fore.MAGENTA,
+        'ERROR': colorama.Fore.RED,
+    }
+
+    def __init__(self, use_color=True):
+        logging.Formatter.__init__(self, fmt='%(levelname)s %(name)s: %(message)s')
+        self.use_color = use_color
+
+    @classmethod
+    def _computeLevelName(cls, record):
+        lower_msg = record.getMessage().casefold()
+        if lower_msg == 'done' or lower_msg[:5] == 'done:':
+            return colorama.Fore.LIGHTGREEN_EX + record.levelname + colorama.Fore.RESET
+        if record.levelname in cls.COLORS:
+            return cls.COLORS[record.levelname] + record.levelname + colorama.Fore.RESET
+        return record.levelname
+
+    @classmethod
+    def _computeName(cls, record):
+        components = record.name.split('.')
+        return colorama.Style.DIM + components[-1] + colorama.Style.RESET_ALL
+
+    def format(self, record):
+        if self.use_color:
+            record.levelname = self.__class__._computeLevelName(record)
+            record.name = self.__class__._computeName(record)
+        return logging.Formatter.format(self, record)
+
+
+def initialize():
+    """Initialize various systems, returns the args object"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-a','--autobuild', default=False, action='store_true', help='clear output directory and build all components - overrides all other settings (except -examplesnum)')
+    parser.add_argument('-c','--clearfirst', default=False, action='store_true', help='clear output directory before creating contents')
+    parser.add_argument('-d','--docspages', default=[],action='append',nargs='*', help='create docs page(repeatable) - ALL = all pages')
+    parser.add_argument('-e','--examplesnum', default=False, action='store_true', help='Add missing example ids')
+    parser.add_argument('-f','--files', default=[], action='append', nargs='*', help='create files(repeatable) - ALL = all files')
+    parser.add_argument('-o','--output', help='output site directory (default: ./software/site)')
+    parser.add_argument('-r','--runtests', default=False, action='store_true', help='run test scripts before creating contents')
+    parser.add_argument('-s','--static', default=False, action='store_true', help='Refresh static docs in site image')
+    parser.add_argument('-t','--terms', default=[], action='append', nargs='*', help='create page for term (repeatable) - ALL = all terms')
+    parser.add_argument('-b','--buildoption',default= [],action='append', nargs='*', help='build option(repeatable) - flags to be passed to build code')
+    parser.add_argument('--rubytests', default=False, action='store_true', help='run the post generation ruby tests')
+    parser.add_argument('--release', default=False, action='store_true', help='create page for term (repeatable) - ALL = all terms')
+    args = parser.parse_args()
+
+
+    for op in args.buildoption:
+        schemaglobals-BUILDOPTS.extend(op)
+
+    for ter in args.terms:
+        schemaglobals.TERMS.extend(ter)
+
+    for pgs in args.docspages:
+        schemaglobals.PAGES.extend(pgs)
+
+    for fls in args.files:
+        schemaglobals.FILES.extend(fls)
+
+    if args.output:
+        schemaglobals.OUTPUTDIR = args.output
+
+    if args.autobuild or args.release:
+        schemaglobals.TERMS = ['ALL']
+        schemaglobals.PAGES = ['ALL']
+        schemaglobals.FILES = ['ALL']
+
+    ###################################################
+    #MARKDOWN INITIALISE
+    ###################################################
+    software.SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass('localLink')
+    software.SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath('/')
+    software.SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath('')
+
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = PrettyLogFormatter(use_color=os.isatty(sys.stdout.fileno()))
+    handler.setFormatter(formatter)
+
+    root_log = logging.getLogger()
+    root_log.handlers = [handler]
+
+    return args
+
 
 def clear():
     if args.clearfirst or args.autobuild:
-        print("Clearing %s directory" % OUTPUTDIR)
-        if os.path.isdir(OUTPUTDIR):
-            for root, dirs, files in os.walk(OUTPUTDIR):
+        log.info('Clearing %s directory' % schemaglobals.OUTPUTDIR)
+        if os.path.isdir(schemaglobals.OUTPUTDIR):
+            for root, dirs, files in os.walk(schemaglobals.OUTPUTDIR):
                 for f in files:
-                    os.unlink(os.path.join(root, f))
+                    if f != '.gitkeep':
+                        os.unlink(os.path.join(root, f))
                 for d in dirs:
                     shutil.rmtree(os.path.join(root, d))
 
@@ -84,105 +144,50 @@ def clear():
 #RUN TESTS
 ###################################################
 def runtests():
-    import runtests
     if args.runtests or args.autobuild:
-        print("Running test scripts before proceeding...\n")
-        errorcount = runtests.main('./software/tests/')
+        log.info('Running test scripts before proceeding…')
+        errorcount = runtests_lib.main('./software/tests/')
         if errorcount:
-            print("Errors returned: %d" % errorcount)
+            log.error('Errors returned: %d' % errorcount)
             sys.exit(errorcount)
         else:
-            print("Tests successful!\n")
+            log.info('Done: Tests successful!')
 
-DOCSDOCSDIR = "/docs"
-TERMDOCSDIR = "/docs"
-DOCSHREFSUFFIX="" 
-DOCSHREFPREFIX="/"
-TERMHREFSUFFIX="" 
-TERMHREFPREFIX="/"
-    
+
 ###################################################
 #INITIALISE Directory
 ###################################################
-def createMissingDir(dir):
-    if not os.path.exists(dir):
-        os.makedirs(dir)
 
-def initdir():
-    print("Building site in '%s' directory" % OUTPUTDIR)
-    createMissingDir(OUTPUTDIR)
+def initdir(output_dir, handler_path):
+    log.info('Building site in "%s" directory' % output_dir)
+    fileutils.createMissingDir(output_dir)
     clear()
-    createMissingDir(OUTPUTDIR + "/docs")
-    createMissingDir(OUTPUTDIR + "/releases/%s" % getVersion())
+    fileutils.createMissingDir(os.path.join(output_dir, 'docs'))
+    fileutils.createMissingDir(os.path.join(output_dir, 'docs/contributors'))
+    fileutils.createMissingDir(os.path.join(output_dir, 'empty')) #For apppengine 404 handler
+    fileutils.createMissingDir(os.path.join(output_dir, 'releases', schemaversion.getVersion()))
 
-    gdir = OUTPUTDIR + "/gcloud"
-    createMissingDir(gdir)
+    gdir = os.path.join(output_dir, 'gcloud')
+    fileutils.createMissingDir(gdir)
 
-    print("\nCopying docs static files")
-    cmd = "./software/util/copystaticdocsplusinsert.py"
-    os.system(cmd)
-    print("Done")
+    log.info('Copying docs static files')
+    copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs')
+    log.info('Done')
 
-    print("\nPreparing GCloud files")
-    cmd = "cp software/gcloud/*.yaml %s" % gdir
-    os.system(cmd)
-    print("Files copied")
+    log.info('Preparing GCloud files')
+    gcloud_files = glob.glob('software/gcloud/*.yaml')
+    for path in gcloud_files:
+      shutil.copy(path, gdir)
+    log.info('Done: copied %d files' % len(gcloud_files))
+    log.info('Creating %s from %s for version: %s' %
+        (handler_path, schemaglobals.HANDLER_TEMPLATE, schemaversion.getVersion()))
+    with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
+      template_data = template_file.read()
+      with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
+        handler_data = template_data.replace('{{ver}}', schemaversion.getVersion())
+        yaml_file.write(handler_data)
+    log.info('Done')
 
-    cmd = 'sed "s/{{ver}}/%s/g" %s/handlers-template.yaml > %s/handlers.yaml' % (getVersion(),gdir,gdir)
-    print("Created handlers.yaml for version: %s" % getVersion())
-    os.system(cmd)
-    print("Done\n")
-
-from shutil import *
-def mycopytree(src, dst, symlinks=False, ignore=None):
-    #copes with already existing directories
-    names = os.listdir(src)
-    if ignore is not None:
-        ignored_names = ignore(src, names)
-    else:
-        ignored_names = set()
-
-    if not os.path.isdir(dst): 
-        os.makedirs(dst)
-    errors = []
-    for name in names:
-        if name in ignored_names:
-            continue
-        srcname = os.path.join(src, name)
-        dstname = os.path.join(dst, name)
-        try:
-            if symlinks and os.path.islink(srcname):
-                linkto = os.readlink(srcname)
-                os.symlink(linkto, dstname)
-            elif os.path.isdir(srcname):
-                mycopytree(srcname, dstname, symlinks, ignore)
-            else:
-                # Will raise a SpecialFileError for unsupported file types
-                copy2(srcname, dstname)
-        # catch the Error from the recursive copytree so that we can
-        # continue with other files
-        except Error as err:
-            errors.extend(err.args[0])
-        except EnvironmentError as why:
-            errors.append((srcname, dstname, str(why)))
-    try:
-        copystat(src, dst)
-    except OSError as why:
-        if WindowsError is not None and isinstance(why, WindowsError):
-            # Copying file access times may fail on Windows
-            pass
-        else:
-            errors.extend((src, dst, str(why)))
-    if errors:
-        raise Error (errors)
-
-    
-###################################################
-#MARKDOWN INITIALISE
-###################################################
-Markdown.setWikilinkCssClass("localLink")
-Markdown.setWikilinkPrePath("/")
-Markdown.setWikilinkPostPath("")
 
 ###################################################
 #TERMS SOURCE LOAD
@@ -192,179 +197,104 @@ def loadTerms():
     global LOADEDTERMS
     if not LOADEDTERMS:
         LOADEDTERMS = True
-        print("Loading triples files")
-        SdoTermSource.loadSourceGraph("default")
-        print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-
-
-###################################################
-#EXAMPLES SOURCE LOAD
-###################################################
-LOADEDEXAMPLES = False
-def loadExamples():
-
-    global LOADEDEXAMPLES
-    if not LOADEDEXAMPLES:
-        SchemaExamples.loadExamplesFiles("default")
-        print("Loaded %d examples " % (SchemaExamples.count()))
-
-###################################################
-#JINJA INITIALISATION
-###################################################
-jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
-        extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
-    
-def jinjaDebug(text):
-    print("Jinja: %s" % text)
-    return ''
-
-jenv.filters['debug']=jinjaDebug
-
-local_vars = {}
-def set_local_var(local_vars, name, value):
-  local_vars[name] = value
-  return ''
-jenv.globals['set_local_var'] = set_local_var
-
-
-### Template rendering 
-
-def templateRender(template,extra_vars=None):
-    #Basic varibles configuring UI
-    tvars = {
-        'local_vars': local_vars,
-        'version': getVersion(),
-        'versiondate': getCurrentVersionDate(),
-        'sitename': SITENAME,
-        'TERMHREFPREFIX': TERMHREFPREFIX,
-        'TERMHREFSUFFIX': TERMHREFSUFFIX,
-        'DOCSHREFPREFIX': DOCSHREFPREFIX,
-        'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
-        'home_page': "False"
-    }
-    if extra_vars:
-        tvars.update(extra_vars)
-    
-    template = jenv.get_template(template)
-    return template.render(tvars)
-
-
-###################################################
-#JINJA INITIALISATION - End
-###################################################
-###################################################
-#Comment Handling
-###################################################
-
-def StripHtmlTags(source):
-    if source and len(source) > 0:
-        return re.sub('<[^<]+?>', '', source)
-    return ""
-
-def ShortenOnSentence(source,lengthHint=250):
-    if source and len(source) > lengthHint:
-        source = source.strip()
-        sentEnd = re.compile('[.!?]')
-        sentList = sentEnd.split(source)
-        com=""
-        count = 0
-        while count < len(sentList):
-            if(count > 0 ):
-                if len(com) < len(source):
-                    com += source[len(com)]
-            com += sentList[count]
-            count += 1
-            if count == len(sentList):
-                if len(com) < len(source):
-                    com += source[len(source) - 1]
-            if len(com) > lengthHint:
-                if len(com) < len(source):
-                    com += source[len(com)]
-                break
-                
-        if len(source) > len(com) + 1:
-            com += ".."
-        source = com
-    return source
-
-#Check / create file paths
-CHECKEDPATHS =[]
-def checkFilePath(path):
-    if not path in CHECKEDPATHS:
-        CHECKEDPATHS.append(path)
-        if not path.startswith('/'):
-            path = os.getcwd() + "/" + path
-        try:
-            os.makedirs(path)
-        except OSError as e:
-            if not os.path.isdir(path):
-                raise e
+        if not sdotermsource.SdoTermSource.SOURCEGRAPH:
+            log.info('Loading triples files')
+            sdotermsource.SdoTermSource.loadSourceGraph('default')
+            log.info('Done: loaded %s triples - %s terms' % (len(
+                sdotermsource.SdoTermSource.sourceGraph()),
+                len(sdotermsource.SdoTermSource.getAllTerms())) )
+            sdocollaborators.collaborator.loadContributors()
 
 ###################################################
 #BUILD INDIVIDUAL TERM PAGES
 ###################################################
-def processTerms():
-    import buildtermpages
-    global TERMS
-    if len(TERMS):
-        print("Building term definition pages\n")
+def processTerms(terms):
+    if len(terms):
+        log.info('Building term definition pages')
         loadTerms()
-        loadExamples()
-    buildtermpages.buildTerms(TERMS)
+        schemaexamples.SchemaExamples.loaded()
+        log.info('Done')
+    buildtermpages.buildTerms(terms)
 
 ###################################################
 #BUILD DYNAMIC DOCS PAGES
 ###################################################
-def processDocs():
-    global PAGES
-    import buildocspages
-    if len(PAGES):
-        print("Building dynamic documentation pages\n")
+def processDocs(pages):
+    if len(pages):
+        log.info('Building dynamic documentation pages')
         loadTerms()
-        buildocspages.buildDocs(PAGES)
+        buildocspages.buildDocs(pages)
+        log.info('Done')
 
 ###################################################
 #BUILD FILES
 ###################################################
-def processFiles():
-    global FILES
-    import buildfiles
-    if len(FILES):
-        print("Building supporting files\n")
+def processFiles(files):
+    if len(files):
+        log.info('Building supporting files')
         loadTerms()
-        loadExamples()
-        buildfiles.buildFiles(FILES)
+        schemaexamples.SchemaExamples.loaded()
+        buildfiles.buildFiles(files)
+        log.info('Done')
+
+###################################################
+#Run ruby tests
+###################################################
+
+def runRubyTests(release_dir):
+    log.info('Setting up LATEST')
+    version = schemaversion.getVersion()
+    src_dir = os.path.join(os.getcwd(), release_dir, version)
+    dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
+    os.symlink(src_dir, dst_dir)
+    cmd = ['bundle', 'exec', 'rake']
+    cwd = os.path.join(os.getcwd(), 'software/scripts')
+    log.info('Running tests')
+    subprocess.check_call(cmd, cwd=cwd)
+    log.info('Cleaning up %s' % dst_dir)
+    os.unlink(dst_dir)
+    log.info('Done')
+
 ###################################################
 #COPY CREATED RELEASE FILES into Data area
 ###################################################
-def copyReleaseFiles():
-    print("Copying release files for version %s to data/releases" % getVersion() )
-    SRCDIR = './software/site/releases/%s' % getVersion()
-    DESTDIR = './data/releases/%s' % getVersion()
-    mycopytree(SRCDIR,DESTDIR)
-    cmd= "git add %s" % DESTDIR
-    os.system(cmd)
 
+
+def copyReleaseFiles(release_dir):
+    version = schemaversion.getVersion()
+    log.info('Copying release files for version %s to data/releases' % version)
+    srcdir = os.path.join(os.getcwd(), release_dir, version)
+    destdir = os.path.join(os.getcwd(), 'data/releases/', version)
+    fileutils.mycopytree(srcdir, destdir)
+    cmd = ['git', 'add', destdir]
+    subprocess.check_call(cmd)
+    log.info('Done')
+
+
+###################################################
+# Main program
+###################################################
 
 if __name__ == '__main__':
-    print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
+    args = initialize()
+
+    software.CheckWorkingDirectory()
+    log.info('Version: %s  Released: %s' % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate()))
     if args.release:
         args.autobuild = True
-        print("BUILDING RELEASE VERSION")
-        time.sleep(2)
-        print()
-    if args.examplesnum or args.release:
-        print("Checking Examples for assigned identifiers")
-        time.sleep(2)
-        print()
-        cmd ="./software/SchemaExamples/utils/assign-example-ids.py"
-        os.system(cmd)
-        print()
-    initdir()
+        log.info('BUILDING RELEASE VERSION')
+    if args.examplesnum or args.release or args.autobuild:
+        log.info('Checking Examples for assigned identifiers')
+        software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
+        log.info('Done')
+    initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
-    processTerms()
-    processDocs()
-    processFiles()
+    processTerms(terms=schemaglobals.TERMS)
+    processDocs(pages=schemaglobals.PAGES)
+    processFiles(files=schemaglobals.FILES)
+    if args.rubytests:
+        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
     if args.release:
-        copyReleaseFiles()
+        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+
 

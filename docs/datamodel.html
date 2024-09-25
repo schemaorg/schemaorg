@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Data Model - schema.org</title>
+    <title>Data model - Schema.org</title>
 
 <!-- #### Static Doc Insert Head goes here -->
 
@@ -11,9 +11,10 @@
 
   <!-- #### Static Doc Insert PageHead goes here -->
 
-<div id="mainContent">
+<article id="mainContent">
 
-<h1>Data Model</h1>
+<section>
+<h1>Data model</h1>
 
 <p>
  The following is a discussion about the data model used by
@@ -39,7 +40,7 @@ where each type may be a sub-class of multiple types.</li>
 <p>
 The decision to allow multiple domains and ranges was purely pragmatic. While the
 computational properties of systems with a single domain and range are easier to
-understand, in practice, this forces the creation of a lot of artifical types,
+understand, in practice, this forces the creation of a lot of artificial types,
 which are there purely to act as the domain/range of some properties.
 </p>
 <p>
@@ -49,22 +50,11 @@ and a few properties like <a href="http://meta.schema.org/domainIncludes">domain
 to allow for reflection, i.e., for the schema to be represented in terms of itself.
 </p>
 
-<p>The canonical machine representation of schema.org is in RDFa:</p>
-
-<ul>
-<li><a href="schema_org_rdfa.html">schema_org_rdfa.html</a></li>
-</ul>
-
-<p>
-Now-obsolete snapshots of <a href='https://web.archive.org/web/20150414142113/https://schema.org/docs/full_md.html'>Microdata</a> and <a href='schemaorg.owl'>OWL</a> experimental
-data dumps were previously published. See also <a href="http://datashapes.org/schema">TopQuadrant's version</a>.
-</p>
-
-<p>See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
+<p>The canonical machine representation of schema.org is in RDF/Turtle. See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
 
 <p>
 The type hierarchy presented on this site is not intended to be a 'global ontology' of the world.
-When founded in 2011 it was strictly focussed around the types of entities
+When founded in 2011 it was strictly focused around the types of entities
 for which the project's founders (Microsoft, Yahoo!, Google and Yandex), could reasonably expect to
 provide some special treatment for via search engines. As the project has <a href="http://queue.acm.org/detail.cfm?id=2857276">evolved</a>,
 introducing more community collaboration and extension mechanisms, its scope has expanded gradually.
@@ -72,6 +62,9 @@ However it is still the case that schema.org is not intended as a universal onto
 alongside other vocabulary that shares our basic datamodel and our use of underlying standards like JSON-LD, Microdata
 and RDFa.
 </p>
+
+</section>
+<section>
 
 <h2 id="conformance">Conformance</h2>
 
@@ -142,6 +135,9 @@ always <a href="https://www.w3.org/community/schemaorg/">welcome</a>.
 See also: <a href="https://en.wikipedia.org/wiki/Robustness_principle">Postel's Law</a>
 </p>
 
+</section>
+<section>
+
 <h2>Mapping to RDFa Lite </h2>
 
 Our use of Microdata maps easily into <a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a>, and
@@ -195,6 +191,8 @@ pair <code>vocab="https://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
 
+</section>
+<section>
 
 <h2 id="bgnotes">Background notes</h2>
 
@@ -216,10 +214,6 @@ some other enclosing tag.
 
 <p><a href="/about">about</a> is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics, while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself describes some other entity. For example, one web page may display a news article about a particular person. Another page may display a product review for a particular product. In these cases, mainEntity for the pages should refer to the news article or review, respectively, while about would more properly refer to the person or product.</p>
 
-<br/><br/>
-
-
-
 <h3 id="identifierBg">"identifier" property</h3>
 
 <p>Background information on the 'identifier' property and its sub-properties.</p>
@@ -238,7 +232,11 @@ when a standard URI form of the identifier is unavailable. We do not currently h
 conventional short name for most identifier schemes (which should be used in lowercase form).
 </p>
 
-<h3 id="history">History</h3>
+</section>
+<section>
+
+
+<h2 id="history">History</h2>
 
 <p>Previous related work:</p>
 
@@ -249,8 +247,9 @@ conventional short name for most identifier schemes (which should be used in low
 <li>See also <a href="https://en.wikipedia.org/wiki/Semantic_network">Semantic network</a> article on Wikipedia.</li>
 </ul>
 
+</section>
 
-</div>
+</article>
 
 <!-- #### Static Doc Insert Footer here -->
 

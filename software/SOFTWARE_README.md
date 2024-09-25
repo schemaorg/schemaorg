@@ -12,7 +12,7 @@ Software
 
 *__Note:__ from Schema version V11.0 onwards the software architecture changed significantly. Please check below for details.*
 
-The site codebase is a simple Python (3.6 or above) application. It is used to create a static image of the Schema.org website to be served locally for testing, or uploading to Google's GCloud for web access.
+The site codebase is a simple Python (3.10 or above) application. It is used to create a static image of the Schema.org website to be served locally for testing, or uploading to Google's GCloud for web access.
 
 This repository only contains the vocabulary definition, and examples files, supporting documentation, and Schema.org specific tests and build scripts.
 
@@ -28,7 +28,7 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     git clone https://github.com/schemaorg/schemaorg.git
     
 
-**_Note:_** The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+**_Note:_** The python application only runs under **_Python 3.10 or above_** which should be preinstalled on the local system.
 
 It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
 
@@ -37,14 +37,15 @@ The python environment for schemaorg depends on a small number of python librari
 
     pip install -r software/requirements.txt
 
+
 All commands and scripts should be run from in the root `schemaorg` directory.
 
 **Module Not Found Errors**  
 If when running local scripts you receive an error of this form: 
 
-    ModuleNotFoundError: No module named 'moule_name'  
+    ModuleNotFoundError: No module named 'module_name'  
 
-There are two common causes. Either your Python environment is not correctly set to 3.6 or above, or it does not contain all the required modules which may be because new dependancies have been addded.  To confirm you have the correct modules loaded, run again the cmmand: 
+There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the command: 
 
    pip install -r software/requirements.txt
 
@@ -130,7 +131,7 @@ _Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a d
 Releasing New Production Releases of the Site
 =============================================
 
-Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://webschemas.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.md](RELEASING.md) file.
+Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://staging.schema.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.md](RELEASING.md) file.
 
 # Build Notes
 
@@ -181,7 +182,7 @@ Site should be accessible via:
 
 **To enable deployment to a gcloud appengine instance**
 
-This allows wider sharing of a development version of the site replicating the way a production release is deployed to the preview server at https://webschemas.org and to http://schema.org.
+This allows wider sharing of a development version of the site replicating the way a production release is deployed to the preview server at https://staging.schema.org and to http://schema.org.
 * Create or identify previously created Google Cloud Platform User
   * Download the gcloud SDK - instructions available at: https://cloud.google.com/sdk/docs/install#deb
   * No need for additional components

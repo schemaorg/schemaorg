@@ -74,6 +74,15 @@ def serve_sitemap():
     print("Serving file: " + path)
     return app.send_static_file(path)
 
+@app.route('/docs/collab/<path>')
+def serve_colls(path):
+    if not path.endswith(".html"):
+        path = "docs/collab/" +path+".html"
+
+    print("Serving file: " + path)
+  
+    return app.send_static_file(path)
+       
 @app.route('/<path>')
 def serve_terms(path):
     if not path.endswith(".html"):
@@ -105,7 +114,7 @@ def serve_downloads(ver,path=""):
 if __name__ == '__main__':
     print("Local dev server for Schema.org version: %s" % getVersion())
     if args.production:
-        print(Fore.RED + "Runing with Production settings" + Style.RESET_ALL)
+        print(Fore.RED + "Running with Production settings" + Style.RESET_ALL)
     else:
         print(Fore.GREEN + "Running with Development settings" + Style.RESET_ALL)
 
