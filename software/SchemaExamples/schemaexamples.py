@@ -9,7 +9,14 @@ import re
 import threading
 
 IDPREFIX = "eg-"
-DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
+DEFTEXAMPLESFILESGLOB = ("data/*examples.txt","data/ext/*/*examples.txt")
+NO_JSON_REGEXPS = (
+    re.compile('No JSON-?LD',re.I),
+    re.compile('This example is in microdata only',re.I),
+    re.compile('No Json example available',re.I),
+    re.compile('microdata only', re.I))
+
+
 ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
 
@@ -113,10 +120,17 @@ class Example():
             if "typeof" in content and "property" in content:
                 return True
         return False
+
     def hasJsonld(self):
-        content = self.jsonld.strip()
-        if len(content) > 0:
-            if "@type" in content:
+        """Return True if there is real JSON, and not a placehold comment in the JSON section."""
+        json_content = self.getJsonldRaw()
+        if not json_content:
+            return False
+        for reg in NO_JSON_REGEXPS:
+            if reg.match(json_content):
+                return False
+        if json_content:
+            if "@type" in json_content:
                 return True
         return False
 
@@ -189,7 +203,7 @@ class SchemaExamples():
             return
 
         if not exfiles or exfiles == "default":
-            log.info("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" %  DEFTEXAMPLESFILESGLOB)
+            log.info("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" % ','.join(DEFTEXAMPLESFILESGLOB))
             exfiles = []
             for g in DEFTEXAMPLESFILESGLOB:
                 exfiles.extend(glob.glob(g))
