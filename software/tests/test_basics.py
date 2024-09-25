@@ -24,6 +24,8 @@ examples_path = './data/examples.txt'
 andstr = "\n AND\n  "
 TYPECOUNT_UPPERBOUND = 1500
 TYPECOUNT_LOWERBOUND = 500
+CURRENT_CONTEXT_FILE = os.path.join(os.getcwd(), 'software', 'site', 'docs', 'jsonldcontext.jsonld')
+
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -345,7 +347,7 @@ class BasicJSONLDTests(unittest.TestCase):
     def setUp(self):
       self.ctx = None
       try:
-        with open('site/docs/jsonldcontext.json') as json_file:
+        with open(CURRENT_CONTEXT_FILE) as json_file:
           self.ctx = json.load(json_file)
       except:
         print("jsonldcontext.json file not loaded - bypassing tests")
@@ -380,10 +382,6 @@ class JsonExampleTests(unittest.TestCase):
         if not example.hasJsonld():
           continue
         json_source = example.getJsonldRaw()
-        if 'microdata only' in json_source:
-          continue
-        if 'No JSON-LD' in json_source:
-          continue
         try:
           parsed = json.loads(json_source)
         except json.decoder.JSONDecodeError as json_error:
