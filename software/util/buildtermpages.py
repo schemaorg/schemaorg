@@ -7,6 +7,7 @@ import os
 import re
 import time
 import sys
+import logging
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -21,6 +22,7 @@ from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
 
+log = logging.getLogger(__name__)
 
 def termFileName(termid):
   """Generate filename for term page.
@@ -93,7 +95,7 @@ def RenderAndWriteSingleTerm(term_key):
   tic = time.perf_counter()
   term = SdoTermSource.getTerm(term_key, expanded=True)
   if not term:
-    print("No such term: %s\n" % term_key)
+    log.error("No such term: %s\n" % term_key)
     return 0
   if term.termType == SdoTerm.REFERENCE: #Don't create pages for reference types
     return 0
@@ -103,7 +105,7 @@ def RenderAndWriteSingleTerm(term_key):
   with open(termFileName(term.id), 'w', encoding='utf8') as outfile:
       outfile.write(pageout)
   elapsed = time.perf_counter() - tic
-  print("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
+  log.info("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
   return elapsed
 
 
@@ -113,12 +115,12 @@ def buildTerms(terms):
     terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
 
   if terms:
-    print("\nBuilding %d term pages...\n" % len(terms))
+    log.info("Building %d term pages..." % len(terms))
 
   total_elapsed = 0
   for term_key in terms:
     total_elapsed += RenderAndWriteSingleTerm(term_key)
 
-  print("%s terms generated in %0.4f seconds" % (len(terms), total_elapsed))
+  log.info("%s terms generated in %0.4f seconds" % (len(terms), total_elapsed))
 
 

@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-from __future__ import with_statement
-
 import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
-
 import os
 import io
 import glob
@@ -23,6 +18,10 @@ NO_JSON_REGEXPS = (
 
 
 ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
+
+
+log = logging.getLogger(__name__)
+
 
 class Example():
     """Representation of an example file, with accessors for the various parts."""
@@ -193,7 +192,6 @@ class SchemaExamples():
 
     @staticmethod
     def loadExamplesFiles(exfiles,init=False):
-        import glob
         global DEFTEXAMPLESFILESGLOB
         if init:
             EXAMPLESLOADED=False
@@ -201,19 +199,19 @@ class SchemaExamples():
             EXAMPLES = {}
 
         if SchemaExamples.EXAMPLESLOADED:
-            print("Examples files already loaded")
+            log.info("Examples files already loaded")
             return
 
         if not exfiles or exfiles == "default":
-            print("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" %  ','.join(DEFTEXAMPLESFILESGLOB))
+            log.info("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" % ','.join(DEFTEXAMPLESFILESGLOB))
             exfiles = []
             for g in DEFTEXAMPLESFILESGLOB:
                 exfiles.extend(glob.glob(g))
         elif isinstance(exfiles, str):
-            print("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
+            log.info("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
             exfiles = [exfiles]
         else:
-            print("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
+             log.info("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
 
         if not len(exfiles):
             raise Exception("No examples file(s) to load")
@@ -240,7 +238,10 @@ class SchemaExamples():
     @staticmethod
     def loaded():
         if not SchemaExamples.EXAMPLESLOADED:
+            log.info("Loading examples files")
             SchemaExamples.loadExamplesFiles("default")
+            log.info("Loaded %d examples", SchemaExamples.count())
+
 
     @staticmethod
     def examplesForTerm(term):

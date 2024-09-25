@@ -6,6 +6,7 @@
 import os
 import sys
 import jinja2
+import logging
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -26,7 +27,7 @@ TERMHREFPREFIX='/'
 ###################################################
 
 def _jinjaDebug(text):
-    print('Jinja: %s' % text)
+    logging.debug(text)
     return ''
 
 local_vars = {}

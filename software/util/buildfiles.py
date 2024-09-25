@@ -6,6 +6,7 @@ import csv
 import os
 import rdflib
 import sys
+import logging
 
 
 # Import schema.org libraries
@@ -27,6 +28,9 @@ from sdoterm import *
 from localmarkdown import Markdown
 
 VOCABURI = SdoTermSource.vocabUri()
+
+log = logging.getLogger(__name__)
+
 ###################################################
 #MARKDOWN INITIALISE
 ###################################################
@@ -240,9 +244,10 @@ def _exportrdf(format,all,current):
         kwargs = {'sort_keys': True}
         out = g.serialize(format=fmt,auto_compact=True,**kwargs)
         f.write(out)
-        print(fn)
+
         af.write(prtocolswap(out,protocol=protocol,altprotocol=altprotocol))
-        print(afn)
+
+        log.info('Exported %s and %s' % (fn, afn))
         f.close()
         af.close()
 
@@ -334,6 +339,7 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     version = schemaversion.getVersion()
     fn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, protocol, ftype))
     afn = absoluteFilePath("releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, altprotocol, ftype))
+    log.debug('Writing files %s and %s' % (fn, afn))
     csvout = io.StringIO()
     csvfile = open(fn,'w', encoding='utf8')
     acsvfile = open(afn,'w', encoding='utf8')
@@ -342,10 +348,8 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     for row in data:
         writer.writerow(row)
     csvfile.write(csvout.getvalue())
-    print(fn)
     csvfile.close()
     acsvfile.write(prtocolswap(csvout.getvalue(),protocol=protocol,altprotocol=altprotocol))
-    print(afn)
     acsvfile.close()
     csvout.close()
 
@@ -402,7 +406,7 @@ def buildFiles(files):
 
 
     for p in files:
-        print("%s:"%p)
+        log.debug("Preparing file %s:"%p)
         if p in FILELIST.keys():
             func, filenames = FILELIST.get(p,None)
             if func:
@@ -410,9 +414,8 @@ def buildFiles(files):
                 if content:
                     for filename in filenames:
                         fn = absoluteFilePath(filename)
-                        f = open(fn,"w", encoding='utf8')
-                        f.write(content)
-                        f.close()
-                        print("Created %s" % fn)
+                        with open(fn,"w", encoding='utf8') as handle:
+                            handle.write(content)
+                        log.info("Created %s" % fn)
         else:
-            print("Unknown files name: %s" % p)
+            log.warning("Unknown files name: %s" % p)

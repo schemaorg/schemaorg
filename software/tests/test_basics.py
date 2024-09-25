@@ -27,16 +27,10 @@ TYPECOUNT_LOWERBOUND = 500
 CURRENT_CONTEXT_FILE = os.path.join(os.getcwd(), 'software', 'site', 'docs', 'jsonldcontext.jsonld')
 
 
-logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-
 SdoTermSource.loadSourceGraph("default")
-print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-
-print("Loading examples files")
-SchemaExamples.loadExamplesFiles("default")
-print("Loaded %d examples" % SchemaExamples.count())
+SchemaExamples.loaded()
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -54,8 +48,6 @@ class SDOBasicsTestCase(unittest.TestCase):
   def test_ExtractedPlausibleNumberOfExamples(self):
 
     example_count = SchemaExamples.count()
-#    for t in api.EXAMPLESMAP:
-#        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
     self.assertTrue(example_count > 200 and example_count < 600, "Expect that we extracted 200 < x < 600 examples from data/*examples.txt. Found: %s " % example_count)
 
@@ -319,7 +311,7 @@ class SimpleCommentCountTests(unittest.TestCase):
     ndi1_results = SdoTermSource.query(query)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
-            log.info("WARNING term %s has no rdfs:comment value" % (row["term"]))
+            log.warning("Term %s has no rdfs:comment value" % (row["term"]))
     self.assertEqual(len(ndi1_results), 0,
                     "Found: %s term(s) without comment value" % len(ndi1_results ) )
 
@@ -337,7 +329,7 @@ class SimpleCommentCountTests(unittest.TestCase):
     if (len(ndi1_results) > 0):
           log.info("Query was: %s" % query)
           for row in ndi1_results:
-              log.info("WARNING term %s has  rdfs:comment value %s" % (row["term"],row["comment"]))
+              log.warning("Term %s has  rdfs:comment value %s" % (row["term"],row["comment"]))
     self.assertEqual(len(ndi1_results), 0,
         "Found: %s term(s) without multiple comment values" % len(ndi1_results ) )
 
@@ -345,12 +337,12 @@ class SimpleCommentCountTests(unittest.TestCase):
 class BasicJSONLDTests(unittest.TestCase):
 
     def setUp(self):
-      self.ctx = None
-      try:
-        with open(CURRENT_CONTEXT_FILE) as json_file:
-          self.ctx = json.load(json_file)
-      except:
-        print("jsonldcontext.json file not loaded - bypassing tests")
+        self.ctx = None
+        try:
+            with open(CURRENT_CONTEXT_FILE) as json_file:
+                self.ctx = json.load(json_file)
+        except IOError:
+            pass
 
 #    @skip("Need to think about this.")
 #    def test_jsonld_basic_jsonld_context_available(self):
@@ -358,17 +350,21 @@ class BasicJSONLDTests(unittest.TestCase):
 #        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
 
     def test_issuedBy_jsonld(self):
-      if self.ctx:
+        if not self.ctx:
+            raise unittest.SkipTest("%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE)
         self.assertTrue( "issuedBy" in self.ctx["@context"] , "issuedBy should be defined." )
 
+
     def test_dateModified_jsonld(self):
-      if self.ctx:
+        if not self.ctx:
+            raise unittest.SkipTest("%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE)
         self.assertTrue( "dateModified" in self.ctx["@context"] , "dateModified should be defined." )
         self.assertTrue( self.ctx["@context"]["dateModified"]["@type"] == "Date" , "dateModified should have Date type." )
 
     def test_sameas_jsonld(self):
-       if self.ctx:
-        self.assertTrue( "sameAs" in self.ctx["@context"] , "sameAs should be defined." )
+       if not self.ctx:
+           raise unittest.SkipTest("jsonldcontext.json file not loaded - bypassing tests")
+       self.assertTrue( "sameAs" in self.ctx["@context"] , "sameAs should be defined." )
 
 #      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
 
