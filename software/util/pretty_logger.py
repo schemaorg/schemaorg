@@ -43,6 +43,25 @@ class PrettyLogFormatter(logging.Formatter):
         return logging.Formatter.format(self, record)
 
 
+class BlockLog:
+    def __init__(self, logger, message):
+        self.logger = logger
+        self.message = message
+
+    def __enter__(self):
+        self.logger.info('Start: %s', self.message)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if isinstance(exc_value, Exception):
+          self.logger.error('Failed: %s', self.message)
+        else:
+          self.logger.info('Done: %s', self.message)
+
+    def append(self, message):
+        self.message = self.message + ' ' + message
+
+
 def MakeRootLogPretty():
     """Makes the root log pretty if stdandard output is a terminal."""
     handler = logging.StreamHandler(sys.stdout)

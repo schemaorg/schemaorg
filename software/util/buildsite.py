@@ -132,23 +132,22 @@ def initdir(output_dir, handler_path):
     gdir = os.path.join(output_dir, 'gcloud')
     fileutils.createMissingDir(gdir)
 
-    log.info('Copying docs static files')
-    copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs')
-    log.info('Done')
+    with pretty_logger.BlockLog(logger=log, message='Copying docs static files'):
+        copystaticdocsplusinsert.copyFiles('./docs', './software/site/docs')
 
-    log.info('Preparing GCloud files')
-    gcloud_files = glob.glob('software/gcloud/*.yaml')
-    for path in gcloud_files:
-      shutil.copy(path, gdir)
-    log.info('Done: copied %d files' % len(gcloud_files))
-    log.info('Creating %s from %s for version: %s' %
-        (handler_path, schemaglobals.HANDLER_TEMPLATE, schemaversion.getVersion()))
-    with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
-      template_data = template_file.read()
-      with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
+    with pretty_logger.BlockLog(logger=log, message='Preparing GCloud files') as block:
+        gcloud_files = glob.glob('software/gcloud/*.yaml')
+        for path in gcloud_files:
+            shutil.copy(path, gdir)
+        block.append('copied %d files' % len(gcloud_files))
+
+    message = 'Creating %s from %s for version: %s' % (handler_path, schemaglobals.HANDLER_TEMPLATE, schemaversion.getVersion())
+    with pretty_logger.BlockLog(logger=log, message=message):
+        with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
+            template_data = template_file.read()
         handler_data = template_data.replace('{{ver}}', schemaversion.getVersion())
-        yaml_file.write(handler_data)
-    log.info('Done')
+        with open(os.path.join(gdir, handler_path), mode='w') as yaml_file:
+            yaml_file.write(handler_data)
 
 
 ###################################################
@@ -157,14 +156,13 @@ def initdir(output_dir, handler_path):
 LOADEDTERMS = False
 def loadTerms():
     global LOADEDTERMS
-    if not LOADEDTERMS:
-        LOADEDTERMS = True
-        if not sdotermsource.SdoTermSource.SOURCEGRAPH:
-            log.info('Loading triples files')
+    if LOADEDTERMS:
+        return
+    LOADEDTERMS = True
+    if not sdotermsource.SdoTermSource.SOURCEGRAPH:
+        with pretty_logger.BlockLog(logger=log, message='Loading triples files'):
             sdotermsource.SdoTermSource.loadSourceGraph('default')
-            log.info('Done: loaded %s triples - %s terms' % (len(
-                sdotermsource.SdoTermSource.sourceGraph()),
-                len(sdotermsource.SdoTermSource.getAllTerms())) )
+        with pretty_logger.BlockLog(logger=log, message='Loading contributors'):
             sdocollaborators.collaborator.loadContributors()
 
 ###################################################
@@ -172,50 +170,47 @@ def loadTerms():
 ###################################################
 def processTerms(terms):
     if len(terms):
-        log.info('Building term definition pages')
-        loadTerms()
-        schemaexamples.SchemaExamples.loaded()
-        log.info('Done')
-    buildtermpages.buildTerms(terms)
+        with pretty_logger.BlockLog(logger=log, message='Building term definition pages'):
+            loadTerms()
+            schemaexamples.SchemaExamples.loaded()
+            buildtermpages.buildTerms(terms)
 
 ###################################################
 #BUILD DYNAMIC DOCS PAGES
 ###################################################
 def processDocs(pages):
     if len(pages):
-        log.info('Building dynamic documentation pages')
-        loadTerms()
-        buildocspages.buildDocs(pages)
-        log.info('Done')
+        with pretty_logger.BlockLog(logger=log, message='Building dynamic documentation pages'):
+            loadTerms()
+            buildocspages.buildDocs(pages)
 
 ###################################################
 #BUILD FILES
 ###################################################
 def processFiles(files):
     if len(files):
-        log.info('Building supporting files')
-        loadTerms()
-        schemaexamples.SchemaExamples.loaded()
-        buildfiles.buildFiles(files)
-        log.info('Done')
+        with pretty_logger.BlockLog(logger=log, message='Building supporting files'):
+            loadTerms()
+            schemaexamples.SchemaExamples.loaded()
+            buildfiles.buildFiles(files)
 
 ###################################################
 #Run ruby tests
 ###################################################
 
 def runRubyTests(release_dir):
-    log.info('Setting up LATEST')
-    version = schemaversion.getVersion()
-    src_dir = os.path.join(os.getcwd(), release_dir, version)
-    dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
-    os.symlink(src_dir, dst_dir)
-    cmd = ['bundle', 'exec', 'rake']
-    cwd = os.path.join(os.getcwd(), 'software/scripts')
-    log.info('Running tests')
-    subprocess.check_call(cmd, cwd=cwd)
-    log.info('Cleaning up %s' % dst_dir)
-    os.unlink(dst_dir)
-    log.info('Done')
+    with pretty_logger.BlockLog(logger=log, message='Running ruby tests'):
+        log.info('Setting up LATEST')
+        version = schemaversion.getVersion()
+        src_dir = os.path.join(os.getcwd(), release_dir, version)
+        dst_dir = os.path.join(os.getcwd(), release_dir, 'LATEST')
+        os.symlink(src_dir, dst_dir)
+        cmd = ['bundle', 'exec', 'rake']
+        cwd = os.path.join(os.getcwd(), 'software/scripts')
+        log.info('Running tests')
+        subprocess.check_call(cmd, cwd=cwd)
+        log.info('Cleaning up %s' % dst_dir)
+        os.unlink(dst_dir)
 
 ###################################################
 #COPY CREATED RELEASE FILES into Data area
@@ -224,14 +219,12 @@ def runRubyTests(release_dir):
 
 def copyReleaseFiles(release_dir):
     version = schemaversion.getVersion()
-    log.info('Copying release files for version %s to data/releases' % version)
-    srcdir = os.path.join(os.getcwd(), release_dir, version)
-    destdir = os.path.join(os.getcwd(), 'data/releases/', version)
-    fileutils.mycopytree(srcdir, destdir)
-    cmd = ['git', 'add', destdir]
-    subprocess.check_call(cmd)
-    log.info('Done')
-
+    with pretty_logger.BlockLog(message='Copying release files for version %s to data/releases' % version, logger=log):
+        srcdir = os.path.join(os.getcwd(), release_dir, version)
+        destdir = os.path.join(os.getcwd(), 'data/releases/', version)
+        fileutils.mycopytree(srcdir, destdir)
+        cmd = ['git', 'add', destdir]
+        subprocess.check_call(cmd)
 
 ###################################################
 # Main program
@@ -246,9 +239,8 @@ if __name__ == '__main__':
         args.autobuild = True
         log.info('BUILDING RELEASE VERSION')
     if args.examplesnum or args.release or args.autobuild:
-        log.info('Checking Examples for assigned identifiers')
-        software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-        log.info('Done')
+        with pretty_logger.BlockLog(message='Checking Examples for assigned identifiers', logger=log):
+            software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
     initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
     processTerms(terms=schemaglobals.TERMS)
