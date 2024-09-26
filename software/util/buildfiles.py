@@ -277,7 +277,7 @@ def _exportrdf(format, all, current):
         kwargs = {"sort_keys": True}
         out = g.serialize(format=fmt, auto_compact=True, **kwargs)
         f.write(out)
-        af.write(prtocolswap(out, protocol=protocol, altprotocol=altprotocol))
+        af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
         log.info("Exported %s and %s" % (fn, afn))
         f.close()
         af.close()
