@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+"""Program that builds the whole schema.org website."""
+
 # Import standard python libraries
 import argparse
 import glob
@@ -29,6 +31,7 @@ import software.util.runtests as runtests_lib
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
+import software.util.pretty_logger as pretty_logger
 
 import software.SchemaExamples.schemaexamples as schemaexamples
 import software.SchemaExamples.utils.assign_example_ids
@@ -38,45 +41,9 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 
 log = logging.getLogger(__name__)
 
-class PrettyLogFormatter(logging.Formatter):
-    """Helper class to format the log messages from the various parts of the project."""
-
-    COLORS = {
-        'WARNING': colorama.Fore.YELLOW,
-        'INFO': colorama.Fore.CYAN,
-        'DEBUG': colorama.Fore.BLUE,
-        'CRITICAL': colorama.Fore.MAGENTA,
-        'ERROR': colorama.Fore.RED,
-    }
-
-    def __init__(self, use_color=True):
-        logging.Formatter.__init__(self, fmt='%(levelname)s %(name)s: %(message)s')
-        self.use_color = use_color
-
-    @classmethod
-    def _computeLevelName(cls, record):
-        lower_msg = record.getMessage().casefold()
-        if lower_msg == 'done' or lower_msg[:5] == 'done:':
-            return colorama.Fore.LIGHTGREEN_EX + record.levelname + colorama.Fore.RESET
-        if record.levelname in cls.COLORS:
-            return cls.COLORS[record.levelname] + record.levelname + colorama.Fore.RESET
-        return record.levelname
-
-    @classmethod
-    def _computeName(cls, record):
-        components = record.name.split('.')
-        return colorama.Style.DIM + components[-1] + colorama.Style.RESET_ALL
-
-    def format(self, record):
-        if self.use_color:
-            record.levelname = self.__class__._computeLevelName(record)
-            record.name = self.__class__._computeName(record)
-        return logging.Formatter.format(self, record)
-
-
 def initialize():
     """Initialize various systems, returns the args object"""
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-a','--autobuild', default=False, action='store_true', help='clear output directory and build all components - overrides all other settings (except -examplesnum)')
     parser.add_argument('-c','--clearfirst', default=False, action='store_true', help='clear output directory before creating contents')
     parser.add_argument('-d','--docspages', default=[],action='append',nargs='*', help='create docs page(repeatable) - ALL = all pages')
@@ -119,12 +86,7 @@ def initialize():
     software.SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath('/')
     software.SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath('')
 
-    handler = logging.StreamHandler(sys.stdout)
-    formatter = PrettyLogFormatter(use_color=os.isatty(sys.stdout.fileno()))
-    handler.setFormatter(formatter)
-
-    root_log = logging.getLogger()
-    root_log.handlers = [handler]
+    pretty_logger.MakeRootLogPretty()
 
     return args
 
