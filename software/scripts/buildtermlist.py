@@ -1,37 +1,45 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+
+# Import standard python libraries
+
 import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
-
-
 import os
 import io
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+import logging
+import argparse
 
-from buildsite import *
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdoterm
+
+from sdotermsource import SdoTermSource
+
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import SdoTerm
 
-def buildlist(tag=False):
-    list = []
-    for t in SdoTermSource.getAllTerms(expanded=True):
+log = logging.getLogger(__name__)
+
+def generateTerms(tags=False):
+    for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
         label = ""
-        if tag:
-            if t.termType == SdoTerm.PROPERTY:
+        if tags:
+            if term.termType == sdoterm.SdoTerm.PROPERTY:
                 label = " p"
-            elif t.termType == SdoTerm.TYPE:
+            elif term.termType == sdoterm.SdoTerm.TYPE:
                 label = " t"
-            elif t.termType == SdoTerm.DATATYPE:
+            elif term.termType == sdoterm.SdoTerm.DATATYPE:
                 label = " d"
-            elif t.termType == SdoTerm.ENUMERATION:
+            elif term.termType == sdoterm.SdoTerm.ENUMERATION:
                 label = " e"
-            elif t.termType == SdoTerm.ENUMERATIONVALUE:
+            elif term.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
                 label = " v"
-        list.append(t.id + label + "\n")
-    return ''.join(list)
+        yield term.id + label + "\n"
 
 
 
@@ -40,12 +48,11 @@ if __name__ == '__main__':
     parser.add_argument("-t","--tagtype", default=False, action='store_true', help="Add a termtype to name")
     parser.add_argument("-o","--output", required=True, help="output file")
     args = parser.parse_args()
-
-    out = buildlist(tag=args.tagtype)
-
-    print("buildtermlist: Writing to: %s" % fname)
-    file = open(fname, "w",encoding='utf8')
-    file.write(out)
-
+    filename = args.output
+    log.info('Writing term list to file %s', filename)
+    with open(filename, 'w', encoding='utf-8') as handle:
+      for term in generateTerms(tags=args.tagtype):
+        handle.write(term)
+    log.info('Done')
 
 
