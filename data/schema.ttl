@@ -2192,6 +2192,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PaymentMethod a rdfs:Class ;
     rdfs:label "PaymentMethod" ;
     :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> ;
     rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction. The following legacy values should be accepted:
     \\n\\n* http://purl.org/goodrelations/v1#ByBankTransferInAdvance\\n* http://purl.org/goodrelations/v1#ByInvoice\\n* http://purl.org/goodrelations/v1#Cash\\n* http://purl.org/goodrelations/v1#CheckInAdvance\\n* http://purl.org/goodrelations/v1#COD\\n* http://purl.org/goodrelations/v1#DirectDebit\\n* http://purl.org/goodrelations/v1#GoogleCheckout\\n* http://purl.org/goodrelations/v1#PayPal\\n* http://purl.org/goodrelations/v1#PaySwarm\\n\\nStructured values are recommended for newer payment methods.""" ;
     rdfs:subClassOf :Intangible .
@@ -3921,7 +3922,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Demand,
         :Offer, :Organization ;
     :rangeIncludes :LoanOrCredit,
-        :PaymentMethod ;
+        :PaymentMethod, :Text;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> ;
     rdfs:comment "The payment method(s) that are accepted in general by an organization, or for some specific demand or offer." .
 
 :acceptsReservations a rdf:Property ;
@@ -7404,7 +7406,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     :domainIncludes :OrderItem ;
-    :rangeIncludes :Number ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." .
 
 :orderStatus a rdf:Property ;
@@ -7582,7 +7585,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "paymentMethod" ;
     :domainIncludes :Invoice,
         :Order ;
-    :rangeIncludes :PaymentMethod ;
+    :rangeIncludes :PaymentMethod, :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> ;
     rdfs:comment "The name of the credit card or other method of payment for the order." .
 
 :paymentMethodId a rdf:Property ;

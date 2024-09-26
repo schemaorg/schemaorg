@@ -3,10 +3,11 @@
 
 # Import standard python libraries
 import csv
+import io
+import logging
 import os
 import rdflib
 import sys
-import logging
 
 
 # Import schema.org libraries
@@ -231,7 +232,7 @@ def _exportrdf(format,all,current):
             g = current
         if format == "nquads":
             gr = rdflib.Dataset()
-            qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol, version)))
+            qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
         fn = absoluteFilePath("releases/%s/schemaorg-%s-%s%s" % (version,ver,protocol,exts[format]))
