@@ -7404,7 +7404,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     :domainIncludes :OrderItem ;
-    :rangeIncludes :Number ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." .
 
 :orderStatus a rdf:Property ;
@@ -9589,8 +9590,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :VideoGame,
         :VideoGameSeries,
         :VideoObject ;
-    :rangeIncludes :Person ;
-    rdfs:comment "An actor, e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." .
+    :rangeIncludes :Person,
+        :PerformingGroup ;
+    rdfs:comment "An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." .
 
 :album a rdf:Property ;
     rdfs:label "album" ;
@@ -9759,8 +9761,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :MusicRecording,
         :MusicRelease,
         :QuantitativeValueDistribution,
-  :Episode ;
-    :rangeIncludes :Duration ;
+	      :Episode ;
+    :rangeIncludes :Duration,
+        :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
     rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601)." .
 

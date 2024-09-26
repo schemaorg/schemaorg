@@ -6,10 +6,13 @@ import sys
 import unittest
 import tempfile
 
-for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert(1, path) #Pickup libs from local directories
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-import schemaexamples
+import software
+import software.SchemaExamples.schemaexamples as schemaexamples
+
 
 THING_EXAMPLE = """TYPES: #eg-0999 Thing
 
@@ -94,6 +97,23 @@ class TestExampleFileParser(unittest.TestCase):
     self.assertCountEqual(result[0].terms, ['Thing'])
     self.assertEqual(result[1].getIdNum(), 777)
     self.assertCountEqual(result[1].terms, ['Offer'])
+
+
+  def test_serialize(self):
+    example = schemaexamples.Example(
+          terms=['Thing'], original_html='<b>Thing</b>', microdata='<b>Thing</b>', rdfa='', jsonld='<script>{}</script>',
+          exmeta={'id': 'eg-999', 'file': '/bogus', 'filepos': -1})
+    self.assertEqual(example.serialize(),
+"""TYPES: #eg-0999 Thing
+
+PRE-MARKUP:
+<b>Thing</b>
+MICRODATA:
+<b>Thing</b>
+RDFA:
+
+JSON:
+<script>{}</script>""")
 
 
 if __name__ == '__main__':

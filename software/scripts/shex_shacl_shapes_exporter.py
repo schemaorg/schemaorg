@@ -4,6 +4,8 @@
 import argparse
 import json
 import os
+import logging
+
 from typing import Generator, Any, Union, Set
 
 from rdflib import Graph
@@ -19,6 +21,8 @@ SHACL = Namespace('http://www.w3.org/ns/shacl#')
 
 PREFIX = 'ValidSchema'
 FILE_ENCODING = 'utf-8'
+
+log = logging.getLogger(__name__)
 
 def replace_prefix(data):
     """
@@ -228,18 +232,18 @@ def generate_files(term_defs_path, outputdir, outputfileprefix='', input_format=
     shexj_path = os.path.join(outputdir, outputfileprefix + 'shapes.shexj')
     with open(shexj_path, 'w', encoding=FILE_ENCODING) as shexj_file:
         shexj_file.write(ShExJParser.to_shex(graph))
-    print("Created %s" % shexj_path)
+    log.info("Created %s" % shexj_path)
 
     shacl_path = os.path.join(outputdir, outputfileprefix + 'shapes.shacl')
     with open(shexj_path, 'w', encoding=FILE_ENCODING) as shacl_file:
         shacl_file.write(ShaclParser.to_shacl(graph))
-    print("Created %s" % shacl_path)
+    log.info("Created %s" % shacl_path)
 
     subclasses_tree = ShaclParser().get_subclasses(graph)
     subclasses_path = os.path.join(outputdir, outputfileprefix + 'subclasses.shacl')
     with open(subclasses_path, 'w', encoding=FILE_ENCODING) as subclasses_file:
         subclasses_file.write(ShaclParser.get_subclasses(graph))
-    print("Created %s" % subclasses_path)
+    log.info("Created %s" % subclasses_path)
 
 
 if __name__ == '__main__':

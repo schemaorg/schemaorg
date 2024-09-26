@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-from __future__ import with_statement
-
 import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
-
 import os
-import os.path
 import io
 import glob
 import re
 import threading
 
 IDPREFIX = "eg-"
-DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
+DEFTEXAMPLESFILESGLOB = ("data/*examples.txt","data/ext/*/*examples.txt")
+NO_JSON_REGEXPS = (
+    re.compile('No JSON-?LD',re.I),
+    re.compile('This example is in microdata only',re.I),
+    re.compile('No Json example available',re.I),
+    re.compile('microdata only', re.I))
+
+
 ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
-class Example ():
+
+log = logging.getLogger(__name__)
+
+
+class Example():
     """Representation of an example file, with accessors for the various parts."""
     ExamplesCount = 0
     MaxId = 0
@@ -115,10 +120,17 @@ class Example ():
             if "typeof" in content and "property" in content:
                 return True
         return False
+
     def hasJsonld(self):
-        content = self.jsonld.strip()
-        if len(content) > 0:
-            if "@type" in content:
+        """Return True if there is real JSON, and not a placehold comment in the JSON section."""
+        json_content = self.getJsonldRaw()
+        if not json_content:
+            return False
+        for reg in NO_JSON_REGEXPS:
+            if reg.match(json_content):
+                return False
+        if json_content:
+            if "@type" in json_content:
                 return True
         return False
 
@@ -141,25 +153,19 @@ class Example ():
 
 
     def serialize(self):
-        buff = []
-        termnames = ""
-        first = True
-        idd = "#%s" % self.keyvalue
-        if "-temp-" in idd:
-            idd = ""
-        for t in self.terms:
-            if first:
-                first = False
-            else:
-                termnames += ", "
-            termnames += t
+       termnames = ', '.join(self.terms)
+       idd = "#%s" % self.keyvalue
+       if "-temp-" in idd:
+           idd = ""
 
-        buff.append("TYPES: %s %s\n" % (idd,termnames))
-        buff.append("PRE-MARKUP:\n%s" % self.getHtml())
-        buff.append("MICRODATA:\n%s" % self.getMicrodata())
-        buff.append("RDFA:\n%s" % self.getRdfa())
-        buff.append("JSON:\n%s" % self.getJsonld())
-        return "\n".join(buff)
+       sections = [
+         "TYPES: %s %s\n" % (idd, termnames),
+         "PRE-MARKUP:", self.getHtml(),
+         "MICRODATA:", self.getMicrodata(),
+         "RDFA:", self.getRdfa(),
+         "JSON:", self.getJsonld(),
+       ]
+       return "\n".join(sections)
 
     @staticmethod
     def nextId():
@@ -186,7 +192,6 @@ class SchemaExamples():
 
     @staticmethod
     def loadExamplesFiles(exfiles,init=False):
-        import glob
         global DEFTEXAMPLESFILESGLOB
         if init:
             EXAMPLESLOADED=False
@@ -194,19 +199,19 @@ class SchemaExamples():
             EXAMPLES = {}
 
         if SchemaExamples.EXAMPLESLOADED:
-            print("Examples files already loaded")
+            log.info("Examples files already loaded")
             return
 
         if not exfiles or exfiles == "default":
-            print("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" %  DEFTEXAMPLESFILESGLOB)
+            log.info("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" % ','.join(DEFTEXAMPLESFILESGLOB))
             exfiles = []
             for g in DEFTEXAMPLESFILESGLOB:
                 exfiles.extend(glob.glob(g))
         elif isinstance(exfiles, str):
-            print("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
+            log.info("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
             exfiles = [exfiles]
         else:
-            print("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
+             log.info("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
 
         if not len(exfiles):
             raise Exception("No examples file(s) to load")
@@ -233,7 +238,10 @@ class SchemaExamples():
     @staticmethod
     def loaded():
         if not SchemaExamples.EXAMPLESLOADED:
+            log.info("Loading examples files")
             SchemaExamples.loadExamplesFiles("default")
+            log.info("Loaded %d examples", SchemaExamples.count())
+
 
     @staticmethod
     def examplesForTerm(term):
