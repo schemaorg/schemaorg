@@ -20,25 +20,17 @@ import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
+import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
 
-import shex_shacl_shapes_exporter
-import schemaexamples
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaExamples.schemaexamples as schemaexamples
+import software.SchemaTerms.localmarkdown as localmarkdown
 
-from sdotermsource import SdoTermSource, VOCABURI
-from sdoterm import *
-from localmarkdown import Markdown
 
-VOCABURI = SdoTermSource.vocabUri()
+VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 log = logging.getLogger(__name__)
-
-###################################################
-#MARKDOWN INITIALISE
-###################################################
-Markdown.setWikilinkCssClass("localLink")
-Markdown.setWikilinkPrePath("https://schema.org/")
-    #Production site uses no suffix in link - mapping to file done in server config
-Markdown.setWikilinkPostPath("")
 
 def absoluteFilePath(fn):
     name = os.path.join(schemaglobals.OUTPUTDIR, fn)
@@ -72,7 +64,7 @@ def jsonldtree(page):
     return json.dumps(data,indent=3)
 
 def _jsonldtree(tid,term=None):
-    termdesc = SdoTermSource.getTerm(tid)
+    termdesc = sdotermsource.SdoTermSource.getTerm(tid)
     if not term:
         term = {}
     term['@type'] = "rdfs:Class"
@@ -132,7 +124,7 @@ def sitemap(page):
     output.append("""<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 """)
-    terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
+    terms = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
     version_date = schemaversion.getCurrentVersionDate()
     for term in terms:
         if not (term.startswith("http://") or term.startswith("https://")):
@@ -149,7 +141,7 @@ def prtocolswap(content,protocol,altprotocol):
     return ret
 
 def protocols():
-    vocaburi = SdoTermSource.vocabUri()
+    vocaburi = sdotermsource.SdoTermSource.vocabUri()
     protocol="http"
     altprotocol="https"
     if vocaburi.startswith("https"):
@@ -158,7 +150,6 @@ def protocols():
     return protocol,altprotocol
 
 
-from rdflib.serializer import Serializer
 allGraph = None
 currentGraph = None
 def exportrdf(exportType):
@@ -170,7 +161,7 @@ def exportrdf(exportType):
         currentGraph = rdflib.Graph()
         currentGraph.bind("schema",VOCABURI)
 
-        allGraph += SdoTermSource.sourceGraph()
+        allGraph += sdotermsource.SdoTermSource.sourceGraph()
 
         protocol, altprotocol = protocols()
 
@@ -294,7 +285,7 @@ def exportcsv(page):
     typedataAll = []
     propdata = []
     propdataAll = []
-    terms = SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True)
+    terms = sdotermsource.SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True)
     for term in terms:
         if term.termType == SdoTerm.REFERENCE or term.id.startswith("http://") or term.id.startswith("https://"):
             continue
@@ -355,7 +346,7 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     csvout.close()
 
 def jsoncounts(page):
-    counts = SdoTermSource.termCounts()
+    counts = sdotermsource.SdoTermSource.termCounts()
     counts['schemaorgversion'] = schemaversion.getVersion()
     return json.dumps(counts)
 
@@ -368,10 +359,10 @@ def jsonpcounts(page):
     return content
 
 def exportshex_shacl(page):
-    reldir = os.path.join('./software/site/releases/', schemaversion.getVersion())
+    release_dir = os.path.join(os.cwd(), schemaglobals.RELEASE_DIR, schemaversion.getVersion())
     shex_shacl_shapes_exporter.generate_files(
         term_defs_path = os.path.join(reldir, 'schemaorg-all-http.nt'),
-        outputdir = reldir,
+        outputdir = release_dir,
         outputfileprefix = 'schemaorg-')
 
 
@@ -399,6 +390,13 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
          }
 
 def buildFiles(files):
+    log.debug("Initalizing Mardown")
+    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
+    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
+        #Production site uses no suffix in link - mapping to file done in server config
+    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkPostPath("")
+
+
     all = ["ALL","All","all"]
     for a in all:
         if a in files:

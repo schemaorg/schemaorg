@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""Generate the `shexj` and `shacl` files."""
+
 import argparse
 import json
 import os
@@ -247,7 +249,7 @@ def generate_files(term_defs_path, outputdir, outputfileprefix='', input_format=
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-s","--sourcefile", help="rdf format source file")
     parser.add_argument("-f","--format", default="nt", help="source file format (default: .nt)")
     parser.add_argument("-o","--outputdir", help="output directory (default: ./)")

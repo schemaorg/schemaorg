@@ -70,7 +70,7 @@ SRCDIR = './docs'
 DESTDIR = './software/site/docs'
 
 
-def htmlinserts(destdir):
+def htmlinserts(destdir : str):
     """Perform susbstitions on all HTML files in DESTDIR."""
     log.info("Adding header/footer templates to all html files")
     docs = glob.glob(os.path.join(destdir, '*.html'))
@@ -80,7 +80,8 @@ def htmlinserts(destdir):
     log.info("Added to %d files" % len(docs))
 
 
-def copyFiles(srcdir, destdir):
+def copyFiles(srcdir : str, destdir : str):
+    """Copy and complete all the static document pages."""
     fileutils.mycopytree(srcdir, destdir)
     log.info("Converting .md docs to html")
     convertmd2htmldocs.mddocs(DESTDIR, DESTDIR)

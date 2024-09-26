@@ -18,9 +18,10 @@ import software.util.schemaglobals as schemaglobals
 import software.util.fileutils as fileutils
 import software.util.jinga_render as jinga_render
 
-from sdotermsource import SdoTermSource
-from sdoterm import *
-from schemaexamples import SchemaExamples
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaExamples.schemaexamples as schemaexamples
+
 
 log = logging.getLogger(__name__)
 
@@ -93,14 +94,14 @@ def RenderAndWriteSingleTerm(term_key):
     elapsed time for the generation (seconds).
   """
   tic = time.perf_counter()
-  term = SdoTermSource.getTerm(term_key, expanded=True)
+  term = sdotermsource.SdoTermSource.getTerm(term_key, expanded=True)
   if not term:
     log.error("No such term: %s\n" % term_key)
     return 0
-  if term.termType == SdoTerm.REFERENCE: #Don't create pages for reference types
+  if term.termType == sdoterm.SdoTerm.REFERENCE: #Don't create pages for reference types
     return 0
-  examples = SchemaExamples.examplesForTerm(term.id)
-  json = SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
+  examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+  json = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
   pageout = termtemplateRender(term, examples, json)
   with open(termFileName(term.id), 'w', encoding='utf8') as outfile:
       outfile.write(pageout)
@@ -112,7 +113,7 @@ def RenderAndWriteSingleTerm(term_key):
 def buildTerms(terms):
   """Build the rendered version for a collection of terms."""
   if any(filter(lambda term: term in ("ALL","All","all"), terms)):
-    terms = SdoTermSource.getAllTerms(suppressSourceLinks=True)
+    terms = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
 
   if terms:
     log.info("Building %d term pages..." % len(terms))

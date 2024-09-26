@@ -18,9 +18,12 @@ import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.textutils as textutils
 
-from sdotermsource import SdoTermSource
-from sdocollaborators import collaborator
-from sdoterm import *
+
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdocollaborators as sdocollaborators
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaExamples.schemaexamples as schemaexamples
+
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +46,7 @@ def schemasPage(page):
     extra_vars = {
         'home_page': "False",
         'title': 'Schemas',
-        'termcounts': SdoTermSource.termCounts()
+        'termcounts': sdotermsource.SdoTermSource.termCounts()
     }
     return docsTemplateRender("docs/Schemas.j2",extra_vars)
 
@@ -86,7 +89,7 @@ def homePage(page):
     sectionterms={}
     termcount=0
     if filt:
-        terms = SdoTermSource.getAllTerms(layer=filt,expanded=True)
+        terms = sdotermsource.SdoTermSource.getAllTerms(layer=filt,expanded=True)
         for t in terms:
             t.cat = ""
             if filt == "pending":
@@ -123,12 +126,12 @@ def buildTermCatList(terms,checkCat=False):
             cat = tcat
             ttypes = {}
             termcat[cat] = ttypes
-            ttypes[SdoTerm.TYPE] = []
-            ttypes[SdoTerm.PROPERTY] = []
-            ttypes[SdoTerm.DATATYPE] = []
-            ttypes[SdoTerm.ENUMERATION] = []
-            ttypes[SdoTerm.ENUMERATIONVALUE] = []
-        if t.termType == SdoTerm.REFERENCE:
+            ttypes[sdoterm.SdoTerm.TYPE] = []
+            ttypes[sdoterm.SdoTerm.PROPERTY] = []
+            ttypes[sdoterm.SdoTerm.DATATYPE] = []
+            ttypes[sdoterm.SdoTerm.ENUMERATION] = []
+            ttypes[sdoterm.SdoTerm.ENUMERATIONVALUE] = []
+        if t.termType == sdoterm.SdoTerm.REFERENCE:
             continue
         ttypes[t.termType].append(t)
         termcount += 1
@@ -142,7 +145,7 @@ class listingNode():
 
     def __init__(self,term,depth=0,title="",parent=None):
         global VISITLIST
-        termdesc = SdoTermSource.getTerm(term)
+        termdesc = sdotermsource.SdoTermSource.getTerm(term)
         if parent == None:
             VISITLIST=[]
         self.repeat = False
@@ -156,7 +159,7 @@ class listingNode():
         self.pending = termdesc.pending
         if not self.id in VISITLIST:
             VISITLIST.append(self.id)
-            if termdesc.termType == SdoTerm.ENUMERATION:
+            if termdesc.termType == sdoterm.SdoTerm.ENUMERATION:
                 for enum in sorted(termdesc.enumerationMembers):
                     self.subs.append(listingNode(enum,depth=depth+1,parent=self))
             for sub in sorted(termdesc.subs):
@@ -184,7 +187,7 @@ def jsonldtree(page):
     return json.dumps(data,indent=3)
 
 def _jsonldtree(tid,term=None):
-    termdesc = SdoTermSource.getTerm(tid)
+    termdesc = sdotermsource.SdoTermSource.getTerm(tid)
     if not term:
         term = {}
     term['@type'] = "rdfs:Class"
@@ -231,9 +234,9 @@ def fullPage(page):
 def fullReleasePage(page):
     listings = []
     listings.append(listingNode("Thing",title="Type hierarchy"))
-    types = SdoTermSource.getAllEnumerationvalues(expanded=True)
-    types.extend(SdoTermSource.getAllTypes(expanded=True))
-    types = SdoTermSource.expandTerms(types)
+    types = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
+    types.extend(sdotermsource.SdoTermSource.getAllTypes(expanded=True))
+    types = sdotermsource.SdoTermSource.expandTerms(types)
     types = sorted(types, key=lambda t: t.id)
     extra_vars = {
         'home_page': "False",
@@ -242,12 +245,12 @@ def fullReleasePage(page):
         'date': schemaversion.getCurrentVersionDate(),
         'listings': listings,
         'types': types,
-        'properties': SdoTermSource.getAllProperties(expanded=True)
+        'properties': sdotermsource.SdoTermSource.getAllProperties(expanded=True)
     }
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
 def collabs(page):
-    colls = collaborator.collaborators()
+    colls = sdocollaborators.collaborator.collaborators()
 
     #TODO Handle collaborators that are not contributors
 
