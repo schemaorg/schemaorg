@@ -7,6 +7,7 @@ import sys
 import os
 import glob
 import re
+import logging
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -15,6 +16,9 @@ if not os.getcwd() in sys.path:
 import software
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
+
+log = logging.getLogger(__name__)
+
 
 def createcontext():
     """Generates a basic JSON-LD context file for schema.org.
@@ -25,6 +29,7 @@ def createcontext():
       which is invalid JSON.
 
     """
+    log.info("Creating JSON-LD context")
 
     SCHEMAURI = "http://schema.org/"
 
@@ -89,4 +94,5 @@ def createcontext():
     ret = "".join(jsonldcontext)
     ret = ret.replace("},}}","}\n    }\n}")
     ret = ret.replace("},","},\n")
+    log.info("Done: creating JSON-LD context")
     return ret

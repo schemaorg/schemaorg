@@ -1,33 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
-
 import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-
-import unittest
-import os
-from os import getenv
-from os.path import expanduser
-import logging # https://docs.python.org/2/library/logging.html#logging-levels
+import logging
 import glob
 import sys
+import unittest
+import rdflib
+
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+
+import software.SchemaTerms.sdotermsource as sdotermsource
 
 warnings = []
 
-andstr = "\n AND\n  "
 TYPECOUNT_UPPERBOUND = 1000
 TYPECOUNT_LOWERBOUND = 500
 
-logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-from sdotermsource import SdoTermSource
-VOCABURI = SdoTermSource.vocabUri()
+VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -35,20 +31,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
   def loadGraphs(self):
-      if not SdoTermSource.SOURCEGRAPH:
-        SdoTermSource.loadSourceGraph("default")
-      self.rdflib_data = SdoTermSource.sourceGraph()
+    sdotermsource.SdoTermSource.loadSourceGraph("default")
+    self.rdflib_data = sdotermsource.SdoTermSource.sourceGraph()
 
 
   @classmethod
   def setUpClass(self):
-    log.info("Graph tests require rdflib.")
-    try:
-      log.info("Trying to import rdflib...")
-      import rdflib
-      from rdflib import Graph
-    except Exception as e:
-      raise unittest.SkipTest("Need rdflib installed to do graph tests: %s" % e)
     SDOGraphSetupTestCase.loadGraphs()
 
   def test_graphsLoaded(self):

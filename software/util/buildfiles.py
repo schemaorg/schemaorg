@@ -20,12 +20,14 @@ import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
+import software.util.sdojsonldcontext as sdojsonldcontext
 import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaExamples.schemaexamples as schemaexamples
 import software.SchemaTerms.localmarkdown as localmarkdown
+
 
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
@@ -41,9 +43,8 @@ def absoluteFilePath(fn):
 CACHECONTEXT = None
 def jsonldcontext(page):
     global CACHECONTEXT
-    from sdojsonldcontext import createcontext
     if not CACHECONTEXT:
-        CACHECONTEXT = createcontext()
+        CACHECONTEXT = sdojsonldcontext.createcontext()
     return CACHECONTEXT
 
 
@@ -405,7 +406,7 @@ def buildFiles(files):
 
 
     for p in files:
-        log.debug("Preparing file %s:"%p)
+        log.info("Preparing file %s:"%p)
         if p in FILELIST.keys():
             func, filenames = FILELIST.get(p,None)
             if func:

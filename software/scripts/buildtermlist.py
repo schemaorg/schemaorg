@@ -3,11 +3,11 @@
 
 # Import standard python libraries
 
-import sys
-import os
+import argparse
 import io
 import logging
-import argparse
+import os
+import sys
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -16,12 +16,7 @@ if not os.getcwd() in sys.path:
 import software
 
 import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm
-
-from sdotermsource import SdoTermSource
-
-from sdotermsource import SdoTermSource, VOCABURI
-from sdoterm import SdoTerm
+import software.SchemaTerms.sdoterm as sdoterm
 
 log = logging.getLogger(__name__)
 

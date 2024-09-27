@@ -17,6 +17,7 @@ import software
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaTerms.localmarkdown as localmarkdown
 import software.SchemaExamples.schemaexamples as schemaexamples
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
@@ -30,7 +31,6 @@ examples_path = "./data/examples.txt"
 TYPECOUNT_UPPERBOUND = 1500
 TYPECOUNT_LOWERBOUND = 500
 CURRENT_CONTEXT_FILE = os.path.join(os.getcwd(), 'software', 'site', 'docs', 'jsonldcontext.jsonld')
-
 
 log = logging.getLogger(__name__)
 
@@ -401,10 +401,9 @@ class DataTypeTests(unittest.TestCase):
 
 class MarkDownTest(unittest.TestCase):
     def test_emph(self):
-        from localmarkdown import Markdown
 
         markstring = "This is _em_, __strong__, ___strong em___"
-        html = Markdown.parse(markstring, True)
+        html = localmarkdown.Markdown.parse(markstring, True)
         self.assertMultiLineEqual(
             html,
             "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n",

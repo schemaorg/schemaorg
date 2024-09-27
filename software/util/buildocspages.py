@@ -17,7 +17,7 @@ import software.util.jinga_render as jinga_render
 import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.textutils as textutils
-
+import software.scripts.buildtermlist as buildtermlist
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdocollaborators as sdocollaborators
@@ -288,12 +288,10 @@ def createCollab(coll):
     log.info("Created %s" % fn)
 
 def termfind(file):
-
     # Local import because of circular dependencies
-    from buildtermlist import buildlist
     if not schemaglobals.hasOpt("notermfinder"):
         log.info("Building term list")
-        return buildlist(True)
+        return ''.join(buildtermlist.generateTerms(tags=True))
     return ""
 
 PAGELIST = {"Home": (homePage,["docs/home.html"]),

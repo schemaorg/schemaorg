@@ -1,19 +1,23 @@
-from __future__ import with_statement
-from glob import glob
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
 
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
-
-import logging
-
+# Import standard python libraries
 
 import threading
 import os
 import re
-from sdotermsource import SdoTermSource
-from localmarkdown import Markdown
+import sys
+import logging
+import glob
+
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+import software
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.localmarkdown as localmarkdown
 
 log = logging.getLogger(__name__)
 
@@ -75,8 +79,8 @@ class collaborator():
                         dt.append(line)
         self.description = ''.join(dt)
         self.acknowledgement = ''.join(at)
-        self.description = Markdown.parse(self.description)
-        self.acknowledgement = Markdown.parse(self.acknowledgement)
+        self.description = localmarkdown.Markdown.parse(self.description)
+        self.acknowledgement = localmarkdown.Markdown.parse(self.acknowledgement)
 
 
     def matchval(self,val,line):
@@ -100,81 +104,76 @@ class collaborator():
         if not self.contributor:
             return []
         if not self.terms:
-            self.terms = SdoTermSource.getAcknowledgedTerms(self.uri)
+            self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
         return self.terms
 
 
-    @staticmethod
-    def getCollaborator(ref):
-        collaborator.loadCollaborators()
-        coll = collaborator.COLLABORATORS.get(ref,None)
+    @classmethod
+    def getCollaborator(cls, ref):
+        cls.loadCollaborators()
+        coll = cls.COLLABORATORS.get(ref,None)
         if not coll:
             log.warning("No such collaborator: %s" % ref)
         return coll
 
-    @staticmethod
-    def getContributor(ref):
+    @classmethod
+    def getContributor(cls, ref):
         ref = os.path.basename(ref)
-        collaborator.loadContributors()
-        cont = collaborator.CONTRIBUTORS.get(ref,None)
+        cls.loadContributors()
+        cont = cls.CONTRIBUTORS.get(ref,None)
         if not cont:
             log.warning("No such contributor: %s" % ref)
         return cont
 
-    @staticmethod
-    def createCollaborator(file):
-        code = os.path.basename(file)
+    @classmethod
+    def createCollaborator(cls, filename):
+        code = os.path.basename(filename)
         ref = os.path.splitext(code)[0]
         coll = None
         try:
-            with open(file,'r') as f:
+            with open(filename,'r') as f:
                 desc = f.read()
-            coll = collaborator(ref,desc=desc)
+            coll = cls(ref,desc=desc)
         except Exception as e:
-            log.error("Error loading colaborator source %s: %s" % (file,e))
-
-            #raise Exception("Error loading colaborator source %s: %s" % (file,e))
-
+            log.error("Error loading colaborator source %s: %s" % (filename,e))
         return coll
 
-    @staticmethod
-    def loadCollaborators():
-        import glob
-        if not len(collaborator.COLLABORATORS):
-            for file in glob.glob("data/collab/*.md"):
-                collaborator.createCollaborator(file)
-            log.info("Loaded %s collaborators" % len(collaborator.COLLABORATORS))
+    @classmethod
+    def loadCollaborators(cls):
+        if not len(cls.COLLABORATORS):
+            for filename in glob.glob("data/collab/*.md"):
+                cls.createCollaborator(filename)
+            log.info("%s Loaded %s collaborators", cls, len(collaborator.COLLABORATORS))
 
-    @staticmethod
-    def createContributor(ref,):
+    @classmethod
+    def createContributor(cls, ref):
         code = os.path.basename(ref)
-        coll = collaborator.getCollaborator(ref)
+        coll = cls.getCollaborator(ref)
         if coll:
             coll.contributor = True
-            collaborator.CONTRIBUTORS[ref]=coll
+            cls.CONTRIBUTORS[ref]=coll
 
-
-
-    @staticmethod
-    def loadContributors():
-        if not len(collaborator.CONTRIBUTORS):
-            collaborator.loadCollaborators()
+    @classmethod
+    def loadContributors(cls):
+        if not len(cls.CONTRIBUTORS):
+            cls.loadCollaborators()
             query = """
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
             }"""
-            res = SdoTermSource.query(query)
+            res = sdotermsource.SdoTermSource.query(query)
 
             for row in res:
                 cont = row.val
-                collaborator.createContributor(os.path.basename(str(cont)))
-            log.info("Loaded %s contributors" % len(collaborator.CONTRIBUTORS))
+                cls.createContributor(os.path.basename(str(cont)))
+            log.info("%s Loaded %s contributors", cls, len(collaborator.CONTRIBUTORS))
 
-    @staticmethod
-    def collaborators():
-        collaborator.loadCollaborators()
-        return list(collaborator.COLLABORATORS.values())
-    @staticmethod
-    def contributors():
-        collaborator.loadContributors()
-        return list(collaborator.CONTRIBUTORS.values())
+    @classmethod
+    def collaborators(cls):
+        cls.loadCollaborators()
+        return list(cls.COLLABORATORS.values())
+
+    @classmethod
+    def contributors(cls):
+        cls.loadContributors()
+        return list(cls.CONTRIBUTORS.values())

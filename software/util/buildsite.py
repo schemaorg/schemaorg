@@ -161,7 +161,8 @@ def loadTerms():
     LOADEDTERMS = True
     if not sdotermsource.SdoTermSource.SOURCEGRAPH:
         with pretty_logger.BlockLog(logger=log, message='Loading triples files'):
-            sdotermsource.SdoTermSource.loadSourceGraph('default')
+            graph = sdotermsource.SdoTermSource.loadSourceGraph('default')
+
         with pretty_logger.BlockLog(logger=log, message='Loading contributors'):
             sdocollaborators.collaborator.loadContributors()
 
