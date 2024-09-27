@@ -4,11 +4,11 @@
 # Import standard python libraries
 import csv
 import io
+import json
 import logging
 import os
 import rdflib
 import sys
-
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -28,11 +28,9 @@ import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaExamples.schemaexamples as schemaexamples
 import software.SchemaTerms.localmarkdown as localmarkdown
 
-
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 log = logging.getLogger(__name__)
-
 
 def absoluteFilePath(fn):
     name = os.path.join(schemaglobals.OUTPUTDIR, fn)
@@ -42,15 +40,11 @@ def absoluteFilePath(fn):
 
 CACHECONTEXT = None
 
-
 def jsonldcontext(page):
     global CACHECONTEXT
     if not CACHECONTEXT:
         CACHECONTEXT = sdojsonldcontext.createcontext()
     return CACHECONTEXT
-
-
-import json
 
 
 def jsonldtree(page):
@@ -149,7 +143,7 @@ def sitemap(page):
     return "".join(output)
 
 
-def prtocolswap(content, protocol, altprotocol):
+def protocolSwap(content, protocol, altprotocol):
     ret = content.replace("%s://schema.org" % protocol, "%s://schema.org" % altprotocol)
     for ext in ["attic", "auto", "bib", "health-lifesci", "meta", "pending"]:
         ret = ret.replace(
@@ -160,18 +154,15 @@ def prtocolswap(content, protocol, altprotocol):
 
 
 def protocols():
+    """Return the protocols (http, https) in order of priority."""
     vocaburi = sdotermsource.SdoTermSource.vocabUri()
-    protocol = "http"
-    altprotocol = "https"
     if vocaburi.startswith("https"):
-        protocol = "https"
-        altprotocol = "http"
-    return protocol, altprotocol
+        return "https", "http"
+    return "http", "https"
 
 
 allGraph = None
 currentGraph = None
-
 
 def exportrdf(exportType):
     global allGraph, currentGraph
@@ -269,47 +260,28 @@ def _exportrdf(format, all, current):
         kwargs = {"sort_keys": True}
         out = g.serialize(format=fmt, auto_compact=True, **kwargs)
         f.write(out)
-
-        af.write(prtocolswap(out, protocol=protocol, altprotocol=altprotocol))
-
+        af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
         log.info("Exported %s and %s" % (fn, afn))
         f.close()
         af.close()
 
 
-def array2str(ar):
-    if not ar or not len(ar):
+def array2str(values):
+    if not values:
         return ""
-    buf = []
-    first = True
-    for i in ar:
-        if first:
-            first = False
-        else:
-            buf.append(", ")
-        buf.append(i)
-    return "".join(buf)
+    return ", ".join(values)
 
 
 def uriwrap(ids):
-    single = False
-    if not isinstance(ids, list):
-        single = True
-        ids = [ids]
-    ret = []
-    for i in ids:
-        if i and len(i):
-            if i.startswith("http:") or i.startswith("https:"):  # external reference
-                ret.append(i)
-            else:
-                ret.append(VOCABURI + i)
-        else:
-            ret.append("")
-    if single:
-        return ret[0]
-    if not len(ret):
+    if not ids:
         return ""
-    return array2str(ret)
+    if isinstance(ids, list):
+        return array2str(map(uriwrap, ids))
+    # ids is a single element
+    if ids.startswith("http:") or ids.startswith("https:"):
+        # external reference
+        return ids
+    return VOCABURI + ids
 
 
 def exportcsv(page):
@@ -415,7 +387,7 @@ def writecsvout(ftype, data, fields, ver, protocol, altprotocol):
     csvfile.write(csvout.getvalue())
     csvfile.close()
     acsvfile.write(
-        prtocolswap(csvout.getvalue(), protocol=protocol, altprotocol=altprotocol)
+        protocolSwap(csvout.getvalue(), protocol=protocol, altprotocol=altprotocol)
     )
     acsvfile.close()
     csvout.close()
