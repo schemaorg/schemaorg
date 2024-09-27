@@ -6,9 +6,10 @@
 import sys
 import os
 import logging
+import json
 
 # Import schema.org libraries
-if not os.getcwd() in sys.path:
+if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
@@ -17,10 +18,11 @@ import software.util.jinga_render as jinga_render
 import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.textutils as textutils
+from software.scripts import buildtermlist
 
-from sdotermsource import SdoTermSource
-from sdocollaborators import collaborator
-from sdoterm import *
+from software.SchemaTerms.sdotermsource import SdoTermSource
+from software.SchemaTerms.sdocollaborators import collaborator
+from software.SchemaTerms.sdoterm import SdoTerm
 
 log = logging.getLogger(__name__)
 
@@ -167,7 +169,6 @@ class listingNode():
         #log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
 
 
-import json
 def jsonldtree(page):
     global VISITLIST
     VISITLIST=[]
@@ -284,13 +285,13 @@ def createCollab(coll):
       handle.write(content)
     log.info("Created %s" % fn)
 
-def termfind(file):
 
-    # Local import because of circular dependencies
-    from buildtermlist import buildlist
+def termfind(unused) -> str:
+    del unused
     if not schemaglobals.hasOpt("notermfinder"):
         log.info("Building term list")
-        return buildlist(True)
+        #
+        return "".join([term for term in buildtermlist.generateTerms(True)])
     return ""
 
 PAGELIST = {"Home": (homePage,["docs/home.html"]),

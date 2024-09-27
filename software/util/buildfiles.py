@@ -20,6 +20,7 @@ import software.util.fileutils as fileutils
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
+from software.scripts.buildhttpequivs import buildequivs
 
 import shex_shacl_shapes_exporter
 import schemaexamples
@@ -111,8 +112,6 @@ def _jsonldtree(tid, term=None):
 
 
 def httpequivs(page):
-    from buildhttpequivs import buildequivs
-
     return buildequivs("turtle")
 
 
