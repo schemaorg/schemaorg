@@ -10,7 +10,10 @@ from collections.abc import Sequence
 import rdflib
 import rdflib.namespace
 import argparse
+<<<<<<< HEAD
 import itertools
+=======
+>>>>>>> efa2d832 (Make an object for SchemaOrgGraph, so simplify usage.)
 import logging
 import sys
 
