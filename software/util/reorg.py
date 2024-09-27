@@ -23,6 +23,11 @@ def GraphsAreIdentical(g1, g2):
   # TODO: print sampled diffs if any.
   return len(only_in_g1) == 0 and len(only_in_g2) == 0
 
+def GraphIsIncludedIn(g_subset, g_universe):
+  only_in_subset = g_subset - g_universe
+  # TODO: print sampled diffs if any.
+  return len(only_in_subset) == 0
+
 def Lint(args):
   """Reformats the file(s) properly."""
   def LintOne(filename, output_filename):
@@ -45,6 +50,23 @@ def Lint(args):
     LintOne(filename, args.output or filename)
 
 
+def MergeFiles(args):
+  """Merges a set of files into one."""
+  merged = SchemaOrgGraph()
+  logging.info(f"Merging files {len(args.files)} into {args.output}")
+  for filename in args.files:
+    logging.info(f" - reading {filename} ...")
+    merged.parse(filename, format="turtle")
+  logging.info(f"Writing {args.output} ...")
+  merged.serialize(args.output)
+
+  for filename in args.files:
+    v = SchemaOrgGraph()
+    v.parse(filename, format="turtle")
+    if not GraphIsIncludedIn(v, merged):
+      logging.fatal(f"Merging files into {args.output} lost some information.")
+
+
 def main():
   """
   Parses command line arguments and dispatches to the appropriate
@@ -61,10 +83,16 @@ def main():
                            help='Output file (default: overwrites)')
   lint_parser.add_argument("files", action="extend", nargs="+", type=str);
 
+  merge_parser = subparsers.add_parser('merge', help='Merging several files')
+  merge_parser.add_argument('-o', '--output', help='Output file')
+  merge_parser.add_argument("files", action="extend", nargs="+", type=str);
+
   # Parse and dispatch
   args = parser.parse_args()
   if args.command == 'lint':
     Lint(args)
+  elif args.command == 'merge':
+    MergeFiles(args)
   else:
     parser.print_help()
 
