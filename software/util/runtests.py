@@ -2,9 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 
-# Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
-# to remove a 2nd clashing google/ python lib. See
-# https://github.com/coto/gae-boilerplate/issues/306
+# Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
+# to remove a 2nd clashing google/ python lib. See
+# https://github.com/coto/gae-boilerplate/issues/306
 
 # This script runs the Schema.org unit tests. The basic tests are concerned
 # with our site infrastructure; loading and accessing data.  The graph tests
@@ -59,8 +59,9 @@ import subprocess
 import unittest
 import io
 
-SITEDIR="software/site"
-STANDALONE=False
+SITEDIR = "software/site"
+STANDALONE = False
+
 
 class ColoredTestResult(unittest.TextTestResult):
     """Color the test results."""
@@ -73,8 +74,8 @@ class ColoredTestResult(unittest.TextTestResult):
             self.is_tty = False
         if self.is_tty:
             term_size = os.get_terminal_size()
-            self.separator1 = '▼' * term_size.columns
-            self.separator2 = '▲' * term_size.columns
+            self.separator1 = "▼" * term_size.columns
+            self.separator2 = "▲" * term_size.columns
 
     def _colorPrint(self, message, color=None, short=None, newline=True):
         if not self.showAll and short:
@@ -93,12 +94,12 @@ class ColoredTestResult(unittest.TextTestResult):
 
     def startTest(self, test):
         super(unittest.TextTestResult, self).startTest(test)
-        lines = self.getDescription(test).split('\n')
+        lines = self.getDescription(test).split("\n")
         for index, line in enumerate(lines):
             color = None
             if index > 0:
-                color=colorama.Fore.LIGHTWHITE_EX
-            lastline =  index == len(lines) - 1
+                color = colorama.Fore.LIGHTWHITE_EX
+            lastline = index == len(lines) - 1
             if lastline:
                 self._colorPrint(line + " … ", color=color, newline=False)
             else:
@@ -122,17 +123,17 @@ class ColoredTestResult(unittest.TextTestResult):
 
     def addSkip(self, test, reason):
         super(unittest.TextTestResult, self).addSkip(test, reason)
-        self._colorPrint("Skipped", color=colorama.Fore.CYAN, short='S')
+        self._colorPrint("Skipped", color=colorama.Fore.CYAN, short="S")
         if reason:
-          self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
+            self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
     def printErrorList(self, flavour, errors):
         super(unittest.TextTestResult, self).addSkip(flavour, errors)
         color = None
-        if flavour=='ERROR':
-          color = colorama.Fore.YELLOW
-        elif flavour == 'FAIL':
-          color = colorama.Fore.LIGHTRED_EX
+        if flavour == "ERROR":
+            color = colorama.Fore.YELLOW
+        elif flavour == "FAIL":
+            color = colorama.Fore.LIGHTRED_EX
         for test, err in errors:
             self._colorPrint(self.separator1)
             self._colorPrint(self.getDescription(test), color=color)
@@ -145,14 +146,17 @@ class BasicFileTests(unittest.TestCase):
 
     def testNoHttpExamples(self):
         """Test that no examples contain url of the http://schema.org (they should be https)."""
-        httpexamplescheck = "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
+        httpexamplescheck = (
+            "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
+        )
         out = ""
         try:
-            out = subprocess.check_output(httpexamplescheck,shell=True)
+            out = subprocess.check_output(httpexamplescheck, shell=True)
             if out:
                 self.fail(
-                      "Examples file(s) found containing 'http://schema.org':\n%s\n"
-                      "Replace with 'https://schema.org and rerun.")
+                    "Examples file(s) found containing 'http://schema.org':\n%s\n"
+                    "Replace with 'https://schema.org and rerun."
+                )
         except:
             pass
 
@@ -160,7 +164,10 @@ class BasicFileTests(unittest.TestCase):
         """Test that there are no duplicated contexts in file docs/jsonldcontext.jsonld."""
         context_path = os.path.join(SITEDIR, "docs/jsonldcontext.jsonld")
         if not os.path.isfile(context_path):
-            self.skipTest("Bypassing jsonldcontext duplicates test: file '%s' not found" % context_path)
+            self.skipTest(
+                "Bypassing jsonldcontext duplicates test: file '%s' not found"
+                % context_path
+            )
         else:
             contextCheck = "cat %s |cut -d'\"' -f2|sort|uniq -d" % context_path
             dups = subprocess.check_output(contextCheck, shell=True)
@@ -169,31 +176,33 @@ class BasicFileTests(unittest.TestCase):
 
 
 def GetSuite(test_path, args):
-  if args and vars(args)["skipbasics"]:
-      suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
-  else:
-      suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
-  suite.addTest(unittest.loader.TestLoader().loadTestsFromTestCase(BasicFileTests))
-  return suite
+    if args and vars(args)["skipbasics"]:
+        suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
+    else:
+        suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
+    suite.addTest(unittest.loader.TestLoader().loadTestsFromTestCase(BasicFileTests))
+    return suite
 
 
 # TODO:
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 def main(test_path, args=None):
-    runner = unittest.TextTestRunner(verbosity=2, descriptions=True, resultclass=ColoredTestResult)
+    runner = unittest.TextTestRunner(
+        verbosity=2, descriptions=True, resultclass=ColoredTestResult
+    )
     suite = GetSuite(test_path, args)
     res = runner.run(suite)
     count = len(res.failures) + len(res.errors)
-    return(count)
+    return count
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     colorama.init()
-    parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
-    parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
+    parser = argparse.ArgumentParser(description="Configurable testing of schema.org.")
+    parser.add_argument("--skipbasics", action="store_true", help="Skip basic tests.")
     args = parser.parse_args()
-    sys.exit(main('./software/tests/', args))
+    sys.exit(main("./software/tests/", args))
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

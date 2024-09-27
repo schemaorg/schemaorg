@@ -34,12 +34,12 @@ def createcontext():
     SCHEMAURI = "http://schema.org/"
 
     jsonldcontext = []
-    jsonldcontext.append("{\n  \"@context\": {\n")
-    jsonldcontext.append("        \"type\": \"@type\",\n")
-    jsonldcontext.append("        \"id\": \"@id\",\n")
-    jsonldcontext.append("        \"HTML\": { \"@id\": \"rdf:HTML\" },\n")
-    #jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
-    jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SCHEMAURI)
+    jsonldcontext.append('{\n  "@context": {\n')
+    jsonldcontext.append('        "type": "@type",\n')
+    jsonldcontext.append('        "id": "@id",\n')
+    jsonldcontext.append('        "HTML": { "@id": "rdf:HTML" },\n')
+    # jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
+    jsonldcontext.append('        "@vocab": "%s",\n' % SCHEMAURI)
     ns = sdotermsource.SdoTermSource.sourceGraph().namespaces()
     done = []
     for n in ns:
@@ -49,22 +49,24 @@ def createcontext():
             if not pref in done:
                 done.append(pref)
                 if pref == "schema":
-                    pth = SCHEMAURI #Override vocab setting to maintain http compatibility
+                    pth = SCHEMAURI  # Override vocab setting to maintain http compatibility
                 if pref == "geo":
                     continue
-                jsonldcontext.append("        \"%s\": \"%s\",\n" % (pref,pth))
+                jsonldcontext.append('        "%s": "%s",\n' % (pref, pth))
 
     datatypepre = "schema:"
     vocablines = ""
     externalines = ""
     typins = ""
-    for t in sdotermsource.SdoTermSource.getAllTerms(expanded=True,suppressSourceLinks=True):
+    for t in sdotermsource.SdoTermSource.getAllTerms(
+        expanded=True, suppressSourceLinks=True
+    ):
         if t.termType == sdoterm.SdoTerm.PROPERTY:
             range = t.rangeIncludes
 
             types = []
 
-            #If Text in range don't output a @type value
+            # If Text in range don't output a @type value
             if not "Text" in range:
                 if "URL" in range:
                     types.append("@id")
@@ -75,13 +77,27 @@ def createcontext():
 
             typins = ""
             for typ in types:
-                typins += ", \"@type\": \"" + typ + "\""
+                typins += ', "@type": "' + typ + '"'
 
-            line = "        \"" + t.id + "\": { \"@id\": \"" + sdotermsource.prefixedIdFromUri(t.uri) + "\"" + typins + "},"
+            line = (
+                '        "'
+                + t.id
+                + '": { "@id": "'
+                + sdotermsource.prefixedIdFromUri(t.uri)
+                + '"'
+                + typins
+                + "},"
+            )
         elif t.termType == sdoterm.SdoTerm.REFERENCE:
             continue
         else:
-            line =  "        \"" + t.id + "\": {\"@id\": \"" + sdotermsource.prefixedIdFromUri(t.uri) + "\"},"
+            line = (
+                '        "'
+                + t.id
+                + '": {"@id": "'
+                + sdotermsource.prefixedIdFromUri(t.uri)
+                + '"},'
+            )
 
         if t.id.startswith("http:") or t.id.startswith("https:"):
             externalines += line
@@ -89,10 +105,10 @@ def createcontext():
             vocablines += line
 
     jsonldcontext.append(vocablines)
-    #jsonldcontext.append(externalines)
+    # jsonldcontext.append(externalines)
     jsonldcontext.append("}}\n")
     ret = "".join(jsonldcontext)
-    ret = ret.replace("},}}","}\n    }\n}")
-    ret = ret.replace("},","},\n")
+    ret = ret.replace("},}}", "}\n    }\n}")
+    ret = ret.replace("},", "},\n")
     log.info("Done: creating JSON-LD context")
     return ret

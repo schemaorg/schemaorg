@@ -11,21 +11,21 @@ class PrettyLogFormatter(logging.Formatter):
     """Helper class to format the log messages from the various parts of the project."""
 
     COLORS = {
-        'WARNING': colorama.Fore.YELLOW,
-        'INFO': colorama.Fore.CYAN,
-        'DEBUG': colorama.Fore.BLUE,
-        'CRITICAL': colorama.Fore.MAGENTA,
-        'ERROR': colorama.Fore.RED,
+        "WARNING": colorama.Fore.YELLOW,
+        "INFO": colorama.Fore.CYAN,
+        "DEBUG": colorama.Fore.BLUE,
+        "CRITICAL": colorama.Fore.MAGENTA,
+        "ERROR": colorama.Fore.RED,
     }
 
     def __init__(self, use_color=True):
-        logging.Formatter.__init__(self, fmt='%(levelname)s %(name)s: %(message)s')
+        logging.Formatter.__init__(self, fmt="%(levelname)s %(name)s: %(message)s")
         self.use_color = use_color
 
     @classmethod
     def _computeLevelName(cls, record):
         lower_msg = record.getMessage().casefold()
-        if lower_msg == 'done' or lower_msg[:5] == 'done:':
+        if lower_msg == "done" or lower_msg[:5] == "done:":
             return colorama.Fore.LIGHTGREEN_EX + record.levelname + colorama.Fore.RESET
         if record.levelname in cls.COLORS:
             return cls.COLORS[record.levelname] + record.levelname + colorama.Fore.RESET
@@ -33,7 +33,7 @@ class PrettyLogFormatter(logging.Formatter):
 
     @classmethod
     def _computeName(cls, record):
-        components = record.name.split('.')
+        components = record.name.split(".")
         return colorama.Style.DIM + components[-1] + colorama.Style.RESET_ALL
 
     def format(self, record):
@@ -49,17 +49,17 @@ class BlockLog:
         self.message = message
 
     def __enter__(self):
-        self.logger.info('Start: %s', self.message)
+        self.logger.info("Start: %s", self.message)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         if isinstance(exc_value, Exception):
-          self.logger.error('Failed: %s', self.message)
+            self.logger.error("Failed: %s", self.message)
         else:
-          self.logger.info('Done: %s', self.message)
+            self.logger.info("Done: %s", self.message)
 
     def append(self, message):
-        self.message = self.message + ' ' + message
+        self.message = self.message + " " + message
 
 
 def MakeRootLogPretty():

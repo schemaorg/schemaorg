@@ -20,6 +20,7 @@ import software.SchemaTerms.sdoterm as sdoterm
 
 log = logging.getLogger(__name__)
 
+
 def generateTerms(tags=False):
     for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
         label = ""
@@ -37,17 +38,20 @@ def generateTerms(tags=False):
         yield term.id + label + "\n"
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-t","--tagtype", default=False, action='store_true', help="Add a termtype to name")
-    parser.add_argument("-o","--output", required=True, help="output file")
+    parser.add_argument(
+        "-t",
+        "--tagtype",
+        default=False,
+        action="store_true",
+        help="Add a termtype to name",
+    )
+    parser.add_argument("-o", "--output", required=True, help="output file")
     args = parser.parse_args()
     filename = args.output
-    log.info('Writing term list to file %s', filename)
-    with open(filename, 'w', encoding='utf-8') as handle:
-      for term in generateTerms(tags=args.tagtype):
-        handle.write(term)
-    log.info('Done')
-
-
+    log.info("Writing term list to file %s", filename)
+    with open(filename, "w", encoding="utf-8") as handle:
+        for term in generateTerms(tags=args.tagtype):
+            handle.write(term)
+    log.info("Done")

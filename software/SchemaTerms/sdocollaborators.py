@@ -22,10 +22,11 @@ import software.SchemaTerms.localmarkdown as localmarkdown
 log = logging.getLogger(__name__)
 
 
-class collaborator():
+class collaborator:
     COLLABORATORS = {}
     CONTRIBUTORS = {}
-    def __init__(self,ref,desc=None):
+
+    def __init__(self, ref, desc=None):
         self.ref = ref
         self.urirel = "/docs/collab/" + ref
         self.uri = "https://schema.org" + self.urirel
@@ -37,12 +38,15 @@ class collaborator():
         self.acknowledgement = ""
         self.parseDesc(desc)
 
-        collaborator.COLLABORATORS[self.ref]=self
+        collaborator.COLLABORATORS[self.ref] = self
 
     def __str__(self):
-        return "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.uri,self.contributor,self.img,self.title,self.url)
+        return (
+            "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>"
+            % (self.ref, self.uri, self.contributor, self.img, self.title, self.url)
+        )
 
-    def parseDesc(self,desc):
+    def parseDesc(self, desc):
         state = 0
         dt = []
         at = []
@@ -53,48 +57,47 @@ class collaborator():
             if state == 1:
                 if line.startswith("---"):
                     continue
-                match = self.matchval('url',line)
+                match = self.matchval("url", line)
                 if match:
                     self.url = match
                     continue
-                match = self.matchval('title',line)
+                match = self.matchval("title", line)
                 if match:
                     self.title = match
                     continue
-                match = self.matchval('img',line)
+                match = self.matchval("img", line)
                 if match:
                     self.img = match
                     continue
-            elif (state > 1):
-                if self.matchsep('--- DescriptionText.md',line):
-                    target = 'd'
+            elif state > 1:
+                if self.matchsep("--- DescriptionText.md", line):
+                    target = "d"
                     continue
-                if self.matchsep('--- AcknowledgementText.md',line):
-                    target = 'a'
+                if self.matchsep("--- AcknowledgementText.md", line):
+                    target = "a"
                     continue
                 if target:
-                    if target == 'a':
+                    if target == "a":
                         at.append(line)
-                    elif target == 'd':
+                    elif target == "d":
                         dt.append(line)
-        self.description = ''.join(dt)
-        self.acknowledgement = ''.join(at)
+        self.description = "".join(dt)
+        self.acknowledgement = "".join(at)
         self.description = localmarkdown.Markdown.parse(self.description)
         self.acknowledgement = localmarkdown.Markdown.parse(self.acknowledgement)
 
-
-    def matchval(self,val,line):
+    def matchval(self, val, line):
         ret = None
         matchstr = "(?i)%s:" % val
-        o = re.search(matchstr,line)
+        o = re.search(matchstr, line)
         if o:
-            ret = line[len(val)+1:]
+            ret = line[len(val) + 1 :]
             ret = ret.strip()
         return ret
 
-    def matchsep(self,val,line):
-        line = re.sub(' ', '', line).lower()
-        val = re.sub(' ', '', val).lower()
+    def matchsep(self, val, line):
+        line = re.sub(" ", "", line).lower()
+        val = re.sub(" ", "", val).lower()
         return line.startswith(val)
 
     def isContributor(self):
@@ -107,11 +110,10 @@ class collaborator():
             self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
         return self.terms
 
-
     @classmethod
     def getCollaborator(cls, ref):
         cls.loadCollaborators()
-        coll = cls.COLLABORATORS.get(ref,None)
+        coll = cls.COLLABORATORS.get(ref, None)
         if not coll:
             log.warning("No such collaborator: %s" % ref)
         return coll
@@ -120,7 +122,7 @@ class collaborator():
     def getContributor(cls, ref):
         ref = os.path.basename(ref)
         cls.loadContributors()
-        cont = cls.CONTRIBUTORS.get(ref,None)
+        cont = cls.CONTRIBUTORS.get(ref, None)
         if not cont:
             log.warning("No such contributor: %s" % ref)
         return cont
@@ -131,11 +133,11 @@ class collaborator():
         ref = os.path.splitext(code)[0]
         coll = None
         try:
-            with open(filename,'r') as f:
+            with open(filename, "r") as f:
                 desc = f.read()
-            coll = cls(ref,desc=desc)
+            coll = cls(ref, desc=desc)
         except Exception as e:
-            log.error("Error loading colaborator source %s: %s" % (filename,e))
+            log.error("Error loading colaborator source %s: %s" % (filename, e))
         return coll
 
     @classmethod
@@ -151,7 +153,7 @@ class collaborator():
         coll = cls.getCollaborator(ref)
         if coll:
             coll.contributor = True
-            cls.CONTRIBUTORS[ref]=coll
+            cls.CONTRIBUTORS[ref] = coll
 
     @classmethod
     def loadContributors(cls):
