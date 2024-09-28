@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import rdflib
+import rdflib.namespace
 import sys
 
 # Import schema.org libraries
@@ -31,6 +32,32 @@ import software.SchemaTerms.localmarkdown as localmarkdown
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 log = logging.getLogger(__name__)
+
+
+def buildTurtleEquivs():
+    """Build equivalences to """
+    s_p = "http://schema.org/"
+    s_s = "https://schema.org/"
+    outGraph = rdflib.Graph()
+    outGraph.bind("schema_p", s_p)
+    outGraph.bind("schema_s", s_s)
+    outGraph.bind("owl", rdflib.namespace.OWL)
+
+    for t in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
+        if not t.retired: #drops non-schema terms and those in attic
+            eqiv = rdflib.namespace.OWL.equivalentClass
+            if t.termType == sdoterm.SdoTerm.PROPERTY:
+                eqiv = rdflib.namespace.OWL.equivalentProperty
+
+            p = rdflib.URIRef(s_p + t.id)
+            s = rdflib.URIRef(s_s + t.id)
+            outGraph.add((p, eqiv, s))
+            outGraph.add((s, eqiv, p))
+            log.debug("%s ", t.uri)
+
+    return outGraph.serialize(format='turtle',auto_compact=True, sort_keys=True)
+
+
 
 def absoluteFilePath(fn):
     name = os.path.join(schemaglobals.OUTPUTDIR, fn)
@@ -96,9 +123,7 @@ def _jsonldtree(tid, term=None):
 
 
 def httpequivs(page):
-    from buildhttpequivs import buildequivs
-
-    return buildequivs("turtle")
+    return buildTurtleEquivs()
 
 
 def owl(page):
@@ -214,19 +239,21 @@ def exportrdf(exportType):
         raise Exception("Unknown export format: %s" % exportType)
 
 
-completed = []
-
-
-def _exportrdf(format, all, current):
-    global completed
-    exts = {
+EXTENSIONS_FOR_FORMAT = {
         "xml": ".xml",
         "rdf": ".rdf",
         "nquads": ".nq",
         "nt": ".nt",
         "json-ld": ".jsonld",
         "turtle": ".ttl",
-    }
+}
+
+completed = []
+
+
+def _exportrdf(format, all, current):
+    global completed
+
     protocol, altprotocol = protocols()
 
     if format in completed:
@@ -247,10 +274,10 @@ def _exportrdf(format, all, current):
             qg += g
             g = gr
         fn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s" % (version, ver, protocol, exts[format])
+            "releases/%s/schemaorg-%s-%s%s" % (version, ver, protocol, EXTENSIONS_FOR_FORMAT[format])
         )
         afn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s" % (version, ver, altprotocol, exts[format])
+            "releases/%s/schemaorg-%s-%s%s" % (version, ver, altprotocol, EXTENSIONS_FOR_FORMAT[format])
         )
         fmt = format
         if format == "rdf":
@@ -323,7 +350,7 @@ def exportcsv(page):
     )
     for term in terms:
         if (
-            term.termType == SdoTerm.REFERENCE
+            term.termType == sdoterm.SdoTerm.REFERENCE
             or term.id.startswith("http://")
             or term.id.startswith("https://")
         ):
@@ -338,7 +365,7 @@ def exportcsv(page):
         if len(ext):
             ext = "%s://%s.schema.org" % (protocol, ext)
         row["isPartOf"] = ext
-        if term.termType == SdoTerm.PROPERTY:
+        if term.termType == sdoterm.SdoTerm.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
             row["equivalentProperty"] = array2str(term.equivalents)
             row["subproperties"] = uriwrap(term.subs)
@@ -350,7 +377,7 @@ def exportcsv(page):
                 propdata.append(row)
         else:
             row["subTypeOf"] = uriwrap(term.supers)
-            if term.termType == SdoTerm.ENUMERATIONVALUE:
+            if term.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
                 row["enumerationtype"] = uriwrap(term.enumerationParent)
             else:
                 row["properties"] = uriwrap(term.allproperties)
@@ -410,10 +437,10 @@ def jsonpcounts(page):
 
 def exportshex_shacl(page):
     release_dir = os.path.join(
-        os.cwd(), schemaglobals.RELEASE_DIR, schemaversion.getVersion()
+        os.getcwd(), schemaglobals.RELEASE_DIR, schemaversion.getVersion()
     )
     shex_shacl_shapes_exporter.generate_files(
-        term_defs_path=os.path.join(reldir, "schemaorg-all-http.nt"),
+        term_defs_path=os.path.join(release_dir, "schemaorg-all-http.nt"),
         outputdir=release_dir,
         outputfileprefix="schemaorg-",
     )
