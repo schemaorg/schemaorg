@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+import enum
 
-class SdoTerm:
-    """Abstract superclass for various schema.org types."""
+
+class SdoTermType(str, enum.Enum):
+    """Enumeration describing the type of an SdoTerm."""
 
     TYPE = "Type"
     PROPERTY = "Property"
@@ -12,7 +14,18 @@ class SdoTerm:
     ENUMERATIONVALUE = "Enumerationvalue"
     REFERENCE = "Reference"
 
-    def __init__(self, termType, Id, uri, label):
+    def __str__(self):
+        return self.value
+
+
+class SdoTerm:
+    """Abstract superclass for various schema.org types."""
+
+    TYPE_LIKE_TYPES = frozenset(
+        [SdoTermType.TYPE, SdoTermType.DATATYPE, SdoTermType.ENUMERATION]
+    )
+
+    def __init__(self, termType: SdoTermType, Id: str, uri: str, label: str):
         self.expanded = False
         self.termType = termType
         self.uri = uri
@@ -47,8 +60,8 @@ class SdoTerm:
 class SdoType(SdoTerm):
     """Term that defines a schema.org type"""
 
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.TYPE, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.TYPE, Id, uri, label)
 
         self.properties = []
         self.allproperties = []
@@ -58,8 +71,8 @@ class SdoType(SdoTerm):
 class SdoProperty(SdoTerm):
     """Term that defines a propery of another type."""
 
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.PROPERTY, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.PROPERTY, Id, uri, label)
         self.domainIncludes = []
         self.rangeIncludes = []
         self.inverse = ""
@@ -68,8 +81,8 @@ class SdoProperty(SdoTerm):
 class SdoDataType(SdoTerm):
     """Term that defines one of the basic data-types: Boolean, Date, Text, Number etc."""
 
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.DATATYPE, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.DATATYPE, Id, uri, label)
 
         self.properties = []
         self.allproperties = []
@@ -79,8 +92,8 @@ class SdoDataType(SdoTerm):
 class SdoEnumeration(SdoTerm):
     """Term that defines a schema.org enumeration."""
 
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.ENUMERATION, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.ENUMERATION, Id, uri, label)
         self.properties = []
         self.allproperties = []
         self.expectedTypeFor = []
@@ -90,11 +103,11 @@ class SdoEnumeration(SdoTerm):
 class SdoEnumerationvalue(SdoTerm):
     """Term that defines a value within a schema.org enumeration."""
 
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.ENUMERATIONVALUE, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.ENUMERATIONVALUE, Id, uri, label)
         self.enumerationParent = ""
 
 
 class SdoReference(SdoTerm):
-    def __init__(self, Id, uri, label):
-        SdoTerm.__init__(self, SdoTerm.REFERENCE, Id, uri, label)
+    def __init__(self, Id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.REFERENCE, Id, uri, label)
