@@ -261,7 +261,7 @@ def generate_files(term_defs_path, outputdir, outputfileprefix="", input_format=
     log.info("Created %s" % shexj_path)
 
     shacl_path = os.path.join(outputdir, outputfileprefix + "shapes.shacl")
-    with open(shexj_path, "w", encoding=FILE_ENCODING) as shacl_file:
+    with open(shacl_path, "w", encoding=FILE_ENCODING) as shacl_file:
         shacl_file.write(ShaclParser.to_shacl(graph))
     log.info("Created %s" % shacl_path)
 
