@@ -28,20 +28,22 @@ begin = """<!DOCTYPE html>
 
 end = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
 
+
 def mddocs(sourceDir, destDir):
-    docs = glob.glob(sourceDir +'/*.md')
+    docs = glob.glob(sourceDir + "/*.md")
     for d in docs:
-        convert2html(d,destDir)
+        convert2html(d, destDir)
+
 
 def convert2html(input_path, destdir):
     filename = os.path.basename(input_path)
     name, extension = os.path.splitext(filename)
-    with open(input_path, 'r') as in_handle:
+    with open(input_path, "r") as in_handle:
         text = in_handle.read()
         md_html = markdown.markdown(text)
 
-    output_path = os.path.join(destdir, name + '.html')
-    with open(output_path, 'w') as output_handle:
+    output_path = os.path.join(destdir, name + ".html")
+    with open(output_path, "w") as output_handle:
         output_handle.write(begin.format(title=name.title()))
         output_handle.write(md_html)
         output_handle.write(end)
@@ -49,6 +51,5 @@ def convert2html(input_path, destdir):
     os.remove(input_path)
 
 
-if __name__ == '__main__':
-    mddocs(".",".")
-
+if __name__ == "__main__":
+    mddocs(".", ".")

@@ -4,7 +4,6 @@
 # Import standard python libraries
 import copy
 import glob
-import localmarkdown
 import logging
 import os
 import rdflib
@@ -18,6 +17,10 @@ if not os.getcwd() in sys.path:
 
 import software
 import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaTerms.sdocollaborators as sdocollaborators
+
+
+import software.SchemaTerms.localmarkdown as localmarkdown
 
 log = logging.getLogger(__name__)
 
@@ -314,7 +317,6 @@ class SdoTermSource:
 
     def getAcknowledgements(self):
         # Local import to avoid circular import error.
-        from sdocollaborators import collaborator
 
         if not self.aks:
             self.aks = []
@@ -322,7 +324,7 @@ class SdoTermSource:
                 "schema:contributor"
             )  # To accept later ttl versions.
             for obj in objs:
-                cont = collaborator.getContributor(str(obj))
+                cont = sdocollaborators.collaborator.getContributor(str(obj))
                 self.aks.append(cont)
             self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
@@ -660,7 +662,7 @@ class SdoTermSource:
             termdesc.expanded = True
             supers = []
             for path in termdesc.superPaths:
-                supers.append(SdoTermSource.termsFromIds(path))
+                supers.append(cls.termsFromIds(path))
             termdesc.superPaths = supers
 
             termdesc.termStack = cls.termsFromIds(termdesc.termStack)
@@ -679,11 +681,11 @@ class SdoTermSource:
                 if depth < 2:  # Expand the properties but prevent recursion further
                     props = []
                     for p in termdesc.properties:
-                        props.append(SdoTermSource.expandTerm(p, depth=depth + 1))
+                        props.append(cls.expandTerm(p, depth=depth + 1))
                     termdesc.properties = props
                     expects = []
                     for e in termdesc.expectedTypeFor:
-                        expects.append(SdoTermSource.expandTerm(e, depth=depth + 1))
+                        expects.append(cls.expandTerm(e, depth=depth + 1))
                     termdesc.expectedTypeFor = expects
 
                 if termdesc.termType == sdoterm.SdoTerm.ENUMERATION:
@@ -700,7 +702,7 @@ class SdoTermSource:
             if not depth:  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
                 stack = []
                 for t in termdesc.termStack:
-                    stack.append(SdoTermSource.expandTerm(t, depth=depth + 1))
+                    stack.append(cls.expandTerm(t, depth=depth + 1))
                 termdesc.termStack = stack
 
         return termdesc
@@ -810,16 +812,16 @@ class SdoTermSource:
             props = []
             stack = [term]
 
-            stack.extend(SdoTermSource.termsFromIds(term.termStack))
+            stack.extend(cls.termsFromIds(term.termStack))
             for t in stack:
                 if t.termType == sdoterm.SdoTerm.PROPERTY:
                     props.append(t)
                 else:
                     types.append(t)
                     if t.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
-                        types.append(SdoTermSource.termFromId(t.enumerationParent))
+                        types.append(cls.termFromId(t.enumerationParent))
                     elif t == stack[0]:
-                        props.extend(SdoTermSource.termsFromIds(t.allproperties))
+                        props.extend(cls.termsFromIds(t.allproperties))
 
             for t in types:
                 triples = cls.triples4Term(t.id)
@@ -865,6 +867,7 @@ class SdoTermSource:
     def getAllTerms(
         cls, ttype=None, layer=None, suppressSourceLinks=False, expanded=False
     ):
+        log.debug("Start: getAllTerms")
         global DATATYPEURI, ENUMERATIONURI
         typsel = ""
         extra = ""
@@ -916,20 +919,22 @@ class SdoTermSource:
         ORDER BY ?term
         """ % (typsel, laysel, extra, fil, suppress)
 
-        # log.info("query %s" % query)
+        log.debug("query %s", query)
         res = cls.query(query)
-        # log.info("res %d" % len(res))
+        log.debug("res %d", len(res))
 
         terms = []
         if expanded:
+            log.info("Expanding %d terms", len(res))
             terms = cls.termsFromResults(res, termId=None)
+            log.info("Done:")
         else:
             for row in res:
                 term = uri2id(str(row.term))
                 if not term in terms:
                     terms.append(term)
 
-        log.info("count %s TERMS %s" % (len(terms), len(cls.TERMS)))
+        log.info("GetAllTerms: count %s TERMS %s" % (len(terms), len(cls.TERMS)))
         return terms
 
     @classmethod
@@ -1019,8 +1024,8 @@ class SdoTermSource:
             cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
         log.info(
             "Loaded %s triples - %s terms",
-            len(SdoTermSource.sourceGraph()),
-            len(SdoTermSource.getAllTerms()),
+            len(cls.sourceGraph()),
+            len(cls.getAllTerms()),
         )
 
     @classmethod
@@ -1315,7 +1320,7 @@ def prefixFromUri(uri):
 
 def uriForPrefix(pre):
     pre = str(pre)
-    ns = cls.SOURCEGRAPH.namespaces()
+    ns = SdoTermSource.SOURCEGRAPH.namespaces()
     for pref, pth in ns:
         if pre == pref:
             return pth

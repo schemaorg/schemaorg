@@ -17,6 +17,7 @@ import software
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaTerms.localmarkdown as localmarkdown
 import software.SchemaExamples.schemaexamples as schemaexamples
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
@@ -29,8 +30,9 @@ examples_path = "./data/examples.txt"
 
 TYPECOUNT_UPPERBOUND = 1500
 TYPECOUNT_LOWERBOUND = 500
-CURRENT_CONTEXT_FILE = os.path.join(os.getcwd(), 'software', 'site', 'docs', 'jsonldcontext.jsonld')
-
+CURRENT_CONTEXT_FILE = os.path.join(
+    os.getcwd(), "software", "site", "docs", "jsonldcontext.jsonld"
+)
 
 log = logging.getLogger(__name__)
 
@@ -401,10 +403,8 @@ class DataTypeTests(unittest.TestCase):
 
 class MarkDownTest(unittest.TestCase):
     def test_emph(self):
-        from localmarkdown import Markdown
-
         markstring = "This is _em_, __strong__, ___strong em___"
-        html = Markdown.parse(markstring, True)
+        html = localmarkdown.Markdown.parse(markstring, True)
         self.assertMultiLineEqual(
             html,
             "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n",
@@ -500,15 +500,25 @@ class BasicJSONLDTests(unittest.TestCase):
 
     def test_issuedBy_jsonld(self):
         if not self.ctx:
-            raise unittest.SkipTest("%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE)
-        self.assertTrue( "issuedBy" in self.ctx["@context"] , "issuedBy should be defined." )
-
+            raise unittest.SkipTest(
+                "%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE
+            )
+        self.assertTrue(
+            "issuedBy" in self.ctx["@context"], "issuedBy should be defined."
+        )
 
     def test_dateModified_jsonld(self):
         if not self.ctx:
-            raise unittest.SkipTest("%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE)
-        self.assertTrue( "dateModified" in self.ctx["@context"] , "dateModified should be defined." )
-        self.assertTrue( self.ctx["@context"]["dateModified"]["@type"] == "Date" , "dateModified should have Date type." )
+            raise unittest.SkipTest(
+                "%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE
+            )
+        self.assertTrue(
+            "dateModified" in self.ctx["@context"], "dateModified should be defined."
+        )
+        self.assertTrue(
+            self.ctx["@context"]["dateModified"]["@type"] == "Date",
+            "dateModified should have Date type.",
+        )
 
     def test_sameas_jsonld(self):
         if not self.ctx:
@@ -519,28 +529,45 @@ class BasicJSONLDTests(unittest.TestCase):
 
 
 class JsonExampleTests(unittest.TestCase):
-  def testAllExamples(self):
-    for example in schemaexamples.SchemaExamples.allExamples():
-      source_filename = example.getMeta("file")
-      with self.subTest(key=example.getKey(), file=source_filename):
-        if not example.hasJsonld():
-          continue
-        json_source = example.getJsonldRaw()
-        try:
-          parsed = json.loads(json_source)
-        except json.decoder.JSONDecodeError as json_error:
-          # Display a helpful error message showing where the JSON error is.
-          lines = json_error.doc.split('\n')
-          snippet = lines[json_error.lineno - 1] + '\n' + '^'.rjust(json_error.colno)
-          # Show up to three lines above the error, often the problem is a missing comma above.
-          if json_error.lineno > 2:
-            for i in range(2, min(json_error.lineno, 5)):
-              snippet = lines[json_error.lineno - i] + '\n' + snippet
-          # Adjust by the offset inside the example file.
-          lineno = json_error.lineno + (example.jsonld_offset or 0)
-          self.fail("JSON parsing error: '%s' in file %s:%d:%d \n%s" % (json_error.msg, source_filename, lineno, json_error.colno, snippet))
-        except Exception as exception:
-          self.fail("Could not parse JSON '%s' error: %s file: %s" % (json_source, exception, source_filename))
+    def testAllExamples(self):
+        for example in schemaexamples.SchemaExamples.allExamples():
+            source_filename = example.getMeta("file")
+            with self.subTest(key=example.getKey(), file=source_filename):
+                if not example.hasJsonld():
+                    continue
+                json_source = example.getJsonldRaw()
+                try:
+                    parsed = json.loads(json_source)
+                except json.decoder.JSONDecodeError as json_error:
+                    # Display a helpful error message showing where the JSON error is.
+                    lines = json_error.doc.split("\n")
+                    snippet = (
+                        lines[json_error.lineno - 1]
+                        + "\n"
+                        + "^".rjust(json_error.colno)
+                    )
+                    # Show up to three lines above the error, often the problem is a missing comma above.
+                    if json_error.lineno > 2:
+                        for i in range(2, min(json_error.lineno, 5)):
+                            snippet = lines[json_error.lineno - i] + "\n" + snippet
+                    # Adjust by the offset inside the example file.
+                    lineno = json_error.lineno + (example.jsonld_offset or 0)
+                    self.fail(
+                        "JSON parsing error: '%s' in file %s:%d:%d \n%s"
+                        % (
+                            json_error.msg,
+                            source_filename,
+                            lineno,
+                            json_error.colno,
+                            snippet,
+                        )
+                    )
+                except Exception as exception:
+                    self.fail(
+                        "Could not parse JSON '%s' error: %s file: %s"
+                        % (json_source, exception, source_filename)
+                    )
+
 
 # TODO: Unwritten tests
 #
