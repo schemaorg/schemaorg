@@ -3624,7 +3624,8 @@ schema:PaymentMethod a rdfs:Class ;
     rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction. The following legacy values should be accepted:
     \\n\\n* http://purl.org/goodrelations/v1#ByBankTransferInAdvance\\n* http://purl.org/goodrelations/v1#ByInvoice\\n* http://purl.org/goodrelations/v1#Cash\\n* http://purl.org/goodrelations/v1#CheckInAdvance\\n* http://purl.org/goodrelations/v1#COD\\n* http://purl.org/goodrelations/v1#DirectDebit\\n* http://purl.org/goodrelations/v1#GoogleCheckout\\n* http://purl.org/goodrelations/v1#PayPal\\n* http://purl.org/goodrelations/v1#PaySwarm\\n\\nStructured values are recommended for newer payment methods.""" ;
     rdfs:subClassOf schema:Intangible ;
-    schema:contributor <https://schema.org/docs/collab/GoodRelationsClass> .
+    schema:contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
 schema:PaymentMethodType a rdfs:Class ;
     rdfs:label "PaymentMethodType" ;
@@ -8240,7 +8241,9 @@ schema:acceptedPaymentMethod a rdf:Property ;
         schema:Offer,
         schema:Organization ;
     schema:rangeIncludes schema:LoanOrCredit,
-        schema:PaymentMethod .
+        schema:PaymentMethod,
+        schema:Text ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
 schema:acceptsReservations a rdf:Property ;
     rdfs:label "acceptsReservations" ;
@@ -15009,7 +15012,8 @@ schema:orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." ;
     schema:domainIncludes schema:OrderItem ;
-    schema:rangeIncludes schema:Number .
+    schema:rangeIncludes schema:Number,
+        schema:QuantitativeValue .
 
 schema:orderStatus a rdf:Property ;
     rdfs:label "orderStatus" ;
@@ -15276,7 +15280,9 @@ schema:paymentMethod a rdf:Property ;
     rdfs:comment "The name of the credit card or other method of payment for the order." ;
     schema:domainIncludes schema:Invoice,
         schema:Order ;
-    schema:rangeIncludes schema:PaymentMethod .
+    schema:rangeIncludes schema:PaymentMethod,
+        schema:Text ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
 schema:paymentMethodId a rdf:Property ;
     rdfs:label "paymentMethodId" ;
@@ -17100,7 +17106,8 @@ schema:skills a rdf:Property ;
     rdfs:label "skills" ;
     rdfs:comment "A statement of knowledge, skill, ability, task or any other assertion expressing a competency that is desired or required to fulfill this role or to work in this occupation." ;
     schema:domainIncludes schema:JobPosting,
-        schema:Occupation ;
+        schema:Occupation,
+        schema:Person ;
     schema:rangeIncludes schema:DefinedTerm,
         schema:Text ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/1698>,
@@ -19020,7 +19027,8 @@ schema:duration a rdf:Property ;
         schema:MusicRelease,
         schema:QuantitativeValueDistribution,
         schema:Schedule ;
-    schema:rangeIncludes schema:Duration ;
+    schema:rangeIncludes schema:Duration,
+        schema:Text ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/1457>,
         <https://github.com/schemaorg/schemaorg/issues/1698> .
 
@@ -19832,7 +19840,7 @@ schema:about a rdf:Property ;
 
 schema:actor a rdf:Property ;
     rdfs:label "actor" ;
-    rdfs:comment "An actor, e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." ;
+    rdfs:comment "An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." ;
     schema:domainIncludes schema:Clip,
         schema:CreativeWorkSeason,
         schema:Episode,
@@ -19845,7 +19853,8 @@ schema:actor a rdf:Property ;
         schema:VideoGame,
         schema:VideoGameSeries,
         schema:VideoObject ;
-    schema:rangeIncludes schema:Person .
+    schema:rangeIncludes schema:PerformingGroup,
+        schema:Person .
 
 schema:associatedReview a rdf:Property ;
     rdfs:label "associatedReview" ;

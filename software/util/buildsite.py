@@ -318,6 +318,7 @@ def copyReleaseFiles(release_dir):
     ):
         srcdir = os.path.join(os.getcwd(), release_dir, version)
         destdir = os.path.join(os.getcwd(), "data/releases/", version)
+        log.info("Copying from %s to %s", srcdir, destdir)
         fileutils.mycopytree(srcdir, destdir)
         cmd = ["git", "add", destdir]
         subprocess.check_call(cmd)

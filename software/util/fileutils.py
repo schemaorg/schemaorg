@@ -3,13 +3,17 @@
 
 import os
 import shutil
+import logging
 
+import logging
 
 def createMissingDir(dir_path):
     """Create a directory if it does not exist"""
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
+
+log = logging.getLogger(__name__)
 
 CHECKEDPATHS = []
 
@@ -54,8 +58,10 @@ def mycopytree(src, dst, symlinks=False, ignore=None):
         # catch the Error from the recursive copytree so that we can
         # continue with other files
         except OSError as err:
+            log.error("Error while copying %s to %s:", src, dst)
             errors.extend(err.args[0])
         except EnvironmentError as why:
+            log.error("Error while copying %s to %s:", src, dst)
             errors.append((srcname, dstname, str(why)))
     try:
         shutil.copystat(src, dst)
