@@ -10,6 +10,7 @@ from collections.abc import Sequence
 import rdflib
 import rdflib.namespace
 import argparse
+import itertools
 import logging
 import sys
 
@@ -79,7 +80,7 @@ def MergeFiles(args):
     logging.info(f" - reading {filename} ...")
     merged.parse(filename, format="turtle")
   logging.info(f"Writing {args.output} ...")
-  merged.serialize(args.output)
+  merged.serialize(args.output, format="turtle")
 
   for filename in args.files:
     if not merged.FullyContains(SchemaOrgGraph(filename, format="turtle")):
@@ -123,11 +124,18 @@ def main():
                                       help='Reformat files (aka linting)')
   lint_parser.add_argument('-o', '--output',
                            help='Output file (default: overwrites)')
-  lint_parser.add_argument("files", action="extend", nargs="+", type=str);
+  lint_parser.add_argument("files", action="extend", nargs="+", type=str)
 
   merge_parser = subparsers.add_parser('merge', help='Merging several files')
   merge_parser.add_argument('-o', '--output', help='Output file')
-  merge_parser.add_argument("files", action="extend", nargs="+", type=str);
+  merge_parser.add_argument("files", action="extend", nargs="+", type=str)
+
+  annotate_parser = subparsers.add_parser('annotate', help='Add annotations to types and properties.')
+  annotate_parser.add_argument('-o', '--output', help='Output file')
+  annotate_parser.add_argument(
+      '--ispartof',
+      help='Which state classes and properties are in schema.org (eg. pending, attic)')
+  annotate_parser.add_argument("files", action="extend", nargs="+", type=str)
 
   # Parse and dispatch
   args = parser.parse_args()
@@ -135,6 +143,8 @@ def main():
     Lint(args)
   elif args.command == 'merge':
     MergeFiles(args)
+  elif args.command == 'annotate':
+    Annotate(args)
   else:
     parser.print_help()
 
