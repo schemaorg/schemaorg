@@ -881,6 +881,25 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
     rdfs:comment "A defence establishment, such as an army or navy base." ;
     rdfs:subClassOf :GovernmentBuilding .
 
+:DefinedRegion a rdfs:Class ;
+    rdfs:label "DefinedRegion" ;
+    rdfs:comment """A DefinedRegion is a geographic area defined by potentially arbitrary (rather than political, administrative or natural geographical) criteria. Properties are provided for defining a region by reference to sets of postal codes.
+
+Examples: a delivery destination when shopping. Region where regional pricing is configured.
+
+Requirement 1:
+Country: US
+States: "NY", "CA"
+
+Requirement 2:
+Country: US
+PostalCode Set: { [94000-94585], [97000, 97999], [13000, 13599]}
+{ [12345, 12345], [78945, 78945], }
+Region = state, canton, prefecture, autonomous community...
+""" ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :DeleteAction a rdfs:Class ;
     rdfs:label "DeleteAction" ;
     rdfs:comment "The act of editing a recipient by removing one of its objects." ;
@@ -903,6 +922,12 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
         """ ;
     rdfs:subClassOf :Enumeration ;
     :contributor <https://schema.org/docs/collab/GoodRelationsClass> .
+
+:DeliveryTimeSettings a rdfs:Class ;
+    rdfs:label "DeliveryTimeSettings" ;
+    rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :Demand a rdfs:Class ;
     rdfs:label "Demand" ;
@@ -2062,6 +2087,23 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     rdfs:comment "A list of possible conditions for the item." ;
     rdfs:subClassOf :Enumeration .
 
+:OfferShippingDetails a rdfs:Class ;
+    rdfs:label "OfferShippingDetails" ;
+    rdfs:comment """OfferShippingDetails represents information about shipping destinations.
+
+Multiple of these entities can be used to represent different shipping rates for different destinations:
+
+One entity for Alaska/Hawaii. A different one for continental US. A different one for all France.
+
+Multiple of these entities can be used to represent different shipping costs and delivery times.
+
+Two entities that are identical but differ in rate and time:
+
+E.g. Cheaper and slower: $5 in 5-7 days
+or Fast and expensive: $15 in 1-2 days.""" ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :OfficeEquipmentStore a rdfs:Class ;
     rdfs:label "OfficeEquipmentStore" ;
     rdfs:comment "An office equipment store." ;
@@ -2325,6 +2367,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "PostalAddress" ;
     rdfs:comment "The mailing address." ;
     rdfs:subClassOf :ContactPoint .
+
+:PostalCodeRangeSpecification a rdfs:Class ;
+    rdfs:label "PostalCodeRangeSpecification" ;
+    rdfs:comment "Indicates a range of postal codes, usually defined as the set of valid codes between [[postalCodeBegin]] and [[postalCodeEnd]], inclusively." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :PreOrderAction a rdfs:Class ;
     rdfs:label "PreOrderAction" ;
@@ -2760,6 +2808,18 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "ShareAction" ;
     rdfs:comment "The act of distributing content to people for their amusement or edification." ;
     rdfs:subClassOf :CommunicateAction .
+
+:ShippingDeliveryTime a rdfs:Class ;
+    rdfs:label "ShippingDeliveryTime" ;
+    rdfs:comment "ShippingDeliveryTime provides various pieces of information about delivery times for shipping." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:ShippingRateSettings a rdfs:Class ;
+    rdfs:label "ShippingRateSettings" ;
+    rdfs:comment "A ShippingRateSettings represents re-usable pieces of shipping information. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished and matched (i.e. identified/referenced) by their different values for [[shippingLabel]]." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :ShoeStore a rdfs:Class ;
     rdfs:label "ShoeStore" ;
@@ -4094,11 +4154,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :addressCountry a rdf:Property ;
     rdfs:label "addressCountry" ;
     rdfs:comment "The country. For example, USA. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1)." ;
-    :domainIncludes :GeoCoordinates,
+    :domainIncludes :DefinedRegion,
+        :GeoCoordinates,
         :GeoShape,
         :PostalAddress ;
     :rangeIncludes :Country,
-        :Text .
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :addressLocality a rdf:Property ;
     rdfs:label "addressLocality" ;
@@ -4109,8 +4171,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :addressRegion a rdf:Property ;
     rdfs:label "addressRegion" ;
     rdfs:comment "The region in which the locality is, and which is in the country. For example, California or another appropriate first-level [Administrative division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country)." ;
-    :domainIncludes :PostalAddress ;
-    :rangeIncludes :Text .
+    :domainIncludes :DefinedRegion,
+        :PostalAddress ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :advanceBookingRequirement a rdf:Property ;
     rdfs:label "advanceBookingRequirement" ;
@@ -4768,6 +4832,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :BusTrip ;
     :rangeIncludes :Text .
 
+:businessDays a rdf:Property ;
+    rdfs:label "businessDays" ;
+    rdfs:comment "Days of the week when the merchant typically operates, indicated via opening hours markup." ;
+    :domainIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :OpeningHoursSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :businessFunction a rdf:Property ;
     rdfs:label "businessFunction" ;
     rdfs:comment "The business function (e.g. sell, lease, repair, dispose) of the offer or component of a bundle (TypeAndQuantityNode). The default is http://purl.org/goodrelations/v1#Sell." ;
@@ -5252,6 +5323,13 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :Organization,
         :Person .
 
+:cutoffTime a rdf:Property ;
+    rdfs:label "cutoffTime" ;
+    rdfs:comment "Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. \"23:30:00-05:00\" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC)." ;
+    :domainIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :Time ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :dataFeedElement a rdf:Property ;
     rdfs:label "dataFeedElement" ;
     rdfs:comment "An item within a data feed. Data feeds may have many elements." ;
@@ -5402,6 +5480,14 @@ Dateline summaries are oriented more towards human readers than towards automate
     :domainIncludes :ParcelDelivery ;
     :rangeIncludes :DeliveryEvent .
 
+:deliveryTime a rdf:Property ;
+    rdfs:label "deliveryTime" ;
+    rdfs:comment "The total delay between the receipt of the order and the goods reaching the final customer." ;
+    :domainIncludes :DeliveryTimeSettings,
+        :OfferShippingDetails ;
+    :rangeIncludes :ShippingDeliveryTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :department a rdf:Property ;
     rdfs:label "department" ;
     rdfs:comment "A relationship between an organization and a department of that organization, also described as an organization (allowing different urls, logos, opening hours). For example: a store with a pharmacy, or a bakery with a cafe." ;
@@ -5545,6 +5631,14 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available. There is no expectation that different downloadable distributions must contain exactly equivalent information (see also [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this point). Different distributions might include or exclude different subsets of the entire dataset, for example." ;
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload .
+
+:doesNotShip a rdf:Property ;
+    rdfs:label "doesNotShip" ;
+    rdfs:comment "Indicates when shipping to a particular [[shippingDestination]] is not available." ;
+    :domainIncludes :OfferShippingDetails,
+        :ShippingRateSettings ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
@@ -6032,6 +6126,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :rangeIncludes :Boolean ;
     :supersededBy :isAccessibleForFree .
 
+:freeShippingThreshold a rdf:Property ;
+    rdfs:label "freeShippingThreshold" ;
+    rdfs:comment "A monetary value above (or at) which the shipping rate becomes free. Intended to be used via an [[OfferShippingDetails]] with [[shippingSettingsLink]] matching this [[ShippingRateSettings]]." ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :DeliveryChargeSpecification,
+        :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :fromLocation a rdf:Property ;
     rdfs:label "fromLocation" ;
     rdfs:comment "A sub property of location. The original location of the object or the agent before the action." ;
@@ -6227,6 +6329,13 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Offer,
         :Product ;
     :rangeIncludes :Text .
+
+:handlingTime a rdf:Property ;
+    rdfs:label "handlingTime" ;
+    rdfs:comment "The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup. Typical properties: minValue, maxValue, unitCode (d for DAY).  This is by common convention assumed to mean business days (if a unitCode is used, coded as \"d\"), i.e. only counting days when the business normally operates." ;
+    :domainIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :hasCourseInstance a rdf:Property ;
     rdfs:label "hasCourseInstance" ;
@@ -6563,6 +6672,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Service ;
     :rangeIncludes :Product,
         :Service .
+
+:isUnlabelledFallback a rdf:Property ;
+    rdfs:label "isUnlabelledFallback" ;
+    rdfs:comment "This can be marked 'true' to indicate that some published [[DeliveryTimeSettings]] or [[ShippingRateSettings]] are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a transitTimeLabel (for [[DeliveryTimeSettings]]) or shippingLabel (for [[ShippingRateSettings]]), since this property is for use with unlabelled settings." ;
+    :domainIncludes :DeliveryTimeSettings,
+        :ShippingRateSettings ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :isVariantOf a rdf:Property ;
     rdfs:label "isVariantOf" ;
@@ -7753,10 +7870,40 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :postalCode a rdf:Property ;
     rdfs:label "postalCode" ;
     rdfs:comment "The postal code. For example, 94043." ;
-    :domainIncludes :GeoCoordinates,
+    :domainIncludes :DefinedRegion,
+        :GeoCoordinates,
         :GeoShape,
         :PostalAddress ;
-    :rangeIncludes :Text .
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:postalCodeBegin a rdf:Property ;
+    rdfs:label "postalCodeBegin" ;
+    rdfs:comment "First postal code in a range (included)." ;
+    :domainIncludes :PostalCodeRangeSpecification ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:postalCodeEnd a rdf:Property ;
+    rdfs:label "postalCodeEnd" ;
+    rdfs:comment "Last postal code in the range (included). Needs to be after [[postalCodeBegin]]." ;
+    :domainIncludes :PostalCodeRangeSpecification ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:postalCodePrefix a rdf:Property ;
+    rdfs:label "postalCodePrefix" ;
+    rdfs:comment "A defined range of postal codes indicated by a common textual prefix. Used for non-numeric systems such as UK." ;
+    :domainIncludes :DefinedRegion ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:postalCodeRange a rdf:Property ;
+    rdfs:label "postalCodeRange" ;
+    rdfs:comment "A defined range of postal codes." ;
+    :domainIncludes :DefinedRegion ;
+    :rangeIncludes :PostalCodeRangeSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :potentialAction a rdf:Property ;
     rdfs:label "potentialAction" ;
@@ -8588,6 +8735,52 @@ While such policies are most typically expressed in natural language, sometimes 
         :SocialMediaPosting ;
     :rangeIncludes :CreativeWork .
 
+:shippingDestination a rdf:Property ;
+    rdfs:label "shippingDestination" ;
+    rdfs:comment "indicates (possibly multiple) shipping destinations. These can be defined in several ways, e.g. postalCode ranges." ;
+    :domainIncludes :DeliveryTimeSettings,
+        :OfferShippingDetails,
+        :ShippingRateSettings ;
+    :rangeIncludes :DefinedRegion ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:shippingDetails a rdf:Property ;
+    rdfs:label "shippingDetails" ;
+    rdfs:comment "Indicates information about the shipping policies and options associated with an [[Offer]]." ;
+    :domainIncludes :Offer ;
+    :rangeIncludes :OfferShippingDetails ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:shippingLabel a rdf:Property ;
+    rdfs:label "shippingLabel" ;
+    rdfs:comment "Label to match an [[OfferShippingDetails]] with a [[ShippingRateSettings]] (within the context of a [[shippingSettingsLink]] cross-reference)." ;
+    :domainIncludes :OfferShippingDetails,
+        :ShippingRateSettings ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:shippingOrigin a rdf:Property ;
+    rdfs:label "shippingOrigin" ;
+    rdfs:comment "Indicates the origin of a shipment, i.e. where it should be coming from." ;
+    :domainIncludes :OfferShippingDetails ;
+    :rangeIncludes :DefinedRegion ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3122> .
+
+:shippingRate a rdf:Property ;
+    rdfs:label "shippingRate" ;
+    rdfs:comment "The shipping rate is the cost of shipping to the specified destination. Typically, the maxValue and currency values (of the [[MonetaryAmount]]) are most appropriate." ;
+    :domainIncludes :OfferShippingDetails,
+        :ShippingRateSettings ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:shippingSettingsLink a rdf:Property ;
+    rdfs:label "shippingSettingsLink" ;
+    rdfs:comment "Link to a page containing [[ShippingRateSettings]] and [[DeliveryTimeSettings]] details." ;
+    :domainIncludes :OfferShippingDetails ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
 :siblings a rdf:Property ;
     rdfs:label "siblings" ;
     rdfs:comment "A sibling of the person." ;
@@ -9137,6 +9330,21 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :AudioObject,
         :VideoObject ;
     :rangeIncludes :Text .
+
+:transitTime a rdf:Property ;
+    rdfs:label "transitTime" ;
+    rdfs:comment "The typical delay the order has been sent for delivery and the goods reach the final customer. Typical properties: minValue, maxValue, unitCode (d for DAY)." ;
+    :domainIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:transitTimeLabel a rdf:Property ;
+    rdfs:label "transitTimeLabel" ;
+    rdfs:comment "Label to match an [[OfferShippingDetails]] with a [[DeliveryTimeSettings]] (within the context of a [[shippingSettingsLink]] cross-reference)." ;
+    :domainIncludes :DeliveryTimeSettings,
+        :OfferShippingDetails ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :translator a rdf:Property ;
     rdfs:label "translator" ;
