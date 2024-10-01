@@ -166,9 +166,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
                     "dc": "http://purl.org/dc/elements/1.1/",
                     "dcam": "http://purl.org/dc/dcam/",
                     "dcat": "http://www.w3.org/ns/dcat#",
-                    "dcmitype": "http://purl.org/dc/dcmitype/",
                     "dct": "http://purl.org/dc/terms/",
-                    "dcterms": "http://purl.org/dc/terms/",
                     "dctype": "http://purl.org/dc/dcmitype/",
                     "doap": "http://usefulinc.com/ns/doap#",
                     "foaf": "http://xmlns.com/foaf/0.1/",
@@ -190,6 +188,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
                     "type": "@type",
                     "vann": "http://purl.org/vocab/vann/",
                     "void": "http://rdfs.org/ns/void#",
+                    'wgs': 'https://www.w3.org/2003/01/geo/wgs84_pos#',
                     "xml": "http://www.w3.org/XML/1998/namespace",
                     "xsd": "http://www.w3.org/2001/XMLSchema#",
                 }
