@@ -14,6 +14,8 @@ import itertools
 import logging
 import sys
 
+SCHEMAORG = Namespace("https://schema.org/")
+
 class SchemaOrgGraph(object):
   """A Graph with usual amespaces set as we want in schema.org.
 
