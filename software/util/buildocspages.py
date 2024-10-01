@@ -127,12 +127,12 @@ def buildTermCatList(terms, checkCat=False):
             cat = tcat
             ttypes = {}
             termcat[cat] = ttypes
-            ttypes[sdoterm.SdoTerm.TYPE] = []
-            ttypes[sdoterm.SdoTerm.PROPERTY] = []
-            ttypes[sdoterm.SdoTerm.DATATYPE] = []
-            ttypes[sdoterm.SdoTerm.ENUMERATION] = []
-            ttypes[sdoterm.SdoTerm.ENUMERATIONVALUE] = []
-        if t.termType == sdoterm.SdoTerm.REFERENCE:
+            ttypes[sdoterm.SdoTermType.TYPE] = []
+            ttypes[sdoterm.SdoTermType.PROPERTY] = []
+            ttypes[sdoterm.SdoTermType.DATATYPE] = []
+            ttypes[sdoterm.SdoTermType.ENUMERATION] = []
+            ttypes[sdoterm.SdoTermType.ENUMERATIONVALUE] = []
+        if t.termType == sdoterm.SdoTermType.REFERENCE:
             continue
         ttypes[t.termType].append(t)
         termcount += 1
@@ -161,7 +161,7 @@ class listingNode:
         self.pending = termdesc.pending
         if not self.id in VISITLIST:
             VISITLIST.append(self.id)
-            if termdesc.termType == sdoterm.SdoTerm.ENUMERATION:
+            if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
                 for enum in sorted(termdesc.enumerationMembers):
                     self.subs.append(listingNode(enum, depth=depth + 1, parent=self))
             for sub in sorted(termdesc.subs):

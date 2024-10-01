@@ -50,7 +50,7 @@ class TestBuildTermPages(unittest.TestCase):
 
     def testTemplateRenderNoExample(self):
         term = sdoterm.SdoTerm(
-            termType=sdoterm.SdoTerm.TYPE,
+            termType=sdoterm.SdoTermType.TYPE,
             Id=42,
             uri="http://example.com/whatchicallit",
             label="whatchicallit",
@@ -73,7 +73,7 @@ class TestBuildTermPages(unittest.TestCase):
         ]
         json = "[42]"
         term = sdoterm.SdoTerm(
-            termType=sdoterm.SdoTerm.TYPE,
+            termType=sdoterm.SdoTermType.TYPE,
             Id=42,
             uri="http://example.com/thingamabob",
             label="Thingamabob",

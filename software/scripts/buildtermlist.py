@@ -25,15 +25,15 @@ def generateTerms(tags=False):
     for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
         label = ""
         if tags:
-            if term.termType == sdoterm.SdoTerm.PROPERTY:
+            if term.termType == sdoterm.SdoTermType.PROPERTY:
                 label = " p"
-            elif term.termType == sdoterm.SdoTerm.TYPE:
+            elif term.termType == sdoterm.SdoTermType.TYPE:
                 label = " t"
-            elif term.termType == sdoterm.SdoTerm.DATATYPE:
+            elif term.termType == sdoterm.SdoTermType.DATATYPE:
                 label = " d"
-            elif term.termType == sdoterm.SdoTerm.ENUMERATION:
+            elif term.termType == sdoterm.SdoTermType.ENUMERATION:
                 label = " e"
-            elif term.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
+            elif term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
                 label = " v"
         yield term.id + label + "\n"
 

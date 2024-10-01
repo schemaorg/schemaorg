@@ -103,7 +103,7 @@ def RenderAndWriteSingleTerm(term_key):
         log.error("No such term: %s\n" % term_key)
         return 0
     if (
-        term.termType == sdoterm.SdoTerm.REFERENCE
+        term.termType == sdoterm.SdoTermType.REFERENCE
     ):  # Don't create pages for reference types
         return 0
     examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
