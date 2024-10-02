@@ -2,8 +2,10 @@
 Schema.org Software
 ===================
 
-This document describes the software that underpins Schema.org. Most collaborators will only need to be able to run 
-it. At this time we do not solicit active collaboration on the codebase itself from the general public.
+This document describes the software that underpins Schema.org. Most collaborators will only need to be able to run  it. 
+
+Recommendations for the code-base can be found in the [CODE_README](CODE_README.md) file.
+
 
 * see https://github.com/schemaorg/schemaorg/blob/master/LICENSE for open-source license info (Apache2)
 
