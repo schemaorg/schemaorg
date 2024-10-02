@@ -12,10 +12,11 @@ if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
-import software.util.schemaversion as schemaversion
-import software.util.jinga_render as jinga_render
+import software.scripts.buildtermlist as buildtermlist
 import software.util.fileutils as fileutils
+import software.util.jinga_render as jinga_render
 import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
 import software.scripts.buildtermlist as buildtermlist
 
