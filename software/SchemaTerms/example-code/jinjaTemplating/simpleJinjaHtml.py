@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
@@ -16,7 +16,7 @@ from sdotermsource import *
 from sdoterm import *
 from localmarkdown import Markdown
 
-import jinja2 
+import jinja2
 Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("/")
 
@@ -59,7 +59,7 @@ def templateRender(term):
         'href_prefix': "",
         'term': term
     }
-    
+
     page=None
 
     if term.expanded:
@@ -87,14 +87,14 @@ def templateRender(term):
     if not page:
         print("Invalid term type: %s" % term.termType)
         return
- 
+
     template = jenv.get_template(page)
     return template.render(tvars)
 
 ###################################################
 #JINJA INITIALISATION - End
 ###################################################
-    
+
 #terms = SdoTermSource.getAllTerms()
 
 terms = ["DataType","about","Action","CreativeWork","MonetaryAmount","PronounceableText","Thing","Text","LinkRole","EBook","BookFormatType"]
@@ -121,10 +121,6 @@ for t in terms:
     print("Term: %s (%d) - %s" % (t, termscreated, str(datetime.datetime.now()-tic))) #diagnostics
     #      Note: (%d) = number of individual newly created (not cached) term definitions to
     #            build this expanded definition. ie. All Properties associated with a Type, etc.
-    
+
 print()
 print ("All terms took %s seconds" % str(datetime.datetime.now()-start)) #diagnostics
-
-
-
-

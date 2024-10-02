@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 
 import sys
@@ -77,11 +77,11 @@ def showTerm(term,ind=""):
 
     if term.termType == SdoTerm.ENUMERATION:
         print("%sEnumeration Members: %s" % (ind,term.enumerationMembers))
-    
-    
+
+
     if term.termType == SdoTerm.ENUMERATIONVALUE:
         print("%sParent Enumeration: %s" %  (ind,term.enumerationParent))
-    
+
     if term.expanded:
         print("%stermStack count: %s " % (ind,len(term.termStack)))
         for t in term.termStack:
@@ -92,7 +92,3 @@ def showTerm(term,ind=""):
 for termname in ["acceptedAnswer","Book"]:
     term = SdoTermSource.getTerm(termname,expanded=True)
     showTerm(term)
-    
-
-
-
