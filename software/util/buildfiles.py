@@ -35,7 +35,7 @@ log = logging.getLogger(__name__)
 
 
 def buildTurtleEquivs():
-    """Build equivalences to """
+    """Build equivalences to"""
     s_p = "http://schema.org/"
     s_s = "https://schema.org/"
     outGraph = rdflib.Graph()
@@ -44,9 +44,9 @@ def buildTurtleEquivs():
     outGraph.bind("owl", rdflib.namespace.OWL)
 
     for t in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
-        if not t.retired: #drops non-schema terms and those in attic
+        if not t.retired:  # drops non-schema terms and those in attic
             eqiv = rdflib.namespace.OWL.equivalentClass
-            if t.termType == sdoterm.SdoTerm.PROPERTY:
+            if t.termType == sdoterm.SdoTermType.PROPERTY:
                 eqiv = rdflib.namespace.OWL.equivalentProperty
 
             p = rdflib.URIRef(s_p + t.id)
@@ -55,8 +55,7 @@ def buildTurtleEquivs():
             outGraph.add((s, eqiv, p))
             log.debug("%s ", t.uri)
 
-    return outGraph.serialize(format='turtle',auto_compact=True, sort_keys=True)
-
+    return outGraph.serialize(format="turtle", auto_compact=True, sort_keys=True)
 
 
 def absoluteFilePath(fn):
@@ -66,6 +65,7 @@ def absoluteFilePath(fn):
 
 
 CACHECONTEXT = None
+
 
 def jsonldcontext(page):
     global CACHECONTEXT
@@ -189,6 +189,7 @@ def protocols():
 allGraph = None
 currentGraph = None
 
+
 def exportrdf(exportType):
     global allGraph, currentGraph
 
@@ -240,12 +241,12 @@ def exportrdf(exportType):
 
 
 EXTENSIONS_FOR_FORMAT = {
-        "xml": ".xml",
-        "rdf": ".rdf",
-        "nquads": ".nq",
-        "nt": ".nt",
-        "json-ld": ".jsonld",
-        "turtle": ".ttl",
+    "xml": ".xml",
+    "rdf": ".rdf",
+    "nquads": ".nq",
+    "nt": ".nt",
+    "json-ld": ".jsonld",
+    "turtle": ".ttl",
 }
 
 completed = []
@@ -274,10 +275,12 @@ def _exportrdf(format, all, current):
             qg += g
             g = gr
         fn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s" % (version, ver, protocol, EXTENSIONS_FOR_FORMAT[format])
+            "releases/%s/schemaorg-%s-%s%s"
+            % (version, ver, protocol, EXTENSIONS_FOR_FORMAT[format])
         )
         afn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s" % (version, ver, altprotocol, EXTENSIONS_FOR_FORMAT[format])
+            "releases/%s/schemaorg-%s-%s%s"
+            % (version, ver, altprotocol, EXTENSIONS_FOR_FORMAT[format])
         )
         fmt = format
         if format == "rdf":
@@ -350,7 +353,7 @@ def exportcsv(page):
     )
     for term in terms:
         if (
-            term.termType == sdoterm.SdoTerm.REFERENCE
+            term.termType == sdoterm.SdoTermType.REFERENCE
             or term.id.startswith("http://")
             or term.id.startswith("https://")
         ):
@@ -365,7 +368,7 @@ def exportcsv(page):
         if len(ext):
             ext = "%s://%s.schema.org" % (protocol, ext)
         row["isPartOf"] = ext
-        if term.termType == sdoterm.SdoTerm.PROPERTY:
+        if term.termType == sdoterm.SdoTermType.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
             row["equivalentProperty"] = array2str(term.equivalents)
             row["subproperties"] = uriwrap(term.subs)
@@ -377,7 +380,7 @@ def exportcsv(page):
                 propdata.append(row)
         else:
             row["subTypeOf"] = uriwrap(term.supers)
-            if term.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
+            if term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
                 row["enumerationtype"] = uriwrap(term.enumerationParent)
             else:
                 row["properties"] = uriwrap(term.allproperties)

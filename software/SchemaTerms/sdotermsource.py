@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 # Import standard python libraries
 import copy
@@ -108,48 +108,48 @@ class SdoTermSource:
         self.enum = None
 
         if ttype == rdflib.RDFS.Class:
-            self.ttype = sdoterm.SdoTerm.TYPE
+            self.ttype = sdoterm.SdoTermType.TYPE
             if self.uri == str(DATATYPEURI):  # The base DataType is defined as a Class
-                self.ttype = sdoterm.SdoTerm.DATATYPE
+                self.ttype = sdoterm.SdoTermType.DATATYPE
             elif self.uri == str(
                 ENUMERATIONURI
             ):  # The base Enumeration Type is defined as a Class
-                self.ttype = sdoterm.SdoTerm.ENUMERATION
+                self.ttype = sdoterm.SdoTermType.ENUMERATION
             elif self.isEnumeration():
-                self.ttype = sdoterm.SdoTerm.ENUMERATION
+                self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == rdflib.RDF.Property:
-            self.ttype = sdoterm.SdoTerm.PROPERTY
+            self.ttype = sdoterm.SdoTermType.PROPERTY
         elif ttype == ENUMERATIONURI:
-            self.ttype = sdoterm.SdoTerm.ENUMERATION
+            self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == DATATYPEURI:
-            self.ttype = sdoterm.SdoTerm.DATATYPE
+            self.ttype = sdoterm.SdoTermType.DATATYPE
         elif not ttype:
-            self.ttype = sdoterm.SdoTerm.REFERENCE
+            self.ttype = sdoterm.SdoTermType.REFERENCE
             self.label = id
         else:
             self.parent = cls._getTerm(str(ttype), createReference=True)
 
-            if self.parent.termType == sdoterm.SdoTerm.ENUMERATION:
-                self.ttype = sdoterm.SdoTerm.ENUMERATIONVALUE
-            elif self.parent.termType == sdoterm.SdoTerm.DATATYPE:
-                self.ttype = sdoterm.SdoTerm.DATATYPE
+            if self.parent.termType == sdoterm.SdoTermType.ENUMERATION:
+                self.ttype = sdoterm.SdoTermType.ENUMERATIONVALUE
+            elif self.parent.termType == sdoterm.SdoTermType.DATATYPE:
+                self.ttype = sdoterm.SdoTermType.DATATYPE
             else:
-                self.ttype = sdoterm.SdoTerm.REFERENCE
+                self.ttype = sdoterm.SdoTermType.REFERENCE
                 # raise Exception("Unknown parent type '%s' for term: %s" % (ttype, self.uri))
 
-        if self.ttype == sdoterm.SdoTerm.TYPE:
+        if self.ttype == sdoterm.SdoTermType.TYPE:
             self.termdesc = sdoterm.SdoType(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTerm.PROPERTY:
+        elif self.ttype == sdoterm.SdoTermType.PROPERTY:
             self.termdesc = sdoterm.SdoProperty(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTerm.DATATYPE:
+        elif self.ttype == sdoterm.SdoTermType.DATATYPE:
             self.termdesc = sdoterm.SdoDataType(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTerm.ENUMERATION:
+        elif self.ttype == sdoterm.SdoTermType.ENUMERATION:
             self.termdesc = sdoterm.SdoEnumeration(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTerm.ENUMERATIONVALUE:
+        elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
             self.termdesc = sdoterm.SdoEnumerationvalue(self.id, self.uri, self.label)
             if self.parent:
                 self.termdesc.enumerationParent = self.parent.id
-        elif self.ttype == sdoterm.SdoTerm.REFERENCE:
+        elif self.ttype == sdoterm.SdoTermType.REFERENCE:
             self.termdesc = sdoterm.SdoReference(self.id, self.uri, self.label)
 
         self.termdesc.acknowledgements = self.getAcknowledgements()
@@ -172,24 +172,24 @@ class SdoTermSource:
 
         # Class (Type) Building
         if (
-            self.ttype == sdoterm.SdoTerm.TYPE
-            or self.ttype == sdoterm.SdoTerm.DATATYPE
-            or self.ttype == sdoterm.SdoTerm.ENUMERATION
+            self.ttype == sdoterm.SdoTermType.TYPE
+            or self.ttype == sdoterm.SdoTermType.DATATYPE
+            or self.ttype == sdoterm.SdoTermType.ENUMERATION
         ):
             self.termdesc.properties = self.getProperties(getall=False)
             self.termdesc.allproperties = self.getProperties(getall=True)
             self.termdesc.expectedTypeFor = self.getTargetOf()
-            if self.ttype == sdoterm.SdoTerm.ENUMERATION:
+            if self.ttype == sdoterm.SdoTermType.ENUMERATION:
                 if not len(self.termdesc.properties):
                     self.termdesc.termStack = []
             self.termdesc.enumerationMembers = self.getEnumerationMembers()
-        elif self.ttype == sdoterm.SdoTerm.PROPERTY:
+        elif self.ttype == sdoterm.SdoTermType.PROPERTY:
             self.termdesc.domainIncludes = self.getDomains()
             self.termdesc.rangeIncludes = self.getRanges()
             self.termdesc.inverse = self.getInverseOf()
-        elif self.ttype == sdoterm.SdoTerm.ENUMERATIONVALUE:
+        elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
             pass
-        elif self.ttype == sdoterm.SdoTerm.REFERENCE:
+        elif self.ttype == sdoterm.SdoTermType.REFERENCE:
             self.termdesc.label = prefixedIdFromUri(self.uri)
             self.termdesc.comment = self.getComment()
 
@@ -207,19 +207,19 @@ class SdoTermSource:
         return self.ttype
 
     def isClass(self):
-        return self.ttype == sdoterm.SdoTerm.TYPE
+        return self.ttype == sdoterm.SdoTermType.TYPE
 
     def isProperty(self):
-        return self.ttype == sdoterm.SdoTerm.PROPERTY
+        return self.ttype == sdoterm.SdoTermType.PROPERTY
 
     def isDataType(self):
-        if self.ttype == sdoterm.SdoTerm.DATATYPE:
+        if self.ttype == sdoterm.SdoTermType.DATATYPE:
             return True
         if self.isClass() and not self.checkedDataTypeParents:
             self.checkedDataTypeParents = True
             for super in self.getSupers():
                 if super.isDataType():
-                    self.ttype = sdoterm.SdoTerm.DATATYPE
+                    self.ttype = sdoterm.SdoTermType.DATATYPE
                     return True
         return False
 
@@ -237,13 +237,13 @@ class SdoTermSource:
         # log.info("res %s" % self.enum)
         return self.enum
 
-        return self.ttype == sdoterm.SdoTerm.ENUMERATION
+        return self.ttype == sdoterm.SdoTermType.ENUMERATION
 
     def isEnumerationValue(self):
-        return self.ttype == sdoterm.SdoTerm.ENUMERATIONVALUE
+        return self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE
 
     def isReference(self):
-        return self.ttype == sdoterm.SdoTerm.REFERENCE
+        return self.ttype == sdoterm.SdoTermType.REFERENCE
 
     def getId(self):
         return self.id
@@ -350,7 +350,7 @@ class SdoTermSource:
             self.termStack = []
             for sup in self.getSupers():
                 s = self.__class__._getTerm(sup, createReference=True)
-                if s.termType == sdoterm.SdoTerm.REFERENCE:
+                if s.termType == sdoterm.SdoTermType.REFERENCE:
                     continue
                 self.termStack.append(s.id)
                 if s.termStack:
@@ -384,11 +384,7 @@ class SdoTermSource:
                     if t == "Enumeration":
                         break
                     trm = self.__class__._getTerm(t, createReference=True)
-                    if (
-                        trm.termType == sdoterm.SdoTerm.TYPE
-                        or trm.termType == sdoterm.SdoTerm.DATATYPE
-                        or trm.termType == sdoterm.SdoTerm.ENUMERATION
-                    ):
+                    if trm.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
                         for p in trm.properties:
                             if p not in allprops:
                                 allprops.append(p)
@@ -545,11 +541,7 @@ class SdoTermSource:
 
     def loadsubs(self):
         fullId = toFullId(self.id)
-        if (
-            self.ttype == sdoterm.SdoTerm.TYPE
-            or self.ttype == sdoterm.SdoTerm.DATATYPE
-            or self.ttype == sdoterm.SdoTerm.ENUMERATION
-        ):
+        if self.ttype in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
             sel = "rdfs:subClassOf"
         else:
             sel = "rdfs:subPropertyOf"
@@ -560,14 +552,14 @@ class SdoTermSource:
         res = self.__class__.query(query)
         self.subs = [uri2id(str(row.sub)) for row in res]
 
-        if self.ttype == sdoterm.SdoTerm.DATATYPE:
+        if self.ttype == sdoterm.SdoTermType.DATATYPE:
             subjects = self.loadSubjects(
                 "a"
             )  # Enumerationvalues have an Enumeration as a type
             self.subs.extend([uri2id(str(child)) for child in subjects])
 
     def getEnumerationMembers(self):
-        if not self.members and self.ttype == sdoterm.SdoTerm.ENUMERATION:
+        if not self.members and self.ttype == sdoterm.SdoTermType.ENUMERATION:
             subjects = self.loadSubjects(
                 "a"
             )  # Enumerationvalues have an Enumeration as a type
@@ -583,17 +575,17 @@ class SdoTermSource:
         self._getParentPaths(self.termdesc, cstack)
 
         inserts = []
-        if self.ttype == sdoterm.SdoTerm.PROPERTY:
+        if self.ttype == sdoterm.SdoTermType.PROPERTY:
             inserts = ["Property", "Thing"]
-        elif self.ttype == sdoterm.SdoTerm.DATATYPE and self.id != "DataType":
+        elif self.ttype == sdoterm.SdoTermType.DATATYPE and self.id != "DataType":
             inserts = ["DataType"]
-        elif self.ttype == sdoterm.SdoTerm.TYPE:
+        elif self.ttype == sdoterm.SdoTermType.TYPE:
             base = self._pstacks[0][0]
             if base != self.id:
                 basetype = self.__class__._getTerm(base)
             else:
                 basetype = self.termdesc
-            if basetype.termType == sdoterm.SdoTerm.DATATYPE:
+            if basetype.termType == sdoterm.SdoTermType.DATATYPE:
                 inserts = ["DataType"]
 
         for ins in inserts:
@@ -608,7 +600,10 @@ class SdoTermSource:
         tmpStacks.append(cstack)
         supers = term.supers
 
-        if term.termType == sdoterm.SdoTerm.ENUMERATIONVALUE and term.enumerationParent:
+        if (
+            term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE
+            and term.enumerationParent
+        ):
             if term.enumerationParent not in supers:
                 supers.append(term.enumerationParent)
 
@@ -642,7 +637,7 @@ class SdoTermSource:
 
     @classmethod
     def checkForEnumVal(cls, term):
-        if term.ttype == sdoterm.SdoTerm.ENUMERATION:
+        if term.ttype == sdoterm.SdoTermType.ENUMERATION:
             return True
 
         for t in term.supers:
@@ -670,11 +665,7 @@ class SdoTermSource:
             termdesc.subs = cls.termsFromIds(termdesc.subs)
             termdesc.equivalents = cls.termsFromIds(termdesc.equivalents)
 
-            if (
-                termdesc.termType == sdoterm.SdoTerm.TYPE
-                or termdesc.termType == sdoterm.SdoTerm.DATATYPE
-                or termdesc.termType == sdoterm.SdoTerm.ENUMERATION
-            ):
+            if termdesc.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
                 termdesc.properties = cls.termsFromIds(termdesc.properties)
                 termdesc.expectedTypeFor = cls.termsFromIds(termdesc.expectedTypeFor)
 
@@ -688,15 +679,15 @@ class SdoTermSource:
                         expects.append(cls.expandTerm(e, depth=depth + 1))
                     termdesc.expectedTypeFor = expects
 
-                if termdesc.termType == sdoterm.SdoTerm.ENUMERATION:
+                if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
                     termdesc.enumerationMembers = cls.termsFromIds(
                         termdesc.enumerationMembers
                     )
-            elif termdesc.termType == sdoterm.SdoTerm.PROPERTY:
+            elif termdesc.termType == sdoterm.SdoTermType.PROPERTY:
                 termdesc.domainIncludes = cls.termsFromIds(termdesc.domainIncludes)
                 termdesc.rangeIncludes = cls.termsFromIds(termdesc.rangeIncludes)
                 termdesc.inverse = cls.termFromId(termdesc.inverse)
-            elif termdesc.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
+            elif termdesc.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
                 termdesc.enumerationParent = cls.termFromId(termdesc.enumerationParent)
 
             if not depth:  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
@@ -796,7 +787,7 @@ class SdoTermSource:
     def getTermAsRdfString(cls, termId, format, full=False):
         global VOCABURI
         term = cls.getTerm(termId)
-        if not term or term.termType == sdoterm.SdoTerm.REFERENCE:
+        if not term or term.termType == sdoterm.SdoTermType.REFERENCE:
             return ""
         g = rdflib.Graph()
 
@@ -814,11 +805,11 @@ class SdoTermSource:
 
             stack.extend(cls.termsFromIds(term.termStack))
             for t in stack:
-                if t.termType == sdoterm.SdoTerm.PROPERTY:
+                if t.termType == sdoterm.SdoTermType.PROPERTY:
                     props.append(t)
                 else:
                     types.append(t)
-                    if t.termType == sdoterm.SdoTerm.ENUMERATIONVALUE:
+                    if t.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
                         types.append(cls.termFromId(t.enumerationParent))
                     elif t == stack[0]:
                         props.extend(cls.termsFromIds(t.allproperties))
@@ -842,25 +833,25 @@ class SdoTermSource:
     @classmethod
     def getAllTypes(cls, layer=None, expanded=False):
         return cls.getAllTerms(
-            ttype=sdoterm.SdoTerm.TYPE, layer=layer, expanded=expanded
+            ttype=sdoterm.SdoTermType.TYPE, layer=layer, expanded=expanded
         )
 
     @classmethod
     def getAllProperties(cls, layer=None, expanded=False):
         return cls.getAllTerms(
-            ttype=sdoterm.SdoTerm.PROPERTY, layer=layer, expanded=expanded
+            ttype=sdoterm.SdoTermType.PROPERTY, layer=layer, expanded=expanded
         )
 
     @classmethod
     def getAllEnumerations(cls, layer=None, expanded=False):
         return cls.getAllTerms(
-            ttype=sdoterm.SdoTerm.ENUMERATION, layer=layer, expanded=expanded
+            ttype=sdoterm.SdoTermType.ENUMERATION, layer=layer, expanded=expanded
         )
 
     @classmethod
     def getAllEnumerationvalues(cls, layer=None, expanded=False):
         return cls.getAllTerms(
-            ttype=sdoterm.SdoTerm.ENUMERATIONVALUE, layer=layer, expanded=expanded
+            ttype=sdoterm.SdoTermType.ENUMERATIONVALUE, layer=layer, expanded=expanded
         )
 
     @classmethod
@@ -871,15 +862,15 @@ class SdoTermSource:
         global DATATYPEURI, ENUMERATIONURI
         typsel = ""
         extra = ""
-        if ttype == sdoterm.SdoTerm.TYPE:
+        if ttype == sdoterm.SdoTermType.TYPE:
             typsel = "a <%s>;" % rdflib.RDFS.Class
-        elif ttype == sdoterm.SdoTerm.PROPERTY:
+        elif ttype == sdoterm.SdoTermType.PROPERTY:
             typsel = "a <%s>;" % rdflib.RDF.Property
-        elif ttype == sdoterm.SdoTerm.DATATYPE:
+        elif ttype == sdoterm.SdoTermType.DATATYPE:
             typsel = "a <%s>;" % DATATYPEURI
-        elif ttype == sdoterm.SdoTerm.ENUMERATION:
+        elif ttype == sdoterm.SdoTermType.ENUMERATION:
             typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
-        elif ttype == sdoterm.SdoTerm.ENUMERATIONVALUE:
+        elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
             extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
         elif not ttype:
             typesel = ""
@@ -1164,11 +1155,11 @@ class SdoTermSource:
             datatypes -= 1  # Datatype not counted
 
             cls.TERMCOUNTS = {}
-            cls.TERMCOUNTS[sdoterm.SdoTerm.TYPE] = types
-            cls.TERMCOUNTS[sdoterm.SdoTerm.PROPERTY] = properties
-            cls.TERMCOUNTS[sdoterm.SdoTerm.DATATYPE] = datatypes
-            cls.TERMCOUNTS[sdoterm.SdoTerm.ENUMERATION] = enums
-            cls.TERMCOUNTS[sdoterm.SdoTerm.ENUMERATIONVALUE] = enumvals
+            cls.TERMCOUNTS[sdoterm.SdoTermType.TYPE] = types
+            cls.TERMCOUNTS[sdoterm.SdoTermType.PROPERTY] = properties
+            cls.TERMCOUNTS[sdoterm.SdoTermType.DATATYPE] = datatypes
+            cls.TERMCOUNTS[sdoterm.SdoTermType.ENUMERATION] = enums
+            cls.TERMCOUNTS[sdoterm.SdoTermType.ENUMERATIONVALUE] = enumvals
             cls.TERMCOUNTS["All"] = types + properties + datatypes + enums + enumvals
         return cls.TERMCOUNTS
 

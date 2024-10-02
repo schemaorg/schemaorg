@@ -61,7 +61,7 @@ def createcontext():
     for t in sdotermsource.SdoTermSource.getAllTerms(
         expanded=True, suppressSourceLinks=True
     ):
-        if t.termType == sdoterm.SdoTerm.PROPERTY:
+        if t.termType == sdoterm.SdoTermType.PROPERTY:
             range = t.rangeIncludes
 
             types = []
@@ -88,7 +88,7 @@ def createcontext():
                 + typins
                 + "},"
             )
-        elif t.termType == sdoterm.SdoTerm.REFERENCE:
+        elif t.termType == sdoterm.SdoTermType.REFERENCE:
             continue
         else:
             line = (

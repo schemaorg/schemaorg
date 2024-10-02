@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 # Import standard python libraries
 import sys
@@ -109,13 +109,13 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         # node.isClass
         tNewsArticle = sdotermsource.SdoTermSource.getTerm("NewsArticle")
         self.assertEqual(
-            tNewsArticle.termType, sdoterm.SdoTerm.TYPE, "NewsArticle is a class."
+            tNewsArticle.termType, sdoterm.SdoTermType.TYPE, "NewsArticle is a class."
         )
 
     def test_QuantityisClass(self):
         tQuantity = sdotermsource.SdoTermSource.getTerm("Quantity")
         self.assertTrue(
-            tQuantity.termType == sdoterm.SdoTerm.TYPE, "Quantity is a class."
+            tQuantity.termType == sdoterm.SdoTermType.TYPE, "Quantity is a class."
         )
         # Note that Quantity is a text type.
 
@@ -123,7 +123,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         eItemAvailability = sdotermsource.SdoTermSource.getTerm("ItemAvailability")
         self.assertEqual(
             eItemAvailability.termType,
-            sdoterm.SdoTerm.ENUMERATION,
+            sdoterm.SdoTermType.ENUMERATION,
             "ItemAvailability is an Enumeration.",
         )
 
@@ -131,7 +131,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         eEnumeration = sdotermsource.SdoTermSource.getTerm("Enumeration")
         self.assertEqual(
             eEnumeration.termType,
-            sdoterm.SdoTerm.ENUMERATION,
+            sdoterm.SdoTermType.ENUMERATION,
             "Enumeration is an Enumeration type.",
         )
 
@@ -187,7 +187,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     def test_PersonNotAttribute(self):
         tPerson = sdotermsource.SdoTermSource.getTerm("Person")
         self.assertFalse(
-            tPerson.termType == sdoterm.SdoTerm.PROPERTY,
+            tPerson.termType == sdoterm.SdoTermType.PROPERTY,
             "Not true that Person isAttribute().",
         )
 
@@ -360,7 +360,7 @@ class EnumerationValueTests(unittest.TestCase):
         eEventStatusType = sdotermsource.SdoTermSource.getTerm("EventStatusType")
         self.assertEqual(
             eEventStatusType.termType,
-            sdoterm.SdoTerm.ENUMERATION,
+            sdoterm.SdoTermType.ENUMERATION,
             msg="EventStatusType is an Enumeration.",
         )
 
@@ -368,7 +368,7 @@ class EnumerationValueTests(unittest.TestCase):
         eEventStatusType = sdotermsource.SdoTermSource.getTerm("EventStatusType")
         self.assertNotEqual(
             eEventStatusType.termType,
-            sdoterm.SdoTerm.ENUMERATIONVALUE,
+            sdoterm.SdoTermType.ENUMERATIONVALUE,
             msg="EventStatusType is not an Enumeration value.",
         )
 
@@ -376,7 +376,7 @@ class EnumerationValueTests(unittest.TestCase):
         eEventCancelled = sdotermsource.SdoTermSource.getTerm("EventCancelled")
         self.assertEqual(
             eEventCancelled.termType,
-            sdoterm.SdoTerm.ENUMERATIONVALUE,
+            sdoterm.SdoTermType.ENUMERATIONVALUE,
             msg="EventCancelled is an Enumeration value.",
         )
 
@@ -385,19 +385,19 @@ class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
         self.assertEqual(
             sdotermsource.SdoTermSource.getTerm("Boolean").termType,
-            sdoterm.SdoTerm.DATATYPE,
+            sdoterm.SdoTermType.DATATYPE,
         )
         self.assertEqual(
             sdotermsource.SdoTermSource.getTerm("DataType").termType,
-            sdoterm.SdoTerm.DATATYPE,
+            sdoterm.SdoTermType.DATATYPE,
         )
         self.assertNotEqual(
             sdotermsource.SdoTermSource.getTerm("Thing").termType,
-            sdoterm.SdoTerm.DATATYPE,
+            sdoterm.SdoTermType.DATATYPE,
         )
         self.assertNotEqual(
             sdotermsource.SdoTermSource.getTerm("Duration").termType,
-            sdoterm.SdoTerm.DATATYPE,
+            sdoterm.SdoTermType.DATATYPE,
         )
 
 
@@ -470,15 +470,16 @@ class SimpleCommentCountTests(unittest.TestCase):
         )
         ndi1_results = sdotermsource.SdoTermSource.query(query)
         if len(ndi1_results) > 0:
-            log.info("Query was: %s" % query)
+            log.warning("Query was: %s" % query)
             for row in ndi1_results:
                 log.warning(
-                    "Term %s has  rdfs:comment value %s" % (row["term"], row["comment"])
+                    "Term %s has rdfs:comment value %s" % (row["term"], row["comment"])
                 )
+        msg = '\n\t'.join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
         self.assertEqual(
             len(ndi1_results),
             0,
-            "Found: %s term(s) without multiple comment values" % len(ndi1_results),
+            f"Found: {len(ndi1_results)} term(s) with multiple comment values:\n{msg}",
         )
 
 
