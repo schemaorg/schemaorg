@@ -15,15 +15,15 @@ if not os.getcwd() in sys.path:
 
 import software
 import software.util.schemaglobals as schemaglobals
-
-from sdotermsource import SdoTermSource
-from localmarkdown import Markdown
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.localmarkdown as localmarkdown
 
 log = logging.getLogger(__name__)
 
-class collaborator():
-    """Wrapper for the collaboration meta-data."""
 
+class collaborator(object):
+    """Wrapper for the collaboration meta-data."""
     COLLABORATORS = {}
     CONTRIBUTORS = {}
 
@@ -42,7 +42,11 @@ class collaborator():
         collaborator.COLLABORATORS[self.ref] = self
 
     def __str__(self):
-        return "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.uri,self.contributor,self.img,self.title,self.url)
+        return (
+            "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>"
+            % (self.ref, self.uri, self.contributor, self.img, self.title, self.url)
+        )
+
 
     def _parseDesc(self, desc):
         """Parses data from the pseudo-markdown format.
@@ -53,6 +57,7 @@ class collaborator():
         section = 0
         description_lines = []
         acknowledgement_lines = []
+
         for line in desc.splitlines():
             if line.startswith("---"):
                 section += 1
@@ -79,8 +84,8 @@ class collaborator():
                     acknowledgement_lines.append(line)
                     continue
 
-        self.description = Markdown.parse(''.join(description_lines))
-        self.acknowledgement = Markdown.parse(''.join(acknowledgement_lines))
+        self.description = localmarkdown.Markdown.parse(''.join(description_lines))
+        self.acknowledgement = localmarkdown.Markdown.parse(''.join(acknowledgement_lines))
 
 
     def matchval(self, val, line):
@@ -103,9 +108,8 @@ class collaborator():
         if not self.contributor:
             return []
         if not self.terms:
-            self.terms = SdoTermSource.getAcknowledgedTerms(self.uri)
+            self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
         return self.terms
-
 
     @classmethod
     def getCollaborator(cls, ref):
@@ -144,13 +148,15 @@ class collaborator():
                 cls.createCollaborator(file_path)
             log.info("Loaded %s collaborators" % len(cls.COLLABORATORS))
 
+
+
     @classmethod
     def createContributor(cls, ref):
         code = os.path.basename(ref)
         coll = cls.getCollaborator(ref)
         if coll:
             coll.contributor = True
-            cls.CONTRIBUTORS[ref]=coll
+            cls.CONTRIBUTORS[ref] = coll
 
     @classmethod
     def loadContributors(cls):
@@ -160,8 +166,7 @@ class collaborator():
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
             }"""
-            res = SdoTermSource.query(query)
-
+            res = sdotermsource.SdoTermSource.query(query)
             for row in res:
                 cont = row.val
                 cls.createContributor(os.path.basename(str(cont)))

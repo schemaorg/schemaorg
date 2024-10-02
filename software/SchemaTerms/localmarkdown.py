@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+import logging
 import markdown2
 import re
 import threading
 
 
-WIKILINKPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
+WIKILINKPATTERN = r"\[\[([\w0-9_ -]+)\]\]"
 
-class MarkdownTool():
+log = logging.getLogger(__name__)
 
+class MarkdownTool(object):
     WCLASS = "localLink"
     WPRE = "/"
     WPOST = ""
 
     def __init__ (self):
+        # from markdown.extensions.wikilinks import WikiLinkExtension
+        # self._md = markdown2.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
         self._md = markdown2.Markdown()
-        self.parselock = threading.Lock()
+        self._parselock = threading.Lock()
 
     def setPre(self,pre="./"):
         self.wpre = pre
@@ -24,16 +28,18 @@ class MarkdownTool():
     def setPost(self,post=""):
         self.wpost = post
 
+
     def parse(self, source, preservePara=False, wpre=None):
-        if not source or len(source) == 0:
-            return ""
         source = source.strip()
+        if not source:
+            return ""
+
         source = source.replace("\\n","\n")
-        with self.parselock:
+        with self._parselock:
             ret = self._md.convert(source)
 
         if not preservePara:
-            #Remove wrapping <p> </p>\n that Markdown2 adds by default
+            # Remove wrapping <p> </p>\n that Markdown2 adds by default
             if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>\n"):
                 ret = ret[3:len(ret)-5]
 
@@ -53,17 +59,17 @@ class MarkdownTool():
         t = match.group(1)
         return '<a class="%s" href="%s%s%s">%s</a>' % (MarkdownTool.WCLASS,MarkdownTool.WPRE,t,MarkdownTool.WPOST,t)
 
-    @staticmethod
-    def setWikilinkCssClass(c):
-        MarkdownTool.WCLASS = c
+    @classmethod
+    def setWikilinkCssClass(cls, c):
+        cls.WCLASS = c
 
-    @staticmethod
-    def setWikilinkPrePath(p):
+    @classmethod
+    def setWikilinkPrePath(cls, p):
         MarkdownTool.WPRE = p
 
-    @staticmethod
-    def setWikilinkPostPath(p):
-        MarkdownTool.WPOST = p
+    @classmethod
+    def setWikilinkPostPath(cls, p):
+        cls.WPOST = p
 
 
 Markdown = MarkdownTool()

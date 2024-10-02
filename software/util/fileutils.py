@@ -4,12 +4,16 @@
 import os
 import shutil
 
+
 def createMissingDir(dir_path):
     """Create a directory if it does not exist"""
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
-CHECKEDPATHS =[]
+
+CHECKEDPATHS = []
+
+
 def checkFilePath(path):
     if not path in CHECKEDPATHS:
         CHECKEDPATHS.append(path)
@@ -62,4 +66,4 @@ def mycopytree(src, dst, symlinks=False, ignore=None):
         else:
             errors.extend((src, dst, str(why)))
     if errors:
-        raise Error (errors)
+        raise Error(errors)
