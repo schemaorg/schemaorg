@@ -68,7 +68,3 @@ for ftype in exts:
         format = "pretty-xml"
     output = outGraph.serialize(format=format,auto_compact=True,**kwargs).decode()
     f.write(output)
-
-        
-        
-

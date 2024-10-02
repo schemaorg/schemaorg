@@ -35,7 +35,7 @@ import time,datetime
 start = datetime.datetime.now() #debug
 for t in terms:
     tic = datetime.datetime.now() #debug
-    
+
     term = SdoTermSource.getTerm(t,expanded=False)
     buf = sdotermToProtobuf(term)
     msg = protobufToMsg(buf)
@@ -48,10 +48,6 @@ for t in terms:
     f = open(tfilename,"w")
     f.write(txt)
     f.close()
-    
+
     print("Term: %s - %s" % (t, str(datetime.datetime.now()-tic))) #debug
 print ("All terms took %s seconds" % str(datetime.datetime.now()-start)) #debug
-    
-
-
-

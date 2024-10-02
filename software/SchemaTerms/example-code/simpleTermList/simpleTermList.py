@@ -62,28 +62,25 @@ for termname in ["acceptedAnswer","Book"]:
 
     for stackElement in term.termStack:
         print("Element: %s" % stackElement)
-    
+
     if term.termType == SdoTerm.TYPE or term.termType == SdoTerm.ENUMERATION:
         print("Properties: %s" % term.properties)
         print("All Properties: %s" % term.allproperties)
         print("Expected Type for: %s" % term.expectedTypeFor)
-        
+
     if term.termType == SdoTerm.PROPERTY:
         print("Domain includes: %s" % term.domainIncludes)
         print("Range includes: %s" % term.rangeIncludes)
     else:
         if term.termType == SdoTerm.ENUMERATION:
             print("Enumeration Members: %s" % term.enumerationMembers)
-            
-            
+
+
         if term.termType == SdoTerm.ENUMERATIONVALUE:
             print("Parent Enumeration: %s" %  term.enumerationParent)
-            
+
         for p in term.properties:
             prop = SdoTermSource.getTerm(p)
             print("Prop: %s.  Pending: %s" % (prop.id,prop.pending))
             print("   Expected Types: %s" % prop.rangeIncludes)
             print("   Comment: %s" % prop.comment)
-
-
-
