@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 # Import standard python libraries
 import sys
@@ -470,15 +470,16 @@ class SimpleCommentCountTests(unittest.TestCase):
         )
         ndi1_results = sdotermsource.SdoTermSource.query(query)
         if len(ndi1_results) > 0:
-            log.info("Query was: %s" % query)
+            log.warning("Query was: %s" % query)
             for row in ndi1_results:
                 log.warning(
-                    "Term %s has  rdfs:comment value %s" % (row["term"], row["comment"])
+                    "Term %s has rdfs:comment value %s" % (row["term"], row["comment"])
                 )
+        msg = '\n\t'.join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
         self.assertEqual(
             len(ndi1_results),
             0,
-            "Found: %s term(s) without multiple comment values" % len(ndi1_results),
+            f"Found: {len(ndi1_results)} term(s) with multiple comment values:\n{msg}",
         )
 
 
