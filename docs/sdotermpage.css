@@ -1,0 +1,194 @@
+#infoblock {
+  #infohead {
+    padding-bottom: 1.5em;
+
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .superPaths {
+    font-weight: 700;
+  }
+
+  #infomsg {
+    margin-bottom: 1rem;
+  }
+}
+
+.definition-table {
+  .prop-name {
+  font-weight: normal;
+  }
+
+  .prop-ect, .prop.desc {
+  }
+}
+
+  .pln    { color: #444;    } /* plain text                 */
+  .tag    { color: #515484; } /* div, span, a, etc          */
+  .atn,
+  .atv    { color: #314B17; } /* href, datetime             */
+  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
+  .curl   { color: #080;    } /* new url                    */
+
+  table.definition-table {
+    border-spacing: 3px;
+    border-collapse: separate;
+  }
+  
+  #morecheck {
+	  outline: none;
+  }
+  
+#morecheck:checked + div { display: none; }
+
+.ackblock {
+  display: block;
+  padding: 5px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+}
+
+.ack {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.ack-head {
+  padding-bottom: 5px;
+}
+
+.ack-title {
+  display:inline-block;
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.ack-img {
+  display: inline-block;
+  margin-left: 2px;
+}
+
+.ack-img img {
+  height: 15px;
+}
+
+.clipbutton {
+  background: none;
+  border: 0;
+  padding : 2px;
+}
+
+.example-head {
+    display: block;
+    padding-bottom: .5rem;
+}
+
+/* example tab selection */
+a.clickableAnchor {
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.selectors code {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.ds-tab pre.ds-tab-content{
+  background: var(--table-background);
+  border: none;
+  display: block;
+  margin-top: 1px;
+}
+
+div.ds-tab-note{
+    display: block;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    font-style: italic;
+    font-size: .875rem;
+}
+a.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:visited.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:link.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:hover.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+
+.structureout {
+  margin-left: 5px;
+}
+
+/*Effectively hide but can't use 'display: none;' as clip will not work if hidden*/
+.structuretext {  
+  white-space: pre-wrap;
+  opacity: .01;
+  height:0;
+  position:absolute;
+  z-index: -1;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  top: 4px;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  top: 100%;
+  left: 50%;
+  margin-left: -50px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip .tooltiptext.show {
+  visibility: visible;
+}
+
+a.core, a.ext, .localLink {
+  font-family: "Noto Sans Mono", monospace;
+}
+
+.jumptarget {
+  margin-bottom: 2em;
+}

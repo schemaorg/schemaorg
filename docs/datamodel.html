@@ -2,87 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Data Model - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js">
-    </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
+    <title>Data model - Schema.org</title>
 
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-    $('.atn').each(function(i) {
-      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
-        $(this).addClass('custom');
-    });
-
-        }, 500);
-      });
-</script>
-
-<style>
-
-  .tag    { color: #000; }    /* div, span, etc   */
-  .atn    { color: #000; }    /* href, datetime,  */
-  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
-
-</style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
-        <div id="container">
-            <div id="intro">
-                <div id="pageHeader">
-                    <div class="wrapper">
-                        <div id="sitename">
-                            <h1>
-                                <a href="../">schema.org</a>
-                            </h1>
-                        </div>
-                        <div id="cse-search-form" style="width: 400px;">
-                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="selectionbar">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        <a href="documents.html" >Documentation</a>
-                    </li>
-                    <li>
-                        <a href="schemas.html" >Schemas</a>
-                    </li>
-                    <li>
-                        <a href="../"  >Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
-  <div id="mainContent">
 
-<h1>Data Model</h1>
+  <!-- #### Static Doc Insert PageHead goes here -->
+
+<article id="mainContent">
+
+<section>
+<h1>Data model</h1>
 
 <p>
  The following is a discussion about the data model used by
@@ -108,7 +40,7 @@ where each type may be a sub-class of multiple types.</li>
 <p>
 The decision to allow multiple domains and ranges was purely pragmatic. While the
 computational properties of systems with a single domain and range are easier to
-understand, in practice, this forces the creation of a lot of artifical types,
+understand, in practice, this forces the creation of a lot of artificial types,
 which are there purely to act as the domain/range of some properties.
 </p>
 <p>
@@ -118,22 +50,11 @@ and a few properties like <a href="http://meta.schema.org/domainIncludes">domain
 to allow for reflection, i.e., for the schema to be represented in terms of itself.
 </p>
 
-<p>The canonical machine representation of schema.org is in RDFa:</p>
-
-<ul>
-<li><a href="schema_org_rdfa.html">schema_org_rdfa.html</a></li>
-</ul>
-
-<p>
-Now-obsolete snapshots of <a href='https://web.archive.org/web/20150414142113/http://schema.org/docs/full_md.html'>Microdata</a> and <a href='schemaorg.owl'>OWL</a> experimental
-data dumps were previously published. See also <a href="http://topbraid.org/schema/">TopBraid's version</a>.
-</p>
-
-<p>See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
+<p>The canonical machine representation of schema.org is in RDF/Turtle. See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
 
 <p>
 The type hierarchy presented on this site is not intended to be a 'global ontology' of the world.
-When founded in 2011 it was strictly focussed around the types of entities
+When founded in 2011 it was strictly focused around the types of entities
 for which the project's founders (Microsoft, Yahoo!, Google and Yandex), could reasonably expect to
 provide some special treatment for via search engines. As the project has <a href="http://queue.acm.org/detail.cfm?id=2857276">evolved</a>,
 introducing more community collaboration and extension mechanisms, its scope has expanded gradually.
@@ -141,6 +62,9 @@ However it is still the case that schema.org is not intended as a universal onto
 alongside other vocabulary that shares our basic datamodel and our use of underlying standards like JSON-LD, Microdata
 and RDFa.
 </p>
+
+</section>
+<section>
 
 <h2 id="conformance">Conformance</h2>
 
@@ -158,7 +82,7 @@ we will accept this markup and do the best they can.
 <p>
 Although it might be helpful for search applications if structured data markup always followed schema.org very
 strictly, in practice this is unrealistic. Our schemas also continue to evolve in response to
-feedback, discussion and new applications of the data. Where possible we <a href="http://schema.org/docs/howwework.html">amend</a> existing definitions incrementally
+feedback, discussion and new applications of the data. Where possible we <a href="https://schema.org/docs/howwework.html">amend</a> existing definitions incrementally
 rather than introducing lots of new properties for similar use cases. We have consequently based schema.org on a
 very flexible datamodel, and take a pragmatic view of conformance.
 </p>
@@ -211,6 +135,9 @@ always <a href="https://www.w3.org/community/schemaorg/">welcome</a>.
 See also: <a href="https://en.wikipedia.org/wiki/Robustness_principle">Postel's Law</a>
 </p>
 
+</section>
+<section>
+
 <h2>Mapping to RDFa Lite </h2>
 
 Our use of Microdata maps easily into <a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a>, and
@@ -220,7 +147,7 @@ to the Microdata version. The following sample demonstrates the use of RDFa Lite
 mark up a <a href="/Product">Product</a> type example:
 
 <pre  class="prettyprint lang-html linenums">
-&lt;div vocab="http://schema.org/" typeof="Product"&gt;
+&lt;div vocab="https://schema.org/" typeof="Product"&gt;
   &lt;img property="image" src="dell-30in-lcd.jpg" /&gt;
   &lt;span property="name"&gt;Dell UltraSharp 30" LCD Monitor&lt;/span&gt;
 
@@ -260,10 +187,12 @@ More specifically:
 </ol>
 <p>
 In addition, the attribute value
-pair <code>vocab="http://schema.org/"</code> is added to the body or
+pair <code>vocab="https://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
 
+</section>
+<section>
 
 <h2 id="bgnotes">Background notes</h2>
 
@@ -285,10 +214,6 @@ some other enclosing tag.
 
 <p><a href="/about">about</a> is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics, while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself describes some other entity. For example, one web page may display a news article about a particular person. Another page may display a product review for a particular product. In these cases, mainEntity for the pages should refer to the news article or review, respectively, while about would more properly refer to the person or product.</p>
 
-<br/><br/>
-
-
-
 <h3 id="identifierBg">"identifier" property</h3>
 
 <p>Background information on the 'identifier' property and its sub-properties.</p>
@@ -307,7 +232,11 @@ when a standard URI form of the identifier is unavailable. We do not currently h
 conventional short name for most identifier schemes (which should be used in lowercase form).
 </p>
 
-<h3 id="history">History</h3>
+</section>
+<section>
+
+
+<h2 id="history">History</h2>
 
 <p>Previous related work:</p>
 
@@ -318,13 +247,11 @@ conventional short name for most identifier schemes (which should be used in low
 <li>See also <a href="https://en.wikipedia.org/wiki/Semantic_network">Semantic network</a> article on Wikipedia.</li>
 </ul>
 
+</section>
 
-</div>
+</article>
 
-
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

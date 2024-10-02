@@ -1,9 +1,8 @@
-TYPES: NonprofitType, nonprofitStatus
+TYPES: #eg-0302 NonprofitType, nonprofitStatus
 
 PRE-MARKUP:
 
 Nonprofit organization coverage with internationally applicable nonprofit types.
-
 
 MICRODATA:
 
@@ -16,19 +15,16 @@ RDFA:
 JSON:
 
 <script type="application/ld+json">
-
 {
-"@context": "https://schema.org",
-"@type": "LegalService",
-"name": "Example Legal Aid Nonprofit",
-"text": "A nonprofit statewide law firm dedicated to providing equal access to justice for low income people through quality advocacy and education.",
-"nonprofitStatus" : "Nonprofit501c20",
-"url":  "https://www.example.org/nonprofit/info"
-"areaServed": {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Example Legal Aid Nonprofit",
+  "description": "A nonprofit statewide law firm dedicated to providing equal access to justice for low income people through quality advocacy and education.",
+  "nonprofitStatus" : "Nonprofit501c20",
+  "url":  "https://www.example.org/nonprofit/info",
+  "areaServed": {
     "@type": "AdministrativeArea",
     "name": "Idaho"
-    }
-
+  }
 }
-
 </script>

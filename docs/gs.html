@@ -3,58 +3,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### --> 
-        <div id="container">
-            <div id="intro">
-                <div id="pageHeader">
-                    <div class="wrapper">
-                        <div id="sitename">
-                            <h1>
-                                <a href="../">schema.org</a>
-                            </h1>
-                        </div>
-                        <div id="cse-search-form" style="width: 400px;">
-                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="selectionbar">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        <a href="documents.html" >Documentation</a>
-                    </li>
-                    <li>
-                        <a href="schemas.html" >Schemas</a>
-                    </li>
-                    <li>
-                        <a href="../"  >Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### --> 
-  <div id="mainContent" class="faq">
+
+  <!-- #### Static Doc Insert PageHead goes here -->
+
+<div id="mainContent" class="faq">
 
 <h1>Getting started with schema.org using Microdata</h1>
 
@@ -149,21 +106,21 @@ examples to see how the details compare.</p>
 
 <p>But it's not all that helpful to specify that there is an item being discussed without specifying what kind of an item it is. You can specify the type of item using the <code>itemtype</code> attribute immediately after the <code>itemscope</code>.</p>
 
-<pre>&lt;div itemscope <strong>itemtype="http://schema.org/Movie"</strong>&gt;
+<pre>&lt;div itemscope <strong>itemtype="https://schema.org/Movie"</strong>&gt;
   &lt;h1&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: James Cameron (born August 16, 1954)&lt;/span&gt;
   &lt;span&gt;Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
 &lt;/div&gt;</pre>
 
-<p>This specifies that the item contained in the div is in fact a Movie, as defined in the schema.org type hierarchy. Item types are provided as URLs, in this case <code>http://schema.org/Movie</code>.
+<p>This specifies that the item contained in the div is in fact a Movie, as defined in the schema.org type hierarchy. Item types are provided as URLs, in this case <code>https://schema.org/Movie</code>.
 
 <p class="backtotop" style="text-align:right;"><a href="#top">Back to top</a></p>
 
 <h3 id="microdata_itemprop">1c. itemprop</h3>
-<p>What additional information can we give search engines about the movie Avatar? Movies have interesting properties such as actors, director, ratings. To label properties of an item, use the <code>itemprop</code> attribute. For example, to identify the director of a movie, add <code>itemprop="director"</code> to the element enclosing the director's name. (There's a full list of all the properties you can associate with a movie at http://schema.org/Movie.)</p>
+<p>What additional information can we give search engines about the movie Avatar? Movies have interesting properties such as actors, director, ratings. To label properties of an item, use the <code>itemprop</code> attribute. For example, to identify the director of a movie, add <code>itemprop="director"</code> to the element enclosing the director's name. (There's a full list of all the properties you can associate with a movie at https://schema.org/Movie.)</p>
 
-<pre>&lt;div itemscope itemtype ="http://schema.org/Movie"&gt;
+<pre>&lt;div itemscope itemtype ="https://schema.org/Movie"&gt;
   &lt;h1 <strong>itemprop="name"</strong>&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: &lt;span <strong>itemprop="director"</strong>&gt;James Cameron&lt;/span&gt; (born August 16, 1954)&lt;/span&gt;
   &lt;span <strong>itemprop="genre"</strong>&gt;Science fiction&lt;/span&gt;
@@ -179,9 +136,9 @@ examples to see how the details compare.</p>
 <h3 id="microdata_embedded">1d. Embedded items</h3>
 <p>Sometimes the value of an item property can itself be another item with its own set of properties. For example, we can specify that the director of the movie is an item of type Person and the Person has the properties <code>name</code> and <code>birthDate</code>. To specify that the value of a property is another item, you begin a new <code>itemscope</code> immediately after the corresponding <code>itemprop</code>.</p>
 
-<pre>&lt;div itemscope itemtype ="http://schema.org/Movie"&gt;
+<pre>&lt;div itemscope itemtype ="https://schema.org/Movie"&gt;
   &lt;h1 itemprop="name"&gt;Avatar&lt;/h1&gt;
-  &lt;div <strong>itemprop="director" itemscope itemtype="http://schema.org/Person"</strong>&gt;
+  &lt;div <strong>itemprop="director" itemscope itemtype="https://schema.org/Person"</strong>&gt;
   Director: &lt;span itemprop="name"&gt;James Cameron&lt;/span&gt; (born &lt;span <strong>itemprop="birthDate"</strong>&gt;August 16, 1954&lt;/span&gt;)
   &lt;/div&gt;
   &lt;span itemprop="genre">Science fiction&lt;/span&gt;
@@ -224,10 +181,10 @@ examples to see how the details compare.</p>
   <li><strong>Using the url property.</strong> Some web pages are about a specific item. For example, you may have a web page about a single person, which you could mark up using the Person item type. Other pages have a collection of items described on them. For example, your company site could have a page listing employees, with a link to a profile page for each person. For pages like this with a collection of items, you should mark up each item separately (in this case as a series of Persons) and add the url property to the link to the corresponding page for each item, like this:
 
 <pre>
-&lt;div itemscope itemtype="http://schema.org/Person"&gt;
+&lt;div itemscope itemtype="https://schema.org/Person"&gt;
   &lt;a href="alice.html" <strong>itemprop="url"</strong>&gt;Alice Jones&lt;/a&gt;
 &lt;/div&gt;
-&lt;div itemscope itemtype="http://schema.org/Person"&gt;
+&lt;div itemscope itemtype="https://schema.org/Person"&gt;
   &lt;a href="bob.html" <strong>itemprop="url"</strong>&gt;Bob Smith&lt;/a&gt;
 &lt;/div&gt;
 </pre>
@@ -266,7 +223,7 @@ examples to see how the details compare.</p>
 
 <p>Let's see this in context. Here's some HTML describing a concert taking place on May 8, 2011. The Event markup includes the name of the event, a description, and the date of the event.</p>
 
-<pre>&lt;div <strong>itemscope itemtype="http://schema.org/Event"</strong>&gt;
+<pre>&lt;div <strong>itemscope itemtype="https://schema.org/Event"</strong>&gt;
   &lt;div <strong>itemprop="name"</strong>&gt;Spinal Tap&lt;/div&gt;
   &lt;span <strong>itemprop="description"</strong>&gt;One of the loudest bands ever
   reunites for an unforgettable two-day show.&lt;/span&gt;
@@ -288,12 +245,12 @@ examples to see how the details compare.</p>
 
 
 <h4 id="advanced_enum_enum">Enumerations</h4>
-<p>Some properties can take only a limited set of possible values. Programmers often call these "enumerations." For example, an online store with an item for sale could use the <a href="http://schema.org/Offer">Offer</a> item type to specify the details of the offer. The <code>availability</code> property can typically have one of only a few possible values&mdash;<code>In stock</code>, <code>Out of stock</code>, <code>Pre-order</code>, and so on. Much like item types are specified as URLs, possible values for an enumeration on schema.org can also be specified as URLs.</p>
+<p>Some properties can take only a limited set of possible values. Programmers often call these "enumerations." For example, an online store with an item for sale could use the <a href="https://schema.org/Offer">Offer</a> item type to specify the details of the offer. The <code>availability</code> property can typically have one of only a few possible values&mdash;<code>In stock</code>, <code>Out of stock</code>, <code>Pre-order</code>, and so on. Much like item types are specified as URLs, possible values for an enumeration on schema.org can also be specified as URLs.</p>
 
 <p>Here is an item for sale, marked up with the Offer type and relevant properties:</p>
 
 <pre>
-&lt;div itemscope itemtype="http://schema.org/Offer">
+&lt;div itemscope itemtype="https://schema.org/Offer">
   &lt;span itemprop="name"&gt;Blend-O-Matic&lt;/span&gt;
   &lt;span itemprop="price"&gt;$19.95&lt;/span&gt;
   &lt;span itemprop="availability">Available today!&lt;/span&gt;
@@ -301,19 +258,19 @@ examples to see how the details compare.</p>
 
 <p>And here is the same item, but using <code>link</code> and <code>href</code> to unambiguously specify the availability as one of the permitted values:</p>
 
-<pre>&lt;div itemscope itemtype="http://schema.org/Offer"&gt;
+<pre>&lt;div itemscope itemtype="https://schema.org/Offer"&gt;
   &lt;span itemprop="name"&gt;Blend-O-Matic&lt;/span&gt;
   &lt;span itemprop="price"&gt;$19.95&lt;/span&gt;
-  <strong>&lt;link itemprop="availability" href="http://schema.org/InStock"/&gt;</strong>Available today!
+  <strong>&lt;link itemprop="availability" href="https://schema.org/InStock"/&gt;</strong>Available today!
 &lt;/div&gt;</pre>
 
-<p>Schema.org provides enumerations for a handful of properties&mdash;typically wherever there are a limited number of typical values for a property, there is a corresponding enumeration specified in schema.org. In this case, the possible values for <code>availability</code> are specified in <a href="http://schema.org/ItemAvailability">ItemAvailability</a>.</p>
+<p>Schema.org provides enumerations for a handful of properties&mdash;typically wherever there are a limited number of typical values for a property, there is a corresponding enumeration specified in schema.org. In this case, the possible values for <code>availability</code> are specified in <a href="https://schema.org/ItemAvailability">ItemAvailability</a>.</p>
 
 <h4 id="advanced_canonical">Canonical references</h4>
 
 <p>Typically, links are specified using the <code>&lt;a&gt;</code> element. For example, the following HTML links to the Wikipedia page for the book Catcher in the Rye.</p>
 
-<pre>&lt;div itemscope itemtype="http://schema.org/Book">
+<pre>&lt;div itemscope itemtype="https://schema.org/Book">
   &lt;span itemprop="name"&gt;The Catcher in the Rye&lt;/span&gt;&mdash;
   by &lt;span itemprop="author">J.D. Salinger&lt;/span&gt;
   Here is the book's &lt;a <strong>itemprop="url"</strong> href="http://en.wikipedia.org/wiki/The_Catcher_in_the_Rye"&gt;Wikipedia page&lt;/a&gt;.
@@ -323,7 +280,7 @@ examples to see how the details compare.</p>
 
 <p>However, you might not want to add a visible link on your page. In this case, you can use a <code>link</code> element instead, as follows:</p>
 
-<pre>&lt;div itemscope itemtype="http://schema.org/Book"&gt;
+<pre>&lt;div itemscope itemtype="https://schema.org/Book"&gt;
   &lt;span itemprop="name"&gt;The Catcher in the Rye&lt;/span&gt;&mdash;
   <strong>&lt;link itemprop="url" href="http://en.wikipedia.org/wiki/The_Catcher_in_the_Rye" /&gt;</strong>
   by &lt;span itemprop="author"&gt;J.D. Salinger&lt;/span&gt;
@@ -336,7 +293,7 @@ examples to see how the details compare.</p>
 
 <p>In these cases, use the <code>meta</code> tag along with the <code>content</code> attribute to specify the information. Consider this example&mdash;the image shows users a 4 out of 5 star rating:</p>
 
-<pre>&lt;div itemscope itemtype="http://schema.org/Offer">
+<pre>&lt;div itemscope itemtype="https://schema.org/Offer">
   &lt;span itemprop="name"&gt;Blend-O-Matic&lt;/span&gt;
   &lt;span itemprop="price"&gt;$19.95&lt;/span&gt;
   &lt;img src="four-stars.jpg" /&gt;
@@ -345,10 +302,10 @@ examples to see how the details compare.</p>
 
 <p>Here is the example again with the rating information marked up.</p>
 
-<pre>&lt;div itemscope itemtype="http://schema.org/Offer"&gt;
+<pre>&lt;div itemscope itemtype="https://schema.org/Offer"&gt;
   &lt;span itemprop="name"&gt;Blend-O-Matic&lt;/span&gt;
   &lt;span itemprop="price"&gt;$19.95&lt;/span&gt;
-  &lt;div <strong>itemprop="reviews" itemscope itemtype="http://schema.org/AggregateRating"</strong>&gt;
+  &lt;div <strong>itemprop="reviews" itemscope itemtype="https://schema.org/AggregateRating"</strong>&gt;
     &lt;img src="four-stars.jpg" /&gt;
     <strong>&lt;meta itemprop="ratingValue" content="4" /&gt;</strong>
     <strong>&lt;meta itemprop="bestRating" content="5" /&gt;</strong>
@@ -361,15 +318,12 @@ examples to see how the details compare.</p>
 
 <h3 id="advanced_extending">3d. Extending schema.org</h3>
 
-<p>Most sites and organizations will not have a reason to extend schema.org. However, schema.org offers the ability to specify additional properties or sub-types to existing types. If you are interested in doing this, read more about the <a href="http://schema.org/docs/extension.html">schema.org extension mechanism</a>. </p>
+<p>Most sites and organizations will not have a reason to extend schema.org. However, schema.org offers the ability to specify additional properties or sub-types to existing types. If you are interested in doing this, read more about the <a href="https://schema.org/docs/extension.html">schema.org extension mechanism</a>. </p>
 <br /><br /><br />
 
   </div>
 
-
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

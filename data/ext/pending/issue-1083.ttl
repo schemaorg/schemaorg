@@ -1,14 +1,15 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :variableMeasured a rdf:Property ;
     rdfs:label "variableMeasured" ;
-    :category "issue-1083" ;
-    :domainIncludes :Dataset ;
-    :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :PropertyValue,
-        :Text ;
+    :domainIncludes :Dataset, :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :PropertyValue, :Property,
+        :Text, :StatisticalVariable ;
     :source <https://github.com/schemaorg/schemaorg/issues/1083> ;
-    rdfs:comment "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+    rdfs:comment "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue, or more explicitly as a [[StatisticalVariable]]." .
 

@@ -1,4 +1,4 @@
-TYPES: #itemlist-1 BreadcrumbList, ItemList, ListItem, itemListElement, item
+TYPES: #eg-0377 BreadcrumbList, ItemList, ListItem, itemListElement, item
 
 PRE-MARKUP:
 
@@ -13,15 +13,15 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<ol itemscope itemtype="http://schema.org/BreadcrumbList">
+<ol itemscope itemtype="https://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope
-      itemtype="http://schema.org/ListItem">
+      itemtype="https://schema.org/ListItem">
     <a itemprop="item" href="https://example.com/dresses">
     <span itemprop="name">Dresses</span></a>
     <meta itemprop="position" content="1" />
   </li>
   <li itemprop="itemListElement" itemscope
-      itemtype="http://schema.org/ListItem">
+      itemtype="https://schema.org/ListItem">
     <a itemprop="item" href="https://example.com/dresses/real">
     <span itemprop="name">Real Dresses</span></a>
     <meta itemprop="position" content="2" />
@@ -30,7 +30,7 @@ MICRODATA:
 
 RDFA:
 
-<ol vocab="http://schema.org/" typeof="BreadcrumbList">
+<ol vocab="https://schema.org/" typeof="BreadcrumbList">
   <li property="itemListElement" typeof="ListItem">
     <a property="item" typeof="WebPage" href="https://example.com/dresses">
      <span property="name">Dresses</span></a>
@@ -43,12 +43,11 @@ RDFA:
   </li>
 </ol>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
- "@context": "http://schema.org",
+ "@context": "https://schema.org",
  "@type": "BreadcrumbList",
  "itemListElement":
  [
@@ -73,5 +72,4 @@ JSON:
  ]
 }
 </script>
-
 

@@ -1,0 +1,155 @@
+require 'rubygems'
+require 'strscan'
+require 'rdf'
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
+
+task :default => %i(clean examples vocab context spec)
+
+desc "Clean generated files"
+task :clean do
+  %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schema.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schemas.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schema_context.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/examples_spec.rb", __FILE__)}}
+end
+
+desc "Create schema example index"
+task :examples  do
+  %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
+  %x{mkdir #{File.expand_path("../spec/data", __FILE__)}}
+
+  # Those examples expected to fail are noted using a "name-format" pattern.
+  # If an example matches one of this it is marked as expecting to _not_ lint cleanly.
+  pending = {}
+  File.readlines(File.expand_path("../../../data/pending-failures.txt", __FILE__)).each do |test|
+    next if test.match?(/^\s*#/)
+    test.sub!(/^rspec .* - /, '')  # Remove leading respec output
+    name, format = test.split
+    next unless name && format
+    format = format[1..-2] if format.start_with?('(') && format.end_with?(')')
+    (pending[name] ||= {})[format.downcase.to_sym] = true
+  end
+
+  spec = File.open(File.expand_path("../spec/examples_spec.rb", __FILE__), "w")
+  spec.write %{$:.unshift File.expand_path("..", __FILE__)
+require 'spec_helper'
+
+describe "Examples" do
+  before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
+}
+  Dir.glob(File.expand_path("../../site/releases/LATEST/schemaorg-all-examples.txt", __FILE__)).each do |file|
+    next if file.include?('issue-template')
+    spec.write("\n  # Examples from data/#{file.split('/data/').last}\n")
+    lineno = 1
+    s = StringScanner.new(File.read(file))
+    types = body = format = nil
+
+    while !s.eos?
+      # Scan each format until TYPES is found again, or EOF
+      body = s.scan_until(/^(TYPES|PRE-MARKUP|MICRODATA|RDFA|JSON|JSONLD):/)
+      body_lines = body.to_s.count("\n")
+      if body.nil?
+        body = s.rest
+        s.terminate
+      end
+
+      # Trim body
+      body = body[0..-(s.matched.to_s.length+1)].gsub("\r", '').strip + "\n"
+      case format
+      when :microdata, :rdfa, :jsonld
+        raise "TYPES does not start with example frag: #{types}" unless types.to_s.start_with?('#')
+        name, _ = types.split(/\s+/, 2)
+        name = name[1..-1]  # Remove initial '#'
+
+        # Write example out for reading later
+        path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
+        next if body.sub(/\s*/m, '').empty?
+        File.open(path, "w") {|f| f.write(body)}
+        pend = pending.dig(name, format) ? "pending 'fix'; " : ''
+        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {#{pend}expect("#{path}").to lint_cleanly}\n})
+      end
+      lineno += body_lines
+
+      case s.matched
+      when "TYPES:"
+        types = s.scan_until(/$/).strip
+        format = :types
+      when "PRE-MARKUP:"  then format = :pre
+      when "MICRODATA:"   then format = :microdata
+      when "RDFA:"        then format = :rdfa
+      when "JSON:"        then format = :jsonld
+      when "JSONLD:"      then format = :jsonld
+      else
+        format = nil
+      end
+    end
+
+  end
+  spec.write %{end\n}
+end
+
+desc "Create custom pre-compiled vocabulary"
+task vocab: %w(spec/schema.rb spec/schemas.rb)
+
+file "spec/schema.rb" => :do_build do
+  #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../site/releases/LATEST", __FILE__)).last
+  puts "Generate spec/schema.rb"
+  cmd = "bundle exec rdf"
+  cmd += " serialize --uri http://schema.org/ --output-format vocabulary"
+  cmd += " --module-name RDF::Vocab"
+  cmd += " --class-name SCHEMA"
+  cmd += " --strict"
+  cmd += " --noDoc"
+  cmd += " -o spec/schema.rb_t"
+  cmd += " #{rel}/schemaorg-current-http.nq"
+  puts "  #{cmd}"
+  begin
+    %x{#{cmd} && mv spec/schema.rb_t spec/schema.rb}
+  rescue
+    puts "Failed to load schema: #{$!.message}"
+  ensure
+    %x{rm -f spec/schema.rb_t}
+  end
+end
+
+file "spec/schemas.rb" => :do_build do
+  #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../site/releases/LATEST", __FILE__)).last
+  puts "Generate spec/schemas.rb"
+  cmd = "bundle exec rdf"
+  cmd += " serialize --uri https://schema.org/ --output-format vocabulary"
+  cmd += " --module-name RDF::Vocab"
+  cmd += " --class-name SCHEMAS"
+  cmd += " --strict"
+  cmd += " --noDoc"
+  cmd += " -o spec/schemas.rb_t"
+  cmd += " #{rel}/schemaorg-current-https.nq"
+  puts "  #{cmd}"
+  begin
+    %x{#{cmd} && mv spec/schemas.rb_t spec/schemas.rb}
+  rescue
+    puts "Failed to load schemas: #{$!.message}"
+  ensure
+    %x{rm -f spec/schemas.rb_t}
+  end
+end
+
+desc "Create pre-compiled context"
+task context: "spec/schema_context.rb"
+file "spec/schema_context.rb" => :do_build do
+  puts "Generate spec/schema_context.rb"
+  require 'json/ld'
+  File.open("spec/schema_context.rb", "w") do |f|
+    c = JSON::LD::Context.parse(File.expand_path("../../site/releases/LATEST/schemaorgcontext.jsonld", __FILE__))
+    c.context_base = 'http://schema.org/'
+    f.write c.to_rb('https://schema.org', 'http:/schema.org', 'https://schema.org/', 'http://schema.org/')
+  end
+end
+
+task :do_build

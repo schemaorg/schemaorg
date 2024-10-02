@@ -1,4 +1,4 @@
-TYPES:  MedicalWebPage,DrugClass
+TYPES: #eg-0225 MedicalWebPage, DrugClass
 
 PRE-MARKUP:
 
@@ -14,12 +14,12 @@ and atenonlol (Tenormin) ...
 
 MICRODATA:
 
-<body itemscope itemtype="http://schema.org/MedicalWebPage">
-  <link itemprop="audience" href="http://schema.org/Patient" />
-  <link itemprop="specialty" href="http://schema.org/Cardiovascular" />
+<body itemscope itemtype="https://schema.org/MedicalWebPage">
+  <link itemprop="audience" href="https://schema.org/Patient" />
+  <link itemprop="specialty" href="https://schema.org/Cardiovascular" />
   <meta itemprop="lastReviewed" content="2011-09-14"/>
   <h1>About
-    <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
+    <span itemprop="about" itemscope itemtype="https://schema.org/MedicalCondition">
       <span itemprop="name">High Blood Pressure</span>
       (<span itemprop="name">hypertension</span>)</span>
   </h1>
@@ -30,14 +30,15 @@ MICRODATA:
   <h2><span itemprop="mainContentOfPage">Treatment</span></h2>
   There are many common treatments for high blood pressure,
   including
-  <span itemscope itemtype="http://schema.org/DrugClass">
+  <span itemscope itemtype="https://schema.org/DrugClass">
     <span itemprop="name">beta-blocker</span> drugs such as
-    <span itemprop="drug" itemscope itemtype="http://schema.org/Drug">
+    <span itemprop="drug" itemscope itemtype="https://schema.org/Drug">
       <span itemprop="nonProprietaryName">propanaolol</span>
       (<span itemprop="alternateName">Innopran</span>)
     </span>
+  </span>
   and
-    <span itemprop="drug" itemscope itemtype="http://schema.org/Drug">
+    <span itemprop="drug" itemscope itemtype="https://schema.org/Drug">
       <span itemprop="nonProprietaryName">atenolol</span>
       (<span itemprop="alternateName">Tenormin</span>)
     </span> ...
@@ -46,9 +47,9 @@ MICRODATA:
 
 RDFA:
 
-<body vocab="http://schema.org/" typeof="MedicalWebPage">
-  <link property="audience" href="http://schema.org/Patient" />
-  <link property="specialty" href="http://schema.org/Cardiovascular" />
+<body vocab="https://schema.org/" typeof="MedicalWebPage">
+  <link property="audience" href="https://schema.org/Patient" />
+  <link property="specialty" href="https://schema.org/Cardiovascular" />
   <meta property="lastReviewed" content="2011-09-14"/>
   <h1>About
     <span property="about"  typeof="MedicalCondition">
@@ -68,6 +69,7 @@ RDFA:
       <span property="nonProprietaryName">propanaolol</span>
       (<span property="alternateName">Innopran</span>)
     </span>
+  </span>
   and
     <span property="drug"  typeof="Drug">
       <span property="nonProprietaryName">atenolol</span>
@@ -80,7 +82,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "MedicalWebPage",
   "about": {
     "@type": "MedicalCondition",
@@ -93,7 +95,7 @@ JSON:
     "Diagnosis",
     "Treatment"
   ],
-  "audience": "http://schema.org/Patient",
+  "audience": "https://schema.org/Patient",
   "drug": [
     {
       "@type": "Drug",
@@ -108,6 +110,7 @@ JSON:
   ],
   "lastReviewed": "2011-09-14",
   "name": "beta-blocker",
-  "specialty": "http://schema.org/Cardiovascular"
+  "specialty": "https://schema.org/Cardiovascular"
 }
 </script>
+

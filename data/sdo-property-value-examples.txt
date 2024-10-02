@@ -1,4 +1,4 @@
-TYPES: #exif ImageObject, PropertyValue, additionalProperty
+TYPES: #eg-0404 ImageObject, PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -19,7 +19,7 @@ Flash:            Flash did not fire.
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/ImageObject">
+<div itemscope itemtype="https://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
   <img src="mexico-beach.jpg" alt="" itemprop="contentUrl" />
   By <span itemprop="author">Jane Doe</span>
@@ -29,23 +29,23 @@ MICRODATA:
     <meta itemprop="datePublished" content="2008-01-25">Jan 25, 2008
   <span itemprop="description">I took this picture while on vacation last year.</span>
 <!-- Note: We do not split value strings in unit and value information, since this the raw EXIF data does not provide this granularity. If you are able to separate the unit, you can use the unitText property -->
-  <div itemprop="exifData" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="exifData" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="name" content="Exposure Time">
       <meta itemprop="value" content="1/659 sec.">
   </div>
-  <div itemprop="exifData" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="exifData" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="name" content="FNumber">
       <meta itemprop="value" content="f/4.0">
   </div>
-  <div itemprop="exifData" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="exifData" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="name" content="MaxApertureValue">
       <meta itemprop="value" content="2.00">
   </div>
-  <div itemprop="exifData" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="exifData" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="name" content="Metering Mode">
       <meta itemprop="value" content="Pattern">
   </div>
-  <div itemprop="exifData" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="exifData" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="name" content="Flash">
       <meta itemprop="value" content="Flash did not fire.">
   </div>
@@ -53,7 +53,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="ImageObject">
+<div vocab="https://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
   <img src="mexico-beach.jpg" alt="" property="contentUrl" />
   By <span property="author">Jane Doe</span>
@@ -89,7 +89,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "ImageObject",
   "author": "Jane Doe",
   "contentLocation": "Puerto Vallarta, Mexico",
@@ -127,8 +127,7 @@ JSON:
 }
 </script>
 
-
-TYPES:  #pointvalue-1 PropertyValue, additionalProperty
+TYPES: #eg-0405 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -146,10 +145,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Point Value, with unit as text -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Approx. Weight</span>
       <span itemprop="value">450</span>
       <span itemprop="unitText">gram</span>
@@ -157,49 +156,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-TYPES:  #pointvalue-1 PropertyValue, additionalProperty
-
-PRE-MARKUP:
-
-<!-- Product: Point Value, with unit as symbol -->
-<div>
-  <img src="camera123.jpg" alt="" />
-  <span>Digital Camera 123</span>
-  <div>
-      <span>Approx. Weight</span>
-      <span>450</span>
-      <span>g</span>
-  </div>
-</div>
-
-MICRODATA:
-
-<!-- Product: Point Value, with unit as symbol -->
-<div itemscope itemtype="http://schema.org/Product">
-  <img itemprop="image" src="camera123.jpg" alt="" />
-  <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-      <span itemprop="name">Approx. Weight</span>
-      <span itemprop="value">450</span>
-      <span itemprop="unitText">g</span>
-  </div>
-</div>
-
-RDFA:
-No RDFa
-
-JSON:
-No JSON-lD
-
-
-
-TYPES:  #pointvalue-3 PropertyValue, additionalProperty
+TYPES: #eg-0406 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -216,10 +180,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Point Value, with unit as UN/CEFACT Common Code -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Approx. Weight</span>
       <span itemprop="value">450</span>
       <meta itemprop="unitCode" content="GRM">g
@@ -227,14 +191,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #range-1 PropertyValue, additionalProperty
+TYPES: #eg-0407 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -253,10 +217,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Range, with unit as UN/CEFACT Common Code -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Operating Voltage</span>
       <span itemprop="minValue">100</span>-
       <span itemprop="maxValue">250</span>
@@ -265,14 +229,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #openinterval PropertyValue, additionalProperty
+TYPES: #eg-0408 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -290,10 +254,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Open Interval, with unit as UN/CEFACT Common Code -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Wifi range</span>: up to
       <span itemprop="maxValue">30</span>
 <!-- Note: The UN/CEFACT Common Code for foot is FOT -->
@@ -302,14 +266,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #intervals PropertyValue, additionalProperty
+TYPES: #eg-0409 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -328,10 +292,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Multiple Intervals -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Operating voltage</span>:
       <span itemprop="value">9-12</span> or
       <span itemprop="value">100-250</span>
@@ -340,14 +304,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #range-and-enumeration PropertyValue
+TYPES: #eg-0410 PropertyValue
 
 PRE-MARKUP:
 
@@ -366,10 +330,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Range and Enumerated Values -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">ISO Sensitivity</span>:
       <span itemprop="value">100-6400</span>/
       <span itemprop="value">12,800</span> (Hi-1)
@@ -378,14 +342,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #boolean PropertyValue, additionalProperty
+TYPES: #eg-0411 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -401,24 +365,24 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Boolean Value -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">USB interface</span>:
       <meta itemprop="value" content="True">Yes
   </div>
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #qualitative-1 PropertyValue, additionalProperty
+TYPES: #eg-0412 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -434,24 +398,24 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Qualitative Value -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Interface</span>:
       <span itemprop="value">USB</span>
   </div>
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #qualitative-2 PropertyValue, additionalProperty
+TYPES: #eg-0413 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -469,10 +433,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Qualitative Value (multiple) -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Interfaces</span>:
       <span itemprop="value">USB</span>,
       <span itemprop="value">Ethernet</span>
@@ -480,14 +444,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #property-id-1 PropertyValue, additionalProperty
+TYPES: #eg-0414 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -506,10 +470,10 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Property ID for clarifying the meaning of a property: URI from external vocabulary -->
-<div itemscope itemtype="http://schema.org/Car">
+<div itemscope itemtype="https://schema.org/Car">
   <img itemprop="image" src="station_waggon123.jpg" alt="" />
   <span itemprop="name">Station Waggon 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Luggage Capacity (seats folded)</span>:
       <span itemprop="value">500</span>
       <meta itemprop="unitCode" content="LTR">liter
@@ -518,14 +482,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #property-id-2 PropertyValue, additionalProperty
+TYPES: #eg-0415 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -540,15 +504,14 @@ PRE-MARKUP:
   </div>
 </div>
 
-
 MICRODATA:
 
 <!-- Product: Property ID for clarifying the meaning of a property: Code from eCl@ss Standard -->
 <!-- The Property code 02-AAM226 is for "USB interface present" in eCl@ss 8.1 -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">USB Interface</span>:
       <meta itemprop="value" content="True">Yes
       <meta itemprop="propertyID" content="eclass81:02-AAM226">
@@ -556,14 +519,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #valueref PropertyValue, additionalProperty
+TYPES: #eg-0416 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -587,16 +550,16 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Value References -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Operating Voltage</span>
       <span itemprop="minValue">100</span>-
       <span itemprop="maxValue">250</span>
       <meta itemprop="unitCode" content="VLT">volts
       at
-      <div itemprop="valueReference" itemscope itemtype="http://schema.org/PropertyValue">
+      <div itemprop="valueReference" itemscope itemtype="https://schema.org/PropertyValue">
          <span itemprop="value">50</span>
          <span itemprop="unitText">Hz</span>
       </div>
@@ -604,14 +567,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-
-TYPES:  #ratios PropertyValue, additionalProperty
+TYPES: #eg-0417 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -633,14 +596,14 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Ratios -->
-<div itemscope itemtype="http://schema.org/Car">
+<div itemscope itemtype="https://schema.org/Car">
   <img itemprop="image" src="station_waggon123.jpg" alt="" />
   <span itemprop="name">Station Waggon 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <span itemprop="name">Fuel consumption</span>:
       <span itemprop="value">5</span>
       <meta itemprop="unitCode" content="LTR">liter /
-      <div itemprop="valueReference" itemscope itemtype="http://schema.org/PropertyValue">
+      <div itemprop="valueReference" itemscope itemtype="https://schema.org/PropertyValue">
         <span itemprop="value">100</span>
         <span itemprop="unitText">km</span>
       </div>
@@ -648,13 +611,14 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-TYPES:  #grouping PropertyValue, additionalProperty
+TYPES: #eg-0418 PropertyValue, additionalProperty
 
 PRE-MARKUP:
 
@@ -679,18 +643,18 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- Product: Grouping and Hierarchical Order of Properties -->
-<div itemscope itemtype="http://schema.org/Product">
+<div itemscope itemtype="https://schema.org/Product">
   <img itemprop="image" src="camera123.jpg" alt="" />
   <span itemprop="name">Digital Camera 123</span>
-  <div itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
       <strong itemprop="name">Focus/Autofocus</strong>
-      <div itemprop="value" itemscope itemtype="http://schema.org/PropertyValue">
+      <div itemprop="value" itemscope itemtype="https://schema.org/PropertyValue">
         <span itemprop="name">Picture Control</span>
         <span itemprop="value">Landscape</span>
         <span itemprop="value">Monochrome</span>
         <span itemprop="value">Portrait</span>
       </div>
-      <div itemprop="value" itemscope itemtype="http://schema.org/PropertyValue">
+      <div itemprop="value" itemscope itemtype="https://schema.org/PropertyValue">
         <span itemprop="name">Single-point AF Mode</span>:
         <meta itemprop="value" content="True">Yes
       </div>
@@ -698,14 +662,10 @@ MICRODATA:
 </div>
 
 RDFA:
+
 No RDFa
 
 JSON:
+
 No JSON-LD
 
-
-TYPES:  FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:

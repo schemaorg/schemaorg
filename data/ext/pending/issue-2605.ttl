@@ -1,16 +1,16 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ProductCollection a rdfs:Class ;
     rdfs:label "ProductCollection" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2597> ;
+    rdfs:comment "A set of products (either [[ProductGroup]]s or specific variants) that are listed together e.g. in an [[Offer]]." ;
+    rdfs:subClassOf :Collection,
+        :Product .
 
-    rdfs:subClassOf :Collection ;
-    rdfs:comment """A set of products (either [[ProductGroup]]s or specific variants) that are listed together e.g. in an [[Offer]].""" ;
+:includesObject :domainIncludes :ProductCollection .
 
-    :category "issue-2597" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2597> .
-
-# TODO: how to say that something is in such a collection?
-# are we ok with this being a creative work vs a pure data structure i.e. intangible

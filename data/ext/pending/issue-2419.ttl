@@ -1,10 +1,11 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :applicationDeadline a rdf:Property ;
     rdfs:label "applicationDeadline" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Date ,
@@ -14,9 +15,8 @@
 
 :applicationStartDate a rdf:Property ;
     rdfs:label "applicationStartDate" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
     rdfs:comment "The date at which the program begins collecting applications for the next enrollment cycle." .
@@ -26,32 +26,29 @@
 
 :educationalProgramMode a rdf:Property ;
     rdfs:label "educationalProgramMode" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
-    rdfs:comment "Similar to courseMode, The medium or means of delivery of the program as a whole. The value may either be a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
+    rdfs:comment "Similar to courseMode, the medium or means of delivery of the program as a whole. The value may either be a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
 
 :endDate a rdf:Property ;
     :domainIncludes :EducationalOccupationalProgram .
 
 :maximumEnrollment a rdf:Property ;
     rdfs:label "maximumEnrollment" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
     rdfs:comment "The maximum number of students who may be enrolled in the program." .
 
 :numberOfCredits a rdf:Property ;
     rdfs:label "numberOfCredits" ;
-    :category "issue-2419" ;
     :domainIncludes :Course,
         :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer,
         :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
@@ -62,36 +59,32 @@
 
 :termDuration a rdf:Property ;
     rdfs:label "termDuration" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Duration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
     rdfs:comment "The amount of time in a term as defined by the institution. A term is a length of time where students take one or more classes. Semesters and quarters are common units for term." .
 
 :termsPerYear a rdf:Property ;
     rdfs:label "termsPerYear" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
     rdfs:comment "The number of times terms of study are offered per year. Semesters and quarters are common units for term. For example, if the student can only take 2 semesters for the program in one year, then termsPerYear should be 2." .
 
 :timeOfDay a rdf:Property ;
     rdfs:label "timeOfDay" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
     rdfs:comment "The time of day the program normally runs. For example, \"evenings\"." .
 
 :typicalCreditsPerTerm a rdf:Property ;
     rdfs:label "typicalCreditsPerTerm" ;
-    :category "issue-2419" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer,
         :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2419> ;

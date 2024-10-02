@@ -1,17 +1,17 @@
-TYPES: #service-1 Service, TaxiService, GeoCircle, geoMidPoint, geoRadius, providerMobility
+TYPES: #eg-0421 Service, TaxiService, GeoCircle, geoMidpoint, geoRadius, providerMobility
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Car for hire driver #123 is within 50 meters of a given location, but is moving.
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TaxiService">
-  <div itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+<div itemscope itemtype="https://schema.org/TaxiService">
+  <div itemprop="provider" itemscope itemtype="https://schema.org/LocalBusiness">
     <span itemprop="name">driver #123</span>
-    <div itemprop="location" itemscope itemtype="http://schema.org/Place">
-      <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCircle">
-        <div itemprop="geoMidpoint" itemscope itemtype="http://schema.org/GeoCoordinates">
+    <div itemprop="location" itemscope itemtype="https://schema.org/Place">
+      <div itemprop="geo" itemscope itemtype="https://schema.org/GeoCircle">
+        <div itemprop="geoMidpoint" itemscope itemtype="https://schema.org/GeoCoordinates">
           <meta itemprop="latitude" content="42.362757" />
           <meta itemprop="longitude" content="-71.087109" />
         </div>
@@ -24,7 +24,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TaxiService">
+<div vocab="https://schema.org/" typeof="TaxiService">
   <div property="provider" typeof="LocalBusiness">
     <span property="name">driver #123</span>
     <div property="location" typeof="Place">
@@ -44,7 +44,7 @@ JSON:
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "TaxiService",
     "provider": {
       "@type": "LocalBusiness",
@@ -65,3 +65,4 @@ JSON:
     "providerMobility": "dynamic"
   }
 </script>
+

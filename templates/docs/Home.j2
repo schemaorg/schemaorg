@@ -1,0 +1,113 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% macro head_insert() -%}
+    <meta name="google-site-verification" content="sF2wOoEXHr7h_vTNkOOJXQxDWw2h-B4QwizxbkoIQC0" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://schema.org",
+        "name": "Schema.org",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://schema.org/docs/search_results.html?q={query}"
+          },
+          "query-input": "required name=query"
+        },
+        "about": {
+          "@type": "Project",
+          "name": "Schema.org Project",
+          "description": "Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond.",
+          "logo": "https://schema.org/docs/schemaicon.png",
+          "sameAs": "https://github.com/schemaorg/schemaorg/",
+          "foundingDate": "2011-06-2",
+          "founder": [{
+            "@type": "Corporation",
+            "name": "Google",
+            "url": "https://google.com"
+          }, {
+            "@type": "Corporation",
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+          }, {
+            "@type": "Corporation",
+            "name": "Yahoo",
+            "url": "https://yahoo.com"
+          }, {
+            "@type": "Corporation",
+            "name": "Yandex",
+            "url": "https://yandex.com"
+          }],
+          "publishingPrinciples": "https://www.w3.org/community/about/process/cla/"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Schema.org Community Group",
+          "sameAs": "https://www.w3.org/community/schemaorg/"
+        }
+    }
+    </script>
+    {%- endmacro %}
+    {% set head_insert_available = true %}
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+
+    <div class="row">
+      <section>
+        <h1>
+            <span style="color:#900">Schema.org</span> is a collaborative, community activity with a mission to create,
+            maintain, and promote schemas for structured data on the
+            Internet, on web pages, in email messages, and beyond.
+        </h1>
+      </section>
+    </div>
+
+    <div class="row">
+      <section>
+        <p>
+            Schema.org vocabulary can be used with many different encodings,
+            including RDFa, Microdata and JSON-LD. These vocabularies cover
+            entities, relationships between entities and actions, and can
+            easily be extended through a well-documented extension model.
+            As of 2024, over 45 million web domains markup their web pages with
+            over 450 billion Schema.org objects.
+            Many applications from Google, Microsoft, Pinterest, Yandex and others
+            already use these vocabularies to power rich, extensible experiences.
+        </p>
+        <p>
+            Founded by Google, Microsoft, Yahoo and Yandex,
+            Schema.org vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
+            using the <a
+            href="http://lists.w3.org/Archives/Public/public-schemaorg">public-schemaorg@w3.org</a>
+             mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>.
+        </p>
+      </section>
+
+      <section>
+        <p>
+           A shared vocabulary makes it easier for webmasters and developers to decide
+           on a schema and get the maximum benefit for their efforts.
+           It is in this spirit that the founders, together with the
+           larger community have come together - to provide a shared collection of schemas.
+         </p>
+
+        <p class="bold">
+            We invite you to <a href="docs/gs.html">get started</a>!
+        </p>
+        <p class="bold">
+            View our blog at <a href="http://blog.schema.org">blog.schema.org</a> or see <a href="/docs/releases.html">release history</a> for version {{version}}.
+        </p>
+      </section>
+    </div>
+
+        <br/>
+    </div> <!-- mainContent -->
+  {% include 'PageFooter.j2' with context %}
+</body>
+</html>

@@ -1,0 +1,26 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+:countryOfLastProcessing a rdf:Property ;
+    rdfs:label "countryOfLastProcessing" ;
+    :domainIncludes :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> ;
+    rdfs:comment "The place where the item (typically [[Product]]) was last processed and tested before importation." .
+    # GS1 include "ingredient", but we don't model those explicitly yet.
+
+:countryOfAssembly a rdf:Property ;
+    rdfs:label "countryOfAssembly" ;
+    :domainIncludes :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> ;
+    rdfs:comment "The place where the product was assembled." .
+
+
+    # see also countryOfOrigin in ../../schema.ttl

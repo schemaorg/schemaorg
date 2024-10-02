@@ -1,4 +1,4 @@
-TYPES: Grant
+TYPES: #eg-0309 Grant
 
 PRE-MARKUP:
 
@@ -16,7 +16,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Dataset",
   "@id": "https://doi.org/10.5061/dryad.m53r1",
   "funding": {
@@ -31,8 +31,7 @@ JSON:
 }
 </script>
 
-
-TYPES: Grant
+TYPES: #eg-0310 Grant
 
 PRE-MARKUP:
 
@@ -50,7 +49,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Dataset",
   "@id": "https://doi.org/10.5061/dryad.m53r1",
   "funder": {
@@ -61,8 +60,7 @@ JSON:
 }
 </script>
 
-
-TYPES: MonetaryGrant
+TYPES: #eg-0311 MonetaryGrant
 
 PRE-MARKUP:
 
@@ -80,7 +78,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "MonetaryGrant",
   "identifier": "1448821",
   "url": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=1448821&HistoricalAwards=false",
@@ -100,10 +98,7 @@ JSON:
 }
 </script>
 
-
-
-
-TYPES: Grant
+TYPES: #eg-0312 Grant
 
 PRE-MARKUP:
 
@@ -121,8 +116,8 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  @type": "Person",
+  "@context": "https://schema.org",
+  "@type": "Person",
   "name": "Turner, Caroline B.",
   "givenName": "Caroline B.",
   "familyName": "Turner",
@@ -131,9 +126,182 @@ JSON:
      "identifier": "1448821",
      "funder": {
        "@type": "Organization",
-       "name": National Science Foundation",
+       "name": "National Science Foundation",
        "identifier": "https://doi.org/10.13039/100000001"
      }
    }
 }
 </script>
+
+TYPES: #eg-0469 Grant, ResearchProject, FundingAgency
+
+PRE-MARKUP:
+
+A scientific dataset.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Turner, Caroline B.",
+  "givenName": "Caroline B.",
+  "familyName": "Turner",
+  "funding": {
+     "@type": "Grant",
+     "identifier": "1448821",
+     "funder": {
+       "@type": "Organization",
+       "name": "National Science Foundation",
+       "identifier": "https://doi.org/10.13039/100000001"
+     }
+   }
+}
+</script>
+
+TYPES: #eg-0470 Grant, Dataset
+
+PRE-MARKUP:
+
+EXample showing a research project that was funded by 3 grants.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "ResearchProject",
+  "name": "U.S. GLOBEC Southern Ocean",
+  "url": "https://www.bco-dmo.org/project/2039",
+  "funding": [
+    {
+      "@type": "MonetaryGrant",
+      "name": "Foraging Ecology of Crabeater Seals (Lobodon Carcinophagus)",
+      "alternateName": "ANT-9909933",
+      "url": "https://www.bco-dmo.org/award/54719",
+      "sameAs": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=9909933",
+      "funder": {
+        "@id": "https://doi.org/10.13039/100000162",
+        "@type": "FundingAgency",
+        "name": "NSF Antarctic Sciences",
+        "alternateName": "NSF ANT",
+        "url": "https://www.bco-dmo.org/funding-source/369",
+        "sameAs": "https://doi.org/10.13039/100000162",
+        "parentOrganization": {
+          "@type": "FundingAgency",
+          "name": "National Science Foundation",
+          "alternateName":  "NSF",
+          "sameAs": "https://doi.org/10.13039/100000001"
+        }
+      }
+    },
+    {
+      "@type": "MonetaryGrant",
+      "name": "GLOBEC: Sea Ice Microbial Communities",
+      "alternateName": "ANT-9910098",
+      "url": "https://www.bco-dmo.org/award/54688",
+      "sameAs": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=9910098",
+      "funder": {"@id": "https://doi.org/10.13039/100000162"}
+    },
+    {
+      "@type": "MonetaryGrant",
+      "name": "unknown SOGLOBEC NSF ANT",
+      "url": "https://www.bco-dmo.org/award/54617",
+      "funder": {"@id": "https://doi.org/10.13039/100000162"}
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-0471 Grant, ResearchProject, FundingAgency
+
+PRE-MARKUP:
+
+A scientific dataset.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Turner, Caroline B.",
+  "givenName": "Caroline B.",
+  "familyName": "Turner",
+  "funding": {
+     "@type": "Grant",
+     "identifier": "1448821",
+     "funder": {
+       "@type": "Organization",
+       "name": "National Science Foundation",
+       "identifier": "https://doi.org/10.13039/100000001"
+     }
+   }
+}
+</script>
+
+TYPES: #eg-0472 Grant, Dataset
+
+PRE-MARKUP:
+
+EXample showing that a data repository was funded by the US National Science Foundation.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org/",
+  "@id": "https://www.bco-dmo.org",
+  "@type": "Organization",
+  "name": "Biological and Chemical Oceanography Data Management Office",
+  "alternateName": "BCO-DMO",
+  "url": "https://www.bco-dmo.org",
+  "funding": {
+    "@type": "MonetaryGrant",
+    "name": "BCO-DMO: Accelerating Scientific Discovery through Adaptive Data Management",
+    "url": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=1924618",
+    "funder": {
+      "@type": "FundingAgency",
+      "name": "National Science Foundation",
+      "alternateName":  "NSF",
+      "sameAs": "https://doi.org/10.13039/100000001"
+    }
+  }
+}
+
+</script>
+

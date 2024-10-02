@@ -1,4 +1,4 @@
-TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+TYPES: #eg-0321 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -8,29 +8,26 @@ See also https://github.com/daisy/epub-revision-a11y/wiki/ePub-3.1-Accessibility
 
 MICRODATA:
 
-TODO
-
 RDFA:
 
-TODO
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Book",
   "name": "Some graphic novel",
   "accessMode": ["textual", "visual"],
-  "accessModeSufficient": [ 
+  "accessModeSufficient": [
     {
-      "@type": "ItemList", 
-      "itemListElement": ["textual", "visual"], 
+      "@type": "ItemList",
+      "itemListElement": ["textual", "visual"],
       "description": "Text and images"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["textual"], 
+      "@type": "ItemList",
+      "itemListElement": ["textual"],
       "description": "Text with textual alternatives and descriptions for images"
     }
   ],
@@ -38,8 +35,7 @@ JSON:
 }
 </script>
 
-
-TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+TYPES: #eg-0322 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -58,33 +54,26 @@ TODO
 JSON:
 
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Movie",
   "accessMode": ["auditory", "visual"],
   "accessibilityFeature": ["audioDescription", "captions"],
-  "accessModeSufficient": [ 
+  "accessModeSufficient": [
     {
-      "@type": "ItemList", 
-      "itemListElement": ["textual", "visual"], 
+      "@type": "ItemList",
+      "itemListElement": ["textual", "visual"],
       "description": "Closed captioning"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["auditory"], 
+      "@type": "ItemList",
+      "itemListElement": ["auditory"],
       "description": "Audio description"
     }
   ],
   "accessibilitySummary": "Captions provided in English; short scenes in French have English subtitles instead."
 }
 
-
-
-
-
-
-
-
-TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+TYPES: #eg-0323 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -103,37 +92,38 @@ TODO
 JSON:
 
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Book",
   "name": "Alice in Wonderland",
   "accessMode": ["auditory", "textual", "visual"],
   "accessibilityFeature": ["alternativeText", "synchronizedAudioText"],
-  "accessModeSufficient": [ 
+  "accessModeSufficient": [
     {
-      "@type": "ItemList", 
-      "itemListElement": ["textual"], 
+      "@type": "ItemList",
+      "itemListElement": ["textual"],
       "description": "See the text"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["textual", "visual"], 
+      "@type": "ItemList",
+      "itemListElement": ["textual", "visual"],
       "description": "See the text and images"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["auditory"], 
+      "@type": "ItemList",
+      "itemListElement": ["auditory"],
       "description": "Hear the text and image descriptions"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["auditory", "visual"], 
+      "@type": "ItemList",
+      "itemListElement": ["auditory", "visual"],
       "description": "Hear the text and see the images"
     },
     {
-      "@type": "ItemList", 
-      "itemListElement": ["auditory", "visual", "textual"], 
+      "@type": "ItemList",
+      "itemListElement": ["auditory", "visual", "textual"],
       "description": "Hear the text and see the text and images"
     }
   ],
   "accessibilitySummary": "Short descriptions are provided; long descriptions of the images are not needed for most readers."
 }
+

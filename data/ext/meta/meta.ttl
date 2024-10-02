@@ -1,54 +1,54 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Class a rdfs:Class ;
     rdfs:label "Class" ;
-    :isPartOf <http://meta.schema.org> ;
     rdfs:comment "A class, also often called a 'Type'; equivalent to rdfs:Class." ;
     rdfs:subClassOf :Intangible ;
-    owl:equivalentClass rdfs:Class .
+    owl:equivalentClass rdfs:Class ;
+    :isPartOf <https://meta.schema.org> .
 
 :Property a rdfs:Class ;
     rdfs:label "Property" ;
-    :isPartOf <http://meta.schema.org> ;
     rdfs:comment "A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property." ;
     rdfs:subClassOf :Intangible ;
-    owl:equivalentClass rdf:Property .
+    owl:equivalentClass rdf:Property ;
+    :isPartOf <https://meta.schema.org> .
 
-<http://meta.schema.org/> rdfs:label "meta" ;
-    rdfs:comment "A test comment." .
+<https://meta.schema.org/> rdfs:label "meta" ;
+    rdfs:comment "Meta contains terms to support the implementation of the Schema.org vocabulary itself." .
 
 :domainIncludes a rdf:Property ;
     rdfs:label "domainIncludes" ;
+    rdfs:comment "Relates a property to a class that is (one of) the type(s) the property is expected to be used on." ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
-    :rangeIncludes :Class ;
-    rdfs:comment "Relates a property to a class that is (one of) the type(s) the property is expected to be used on." .
+    :isPartOf <https://meta.schema.org> ;
+    :rangeIncludes :Class .
 
 :inverseOf a rdf:Property ;
     rdfs:label "inverseOf" ;
+    rdfs:comment "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used." ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
-    :rangeIncludes :Property ;
-    rdfs:comment "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used." .
+    :isPartOf <https://meta.schema.org> ;
+    :rangeIncludes :Property .
 
 :rangeIncludes a rdf:Property ;
     rdfs:label "rangeIncludes" ;
+    rdfs:comment "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property." ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
-    :rangeIncludes :Class ;
-    rdfs:comment "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property." .
+    :isPartOf <https://meta.schema.org> ;
+    :rangeIncludes :Class .
 
 :supersededBy a rdf:Property ;
     rdfs:label "supersededBy" ;
+    rdfs:comment "Relates a term (i.e. a property, class or enumeration) to one that supersedes it." ;
     :domainIncludes :Class,
         :Enumeration,
         :Property ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     :rangeIncludes :Class,
         :Enumeration,
-        :Property ;
-    rdfs:comment "Relates a term (i.e. a property, class or enumeration) to one that supersedes it." .
+        :Property .
 

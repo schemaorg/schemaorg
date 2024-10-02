@@ -1,4 +1,4 @@
-TYPES:  MedicalGuideline,MedicalGuidelineRecommendation,MedicalGuidelineContraindication
+TYPES: #eg-0224 MedicalGuideline, MedicalGuidelineRecommendation, MedicalGuidelineContraindication
 
 PRE-MARKUP:
 
@@ -16,30 +16,30 @@ MICRODATA:
 <h1>Guidelines</h1>
 <ul>
   <li>Recommendation:
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
-    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/Drug">
+  <span itemscope itemtype="https://schema.org/MedicalGuidelineRecommendation">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/Drug">
       <span itemprop="name">NewvoDrug</span>
     </span>
     is indicated for initial treatment of
-    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/MedicalCondition">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span>
     </span>
     for all adult patients.
     (<span itemprop="recommendationStrength">Strong recommendation</span>;
-    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">Class I</a>,
+    <a itemprop="evidenceLevel" href="https://schema.org/EvidenceLevelA">Class I</a>,
     based on
     <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
   </li>
   <li>Contraindication:
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineContraindication">
-    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/MedicalCondition">
+  <span itemscope itemtype="https://schema.org/MedicalGuidelineContraindication">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span></span> should never
     be treated with
-    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
+    <span itemprop="guidelineSubject" itemscope itemtype="https://schema.org/TherapeuticProcedure">
       <span itemprop="name">appendectomy</span></span> in adults.
-    (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span itemprop="evidenceOrigin">standard of care</span></a>)
+    (Class III, <link itemprop="evidenceLevel" href="https://schema.org/EvidenceLevelC"/>
+    <span itemprop="evidenceOrigin">standard of care</span>)
   </span></li>
 </ul>
 
@@ -58,7 +58,7 @@ RDFA:
     </span>
     for all adult patients.
     (<span property="recommendationStrength">Strong recommendation</span>;
-    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
+    <a property="evidenceLevel" href="https://schema.org/EvidenceLevelA">
       Class I</a>,
     based on
     <span property="evidenceOrigin">multiple randomized clinical trials</span>)
@@ -71,8 +71,8 @@ RDFA:
     be treated with
     <span property="guidelineSubject"  typeof="TherapeuticProcedure">
       <span property="name">appendectomy</span></span> in adults.
-    (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span property="evidenceOrigin">standard of care</span></a>)
+    (Class III, <link property="evidenceLevel" href="https://schema.org/EvidenceLevelC"/>
+    <span property="evidenceOrigin">standard of care</span>)
   </span></li>
 </ul>
 
@@ -80,11 +80,11 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "MedicalGuidelineRecommendation",
-      "evidenceLevel": "http://schema.org/EvidenceLevelA",
+      "evidenceLevel": "https://schema.org/EvidenceLevelA",
       "evidenceOrigin": "multiple randomized clinical trials",
       "recommendationStrength": "Strong recommendation",
       "guidelineSubject": [
@@ -100,7 +100,7 @@ JSON:
     },
     {
       "@type": "MedicalGuidelineContraindication",
-      "evidenceLevel": "http://schema.org/EvidenceLevelC",
+      "evidenceLevel": "https://schema.org/EvidenceLevelC",
       "evidenceOrigin": "standard of care",
       "guidelineSubject": [
         {
@@ -116,3 +116,4 @@ JSON:
   ]
 }
 </script>
+

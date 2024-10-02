@@ -1,5 +1,4 @@
-
-TYPES:  MedicalScholarlyArticle,MedicalGuideline,MedicalGuidelineRecommendation
+TYPES: #eg-0222 MedicalScholarlyArticle, MedicalGuideline, MedicalGuidelineRecommendation
 
 PRE-MARKUP:
 
@@ -20,12 +19,12 @@ pharmacologic therapy to treat most patients with type 2 diabetes
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/MedicalScholarlyArticle">
-  <link itemprop="audience" href="http://schema.org/Clinician"/>
+<div itemscope itemtype="https://schema.org/MedicalScholarlyArticle">
+  <link itemprop="audience" href="https://schema.org/Clinician"/>
   <meta itemprop="publicationType" content="Meta-Analysis"/>
   <h1><span itemprop="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p><span itemprop="author" itemscope itemtype="https://schema.org/Person">
     <span itemprop="name">Dr. John Smith</span>
     <br><span itemprop="affiliation">Medical University</span>
   </span>
@@ -35,10 +34,10 @@ MICRODATA:
   treatment of type-2 diabetes mellitus and provide new clinical guideline
   recommendations.</span></p>
   <p><b>MeSH subject headings:</b>
-  <span itemprop="about" itemscope itemtype="http://schema.org/Drug">
+  <span itemprop="about" itemscope itemtype="https://schema.org/Drug">
     <span itemprop="name">Metformin</span>
     <span itemprop="code" itemscope
-          itemtype="http://schema.org/MedicalCode"
+          itemtype="https://schema.org/MedicalCode"
           itemid="http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450">
       <!-- Note: use of itemid is not mandatory, but recommended when an
            external enumeration is available -->
@@ -46,10 +45,10 @@ MICRODATA:
       <meta itemprop="codingSystem" content="MeSH"/>
     </span>
   </span>;
-  <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
+  <span itemprop="about" itemscope itemtype="https://schema.org/MedicalCondition">
     <span itemprop="name">Diabetes Mellitus, Type 2</span>
     <span itemprop="code" itemscope
-          itemtype="http://schema.org/MedicalCode"
+          itemtype="https://schema.org/MedicalCode"
           itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
       <!-- Note: use of itemid is not mandatory, but recommended when an
            external enumeration is available -->
@@ -59,20 +58,20 @@ MICRODATA:
   </span></p>
   ...
   <h3>Guidelines</h3>
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
+  <span itemscope itemtype="https://schema.org/MedicalGuidelineRecommendation">
     Recommendation: we recommend monotherapy with
     <span itemprop="guidelineSubject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span itemprop="guidelineSubject">type 2 diabetes</span>
     (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
-    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+    <a itemprop="evidenceLevel" href="https://schema.org/EvidenceLevelA">high-quality
       evidence</a>).
   </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
-  <link property="audience" href="http://schema.org/Clinician"/>
+<div vocab="https://schema.org/" typeof="MedicalScholarlyArticle">
+  <link property="audience" href="https://schema.org/Clinician"/>
   <meta property="publicationType" content="Meta-Analysis"/>
   <h1><span property="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
@@ -114,7 +113,7 @@ RDFA:
     <span property="guidelineSubject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span property="guidelineSubject">type 2 diabetes</span>
     (Grade: <span property="recommendationStrength">strong recommendation</span>;
-    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+    <a property="evidenceLevel" href="https://schema.org/EvidenceLevelA">high-quality
       evidence</a>).
   </span>
 </div>
@@ -123,7 +122,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "MedicalScholarlyArticle",
   "about": [
     {
@@ -141,27 +140,16 @@ JSON:
       "name": "Diabetes Mellitus, Type 2"
     }
   ],
-  "audience": "http://schema.org/Clinician",
+  "audience": "https://schema.org/Clinician",
   "author": {
     "@type": "Person",
     "affiliation": "Medical University",
     "name": "Dr. John Smith"
   },
-  "code": {
-    "@id": "http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149",
-    "@type": "MedicalCode",
-    "code": "C18.452.394.750.149",
-    "codingSystem": "MeSH"
-  },
   "datePublished": "2012-03-24",
   "description": "We review clinical evidence related to the use of metformin for treatment of type-2 diabetes mellitus and provide new clinical guideline recommendations.",
-  "evidenceLevel": "http://schema.org/EvidenceLevelA",
   "name": "New guidelines for metformin and diabetes mellitus",
-  "publicationType": "Meta-Analysis",
-  "recommendationStrength": "strong recommendation",
-  "guidelineSubject": [
-    "metformin",
-    "type 2 diabetes"
-  ]
-}
+  "publicationType": "Meta-Analysis"
+  }
 </script>
+

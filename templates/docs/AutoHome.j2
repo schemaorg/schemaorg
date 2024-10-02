@@ -1,0 +1,25 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+<h1>Schema.org section: auto</h1>
+<p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
+For more details, see the <a href="/">homepage</a>.
+
+</p>
+
+<p>
+You are viewing the Auto Section within <a href="/">schema.org</a>. It defines terms such as {{ sdotermlink('MotorizedBicycle')|safe }} and adds terms to {{ sdotermlink('Car')|safe }}. 
+For more details see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
+</p>
+
+{% set SECTIONNAME = "auto" %}
+{% include 'docs/HomeTermsList.j2' with context %}
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>

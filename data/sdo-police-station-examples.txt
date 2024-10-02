@@ -1,0 +1,52 @@
+TYPES: #eg-0403 PoliceStation, areaServed
+
+PRE-MARKUP:
+
+Police station example (JSON-LD only).
+
+MICRODATA:
+
+<!-- TODO -->
+
+RDFA:
+
+<!-- TODO -->
+
+JSON:
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PoliceStation",
+        "name": "Youngstown Central Police Station",
+        "description": "Central police station",
+        "openingHours": "Mo-Su",
+        "telephone": "+13303301888",
+        "email": "ohio.police.example@example.com",
+        "image": "https://homepages.cae.wisc.edu/~ece533/images/lena.png",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Youngstown",
+            "addressRegion": "OH",
+            "postalCode": "44507",
+            "streetAddress": "270  Derek Drive"
+        },
+        "areaServed": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+                "@type": "GeoCoordinates",
+                "latitude": 41.108237,
+                "longitude": -80.642982
+            },
+            "geoRadius": 1000
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "bestRating": 100,
+            "worstRating": 0,
+            "ratingValue": 88,
+            "reviewCount": 122
+        }
+    }
+</script>
+
