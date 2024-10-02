@@ -42,6 +42,7 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 def initialize():
     """Initialize various systems, returns the args object"""
     parser = argparse.ArgumentParser(description=__doc__)

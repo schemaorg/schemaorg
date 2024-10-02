@@ -24,12 +24,13 @@ log = logging.getLogger(__name__)
 
 class collaborator(object):
     """Wrapper for the collaboration meta-data."""
+
     COLLABORATORS = {}
     CONTRIBUTORS = {}
 
     def __init__(self, ref, desc=None):
         self.ref = ref
-        self.urirel = os.path.join('/docs', 'collab', ref)
+        self.urirel = os.path.join("/docs", "collab", ref)
         self.uri = schemaglobals.HOMEPAGE + self.urirel
         self.docurl = self.urirel
         self.terms = None
@@ -47,7 +48,6 @@ class collaborator(object):
             % (self.ref, self.uri, self.contributor, self.img, self.title, self.url)
         )
 
-
     def _parseDesc(self, desc):
         """Parses data from the pseudo-markdown format.
 
@@ -64,41 +64,42 @@ class collaborator(object):
             if section == 1:
                 if line.startswith("---"):
                     continue
-                match = self.matchval('url', line)
+                match = self.matchval("url", line)
                 if match:
                     self.url = match
                     continue
-                match = self.matchval('title', line)
+                match = self.matchval("title", line)
                 if match:
                     self.title = match
                     continue
-                match = self.matchval('img', line)
+                match = self.matchval("img", line)
                 if match:
                     self.img = match
                     continue
             elif section > 1:
-                if self.matchsep('--- DescriptionText.md',line):
+                if self.matchsep("--- DescriptionText.md", line):
                     description_lines.append(line)
                     continue
-                if self.matchsep('--- AcknowledgementText.md',line):
+                if self.matchsep("--- AcknowledgementText.md", line):
                     acknowledgement_lines.append(line)
                     continue
 
-        self.description = localmarkdown.Markdown.parse(''.join(description_lines))
-        self.acknowledgement = localmarkdown.Markdown.parse(''.join(acknowledgement_lines))
-
+        self.description = localmarkdown.Markdown.parse("".join(description_lines))
+        self.acknowledgement = localmarkdown.Markdown.parse(
+            "".join(acknowledgement_lines)
+        )
 
     def matchval(self, val, line):
         matchstr = "(?i)%s:" % val
         o = re.search(matchstr, line)
         if o:
-            ret = line[len(val)+1:]
+            ret = line[len(val) + 1 :]
             return ret.strip()
         return None
 
     def matchsep(self, val, line):
-        line = re.sub(' ', '', line).lower()
-        val = re.sub(' ', '', val).lower()
+        line = re.sub(" ", "", line).lower()
+        val = re.sub(" ", "", val).lower()
         return line.startswith(val)
 
     def isContributor(self):
@@ -114,7 +115,7 @@ class collaborator(object):
     @classmethod
     def getCollaborator(cls, ref):
         cls.loadCollaborators()
-        coll = cls.COLLABORATORS.get(ref,None)
+        coll = cls.COLLABORATORS.get(ref, None)
         if not coll:
             log.warn("No such collaborator: %s" % ref)
         return coll
@@ -133,13 +134,12 @@ class collaborator(object):
         code = os.path.basename(file_path)
         ref, _ = os.path.splitext(code)
         try:
-            with open(file_path,'r', encoding='utf-8') as file_handle:
+            with open(file_path, "r", encoding="utf-8") as file_handle:
                 desc = file_handle.read()
             return cls(ref, desc=desc)
         except OSError as e:
             log.error("Error loading colaborator source %s: %s" % (file_path, e))
             return None
-
 
     @classmethod
     def loadCollaborators(cls):
@@ -147,8 +147,6 @@ class collaborator(object):
             for file_path in glob.glob("data/collab/*.md"):
                 cls.createCollaborator(file_path)
             log.info("Loaded %s collaborators" % len(cls.COLLABORATORS))
-
-
 
     @classmethod
     def createContributor(cls, ref):

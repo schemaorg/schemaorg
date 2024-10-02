@@ -322,7 +322,7 @@ class SdoTermSource:
             for obj in objs:
                 cont = sdocollaborators.collaborator.getContributor(str(obj))
                 if cont:
-                  self.aks.append(cont)
+                    self.aks.append(cont)
             self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
 
