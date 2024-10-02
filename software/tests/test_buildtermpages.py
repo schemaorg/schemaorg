@@ -49,8 +49,7 @@ class TestBuildTermPages(unittest.TestCase):
     """Test the term page rendering logic."""
 
     def testTemplateRenderNoExample(self):
-        term = sdoterm.SdoTerm(
-            termType=sdoterm.SdoTermType.TYPE,
+        term = sdoterm.SdoType(
             Id=42,
             uri="http://example.com/whatchicallit",
             label="whatchicallit",
@@ -72,8 +71,7 @@ class TestBuildTermPages(unittest.TestCase):
             )
         ]
         json = "[42]"
-        term = sdoterm.SdoTerm(
-            termType=sdoterm.SdoTermType.TYPE,
+        term = sdoterm.SdoType(
             Id=42,
             uri="http://example.com/thingamabob",
             label="Thingamabob",
