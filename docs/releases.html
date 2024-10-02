@@ -8,9 +8,9 @@
 
 <style type="text/css">
 table.grid {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
+  display: block;
+  overflow-x: auto;
+	font-size: .9rem;
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
@@ -23,7 +23,7 @@ table.grid th {
 	padding: 8px;
 	border-style: solid;
 	border-color: #666666;
-	background-color: #dedede;
+	background-color: #f0f0f0;
 }
 table.grid td {
 	border-width: 1px;
@@ -32,6 +32,18 @@ table.grid td {
 	border-color: #666666;
 	background-color: #ffffff;
 	vertical-align: top;
+}
+
+table {
+  h2, h3, p {
+    margin: 0;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
 }
 
 td.release  {
@@ -61,7 +73,7 @@ ul {
 <h1>Releases</h1>
 
 <p>This page lists schema.org releases, most recent first. New developments are <a href="https://github.com/schemaorg/schemaorg">discussed on Github</a>; editorial works-in-progress
-  are publicly staged on the <a href="http://webschemas.org/">webschemas.org</a> drafting site for review and collaboration. See <a href="howwework.html">how we work</a> for more background.</p>
+  are publicly staged on the <a href="https://staging.schema.org/">staging.schema.org</a> drafting site for review and collaboration. See <a href="howwework.html">how we work</a> for more background.</p>
 
 <p>
 A summary view of the current published release is available from: <a href="https://schema.org/version/latest">https://schema.org/version/latest</a>
@@ -76,16 +88,239 @@ A summary view of the current published release is available from: <a href="http
     <th>Description</th>
 </tr>
 
+<!-- note: please keep this file welformed XML i.e. close li tags etc. -->
 
 <tr>
-  <td class="release">23.0<br/>2023-XX-XX</td>
+  <td class="release">28.0<br/>2024-09-17</td>
   <td>
-  <span id="v23.0"></span>
+  <span id="v28.0"></span>
   <p>
-  Version 23.0</p>
+  Version 28.0 - Added support for member programs. Various build improvements and site updates.</p>
   </td>
   <td>
   <ul>
+    <li id="g3563"><a href="https://github.com/schemaorg/schemaorg/issues/3563">Issue #3563</a>:
+      Added support for loyalty programs through new classes <a href="/MemberProgram">MemberProgram</a>, <a href="/MemberProgramTier">MemberProgramTier</a>, and enumeration <a href="/TierBenefitEnumeration">TierBenefitEnumeration</a>. Also added properties <a href="/isTierOf">isTierOf</a>, <a href="/hasTiers">hasTiers</a>, <a href="/hasMemberProgram">hasMemberProgram</a>, <a href="/program">program</a>, <a href="/hasTierBenefit">hasTierBenefit</a>, and <a href="/validForMemberTier">validForMemberTier</a>.
+    </li>
+    <li id="g3583"><a href="https://github.com/schemaorg/schemaorg/issues/3583">Issue #3583</a>:
+      Add new enumeration value <a href="/RegularPrice">RegularPrice</a> for enumeration <a href="/PriceTypeEnumeration">PriceTypeEnumeration</a>.
+    </li>
+    <li id="g3581">
+		<a href="https://github.com/schemaorg/schemaorg/issues/3581">Issue #3581</a>,
+		<a href="https://github.com/schemaorg/schemaorg/issues/3559">Issue #3559</a>,
+		<a href="https://github.com/schemaorg/schemaorg/issues/3183">Issue #3183</a>,
+		<a href="https://github.com/schemaorg/schemaorg/issues/2926">Issue #2926</a>:
+      Add new enumeration values <a href="/Reserved">Reserved</a> and <a href="/MadeToOrder">MadeToOrder</a> for enumeration <a href="/ItemAvailability">ItemAvailability</a>.
+    </li>
+    <li id="g3488"><a href="https://github.com/schemaorg/schemaorg/issues/3488">Issue #3488</a>:
+      Fix documentation for <a href="/duration">duration</a>, which must be specified in ISO 8601 duration format.
+    </li>
+    <li id="g3537"><a href="https://github.com/schemaorg/schemaorg/issues/3537">Issue #3537</a>:
+      Cleanup <a href="/PaymentMethod">PaymentMethod</a> class.
+    </li>
+    <li id="g3486"><a href="https://github.com/schemaorg/schemaorg/issues/3486">Issue #3486</a>:
+      Removed non-existing link to count under <a href="/statType">statType</a>.
+    </li>
+    <li id="g3603"><a href="https://github.com/schemaorg/schemaorg/issues/3603">Issue #3603</a>:
+      Add <a href="/Organization">Organization</a> to range of <a href="/founder">founder</a> .
+    </li>
+    <li id="g3589">
+		<a href="https://github.com/schemaorg/schemaorg/pull/3589">PR #3589</a>:
+		<a href="https://github.com/schemaorg/schemaorg/pull/3598">PR #3598</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3599">PR #3599</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3600">PR #3600</a>:
+		Added/improved Schema.org website annotations.
+    </li>
+    <li id="g3562">
+		<a href="https://github.com/schemaorg/schemaorg/pull/3562">PR #3562</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3582">PR #3582</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3587">PR #3587</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3592">PR #3592</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3593">PR #3593</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3594">PR #3594</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3595">PR #3595</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3597">PR #3597</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3601">PR #3601</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3609">PR #3609</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3610">PR #3610</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3612">PR #3612</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3615">PR #3615</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3616">PR #3616</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3618">PR #3618</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3619">PR #3619</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3623">PR #3623</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3624">PR #3624</a>:
+		Build fixes and cleanups.
+	</li>
+    <li id="g3586">
+		<a href="https://github.com/schemaorg/schemaorg/pull/3586">PR #3586</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/3590">PR #3590</a>:
+		Small text/color updates.
+	</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">27.02<br/>2024-07-01</td>
+  <td>
+  <span id="v27.02"></span>
+  <p>
+  Version 27.02 - Migrate staging from webschemas.org to staging.schema.org.</p>
+  </td>
+  <td>
+    <ul>
+      <li id="g3556"><a href="https://github.com/schemaorg/schemaorg/pull/3556">PR #3556</a>: Updates references for webschemas.org to staging.schema.org.</li>
+      <li id="g3557"><a href="https://github.com/schemaorg/schemaorg/pull/3557">PR #3557</a>: Fix formatting for markdown documentation files.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="release">27.01<br/>2024-06-24</td>
+  <td>
+  <span id="v27.01"></span>
+  <p>
+  Version 27.01 - Site redesign.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3544"><a href="https://github.com/schemaorg/schemaorg/issues/3544">Issue #3544</a>:
+      Update to Schema.org site design.
+    </li>
+    <li id="g3542"><a href="https://github.com/schemaorg/schemaorg/issues/3542">Issue #3542</a>:
+      Extend 'MerchantReturnPolicySeasonalOverride' to enable overrides of more properties.
+    </li>
+    <li id="g3338"><a href="https://github.com/schemaorg/schemaorg/pull/3338">PR #3338</a>:
+      Update to <a href="/DonateAction">DonateAction</a> to extend <a href="/TradeAction">TradeAction</a>.
+    </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">27.01<br/>2024-06-24</td>
+  <td>
+  <span id="v27.01"></span>
+  <p>
+  Version 27.01 - Site redesign.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3544"><a href="https://github.com/schemaorg/schemaorg/issues/3544">Issue #3544</a>:
+      Update to Schema.org site design.
+    </li>
+    <li id="g3542"><a href="https://github.com/schemaorg/schemaorg/issues/3542">Issue #3542</a>:
+      Extend 'MerchantReturnPolicySeasonalOverride' to enable overrides of more properties.
+    </li>
+    <li id="g3338"><a href="https://github.com/schemaorg/schemaorg/pull/3338">PR #3338</a>:
+      Update to <a href="/DonateAction">DonateAction</a> to extend <a href="/TradeAction">TradeAction</a>.
+    </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">27.0<br/>2024-05-20</td>
+  <td>
+  <span id="v27.0"></span>
+  <p>
+  Version 27.0 - Adding support for GS1 Digital Link and a few smaller updates.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3475"><a href="https://github.com/schemaorg/schemaorg/issues/3475">Issue #3475</a>: 
+     Added new property <a href="/hasGS1DigitalLink">hasGS1DigitalLink</a> for use on <a href="/product">Product</a>, <a href="/Offer">Offer</a>, <a href="/Organization">Organization</a> and <a href="/Place">Place</a> to allow the specification of <a href="https://www.gs1.org/standards/gs1-digital-link">GS1 digital links</a>.
+    </li>
+    
+    <li id="g3476"><a href="https://github.com/schemaorg/schemaorg/issues/3476">Issue #3476</a>: 
+     Added new property <a href="/certificationRating">certificationRating</a> for use on <a href="/Certification">Certification</a> to allow the specification of a certification rating with a scale.
+    </li>
+      
+    <li id="p3502"><a href="https://github.com/schemaorg/schemaorg/issues/3502">Issue #3502</a>: 
+      Add existing property <a href="/acceptedPaymentMethod">acceptedPaymentMethod</a> for use on <a href="/Organization">Organization</a> to allow the specification of the payment method(s) a business accepts.
+      </li>
+      
+    <li id="p3474"><a href="https://github.com/schemaorg/schemaorg/issues/3474">Issue #3474</a>: 
+    Add build-time spell checks using <a href="https://github.com/codespell-project/codespell">codespell</a></a>.
+    </li>
+  </ul>
+</td>
+</tr>
+
+
+<tr>
+  <td class="release">26.0<br/>2024-02-12</td>
+  <td>
+  <span id="v26.0"></span>
+  <p>
+  Version 26.0 - Restoring Physician subtype of MedicalBusiness.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3467"><a href="https://github.com/schemaorg/schemaorg/issues/3467">Issue #3467</a>: 
+      Clarifying that <a href="/PhysiciansOffice">PhysiciansOffice</a> is a subtype of <a href="/MedicalBusiness">MedicalBusiness</a>.
+      </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">25.0<br/>2024-01-22</td>
+  <td>
+  <span id="v25.0"></span>
+  <p>
+  Version 25.0 - Add support for Certifications and a few smaller updates.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3230"><a href="https://github.com/schemaorg/schemaorg/issues/3230">Issue #3230</a>: Added <a href="/Certification">Certification</a> to allow the specification of certifications for places, organizations, products, and persons. Compatible with <a href="https://gs1.org/voc/CertificationDetails">gs1:CertificationDetails</a>.</li>
+    <li id="g3423"><a href="https://github.com/schemaorg/schemaorg/issues/3423">Issue #3423</a>: Added <a href="/colorSwatch">colorSwatch</a>.</li>
+    <li id="g2880"><a href="https://github.com/schemaorg/schemaorg/issues/2880">Issue #2880</a>: Added <a href="/KeepProduct">KeepProduct</a> for <a href="/ReturnMethodEnumeration">ReturnMethodEnumeration</a>.</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">24.0<br/>2024-01-09</td>
+  <td>
+  <span id="v24.0"></span>
+  <p>
+  Version 24.0 - Adding vocabulary for describing types of digital sources (in collaboration with IPTC), and clarifying subtypes of Physician.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g3420"><a href="https://github.com/schemaorg/schemaorg/issues/3420">Issue #3420</a>: 
+      Added <a href="/IndividualPhysician">IndividualPhysician</a>, <a href="/PhysiciansOffice">PhysiciansOffice</a> as subtypes of 
+      <a href="/Physician">Physician</a> to clarify the longstanding ambiguity between these two different interpretations of the 
+      <a href="/Physician">Physician</a> type. Amended <a href="/occupationalCategory">occupationalCategory</a> to be applicable 
+      here and added <a href="/usNPI">usNPI</a> for use with NPI identifiers in the US.
+      </li>
+      <li id="g3392"><a href="https://github.com/schemaorg/schemaorg/issues/3392">Issue #3392</a>: 
+        To help address situations around the responsible use of generative AI, we add a 
+        "digital source type" vocabulary based on <a href="/https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC's definitions</a>. 
+        This consists of a property <a href="/digitalSourceType">digitalSourceType</a>, 
+        an enumeration type <a href="/IPTCDigitalSourceEnumeration">IPTCDigitalSourceEnumeration</a>,
+        and a set of 14 coded values such as <a href="/TrainedAlgorithmicMediaDigitalSource">TrainedAlgorithmicMediaDigitalSource</a>
+        mapping directly to the <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">IPTC list</a>.
+      </li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">23.0<br/>2023-10-17</td>
+  <td>
+  <span id="v23.0"></span>
+  <p>
+  Version 23.0 - A collection of small fixes based on publisher feedback.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g2858"><a href="https://github.com/schemaorg/schemaorg/issues/2858">Issue #2858</a>: Added <a href="/agentInteractionStatistic">agentInteractionStatistic</a> to provide a way of counting interactions where the item of interest is in an "agent" rather than "object" role on the relevant Action.</li>
+    <li id="g3376"><a href="https://github.com/schemaorg/schemaorg/issues/3376">Issue #3376</a>: Provided a clearer way to indicate non-Comment items that Comments are attached to, by documenting the use of <a href="/parentItem">parentItem</a> on <a href="/CreativeWork">CreativeWork</a> in general. Also made it more explicit that this is especially applicable to those creative works beneath <a href="/Comment">Comment</a> in the type hierarchy which are mentioned in the definition, i.e. <a href="/Question">Question</a> and <a href="/Answer">Answer</a>.</li> 
+    <li id="g3389"><a href="https://github.com/schemaorg/schemaorg/issues/3389">Issue #3389</a>: Added <a href="/Comment">Comment</a> to the domain of <a href="/sharedContent">sharedContent</a> to better support link shares on replies/comments even though a lot of sites now support this.</li>
+    <li id="g3390"><a href="https://github.com/schemaorg/schemaorg/issues/3390">Issue #3390</a>: Expanded range of <a href="/uploadDate">uploadDate</a> to include <a href="/DateTime">DateTime</a>, correcting a longstanding bug.</li>
     <li id="g3347"><a href="https://github.com/schemaorg/schemaorg/issues/3347">PR #3347</a>: Improved error reporting in case the parsing of JSON-LD examples fails.</li>
     <li id="g3348"><a href="https://github.com/schemaorg/schemaorg/issues/3348">PR #3348</a>: Improvements to unit-testing code.</li>
     <li id="g3349"><a href="https://github.com/schemaorg/schemaorg/issues/3349">PR #3349</a>: Fixed all RDF comments that did not finish with a punctuation. Plus improved reporting of these.</li>
@@ -206,7 +441,7 @@ A summary view of the current published release is available from: <a href="http
       <li id="g3065"><a href="https://github.com/schemaorg/schemaorg/pull/3065">PR #3065</a>: Added an example of ESIP Science-On-Schema markup to <a href="/Dataset">Dataset</a> and <a href="/ResearchProject">ResearchProject</a>.</li>   
       <li id="g2859"><a href="https://github.com/schemaorg/schemaorg/pull/2859">PR #2859</a>: Added <a href="/PerformanceRole">PerformanceRole</a> example <a href="/actor">actor</a> property.</li>   
       <li id="g3298"><a href="https://github.com/schemaorg/schemaorg/issues/3298">Issue #3298</a>: Corrected priceCurrency examples in <a href="/Offer">Offer</a> examples.</li>
-      <li id="g3303"><a href="https://github.com/schemaorg/schemaorg/issues/3303">Issue #3303</a>: Added <a href="/bed">bed</a> and <a href="/occupancy">occupancy</a> to <a href="/Accommodation">Accomodation</a> and added a subtype of <a href="/LodgingBusiness">LodgingBusiness</a> called <a href="/VacationRental">VacationRental</a>.</li>   
+      <li id="g3303"><a href="https://github.com/schemaorg/schemaorg/issues/3303">Issue #3303</a>: Added <a href="/bed">bed</a> and <a href="/occupancy">occupancy</a> to <a href="/Accommodation">Accommodation</a> and added a subtype of <a href="/LodgingBusiness">LodgingBusiness</a> called <a href="/VacationRental">VacationRental</a>.</li>   
     </ul>
       <h3>Changes in new area:</h3>
     <ul>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 
 import sys
@@ -68,7 +68,3 @@ for ftype in exts:
         format = "pretty-xml"
     output = outGraph.serialize(format=format,auto_compact=True,**kwargs).decode()
     f.write(output)
-
-        
-        
-

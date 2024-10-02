@@ -433,17 +433,19 @@ JSON:
 }
 </script>
 
-TYPES: #eg-0007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone
+TYPES: #eg-0007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone, iso6523Code
 
 PRE-MARKUP:
 
 Google.Org
 
 Contact Details:
-Main address: 38 avenue de l'Opera, F-75002 Paris, France
+Main address: 38 avenue de l'Opéra, F-75002 Paris, France
  Tel: ( 33 1) 42 68 53 00, Fax: ( 33 1) 42 68 53 01
 E-mail: secretariat (at) google.org
 URL: <a href="http://www.google.org">www.google.org</a>
+SIRET Code: 443 061 841 00039
+VAT Number: FR64443061841
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -459,7 +461,7 @@ MICRODATA:
 Contact Details:
   <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
     Main address:
-      <span itemprop="streetAddress">38 avenue de l'Opera</span>
+      <span itemprop="streetAddress">38 avenue de l'Opéra</span>
       <span itemprop="postalCode">F-75002</span>
       <span itemprop="addressLocality">Paris, France</span>
     ,
@@ -467,6 +469,8 @@ Contact Details:
     Tel:<span itemprop="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span itemprop="faxNumber">( 33 1) 42 68 53 01 </span>,
     E-mail: <span itemprop="email">secretariat(at)google.org</span>
+    SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
+    VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -498,6 +502,8 @@ Contact Details:
     Tel:<span property="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span property="faxNumber">( 33 1) 42 68 53 01 </span>,
     E-mail: <span property="email">secretariat(at)google.org</span>
+    SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
+    VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -522,10 +528,12 @@ JSON:
     "@type": "PostalAddress",
     "addressLocality": "Paris, France",
     "postalCode": "F-75002",
-    "streetAddress": "38 avenue de l'Opera"
+    "streetAddress": "38 avenue de l'Opéra"
   },
   "email": "secretariat(at)google.org",
-  "faxNumber": "( 33 1) 42 68 53 01",
+  "faxNumber": "+33142685301",
+  "iso6523Code": "0009:44306184100039",
+  "iso6523Code": "9957:FR64443061841",
   "member": [
     {
       "@type": "Organization"
@@ -545,7 +553,7 @@ JSON:
     }
   ],
   "name": "Google.org (GOOG)",
-  "telephone": "( 33 1) 42 68 53 00"
+  "telephone": "+33 1 42 68 53 00"
 }
 </script>
 

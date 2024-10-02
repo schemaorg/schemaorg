@@ -1,3 +1,30 @@
+#infoblock {
+  #infohead {
+    padding-bottom: 1.5em;
+
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .superPaths {
+    font-weight: 700;
+  }
+
+  #infomsg {
+    margin-bottom: 1rem;
+  }
+}
+
+.definition-table {
+  .prop-name {
+  font-weight: normal;
+  }
+
+  .prop-ect, .prop.desc {
+  }
+}
+
   .pln    { color: #444;    } /* plain text                 */
   .tag    { color: #515484; } /* div, span, a, etc          */
   .atn,
@@ -20,24 +47,12 @@
   display: block;
   padding: 5px;
   border-radius: 7px;
-  /*border: 1px solid;*/
   margin-bottom: 10px;
-  /*box-shadow: 2px 2px lightgrey;*/
 }
 
 .ack {
   display: block;
-  margin: 5px;
-  padding: 5px;
-}
-.ack-first{
-  padding-top: 0;
-  padding-bottom: 5px;
-}
-
-.ack-rest{
-  border-top: solid 1px;
-  padding: 10px 5px 5px 5px;
+  margin-bottom: 1em;
 }
 
 .ack-head {
@@ -60,63 +75,21 @@
 }
 
 .clipbutton {
-    color: #202020 !important;
-    border: 0;
-    padding : 2px;
+  background: none;
+  border: 0;
+  padding : 2px;
 }
 
 .example-head {
     display: block;
-    padding-bottom: 5px;
+    padding-bottom: .5rem;
 }
 
 /* example tab selection */
-.ds-selector-tabs {
-    padding-bottom: 2em;
-  }
-  .ds-selector-tabs .selectors {
-    padding: 0;
-    display: contents;
-    width: auto;
-    overflow-x: auto;
-    border-bottom: 1px solid #ccc;
-    height: 28px;
-  }
-  .ds-selector-tabs .selectors a {
-    display: inline-block;
-    min-width: 30px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: bold;
-    height: 27px;
-    padding: 0 8px;
-    line-height: 27px;
-    transition: all,0.218s;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
-    color: #666;
-    border: 1px solid transparent;
-  }
-  .ds-selector-tabs .selectors a:first-child {
-    margin-left: 2px;
-  }
-  .ds-selector-tabs .selectors a.selected {
-    color: #202020 !important;
-    border: 1px solid #ccc;
-    border-bottom: 1px solid #fff !important;
-  }
-  #mainContent .ds-selector-tabs .selectors a:hover {
-    background-color: transparent;
-    color: #202020;
-    cursor: pointer;
-  }
-  .ds-selector-tabs .ds-tab {
-    display: none;
-  }
-  .ds-selector-tabs .ds-tab.selected {
-    display: block;
-  }
-  
+a.clickableAnchor {
+  font-weight: 700;
+  line-height: 22px;
+}
 
 .selectors code {
     padding-top: 0 !important;
@@ -124,15 +97,18 @@
 }
 
 .ds-tab pre.ds-tab-content{
+  background: var(--table-background);
+  border: none;
   display: block;
   margin-top: 1px;
 }
 
 div.ds-tab-note{
     display: block;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 17px;
+    padding-bottom: 17px;
     font-style: italic;
+    font-size: .875rem;
 }
 a.ds-tab-note{
     color: #3A4956;
@@ -209,3 +185,10 @@ a:hover.ds-tab-note{
   visibility: visible;
 }
 
+a.core, a.ext, .localLink {
+  font-family: "Noto Sans Mono", monospace;
+}
+
+.jumptarget {
+  margin-bottom: 2em;
+}

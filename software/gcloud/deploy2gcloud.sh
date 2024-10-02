@@ -74,7 +74,7 @@ do
     P="$response"
     case "$P" in
         "webschemas-g")
-            echo "WARNING deployment to project 'webschemas-g' only via 'deploy2webschemas.org.sh' script"
+            echo "WARNING deployment to project 'webschemas-g' only via 'deploy2staging.schema.org.sh' script"
             P=""
             ;;
         "schemaorgae")

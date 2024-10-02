@@ -1,0 +1,22 @@
+@prefix : <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcs: <https://datacommons.org/schema/> .
+
+# Conservatively add in just what we need for a build to work. 
+# Add each .mcf incrementally...
+
+:BiologicalElement
+  a rdfs:Class ;
+  :isPartOf <https://pending.schema.org> ;
+  rdfs:subClassOf :BiomedicalElement ;
+  rdfs:label "BiologicalElement" ;
+  rdfs:comment """Biological entities.""" .
+
+:BiomedicalElement
+  a rdfs:Class ;
+  :isPartOf <https://pending.schema.org> ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "BiomedicalElement" ;
+  rdfs:comment """Biomedical related entities.""" .

@@ -49,7 +49,7 @@
             {% endif %}
             
             <div class="jumptarget" id="values" title="Values">
-                <h4>Values expected to be one of these types</h4>
+                <h3>Values expected to be one of these types</h3>
                 <code><ul>
                 {% for type in term.rangeIncludes %}
                     {% if not type.retired and not type.superseded %}
@@ -59,7 +59,7 @@
                 </code></ul>
             </div>
             <div class="jumptarget" id="types" title="Used on">
-                <h4>Used on these types</h4>
+                <h3>Used on these types</h3>
                 <code><ul>
                 {% for type in term.domainIncludes %}
                     {% if not type.retired and not type.superseded %}

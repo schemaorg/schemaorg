@@ -14,7 +14,7 @@ This service will validate Schema.org-based structured data embedded in web page
 It is based on the tool previously known as the Google Structured Data Testing Tool (SDTT), and is provided 
 by Google as a service for the Schema.org community. 
 
-# Notes
+## Notes
 
 It can...
 
@@ -23,7 +23,7 @@ It can...
  * Combine JSON-LD from script elements, alongside data the HTML attributes defined by RDFa and Microdata.
  * Apply some heuristics for cases where markup provides text values when an entity is expected.
 
-# Limitations
+## Limitations
 
  * The tool is focused on Schema.org. In the case of JSON-LD, this means that it will not fetch or interpret  other @context URLs.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 
 import sys
@@ -40,7 +40,7 @@ def _termdescriptorPopulate(termdesc,term):
         termdesc.sources.extend(term.sources)
         termdesc.supersededBy = term.supersededBy
         termdesc.supersedes.extend(term.supersedes)
-    
+
 #Populate message for passed simple (non-expanded) term
 #If msg != None the empty message will have been created by previous nested add() call
 #If no msg passed one of appropriate type is created
@@ -64,7 +64,7 @@ def _populateSimpleMsg(msg=None,term=None,inTermStack=False):
     else:
         #Populate standard submessage
         _termdescriptorPopulate(msg.termdescriptor.add(),term)
-    
+
         if term.termType == SdoTerm.TYPE or term.termType == SdoTerm.DATATYPE or term.termType == SdoTerm.ENUMERATION:
             msg.properties.extend(term.properties)
             msg.expectedTypeFor.extend(term.expectedTypeFor)
@@ -124,24 +124,24 @@ def term2IdString(term):
         return term
     return term.id
 
-#Populate message for passed term 
+#Populate message for passed term
 #If msg != None the empty message will have been created by previous nested add() call
 def _populateMsg(msg=None,term=None,inTermStack=False):
     if term.expanded:
         if term.termType == SdoTerm.TYPE or term.termType == SdoTerm.DATATYPE or term.termType == SdoTerm.ENUMERATION:
             return _populateExpandedMsg(msg=msg,term=term,inTermStack=inTermStack)
-    
+
     return _populateSimpleMsg(msg=msg,term=term,inTermStack=inTermStack)
-    
+
 def sdotermToProtobuf(term):
     return _populateMsg(term=term)
-    
+
 def protobufToMsg(buf):
     return buf.SerializeToString()
 
 def protobufToText(buf):
     return str(buf)
-    
+
 def sdotermToProtobufMsg(term):
     return protobufToMsg(sdotermToProtobuf(term=term))
 

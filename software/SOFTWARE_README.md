@@ -2,8 +2,10 @@
 Schema.org Software
 ===================
 
-This document describes the software that underpins Schema.org. Most collaborators will only need to be able to run 
-it. At this time we do not solicit active collaboration on the codebase itself from the general public.
+This document describes the software that underpins Schema.org. Most collaborators will only need to be able to run  it. 
+
+Recommendations for the code-base can be found in the [CODE_README](CODE_README.md) file.
+
 
 * see https://github.com/schemaorg/schemaorg/blob/master/LICENSE for open-source license info (Apache2)
 
@@ -45,7 +47,7 @@ If when running local scripts you receive an error of this form:
 
     ModuleNotFoundError: No module named 'module_name'  
 
-There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the cmmand: 
+There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the command: 
 
    pip install -r software/requirements.txt
 
@@ -131,7 +133,7 @@ _Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a d
 Releasing New Production Releases of the Site
 =============================================
 
-Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://webschemas.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.md](RELEASING.md) file.
+Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://staging.schema.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.md](RELEASING.md) file.
 
 # Build Notes
 
@@ -182,7 +184,7 @@ Site should be accessible via:
 
 **To enable deployment to a gcloud appengine instance**
 
-This allows wider sharing of a development version of the site replicating the way a production release is deployed to the preview server at https://webschemas.org and to http://schema.org.
+This allows wider sharing of a development version of the site replicating the way a production release is deployed to the preview server at https://staging.schema.org and to http://schema.org.
 * Create or identify previously created Google Cloud Platform User
   * Download the gcloud SDK - instructions available at: https://cloud.google.com/sdk/docs/install#deb
   * No need for additional components
