@@ -29,7 +29,7 @@ class SdoTermOrId(object):
         self._term = term
         if term:
             self._term_id = term.id
-            assert not term_id or termid == term.id
+            assert not term_id or term_id == term.id
         else:
             self._term_id = term_id
 
@@ -74,8 +74,18 @@ class SdoTermSequence(object):
         self._term_dict = collections.OrderedDict()
 
     @classmethod
-    def forIds(cls, term_ids):
+    def forElements(cls, elements):
         sequence = cls()
+        if all(map(lambda e : isinstance(e, SdoTerm), elements)):
+            sequence.setTerms(elements)
+            return sequence
+        term_ids = []
+        for element in elements:
+            try:
+                term_id = element.id
+            except AttributeError:
+                term_id = element
+            term_ids.append(term_id)
         sequence.setIds(term_ids)
         return sequence
 
@@ -196,7 +206,7 @@ class SdoTerm(object):
         return self._subs;
 
     @property
-    def equivalent(self):
+    def equivalents(self):
         return self._equivalents
 
     @property

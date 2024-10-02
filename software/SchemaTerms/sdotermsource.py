@@ -172,7 +172,7 @@ class SdoTermSource:
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
         self.termdesc.comments = self.getComments()
-        self.termdesc.equivalents = self.getEquivalents()
+        self.termdesc.equivalents.setIds(self.getEquivalents())
         self.termdesc.pending = self.inLayers("pending")
         self.termdesc.retired = self.inLayers("attic")
         self.termdesc.extLayer = self.getExtLayer()
@@ -625,7 +625,7 @@ class SdoTermSource:
     @classmethod
     def getParentPathTo(cls, start_term : str , end_term: str =None):
         # Output paths from start_term to only if end_term in path
-        start_term = cls.getTerm(start_term)
+        start_term = cls.getTerm(start_term, expanded=True)
 
         if not end_term:
             end_term = "Thing"
@@ -649,31 +649,30 @@ class SdoTermSource:
         return False
 
     @classmethod
-    def expandTerms(cls, terms):
-        return [cls.expandTerm(t) for t in terms]
+    def expandTerms(cls, terms, depth : int = 2):
+        return [cls.expandTerm(t, depth=depth) for t in terms]
 
     @classmethod
-    def expandTerm(cls, termdesc : sdoterm.SdoTerm, depth : int = 2):
+    def expandTerm(cls, termdesc : sdoterm.SdoTerm, depth : int = 2) -> sdoterm.SdoTerm:
+        assert isinstance(termdesc, sdoterm.SdoTerm), termdesc
         if termdesc.expanded() or depth < 1:
             return termdesc
 
         termdesc.markExpanded(depth)
 
-        termdesc.superPath = [
-            sdoterm.SdoTermSequence.forIds(cls.termsFromIds(path_id)) for path_id in termdesc.superPath]
+        termdesc.superPaths = [
+            sdoterm.SdoTermSequence.forElements(paths) for paths in termdesc.superPaths]
         termdesc.termStack.setTerms(cls.termsFromIds(termdesc.termStack.ids))
         termdesc.supers.setTerms(cls.termsFromIds(termdesc.supers.ids))
         termdesc.subs.setTerms(cls.termsFromIds(termdesc.subs.ids))
-        termdesc.equivalent.setTerms(cls.termsFromIds(termdesc.equivalents.ids))
+        termdesc.equivalents.setTerms(cls.termsFromIds(termdesc.equivalents.ids))
 
         if termdesc.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
-
-
             if depth > 1:  # Expand the properties but prevent recursion further
-                termdesc.property.setTerms([cls.expandTerm(p, depth=depth - 1) for p in termdesc.property.ids])
-                termdesc.expectedTypeFor.setTerms([cls.expandTerm(e, depth=depth - 1) for p in termdesc.expectedTypeFor.ids])
+                termdesc.properties.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.properties.ids), depth=depth - 1))
+                termdesc.expectedTypeFor.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.expectedTypeFor.ids), depth = depth - 1))
             else:
-                termdesc.property.setTerms(cls.termsFromIds(termdesc.property.ids))
+                termdesc.properties.setTerms(cls.termsFromIds(termdesc.properties.ids))
                 termdesc.expectedTypeFor.setTerms(cls.termsFromIds(termdesc.expectedTypeFor.ids))
 
 
@@ -689,7 +688,7 @@ class SdoTermSource:
             termdesc.setEnumerationParentTerm(cls.termFromId(termdesc.enumerationParentId()))
 
         if depth > 0:  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
-            termdesc.termStack.setTerms([cls.expandTerm(t, depth=depth - 1) for t in termdesc.termStack.ids])
+            termdesc.termStack.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1))
 
         return termdesc
 
