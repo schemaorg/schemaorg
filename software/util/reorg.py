@@ -83,6 +83,29 @@ def MergeFiles(args):
       logging.fatal(f"Merging files into {args.output} lost some information.")
 
 
+def Annotate(args):
+  """Adds some annotations to properties and types."""
+  if args.output is not None and len(args.files) > 1:
+    logging.fatal(f"Cannot use --output with multiple files!")
+
+  valid_parts = ["pending", "attic", "meta", "GA"]
+  if args.ispartof not in valid_parts:
+    logging.fatal(f"PartOf annotation '{args.ispartof}' is not valid: select one of {valid_parts}")
+  new_part = rdflib.URIRef(f"https://{args.ispartof}.schema.org/")
+
+  for filename in args.files:
+    logging.info(f"Annotating {filename} ...")
+    g = SchemaOrgGraph(filename, format="turtle")
+    # Clean the existing parts
+    g.remove((None, SCHEMAORG.isPartOf, None))
+    # GA is special as it is the unannotated state.
+    if args.ispartof != "GA":
+      for sub in itertools.chain(g.Types(), g.Properties()):
+        g.add((sub, SCHEMAORG.isPartOf, new_part))
+
+    g.serialize(args.output or filename, format="turtle")
+    logging.info(f" ... done, written to {args.output or filename}")
+
 def main():
   """
   Parses command line arguments and dispatches to the appropriate
@@ -103,12 +126,21 @@ def main():
   merge_parser.add_argument('-o', '--output', help='Output file')
   merge_parser.add_argument("files", action="extend", nargs="+", type=str)
 
+  annotate_parser = subparsers.add_parser('annotate', help='Add annotations to types and properties.')
+  annotate_parser.add_argument('-o', '--output', help='Output file')
+  annotate_parser.add_argument(
+      '--ispartof',
+      help='Which state classes and properties are in schema.org (eg. pending, attic)')
+  annotate_parser.add_argument("files", action="extend", nargs="+", type=str)
+
   # Parse and dispatch
   args = parser.parse_args()
   if args.command == 'lint':
     Lint(args)
   elif args.command == 'merge':
     MergeFiles(args)
+  elif args.command == 'annotate':
+    Annotate(args)
   else:
     parser.print_help()
 
