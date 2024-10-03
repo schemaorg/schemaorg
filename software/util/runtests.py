@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 
 # Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
