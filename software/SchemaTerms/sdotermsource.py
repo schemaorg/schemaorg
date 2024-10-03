@@ -182,7 +182,7 @@ class SdoTermSource:
         self.termdesc.supersededBy = self.getSupersededBy()
         self.termdesc.supersedes = self.getSupersedes()
         self.termdesc.superseded = self.superseded()
-        self.termdesc.termStack.setIds(self.getTermStack())
+        self.termdesc.termStack.setTerms(self.getTermStack())
         self.termdesc.superPaths = self.getParentPaths()  # MUST be called after supers has been added to self.termdesc
 
         # Class (Type) Building
@@ -354,16 +354,16 @@ class SdoTermSource:
             self.loadsupers()
         return self.supers
 
-    def getTermStack(self) -> typing.Sequence[str]:
+    def getTermStack(self):
         if not self.termStack:
             self.termStack = []
             for sup in self.getSupers():
                 s = self.__class__._getTerm(sup, createReference=True)
                 if s.termType == sdoterm.SdoTermType.REFERENCE:
                     continue
-                self.termStack.append(s.id)
-                if s.termStack.ids:
-                    self.termStack.extend(s.termStack.ids)
+                self.termStack.append(s)
+                if s.termStack:
+                    self.termStack.extend(s.termStack.terms)
             stack = []
             for t in reversed(self.termStack):
                 if t not in stack:
@@ -387,11 +387,15 @@ class SdoTermSource:
 
         if getall:
             allprop_ids = set(self.props)
-            for term_id in self.termStack:
-                if term_id != self.id:
-                    if term_id == 'ENUMERATION':
+            for t in self.termStack:
+                if not isinstance(t, sdoterm.SdoTerm):
+                    print('🟪' + str(type(t)))
+                    term = self.__class__._getTerm(t, createReference=True)
+                else:
+                    term = t
+                if term.id != self.id:
+                    if term.id == 'ENUMERATION':
                         break
-                    term = self.__class__._getTerm(term_id, createReference=True)
                     if term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
                         allprop_ids.update(term.properties.ids)
             ret = sorted(allprop_ids)
@@ -623,19 +627,13 @@ class SdoTermSource:
                     x += 1
 
     @classmethod
-    def getParentPathTo(cls, start_term : str , end_term: str =None):
+    def getParentPathTo(cls, start_term_id : str , end_term_id: str =None):
         # Output paths from start_term to only if end_term in path
-        start_term = cls.getTerm(start_term, expanded=True)
-
-        if not end_term:
-            end_term = "Thing"
-
-        superpaths = start_term.supers.ids
-
-        log.info("%s -> %s", start_term, superpaths)
+        end_term_id = end_term_id or "Thing"
+        start_term = cls.getTerm(start_term_id, expanded=True)
         outList = []
-        for path in superpaths:
-            if end_term in path:
+        for path in start_term.superPaths:
+            if end_term_id in path:
                 outList.append(path)
         return outList
 
@@ -718,7 +716,7 @@ class SdoTermSource:
         for row in res:  # Assumes termdefinition rows are ordered by termId
             if tmp.id != termId:  # New term definition starts on this row
                 if tmp.id:
-                    term = cls._createTerm(tmp)
+                    term = cls._createTerm(tmp.id)
                     if term:
                         ret.append(term)
                         count += 1
@@ -1189,6 +1187,7 @@ class SdoTermSource:
     ):
         if not termId:
             return None
+        assert isinstance(termId, str), termId
         termId = termId.strip()
         fullId = toFullId(termId)
         term = cls.TERMS.get(fullId, None)

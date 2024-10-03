@@ -23,6 +23,7 @@ class SdoTermType(str, enum.Enum):
 class UnexpandedTermError(LookupError):
     """Term is not expanded."""
 
+
 class SdoTermOrId(object):
 
     def __init__(self, term_id : str = None, term = None):
@@ -75,6 +76,9 @@ class SdoTermSequence(object):
 
     @classmethod
     def forElements(cls, elements):
+        if isinstance(elements, cls):
+            return elements
+
         sequence = cls()
         if all(map(lambda e : isinstance(e, SdoTerm), elements)):
             sequence.setTerms(elements)
@@ -122,11 +126,11 @@ class SdoTermSequence(object):
     def __len__(self):
         return len(self._term_dict)
 
-    def __iter__(self):
-        return (SdoTermOrId(term=term, term_id=term_id) for term_id, term in self._term_dict.items())
+    def __contains__(self, value):
+        return value in self._term_dict.keys()
 
     def __str__(self):
-        return '[' + ','.join(map(str, self)) + ']'
+        return '[' + ','.join(map(str, self.ids)) + ']'
 
 
 class SdoTerm(object):
@@ -145,14 +149,15 @@ class SdoTerm(object):
         [SdoTermType.TYPE, SdoTermType.DATATYPE, SdoTermType.ENUMERATION]
     )
 
-    def __init__(self, termType: SdoTermType, Id: str, uri: str, label: str):
+    def __init__(self, termType: SdoTermType, term_id: str, uri: str, label: str):
         if type(self) == SdoTerm:
             raise Exception("<SdoTerm> must be subclassed.")
 
+        assert isinstance(term_id, str)
         self._expansion_depth = 0
         self.termType = termType
         self.uri = uri
-        self.id = Id
+        self._term_id = term_id
         self.label = label
 
         self.acknowledgements = []
@@ -212,6 +217,10 @@ class SdoTerm(object):
     @property
     def termStack(self):
         return self._termStack
+
+    @property
+    def id(self) -> str:
+        return self._term_id
 
 
 class SdoType(SdoTerm):
