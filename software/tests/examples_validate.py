@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 
 """Tool that validates the JSON-LD in the examples agains the content of the `jsonldcontext.jsonld` file."""
