@@ -30,13 +30,13 @@ class SchemaOrgGraph(object):
   def IdenticalTo(self, other: "SchemaOrgGraph"):
     only_in_other = other.g - self.g
     only_in_self = self.g - other.g
-    if len(only_in_other) or len(only_in_self):
+    if only_in_other or only_in_self:
       raise ValueError(f"Graphs differ: {only_in_other + only_in_self}")
     return True
 
   def FullyContains(self, graph: "SchemaOrgGraph"):
     only_in_subset = graph.g - self.g
-    if len(only_in_subset):
+    if only_in_subset:
       raise ValueError(f"Graph does not contain it all: {only_in_subset}")
     return True
 
@@ -125,13 +125,6 @@ def main():
   merge_parser = subparsers.add_parser('merge', help='Merging several files')
   merge_parser.add_argument('-o', '--output', help='Output file')
   merge_parser.add_argument("files", action="extend", nargs="+", type=str)
-
-  annotate_parser = subparsers.add_parser('annotate', help='Add annotations to types and properties.')
-  annotate_parser.add_argument('-o', '--output', help='Output file')
-  annotate_parser.add_argument(
-      '--ispartof',
-      help='Which state classes and properties are in schema.org (eg. pending, attic)')
-  annotate_parser.add_argument("files", action="extend", nargs="+", type=str)
 
   # Parse and dispatch
   args = parser.parse_args()
