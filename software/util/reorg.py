@@ -137,11 +137,11 @@ def main():
 
     # Parse and dispatch
     args = parser.parse_args()
-    if args.command == 'lint':
+    if args.command == "lint":
         Lint(args)
     elif args.command == 'merge':
         MergeFiles(args)
-    elif args.command == 'annotate':
+    elif args.command == "annotate":
         Annotate(args)
     else:
         parser.print_help()
