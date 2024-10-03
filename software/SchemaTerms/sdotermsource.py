@@ -597,7 +597,7 @@ class SdoTermSource:
 
         return self._pstacks
 
-    def _getParentPaths(self, term : sdoterm.SdoTerm, cstack: typing.Sequence[str]):
+    def _getParentPaths(self, term : sdoterm.SdoTerm, cstack):
         cstack.insert(0, term.id)
         tmpStacks = []
         tmpStacks.append(cstack)
