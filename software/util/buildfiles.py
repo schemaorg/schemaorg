@@ -320,7 +320,7 @@ def uriwrap(thing):
     try:
         return array2str(map(uriwrap, thing))
     except TypeError as e:
-        log.fatal('Cannot uriwrap %s', thing)
+        log.fatal("Cannot uriwrap %s", thing)
 
 
 def exportcsv(page):

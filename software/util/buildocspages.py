@@ -192,7 +192,7 @@ def jsonldtree(page):
     return json.dumps(data, indent=3)
 
 
-def _jsonldtree(tid : str, term=None):
+def _jsonldtree(tid: str, term=None):
     termdesc = sdotermsource.SdoTermSource.getTerm(tid)
     if not term:
         term = {}
@@ -293,7 +293,7 @@ def createCollab(coll):
     filename = absoluteFilePath(os.path.join("docs/collab/", +coll.ref + ".html"))
     with open(filename, "w", encoding="utf8") as handle:
         handle.write(content)
-    log.info("Created %s" % fn)
+    log.info("Created %s" % filename)
 
 
 def termfind(file):

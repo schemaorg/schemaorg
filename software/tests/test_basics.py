@@ -79,11 +79,7 @@ class SupertypePathsTestCase(unittest.TestCase):
 
     def test_dualPath(self):
         path = sdotermsource.SdoTermSource.getParentPathTo("Restaurant", "Thing")
-        self.assertEqual(
-            len(path),
-            2,
-            path
-        )
+        self.assertEqual(len(path), 2, path)
 
     def test_inverseDualPath(self):
         self.assertEqual(
@@ -155,7 +151,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
     def test_DataTypeSupertypeDataType(self):
         tDataType = sdotermsource.SdoTermSource.getTerm("DataType")
-        self.assertNotIn("DataType", tDataType.subs.ids, "DataType subClassOf DataType.")
+        self.assertNotIn(
+            "DataType", tDataType.subs.ids, "DataType subClassOf DataType."
+        )
 
     # TODO: subClassOf() function has "if (self.id == type.id)", investigate how this is used.
 
@@ -325,8 +323,12 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
         # log.info("alumni: " + str(p_alumniOf.getInverseOf() ))
 
-        self.assertEqual("alumni", p_alumniOf.inverse.id, msg="alumniOf inverseOf alumni.")
-        self.assertEqual("alumniOf", p_alumni.inverse.id, msg="alumni inverseOf alumniOf.")
+        self.assertEqual(
+            "alumni", p_alumniOf.inverse.id, msg="alumniOf inverseOf alumni."
+        )
+        self.assertEqual(
+            "alumniOf", p_alumni.inverse.id, msg="alumni inverseOf alumniOf."
+        )
 
         self.assertNotEqual(
             "alumni", p_alumni.inverse.id, msg="Not alumni inverseOf alumni."
@@ -469,7 +471,7 @@ class SimpleCommentCountTests(unittest.TestCase):
                 log.warning(
                     "Term %s has rdfs:comment value %s" % (row["term"], row["comment"])
                 )
-        msg = '\n\t'.join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
+        msg = "\n\t".join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
         self.assertEqual(
             len(ndi1_results),
             0,

@@ -89,7 +89,7 @@ class SdoTermSource:
     TERMSLOCK = threading.Lock()
     RDFLIBLOCK = threading.Lock()
 
-    def __init__(self, uri: str, ttype=None, label : str ="", layer=None):
+    def __init__(self, uri: str, ttype=None, label: str = "", layer=None):
         self.uri = uri
         self.id = uri2id(uri)
         self.label = label
@@ -183,7 +183,9 @@ class SdoTermSource:
         self.termdesc.supersedes = self.getSupersedes()
         self.termdesc.superseded = self.superseded()
         self.termdesc.termStack.setTerms(self.getTermStack())
-        self.termdesc.superPaths = self.getParentPaths()  # MUST be called after supers has been added to self.termdesc
+        self.termdesc.superPaths = (
+            self.getParentPaths()
+        )  # MUST be called after supers has been added to self.termdesc
 
         # Class (Type) Building
         if self.ttype in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
@@ -393,7 +395,7 @@ class SdoTermSource:
                 else:
                     term = t
                 if term.id != self.id:
-                    if term.id == 'ENUMERATION':
+                    if term.id == "ENUMERATION":
                         break
                     if term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
                         allprop_ids.update(term.properties.ids)
@@ -574,7 +576,7 @@ class SdoTermSource:
             self.members.sort()
         return self.members
 
-    def getParentPaths(self, cstack : typing.Sequence[str] = None):
+    def getParentPaths(self, cstack: typing.Sequence[str] = None):
         self._pstacks = []
         cstack = cstack or []
         self._pstacks.append(cstack)
@@ -600,16 +602,18 @@ class SdoTermSource:
 
         return self._pstacks
 
-    def _getParentPaths(self, term : sdoterm.SdoTerm, cstack):
+    def _getParentPaths(self, term: sdoterm.SdoTerm, cstack):
         cstack.insert(0, term.id)
         tmpStacks = []
         tmpStacks.append(cstack)
         super_ids = list(term.supers.ids)
 
-        if  (term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE
+        if (
+            term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE
             and term.enumerationParent
-            and term.enumerationParent.id not in super_ids):
-                super_ids.append(term.enumerationParent.id)
+            and term.enumerationParent.id not in super_ids
+        ):
+            super_ids.append(term.enumerationParent.id)
 
         if super_ids:
             for i in range(len(super_ids)):
@@ -620,13 +624,15 @@ class SdoTermSource:
 
             x = 0
             for parent_id in super_ids:
-                if not (parent_id.startswith("http:") or parent_id.startswith("https:")):
+                if not (
+                    parent_id.startswith("http:") or parent_id.startswith("https:")
+                ):
                     sup = self.__class__._getTerm(parent_id)
                     self._getParentPaths(sup, tmpStacks[x])
                     x += 1
 
     @classmethod
-    def getParentPathTo(cls, start_term_id : str , end_term_id: str =None):
+    def getParentPathTo(cls, start_term_id: str, end_term_id: str = None):
         # Output paths from start_term to only if end_term in path
         end_term_id = end_term_id or "Thing"
         start_term = cls.getTerm(start_term_id, expanded=True)
@@ -646,11 +652,11 @@ class SdoTermSource:
         return False
 
     @classmethod
-    def expandTerms(cls, terms, depth : int = 2):
+    def expandTerms(cls, terms, depth: int = 2):
         return [cls.expandTerm(t, depth=depth) for t in terms]
 
     @classmethod
-    def expandTerm(cls, termdesc : sdoterm.SdoTerm, depth : int = 2) -> sdoterm.SdoTerm:
+    def expandTerm(cls, termdesc: sdoterm.SdoTerm, depth: int = 2) -> sdoterm.SdoTerm:
         """Expand a term, e.g. expand the properties that only contain term-ids to contain actual SdoTerm instances."""
         assert isinstance(termdesc, sdoterm.SdoTerm), termdesc
         if termdesc.expanded() or depth < 1:
@@ -661,7 +667,8 @@ class SdoTermSource:
         # TODO: optimise expansion.
 
         termdesc.superPaths = [
-            sdoterm.SdoTermSequence.forElements(paths) for paths in termdesc.superPaths]
+            sdoterm.SdoTermSequence.forElements(paths) for paths in termdesc.superPaths
+        ]
         termdesc.termStack.setTerms(cls.termsFromIds(termdesc.termStack.ids))
         termdesc.supers.setTerms(cls.termsFromIds(termdesc.supers.ids))
         termdesc.subs.setTerms(cls.termsFromIds(termdesc.subs.ids))
@@ -669,38 +676,61 @@ class SdoTermSource:
 
         if termdesc.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
             if depth > 1:  # Expand the properties but prevent recursion further
-                termdesc.properties.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.properties.ids), depth=depth - 1))
-                termdesc.expectedTypeFor.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.expectedTypeFor.ids), depth = depth - 1))
+                termdesc.properties.setTerms(
+                    cls.expandTerms(
+                        cls.termsFromIds(termdesc.properties.ids), depth=depth - 1
+                    )
+                )
+                termdesc.expectedTypeFor.setTerms(
+                    cls.expandTerms(
+                        cls.termsFromIds(termdesc.expectedTypeFor.ids), depth=depth - 1
+                    )
+                )
             else:
                 termdesc.properties.setTerms(cls.termsFromIds(termdesc.properties.ids))
-                termdesc.expectedTypeFor.setTerms(cls.termsFromIds(termdesc.expectedTypeFor.ids))
-
+                termdesc.expectedTypeFor.setTerms(
+                    cls.termsFromIds(termdesc.expectedTypeFor.ids)
+                )
 
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
-                termdesc.enumerationMembers.setTerms(cls.termsFromIds(
-                    termdesc.enumerationMembers.ids)
+                termdesc.enumerationMembers.setTerms(
+                    cls.termsFromIds(termdesc.enumerationMembers.ids)
                 )
         elif termdesc.termType == sdoterm.SdoTermType.PROPERTY:
-            termdesc.domainIncludes.setTerms(cls.termsFromIds(termdesc.domainIncludes.ids))
-            termdesc.rangeIncludes.setTerms(cls.termsFromIds(termdesc.rangeIncludes.ids))
+            termdesc.domainIncludes.setTerms(
+                cls.termsFromIds(termdesc.domainIncludes.ids)
+            )
+            termdesc.rangeIncludes.setTerms(
+                cls.termsFromIds(termdesc.rangeIncludes.ids)
+            )
             termdesc.inverse.setTerm(cls.termFromId(termdesc.inverse.id))
         elif termdesc.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            termdesc.enumerationParent.setTerm(cls.termFromId(termdesc.enumerationParent.id))
+            termdesc.enumerationParent.setTerm(
+                cls.termFromId(termdesc.enumerationParent.id)
+            )
 
-        if depth > 0:  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
-            termdesc.termStack.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1))
+        if (
+            depth > 0
+        ):  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
+            termdesc.termStack.setTerms(
+                cls.expandTerms(
+                    cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1
+                )
+            )
 
         return termdesc
 
     @classmethod
-    def termFromId(cls, id : str ="") -> sdoterm.SdoTerm:
+    def termFromId(cls, id: str = "") -> sdoterm.SdoTerm:
         ids = cls.termsFromIds([id])
         if len(ids):
             return ids[0]
         return None
 
     @classmethod
-    def termsFromIds(cls, ids : typing.Sequence[str] = None) -> typing.Sequence[sdoterm.SdoTerm]:
+    def termsFromIds(
+        cls, ids: typing.Sequence[str] = None
+    ) -> typing.Sequence[sdoterm.SdoTerm]:
         """Convert a sequence of term-identities into a sequnece of SdoTerms."""
         ids = ids or []
         ret = []
@@ -713,7 +743,9 @@ class SdoTermSource:
         return ret
 
     @classmethod
-    def _singleTermFromResult(cls, res : typing.Sequence[rdflib.query.ResultRow], termId : str) -> sdoterm.SdoTerm:
+    def _singleTermFromResult(
+        cls, res: typing.Sequence[rdflib.query.ResultRow], termId: str
+    ) -> sdoterm.SdoTerm:
         """Return a single term matching `termId` from res."""
         tmp = _TmpTerm(termId)
         for row in res:  # Assumes termdefinition rows are ordered by termId
@@ -732,9 +764,10 @@ class SdoTermSource:
 
         return cls._createTerm(tmp)
 
-
     @classmethod
-    def termsFromResults(cls, res : typing.Sequence[rdflib.query.ResultRow]) -> typing.Sequence[sdoterm.SdoTerm]:
+    def termsFromResults(
+        cls, res: typing.Sequence[rdflib.query.ResultRow]
+    ) -> typing.Sequence[sdoterm.SdoTerm]:
         ret = []
         tmp = _TmpTerm(None)
         count = 0
