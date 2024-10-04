@@ -74,7 +74,7 @@ class SdoTermSource:
 
 
     The class acts as a cache of terms keyed by id.
-    Instances are sources of information for a particular term.
+    Instances are kind of factory for terms.
 
     """
 
@@ -89,7 +89,7 @@ class SdoTermSource:
     TERMSLOCK = threading.Lock()
     RDFLIBLOCK = threading.Lock()
 
-    def __init__(self, uri: str, ttype=None, label="", layer=None):
+    def __init__(self, uri: str, ttype=None, label : str ="", layer=None):
         self.uri = uri
         self.id = uri2id(uri)
         self.label = label
@@ -256,13 +256,13 @@ class SdoTermSource:
     def isReference(self) -> bool:
         return self.ttype == sdoterm.SdoTermType.REFERENCE
 
-    def getId(self):
+    def getId(self) -> str:
         return self.id
 
     def getParent(self):
         return self.parent
 
-    def getPrefixedId(self):
+    def getPrefixedId(self) -> str:
         return prefixedIdFromUri(self.uri)
 
     def getUri(self) -> str:
@@ -389,7 +389,6 @@ class SdoTermSource:
             allprop_ids = set(self.props)
             for t in self.termStack:
                 if not isinstance(t, sdoterm.SdoTerm):
-                    print('🟪' + str(type(t)))
                     term = self.__class__._getTerm(t, createReference=True)
                 else:
                     term = t
@@ -652,11 +651,14 @@ class SdoTermSource:
 
     @classmethod
     def expandTerm(cls, termdesc : sdoterm.SdoTerm, depth : int = 2) -> sdoterm.SdoTerm:
+        """Expand a term, e.g. expand the properties that only contain term-ids to contain actual SdoTerm instances."""
         assert isinstance(termdesc, sdoterm.SdoTerm), termdesc
         if termdesc.expanded() or depth < 1:
             return termdesc
 
         termdesc.markExpanded(depth)
+
+        # TODO: optimise expansion.
 
         termdesc.superPaths = [
             sdoterm.SdoTermSequence.forElements(paths) for paths in termdesc.superPaths]
@@ -683,7 +685,7 @@ class SdoTermSource:
             termdesc.rangeIncludes.setTerms(cls.termsFromIds(termdesc.rangeIncludes.ids))
             termdesc.inverse.setTerm(cls.termFromId(termdesc.inverse.id))
         elif termdesc.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            termdesc.setEnumerationParentTerm(cls.termFromId(termdesc.enumerationParentId()))
+            termdesc.enumerationParent.setTerm(cls.termFromId(termdesc.enumerationParent.id))
 
         if depth > 0:  # Expand the individual termdescs in the terms' termstack but prevent recursion further.
             termdesc.termStack.setTerms(cls.expandTerms(cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1))
@@ -691,7 +693,7 @@ class SdoTermSource:
         return termdesc
 
     @classmethod
-    def termFromId(cls, id=""):
+    def termFromId(cls, id : str ="") -> sdoterm.SdoTerm:
         ids = cls.termsFromIds([id])
         if len(ids):
             return ids[0]
@@ -699,6 +701,7 @@ class SdoTermSource:
 
     @classmethod
     def termsFromIds(cls, ids : typing.Sequence[str] = None) -> typing.Sequence[sdoterm.SdoTerm]:
+        """Convert a sequence of term-identities into a sequnece of SdoTerms."""
         ids = ids or []
         ret = []
         for tid in ids:
@@ -757,7 +760,7 @@ class SdoTermSource:
         return ret
 
     @classmethod
-    def _createTerm(cls, tmp: _TmpTerm):
+    def _createTerm(cls, tmp: _TmpTerm) -> sdoterm.SdoTerm:
         global DATATYPEURI, ENUMERATIONURI
         if not tmp or not tmp.id:
             return None
@@ -807,9 +810,9 @@ class SdoTermSource:
                 else:
                     types.append(t)
                     if t.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                        types.append(cls.termFromId(t.enumerationParentId()))
+                        types.append(cls.termFromId(t.enumerationParent.id))
                     elif t == stack[0]:
-                        props.extend(cls.termsFromIds(t.allPropertyIds()))
+                        props.extend(cls.termsFromIds(t.allproperties.ids))
 
             for t in types:
                 triples = cls.triples4Term(t.id)

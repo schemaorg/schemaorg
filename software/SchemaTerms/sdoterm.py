@@ -25,6 +25,7 @@ class UnexpandedTermError(LookupError):
 
 
 class SdoTermOrId(object):
+    """Wrapper that holds a term-id or a term."""
 
     def __init__(self, term_id : str = None, term = None):
         self._term = term
@@ -69,6 +70,7 @@ class SdoTermSequence(object):
     """Sequence that holds either a sequence of term-ids, or a sequence of terms.
 
     If it holds a sequence of terms, the sequence is said to expanded.
+    It can only be changed by replacing all the values, either with ids, or term instances.
 
     """
     def __init__(self):
@@ -76,6 +78,7 @@ class SdoTermSequence(object):
 
     @classmethod
     def forElements(cls, elements):
+        """Convert an arbitrary sequence into a SdoTermSequence."""
         if isinstance(elements, cls):
             return elements
 
@@ -86,6 +89,7 @@ class SdoTermSequence(object):
         term_ids = []
         for element in elements:
             try:
+                # This will work for both SdoTerm instances, and SdoTermOrId
                 term_id = element.id
             except AttributeError:
                 term_id = element

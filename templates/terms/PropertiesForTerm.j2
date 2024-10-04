@@ -1,12 +1,12 @@
 <!-- Properties for Term: {{propertiesFor.id}}-->
 
-{% for prop in propertiesFor.properties %}
+{% for prop in propertiesFor.properties.terms %}
     {% if loop.first %}
         <tr class="supertype"><th class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</th></tr>
     {% endif %}
-	{% if not prop.retired and not prop.superseded %}
+  {% if not prop.retired and not prop.superseded %}
         <tr><th class="prop-nam"><code>{{ sdotermlink(prop)|safe }}</code></th>
-            <td class="prop-ect">{% for ect in prop.rangeIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
+            <td class="prop-ect">{% for ect in prop.rangeIncludes.ids %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
                 {{ sdotermlink(ect)|safe }}{% endfor %}</td>
             <td class="prop-desc">{{ prop.comment | safe}}
                 {% for ss in prop.supersedes %}{% if loop.first %} Supersedes {% else %}, {% endif %}

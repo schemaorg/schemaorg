@@ -287,13 +287,6 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
             msg="suggestedAnswer subproperties(), acceptedAnswer in 0th element of array.",
         )
 
-    def test_answerSubpropertiesArrayLen(self):
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
-        log.info("suggestedAnswer array: %s %s", p_suggestedAnswer, p_suggestedAnswer.subs)
-        self.assertEqual(
-            len(p_suggestedAnswer.subs), 0, p_suggestedAnswer.subs
-        )
-
     def test_offerSubpropertiesArrayLen(self):
         p_offers = sdotermsource.SdoTermSource.getTerm("offers")
         self.assertEqual(

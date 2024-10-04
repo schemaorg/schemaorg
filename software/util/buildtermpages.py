@@ -61,7 +61,7 @@ def termtemplateRender(term, examples, json):
     Returns:
       string with the generate web-page.
     """
-
+    assert isinstance(term, sdoterm.SdoTerm)
     for ex in examples:
         exselect = ["", "", "", ""]
         if ex.hasHtml():

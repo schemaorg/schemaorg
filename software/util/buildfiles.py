@@ -99,7 +99,7 @@ def _jsonldtree(tid, term=None):
     term["name"] = termdesc.label
     if termdesc.supers:
         sups = []
-        for sup in termdesc.supers:
+        for sup in termdesc.supers.ids:
             sups.append("schema:" + sup)
         if len(sups) == 1:
             term["rdfs:subClassOf"] = sups[0]
@@ -116,7 +116,7 @@ def _jsonldtree(tid, term=None):
         VISITLIST.append(tid)
         if termdesc.subs:
             subs = []
-            for sub in termdesc.subs:
+            for sub in termdesc.subs.ids:
                 subs.append(_jsonldtree(sub))
             term["children"] = subs
     return term
@@ -302,16 +302,25 @@ def array2str(values):
     return ", ".join(values)
 
 
-def uriwrap(ids):
-    if not ids:
+def uriwrap(thing):
+    """Convert various types into uris."""
+    if not thing:
         return ""
-    if isinstance(ids, list):
-        return array2str(map(uriwrap, ids))
-    # ids is a single element
-    if ids.startswith("http:") or ids.startswith("https:"):
-        # external reference
-        return ids
-    return VOCABURI + ids
+    if isinstance(thing, str):
+        if thing.startswith("http:") or thing.startswith("https:"):
+            return thing
+        return VOCABURI + thing
+    if isinstance(thing, sdoterm.SdoTermSequence):
+        return uriwrap(thing.ids)
+    if isinstance(thing, sdoterm.SdoTermOrId):
+        return uriwrap(thing.id)
+    if isinstance(thing, sdoterm.SdoTerm):
+        return uriwrap(thing.id)
+        pars = map()
+    try:
+        return array2str(map(uriwrap, thing))
+    except TypeError as e:
+        log.fatal('Cannot uriwrap %s', thing)
 
 
 def exportcsv(page):
@@ -370,22 +379,22 @@ def exportcsv(page):
         row["isPartOf"] = ext
         if term.termType == sdoterm.SdoTermType.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
-            row["equivalentProperty"] = array2str(term.equivalents)
-            row["subproperties"] = uriwrap(term.subs)
-            row["domainIncludes"] = uriwrap(term.domainIncludes)
-            row["rangeIncludes"] = uriwrap(term.rangeIncludes)
-            row["inverseOf"] = uriwrap(term.inverse)
+            row["equivalentProperty"] = uriwrap(term.equivalents.ids)
+            row["subproperties"] = uriwrap(term.subs.ids)
+            row["domainIncludes"] = uriwrap(term.domainIncludes.ids)
+            row["rangeIncludes"] = uriwrap(term.rangeIncludes.ids)
+            row["inverseOf"] = uriwrap(term.inverse.id)
             propdataAll.append(row)
             if not term.retired:
                 propdata.append(row)
         else:
-            row["subTypeOf"] = uriwrap(term.supers)
+            row["subTypeOf"] = uriwrap(term.supers.ids)
             if term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                row["enumerationtype"] = uriwrap(term.enumerationParent)
+                row["enumerationtype"] = uriwrap(term.enumerationParent.id)
             else:
-                row["properties"] = uriwrap(term.allproperties)
-            row["equivalentClass"] = array2str(term.equivalents)
-            row["subTypes"] = uriwrap(term.subs)
+                row["properties"] = uriwrap(term.allproperties.ids)
+            row["equivalentClass"] = uriwrap(term.equivalents.ids)
+            row["subTypes"] = uriwrap(term.subs.ids)
             typedataAll.append(row)
             if not term.retired:
                 typedata.append(row)
