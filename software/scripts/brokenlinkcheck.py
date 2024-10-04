@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 # Note: links below are broken.
 # Based on a CC0 licensed script <https://xtrp.io/blog/2019/11/09/a-quick-python-script-to-find-broken-links/>
