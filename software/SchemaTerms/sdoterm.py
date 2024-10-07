@@ -25,15 +25,16 @@ class UnexpandedTermError(LookupError):
 
 
 class SdoTermOrId(object):
-    """Wrapper that holds a term-id or a term."""
+    """Wrapper that holds a term-id or a term, or nothing."""
 
     def __init__(self, term_id : str = None, term = None):
-        assert term_id ^ term_id
+        # Empty instance is fine.
+        assert not (term_id and term), f"{term_id} {term}"
         if term:
             self._term_id = term.id
-            assert not term_id or term_id == term.id
         else:
             self._term_id = term_id
+        self._term = term
 
     @property
     def expanded(self) -> bool:
