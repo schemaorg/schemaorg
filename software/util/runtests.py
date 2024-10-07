@@ -62,7 +62,6 @@ import io
 SITEDIR = "software/site"
 STANDALONE = False
 
-
 class ColoredTestResult(unittest.TextTestResult):
     """Color the test results."""
 
@@ -73,9 +72,12 @@ class ColoredTestResult(unittest.TextTestResult):
         except:
             self.is_tty = False
         if self.is_tty:
-            term_size = os.get_terminal_size()
-            self.separator1 = "▼" * term_size.columns
-            self.separator2 = "▲" * term_size.columns
+            try:
+              columns = os.get_terminal_size().columns
+            except:
+              columns = 80
+            self.separator1 = "▼" * columns
+            self.separator2 = "▲" * columns
 
     def _colorPrint(self, message, color=None, short=None, newline=True):
         if not self.showAll and short:
