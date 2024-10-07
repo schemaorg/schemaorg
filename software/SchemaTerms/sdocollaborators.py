@@ -3,18 +3,18 @@
 
 # Import standard python libraries
 
-import threading
+import glob
+import logging
 import os
 import re
 import sys
-import logging
-import glob
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
+import software.util.schemaglobals as schemaglobals
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.localmarkdown as localmarkdown
@@ -22,21 +22,23 @@ import software.SchemaTerms.localmarkdown as localmarkdown
 log = logging.getLogger(__name__)
 
 
-class collaborator:
+class collaborator(object):
+    """Wrapper for the collaboration meta-data."""
+
     COLLABORATORS = {}
     CONTRIBUTORS = {}
 
     def __init__(self, ref, desc=None):
         self.ref = ref
-        self.urirel = "/docs/collab/" + ref
-        self.uri = "https://schema.org" + self.urirel
+        self.urirel = os.path.join("/docs", "collab", ref)
+        self.uri = schemaglobals.HOMEPAGE + self.urirel
         self.docurl = self.urirel
         self.terms = None
         self.contributor = False
         self.img = self.code = self.title = self.url = None
         self.description = ""
         self.acknowledgement = ""
-        self.parseDesc(desc)
+        self._parseDesc(desc)
 
         collaborator.COLLABORATORS[self.ref] = self
 
@@ -46,15 +48,20 @@ class collaborator:
             % (self.ref, self.uri, self.contributor, self.img, self.title, self.url)
         )
 
-    def parseDesc(self, desc):
-        state = 0
-        dt = []
-        at = []
-        target = None
+    def _parseDesc(self, desc):
+        """Parses data from the pseudo-markdown format.
+
+        Args:
+          desc: content of the file, typically found at the path data/collab/*.md
+        """
+        section = 0
+        description_lines = []
+        acknowledgement_lines = []
+
         for line in desc.splitlines():
             if line.startswith("---"):
-                state += 1
-            if state == 1:
+                section += 1
+            if section == 1:
                 if line.startswith("---"):
                     continue
                 match = self.matchval("url", line)
@@ -69,31 +76,26 @@ class collaborator:
                 if match:
                     self.img = match
                     continue
-            elif state > 1:
+            elif section > 1:
                 if self.matchsep("--- DescriptionText.md", line):
-                    target = "d"
+                    description_lines.append(line)
                     continue
                 if self.matchsep("--- AcknowledgementText.md", line):
-                    target = "a"
+                    acknowledgement_lines.append(line)
                     continue
-                if target:
-                    if target == "a":
-                        at.append(line)
-                    elif target == "d":
-                        dt.append(line)
-        self.description = "".join(dt)
-        self.acknowledgement = "".join(at)
-        self.description = localmarkdown.Markdown.parse(self.description)
-        self.acknowledgement = localmarkdown.Markdown.parse(self.acknowledgement)
+
+        self.description = localmarkdown.Markdown.parse("".join(description_lines))
+        self.acknowledgement = localmarkdown.Markdown.parse(
+            "".join(acknowledgement_lines)
+        )
 
     def matchval(self, val, line):
-        ret = None
         matchstr = "(?i)%s:" % val
         o = re.search(matchstr, line)
         if o:
             ret = line[len(val) + 1 :]
-            ret = ret.strip()
-        return ret
+            return ret.strip()
+        return None
 
     def matchsep(self, val, line):
         line = re.sub(" ", "", line).lower()
@@ -115,7 +117,7 @@ class collaborator:
         cls.loadCollaborators()
         coll = cls.COLLABORATORS.get(ref, None)
         if not coll:
-            log.warning("No such collaborator: %s" % ref)
+            log.warn("No such collaborator: %s" % ref)
         return coll
 
     @classmethod
@@ -124,28 +126,27 @@ class collaborator:
         cls.loadContributors()
         cont = cls.CONTRIBUTORS.get(ref, None)
         if not cont:
-            log.warning("No such contributor: %s" % ref)
+            log.warn("No such contributor: %s" % ref)
         return cont
 
     @classmethod
-    def createCollaborator(cls, filename):
-        code = os.path.basename(filename)
-        ref = os.path.splitext(code)[0]
-        coll = None
+    def createCollaborator(cls, file_path):
+        code = os.path.basename(file_path)
+        ref, _ = os.path.splitext(code)
         try:
-            with open(filename, "r") as f:
-                desc = f.read()
-            coll = cls(ref, desc=desc)
-        except Exception as e:
-            log.error("Error loading colaborator source %s: %s" % (filename, e))
-        return coll
+            with open(file_path, "r", encoding="utf-8") as file_handle:
+                desc = file_handle.read()
+            return cls(ref, desc=desc)
+        except OSError as e:
+            log.error("Error loading colaborator source %s: %s" % (file_path, e))
+            return None
 
     @classmethod
     def loadCollaborators(cls):
         if not len(cls.COLLABORATORS):
-            for filename in glob.glob("data/collab/*.md"):
-                cls.createCollaborator(filename)
-            log.info("%s Loaded %s collaborators", cls, len(collaborator.COLLABORATORS))
+            for file_path in glob.glob("data/collab/*.md"):
+                cls.createCollaborator(file_path)
+            log.info("Loaded %s collaborators" % len(cls.COLLABORATORS))
 
     @classmethod
     def createContributor(cls, ref):
@@ -164,11 +165,10 @@ class collaborator:
                     [] schema:contributor ?val.
             }"""
             res = sdotermsource.SdoTermSource.query(query)
-
             for row in res:
                 cont = row.val
                 cls.createContributor(os.path.basename(str(cont)))
-            log.info("%s Loaded %s contributors", cls, len(collaborator.CONTRIBUTORS))
+            log.info("Loaded %s contributors" % len(cls.CONTRIBUTORS))
 
     @classmethod
     def collaborators(cls):
