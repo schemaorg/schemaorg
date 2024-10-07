@@ -21,8 +21,6 @@ if not os.getcwd() in sys.path:
 import software
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdocollaborators as sdocollaborators
-
-
 import software.SchemaTerms.localmarkdown as localmarkdown
 
 log = logging.getLogger(__name__)
@@ -327,8 +325,6 @@ class SdoTermSource:
         return self.sources
 
     def getAcknowledgements(self) -> typing.Sequence[str]:
-        # Local import to avoid circular import error.
-
         if not self.aks:
             self.aks = []
             objs = self.loadObjects(
@@ -336,7 +332,8 @@ class SdoTermSource:
             )  # To accept later ttl versions.
             for obj in objs:
                 cont = sdocollaborators.collaborator.getContributor(str(obj))
-                self.aks.append(cont)
+                if cont:
+                    self.aks.append(cont)
             self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
 

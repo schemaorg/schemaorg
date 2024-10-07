@@ -28,7 +28,7 @@ class SdoTermOrId(object):
     """Wrapper that holds a term-id or a term."""
 
     def __init__(self, term_id : str = None, term = None):
-        self._term = term
+        assert term_id ^ term_id
         if term:
             self._term_id = term.id
             assert not term_id or term_id == term.id
@@ -59,7 +59,7 @@ class SdoTermOrId(object):
 
     def __str__(self):
         if not self._term:
-            return '<%s>' % self._term_id
+            return f'{self._term_id}'
         return str(self._term)
 
     def __bool__(self):
@@ -69,7 +69,7 @@ class SdoTermOrId(object):
 class SdoTermSequence(object):
     """Sequence that holds either a sequence of term-ids, or a sequence of terms.
 
-    If it holds a sequence of terms, the sequence is said to expanded.
+    If it holds a sequence of terms, the sequence is said to be expanded.
     It can only be changed by replacing all the values, either with ids, or term instances.
 
     """
@@ -99,7 +99,7 @@ class SdoTermSequence(object):
 
     @property
     def expanded(self):
-        return not self._term_dict or all(self._term_dict.values())
+        return all(self._term_dict.values())
 
     @property
     def ids(self):
@@ -144,7 +144,7 @@ class SdoTerm(object):
 
     0: Nothing is expanded
     1: Non recursive fields are expanded
-    2: All recursive fields are expanded (at are at least at level 1)
+    2: All recursive fields are expanded (and are at least at level 1)
 
     """
 

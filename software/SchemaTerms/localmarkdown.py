@@ -1,18 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
 import logging
-
-logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
-
 import markdown2
-
-# from markdown2 import Markdown
 import re
 import threading
 
+
 WIKILINKPATTERN = r"\[\[([\w0-9_ -]+)\]\]"
 
+log = logging.getLogger(__name__)
 
-class MarkdownTool:
+
+class MarkdownTool(object):
     WCLASS = "localLink"
     WPRE = "/"
     WPOST = ""
@@ -21,7 +21,7 @@ class MarkdownTool:
         # from markdown.extensions.wikilinks import WikiLinkExtension
         # self._md = markdown2.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
         self._md = markdown2.Markdown()
-        self.parselock = threading.Lock()
+        self._parselock = threading.Lock()
 
     def setPre(self, pre="./"):
         self.wpre = pre
@@ -30,15 +30,13 @@ class MarkdownTool:
         self.wpost = post
 
     def parse(self, source, preservePara=False, wpre=None):
-        if not source or len(source) == 0:
-            return ""
         source = source.strip()
+        if not source:
+            return ""
+
         source = source.replace("\\n", "\n")
-        try:
-            self.parselock.acquire()
+        with self._parselock:
             ret = self._md.convert(source)
-        finally:
-            self.parselock.release()
 
         if not preservePara:
             # Remove wrapping <p> </p>\n that Markdown2 adds by default

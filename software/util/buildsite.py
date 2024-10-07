@@ -40,6 +40,7 @@ import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.sdotermsource as sdotermsource
 
 log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 def initialize():
