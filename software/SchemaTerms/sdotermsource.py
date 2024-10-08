@@ -273,13 +273,7 @@ class SdoTermSource:
 
     def getComments(self) -> typing.Sequence[str]:
         if not self.comments:
-            self.comments = []
-            comms = self.loadObjects(rdflib.RDFS.comment)
-            for c in comms:
-                if sys.version_info.major == 3:
-                    self.comments.append(str(c))
-                else:
-                    self.comments.append(unicode(c))
+            self.comments = map(str, self.loadObjects(rdflib.RDFS.comment))
         return self.comments
 
     def getComment(self) -> str:
@@ -492,21 +486,12 @@ class SdoTermSource:
             val = os.path.basename(name)
             wpre = name[: len(name) - len(val)]
 
-        first = True
-        buf = []
-        for com in comments:
-            if not first:
-                buf.append(" ")
-            else:
-                first = False
-            if self.__class__.MARKDOWNPROCESS:
-                buf.append(localmarkdown.Markdown.parse(com, wpre=wpre))
-            else:
-                buf.append(com)
-        ret = "".join(buf)
-        if not len(ret):
-            ret = ""
-        self.comment = ret.strip()
+        if self.__class__.MARKDOWNPROCESS:
+            comment_buffer = [localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments]
+        else:
+            comment_buffer = comments
+        result = " ".join(comment_buffer)
+        self.comment = result.strip()
 
     def loadValue(self, valType):
         ret = self.loadObjects(valType)
