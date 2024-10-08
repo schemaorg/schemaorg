@@ -104,14 +104,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="inverseOf same property as itself")
 
-    def test_noSelfSupercededBy(self):
+    def test_noSelfSupersededBy(self):
         self.assertNoMatch("""
             select ?x ?y where {
-                ?x <https://schema.org/supercededBy> ?y .
+                ?x <https://schema.org/supersededBy> ?y .
                 filter (?x = ?y) .
             }
         """,
-        error_message="Type should not be supercededBy itself")
+        error_message="Type should not be supersededBy itself")
 
     @unittest.expectedFailure  # autos
     def test_needlessDomainIncludes(self):
@@ -246,23 +246,23 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             error_message="Types with nonexistent SuperTypes",
             row_pattern="Term '%(term)s' has nonexistent supertype: '%(super)s'")
 
-    @unittest.expectedFailure
     def test_propsWithoutDomain(self):
         self.assertNoMatch("""
             select ?term where {
                 ?term a rdf:Property.
                 FILTER NOT EXISTS { ?term <https://schema.org/domainIncludes> ?o .}
+                FILTER NOT EXISTS { ?term <https://schema.org/supersededBy> ?o .}
             }
         """,
         error_message="Property without domain extensions",
         row_pattern="Term '%(term)s' has no domainIncludes values")
 
-    @unittest.expectedFailure
     def test_propsWithoutRange(self):
         self.assertNoMatch("""
            select ?term where {
              ?term a rdf:Property.
              FILTER NOT EXISTS { ?term <https://schema.org/rangeIncludes> ?o .}
+             FILTER NOT EXISTS { ?term <https://schema.org/supersededBy> ?o .}
            }
         """,
         error_message="Property without range extensions",
@@ -304,12 +304,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Types with self-referencing inverseOf",
         row_pattern="Term '%(term)s' is defined as inverseOf self")
 
-    def test_sameInverseAndSupercededByTarget(self):
+    def test_sameInverseAndSupersededByTarget(self):
         self.assertNoMatch("""
           select ?term ?inverse ?super where {
             ?term rdf:type rdf:Property.
             ?term <https://schema.org/inverseOf> ?inverse.
-            ?term <https://schema.org/supercededBy> ?super.
+            ?term <https://schema.org/supersededBy> ?super.
 
             BIND(STR(?term) AS ?strVal)
             FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
@@ -319,8 +319,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
           }
           ORDER BY ?term
         """,
-        error_message="Types with inverseOf supercededBy shared target",
-        row_pattern="Term '%(term)s' defined ase inverseOf AND supercededBy %(inverse)s")
+        error_message="Types with inverseOf supersededBy shared target",
+        row_pattern="Term '%(term)s' defined ase inverseOf AND supersededBy %(inverse)s")
 
     def test_commentEndWithPeriod(self):
         """Validate that class and property RDF comments end with a punctuation."""
@@ -404,7 +404,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             }
             UNION
             {
-                ?term <https://schema.org/supercededBy> ?ref.
+                ?term <https://schema.org/supersededBy> ?ref.
                 ?term ?rel ?ref.
             }
             ?ref <https://schema.org/isPartOf> <http://attic.schema.org> .
@@ -447,7 +447,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                   schema:rangeIncludes |
                   rdfs:subClassOf |
                   rdfs:subPropertyOf |
-                  schema:supercededBy |
+                  schema:supersededBy |
                   schema:inverseOf ?target.
             filter strstarts(str(?target),"http://schema.org")
           }
