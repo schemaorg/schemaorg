@@ -52,19 +52,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                       for key in varnames or row.asdict().keys()])
                 for row in results]
 
-    @classmethod
-    def formatResults(cls, results, pattern: str = "", varnames: tuple[str] = (),
-                      sep: str = " => ", rowsep: str = "\n\t") -> str:
+    @staticmethod
+    def formatResults(results, pattern: str = "", varnames: tuple[str] = (),
+                      separator: str = " => ", row_separator: str = "\n\t") -> str:
         """Formatting results to make a human-readable list in one step."""
-        lines = []
-        if pattern:
-            lines = [pattern % row for row in results]
-        else:
-            lines = [sep.join([row[key]
-                            for key in varnames or row.keys()])
-                     for row in results]
+        def formatLines():
+            for row in results:
+                if pattern:
+                    yield pattern % row
+                else:
+                    yield separator.join([row[key] for key in varnames or row.keys()])
 
-        return rowsep + rowsep.join(lines)
+        return row_separator + row_separator.join(formatLines())
 
 
     def assertNoMatch(self, results: typing.Union[str, list[dict]],
