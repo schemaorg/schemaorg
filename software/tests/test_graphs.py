@@ -57,13 +57,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                       separator: str = " => ", row_separator: str = "\n\t") -> str:
         """Formatting results to make a human-readable list in one step."""
         def formatLines():
+            yield f"Found {len(results)} item{'' if len(results)==1 else 's'}:"
             for row in results:
                 if pattern:
                     yield pattern % row
                 else:
                     yield separator.join([row[key] for key in varnames or row.keys()])
 
-        return row_separator + row_separator.join(formatLines())
+        return row_separator.join(formatLines())
 
 
     def assertNoMatch(self, results: typing.Union[str, list[dict]],
@@ -73,7 +74,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             results = self.getResults(results)
         self.assertEqual(
             len(results), 0,
-            f"{error_message}! Found {len(results)}: {self.formatResults(results, pattern=row_pattern)}")
+            f"{error_message}! {self.formatResults(results, pattern=row_pattern)}")
 
 
     # SPARQLResult http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
