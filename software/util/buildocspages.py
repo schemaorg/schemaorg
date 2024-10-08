@@ -163,9 +163,9 @@ class listingNode:
         if not self.id in VISITLIST:
             VISITLIST.append(self.id)
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
-                for enum in sorted(termdesc.enumerationMembers):
+                for enum in sorted(termdesc.enumerationMembers.ids):
                     self.subs.append(listingNode(enum, depth=depth + 1, parent=self))
-            for sub in sorted(termdesc.subs):
+            for sub in sorted(termdesc.subs.ids):
                 self.subs.append(listingNode(sub, depth=depth + 1, parent=self))
 
         else:  # Visited this node before so don't parse children
@@ -192,7 +192,7 @@ def jsonldtree(page):
     return json.dumps(data, indent=3)
 
 
-def _jsonldtree(tid, term=None):
+def _jsonldtree(tid: str, term=None):
     termdesc = sdotermsource.SdoTermSource.getTerm(tid)
     if not term:
         term = {}
@@ -200,9 +200,7 @@ def _jsonldtree(tid, term=None):
     term["@id"] = "schema:" + termdesc.id
     term["name"] = termdesc.label
     if termdesc.supers:
-        sups = []
-        for sup in termdesc.supers:
-            sups.append("schema:" + sup)
+        sups = ["schema:" + sup for sup in termdesc.supers.ids]
         if len(sups) == 1:
             term["rdfs:subClassOf"] = sups[0]
         else:
@@ -218,8 +216,8 @@ def _jsonldtree(tid, term=None):
         VISITLIST.append(tid)
         if termdesc.subs:
             subs = []
-            for sub in termdesc.subs:
-                subs.append(_jsonldtree(sub))
+            for sub in termdesc.subs.ids:
+                subs.append(_jsonldtree(tid=sub))
             term["children"] = subs
     return term
 
@@ -295,7 +293,7 @@ def createCollab(coll):
     filename = absoluteFilePath(os.path.join("docs/collab/", +coll.ref + ".html"))
     with open(filename, "w", encoding="utf8") as handle:
         handle.write(content)
-    log.info("Created %s" % fn)
+    log.info("Created %s" % filename)
 
 
 def termfind(file):

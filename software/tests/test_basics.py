@@ -4,7 +4,6 @@
 # Import standard python libraries
 import sys
 import os
-import os
 import json
 import unittest
 import logging
@@ -71,18 +70,16 @@ class SupertypePathsTestCase(unittest.TestCase):
       pprint.pprint(', '.join([str(x.id) for x in path ]))"""
 
     def test_simplePath(self):
+        path = sdotermsource.SdoTermSource.getParentPathTo("CreativeWork", "Thing")
         self.assertEqual(
-            len(sdotermsource.SdoTermSource.getParentPathTo("CreativeWork", "Thing")),
+            len(path),
             1,
-            "1 supertype path from CreativeWork to Thing.",
+            path,
         )
 
     def test_dualPath(self):
-        self.assertEqual(
-            len(sdotermsource.SdoTermSource.getParentPathTo("Restaurant", "Thing")),
-            2,
-            "2 supertype paths from Restaurant to Thing.",
-        )
+        path = sdotermsource.SdoTermSource.getParentPathTo("Restaurant", "Thing")
+        self.assertEqual(len(path), 2, path)
 
     def test_inverseDualPath(self):
         self.assertEqual(
@@ -138,33 +135,35 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     def test_ArticleSupertypeNewsArticle(self):
         tArticle = sdotermsource.SdoTermSource.getTerm("Article")
         self.assertTrue(
-            "NewsArticle" in tArticle.subs, "NewsArticle is a sub-type of Article"
+            "NewsArticle" in tArticle.subs.ids, "NewsArticle is a sub-type of Article"
         )
 
     def test_NewsArticleSupertypeArticle(self):
         tNewsArticle = sdotermsource.SdoTermSource.getTerm("NewsArticle")
         # tArticle = sdoterm.SdoTermSource.getTerm("Article")
         self.assertNotIn(
-            "Article", tNewsArticle.subs, "Article is not a sub-type of NewsArticle"
+            "Article", tNewsArticle.subs.ids, "Article is not a sub-type of NewsArticle"
         )
 
     def test_ThingSupertypeThing(self):
         tThing = sdotermsource.SdoTermSource.getTerm("Thing")
-        self.assertNotIn("Thing", tThing.subs, "Thing subClassOf Thing.")
+        self.assertNotIn("Thing", tThing.subs.ids, "Thing subClassOf Thing.")
 
     def test_DataTypeSupertypeDataType(self):
         tDataType = sdotermsource.SdoTermSource.getTerm("DataType")
-        self.assertNotIn("DataType", tDataType.subs, "DataType subClassOf DataType.")
+        self.assertNotIn(
+            "DataType", tDataType.subs.ids, "DataType subClassOf DataType."
+        )
 
     # TODO: subClassOf() function has "if (self.id == type.id)", investigate how this is used.
 
     def test_PersonSupertypeThing(self):
         tThing = sdotermsource.SdoTermSource.getTerm("Thing")
-        self.assertIn("Person", tThing.subs, "Person subClassOf Thing.")
+        self.assertIn("Person", tThing.subs.ids, "Person subClassOf Thing.")
 
     def test_ThingNotSupertypePerson(self):
         tPerson = sdotermsource.SdoTermSource.getTerm("Person")
-        self.assertNotIn("Thing", tPerson.subs, "Thing not subClassOf Person.")
+        self.assertNotIn("Thing", tPerson.subs.ids, "Thing not subClassOf Person.")
 
     def test_StoreSupertypeLocalBusiness(self):
         self.assertTrue(
@@ -195,7 +194,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         tArticle = sdotermsource.SdoTermSource.getTerm("Article")
         self.assertIn(
             "NewsArticle",
-            tArticle.subs,
+            tArticle.subs.ids,
             "NewsArticle is in immediate subtypes of Article.",
         )
 
@@ -203,7 +202,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         tArticle = sdotermsource.SdoTermSource.getTerm("CreativeWork")
         self.assertNotIn(
             "NewsArticle",
-            tArticle.subs,
+            tArticle.subs.ids,
             "CreativeWork is not in immediate subtypes of Article.",
         )
 
@@ -254,7 +253,7 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         p_acceptedAnswer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
         self.assertIn(
             "suggestedAnswer",
-            p_acceptedAnswer.supers[0],
+            p_acceptedAnswer.supers.ids[0],
             msg="acceptedAnswer superproperties(), suggestedAnswer in 0th element of array.",
         )
 
@@ -274,7 +273,7 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertIn(
             "acceptedAnswer",
-            p_suggestedAnswer.subs,
+            p_suggestedAnswer.subs.ids,
             msg="acceptedAnswer is a subPropertyOf suggestedAanswer.",
         )
 
@@ -282,18 +281,11 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertEqual(
             "acceptedAnswer",
-            p_suggestedAnswer.subs[0],
+            p_suggestedAnswer.subs.ids[0],
             msg="suggestedAnswer subproperties(), acceptedAnswer in 0th element of array.",
         )
 
-    def test_answerSubpropertiesArrayLen(self):
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
-        log.info("suggestedAnswer array: " + str(p_suggestedAnswer.subs))
-        self.assertEqual(
-            p_suggestedAnswer.subs, 0, "answer subproperties() gives array of len 1."
-        )
-
-    def test_answerSubpropertiesArrayLen(self):
+    def test_offerSubpropertiesArrayLen(self):
         p_offers = sdotermsource.SdoTermSource.getTerm("offers")
         self.assertEqual(
             len(p_offers.subs), 0, "offers subproperties() gives array of len 0."
@@ -304,23 +296,23 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertNotIn(
             "alumni",
-            p_suggestedAnswer.supers,
+            p_suggestedAnswer.supers.ids,
             msg="not suggestedAnswer subPropertyOf alumni.",
         )
         self.assertNotIn(
             "suggestedAnswer",
-            p_alumni.supers,
+            p_alumni.supers.ids,
             msg="not alumni subPropertyOf suggestedAnswer.",
         )
         self.assertNotIn(
-            "alumni", p_alumni.supers, msg="not alumni subPropertyOf alumni."
+            "alumni", p_alumni.supers.ids, msg="not alumni subPropertyOf alumni."
         )
         self.assertNotIn(
-            "alumniOf", p_alumni.supers, msg="not alumni subPropertyOf alumniOf."
+            "alumniOf", p_alumni.supers.ids, msg="not alumni subPropertyOf alumniOf."
         )
         self.assertNotIn(
             "suggestedAnswer",
-            p_suggestedAnswer.supers,
+            p_suggestedAnswer.supers.ids,
             msg="not suggestedAnswer subPropertyOf suggestedAnswer.",
         )
 
@@ -331,17 +323,21 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
         # log.info("alumni: " + str(p_alumniOf.getInverseOf() ))
 
-        self.assertEqual("alumni", p_alumniOf.inverse, msg="alumniOf inverseOf alumni.")
-        self.assertEqual("alumniOf", p_alumni.inverse, msg="alumni inverseOf alumniOf.")
+        self.assertEqual(
+            "alumni", p_alumniOf.inverse.id, msg="alumniOf inverseOf alumni."
+        )
+        self.assertEqual(
+            "alumniOf", p_alumni.inverse.id, msg="alumni inverseOf alumniOf."
+        )
 
         self.assertNotEqual(
-            "alumni", p_alumni.inverse, msg="Not alumni inverseOf alumni."
+            "alumni", p_alumni.inverse.id, msg="Not alumni inverseOf alumni."
         )
         self.assertNotEqual(
-            "alumniOf", p_alumniOf.inverse, msg="Not alumniOf inverseOf alumniOf."
+            "alumniOf", p_alumniOf.inverse.id, msg="Not alumniOf inverseOf alumniOf."
         )
         self.assertNotEqual(
-            "alumni", p_suggestedAnswer.inverse, msg="Not answer inverseOf alumni."
+            "alumni", p_suggestedAnswer.inverse.id, msg="Not answer inverseOf alumni."
         )
         # Confirmed informally that the direction asserted doesn't matter currently.
         # Need to add tests that read in custom test-specific schema markup samples to verify this.
@@ -475,7 +471,7 @@ class SimpleCommentCountTests(unittest.TestCase):
                 log.warning(
                     "Term %s has rdfs:comment value %s" % (row["term"], row["comment"])
                 )
-        msg = '\n\t'.join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
+        msg = "\n\t".join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
         self.assertEqual(
             len(ndi1_results),
             0,

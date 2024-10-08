@@ -44,8 +44,8 @@ class SdoJsonLdContextTest(unittest.TestCase):
         mock_property = sdoterm.SdoProperty(
             Id=mock_id, uri="http://schema.org/thang", label="thang"
         )
-        mock_property.domainIncludes = ["Thing"]
-        mock_property.rangeIncludes = ["Date", "URL", "Thing"]
+        mock_property.domainIncludes.setIds(["Thing"])
+        mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
         mock_getAllTerms.return_value = [mock_property]
         json_data = sdojsonldcontext.createcontext()
         parsed = json.loads(json_data)
@@ -65,8 +65,8 @@ class SdoJsonLdContextTest(unittest.TestCase):
         mock_type = sdoterm.SdoDataType(
             Id=mock_id, uri="http://schema.org/Fnubl", label="fnubl"
         )
-        mock_type.properties = ["thang"]
-        mock_type.expectedTypeFor = ["Thing"]
+        mock_type.properties.setIds(["thang"])
+        mock_type.expectedTypeFor.setIds(["Thing"])
         mock_getAllTerms.return_value = [mock_type]
         json_data = sdojsonldcontext.createcontext()
         parsed = json.loads(json_data)
@@ -84,7 +84,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         mock_enumeration = sdoterm.SdoEnumeration(
             Id=mock_id, uri="http://schema.org/Grabl", label="grabl"
         )
-        mock_enumeration.expectedTypeFor = ["Thing"]
+        mock_enumeration.expectedTypeFor.setIds(["Thing"])
         mock_getAllTerms.return_value = [mock_enumeration]
         json_data = sdojsonldcontext.createcontext()
         parsed = json.loads(json_data)
@@ -138,8 +138,8 @@ class SdoJsonLdContextTest(unittest.TestCase):
         mock_property = sdoterm.SdoProperty(
             Id="aa", uri="http://schema.org/a", label="a"
         )
-        mock_property.domainIncludes = ["Thing"]
-        mock_property.rangeIncludes = ["Date", "URL", "Thing"]
+        mock_property.domainIncludes.setIds(["Thing"])
+        mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
         mock_enumeration = sdoterm.SdoEnumeration(
             Id="bb", uri="http://schema.org/b", label="b"
         )
