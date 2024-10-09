@@ -152,20 +152,9 @@ class SdoTermSource:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
                 # raise Exception("Unknown parent type '%s' for term: %s" % (ttype, self.uri))
 
-        if self.ttype == sdoterm.SdoTermType.TYPE:
-            self.termdesc = sdoterm.SdoType(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTermType.PROPERTY:
-            self.termdesc = sdoterm.SdoProperty(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTermType.DATATYPE:
-            self.termdesc = sdoterm.SdoDataType(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            self.termdesc = sdoterm.SdoEnumeration(self.id, self.uri, self.label)
-        elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            self.termdesc = sdoterm.SdoEnumerationvalue(self.id, self.uri, self.label)
-            if self.parent:
-                self.termdesc.enumerationParent.setId(self.parent.id)
-        elif self.ttype == sdoterm.SdoTermType.REFERENCE:
-            self.termdesc = sdoterm.SdoReference(self.id, self.uri, self.label)
+        self.termdesc = sdoterm.SdoTermforType(self.ttype, Id=self.id, uri=self.uri, label=self.label)
+        if self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE and self.parent:
+            self.termdesc.enumerationParent.setId(self.parent.id)
 
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
