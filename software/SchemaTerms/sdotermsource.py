@@ -88,9 +88,7 @@ class SdoTermSource:
     RDFLIBLOCK = threading.Lock()
 
     def __init__(self, uri: str, ttype=None, label: str = "", layer=None):
-        self.uri = uri
-        self.id = uri2id(uri)
-        self.label = label
+        term_id = uri2id(uri)
         self.layer = CORE
         if layer:
             self.layer = layer
@@ -118,19 +116,15 @@ class SdoTermSource:
         self.sources = None
         self.aks = None
         self.examples = None
-        self.enum = None
-
         global DATATYPEURI, ENUMERATIONURI
         cls = self.__class__
         if ttype == rdflib.RDFS.Class:
             self.ttype = sdoterm.SdoTermType.TYPE
-            if self.uri == str(DATATYPEURI):  # The base DataType is defined as a Class
+            if uri == str(DATATYPEURI):  # The base DataType is defined as a Class
                 self.ttype = sdoterm.SdoTermType.DATATYPE
-            elif self.uri == str(
-                ENUMERATIONURI
-            ):  # The base Enumeration Type is defined as a Class
+            elif uri == str(ENUMERATIONURI):  # The base Enumeration Type is defined as a Class
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
-            elif self.isEnumeration():
+            elif self._isEnumeration(term_id=term_id):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == rdflib.RDF.Property:
             self.ttype = sdoterm.SdoTermType.PROPERTY
@@ -140,7 +134,7 @@ class SdoTermSource:
             self.ttype = sdoterm.SdoTermType.DATATYPE
         elif not ttype:
             self.ttype = sdoterm.SdoTermType.REFERENCE
-            self.label = id
+            label = term_id
         else:
             self.parent = cls._getTerm(str(ttype), createReference=True)
 
@@ -150,22 +144,21 @@ class SdoTermSource:
                 self.ttype = sdoterm.SdoTermType.DATATYPE
             else:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
-                # raise Exception("Unknown parent type '%s' for term: %s" % (ttype, self.uri))
 
         if self.ttype == sdoterm.SdoTermType.TYPE:
-            self.termdesc = sdoterm.SdoType(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoType(term_id, uri, label=label)
         elif self.ttype == sdoterm.SdoTermType.PROPERTY:
-            self.termdesc = sdoterm.SdoProperty(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoProperty(term_id=term_id, uri=uri, label=label)
         elif self.ttype == sdoterm.SdoTermType.DATATYPE:
-            self.termdesc = sdoterm.SdoDataType(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoDataType(term_id=term_id, uri=uri, label=label)
         elif self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            self.termdesc = sdoterm.SdoEnumeration(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoEnumeration(term_id=term_id, uri=uri, label=label)
         elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            self.termdesc = sdoterm.SdoEnumerationvalue(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoEnumerationvalue(term_id=term_id, uri=uri, label=label)
             if self.parent:
                 self.termdesc.enumerationParent.setId(self.parent.id)
         elif self.ttype == sdoterm.SdoTermType.REFERENCE:
-            self.termdesc = sdoterm.SdoReference(self.id, self.uri, self.label)
+            self.termdesc = sdoterm.SdoReference(term_id=term_id, uri=uri, label=label)
 
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
@@ -201,15 +194,21 @@ class SdoTermSource:
         elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
             pass
         elif self.ttype == sdoterm.SdoTermType.REFERENCE:
-            self.termdesc.label = prefixedIdFromUri(self.uri)
+            self.termdesc.label = prefixedIdFromUri(uri)
             self.termdesc.comment = self.getComment()
 
-        cls.TERMS[self.uri] = self.termdesc
-
-        # log.info("SdoTermSource %s %s" %(self.ttype,self.id))
+        cls.TERMS[uri] = self.termdesc
 
     def __str__(self):
         return ("<SdoTermSource: %s '%s'>") % (self.ttype, self.id)
+
+    @property
+    def id(self):
+        return self.termdesc.id
+
+    @property
+    def uri(self):
+        return self.termdesc.uri
 
     def getTermdesc(self) -> sdoterm.SdoType:
         return self.termdesc
@@ -234,42 +233,28 @@ class SdoTermSource:
                     return True
         return False
 
-    def isEnumeration(self) -> bool:
+    @classmethod
+    def _isEnumeration(cls, term_id : str) -> bool:
         global ENUMERATIONURI
-        if self.enum == None:
-            query = """
-            ASK  {
+        query = """
+          ASK  {
                     %s rdfs:subClassOf* %s.
-             }""" % (uriWrap(toFullId(self.id)), uriWrap(ENUMERATIONURI))
-            ret = []
-            res = self.__class__.query(query)
-            for row in res:
-                self.enum = row
-            # log.info("res %s" % self.enum)
-            return self.enum
+            }""" % (uriWrap(toFullId(term_id)), uriWrap(ENUMERATIONURI))
 
-        return self.ttype == sdoterm.SdoTermType.ENUMERATION
+        result = cls.query(query)
+        return result[-1]
 
-    def isEnumerationValue(self) -> bool:
+    def _isEnumerationValue(self) -> bool:
         return self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE
 
     def isReference(self) -> bool:
         return self.ttype == sdoterm.SdoTermType.REFERENCE
-
-    def getId(self) -> str:
-        return self.id
 
     def getParent(self):
         return self.parent
 
     def getPrefixedId(self) -> str:
         return prefixedIdFromUri(self.uri)
-
-    def getUri(self) -> str:
-        return self.uri
-
-    def getLabel(self) -> str:
-        return self.label
 
     def getComments(self) -> typing.Sequence[str]:
         if not self.comments:

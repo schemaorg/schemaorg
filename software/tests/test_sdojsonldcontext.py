@@ -42,7 +42,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.maxDiff = None
         mock_id = "1234"
         mock_property = sdoterm.SdoProperty(
-            Id=mock_id, uri="http://schema.org/thang", label="thang"
+            term_id=mock_id, uri="http://schema.org/thang", label="thang"
         )
         mock_property.domainIncludes.setIds(["Thing"])
         mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
@@ -63,7 +63,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.maxDiff = None
         mock_id = "1234"
         mock_type = sdoterm.SdoDataType(
-            Id=mock_id, uri="http://schema.org/Fnubl", label="fnubl"
+            term_id=mock_id, uri="http://schema.org/Fnubl", label="fnubl"
         )
         mock_type.properties.setIds(["thang"])
         mock_type.expectedTypeFor.setIds(["Thing"])
@@ -82,7 +82,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.maxDiff = None
         mock_id = "1234"
         mock_enumeration = sdoterm.SdoEnumeration(
-            Id=mock_id, uri="http://schema.org/Grabl", label="grabl"
+            term_id=mock_id, uri="http://schema.org/Grabl", label="grabl"
         )
         mock_enumeration.expectedTypeFor.setIds(["Thing"])
         mock_getAllTerms.return_value = [mock_enumeration]
@@ -100,7 +100,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.maxDiff = None
         mock_id = "1234"
         mock_enumeration = sdoterm.SdoEnumerationvalue(
-            Id=mock_id, uri="http://schema.org/Bobl", label="bobl"
+            term_id=mock_id, uri="http://schema.org/Bobl", label="bobl"
         )
         mock_getAllTerms.return_value = [mock_enumeration]
         json_data = sdojsonldcontext.createcontext()
@@ -120,7 +120,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.maxDiff = None
         mock_id = "1234"
         mock_reference = sdoterm.SdoReference(
-            Id=mock_id, uri="http://schema.org/Bobl", label="bobl"
+            term_id=mock_id, uri="http://schema.org/Bobl", label="bobl"
         )
         mock_getAllTerms.return_value = [mock_reference]
         json_data = sdojsonldcontext.createcontext()
@@ -136,15 +136,15 @@ class SdoJsonLdContextTest(unittest.TestCase):
     def test_createcontextMultiple(self, mock_getAllTerms):
         self.maxDiff = None
         mock_property = sdoterm.SdoProperty(
-            Id="aa", uri="http://schema.org/a", label="a"
+            term_id="aa", uri="http://schema.org/a", label="a"
         )
         mock_property.domainIncludes.setIds(["Thing"])
         mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
         mock_enumeration = sdoterm.SdoEnumeration(
-            Id="bb", uri="http://schema.org/b", label="b"
+            term_id="bb", uri="http://schema.org/b", label="b"
         )
         mock_enumeration_value = sdoterm.SdoEnumerationvalue(
-            Id="cc", uri="http://schema.org/c", label="c"
+            term_id="cc", uri="http://schema.org/c", label="c"
         )
         mock_getAllTerms.return_value = [
             mock_property,
