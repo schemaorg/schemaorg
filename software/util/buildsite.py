@@ -179,7 +179,9 @@ def clear():
 ###################################################
 def runtests():
     if args.runtests or args.autobuild:
-        with pretty_logger.BlockLog(logger=log, message="Running test scripts before proceeding…"):
+        with pretty_logger.BlockLog(
+            logger=log, message="Running test scripts before proceeding…"
+        ):
             errorcount = runtests_lib.main("./software/tests/")
             if errorcount:
                 log.error(f"Errors returned: {errorcount}")
@@ -331,7 +333,8 @@ if __name__ == "__main__":
 
     software.CheckWorkingDirectory()
     log.info(
-        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}")
+        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
+    )
     if args.release:
         args.autobuild = True
         log.info("BUILDING RELEASE VERSION")

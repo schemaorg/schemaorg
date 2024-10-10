@@ -17,12 +17,13 @@ if not os.getcwd() in sys.path:
 
 import software
 
+import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
 import software.util.fileutils as fileutils
+import software.util.pretty_logger as pretty_logger
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
-import software.util.textutils as textutils
 import software.util.sdojsonldcontext as sdojsonldcontext
-import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
+import software.util.textutils as textutils
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
@@ -282,18 +283,15 @@ def _exportrdf(format, all, current):
             "releases/%s/schemaorg-%s-%s%s"
             % (version, ver, altprotocol, EXTENSIONS_FOR_FORMAT[format])
         )
-        fmt = format
-        if format == "rdf":
-            fmt = "pretty-xml"
-        f = open(fn, "w", encoding="utf8")
-        af = open(afn, "w", encoding="utf8")
-        kwargs = {"sort_keys": True}
-        out = g.serialize(format=fmt, auto_compact=True, **kwargs)
-        f.write(out)
-        af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
-        log.info("Exported %s and %s" % (fn, afn))
-        f.close()
-        af.close()
+        with pretty_logger.BlockLog(logger=log, message="Exporting {fn} and {afn}"):
+            fmt = format
+            if format == "rdf":
+                fmt = "pretty-xml"
+            out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
+            with open(fn, "w", encoding="utf8") as f:
+                f.write(out)
+            with open(afn, "w", encoding="utf8") as af:
+                af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
 
 
 def array2str(values):
@@ -518,16 +516,17 @@ def buildFiles(files):
             break
 
     for p in files:
-        log.info("Preparing file %s:" % p)
-        if p in FILELIST.keys():
-            func, filenames = FILELIST.get(p, None)
-            if func:
-                content = func(p)
-                if content:
-                    for filename in filenames:
-                        fn = absoluteFilePath(filename)
-                        with open(fn, "w", encoding="utf8") as handle:
-                            handle.write(content)
-                        log.info("Created %s" % fn)
-        else:
-            log.warning("Unknown files name: %s" % p)
+        with pretty_logger.BlockLog(
+            message=f"Preparing file {p}.",
+            logger=log):
+            if p in FILELIST.keys():
+                func, filenames = FILELIST.get(p, None)
+                if func:
+                    content = func(p)
+                    if content:
+                        for filename in filenames:
+                            fn = absoluteFilePath(filename)
+                            with open(fn, "w", encoding="utf8") as handle:
+                                handle.write(content)
+            else:
+                log.warning("Unknown files name: %s" % p)

@@ -7,6 +7,7 @@ import os
 import sys
 import time
 
+
 class PrettyLogFormatter(logging.Formatter):
     """Helper class to format the log messages from the various parts of the project."""
 
@@ -67,7 +68,9 @@ class BlockLog:
             self.logger.error(f"Failed: {self.message}")
         else:
             if self.elapsed:
-                self.logger.info(f"Done: {self.message} in {self.elapsed:.2f} seconds", )
+                self.logger.info(
+                    f"Done: {self.message} in {self.elapsed:.2f} seconds",
+                )
             else:
                 self.logger.info(f"Done: {self.message}")
 

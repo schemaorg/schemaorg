@@ -100,7 +100,8 @@ def RenderAndWriteSingleTerm(term_key):
       elapsed time for the generation (seconds).
     """
     with pretty_logger.BlockLog(
-        logger=log, message=f'Generate term {term_key}', timing=True, displayStart=False) as block:
+        logger=log, message=f"Generate term {term_key}", timing=True, displayStart=False
+    ) as block:
         term = sdotermsource.SdoTermSource.getTerm(term_key, expanded=True)
         if not term:
             log.error("No such term: %s\n" % term_key)
@@ -110,7 +111,9 @@ def RenderAndWriteSingleTerm(term_key):
         ):  # Don't create pages for reference types
             return 0
         examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
-        json = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
+        json = sdotermsource.SdoTermSource.getTermAsRdfString(
+            term.id, "json-ld", full=True
+        )
         pageout = termtemplateRender(term, examples, json)
         with open(termFileName(term.id), "w", encoding="utf8") as outfile:
             outfile.write(pageout)
