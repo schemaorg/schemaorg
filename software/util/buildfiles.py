@@ -516,9 +516,7 @@ def buildFiles(files):
             break
 
     for p in files:
-        with pretty_logger.BlockLog(
-            message=f"Preparing file {p}.",
-            logger=log):
+        with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
             if p in FILELIST.keys():
                 func, filenames = FILELIST.get(p, None)
                 if func:
