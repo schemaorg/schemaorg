@@ -23,6 +23,8 @@ import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.localmarkdown as localmarkdown
 
+import software.util.pretty_logger as pretty_logger
+
 log = logging.getLogger(__name__)
 
 DEFVOCABURI = "https://schema.org/"
@@ -857,75 +859,74 @@ class SdoTermSource:
     def getAllTerms(
         cls, ttype=None, layer=None, suppressSourceLinks=False, expanded=False
     ):
-        log.debug("Start: getAllTerms")
-        global DATATYPEURI, ENUMERATIONURI
-        typsel = ""
-        extra = ""
-        if ttype == sdoterm.SdoTermType.TYPE:
-            typsel = "a <%s>;" % rdflib.RDFS.Class
-        elif ttype == sdoterm.SdoTermType.PROPERTY:
-            typsel = "a <%s>;" % rdflib.RDF.Property
-        elif ttype == sdoterm.SdoTermType.DATATYPE:
-            typsel = "a <%s>;" % DATATYPEURI
-        elif ttype == sdoterm.SdoTermType.ENUMERATION:
-            typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
-        elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
-        elif not ttype:
-            typesel = ""
-        else:
-            log.debug("Invalid type value '%s'" % ttype)
-
-        laysel = ""
-        fil = ""
-        suppress = ""
-        if layer:
-            if layer == "core":
-                fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
+        with pretty_logger.BlockLog(logger=log, message="GetAllTerms", timing=True) as block:
+            global DATATYPEURI, ENUMERATIONURI
+            typsel = ""
+            extra = ""
+            if ttype == sdoterm.SdoTermType.TYPE:
+                typsel = "a <%s>;" % rdflib.RDFS.Class
+            elif ttype == sdoterm.SdoTermType.PROPERTY:
+                typsel = "a <%s>;" % rdflib.RDF.Property
+            elif ttype == sdoterm.SdoTermType.DATATYPE:
+                typsel = "a <%s>;" % DATATYPEURI
+            elif ttype == sdoterm.SdoTermType.ENUMERATION:
+                typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
+            elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
+                extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
+            elif not ttype:
+                typesel = ""
             else:
-                laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
+                log.debug("Invalid type value '%s'" % ttype)
 
-        if suppressSourceLinks:
-            suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+            laysel = ""
+            fil = ""
+            suppress = ""
+            if layer:
+                if layer == "core":
+                    fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
+                else:
+                    laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
 
-        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
-             ?term a ?type;
+            if suppressSourceLinks:
+                suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+
+            query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+                 ?term a ?type;
+                    %s
+                    %s
+                    rdfs:label ?label.
+                %s
+                OPTIONAL {
+                    ?term schema:isPartOf ?layer.
+                }
+                OPTIONAL {
+                    ?term rdfs:subClassOf ?sup.
+                }
+                OPTIONAL {
+                    ?term rdfs:subPropertyOf ?sup.
+                }
                 %s
                 %s
-                rdfs:label ?label.
-            %s
-            OPTIONAL {
-                ?term schema:isPartOf ?layer.
             }
-            OPTIONAL {
-                ?term rdfs:subClassOf ?sup.
-            }
-            OPTIONAL {
-                ?term rdfs:subPropertyOf ?sup.
-            }
-            %s
-            %s
-        }
-        ORDER BY ?term
-        """ % (typsel, laysel, extra, fil, suppress)
+            ORDER BY ?term
+            """ % (typsel, laysel, extra, fil, suppress)
 
-        log.debug("query %s", query)
-        res = cls.query(query)
-        log.debug("res %d", len(res))
+            log.debug("query %s", query)
+            res = cls.query(query)
+            log.debug("res %d", len(res))
 
-        terms = []
-        if expanded:
-            log.info("Expanding %d terms", len(res))
-            terms = cls.termsFromResults(res)
-            log.info("Done:")
-        else:
-            for row in res:
-                term = uri2id(str(row.term))
-                if not term in terms:
-                    terms.append(term)
+            terms = []
+            if expanded:
+                with pretty_logger.BlockLog(logger=log, message=f"Expanding {len(res)} terms", timing=True):
+                    terms = cls.termsFromResults(res)
 
-        log.info("GetAllTerms: count %s TERMS %s" % (len(terms), len(cls.TERMS)))
-        return terms
+            else:
+                for row in res:
+                    term = uri2id(str(row.term))
+                    if not term in terms:
+                        terms.append(term)
+            block.message = f"GetAllTerms: {len(terms)} terms, total: {len(cls.TERMS)}"
+            return terms
 
     @classmethod
     def getAcknowledgedTerms(cls, ack):
@@ -1025,7 +1026,7 @@ class SdoTermSource:
         for file_path in files:
             cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
         log.info(
-            "Loaded %s triples - %s terms",
+            "Done: Loaded %s triples - %s terms",
             len(cls.sourceGraph()),
             len(cls.getAllTerms()),
         )

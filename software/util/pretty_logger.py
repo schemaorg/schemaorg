@@ -5,7 +5,7 @@ import colorama
 import logging
 import os
 import sys
-
+import time
 
 class PrettyLogFormatter(logging.Formatter):
     """Helper class to format the log messages from the various parts of the project."""
@@ -38,25 +38,38 @@ class PrettyLogFormatter(logging.Formatter):
 
     def format(self, record):
         if self.use_color:
-            record.levelname = self.__class__._computeLevelName(record)
-            record.name = self.__class__._computeName(record)
+            record.levelname = self._computeLevelName(record)
+            record.name = self._computeName(record)
         return logging.Formatter.format(self, record)
 
 
 class BlockLog:
-    def __init__(self, logger, message):
+    def __init__(self, logger, message, timing=False, displayStart=True):
         self.logger = logger
         self.message = message
+        self.timing = timing
+        self.displayStart = displayStart
+        self.start_time = None
+        self.elapsed = None
 
     def __enter__(self):
-        self.logger.info("Start: %s", self.message)
+        if self.displayStart:
+            self.logger.info(f"Start: {self.message}")
+        if self.timing:
+            self.start_time = time.perf_counter()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        if self.timing:
+            self.elapsed = time.perf_counter() - self.start_time
+
         if isinstance(exc_value, Exception):
-            self.logger.error("Failed: %s", self.message)
+            self.logger.error(f"Failed: {self.message}")
         else:
-            self.logger.info("Done: %s", self.message)
+            if self.elapsed:
+                self.logger.info(f"Done: {self.message} in {self.elapsed:.2f} seconds", )
+            else:
+                self.logger.info(f"Done: {self.message}")
 
     def append(self, message):
         self.message = self.message + " " + message

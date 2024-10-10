@@ -164,7 +164,7 @@ def initialize():
 
 def clear():
     if args.clearfirst or args.autobuild:
-        log.info("Clearing %s directory" % schemaglobals.OUTPUTDIR)
+        log.info(f"Clearing {schemaglobals.OUTPUTDIR} directory")
         if os.path.isdir(schemaglobals.OUTPUTDIR):
             for root, dirs, files in os.walk(schemaglobals.OUTPUTDIR):
                 for f in files:
@@ -179,13 +179,11 @@ def clear():
 ###################################################
 def runtests():
     if args.runtests or args.autobuild:
-        log.info("Running test scripts before proceeding…")
-        errorcount = runtests_lib.main("./software/tests/")
-        if errorcount:
-            log.error("Errors returned: %d" % errorcount)
-            sys.exit(errorcount)
-        else:
-            log.info("Done: Tests successful!")
+        with pretty_logger.BlockLog(logger=log, message="Running test scripts before proceeding…"):
+            errorcount = runtests_lib.main("./software/tests/")
+            if errorcount:
+                log.error(f"Errors returned: {errorcount}")
+                sys.exit(errorcount)
 
 
 ###################################################
@@ -194,7 +192,7 @@ def runtests():
 
 
 def initdir(output_dir, handler_path):
-    log.info('Building site in "%s" directory' % output_dir)
+    log.info(f'Building site in "{output_dir}" directory')
     fileutils.createMissingDir(output_dir)
     clear()
     fileutils.createMissingDir(os.path.join(output_dir, "docs"))
@@ -256,7 +254,7 @@ def loadTerms():
 def processTerms(terms):
     if len(terms):
         with pretty_logger.BlockLog(
-            logger=log, message="Building term definition pages"
+            logger=log, message="Building term definition pages", timing=True
         ):
             loadTerms()
             schemaexamples.SchemaExamples.loaded()
@@ -269,7 +267,7 @@ def processTerms(terms):
 def processDocs(pages):
     if len(pages):
         with pretty_logger.BlockLog(
-            logger=log, message="Building dynamic documentation pages"
+            logger=log, message="Building dynamic documentation pages", timing=True
         ):
             loadTerms()
             buildocspages.buildDocs(pages)
@@ -302,7 +300,7 @@ def runRubyTests(release_dir):
         cwd = os.path.join(os.getcwd(), "software/scripts")
         log.info("Running tests")
         subprocess.check_call(cmd, cwd=cwd)
-        log.info("Cleaning up %s" % dst_dir)
+        log.info(f"Cleaning up {dst_dir}")
         os.unlink(dst_dir)
 
 
@@ -314,7 +312,7 @@ def runRubyTests(release_dir):
 def copyReleaseFiles(release_dir):
     version = schemaversion.getVersion()
     with pretty_logger.BlockLog(
-        message="Copying release files for version %s to data/releases" % version,
+        message=f"Copying release files for version {version} to data/releases",
         logger=log,
     ):
         srcdir = os.path.join(os.getcwd(), release_dir, version)
@@ -333,9 +331,7 @@ if __name__ == "__main__":
 
     software.CheckWorkingDirectory()
     log.info(
-        "Version: %s  Released: %s"
-        % (schemaversion.getVersion(), schemaversion.getCurrentVersionDate())
-    )
+        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}")
     if args.release:
         args.autobuild = True
         log.info("BUILDING RELEASE VERSION")
