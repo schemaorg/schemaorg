@@ -122,7 +122,9 @@ class SdoTermSource:
             self.ttype = sdoterm.SdoTermType.TYPE
             if uri == str(DATATYPEURI):  # The base DataType is defined as a Class
                 self.ttype = sdoterm.SdoTermType.DATATYPE
-            elif uri == str(ENUMERATIONURI):  # The base Enumeration Type is defined as a Class
+            elif uri == str(
+                ENUMERATIONURI
+            ):  # The base Enumeration Type is defined as a Class
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
             elif self._isEnumeration(term_id=term_id):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
@@ -152,9 +154,13 @@ class SdoTermSource:
         elif self.ttype == sdoterm.SdoTermType.DATATYPE:
             self.termdesc = sdoterm.SdoDataType(term_id=term_id, uri=uri, label=label)
         elif self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            self.termdesc = sdoterm.SdoEnumeration(term_id=term_id, uri=uri, label=label)
+            self.termdesc = sdoterm.SdoEnumeration(
+                term_id=term_id, uri=uri, label=label
+            )
         elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            self.termdesc = sdoterm.SdoEnumerationvalue(term_id=term_id, uri=uri, label=label)
+            self.termdesc = sdoterm.SdoEnumerationvalue(
+                term_id=term_id, uri=uri, label=label
+            )
             if self.parent:
                 self.termdesc.enumerationParent.setId(self.parent.id)
         elif self.ttype == sdoterm.SdoTermType.REFERENCE:
@@ -234,7 +240,7 @@ class SdoTermSource:
         return False
 
     @classmethod
-    def _isEnumeration(cls, term_id : str) -> bool:
+    def _isEnumeration(cls, term_id: str) -> bool:
         global ENUMERATIONURI
         query = """
           ASK  {
@@ -472,7 +478,9 @@ class SdoTermSource:
             wpre = name[: len(name) - len(val)]
 
         if self.__class__.MARKDOWNPROCESS:
-            comment_buffer = [localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments]
+            comment_buffer = [
+                localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments
+            ]
         else:
             comment_buffer = comments
         result = " ".join(comment_buffer)

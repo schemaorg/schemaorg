@@ -107,8 +107,12 @@ class TestConversionFunctions(unittest.TestCase):
         product_term = sdotermsource.SdoTermSource.getTerm("Product")
         self.assertTrue(product_term.acknowledgements)
         collaborator = product_term.acknowledgements[0]
-        self.assertEqual(collaborator.uri, "https://schema.org/docs/collab/GoodRelationsTerms")
-        self.assertIn("GoodRelations Vocabulary for E-Commerce", collaborator.acknowledgement)
+        self.assertEqual(
+            collaborator.uri, "https://schema.org/docs/collab/GoodRelationsTerms"
+        )
+        self.assertIn(
+            "GoodRelations Vocabulary for E-Commerce", collaborator.acknowledgement
+        )
 
 
 if __name__ == "__main__":

@@ -33,7 +33,9 @@ class SdoCollaboratorTest(unittest.TestCase):
         self.assertEqual(collab.title, "Test Foundation")
         self.assertEqual(collab.img, "http://example.com/logo.png")
         self.assertEqual(collab.description, "This is a <em>test</em> description.")
-        self.assertEqual(collab.acknowledgement, "This is a <code>test</code> acknowledgement.")
+        self.assertEqual(
+            collab.acknowledgement, "This is a <code>test</code> acknowledgement."
+        )
 
 
 if __name__ == "__main__":

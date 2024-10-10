@@ -24,7 +24,8 @@ import software.SchemaTerms.localmarkdown as localmarkdown
 log = logging.getLogger(__name__)
 
 INCLUDE_RE = re.compile(R"---\s+([^.]+)\.md")
-SECTION_SEPARATOR = '---'
+SECTION_SEPARATOR = "---"
+
 
 class collaborator(object):
     """Wrapper for the collaboration meta-data."""
@@ -61,7 +62,7 @@ class collaborator(object):
         section = 0
         attributes = {}
         lines_by_section = collections.defaultdict(list)
-        section_selector = ''
+        section_selector = ""
 
         for line in desc.splitlines():
             if line.startswith(SECTION_SEPARATOR):
@@ -69,7 +70,7 @@ class collaborator(object):
             if section == 1:
                 if line.startswith(SECTION_SEPARATOR):
                     continue
-                key, value = line.split(':', maxsplit=1)
+                key, value = line.split(":", maxsplit=1)
                 attributes[key.strip()] = value.strip()
                 continue
             if section > 1:
@@ -79,22 +80,26 @@ class collaborator(object):
                     continue
                 lines_by_section[section_selector].append(line)
 
-        self.url = attributes.get('url')
-        self.title = attributes.get('title')
-        self.img = attributes.get('img')
-        attributes.pop('url')
-        attributes.pop('title')
-        attributes.pop('img')
+        self.url = attributes.get("url")
+        self.title = attributes.get("title")
+        self.img = attributes.get("img")
+        attributes.pop("url")
+        attributes.pop("title")
+        attributes.pop("img")
         if attributes:
-            log.warning(f'Unknown attributes found in collaborator file {self.urirel}: {attributes}')
+            log.warning(
+                f"Unknown attributes found in collaborator file {self.urirel}: {attributes}"
+            )
 
-        description_lines = lines_by_section['DescriptionText']
-        acknowledgement_lines = lines_by_section['AcknowledgementText']
-        lines_by_section.pop('DescriptionText')
-        lines_by_section.pop('AcknowledgementText')
+        description_lines = lines_by_section["DescriptionText"]
+        acknowledgement_lines = lines_by_section["AcknowledgementText"]
+        lines_by_section.pop("DescriptionText")
+        lines_by_section.pop("AcknowledgementText")
 
         if lines_by_section:
-            log.warning(f'Unknown sections found in collaborator file {self.urirel}: {lines_by_section}')
+            log.warning(
+                f"Unknown sections found in collaborator file {self.urirel}: {lines_by_section}"
+            )
 
         self.description = localmarkdown.Markdown.parseLines(description_lines)
         self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
