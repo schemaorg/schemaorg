@@ -258,7 +258,7 @@ class SdoTermSource:
 
     def getComments(self) -> typing.Sequence[str]:
         if not self.comments:
-            self.comments = map(str, self.loadObjects(rdflib.RDFS.comment))
+            self.comments = tuple(map(str, self.loadObjects(rdflib.RDFS.comment)))
         return self.comments
 
     def getComment(self) -> str:

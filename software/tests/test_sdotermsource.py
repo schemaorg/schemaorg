@@ -99,6 +99,17 @@ class TestConversionFunctions(unittest.TestCase):
             "dc:title",
         )
 
+    def testGetComment(self):
+        product_term = sdotermsource.SdoTermSource.getTerm("Product")
+        self.assertIn("product", product_term.comment)
+
+    def testGetAckowledgements(self):
+        product_term = sdotermsource.SdoTermSource.getTerm("Product")
+        self.assertTrue(product_term.acknowledgements)
+        collaborator = product_term.acknowledgements[0]
+        self.assertEqual(collaborator.uri, "https://schema.org/docs/collab/GoodRelationsTerms")
+        self.assertIn("GoodRelations Vocabulary for E-Commerce", collaborator.acknowledgement)
+
 
 if __name__ == "__main__":
     unittest.main()
