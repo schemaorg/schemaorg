@@ -3,11 +3,15 @@
 
 # Import standard python libraries
 
+import collections
+import datetime
+import logging
+import multiprocessing
 import os
 import re
-import time
 import sys
-import logging
+import time
+
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -16,6 +20,7 @@ if not os.getcwd() in sys.path:
 import software
 import software.util.schemaglobals as schemaglobals
 import software.util.fileutils as fileutils
+import software.util.pretty_logger as pretty_logger
 import software.util.jinga_render as jinga_render
 
 import software.SchemaTerms.sdotermsource as sdotermsource
@@ -89,18 +94,16 @@ def termtemplateRender(term, examples, json):
     )
 
 
-def RenderAndWriteSingleTerm(term_key):
+def RenderAndWriteSingleTerm(term_id):
     """Renders a single term and write the result into a file.
 
     Parameters:
-      term_key (str): key for the term.
-    Returns:
-      elapsed time for the generation (seconds).
+      term_id (str): key for the term.
     """
     tic = time.perf_counter()
-    term = sdotermsource.SdoTermSource.getTerm(term_key, expanded=True)
+    term = sdotermsource.SdoTermSource.getTerm(term_id, expanded=True)
     if not term:
-        log.error("No such term: %s\n" % term_key)
+        log.error(f"No such term: {term_id}")
         return 0
     if (
         term.termType == sdoterm.SdoTermType.REFERENCE
@@ -111,21 +114,42 @@ def RenderAndWriteSingleTerm(term_key):
     pageout = termtemplateRender(term, examples, json)
     with open(termFileName(term.id), "w", encoding="utf8") as outfile:
         outfile.write(pageout)
-    elapsed = time.perf_counter() - tic
-    log.info("Term '%s' generated in %0.4f seconds" % (term_key, elapsed))
-    return elapsed
+    elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
+    log.info(f"Term {term_id} generated in {elapsed}")
 
 
-def buildTerms(terms):
-    """Build the rendered version for a collection of terms."""
-    if any(filter(lambda term: term in ("ALL", "All", "all"), terms)):
-        terms = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
+def _buildTermIds(pair):
+    shard, term_ids = pair
+    pretty_logger.MakeRootLogPretty(shard=shard)
+    for term_id in term_ids:
+        RenderAndWriteSingleTerm(term_id)
 
-    if terms:
-        log.info("Building %d term pages..." % len(terms))
 
-    total_elapsed = 0
-    for term_key in terms:
-        total_elapsed += RenderAndWriteSingleTerm(term_key)
+def buildTerms(term_ids):
+    """Build the rendered version for a collection of terms.
 
-    log.info("%s terms generated in %0.4f seconds" % (len(terms), total_elapsed))
+    As this is rather CPU intensive, we shard the work into as many processes
+    as there are CPUs.
+    """
+
+    tic = time.perf_counter()
+    if any(filter(lambda term_id: term_id.lower() == "all", term_ids)):
+        log.info("Loading all term identifiers")
+        term_ids = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
+
+    if not term_ids:
+        return
+
+    shard_numbers = multiprocessing.cpu_count()
+    with pretty_logger.BlockLog(
+        logger=log,
+        message=f"Building {len(term_ids)} term pages with {shard_numbers} shards.",
+    ):
+        sharded_terms = collections.defaultdict(list)
+        for n, term_id in enumerate(term_ids):
+            sharded_terms[n % shard_numbers].append(term_id)
+
+        with multiprocessing.Pool() as pool:
+            pool.map(_buildTermIds, sharded_terms.items())
+    elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
+    log.info(f"{len(term_ids)} Terms generated in {elapsed} seconds")
