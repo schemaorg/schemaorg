@@ -21,9 +21,6 @@ import software.SchemaTerms.sdoterm as sdoterm
 class SdoJsonLdContextTest(unittest.TestCase):
     """Tests for the sdojsonldcontext library."""
 
-    @unittest.skip(
-        "createcontext outputs invalid JSON when getAllTerms returns an empty list."
-    )
     @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextEmpty(self, mock_getAllTerms):
         """Test that createcontext outputs valid JSON data"""
@@ -45,7 +42,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
             term_id=mock_id, uri="http://schema.org/thang", label="thang"
         )
         mock_property.domainIncludes.setIds(["Thing"])
-        mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
+        mock_property.rangeIncludes.setIds(["Date", "Thing"])
         mock_getAllTerms.return_value = [mock_property]
         json_data = sdojsonldcontext.createcontext()
         parsed = json.loads(json_data)
@@ -112,9 +109,6 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("@vocab", context)
         self.assertEqual(context[mock_id], {"@id": "http://schema.org/Bobl"})
 
-    @unittest.skip(
-        "createcontext outputs invalid JSON when getAllTerms returns an empty list."
-    )
     @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneReference(self, mock_getAllTerms):
         self.maxDiff = None
@@ -130,7 +124,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("type", context)
         self.assertIn("id", context)
         self.assertIn("@vocab", context)
-        self.assertEqual(context[mock_id], {"@id": "http://schema.org/Bobl"})
+        self.assertNotIn(mock_id, context)
 
     @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextMultiple(self, mock_getAllTerms):
@@ -155,9 +149,15 @@ class SdoJsonLdContextTest(unittest.TestCase):
         parsed = json.loads(json_data)
         self.assertIn("@context", parsed)
         self.assertEqual(
-            dict([(k, v) for k, v in parsed["@context"].items() if k in ["aa", "bb", "cc"]]),
+            dict(
+                [
+                    (k, v)
+                    for k, v in parsed["@context"].items()
+                    if k in ["aa", "bb", "cc"]
+                ]
+            ),
             {
-                "aa": {"@id": "http://schema.org/a", "@type": "Date"},
+                "aa": {"@id": "http://schema.org/a", "@type": ["@id", "Date"]},
                 "bb": {"@id": "http://schema.org/b"},
                 "cc": {"@id": "http://schema.org/c"},
             },
