@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import sys
+import typing
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -31,7 +32,7 @@ def getContext():
     return CONTEXT
 
 
-def _convertTypes(type_range):
+def _convertTypes(type_range: typing.Collection[str]) -> typing.Set[str]:
     types = set()
     if "Text" in type_range:
         return types
