@@ -22,6 +22,8 @@ import software.util.schemaglobals as schemaglobals
 import software.util.fileutils as fileutils
 import software.util.pretty_logger as pretty_logger
 import software.util.jinga_render as jinga_render
+import software.util.pretty_logger as pretty_logger
+
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
@@ -94,28 +96,32 @@ def termtemplateRender(term, examples, json):
     )
 
 
-def RenderAndWriteSingleTerm(term_id):
+def RenderAndWriteSingleTerm(term_key):
     """Renders a single term and write the result into a file.
 
     Parameters:
       term_id (str): key for the term.
     """
-    tic = time.perf_counter()
-    term = sdotermsource.SdoTermSource.getTerm(term_id, expanded=True)
-    if not term:
-        log.error(f"No such term: {term_id}")
-        return 0
-    if (
-        term.termType == sdoterm.SdoTermType.REFERENCE
-    ):  # Don't create pages for reference types
-        return 0
-    examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
-    json = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
-    pageout = termtemplateRender(term, examples, json)
-    with open(termFileName(term.id), "w", encoding="utf8") as outfile:
-        outfile.write(pageout)
-    elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
-    log.info(f"Term {term_id} generated in {elapsed}")
+
+    with pretty_logger.BlockLog(
+        logger=log, message=f"Generate term {term_key}", timing=True, displayStart=False
+    ) as block:
+        term = sdotermsource.SdoTermSource.getTerm(term_key, expanded=True)
+        if not term:
+            log.error(f"No such term: {term_key}")
+            return 0
+        if (
+            term.termType == sdoterm.SdoTermType.REFERENCE
+        ):  # Don't create pages for reference types
+            return 0
+        examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+        json = sdotermsource.SdoTermSource.getTermAsRdfString(
+            term.id, "json-ld", full=True
+        )
+        pageout = termtemplateRender(term, examples, json)
+        with open(termFileName(term.id), "w", encoding="utf8") as outfile:
+            outfile.write(pageout)
+    return block.elapsed
 
 
 def _buildTermIds(pair):
