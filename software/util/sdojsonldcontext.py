@@ -3,11 +3,11 @@
 
 # Import standard python libraries
 
-import sys
-import os
-import glob
-import re
+import json
 import logging
+import os
+import sys
+import typing
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -16,99 +16,68 @@ if not os.getcwd() in sys.path:
 import software
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
+import software.util.pretty_logger as pretty_logger
 
 log = logging.getLogger(__name__)
 
 
+CONTEXT = None
+SCHEMAURI = "http://schema.org/"
+
+
+def getContext():
+    global CONTEXT
+    if not CONTEXT:
+        CONTEXT = createcontext()
+    return CONTEXT
+
+
+def _convertTypes(type_range: typing.Collection[str]) -> typing.Set[str]:
+    types = set()
+    if "Text" in type_range:
+        return types
+    if "URL" in type_range:
+        types.add("@id")
+    if "Date" in type_range:
+        types.add("Date")
+    if "Datetime" in type_range:
+        types.add("DateTime")
+    return types
+
+
 def createcontext():
-    """Generates a basic JSON-LD context file for schema.org.
+    """Generates a basic JSON-LD context file for schema.org."""
+    with pretty_logger.BlockLog(message="Creating JSON-LD context", logger=log):
+        json_context = {
+            "type": "@type",
+            "id": "@id",
+            "HTML": {"@id": "rdf:HTML"},
+            "@vocab": SCHEMAURI,
+        }
 
-    TODO(wiesmann): this function is currenty buggy:
-    * it outputs invalid JSON if `getAllTerms` returns an empty set.
-    * if a property has multiple types, the @type has multiple values,
-      which is invalid JSON.
-
-    """
-    log.info("Creating JSON-LD context")
-
-    SCHEMAURI = "http://schema.org/"
-
-    jsonldcontext = []
-    jsonldcontext.append('{\n  "@context": {\n')
-    jsonldcontext.append('        "type": "@type",\n')
-    jsonldcontext.append('        "id": "@id",\n')
-    jsonldcontext.append('        "HTML": { "@id": "rdf:HTML" },\n')
-    # jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
-    jsonldcontext.append('        "@vocab": "%s",\n' % SCHEMAURI)
-    ns = sdotermsource.SdoTermSource.sourceGraph().namespaces()
-    done = []
-    for n in ns:
-        for n in ns:
-            pref, pth = n
+        done_namespaces = set()
+        for pref, path in sdotermsource.SdoTermSource.sourceGraph().namespaces():
             pref = str(pref)
-            if not pref in done:
-                done.append(pref)
+            if not pref in done_namespaces:
+                done_namespaces.add(pref)
                 if pref == "schema":
-                    pth = SCHEMAURI  # Override vocab setting to maintain http compatibility
+                    path = SCHEMAURI  # Override vocab setting to maintain http compatibility
                 if pref == "geo":
                     continue
-                jsonldcontext.append('        "%s": "%s",\n' % (pref, pth))
+                json_context[pref] = path
 
-    datatypepre = "schema:"
-    vocablines = ""
-    externalines = ""
-    typins = ""
-    for t in sdotermsource.SdoTermSource.getAllTerms(
-        expanded=True, suppressSourceLinks=True
-    ):
-        if t.termType == sdoterm.SdoTermType.PROPERTY:
-            range = t.rangeIncludes
-
-            types = []
-
-            # If Text in range don't output a @type value
-            if not "Text" in range:
-                if "URL" in range:
-                    types.append("@id")
-                if "Date" in range:
-                    types.append("Date")
-                if "Datetime" in range:
-                    types.append("DateTime")
-
-            typins = ""
-            for typ in types:
-                typins += ', "@type": "' + typ + '"'
-
-            line = (
-                '        "'
-                + t.id
-                + '": { "@id": "'
-                + sdotermsource.prefixedIdFromUri(t.uri)
-                + '"'
-                + typins
-                + "},"
-            )
-        elif t.termType == sdoterm.SdoTermType.REFERENCE:
-            continue
-        else:
-            line = (
-                '        "'
-                + t.id
-                + '": {"@id": "'
-                + sdotermsource.prefixedIdFromUri(t.uri)
-                + '"},'
-            )
-
-        if t.id.startswith("http:") or t.id.startswith("https:"):
-            externalines += line
-        else:
-            vocablines += line
-
-    jsonldcontext.append(vocablines)
-    # jsonldcontext.append(externalines)
-    jsonldcontext.append("}}\n")
-    ret = "".join(jsonldcontext)
-    ret = ret.replace("},}}", "}\n    }\n}")
-    ret = ret.replace("},", "},\n")
-    log.info("Done: creating JSON-LD context")
-    return ret
+        for term in sdotermsource.SdoTermSource.getAllTerms(
+            expanded=True, suppressSourceLinks=True
+        ):
+            if term.termType == sdoterm.SdoTermType.REFERENCE:
+                continue
+            term_json = {"@id": sdotermsource.prefixedIdFromUri(term.uri)}
+            if term.termType == sdoterm.SdoTermType.PROPERTY:
+                types = _convertTypes(term.rangeIncludes)
+                if len(types) == 1:
+                    term_json["@type"] = types.pop()
+                elif len(types) > 1:
+                    term_json["@type"] = sorted(types)
+            json_context[term.id] = term_json
+        json_object = {"@context": json_context}
+        return json.dumps(json_object, indent=2)
