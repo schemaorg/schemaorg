@@ -19,8 +19,11 @@ class PrettyLogFormatter(logging.Formatter):
         "ERROR": colorama.Fore.RED,
     }
 
-    def __init__(self, use_color=True):
-        logging.Formatter.__init__(self, fmt="%(levelname)s %(name)s: %(message)s")
+    def __init__(self, use_color=True, shard=None):
+        fmt = "%(levelname)s %(name)s: %(message)s"
+        if not shard is None:
+            fmt = "%(levelname)s (" + str(shard) + ") %(name)s: %(message)s"
+        logging.Formatter.__init__(self, fmt=fmt)
         self.use_color = use_color
 
     @classmethod
@@ -78,10 +81,12 @@ class BlockLog:
         self.message = self.message + " " + message
 
 
-def MakeRootLogPretty():
+def MakeRootLogPretty(shard=None):
     """Makes the root log pretty if stdandard output is a terminal."""
     handler = logging.StreamHandler(sys.stdout)
-    formatter = PrettyLogFormatter(use_color=os.isatty(sys.stdout.fileno()))
+    formatter = PrettyLogFormatter(
+        use_color=os.isatty(sys.stdout.fileno()), shard=shard
+    )
     handler.setFormatter(formatter)
 
     root_log = logging.getLogger()

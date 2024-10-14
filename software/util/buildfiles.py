@@ -65,14 +65,8 @@ def absoluteFilePath(fn):
     return name
 
 
-CACHECONTEXT = None
-
-
 def jsonldcontext(page):
-    global CACHECONTEXT
-    if not CACHECONTEXT:
-        CACHECONTEXT = sdojsonldcontext.createcontext()
-    return CACHECONTEXT
+    return sdojsonldcontext.getContext()
 
 
 def jsonldtree(page):
@@ -528,3 +522,8 @@ def buildFiles(files):
                                 handle.write(content)
             else:
                 log.warning("Unknown files name: %s" % p)
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    buildFiles(sys.argv[1:])

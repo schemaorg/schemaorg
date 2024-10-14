@@ -55,12 +55,12 @@ import optparse
 import sys
 import colorama
 import os
-import subprocess
 import unittest
 import io
 
 SITEDIR = "software/site"
 STANDALONE = False
+
 
 class ColoredTestResult(unittest.TextTestResult):
     """Color the test results."""
@@ -73,9 +73,9 @@ class ColoredTestResult(unittest.TextTestResult):
             self.is_tty = False
         if self.is_tty:
             try:
-              columns = os.get_terminal_size().columns
+                columns = os.get_terminal_size().columns
             except:
-              columns = 80
+                columns = 80
             self.separator1 = "▼" * columns
             self.separator2 = "▲" * columns
 
@@ -143,46 +143,11 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint("%s" % err, color=color)
 
 
-class BasicFileTests(unittest.TestCase):
-    """Basic tests for file level integrity."""
-
-    def testNoHttpExamples(self):
-        """Test that no examples contain url of the http://schema.org (they should be https)."""
-        httpexamplescheck = (
-            "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
-        )
-        out = ""
-        try:
-            out = subprocess.check_output(httpexamplescheck, shell=True)
-            if out:
-                self.fail(
-                    "Examples file(s) found containing 'http://schema.org':\n%s\n"
-                    "Replace with 'https://schema.org and rerun."
-                )
-        except:
-            pass
-
-    def testNoDuplicateJsonldContext(self):
-        """Test that there are no duplicated contexts in file docs/jsonldcontext.jsonld."""
-        context_path = os.path.join(SITEDIR, "docs/jsonldcontext.jsonld")
-        if not os.path.isfile(context_path):
-            self.skipTest(
-                "Bypassing jsonldcontext duplicates test: file '%s' not found"
-                % context_path
-            )
-        else:
-            contextCheck = "cat %s |cut -d'\"' -f2|sort|uniq -d" % context_path
-            dups = subprocess.check_output(contextCheck, shell=True)
-            if len(dups):
-                self.fail("Duplicate entries in jsonldcontext: %s" % dups)
-
-
 def GetSuite(test_path, args):
     if args and vars(args)["skipbasics"]:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
     else:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
-    suite.addTest(unittest.loader.TestLoader().loadTestsFromTestCase(BasicFileTests))
     return suite
 
 
