@@ -12,9 +12,9 @@
     :domainIncludes :OfferShippingDetails ;
     :rangeIncludes :Mass .
 
-:shippingService a rdf::Property ;
+:shippingConditions a rdf::Property ;
     :domainIncludes :OfferShippingDetails ;
-    :rangeIncludes :ShippingService .
+    :rangeIncludes :ShippingConditions .
 
 :shippingSettingsLink a rdf:Property ;
     :isPartOf <https://attic.schema.org> .
@@ -28,19 +28,19 @@
 # ╔════════════════════════════════════════════════════════╗
 # ║  Amending Organization                                 ║
 # ╚════════════════════════════════════════════════════════╝
-:shippingService a rdf:Property ;
-    rdfs:label "shippingService" ;
+:shippingConditions a rdf:Property ;
+    rdfs:label "shippingConditions" ;
     :domainIncludes :Organization ;
-    :rangeIncludes :ShippingService ;
+    :rangeIncludes :ShippingConditions ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
-    rdfs:comment "Specification of a shipping services offered by the organization." .
+    rdfs:comment "Specification of shipping conditionss offered by the organization." .
 
 # ╔════════════════════════════════════════════════════════╗
 # ║  Delete DeliveryTimeSettings                           ║
 # ╚════════════════════════════════════════════════════════╝
 :DeliveryTimeSettings a rdfs:Class ;
-    :supersededBy :ShippingService .
+    :supersededBy :ShippingConditions .
 
 # ╔════════════════════════════════════════════════════════╗
 # ║  Amend ShippingDeliveryTime                            ║
@@ -107,78 +107,78 @@
     rdfs:comment "End point in time of the validity period." .
 
 # ╔════════════════════════════════════════════════════════╗
-# ║  Adding ShippingService                                ║
+# ║  Adding ShippingConditions                                ║
 # ╚════════════════════════════════════════════════════════╝
-:ShippingService a rdfs:Class ;
-    rdfs:label "ShippingService" ;
+:ShippingConditions a rdfs:Class ;
+    rdfs:label "ShippingConditions" ;
     rdfs:subClassOf :StructuredValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
-    rdfs:comment "A ShippingService represents a set of contraints and information about the conditions of shipping a product. Such a service may apply to only a subset of the products being shipped, depending on aspects of the product like weight, size, price, destination, and others." .
+    rdfs:comment "ShippingConditions represent a set of constraints and information about the conditions of shipping a product. Such conditions may apply to only a subset of the products being shipped, depending on aspects of the product like weight, size, price, destination, and others." .
 
 :shippingOrigin a rdf:Property ;
     rdfs:label "shippingOrigin" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :DefinedRegion ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingDestination a rdf:Property ;
     rdfs:label "shippingDestination" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :DefinedRegion ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :deliveryTime a rdf:Property ;
     rdfs:label "deliveryTime" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :ShippingDeliveryTime ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :height a rdf:Property ;
     rdfs:label "height" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :width a rdf:Property ;
     rdfs:label "width" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :depth a rdf:Property ;
     rdfs:label "depth" ;
-    :domainIncludes :ShippingService;
+    :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
-    :domainIncludes :ShippingService ;
+    :domainIncludes :ShippingConditions ;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :numItems a rdf:Property ;
     rdfs:label "numItems" ;
-    :domainIncludes :ShippingService ;
+    :domainIncludes :ShippingConditions ;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> ;
-    rdfs:comment "Limits in the number of items being shipped for which this service is applicable." .
+    rdfs:comment "Limits in the number of items being shipped for which these conditions apply." .
 
 :doesNotShip a rdf:Property ;
     rdfs:label "doesNotShip" ;
-    :domainIncludes :ShippingService ;
+    :domainIncludes :ShippingConditions ;
     :rangeIncludes :Boolean ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingRate a rdf:Property ;
     rdfs:label "shippingRate" ;
-    :domainIncludes :ShippingService,
+    :domainIncludes :ShippingConditions,
         :OfferShippingDetails,
         :ShippingRateSettings ;
     :rangeIncludes :MonetaryAmount, :ShippingRateSettings ;
@@ -186,8 +186,8 @@
 
 :seasonalOverride a rdf:Property ;
     rdfs:label "seasonalOverride" ;
-    :domainIncludes :ShippingService ;
+    :domainIncludes :ShippingConditions ;
     :rangeIncludes :ValidityPeriod ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> ;
-    rdfs:comment "Limited period during which this shipping service is valid." .
+    rdfs:comment "Limited period during which these shipping conditions apply." .
