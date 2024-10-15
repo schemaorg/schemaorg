@@ -4078,6 +4078,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :DigitalPlatformEnumeration,
         :Text,
         :URL .
+        
+:actionProcess a rdf:Property ;
+    rdfs:label "actionProcess" ;
+    rdfs:comment "Description of the process by which the action was performed" ;
+    :domainIncludes :Action ;
+    :rangeIncludes :HowTo .
 
 :actionStatus a rdf:Property ;
     rdfs:label "actionStatus" ;
@@ -10727,4 +10733,3 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :PropertyValue,
         :Text,
         :URL .
-
