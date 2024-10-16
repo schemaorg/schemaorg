@@ -7,13 +7,13 @@ import enum
 
 
 EXTENSIONS_FOR_FORMAT = {
-    'xml': 'xml',
-    'rdf': 'rdf',
-    'nquads': 'nq',
-    'nt': 'nt',
-    'json-ld': 'jsonld',
-    'turtle': 'ttl',
-    'csv': 'csv'
+    "xml": "xml",
+    "rdf": "rdf",
+    "nquads": "nq",
+    "nt": "nt",
+    "json-ld": "jsonld",
+    "turtle": "ttl",
+    "csv": "csv",
 }
 
 
@@ -29,7 +29,8 @@ class FileSelector(str, enum.Enum):
 
 CHECKEDPATHS = set()
 FILESET_SELECTORS = frozenset([s.value for s in FileSelector])
-FILESET_PROTOCOLS = frozenset(['http', 'https'])
+FILESET_PROTOCOLS = frozenset(["http", "https"])
+
 
 def createMissingDir(dir_path):
     """Create a directory if it does not exist"""
@@ -37,7 +38,7 @@ def createMissingDir(dir_path):
         os.makedirs(dir_path)
 
 
-def isAll(selector : str):
+def isAll(selector: str):
     """Check if a selector string is a variation of the 'All' token."""
     return str(selector).lower() == FileSelector.ALL
 
@@ -54,14 +55,21 @@ def checkFilePath(path):
                 raise e
 
 
-def ensureAbsolutePath(output_dir : str, relative_path: str) -> str:
+def ensureAbsolutePath(output_dir: str, relative_path: str) -> str:
     """Convert into an absolute path and ensure the directory exists."""
     filepath = os.path.join(output_dir, relative_path)
     checkFilePath(os.path.dirname(filepath))
     return filepath
 
 
-def releaseFilePath(output_dir : str, version: str, selector: FileSelector, protocol: str, output_format: str, suffix : str = None) -> str:
+def releaseFilePath(
+    output_dir: str,
+    version: str,
+    selector: FileSelector,
+    protocol: str,
+    output_format: str,
+    suffix: str = None,
+) -> str:
     """Create a path for a release file
 
     Args:
@@ -82,10 +90,11 @@ def releaseFilePath(output_dir : str, version: str, selector: FileSelector, prot
     parts = [selector, protocol]
     if suffix:
         parts.append(suffix)
-    merged = '-'.join(parts)
+    merged = "-".join(parts)
     return ensureAbsolutePath(
         output_dir=output_dir,
-        relative_path=f'releases/{version}/schemaorg-{merged}.{extension}')
+        relative_path=f"releases/{version}/schemaorg-{merged}.{extension}",
+    )
 
 
 def mycopytree(src, dst, symlinks=False, ignore=None):

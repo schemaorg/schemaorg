@@ -234,6 +234,7 @@ def exportrdf(exportType):
     else:
         raise Exception("Unknown export format: %s" % exportType)
 
+
 completed = []
 
 
@@ -264,14 +265,16 @@ def _exportrdf(output_format, all, current):
             version=version,
             selector=selector,
             protocol=protocol,
-            output_format=output_format)
+            output_format=output_format,
+        )
 
         afn = fileutils.releaseFilePath(
             output_dir=schemaglobals.getOutputDir(),
             version=version,
             selector=selector,
             protocol=altprotocol,
-            output_format=output_format)
+            output_format=output_format,
+        )
 
         with pretty_logger.BlockLog(logger=log, message="Exporting {fn} and {afn}"):
             if output_format == "rdf":
@@ -388,10 +391,38 @@ def exportcsv(page):
             if not term.retired:
                 typedata.append(row)
 
-    writecsvout("properties", propdata, propFields, fileutils.FileSelector.CURRENT, protocol, altprotocol)
-    writecsvout("properties", propdataAll, propFields, fileutils.FileSelector.ALL, protocol, altprotocol)
-    writecsvout("types", typedata, typeFields, fileutils.FileSelector.CURRENT, protocol, altprotocol)
-    writecsvout("types", typedataAll, typeFields, fileutils.FileSelector.ALL, protocol, altprotocol)
+    writecsvout(
+        "properties",
+        propdata,
+        propFields,
+        fileutils.FileSelector.CURRENT,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "properties",
+        propdataAll,
+        propFields,
+        fileutils.FileSelector.ALL,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "types",
+        typedata,
+        typeFields,
+        fileutils.FileSelector.CURRENT,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "types",
+        typedataAll,
+        typeFields,
+        fileutils.FileSelector.ALL,
+        protocol,
+        altprotocol,
+    )
 
 
 def writecsvout(ftype, data, fields, selector, protocol, altprotocol):
@@ -402,21 +433,28 @@ def writecsvout(ftype, data, fields, selector, protocol, altprotocol):
         selector=selector,
         protocol=protocol,
         suffix=ftype,
-        output_format='csv')
+        output_format="csv",
+    )
     afn = fileutils.releaseFilePath(
         output_dir=schemaglobals.getOutputDir(),
         version=version,
         selector=selector,
         protocol=altprotocol,
         suffix=ftype,
-        output_format='csv')
+        output_format="csv",
+    )
 
-    with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {fn} and {afn}.", logger=log):
+    with pretty_logger.BlockLog(
+        message=f"Preparing files {ftype}: {fn} and {afn}.", logger=log
+    ):
         # Create the original version in memory.
         with io.StringIO() as csv_buffer:
             writer = csv.DictWriter(
-              csv_buffer, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
-              )
+                csv_buffer,
+                fieldnames=fields,
+                quoting=csv.QUOTE_ALL,
+                lineterminator="\n",
+            )
             writer.writeheader()
             for row in data:
                 writer.writerow(row)
@@ -427,8 +465,8 @@ def writecsvout(ftype, data, fields, selector, protocol, altprotocol):
 
         with open(afn, "w", encoding="utf8") as file_handle:
             file_handle.write(
-                protocolSwap(data, protocol=protocol, altprotocol=altprotocol))
-
+                protocolSwap(data, protocol=protocol, altprotocol=altprotocol)
+            )
 
 
 def jsoncounts(page):

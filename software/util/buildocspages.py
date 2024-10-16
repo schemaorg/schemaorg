@@ -287,7 +287,8 @@ def createCollab(coll):
     content = docsTemplateRender("docs/Collab.j2", extra_vars)
     filename = fileutils.ensureAbsolutePath(
         output_dir=schemaglobals.OUTPUTDIR,
-        relative_path=os.path.join("docs/collab/", coll.ref + ".html"))
+        relative_path=os.path.join("docs/collab/", coll.ref + ".html"),
+    )
     with open(filename, "w", encoding="utf8") as handle:
         handle.write(content)
     log.info("Created %s" % filename)
@@ -336,13 +337,11 @@ def buildDocs(pages):
         if not func:
             log.warning(f"Missing function for page {page}")
             continue
-        with pretty_logger.BlockLog(
-            logger=log, message=f"Generating page {page}"):
+        with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
             content = func(page)
             for relative_path in filenames:
                 filename = fileutils.ensureAbsolutePath(
-                    output_dir=schemaglobals.OUTPUTDIR,
-                    relative_path=relative_path)
+                    output_dir=schemaglobals.OUTPUTDIR, relative_path=relative_path
+                )
                 with open(filename, "w", encoding="utf8") as handle:
                     handle.write(content)
-

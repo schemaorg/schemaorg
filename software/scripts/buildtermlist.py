@@ -53,7 +53,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     filename = args.output
     with pretty_logger.BlockLog(
-        logger=log, message=f'Writing term list to file {filename}'):
+        logger=log, message=f"Writing term list to file {filename}"
+    ):
         with open(filename, "w", encoding="utf-8") as handle:
             for term in generateTerms(tags=args.tagtype):
                 handle.write(term)
