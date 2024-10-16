@@ -45,7 +45,7 @@ def isAll(selector: str):
 
 def checkFilePath(path):
     if not path in CHECKEDPATHS:
-        CHECKEDPATHS.insert(path)
+        CHECKEDPATHS.add(path)
         # os.path.join ignores the first argument if `path` is absolute.
         path = os.path.join(os.getcwd(), path)
         try:
