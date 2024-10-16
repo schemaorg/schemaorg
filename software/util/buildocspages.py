@@ -19,6 +19,7 @@ import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
 import software.scripts.buildtermlist as buildtermlist
+import software.util.pretty_logger as pretty_logger
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdocollaborators as sdocollaborators
@@ -27,12 +28,6 @@ import software.SchemaExamples.schemaexamples as schemaexamples
 
 
 log = logging.getLogger(__name__)
-
-
-def absoluteFilePath(fn):
-    name = os.path.join(schemaglobals.OUTPUTDIR, fn)
-    fileutils.checkFilePath(os.path.dirname(name))
-    return name
 
 
 def docsTemplateRender(template, extra_vars=None):
@@ -290,14 +285,15 @@ def createCollab(coll):
     }
 
     content = docsTemplateRender("docs/Collab.j2", extra_vars)
-    filename = absoluteFilePath(os.path.join("docs/collab/", +coll.ref + ".html"))
+    filename = fileutils.ensureAbsolutePath(
+        output_dir=schemaglobals.OUTPUTDIR,
+        relative_path=os.path.join("docs/collab/", coll.ref + ".html"))
     with open(filename, "w", encoding="utf8") as handle:
         handle.write(content)
     log.info("Created %s" % filename)
 
 
 def termfind(file):
-    # Local import because of circular dependencies
     if not schemaglobals.hasOpt("notermfinder"):
         log.info("Building term list")
         return "".join(buildtermlist.generateTerms(tags=True))
@@ -329,22 +325,24 @@ PAGELIST = {
 
 
 def buildDocs(pages):
-    all = ["ALL", "All", "all"]
-    for a in all:
-        if a in pages:
-            pages = sorted(PAGELIST.keys())
-            break
+    if any(filter(fileutils.isAll, pages)):
+        pages = sorted(PAGELIST.keys())
 
-    for p in pages:
-        log.debug("Preparing page %s:" % p)
-        if p in PAGELIST.keys():
-            func, filenames = PAGELIST.get(p, None)
-            if func:
-                content = func(p)
-                for rel_path in filenames:
-                    filename = absoluteFilePath(rel_path)
-                    with open(filename, "w", encoding="utf8") as handle:
-                        handle.write(content)
-                    log.info("Created page %s" % filename)
-        else:
-            log.warning("Unknown page name: %s" % p)
+    for page in pages:
+        if not page in PAGELIST.keys():
+            log.warning(f"Unknown page name: {page}")
+            continue
+        func, filenames = PAGELIST.get(page, None)
+        if not func:
+            log.warning(f"Missing function for page {page}")
+            continue
+        with pretty_logger.BlockLog(
+            logger=log, message=f"Generating page {page}"):
+            content = func(page)
+            for relative_path in filenames:
+                filename = fileutils.ensureAbsolutePath(
+                    output_dir=schemaglobals.OUTPUTDIR,
+                    relative_path=relative_path)
+                with open(filename, "w", encoding="utf8") as handle:
+                    handle.write(content)
+

@@ -17,6 +17,8 @@ import software
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
+import software.util.pretty_logger as pretty_logger
+
 
 log = logging.getLogger(__name__)
 
@@ -50,8 +52,8 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output", required=True, help="output file")
     args = parser.parse_args()
     filename = args.output
-    log.info("Writing term list to file %s", filename)
-    with open(filename, "w", encoding="utf-8") as handle:
-        for term in generateTerms(tags=args.tagtype):
-            handle.write(term)
-    log.info("Done")
+    with pretty_logger.BlockLog(
+        logger=log, message=f'Writing term list to file {filename}'):
+        with open(filename, "w", encoding="utf-8") as handle:
+            for term in generateTerms(tags=args.tagtype):
+                handle.write(term)

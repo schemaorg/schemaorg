@@ -41,7 +41,7 @@ def termFileName(termid):
     Returns:
       File path the term page should be generated at.
     """
-    path_components = [schemaglobals.OUTPUTDIR, "terms"]
+    path_components = [schemaglobals.getOutputDir(), "terms"]
     if re.match("^[a-z].*", termid):
         path_components.append("properties")
     elif re.match("^[0-9A-Z].*", termid):
@@ -139,7 +139,7 @@ def buildTerms(term_ids):
     """
 
     tic = time.perf_counter()
-    if any(filter(lambda term_id: term_id.lower() == "all", term_ids)):
+    if any(filter(fileutils.isAll, term_ids)):
         log.info("Loading all term identifiers")
         term_ids = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
 

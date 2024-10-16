@@ -4,12 +4,17 @@
 import os
 import sys
 import unittest
+import unittest.mock
+import tempfile
+import logging
 
 if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
 import software.util.buildfiles as buildfiles
+import software.util.fileutils as fileutils
+import software.util.schemaglobals as schemaglobals
 
 
 class TestBuildFiles(unittest.TestCase):
@@ -42,7 +47,18 @@ class TestBuildFiles(unittest.TestCase):
             buildfiles.uriwrap(['Person', 'Thing']),
             'https://schema.org/Person, https://schema.org/Thing')
 
+    @unittest.mock.patch('software.util.schemaglobals.getOutputDir')
+    def testWriteCsvOut(self, mock_output_dir):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            mock_output_dir.return_value = temp_dir
+            buildfiles.writecsvout(
+                ftype='properties',
+                data=({'id': '123', 'value': 'Fnuble'}, {'id': '456', 'value': 'Blubrl'}),
+                fields=('id', 'value'),
+                selector=fileutils.FileSelector.CURRENT,
+                protocol='http', altprotocol='https')
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     unittest.main()
