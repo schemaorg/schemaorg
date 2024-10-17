@@ -15,8 +15,8 @@ rdfs:subClassOf :Enumeration .
 rdfs:label "IPTCDigitalSourceEnumeration" ;
 :isPartOf <https://pending.schema.org> ;
 :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
-rdfs:comment """<a href="https://www.iptc.org/">IPTC</a> "Digital Source" codes for use with the [[digitalSourceType]] property, providing information about the source for a digital media object. 
-In general these codes are not declared here to be mutually exclusive, although some combinations would be contradictory if applied simultaneously, or might be considered mutually incompatible by upstream maintainers of the definitions. See the IPTC <a href="https://www.iptc.org/std/photometadata/documentation/userguide/">documentation</a> 
+rdfs:comment """<a href="https://www.iptc.org/">IPTC</a> "Digital Source" codes for use with the [[digitalSourceType]] property, providing information about the source for a digital media object.
+In general these codes are not declared here to be mutually exclusive, although some combinations would be contradictory if applied simultaneously, or might be considered mutually incompatible by upstream maintainers of the definitions. See the IPTC <a href="https://www.iptc.org/std/photometadata/documentation/userguide/">documentation</a>
  for <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">detailed definitions</a> of all terms.""" ;
 rdfs:subClassOf :MediaEnumeration .
 
@@ -111,17 +111,38 @@ rdfs:subClassOf :MediaEnumeration .
     :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
     rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/compositeSynthetic">composite synthetic</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
     skos:exactMatch dst:compositeSynthetic .
-    
+
 :CompositeWithTrainedAlgorithmicMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
     rdfs:label "CompositeWithTrainedAlgorithmicMediaDigitalSource" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
     rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia">composite with trained algorithmic media</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
     skos:exactMatch dst:compositeWithTrainedAlgorithmicMedia .
-    
+
 :AlgorithmicMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
     rdfs:label "AlgorithmicMediaDigitalSource" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
     rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic media</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
     skos:exactMatch dst:algorithmicMedia .
+
+:MultiFrameComputationalCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "MultiFrameComputationalCaptureDigitalSource" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
+    rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic media</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
+    skos:exactMatch dst:computationalCapture .
+
+:ScreenCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+        rdfs:label "ScreenCaptureDigitalSource" ;
+        :isPartOf <https://pending.schema.org> ;
+        :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
+        rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic media</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
+        skos:exactMatch dst:screenCapture .
+
+:CompositeDigitalSource a :IPTCDigitalSourceEnumeration ;
+        rdfs:label "CompositeDigitalSource" ;
+        :isPartOf <https://pending.schema.org> ;
+        :source <https://github.com/schemaorg/schemaorg/issues/3392> ;
+        rdfs:comment """Content coded as '<a href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic media</a>' using the IPTC <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a> vocabulary.""" ;
+        skos:exactMatch dst:composite .
