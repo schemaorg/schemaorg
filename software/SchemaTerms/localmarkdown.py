@@ -50,6 +50,9 @@ class MarkdownTool(object):
 
         return self.parseWiklinks(ret, wpre=wpre)
 
+    def parseLines(self, lines):
+        return self.parse("".join(lines))
+
     def parseWiklinks(self, source, wpre=None):
         self.wpre = wpre
         return re.sub(WIKILINKPATTERN, self.wikilinksReplace, source)
