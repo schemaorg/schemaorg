@@ -32,7 +32,7 @@ class SdoTermOrIdTest(unittest.TestCase):
         self.assertRaises(sdoterm.UnexpandedTermError, lambda : id_only.term)
 
     def testTerm(self):
-        term = sdoterm.SdoReference(Id='testing2', uri='http://example.com/testing2', label='')
+        term = sdoterm.SdoReference(term_id='testing2', uri='http://example.com/testing2', label='')
         with_term = sdoterm.SdoTermOrId(term=term)
         self.assertTrue(with_term)
         self.assertTrue(with_term.expanded)
@@ -60,7 +60,7 @@ class SdoTermSequenceTest(unittest.TestCase):
 
     def testExpanded(self):
         expanded = sdoterm.SdoTermSequence()
-        term = sdoterm.SdoReference(Id='testing4', uri='http://example.com/testing4', label='test')
+        term = sdoterm.SdoReference(term_id='testing4', uri='http://example.com/testing4', label='test')
         expanded.setTerms([term])
         self.assertTrue(expanded)
         self.assertTrue(expanded.expanded)

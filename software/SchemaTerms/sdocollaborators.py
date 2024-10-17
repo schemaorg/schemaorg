@@ -3,11 +3,13 @@
 
 # Import standard python libraries
 
+import collections
 import glob
 import logging
 import os
 import re
 import sys
+
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -20,6 +22,9 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.localmarkdown as localmarkdown
 
 log = logging.getLogger(__name__)
+
+INCLUDE_RE = re.compile(R"---\s+([^.]+)\.md")
+SECTION_SEPARATOR = "---"
 
 
 class collaborator(object):
@@ -55,52 +60,49 @@ class collaborator(object):
           desc: content of the file, typically found at the path data/collab/*.md
         """
         section = 0
-        description_lines = []
-        acknowledgement_lines = []
+        attributes = {}
+        lines_by_section = collections.defaultdict(list)
+        section_selector = ""
 
         for line in desc.splitlines():
-            if line.startswith("---"):
+            if line.startswith(SECTION_SEPARATOR):
                 section += 1
             if section == 1:
-                if line.startswith("---"):
+                if line.startswith(SECTION_SEPARATOR):
                     continue
-                match = self.matchval("url", line)
-                if match:
-                    self.url = match
+                key, value = line.split(":", maxsplit=1)
+                attributes[key.strip()] = value.strip()
+                continue
+            if section > 1:
+                include_match = re.search(INCLUDE_RE, line)
+                if include_match:
+                    section_selector = include_match.groups(0)[0]
                     continue
-                match = self.matchval("title", line)
-                if match:
-                    self.title = match
-                    continue
-                match = self.matchval("img", line)
-                if match:
-                    self.img = match
-                    continue
-            elif section > 1:
-                if self.matchsep("--- DescriptionText.md", line):
-                    description_lines.append(line)
-                    continue
-                if self.matchsep("--- AcknowledgementText.md", line):
-                    acknowledgement_lines.append(line)
-                    continue
+                lines_by_section[section_selector].append(line)
 
-        self.description = localmarkdown.Markdown.parse("".join(description_lines))
-        self.acknowledgement = localmarkdown.Markdown.parse(
-            "".join(acknowledgement_lines)
-        )
+        self.url = attributes.get("url")
+        self.title = attributes.get("title")
+        self.img = attributes.get("img")
+        attributes.pop("url")
+        attributes.pop("title")
+        attributes.pop("img")
+        if attributes:
+            log.warning(
+                f"Unknown attributes found in collaborator file {self.urirel}: {attributes}"
+            )
 
-    def matchval(self, val, line):
-        matchstr = "(?i)%s:" % val
-        o = re.search(matchstr, line)
-        if o:
-            ret = line[len(val) + 1 :]
-            return ret.strip()
-        return None
+        description_lines = lines_by_section["DescriptionText"]
+        acknowledgement_lines = lines_by_section["AcknowledgementText"]
+        lines_by_section.pop("DescriptionText")
+        lines_by_section.pop("AcknowledgementText")
 
-    def matchsep(self, val, line):
-        line = re.sub(" ", "", line).lower()
-        val = re.sub(" ", "", val).lower()
-        return line.startswith(val)
+        if lines_by_section:
+            log.warning(
+                f"Unknown sections found in collaborator file {self.urirel}: {lines_by_section}"
+            )
+
+        self.description = localmarkdown.Markdown.parseLines(description_lines)
+        self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
 
     def isContributor(self):
         return self.contributor

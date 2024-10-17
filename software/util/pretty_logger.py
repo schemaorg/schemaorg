@@ -5,6 +5,7 @@ import colorama
 import logging
 import os
 import sys
+import time
 
 
 class PrettyLogFormatter(logging.Formatter):
@@ -18,8 +19,11 @@ class PrettyLogFormatter(logging.Formatter):
         "ERROR": colorama.Fore.RED,
     }
 
-    def __init__(self, use_color=True):
-        logging.Formatter.__init__(self, fmt="%(levelname)s %(name)s: %(message)s")
+    def __init__(self, use_color=True, shard=None):
+        fmt = "%(levelname)s %(name)s: %(message)s"
+        if not shard is None:
+            fmt = "%(levelname)s (" + str(shard) + ") %(name)s: %(message)s"
+        logging.Formatter.__init__(self, fmt=fmt)
         self.use_color = use_color
 
     @classmethod
@@ -38,34 +42,51 @@ class PrettyLogFormatter(logging.Formatter):
 
     def format(self, record):
         if self.use_color:
-            record.levelname = self.__class__._computeLevelName(record)
-            record.name = self.__class__._computeName(record)
+            record.levelname = self._computeLevelName(record)
+            record.name = self._computeName(record)
         return logging.Formatter.format(self, record)
 
 
 class BlockLog:
-    def __init__(self, logger, message):
+    def __init__(self, logger, message, timing=False, displayStart=True):
         self.logger = logger
         self.message = message
+        self.timing = timing
+        self.displayStart = displayStart
+        self.start_time = None
+        self.elapsed = None
 
     def __enter__(self):
-        self.logger.info("Start: %s", self.message)
+        if self.displayStart:
+            self.logger.info(f"Start: {self.message}")
+        if self.timing:
+            self.start_time = time.perf_counter()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        if self.timing:
+            self.elapsed = time.perf_counter() - self.start_time
+
         if isinstance(exc_value, Exception):
-            self.logger.error("Failed: %s", self.message)
+            self.logger.error(f"Failed: {self.message}")
         else:
-            self.logger.info("Done: %s", self.message)
+            if self.elapsed:
+                self.logger.info(
+                    f"Done: {self.message} in {self.elapsed:.2f} seconds",
+                )
+            else:
+                self.logger.info(f"Done: {self.message}")
 
     def append(self, message):
         self.message = self.message + " " + message
 
 
-def MakeRootLogPretty():
+def MakeRootLogPretty(shard=None):
     """Makes the root log pretty if stdandard output is a terminal."""
     handler = logging.StreamHandler(sys.stdout)
-    formatter = PrettyLogFormatter(use_color=os.isatty(sys.stdout.fileno()))
+    formatter = PrettyLogFormatter(
+        use_color=os.isatty(sys.stdout.fileno()), shard=shard
+    )
     handler.setFormatter(formatter)
 
     root_log = logging.getLogger()

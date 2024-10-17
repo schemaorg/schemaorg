@@ -17,12 +17,13 @@ if not os.getcwd() in sys.path:
 
 import software
 
+import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
 import software.util.fileutils as fileutils
+import software.util.pretty_logger as pretty_logger
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
-import software.util.textutils as textutils
 import software.util.sdojsonldcontext as sdojsonldcontext
-import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
+import software.util.textutils as textutils
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
@@ -64,14 +65,8 @@ def absoluteFilePath(fn):
     return name
 
 
-CACHECONTEXT = None
-
-
 def jsonldcontext(page):
-    global CACHECONTEXT
-    if not CACHECONTEXT:
-        CACHECONTEXT = sdojsonldcontext.createcontext()
-    return CACHECONTEXT
+    return sdojsonldcontext.getContext()
 
 
 def jsonldtree(page):
@@ -232,68 +227,65 @@ def exportrdf(exportType):
     formats = ["json-ld", "turtle", "nt", "nquads", "rdf"]
     extype = exportType[len("RDFExport.") :]
     if exportType == "RDFExports":
-        for format in sorted(formats):
-            _exportrdf(format, allGraph, currentGraph)
+        for output_format in sorted(formats):
+            _exportrdf(output_format, allGraph, currentGraph)
     elif extype in formats:
         _exportrdf(extype, allGraph, currentGraph)
     else:
         raise Exception("Unknown export format: %s" % exportType)
 
 
-EXTENSIONS_FOR_FORMAT = {
-    "xml": ".xml",
-    "rdf": ".rdf",
-    "nquads": ".nq",
-    "nt": ".nt",
-    "json-ld": ".jsonld",
-    "turtle": ".ttl",
-}
-
 completed = []
 
 
-def _exportrdf(format, all, current):
+def _exportrdf(output_format, all, current):
     global completed
 
     protocol, altprotocol = protocols()
 
-    if format in completed:
+    if output_format in completed:
         return
     else:
-        completed.append(format)
+        completed.append(output_format)
 
     version = schemaversion.getVersion()
 
-    for ver in ["current", "all"]:
-        if ver == "all":
+    for selector in fileutils.FILESET_SELECTORS:
+        if fileutils.isAll(selector):
             g = all
         else:
             g = current
-        if format == "nquads":
+        if output_format == "nquads":
             gr = rdflib.Dataset()
             qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
-        fn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s"
-            % (version, ver, protocol, EXTENSIONS_FOR_FORMAT[format])
+        fn = fileutils.releaseFilePath(
+            output_dir=schemaglobals.getOutputDir(),
+            version=version,
+            selector=selector,
+            protocol=protocol,
+            output_format=output_format,
         )
-        afn = absoluteFilePath(
-            "releases/%s/schemaorg-%s-%s%s"
-            % (version, ver, altprotocol, EXTENSIONS_FOR_FORMAT[format])
+
+        afn = fileutils.releaseFilePath(
+            output_dir=schemaglobals.getOutputDir(),
+            version=version,
+            selector=selector,
+            protocol=altprotocol,
+            output_format=output_format,
         )
-        fmt = format
-        if format == "rdf":
-            fmt = "pretty-xml"
-        f = open(fn, "w", encoding="utf8")
-        af = open(afn, "w", encoding="utf8")
-        kwargs = {"sort_keys": True}
-        out = g.serialize(format=fmt, auto_compact=True, **kwargs)
-        f.write(out)
-        af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
-        log.info("Exported %s and %s" % (fn, afn))
-        f.close()
-        af.close()
+
+        with pretty_logger.BlockLog(logger=log, message="Exporting {fn} and {afn}"):
+            if output_format == "rdf":
+                fmt = "pretty-xml"
+            else:
+                fmt = output_format
+            out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
+            with open(fn, "w", encoding="utf8") as f:
+                f.write(out)
+            with open(afn, "w", encoding="utf8") as af:
+                af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
 
 
 def array2str(values):
@@ -399,37 +391,82 @@ def exportcsv(page):
             if not term.retired:
                 typedata.append(row)
 
-    writecsvout("properties", propdata, propFields, "current", protocol, altprotocol)
-    writecsvout("properties", propdataAll, propFields, "all", protocol, altprotocol)
-    writecsvout("types", typedata, typeFields, "current", protocol, altprotocol)
-    writecsvout("types", typedataAll, typeFields, "all", protocol, altprotocol)
+    writecsvout(
+        "properties",
+        propdata,
+        propFields,
+        fileutils.FileSelector.CURRENT,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "properties",
+        propdataAll,
+        propFields,
+        fileutils.FileSelector.ALL,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "types",
+        typedata,
+        typeFields,
+        fileutils.FileSelector.CURRENT,
+        protocol,
+        altprotocol,
+    )
+    writecsvout(
+        "types",
+        typedataAll,
+        typeFields,
+        fileutils.FileSelector.ALL,
+        protocol,
+        altprotocol,
+    )
 
 
-def writecsvout(ftype, data, fields, ver, protocol, altprotocol):
+def writecsvout(ftype, data, fields, selector, protocol, altprotocol):
     version = schemaversion.getVersion()
-    fn = absoluteFilePath(
-        "releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, protocol, ftype)
+    fn = fileutils.releaseFilePath(
+        output_dir=schemaglobals.getOutputDir(),
+        version=version,
+        selector=selector,
+        protocol=protocol,
+        suffix=ftype,
+        output_format="csv",
     )
-    afn = absoluteFilePath(
-        "releases/%s/schemaorg-%s-%s-%s.csv" % (version, ver, altprotocol, ftype)
+    afn = fileutils.releaseFilePath(
+        output_dir=schemaglobals.getOutputDir(),
+        version=version,
+        selector=selector,
+        protocol=altprotocol,
+        suffix=ftype,
+        output_format="csv",
     )
-    log.debug("Writing files %s and %s" % (fn, afn))
-    csvout = io.StringIO()
-    csvfile = open(fn, "w", encoding="utf8")
-    acsvfile = open(afn, "w", encoding="utf8")
-    writer = csv.DictWriter(
-        csvout, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
-    )
-    writer.writeheader()
-    for row in data:
-        writer.writerow(row)
-    csvfile.write(csvout.getvalue())
-    csvfile.close()
-    acsvfile.write(
-        protocolSwap(csvout.getvalue(), protocol=protocol, altprotocol=altprotocol)
-    )
-    acsvfile.close()
-    csvout.close()
+
+    with pretty_logger.BlockLog(
+        message=f"Preparing files {ftype}: {fn} and {afn}.", logger=log
+    ):
+        # Create the original version in memory.
+        with io.StringIO() as csv_buffer:
+            writer = csv.DictWriter(
+                csv_buffer,
+                fieldnames=fields,
+                quoting=csv.QUOTE_ALL,
+                lineterminator="\n",
+            )
+            writer.writeheader()
+            for row in data:
+                writer.writerow(row)
+            data = csv_buffer.getvalue()
+
+        with open(fn, "w", encoding="utf8") as file_handle:
+            file_handle.write(data)
+
+        with open(afn, "w", encoding="utf8") as file_handle:
+            file_handle.write(
+                protocolSwap(data, protocol=protocol, altprotocol=altprotocol)
+            )
 
 
 def jsoncounts(page):
@@ -511,23 +548,24 @@ def buildFiles(files):
     # Production site uses no suffix in link - mapping to file done in server config
     software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkPostPath("")
 
-    all = ["ALL", "All", "all"]
-    for a in all:
-        if a in files:
-            files = sorted(FILELIST.keys())
-            break
+    if any(filter(fileutils.isAll, files)):
+        files = sorted(FILELIST.keys())
 
     for p in files:
-        log.info("Preparing file %s:" % p)
-        if p in FILELIST.keys():
-            func, filenames = FILELIST.get(p, None)
-            if func:
-                content = func(p)
-                if content:
-                    for filename in filenames:
-                        fn = absoluteFilePath(filename)
-                        with open(fn, "w", encoding="utf8") as handle:
-                            handle.write(content)
-                        log.info("Created %s" % fn)
-        else:
-            log.warning("Unknown files name: %s" % p)
+        with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
+            if p in FILELIST.keys():
+                func, filenames = FILELIST.get(p, None)
+                if func:
+                    content = func(p)
+                    if content:
+                        for filename in filenames:
+                            fn = absoluteFilePath(filename)
+                            with open(fn, "w", encoding="utf8") as handle:
+                                handle.write(content)
+            else:
+                log.warning("Unknown files name: %s" % p)
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    buildFiles(sys.argv[1:])

@@ -230,8 +230,8 @@ class SdoTerm(object):
 class SdoType(SdoTerm):
     """Term that defines a schema.org type"""
 
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.TYPE, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.TYPE, term_id, uri, label)
 
         self._properties = SdoTermSequence()
         self._allproperties = SdoTermSequence()
@@ -253,8 +253,8 @@ class SdoType(SdoTerm):
 class SdoProperty(SdoTerm):
     """Term that defines a propery of another type."""
 
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.PROPERTY, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.PROPERTY, term_id, uri, label)
         self._domainIncludes = SdoTermSequence()
         self._rangeIncludes = SdoTermSequence()
         self._inverse = SdoTermOrId()
@@ -276,8 +276,8 @@ class SdoProperty(SdoTerm):
 class SdoDataType(SdoTerm):
     """Term that defines one of the basic data-types: Boolean, Date, Text, Number etc."""
 
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.DATATYPE, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.DATATYPE, term_id, uri, label)
 
         self._properties = SdoTermSequence()
         self._allproperties = SdoTermSequence()
@@ -299,8 +299,8 @@ class SdoDataType(SdoTerm):
 class SdoEnumeration(SdoTerm):
     """Term that defines a schema.org enumeration."""
 
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.ENUMERATION, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.ENUMERATION, term_id, uri, label)
         self._properties = SdoTermSequence()
         self._allproperties = SdoTermSequence()
         self._expectedTypeFor = SdoTermSequence()
@@ -326,8 +326,8 @@ class SdoEnumeration(SdoTerm):
 class SdoEnumerationvalue(SdoTerm):
     """Term that defines a value within a schema.org enumeration."""
 
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.ENUMERATIONVALUE, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.ENUMERATIONVALUE, term_id, uri, label)
         self._enumerationParent = SdoTermOrId()
 
     @property
@@ -353,6 +353,5 @@ _TYPES_FOR_TYPES = {
 def SdoTermforType(term_type : SdoTermType, **kwargs) -> SdoTerm:
     t = _TYPES_FOR_TYPES[term_type]
     return t(**kwargs)
-
 
 

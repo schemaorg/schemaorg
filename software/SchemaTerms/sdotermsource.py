@@ -23,6 +23,8 @@ import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.localmarkdown as localmarkdown
 
+import software.util.pretty_logger as pretty_logger
+
 log = logging.getLogger(__name__)
 
 DEFVOCABURI = "https://schema.org/"
@@ -88,9 +90,7 @@ class SdoTermSource:
     RDFLIBLOCK = threading.Lock()
 
     def __init__(self, uri: str, ttype=None, label: str = "", layer=None):
-        self.uri = uri
-        self.id = uri2id(uri)
-        self.label = label
+        term_id = uri2id(uri)
         self.layer = CORE
         if layer:
             self.layer = layer
@@ -118,19 +118,17 @@ class SdoTermSource:
         self.sources = None
         self.aks = None
         self.examples = None
-        self.enum = None
-
         global DATATYPEURI, ENUMERATIONURI
         cls = self.__class__
         if ttype == rdflib.RDFS.Class:
             self.ttype = sdoterm.SdoTermType.TYPE
-            if self.uri == str(DATATYPEURI):  # The base DataType is defined as a Class
+            if uri == str(DATATYPEURI):  # The base DataType is defined as a Class
                 self.ttype = sdoterm.SdoTermType.DATATYPE
-            elif self.uri == str(
+            elif uri == str(
                 ENUMERATIONURI
             ):  # The base Enumeration Type is defined as a Class
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
-            elif self.isEnumeration():
+            elif self._isEnumeration(term_id=term_id):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == rdflib.RDF.Property:
             self.ttype = sdoterm.SdoTermType.PROPERTY
@@ -140,7 +138,7 @@ class SdoTermSource:
             self.ttype = sdoterm.SdoTermType.DATATYPE
         elif not ttype:
             self.ttype = sdoterm.SdoTermType.REFERENCE
-            self.label = id
+            label = term_id
         else:
             self.parent = cls._getTerm(str(ttype), createReference=True)
 
@@ -150,7 +148,6 @@ class SdoTermSource:
                 self.ttype = sdoterm.SdoTermType.DATATYPE
             else:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
-                # raise Exception("Unknown parent type '%s' for term: %s" % (ttype, self.uri))
 
         self.termdesc = sdoterm.SdoTermforType(self.ttype, Id=self.id, uri=self.uri, label=self.label)
         if self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE and self.parent:
@@ -190,15 +187,21 @@ class SdoTermSource:
         elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
             pass
         elif self.ttype == sdoterm.SdoTermType.REFERENCE:
-            self.termdesc.label = prefixedIdFromUri(self.uri)
+            self.termdesc.label = prefixedIdFromUri(uri)
             self.termdesc.comment = self.getComment()
 
-        cls.TERMS[self.uri] = self.termdesc
-
-        # log.info("SdoTermSource %s %s" %(self.ttype,self.id))
+        cls.TERMS[uri] = self.termdesc
 
     def __str__(self):
         return ("<SdoTermSource: %s '%s'>") % (self.ttype, self.id)
+
+    @property
+    def id(self):
+        return self.termdesc.id
+
+    @property
+    def uri(self):
+        return self.termdesc.uri
 
     def getTermdesc(self) -> sdoterm.SdoType:
         return self.termdesc
@@ -223,30 +226,22 @@ class SdoTermSource:
                     return True
         return False
 
-    def isEnumeration(self) -> bool:
+    @classmethod
+    def _isEnumeration(cls, term_id: str) -> bool:
         global ENUMERATIONURI
-        if self.enum == None:
-            query = """
-            ASK  {
+        query = """
+          ASK  {
                     %s rdfs:subClassOf* %s.
-             }""" % (uriWrap(toFullId(self.id)), uriWrap(ENUMERATIONURI))
-            ret = []
-            res = self.__class__.query(query)
-            for row in res:
-                self.enum = row
-            # log.info("res %s" % self.enum)
-            return self.enum
+            }""" % (uriWrap(toFullId(term_id)), uriWrap(ENUMERATIONURI))
 
-        return self.ttype == sdoterm.SdoTermType.ENUMERATION
+        result = cls.query(query)
+        return result[-1]
 
-    def isEnumerationValue(self) -> bool:
+    def _isEnumerationValue(self) -> bool:
         return self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE
 
     def isReference(self) -> bool:
         return self.ttype == sdoterm.SdoTermType.REFERENCE
-
-    def getId(self) -> str:
-        return self.id
 
     def getParent(self):
         return self.parent
@@ -254,15 +249,9 @@ class SdoTermSource:
     def getPrefixedId(self) -> str:
         return prefixedIdFromUri(self.uri)
 
-    def getUri(self) -> str:
-        return self.uri
-
-    def getLabel(self) -> str:
-        return self.label
-
     def getComments(self) -> typing.Sequence[str]:
         if not self.comments:
-            self.comments = map(str, self.loadObjects(rdflib.RDFS.comment))
+            self.comments = tuple(map(str, self.loadObjects(rdflib.RDFS.comment)))
         return self.comments
 
     def getComment(self) -> str:
@@ -476,7 +465,9 @@ class SdoTermSource:
             wpre = name[: len(name) - len(val)]
 
         if self.__class__.MARKDOWNPROCESS:
-            comment_buffer = [localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments]
+            comment_buffer = [
+                localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments
+            ]
         else:
             comment_buffer = comments
         result = " ".join(comment_buffer)
@@ -861,75 +852,78 @@ class SdoTermSource:
     def getAllTerms(
         cls, ttype=None, layer=None, suppressSourceLinks=False, expanded=False
     ):
-        log.debug("Start: getAllTerms")
-        global DATATYPEURI, ENUMERATIONURI
-        typsel = ""
-        extra = ""
-        if ttype == sdoterm.SdoTermType.TYPE:
-            typsel = "a <%s>;" % rdflib.RDFS.Class
-        elif ttype == sdoterm.SdoTermType.PROPERTY:
-            typsel = "a <%s>;" % rdflib.RDF.Property
-        elif ttype == sdoterm.SdoTermType.DATATYPE:
-            typsel = "a <%s>;" % DATATYPEURI
-        elif ttype == sdoterm.SdoTermType.ENUMERATION:
-            typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
-        elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
-        elif not ttype:
-            typesel = ""
-        else:
-            log.debug("Invalid type value '%s'" % ttype)
-
-        laysel = ""
-        fil = ""
-        suppress = ""
-        if layer:
-            if layer == "core":
-                fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
+        with pretty_logger.BlockLog(
+            logger=log, message="GetAllTerms", timing=True
+        ) as block:
+            global DATATYPEURI, ENUMERATIONURI
+            typsel = ""
+            extra = ""
+            if ttype == sdoterm.SdoTermType.TYPE:
+                typsel = "a <%s>;" % rdflib.RDFS.Class
+            elif ttype == sdoterm.SdoTermType.PROPERTY:
+                typsel = "a <%s>;" % rdflib.RDF.Property
+            elif ttype == sdoterm.SdoTermType.DATATYPE:
+                typsel = "a <%s>;" % DATATYPEURI
+            elif ttype == sdoterm.SdoTermType.ENUMERATION:
+                typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
+            elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
+                extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
+            elif not ttype:
+                typesel = ""
             else:
-                laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
+                log.debug("Invalid type value '%s'" % ttype)
 
-        if suppressSourceLinks:
-            suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+            laysel = ""
+            fil = ""
+            suppress = ""
+            if layer:
+                if layer == "core":
+                    fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
+                else:
+                    laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
 
-        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
-             ?term a ?type;
+            if suppressSourceLinks:
+                suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+
+            query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+                 ?term a ?type;
+                    %s
+                    %s
+                    rdfs:label ?label.
+                %s
+                OPTIONAL {
+                    ?term schema:isPartOf ?layer.
+                }
+                OPTIONAL {
+                    ?term rdfs:subClassOf ?sup.
+                }
+                OPTIONAL {
+                    ?term rdfs:subPropertyOf ?sup.
+                }
                 %s
                 %s
-                rdfs:label ?label.
-            %s
-            OPTIONAL {
-                ?term schema:isPartOf ?layer.
             }
-            OPTIONAL {
-                ?term rdfs:subClassOf ?sup.
-            }
-            OPTIONAL {
-                ?term rdfs:subPropertyOf ?sup.
-            }
-            %s
-            %s
-        }
-        ORDER BY ?term
-        """ % (typsel, laysel, extra, fil, suppress)
+            ORDER BY ?term
+            """ % (typsel, laysel, extra, fil, suppress)
 
-        log.debug("query %s", query)
-        res = cls.query(query)
-        log.debug("res %d", len(res))
+            log.debug("query %s", query)
+            res = cls.query(query)
+            log.debug("res %d", len(res))
 
-        terms = []
-        if expanded:
-            log.info("Expanding %d terms", len(res))
-            terms = cls.termsFromResults(res)
-            log.info("Done:")
-        else:
-            for row in res:
-                term = uri2id(str(row.term))
-                if not term in terms:
-                    terms.append(term)
+            terms = []
+            if expanded:
+                with pretty_logger.BlockLog(
+                    logger=log, message=f"Expanding {len(res)} terms", timing=True
+                ):
+                    terms = cls.termsFromResults(res)
 
-        log.info("GetAllTerms: count %s TERMS %s" % (len(terms), len(cls.TERMS)))
-        return terms
+            else:
+                for row in res:
+                    term = uri2id(str(row.term))
+                    if not term in terms:
+                        terms.append(term)
+            block.message = f"GetAllTerms: {len(terms)} terms, total: {len(cls.TERMS)}"
+            return terms
 
     @classmethod
     def getAcknowledgedTerms(cls, ack):
@@ -1029,7 +1023,7 @@ class SdoTermSource:
         for file_path in files:
             cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
         log.info(
-            "Loaded %s triples - %s terms",
+            "Done: Loaded %s triples - %s terms",
             len(cls.sourceGraph()),
             len(cls.getAllTerms()),
         )
