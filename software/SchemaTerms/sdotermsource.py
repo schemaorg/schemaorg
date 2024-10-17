@@ -149,24 +149,9 @@ class SdoTermSource:
             else:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
 
-        if self.ttype == sdoterm.SdoTermType.TYPE:
-            self.termdesc = sdoterm.SdoType(term_id, uri, label=label)
-        elif self.ttype == sdoterm.SdoTermType.PROPERTY:
-            self.termdesc = sdoterm.SdoProperty(term_id=term_id, uri=uri, label=label)
-        elif self.ttype == sdoterm.SdoTermType.DATATYPE:
-            self.termdesc = sdoterm.SdoDataType(term_id=term_id, uri=uri, label=label)
-        elif self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            self.termdesc = sdoterm.SdoEnumeration(
-                term_id=term_id, uri=uri, label=label
-            )
-        elif self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-            self.termdesc = sdoterm.SdoEnumerationvalue(
-                term_id=term_id, uri=uri, label=label
-            )
-            if self.parent:
-                self.termdesc.enumerationParent.setId(self.parent.id)
-        elif self.ttype == sdoterm.SdoTermType.REFERENCE:
-            self.termdesc = sdoterm.SdoReference(term_id=term_id, uri=uri, label=label)
+        self.termdesc = sdoterm.SdoTermforType(self.ttype, term_id=term_id, uri=uri, label=label)
+        if self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE and self.parent:
+            self.termdesc.enumerationParent.setId(self.parent.id)
 
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()

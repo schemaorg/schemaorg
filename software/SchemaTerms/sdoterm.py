@@ -227,7 +227,6 @@ class SdoTerm(object):
     def id(self) -> str:
         return self._term_id
 
-
 class SdoType(SdoTerm):
     """Term that defines a schema.org type"""
 
@@ -339,3 +338,20 @@ class SdoEnumerationvalue(SdoTerm):
 class SdoReference(SdoTerm):
     def __init__(self, term_id: str, uri: str, label: str):
         SdoTerm.__init__(self, SdoTermType.REFERENCE, term_id, uri, label)
+
+
+_TYPES_FOR_TYPES = {
+    SdoTermType.TYPE : SdoType,
+    SdoTermType.DATATYPE : SdoDataType,
+    SdoTermType.PROPERTY : SdoProperty,
+    SdoTermType.ENUMERATION : SdoEnumeration,
+    SdoTermType.ENUMERATIONVALUE : SdoEnumerationvalue,
+    SdoTermType.REFERENCE : SdoReference
+}
+
+
+def SdoTermforType(term_type : SdoTermType, **kwargs) -> SdoTerm:
+    t = _TYPES_FOR_TYPES[term_type]
+    return t(**kwargs)
+
+
