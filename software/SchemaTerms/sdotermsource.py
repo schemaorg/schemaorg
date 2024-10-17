@@ -149,7 +149,7 @@ class SdoTermSource:
             else:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
 
-        self.termdesc = sdoterm.SdoTermforType(self.ttype, Id=self.id, uri=self.uri, label=self.label)
+        self.termdesc = sdoterm.SdoTermforType(self.ttype, term_id=term_id, uri=uri, label=label)
         if self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE and self.parent:
             self.termdesc.enumerationParent.setId(self.parent.id)
 
