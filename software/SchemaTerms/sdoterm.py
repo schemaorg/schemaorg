@@ -336,8 +336,8 @@ class SdoEnumerationvalue(SdoTerm):
 
 
 class SdoReference(SdoTerm):
-    def __init__(self, Id: str, uri: str, label: str):
-        SdoTerm.__init__(self, SdoTermType.REFERENCE, Id, uri, label)
+    def __init__(self, term_id: str, uri: str, label: str):
+        SdoTerm.__init__(self, SdoTermType.REFERENCE, term_id, uri, label)
 
 
 _TYPES_FOR_TYPES = {
