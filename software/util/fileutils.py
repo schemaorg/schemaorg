@@ -3,6 +3,33 @@
 
 import os
 import shutil
+import enum
+
+
+EXTENSIONS_FOR_FORMAT = {
+    "xml": "xml",
+    "rdf": "rdf",
+    "nquads": "nq",
+    "nt": "nt",
+    "json-ld": "jsonld",
+    "turtle": "ttl",
+    "csv": "csv",
+}
+
+
+class FileSelector(str, enum.Enum):
+    """Enumeration describing the type of an SdoTerm."""
+
+    ALL = "all"
+    CURRENT = "current"
+
+    def __str__(self):
+        return self.value
+
+
+CHECKEDPATHS = set()
+FILESET_SELECTORS = frozenset([s.value for s in FileSelector])
+FILESET_PROTOCOLS = frozenset(["http", "https"])
 
 
 def createMissingDir(dir_path):
@@ -11,12 +38,14 @@ def createMissingDir(dir_path):
         os.makedirs(dir_path)
 
 
-CHECKEDPATHS = []
+def isAll(selector: str):
+    """Check if a selector string is a variation of the 'All' token."""
+    return str(selector).lower() == FileSelector.ALL
 
 
 def checkFilePath(path):
     if not path in CHECKEDPATHS:
-        CHECKEDPATHS.append(path)
+        CHECKEDPATHS.add(path)
         # os.path.join ignores the first argument if `path` is absolute.
         path = os.path.join(os.getcwd(), path)
         try:
@@ -24,6 +53,48 @@ def checkFilePath(path):
         except OSError as e:
             if not os.path.isdir(path):
                 raise e
+
+
+def ensureAbsolutePath(output_dir: str, relative_path: str) -> str:
+    """Convert into an absolute path and ensure the directory exists."""
+    filepath = os.path.join(output_dir, relative_path)
+    checkFilePath(os.path.dirname(filepath))
+    return filepath
+
+
+def releaseFilePath(
+    output_dir: str,
+    version: str,
+    selector: FileSelector,
+    protocol: str,
+    output_format: str,
+    suffix: str = None,
+) -> str:
+    """Create a path for a release file
+
+    Args:
+        output_directory: typically schemaglobals.OUTPUTDIR
+        version: version number
+        selector: either FileSelector.ALL or FileSelector.CURRENT
+        protocol: either 'http' or 'https'
+        output_format: one of the keys present in `EXTENSIONS_FOR_FORMAT`
+        suffix: optional suffix that is ended at the end of the file.
+    Returns:
+        an absolute path with the necessary directories created.
+    """
+    extension = EXTENSIONS_FOR_FORMAT[output_format.lower()]
+    selector = selector.lower()
+    assert selector in FILESET_SELECTORS, selector
+    protocol = protocol.lower()
+    assert protocol in FILESET_PROTOCOLS, protocol
+    parts = [selector, protocol]
+    if suffix:
+        parts.append(suffix)
+    merged = "-".join(parts)
+    return ensureAbsolutePath(
+        output_dir=output_dir,
+        relative_path=f"releases/{version}/schemaorg-{merged}.{extension}",
+    )
 
 
 def mycopytree(src, dst, symlinks=False, ignore=None):
