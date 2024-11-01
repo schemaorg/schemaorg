@@ -38,16 +38,23 @@ DEFTRIPLESFILESGLOB = ("data/*.ttl", "data/ext/*/*.ttl")
 LOADEDDEFAULT = False
 
 
-class _TmpTerm:
-    """Temporary holder for terms"""
+class _TermAccumulator:
+    """Temporary holder to accumulate term information."""
 
     def __init__(self, term_id):
         self.id = term_id
         self.types = []
         self.sups = []
-        self.lab = None
+        self.label = None
         self.layer = None
-        self.tt = ""
+        self.type = ""
+
+    def appendRow(self, row):
+        self.types.append(row.type)
+        self.sups.append(row.sup)
+        self.type = row.type
+        self.label = row.label
+        self.layer = layerFromUri(row.layer)
 
 
 def _loadOneSourceGraph(file_path: str) -> rdflib.Graph:
@@ -709,20 +716,15 @@ class SdoTermSource:
         cls, res: typing.Sequence[rdflib.query.ResultRow], termId: str
     ) -> sdoterm.SdoTerm:
         """Return a single term matching `termId` from res."""
-        tmp = _TmpTerm(termId)
+        tmp = _TermAccumulator(termId)
         for row in res:  # Assumes termdefinition rows are ordered by termId
             if tmp.id != termId:  # New term definition starts on this row
                 if tmp.id:
                     term = cls._createTerm(tmp.id)
                     if term:
                         ret.append(term)
-                        count += 1
-                tmp = _TmpTerm(termId)
-            tmp.types.append(row.type)
-            tmp.sups.append(row.sup)
-            tmp.tt = row.type
-            tmp.lab = row.label
-            tmp.layer = layerFromUri(row.layer)
+                tmp = _TermAccumulator(termId)
+            tmp.appendRow(row)
 
         return cls._createTerm(tmp)
 
@@ -730,44 +732,30 @@ class SdoTermSource:
     def termsFromResults(
         cls, res: typing.Sequence[rdflib.query.ResultRow]
     ) -> typing.Sequence[sdoterm.SdoTerm]:
-        ret = []
-        tmp = _TmpTerm(None)
-        count = 0
-        for row in res:  # Assumes termdefinition rows are ordered by termId
-            termId = str(row.term)
-            if tmp.id != termId:  # New term definition starts on this row
-                if tmp.id:
-                    term = cls._createTerm(tmp)
-                    if term:
-                        ret.append(term)
-                        count += 1
-                tmp = _TmpTerm(termId)
-            tmp.types.append(row.type)
-            tmp.sups.append(row.sup)
-            tmp.tt = row.type
-            tmp.lab = row.label
-            tmp.layer = layerFromUri(row.layer)
+        rows_by_term_id = {}
+        for row in res:
+            key = str(row.term)
+            if not key in rows_by_term_id:
+                rows_by_term_id[key] = _TermAccumulator(key)
+            rows_by_term_id[key].appendRow(row)
 
-        term = cls._createTerm(tmp)
-        if term:
-            ret.append(term)
-            count += 1
-        return ret
+        return list(filter(lambda t: bool(t), [cls._createTerm(acc) for acc in rows_by_term_id.values()]))
+
 
     @classmethod
-    def _createTerm(cls, tmp: _TmpTerm) -> sdoterm.SdoTerm:
+    def _createTerm(cls, tmp: _TermAccumulator) -> sdoterm.SdoTerm:
         global DATATYPEURI, ENUMERATIONURI
         if not tmp or not tmp.id:
             return None
 
         if DATATYPEURI in tmp.types:
-            tmp.tt = DATATYPEURI
+            tmp.type = DATATYPEURI
         elif ENUMERATIONURI in tmp.sups:
-            tmp.tt = ENUMERATIONURI
+            tmp.type = ENUMERATIONURI
 
         term = cls.TERMS.get(tmp.id, None)
         if not term:  # Already created this term ?
-            t = cls(tmp.id, ttype=tmp.tt, label=tmp.lab, layer=tmp.layer)
+            t = cls(tmp.id, ttype=tmp.type, label=tmp.label, layer=tmp.layer)
             term = t.termdesc
         return term
 
