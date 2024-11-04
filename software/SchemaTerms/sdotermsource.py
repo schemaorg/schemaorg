@@ -156,7 +156,9 @@ class SdoTermSource:
             else:
                 self.ttype = sdoterm.SdoTermType.REFERENCE
 
-        self.termdesc = sdoterm.SdoTermforType(self.ttype, term_id=term_id, uri=uri, label=label)
+        self.termdesc = sdoterm.SdoTermforType(
+            self.ttype, term_id=term_id, uri=uri, label=label
+        )
         if self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE and self.parent:
             self.termdesc.enumerationParent.setId(self.parent.id)
 
@@ -739,8 +741,12 @@ class SdoTermSource:
                 rows_by_term_id[key] = _TermAccumulator(key)
             rows_by_term_id[key].appendRow(row)
 
-        return list(filter(lambda t: bool(t), [cls._createTerm(acc) for acc in rows_by_term_id.values()]))
-
+        return list(
+            filter(
+                lambda t: bool(t),
+                [cls._createTerm(acc) for acc in rows_by_term_id.values()],
+            )
+        )
 
     @classmethod
     def _createTerm(cls, tmp: _TermAccumulator) -> sdoterm.SdoTerm:
