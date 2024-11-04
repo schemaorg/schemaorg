@@ -743,7 +743,7 @@ class SdoTermSource:
 
         return list(
             filter(
-                lambda t: bool(t),
+                bool,
                 [cls._createTerm(acc) for acc in rows_by_term_id.values()],
             )
         )
