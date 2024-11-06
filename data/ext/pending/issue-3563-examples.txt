@@ -1,4 +1,4 @@
-TYPES: #eg-0489 MemberProgram, MemberProgramTier, TierBenefitEnumeration, 
+TYPES: #eg-0489 MemberProgram, MemberProgramTier, TierBenefitEnumeration,
 
 PRE-MARKUP:
 
@@ -49,7 +49,7 @@ JSON:
       "hasTiers": [
         {
           "@type": "MemberProgramTier",
-          "@id": "#plus-tier-silver",
+          "@id": "com/members#plus-tier-silver",
           "name": "silver",
           "url": "https://www.example.com/membership-plus-silver",
           "hasTierBenefit": [
@@ -59,7 +59,7 @@ JSON:
         },
         {
           "@type": "MemberProgramTier",
-          "@id": "#plus-tier-gold",
+          "@id": "com/members#plus-tier-gold",
           "name": "gold",
           "url": "https://www.example.com/membership-plus-gold",
           "hasTierRequirement": {
@@ -74,7 +74,7 @@ JSON:
         },
         {
           "@type": "MemberProgramTier",
-          "@id": "#plus-tier-platinum",
+          "@id": "com/members#plus-tier-platinum",
           "name": "gold",
           "url": "https://www.example.com/membership-plus-platinum",
           "hasTierRequirement": {
@@ -127,8 +127,8 @@ JSON:
           {
             "@type": "PriceSpecification",
             "validForMemberTier": [
-              { "@id": "https://www.example.com/com/members#plus_tier_gold" },
-              { "@id": "https://www.example.com/com/members#plus_tier_platinum" }
+              { "@id": "https://www.example.com/com/members#plus-tier-gold" },
+              { "@id": "https://www.example.com/com/members#plus-tier-platinum" }
             ],
             "price": 9.95,
             "priceCurrency": "USD"
