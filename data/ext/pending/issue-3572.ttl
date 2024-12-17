@@ -1,0 +1,231 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# FinancialIncentive, the main class for all financial incentives.
+:FinancialIncentive a rdfs:Class ;
+    rdfs:label "FinancialIncentive" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Represents financial incentives for goods/services offered by an organization (or individual)." ;
+    rdfs:subClassOf :Intangible .
+
+:incentiveType a rdf:Property ;
+    rdfs:label "incentiveType" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveType ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The type of incentive offered." .
+
+:incentiveStatus a rdf:Property ;
+    rdfs:label "incentiveStatus" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveStatus ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The status of the incentive (active, on hold, retired, etc.)." .
+
+:eligibleWithSupplier a rdf:Property ;
+    rdfs:label "eligibleWithSupplier" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :Organization ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The supplier of the incentivized item/service for which the incentive is valid for such as a utility company, merchant, or contractor." .
+
+:incentiveAmount a rdf:Property ;
+    rdfs:label "incentiveAmount" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :UnitPriceSpecification,
+        :LoanOrCredit,
+        :QuantitativeValue ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Describes the amount that can be redeemed from this incentive. For UnitPriceSpecification: incentives that are based on how much per unit the claimant can get (e.g. a rebate for energy-efficient dishwashers). For For LoanOrCredit: incentives that are loan based will be described by this data type. For QuantitativeValue: there can be two different formats for incentives; one that is a raw currency format, and one for percentage currency formats." .
+
+:incentivizedItem a rdf:Property ;
+    rdfs:label "incentivizedItem" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :ItemList,
+        :DefinedTerm,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The type or specific product(s) and/or service(s) being incentivized. If an ItemList is given, the list should contain items of type DefinedTerm or Product. DefinedTermSets are used for product and service categories such as the United Nations Standard Products and Services Code. For a specific product or service, use Product data type." .
+
+:purchaseType a rdf:Property ;
+    rdfs:label "purchaseType" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :PurchaseType ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The type of purchase the consumer must make in order to qualify for this incentive." .
+
+:purchasePriceLimit a rdf:Property ;
+    rdfs:label "purchasePriceLimit" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The maximum price the item can have and still qualify for this offer." .
+
+:incomeLimit a rdf:Property ;
+    rdfs:label "incomeLimit" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount,
+        :Text ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Optional income limit for which the incentive is applicable for. If MonetaryAmount is specified, this should be based on annualized income (e.g. if an incentive is limited to those making <$114,000 annually). Use Text for incentives that are limited based on other criteria (e.g. if an incentive is only available to recipients making 120% of the median poverty income in their area.)" .
+
+:qualifiedExpense a rdf:Property ;
+    rdfs:label "qualifiedExpense" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveQualifiedExpenseType ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." .
+
+# Enumerations.
+
+:IncentiveType a rdfs:Class ;
+    rdfs:label "IncentiveType" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Enumerates common financial incentives for products, including tax credits, tax deductions, rebates and subsidies, etc." ;
+    rdfs:subClassOf :Enumeration .
+
+:IncentiveTypeTaxCredit a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxCredit" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "An incentive that directly reduces the amount of tax owed by the recipient." .
+
+:IncentiveTypeTaxDeduction a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxDeduction" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "An incentive that reduces the recipient's amount of taxable income." .
+
+:IncentiveTypeRebateOrSubsidy a :IncentiveType ;
+    rdfs:label "IncentiveTypeRebateOrSubsidy" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "An incentive that reduces the purchase/lease cost of the good/service in question." .
+
+:IncentiveTypeTaxWaiver a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxWaiver" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "An incentive that reduces/exempts the recipient from taxation applicable to the incentivized good/service (e.g. luxury taxes, registration taxes, circulation tax)." .
+
+:IncentiveTypeLoan a :IncentiveType ;
+    rdfs:label "IncentiveTypeLoan" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "An incentive where the recipient can receive additional funding for the purchase/lease of the good/service, which must be paid back." .
+
+:IncentiveStatus a rdfs:Class ;
+    rdfs:label "IncentiveStatus" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Enumerates a status for an incentive, such as whether it is active." ;
+    rdfs:subClassOf :Enumeration .
+
+:IncentiveStatusActive a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusActive" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive is currently active." .
+
+:IncentiveStatusOnHold a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusOnHold" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive is currently active, but may not be accepting new applicants (e.g. max number of redemptions reached for a year)" .
+
+:IncentiveStatusInDevelopment a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusInDevelopment" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive is currently being developed, and may become active/retired in the future." .
+
+:IncentiveStatusRetired a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusRetired" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive is not longer available." .
+
+:PurchaseType a rdfs:Class ;
+    rdfs:label "PurchaseType" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "Enumerates a purchase type for an item." ;
+    rdfs:subClassOf :Enumeration .
+
+:PurchaseTypeNewPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeNewPurchase" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This is a purchase of a new item." .
+
+:PurchaseTypeUsedPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeUsedPurchase" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This is a purchase of a used item." .
+
+:PurchaseTypeLease a :PurchaseType ;
+    rdfs:label "PurchaseTypeLease" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This is a lease of an item." .
+
+:PurchaseTypeTradeIn a :PurchaseType ;
+    rdfs:label "PurchaseTypeTradeIn" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This is a trade-in for an item." .
+
+:IncentiveQualifiedExpenseType a rdfs:Class ;
+    rdfs:label "IncentiveQualifiedExpenseType" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." ;
+    rdfs:subClassOf :Enumeration .
+
+:IncentiveQualifiedExpenseTypeGoodsOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOnly" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive applies to goods only." .
+
+:IncentiveQualifiedExpenseTypeServicesOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeServicesOnly" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive applies to services only." .
+
+:IncentiveQualifiedExpenseTypeGoodsOrServices a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOrServices" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive can apply to either goods or services (or both)." .
+
+:IncentiveQualifiedExpenseTypeUtilityBill a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeUtilityBill" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
+    rdfs:comment "This incentive applies to utility bills." .
+
+
+# Additions to existing types.
+:provider :domainIncludes :FinancialIncentive.
+
+:areaServed :domainIncludes :FinancialIncentive.
+
+:validFrom :domainIncludes :FinancialIncentive.
+:validThrough :domainIncludes :FinancialIncentive.
