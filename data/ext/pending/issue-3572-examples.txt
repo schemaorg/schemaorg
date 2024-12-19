@@ -1,0 +1,157 @@
+TYPES: #eg-0490 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the US Federal EV Tax Credit implemented as part of the Inflation Reduction Act (JSON-LD only).
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Clean Vehicle Tax Credit",
+  "url": "https://www.irs.gov/credits-deductions/credits-for-new-clean-vehicles-purchased-in-2023-or-after",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Internal Revenue Service (IRS)"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "US Federal Government"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "validFrom": "2023-01-01", 
+  "validThrough": "2032-12-31", 
+  "incentiveType": "TaxCredit",
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "QuantitativeValue",
+    "minValue": "2500",
+    "maxValue": "7500",
+    "unitCode": "USD"
+  },
+  "incentiveStatus": "Active",
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "25101509",
+    "name": "Electrically powered vehicle"
+  }, 
+  "incomeLimit": {
+    "@type": "MonetaryAmount",
+    "maxValue": "114000",
+    "currency": "USD"
+  }
+}
+</script>
+
+TYPES: #eg-0491 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the Australian ACT Sustainable Household Scheme using a list of DefinedTerms.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "ACT Sustainable Household Scheme",
+  "url": "https://www.climatechoices.act.gov.au/policy-programs/sustainable-household-scheme", 
+  "publisher": {
+    "@type": "Organization",
+    "name": "ACT Government" 
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Brighte"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Australian Capital Territory"
+  },
+  "validFrom": "2021-05-01", 
+  "validThrough": "2026-06-30", 
+  "incentiveType": "Loan", 
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "LoanOrCredit",
+    "loanTerm": {
+      "@type": "QuantitativeValue",
+      "value": "10",
+      "unitCode": "ANN" 
+    },
+    "amount": [
+      {
+        "@type": "QuantitativeValue",
+        "name": "fixed interest rate",
+        "value": "0" 
+      },
+      {
+        "@type": "MonetaryAmount",
+        "name": "min loan amount",
+        "value": "2000",
+        "currency": "AUD"
+      },
+      {
+        "@type": "MonetaryAmount",
+        "name": "max loan amount",
+        "value": "15000", 
+        "currency": "AUD"
+      }
+    ]
+  },
+  "incentiveStatus": "Active",
+  "incentivizedItem": {
+    "@type": "ItemList",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "DefinedTerm",
+          "inDefinedTermSet": "https://www.unspsc.org/",
+          "termCode": "30141500",
+          "name": "Thermal insulation"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "DefinedTerm",
+          "inDefinedTermSet": "https://www.unspsc.org/",
+          "termCode": "40101806",
+          "name": "Heat Pumps"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "DefinedTerm",
+          "inDefinedTermSet": "https://www.unspsc.org/",
+          "termCode": "261315XX",
+          "name": "Photovoltaic module"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "DefinedTerm",
+          "inDefinedTermSet": "https://www.unspsc.org/",
+          "termCode": "251018XX",
+          "name": "Electric two-wheel vehicle"
+        }
+      }
+    ]
+  }
+}
+</script>
