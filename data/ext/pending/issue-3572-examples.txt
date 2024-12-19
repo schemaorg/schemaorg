@@ -2,7 +2,7 @@ TYPES: #eg-0490 FinancialIncentive
 
 PRE-MARKUP:
 
-An example annotation for the US Federal EV Tax Credit implemented as part of the Inflation Reduction Act (JSON-LD only).
+An example annotation for the US Federal EV Tax Credit implemented as part of the Inflation Reduction Act.
 
 JSON:
 
@@ -53,7 +53,7 @@ TYPES: #eg-0491 FinancialIncentive
 
 PRE-MARKUP:
 
-An example annotation for the Australian ACT Sustainable Household Scheme using a list of DefinedTerms.
+An example annotation for the Australian ACT Sustainable Household Scheme, which offers interest-free loans from 2,000-15,000 AUD using a list of DefinedTerms.
 
 JSON:
 
@@ -86,22 +86,20 @@ JSON:
       "value": "10",
       "unitCode": "ANN" 
     },
-    "amount": [
+    "annualPercentageRate": [
       {
         "@type": "QuantitativeValue",
-        "name": "fixed interest rate",
-        "value": "0" 
-      },
+        "name": "fixed interest rates",
+        "minValue": "0",
+        "maxValue": "0"
+      }
+    ],
+    "amount": [
       {
         "@type": "MonetaryAmount",
-        "name": "min loan amount",
-        "value": "2000",
-        "currency": "AUD"
-      },
-      {
-        "@type": "MonetaryAmount",
-        "name": "max loan amount",
-        "value": "15000", 
+        "name": "loan amount",
+        "minValue": "2000",
+        "maxValue": "15000",
         "currency": "AUD"
       }
     ]
@@ -152,6 +150,105 @@ JSON:
         }
       }
     ]
+  }
+}
+</script>
+
+TYPES: #eg-0492 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the UK Electric Vehicle chargepoint grant for renters or flat owners, at 75% of the price to a max of $350.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Electric Vehicle Chargepoint Grant",
+  "url": "https://www.gov.uk/electric-vehicle-chargepoint-grant-household", 
+  "publisher": {
+    "@type": "Organization",
+    "name": "UK Government" 
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Office for Zero Emission Vehicles (OZEV)" 
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United Kingdom"
+  },
+  "validFrom": "2020-04-01", 
+  "validThrough": "2025-03-31", 
+  "incentiveType": "RebateOrSubsidy",
+  "purchaseType": "NewPurchase",
+  "incentiveStatus": "Active", 
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "25175000",
+    "name": "Electric vehicle charging systems"
+  },
+  "incentiveAmount": {
+    "@type": "QuantitativeValue",
+    "value": "75",
+    "unitCode": "P1",
+    "unitText": "%",
+    "maxValue": "350",
+    "valueReference": "GBP"
+  }
+}
+
+</script>
+
+
+TYPES: #eg-0493 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the Solar Rebate Program in Banff, CA.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Solar Rebate Program",
+  "url": "https://www.banff.ca/807/Solar-Incentive-Program",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Town of Banff"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Town of Banff"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Banff"
+  },
+  "validFrom": "2018-01-01", 
+  "validThrough": "2024-12-31", 
+  "incentiveType": "RebateOrSubsidy",
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "UnitPriceSpecification",
+    "price": "750",
+    "priceCurrency": "CAD",
+    "referenceQuantity": "1",
+    "unitCode": "KWT", 
+    "unitText": "kW",
+    "maxPrice": "15000" 
+  },
+  "incentiveStatus": "Active", 
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "261315XX",
+    "name": "Photovoltaic module"
   }
 }
 </script>
