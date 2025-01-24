@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
@@ -6,6 +6,7 @@
     a rdf:Property ;
     :rangeIncludes :Thing ;
     :domainIncludes :ItemList ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:label "aggregateElement" ;
-    rdfs:comment "Indicates a prototype of the elements in the list that is used to hold aggregate information (ratings, offers, etc.)" ;
+    rdfs:comment "Indicates a prototype of the elements in the list that is used to hold aggregate information (ratings, offers, etc.)." ;
     :source <https://github.com/schemaorg/schemaorg/issues/4321> .
