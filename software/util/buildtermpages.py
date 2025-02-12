@@ -100,7 +100,7 @@ def RenderAndWriteSingleTerm(term_key):
     """Renders a single term and write the result into a file.
 
     Parameters:
-      term_id (str): key for the term.
+      term_key (str): key for the term.
     """
 
     with pretty_logger.BlockLog(
@@ -114,13 +114,17 @@ def RenderAndWriteSingleTerm(term_key):
             term.termType == sdoterm.SdoTermType.REFERENCE
         ):  # Don't create pages for reference types
             return 0
-        examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
-        json = sdotermsource.SdoTermSource.getTermAsRdfString(
-            term.id, "json-ld", full=True
-        )
-        pageout = termtemplateRender(term, examples, json)
-        with open(termFileName(term.id), "w", encoding="utf8") as outfile:
-            outfile.write(pageout)
+        try:
+          examples = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+          json = sdotermsource.SdoTermSource.getTermAsRdfString(
+              term.id, "json-ld", full=True
+          )
+          pageout = termtemplateRender(term, examples, json)
+          with open(termFileName(term.id), "w", encoding="utf8") as outfile:
+              outfile.write(pageout)
+        except Exception as e:
+            e.add_note(f"Term definition: {term}")
+            raise
     return block.elapsed
 
 
@@ -128,7 +132,11 @@ def _buildTermIds(pair):
     shard, term_ids = pair
     pretty_logger.MakeRootLogPretty(shard=shard)
     for term_id in term_ids:
-        RenderAndWriteSingleTerm(term_id)
+        try:
+            RenderAndWriteSingleTerm(term_id)
+        except Exception as e:
+            e.add_note(f"While building term_id {term_id}")
+            raise
 
 
 def buildTerms(term_ids):
