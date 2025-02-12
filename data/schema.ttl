@@ -4078,7 +4078,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :DigitalPlatformEnumeration,
         :Text,
         :URL .
-        
+
 :actionProcess a rdf:Property ;
     rdfs:label "actionProcess" ;
     rdfs:comment "Description of the process by which the action was performed." ;
@@ -5488,7 +5488,11 @@ Dateline summaries are oriented more towards human readers than towards automate
 
 :deliveryTime a rdf:Property ;
     rdfs:label "deliveryTime" ;
-    rdfs:comment "The total delay between the receipt of the order and the goods reaching the final customer." ;
+    rdfs:comment """The total delay between the receipt of the order and the goods reaching the final customer.
+
+In the context of [[OfferShippingDetails]] and [[ShippingService]], this field is used to specify the handling time and the shipping time if the merchant does the shipping.
+
+In the context of [[ShippingConditions]], this is generally used to specify the transit time.""" ;
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails ;
     :rangeIncludes :ShippingDeliveryTime ;
