@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import collections
 import glob
 import logging
 import os
@@ -79,6 +80,49 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     # SPARQLResult http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
     # "A list of dicts (solution mappings) is returned"
+
+    def test_BaseTypeIsUnique(self):
+        a_maps = self.getResults("select ?term ?type where { ?term a ?type . }")
+        defined_types = collections.defaultdict(set)
+
+        CLASS = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
+        DATATYPE = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#DataType')
+        for a in a_maps:
+            if a["type"] not in [CLASS, DATATYPE]:
+                defined_types[a["term"]].add(a["type"])
+
+        double_bases = filter(lambda x: len(defined_types[x]) > 1, defined_types.keys())
+
+        # Remove the single instance of (known) multiple inheritance.
+        double_bases = list(filter(lambda x: x != rdflib.term.URIRef('https://schema.org/Radiography'), double_bases))
+
+        message = '\n' + '\n\t'.join(["%s [%d bases: %s]" % (e, len(defined_types[e]), ", ".join(defined_types[e]))
+                                      for e in double_bases])
+        self.assertEqual(len(double_bases), 0, f"Types with multiple base types: {message}")
+
+
+    def test_BaseTypeExists(self):
+        a_maps = self.getResults("select ?term ?type where { ?term a ?type . }")
+        defined_types = collections.defaultdict(set)
+        for a in a_maps:
+            defined_types[a["term"]].add(a["type"])
+        # Add some well-known types that we accept, and so establish the root of the tree at DATATYPE.
+        PROPERTY = rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property')
+        CLASS = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
+        DATATYPE = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#DataType')
+        defined_types[CLASS].add(DATATYPE)
+        defined_types[PROPERTY].add(DATATYPE)
+
+        def findRoot(t):
+            while t in defined_types:
+                t = next(iter((defined_types[t])))
+            return t
+
+        non_datatype_derived = ["%s => %s" % (k, findRoot(k))
+                                for k in filter(lambda x: findRoot(x) != DATATYPE, defined_types.keys())]
+        message = '\n' + '\n\t'.join(non_datatype_derived)
+        self.assertEqual(len(non_datatype_derived), 0, f"Types that have an invalid base type: {message}")
+
 
     def test_foundSixPlusInverseOf(self):
         results = self.getResults(
