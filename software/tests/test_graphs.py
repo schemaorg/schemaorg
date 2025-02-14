@@ -82,7 +82,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # "A list of dicts (solution mappings) is returned"
 
     def test_BaseTypeIsUnique(self):
-        a_maps = self.getResults("select ?term ?type where { ?term a ?type . }")
+        a_maps = self.getResults("SELECT ?term ?type WHERE { ?term a ?type . }")
         defined_types = collections.defaultdict(set)
 
         CLASS = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
@@ -102,7 +102,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
 
     def test_BaseTypeExists(self):
-        a_maps = self.getResults("select ?term ?type where { ?term a ?type . }")
+        a_maps = self.getResults("SELECT ?term ?type WHERE { ?term a ?type . }")
         defined_types = collections.defaultdict(set)
         for a in a_maps:
             defined_types[a["term"]].add(a["type"])
@@ -126,14 +126,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_foundSixPlusInverseOf(self):
         results = self.getResults(
-            "select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }"
+            "SELECT ?x ?y WHERE { ?x <https://schema.org/inverseOf> ?y }"
         )
         self.assertGreaterEqual(len(results), 6,
                                 f"Six or more inverseOf expected. Found: {len(results)}")
 
     def test_evenNumberOfInverseOf(self):
         results = self.getResults(
-            "select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }"
+            "SELECT ?x ?y WHERE { ?x <https://schema.org/inverseOf> ?y }"
         )
         self.assertTrue(
             len(results) % 2 == 0,
@@ -141,18 +141,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_noSelfInverseOf(self):
         self.assertNoMatch("""
-            select ?x ?y where {
+            SELECT ?x ?y WHERE {
                 ?x <https://schema.org/inverseOf> ?y .
-                filter (?x = ?y) .
+                FILTER (?x = ?y) .
             }
         """,
         error_message="inverseOf same property as itself")
 
     def test_noSelfSupersededBy(self):
         self.assertNoMatch("""
-            select ?x ?y where {
+            SELECT ?x ?y WHERE {
                 ?x <https://schema.org/supersededBy> ?y .
-                filter (?x = ?y) .
+                FILTER (?x = ?y) .
             }
         """,
         error_message="Type should not be supersededBy itself")
@@ -163,11 +163,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         # TODO: could we use property paths here to be more thorough?
         # rdfs:subClassOf+ should work but seems not to.
         self.assertNoMatch("""
-             SELECT ?prop ?c1 ?c2
-             WHERE {
+             SELECT ?prop ?c1 ?c2 WHERE {
                  ?prop <https://schema.org/domainIncludes> ?c1 .
                  ?prop <https://schema.org/domainIncludes> ?c2 .
                  ?c1 rdfs:subClassOf ?c2 .
+
                  FILTER (?c1 != ?c2) .
                  FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
                  FILTER NOT EXISTS { ?c1 <https://schema.org/isPartOf> <http://attic.schema.org> .}
@@ -184,11 +184,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         # check immediate subtypes don't declare same domainIncludes
         # TODO: could we use property paths here to be more thorough?
         self.assertNoMatch("""
-            SELECT ?prop ?c1 ?c2
-            WHERE {
+            SELECT ?prop ?c1 ?c2 WHERE {
                 ?prop <https://schema.org/rangeIncludes> ?c1 .
                 ?prop <https://schema.org/rangeIncludes> ?c2 .
                 ?c1 rdfs:subClassOf ?c2 .
+
                 FILTER (?c1 != ?c2) .
                 FILTER (?c1 != <https://schema.org/URL>) .
                 FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
@@ -206,14 +206,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_validRangeIncludes(self):
         self.assertNoMatch("""
-            SELECT ?prop ?c1
-            WHERE {
+            SELECT ?prop ?c1 WHERE {
                 ?prop <https://schema.org/rangeIncludes> ?c1 .
-                OPTIONAL{
+                OPTIONAL {
                     ?c1 rdf:type ?c2 .
                     ?c1 rdf:type rdfs:Class .
                 } .
-                FILTER (!BOUND(?c2))
+
+                FILTER (!bound(?c2))
                 FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
             }
             ORDER BY ?prop
@@ -223,13 +223,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_validDomainIncludes(self):
         self.assertNoMatch("""
-            SELECT ?prop ?c1
-            WHERE {
+            SELECT ?prop ?c1 WHERE {
                 ?prop <https://schema.org/domainIncludes> ?c1 .
                 OPTIONAL {
                     ?c1 rdf:type ?c2 .
                     ?c1 rdf:type rdfs:Class .
-                }.
+                } .
+
                 FILTER (!BOUND(?c2))
                 FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
             }
@@ -242,10 +242,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # @unittest.expectedFailure
     def test_simpleLabels(self):
         self.assertNoMatch("""
-            select distinct ?term ?label where {
+            SELECT DISTINCT ?term ?label WHERE {
                 ?term rdfs:label ?label
-                FILTER regex(?label,'[^a-zA-Z0-9_ ]','i') .
+                FILTER REGEX(?label, '[^a-zA-Z0-9_ ]','i') .
             }
+            ORDER BY ?term
         """,
         error_message="Some terms have complex labels (alphanumeric only please!)",
         row_pattern="term %(term)s has complex label: %(label)s")
@@ -260,29 +261,28 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_labelMatchesTermId(self):
         self.assertNoMatch("""
-            select ?term ?label where {
-                ?term rdfs:label ?label.
-                BIND(STR(?term) AS ?strVal)
-                FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-                FILTER(SUBSTR(?strVal, 20) != STR(?label))
+            SELECT ?term ?label WHERE {
+                ?term rdfs:label ?label .
+
+                FILTER STRSTARTS(STR(?term), "https://schema.org/")
+                FILTER (!STRENDS(STR(?term), STR(?label)))
             }
             ORDER BY ?term
         """,
         error_message="Term should have matching rdfs:label",
-        row_pattern="Term '%(term)s' has none-matching label: '%(label)s'")
+        row_pattern="Term '%(term)s' has non-matching label: '%(label)s'")
 
     def test_superTypesExist(self):
         self.assertNoMatch("""
-            select ?term ?super where {
-                ?term rdfs:subClassOf ?super.
-                ?term rdf:type rdfs:Class.
+            SELECT ?term ?super WHERE {
+                ?term rdfs:subClassOf ?super .
+                ?term rdf:type rdfs:Class .
+
                 FILTER NOT EXISTS { ?super rdf:type rdfs:Class }
 
-                BIND(STR(?term) AS ?strVal)
-                FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
+                FILTER STRSTARTS(STR(?term), "https://schema.org/")
+                FILTER STRSTARTS(STR(?super), "https://schema.org/")
 
-                BIND(STR(?super) AS ?superStrVal)
-                FILTER(STRLEN(?superStrVal) >= 19 && SUBSTR(?superStrVal, 1, 19) = "https://schema.org/")
                 FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
             }
             ORDER BY ?term
@@ -292,38 +292,39 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_propsWithoutDomain(self):
         self.assertNoMatch("""
-            select ?term where {
-                ?term a rdf:Property.
+            SELECT ?term WHERE {
+                ?term a rdf:Property .
                 FILTER NOT EXISTS { ?term <https://schema.org/domainIncludes> ?o .}
                 FILTER NOT EXISTS { ?term <https://schema.org/supersededBy> ?o .}
             }
+            ORDER BY ?term
         """,
         error_message="Property without domain extensions",
         row_pattern="Term '%(term)s' has no domainIncludes values")
 
     def test_propsWithoutRange(self):
         self.assertNoMatch("""
-           select ?term where {
-             ?term a rdf:Property.
+           SELECT ?term WHERE {
+             ?term a rdf:Property .
              FILTER NOT EXISTS { ?term <https://schema.org/rangeIncludes> ?o .}
              FILTER NOT EXISTS { ?term <https://schema.org/supersededBy> ?o .}
            }
+           ORDER BY ?term
         """,
         error_message="Property without range extensions",
         row_pattern="Term '%(term)s' has no rangeIncludes values")
 
     def test_superPropertiesExist(self):
         self.assertNoMatch("""
-          select ?term ?super where {
-            ?term rdf:type rdf:Property.
-            ?term rdfs:subPropertyOf ?super.
+          SELECT ?term ?super WHERE {
+            ?term rdf:type rdf:Property .
+            ?term rdfs:subPropertyOf ?super .
+
             FILTER NOT EXISTS { ?super rdf:type rdf:Property }
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
+            FILTER STRSTARTS(STR(?super), "https://schema.org/")
 
-            BIND(STR(?super) AS ?superStrVal)
-            FILTER(STRLEN(?superStrVal) >= 19 && SUBSTR(?superStrVal, 1, 19) = "https://schema.org/")
             FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
@@ -333,14 +334,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_selfReferencingInverse(self):
         self.assertNoMatch("""
-          select ?term ?inverse where {
-            ?term rdf:type rdf:Property.
-            ?term <https://schema.org/inverseOf> ?inverse.
+          SELECT ?term ?inverse WHERE {
+            ?term rdf:type rdf:Property .
+            ?term <https://schema.org/inverseOf> ?inverse .
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
 
-            FILTER(str(?term) = str(?inverse))
+            FILTER(STR(?term) = STR(?inverse))
             FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
@@ -350,15 +350,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_sameInverseAndSupersededByTarget(self):
         self.assertNoMatch("""
-          select ?term ?inverse ?super where {
-            ?term rdf:type rdf:Property.
-            ?term <https://schema.org/inverseOf> ?inverse.
-            ?term <https://schema.org/supersededBy> ?super.
+          SELECT ?term ?inverse ?super WHERE {
+            ?term rdf:type rdf:Property .
+            ?term <https://schema.org/inverseOf> ?inverse .
+            ?term <https://schema.org/supersededBy> ?super .
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
-
-            FILTER(str(?inverse) = str(?super))
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
+            FILTER(STR(?inverse) = STR(?super))
             FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
@@ -369,13 +367,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     def test_commentEndWithPeriod(self):
         """Validate that class and property RDF comments end with a punctuation."""
         self.assertNoMatch("""
-          select ?term ?com where {
-            ?term rdfs:comment ?com.
+          SELECT ?term ?com WHERE {
+            ?term rdfs:comment ?com .
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-
-            FILTER (!(regex(str(?com), '[\\\\.\\\\)\\\\?]\\\\s*$') || regex(str(?com), 'n\\\\* .*')))
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
+            FILTER (!(REGEX(STR(?com), '[\\\\.\\\\)\\\\?]\\\\s*$') || REGEX(STR(?com), 'n\\\\* .*')))
           }
           ORDER BY ?term
         """,
@@ -383,14 +379,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_typeLabelCase(self):
         self.assertNoMatch("""
-          select ?term ?label where {
-            ?term rdf:type rdfs:Class.
-            ?term rdfs:label ?label.
+          SELECT ?term ?label WHERE {
+            ?term rdf:type rdfs:Class .
+            ?term rdfs:label ?label .
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-
-            FILTER (!regex(str(?label), '^[0-9]*[A-Z].*'))
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
+            FILTER (!REGEX(STR(?label), '^[0-9]*[A-Z].*'))
           }
           ORDER BY ?term
         """,
@@ -398,14 +392,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_propertyLabelCase(self):
         self.assertNoMatch("""
-          select ?term ?label where {
-            ?term rdf:type rdf:Property.
-            ?term rdfs:label ?label.
+          SELECT ?term ?label WHERE {
+            ?term rdf:type rdf:Property .
+            ?term rdfs:label ?label .
 
-            BIND(STR(?term) AS ?strVal)
-            FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
-
-            FILTER (!regex(str(?label), '^[0-9]*[a-z].*'))
+            FILTER STRSTARTS(STR(?term), "https://schema.org/")
+            FILTER (!REGEX(STR(?label), '^[0-9]*[a-z].*'))
           }
           ORDER BY ?term
         """,
@@ -413,15 +405,16 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_superTypeInAttic(self):
         self.assertNoMatch("""
-          select ?term ?super where {
+          SELECT ?term ?super WHERE {
             {
-              ?term rdfs:subClassOf ?super.
+              ?term rdfs:subClassOf ?super .
             }
             UNION
             {
-              ?term rdfs:subPropertyOf ?super.
+              ?term rdfs:subPropertyOf ?super .
             }
             ?super <https://schema.org/isPartOf> <http://attic.schema.org> .
+
             FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
@@ -431,27 +424,28 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_referenceTermInAttic(self):
         self.assertNoMatch("""
-          select ?term ?rel ?ref where {
+          SELECT ?term ?rel ?ref WHERE {
             {
-                ?term <https://schema.org/domainIncludes> ?ref.
+                ?term <https://schema.org/domainIncludes> ?ref .
                 ?term ?rel ?ref.
             }
             UNION
             {
-                ?term <https://schema.org/rangeIncludes> ?ref.
+                ?term <https://schema.org/rangeIncludes> ?ref .
                 ?term ?rel ?ref.
             }
             UNION
             {
-                ?term <https://schema.org/inverseOf> ?ref.
+                ?term <https://schema.org/inverseOf> ?ref .
                 ?term ?rel ?ref.
             }
             UNION
             {
-                ?term <https://schema.org/supersededBy> ?ref.
+                ?term <https://schema.org/supersededBy> ?ref .
                 ?term ?rel ?ref.
             }
             ?ref <https://schema.org/isPartOf> <http://attic.schema.org> .
+
             FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
@@ -461,11 +455,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_termIn2PlusExtensions(self):
         self.assertNoMatch("""
-          select ?term (count(?part) as ?count) where {
-            ?term <https://schema.org/isPartOf> ?part.
+          SELECT ?term (COUNT(?part) as ?count) WHERE {
+            ?term <https://schema.org/isPartOf> ?part .
           }
           GROUP BY ?term
-          HAVING (count(?part) > 1)
+          HAVING (COUNT(?part) > 1)
           ORDER BY ?term
         """,
         error_message="Term partOf multiple extensions",
@@ -473,9 +467,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_termIsHttps(self):
         self.assertNoMatch("""
-          select distinct ?term where {
-            ?term ?p ?o.
-            FILTER strstarts(str(?term),"http://schema.org")
+          SELECT DISTINCT ?term WHERE {
+            ?term ?p ?o .
+
+            FILTER STRSTARTS(STR(?term), "http://schema.org")
           }
           ORDER BY ?term
         """,
@@ -483,17 +478,17 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_targetNotHttps(self):
         self.assertNoMatch("""
-          prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-          prefix schema: <https://schema.org/>
-          select ?term ?target where {
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX schema: <https://schema.org/>
 
+          SELECT ?term ?target WHERE {
             ?term schema:domainIncludes |
                   schema:rangeIncludes |
                   rdfs:subClassOf |
                   rdfs:subPropertyOf |
                   schema:supersededBy |
-                  schema:inverseOf ?target.
-            filter strstarts(str(?target),"http://schema.org")
+                  schema:inverseOf          ?target .
+            FILTER STRSTARTS(STR(?target), "http://schema.org")
           }
           ORDER BY ?term
         """,
@@ -502,26 +497,27 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     def test_isPartOf(self):
         self.assertNoMatch("""
-          prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-          prefix schema: <https://schema.org/>
-          select ?term  ?partof where {
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX schema: <https://schema.org/>
+
+          SELECT ?term ?partof WHERE {
             ?term schema:isPartOf ?partof .
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://attic.schema.org>
             }
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://auto.schema.org>
             }
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://bib.schema.org>
             }
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://health-lifesci.schema.org>
             }
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://meta.schema.org>
             }
-            MINUS{
+            MINUS {
               ?term schema:isPartOf <https://pending.schema.org>
             }
           }
@@ -533,9 +529,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     @unittest.expectedFailure
     def test_EnumerationWithoutEnums(self):
         self.assertNoMatch("""
-          select ?term where {
+          SELECT ?term WHERE {
               ?term a rdfs:subClassOf+ <https://schema.org/Enumeration> .
-              FILTER NOT EXISTS { ?enum a ?term. }
+
+              FILTER NOT EXISTS { ?enum a ?term .}
               FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
           }
           ORDER BY ?term
