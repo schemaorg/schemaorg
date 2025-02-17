@@ -28,8 +28,6 @@ def AssignExampleIds():
             filename = example.getMeta('file')
             if filename in changedFiles.keys():
                 log.error('Two examples with the same filename %s: %s and %s' % (filename, changedFiles[filename], example))
-                continue
-            filename[filename] = example
 
     if not changedFiles:
         log.info('No new identifiers assigned')
