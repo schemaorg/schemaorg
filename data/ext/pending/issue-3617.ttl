@@ -13,12 +13,6 @@
     :domainIncludes :OfferShippingDetails ;
     :rangeIncludes :Mass .
 
-:shippingService a rdf:Property ;
-    rdfs:label "shippingService" ;
-    :domainIncludes :OfferShippingDetails ;
-    :rangeIncludes :ShippingService ;
-    rdfs:comment "The shipping service that will be used for this particular offer." .
-
 # Some fields are specific to OfferShippingDetails and not used anymore.
 :shippingSettingsLink a rdf:Property ;
     :isPartOf <https://attic.schema.org> .
@@ -30,11 +24,12 @@
     :isPartOf <https://attic.schema.org> .
 
 # ╔════════════════════════════════════════════════════════╗
-# ║  Amending Organization                                 ║
+# ║  Linking shipping to Organization and Offers           ║
 # ╚════════════════════════════════════════════════════════╝
 :hasShippingService a rdf:Property ;
     rdfs:label "hasShippingService" ;
-    :domainIncludes :Organization ;
+    :domainIncludes :Organization,
+        :OfferShippingDetails ;
     :rangeIncludes :ShippingService ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
@@ -44,6 +39,7 @@
 # ║  Delete DeliveryTimeSettings                           ║
 # ╚════════════════════════════════════════════════════════╝
 :DeliveryTimeSettings a rdfs:Class ;
+    :isPartOf <https://attic.schema.org> ;
     :supersededBy :ShippingConditions .
 
 # ╔════════════════════════════════════════════════════════╗
@@ -105,7 +101,7 @@
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 # ╔════════════════════════════════════════════════════════╗
-# ║  Adding ShippingCondition                              ║
+# ║  Adding ShippingConditions                             ║
 # ╚════════════════════════════════════════════════════════╝
 :ShippingConditions a rdfs:Class ;
     rdfs:label "ShippingConditions" ;
@@ -160,7 +156,7 @@
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> ;
-    rdfs:comment "Limits in the number of items being shipped for which these conditions apply." .
+    rdfs:comment "Limits the number of items being shipped for which these conditions apply." .
 
 :orderValue a rdf:Property ;
     rdfs:label "orderValue" ;
@@ -176,10 +172,10 @@
     :rangeIncludes :Boolean ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
-:deliveryTime a rdf:Property ;
-    rdfs:label "deliveryTime" ;
+:transitTime a rdf:Property ;
+    rdfs:label "transitTime" ;
     :domainIncludes :ShippingConditions;
-    :rangeIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :ServicePeriod ;
     :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingRate a rdf:Property ;
@@ -257,10 +253,10 @@
     :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
     rdfs:comment "Type of fulfillment applicable to the [[ShippingService]]." .
 
-:deliveryTime a rdf:Property ;
-    rdfs:label "deliveryTime" ;
+:handlingTime a rdf:Property ;
+    rdfs:label "handlingTime" ;
     :domainIncludes :ShippingService ;
-    :rangeIncludes :ShippingDeliveryTime ;
+    :rangeIncludes :ServicePeriod ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 

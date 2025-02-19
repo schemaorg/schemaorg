@@ -27,7 +27,7 @@ JSON:
       "width": "45 cm",
       "depth": "0.3 m",
       "weight": "1.2 kg",
-      "shippingService": {
+      "hasShippingService": {
         "@type": "ShippingService",
         "shippingConditions": {
           "@type": "ShippingConditions",
@@ -78,14 +78,15 @@ JSON:
       "width": "45 cm",
       "depth": "300 mm",
       "weight": "1.2 kg",
-      "shippingService": {
+      "hasShippingService": {
         "@type": "ShippingService",
         "handlingTime": {
           "@type": "ServicePeriod",
           "cutoffTime": "14:30:00-07:00",
           "duration": {
             "@type": "QuantitativeValue",
-            "maxValue": "00:30:00"
+            "maxValue": "30",
+            "unitCode": "min"
           }
         },
         "shippingConditions": {
@@ -100,6 +101,11 @@ JSON:
               "addressCountry": "CA"
             }
           ],
+          "orderValue": {
+            "@type": "MonetaryAmount",
+            "minValue": "35",
+            "maxValue": "200"
+          },
           "shippingRate": {
             "@type": "ShippingRateSettings",
             "shippingRate": {
@@ -107,17 +113,13 @@ JSON:
               "value": "10",
               "currency": "USD"
             },
-            "weightPercentage": "1.0",
-            "orderValue": {
-              "@type": "MonetaryAmount",
-              "minValue": "35",
-              "maxValue": "200"
-            }
+            "weightPercentage": "1.0"
           },
           "transitTime": {
             "@type": "ServicePeriod",
             "duration": {
-              "maxValue": "03:30:00"
+              "maxValue": "3.5",
+              "unitCode": "h"
             },
             "businessDays": [
               {
