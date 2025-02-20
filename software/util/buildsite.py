@@ -297,6 +297,8 @@ def runRubyTests(release_dir):
         version = schemaversion.getVersion()
         src_dir = os.path.join(os.getcwd(), release_dir, version)
         dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
+        if os.path.islink(dst_dir):
+            os.unlink(dst_dir)
         os.symlink(src_dir, dst_dir)
         cmd = ["bundle", "exec", "rake"]
         cwd = os.path.join(os.getcwd(), "software/scripts")
