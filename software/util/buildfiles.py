@@ -276,7 +276,7 @@ def _exportrdf(output_format, all, current):
             output_format=output_format,
         )
 
-        with pretty_logger.BlockLog(logger=log, message="Exporting {fn} and {afn}"):
+        with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn} and {afn}"):
             if output_format == "rdf":
                 fmt = "pretty-xml"
             else:
