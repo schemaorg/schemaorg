@@ -12,7 +12,7 @@
 
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -23,7 +23,7 @@
 
 :LegislationObject a rdfs:Class ;
     rdfs:label "LegislationObject" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -34,7 +34,7 @@
 
 :LegalForceStatus a rdfs:Class ;
     rdfs:label "LegalForceStatus" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -44,7 +44,7 @@
 
 :LegalValueLevel a rdfs:Class ;
     rdfs:label "LegalValueLevel" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -53,24 +53,6 @@
     skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> .
 
 ## Properties ##
-
-:AuthoritativeLegalValue a :LegalValueLevel ;
-    rdfs:label "AuthoritativeLegalValue" ;
-    :isPartOf <https://pending.schema.org> ;
-    :contributor <https://schema.org/docs/collab/ELI>;
-    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications.) Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
-
-:DefinitiveLegalValue a :LegalValueLevel ;
-    rdfs:label "DefinitiveLegalValue" ;
-    :isPartOf <https://pending.schema.org> ;
-    :contributor <https://schema.org/docs/collab/ELI>;
-    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (E.g. the digitally signed version of an Official Journal.)
-  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
-
 
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
@@ -124,7 +106,7 @@
 :legislationIdentifier a rdf:Property ;
     rdfs:label "legislationIdentifier" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Text,
         :URL ;
@@ -137,7 +119,7 @@
 :legislationJurisdiction a rdf:Property ;
     rdfs:label "legislationJurisdiction" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :AdministrativeArea,
         :Text ;
@@ -175,7 +157,7 @@
 :legislationPassedBy a rdf:Property ;
     rdfs:label "legislationPassedBy" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Organization,
         :Person ;
@@ -189,7 +171,7 @@
 :legislationResponsible a rdf:Property ;
     rdfs:label "legislationResponsible" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Organization,
         :Person ;
@@ -215,7 +197,7 @@
 :legislationType a rdf:Property ;
     rdfs:label "legislationType" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :CategoryCode,
         :Text ;
@@ -243,7 +225,7 @@
 :legislationCountersignedBy a rdf:Property ;
     rdfs:label "legislationCountersignedBy" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Organization, :Person ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -255,7 +237,7 @@
 :legislationDateOfApplicability a rdf:Property ;
     rdfs:label "legislationDateOfApplicability" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Date ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -267,7 +249,7 @@
 :legislationAmends a rdf:Property ;
     rdfs:label "legislationAmends" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
@@ -280,7 +262,7 @@
 :legislationRepeals a rdf:Property ;
     rdfs:label "legislationRepeals" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
@@ -293,7 +275,7 @@
 :legislationCommences a rdf:Property ;
     rdfs:label "legislationCommences" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
@@ -306,7 +288,7 @@
 :legislationCorrects a rdf:Property ;
     rdfs:label "legislationCorrects" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     # this is not a subproperty of legislationChanges as it does not modify the legal content of the legislation
@@ -320,7 +302,7 @@
 :legislationEnsuresImplementationOf a rdf:Property ;
     rdfs:label "legislationEnsuresImplementationOf" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationApplies ;
@@ -347,7 +329,7 @@
 
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -357,7 +339,7 @@
 
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -366,7 +348,7 @@
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -377,7 +359,7 @@
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -386,7 +368,7 @@
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -395,7 +377,7 @@
 
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -408,7 +390,7 @@
 
 <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> a :Organization ;
     rdfs:label "ELI" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     rdfs:comment "This entry is derived from the [ELI ontology](https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." .
 
