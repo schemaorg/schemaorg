@@ -1,24 +1,70 @@
 <!-- Examples block for term: {{term.id}}-->
 
+{% if examples|length > 0 %}
+<div id="examplespannel" class="jumptarget" title="Examples">
 {% for ex in examples %}
-{% if loop.first %}<b><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></b><br/><br/>{% endif %}
+{% if loop.first %}<h3>Examples</h3>{% endif %}
 
-<div><a  id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a></div>
+<div class="example-head">
+	<button class="clip clipbutton {{ex.getKey()}}" data-clipboard-target=".ds-tab.selected.{{ex.getKey()}} .clipsource" title="Copy example to clipboard">
+    <img src="{{docsdir}}/clipboard/clippy.svg" width="18" alt="Copy to clipboard" />
+	</button>
+  <a id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>
+  <div class="tooltip">
+    <span class="tooltiptext {{ex.getKey()}}">Copied</span>
+  </div>
+</div>
 <div class='ds-selector-tabs ds-selector'>
   <div class='selectors'>
-    <a data-selects='original_html' class='selected'>Without Markup</a>
-    <a data-selects='microdata' class=''>Microdata</a>
-    <a data-selects='rdfa' class=''>RDFa</a>
-    <a data-selects='jsonld' class=''>JSON-LD</a>
+  {% if ex.hasHtml() %}
+    <a data-selects='original_html' class='{{ex.exselect[0]}}'>No Markup</a>
+  {% endif %}
+  {% if ex.hasMicrodata() %}
+    <a data-selects='microdata' class='{{ex.exselect[1]}}'>Microdata</a>
+  {% endif %}
+  {% if ex.hasRdfa() %}
+    <a data-selects='rdfa' class='{{ex.exselect[2]}}'>RDFa</a>
+  {% endif %}
+  {% if ex.hasJsonld() %}
+    <a data-selects='jsonld' class='{{ex.exselect[3]}}'>JSON-LD</a>
+    <a data-selects='structure' class='extabs'>Structure</a>
+  {% endif %}
+
+  </div>
+  {% if ex.hasHtml() %}
+  <div class="ds-tab {{ex.getKey()}} original_html {{ex.exselect[0]}}">
+    <div class="ds-tab-note" >Example notes or example HTML without markup.</div>
+    <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getHtml() }}</pre>
+  </div>
+  {% endif %}
+  {% if ex.hasMicrodata() %}
+  <div class="ds-tab {{ex.getKey()}} microdata {{ex.exselect[1]}}">
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/Microdata_(HTML)">Microdata</a> embedded in HTML.</div>
+    <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getMicrodata() }}</pre>
+  </div>
+  {% endif %}
+  {% if ex.hasRdfa() %}
+  <div class="ds-tab {{ex.getKey()}} rdfa {{ex.exselect[2]}}">
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/RDFa">RDFa</a> embedded in HTML.</div>
+    <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getRdfa() }}</pre>
+  </div>
+  {% endif %}
+  {% if ex.hasJsonld() %}
+  <div class="ds-tab {{ex.getKey()}} jsonld {{ex.exselect[3]}}">
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> in a HTML script tag.</div>
+    <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getJsonld() }}</pre>
   </div>
 
-<pre class="prettyprint lang-html linenums original_html selected">{{ ex.getHtml() }}</pre>
+  <div class="ds-tab {{ex.getKey()}} structure extabs" data-ex="{{ex.getKey()}}">
+    <div class="ds-tab-note" >Structured representation of the JSON-LD example.</div>
+    <div class="ds-tab-content structureout extabs {{ex.getKey()}}" style="margin-left: 5px;"> </div>
+    <div class="structuretext clipsource extabs {{ex.getKey()}}"></div>
+  </div>
+  {% endif %}
 
-<pre class="prettyprint lang-html linenums microdata ">{{ ex.getHtml() }}</pre>
 
-<pre class="prettyprint lang-html linenums rdfa ">{{ ex.getRdfa() }}</pre>
-
-<pre class="prettyprint lang-html linenums jsonld ">{{ ex.getJsonld() }}</pre>
-
+<div class="payload {{ex.getKey()}}" style="display: none;">{{ ex.getJsonldRaw() }}</div>
 </div>
 {% endfor %}
+</div>
+{% endif %}

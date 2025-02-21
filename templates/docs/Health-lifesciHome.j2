@@ -1,0 +1,36 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+<h1>Schema.org Section: health-lifesci</h1>
+<p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
+For more details, see the <a href="/">homepage</a>.
+
+</p>
+
+<p>
+You are viewing the Health and Lifesciences Section within <a href="/">schema.org</a>. It defines many medical terms such as 
+{{ sdotermlink('MedicalCondition')|safe }}, {{ sdotermlink('AnatomicalStructure')|safe }} and {{ sdotermlink('MedicalSpecialty')|safe }}. See full list below. 
+</p>
+<p>
+The terms defined in this extension may be considered moderately stable, but some changes are still likely (including renaming and restructuring) through ongoing community collaboration. Organizations using this data are encouraged to join the community discussions linked here, and share their usage scenarios to help improve the schemas.
+</p>
+<p>
+The schema.org <a href="/docs/meddocs.html">medical vocabulary</a> was <a href="http://blog.schema.org/2012/06/health-and-medical-vocabulary-for.html">originally created</a> 
+in collaboration with <a href="http://www.wikidoc.org/index.php/Main_Page">WikiDoc</a> and others. 
+Recent improvements including the migration into the health-lifesci extension has been led by the Healthcare Schema (schemed) community group at W3C. 
+The health-lifesci schema.org extension is <a href="https://github.com/schemaorg/schemaorg/issues/1116">available</a> for other collaborative schema.org extensions in 
+topics centred on healthcare, medicine and the lifesciences (e.g. see also <a href="https://github.com/schemaorg/schemaorg/issues/1028">Bioschemas</a>, and the pending proposals 
+for describing <a href="https://github.com/schemaorg/schemaorg/issues/1062">US healthcare insurance networks</a>).
+</p>
+
+{% set SECTIONNAME = "health-lifesci" %}
+{% include 'docs/HomeTermsList.j2' with context %}
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>

@@ -6,18 +6,14 @@
     structured data on their web pages for use by search engines and other applications." />
     <link rel="shortcut icon" type="image/png" href="{{docsdir}}/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="{{docsdir}}/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
     <link rel="stylesheet" type="text/css" href="{{docsdir}}/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
+    <meta name="theme-color" content="#990000" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+    <script src="{{docsdir}}/schemaorg.js"></script>
+    {% if head_insert_available %}
+        {{ head_insert() }}
+    {% endif %}
+
 </head>

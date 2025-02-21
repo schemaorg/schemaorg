@@ -1,0 +1,18 @@
+@prefix : <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:provider a rdf:Property ;
+  :isPartOf <https://pending.schema.org> ;
+  rdfs:label "provider" ;
+  :domainIncludes :Action,
+    :CreativeWork,
+    :Invoice,
+    :ParcelDelivery,
+    :Reservation,
+    :Service,
+    :Trip ;
+  :rangeIncludes :Organization,
+    :Person ;
+  rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2927> .

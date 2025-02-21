@@ -4,125 +4,21 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Schema.org Actions - schema.org</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-  <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-  <link href="prettify.css" type="text/css" rel="stylesheet" />
-  <script type="text/javascript" src="prettify.js"></script>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      prettyPrint();
-      setTimeout(function () {
-
-        $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
-        $('.new + .pun + .atv').addClass('curl');
-
-      }, 500);
-      setTimeout(function () {
-
-        $(".atn:contains(property), .atn:contains(typeof) ").addClass('new');
-        $('.new + .pun + .atv').addClass('curl');
-
-      }, 500);
-    });</script>
-
-  <!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
-  <!-- Enable CSE Search -->
-  <script>
-    (function () {
-      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-    })();
-  </script>
-  <!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
-
-  <style>
-    .pln {
-      color: #444;
-    }
-
-    /* div, span, etc. */
-    .tag {
-      color: #000;
-    }
-
-    /* div, span, etc. */
-    .atn {
-      color: #000;
-    }
-
-    /* href, datetime */
-    .custom {
-      color: #660003;
-    }
-
-    /* itemscope, itemtype, etc. */
-
-    table.definition-table {
-      border-spacing: 3px;
-      border-collapse: separate;
-    }
-
-    span.crumb {
-      color: #660000;
-    }
-
-    .style0 {
-      border: 1px solid #000000;
-      font-family: monospace;
-      line-height: 0.8;
-      white-space: pre;
-      margin-top: 1em;
-    }
-  </style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 
-<body onload="prettyPrint();">
-  <!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
-  <div id="container">
-    <div id="intro">
-      <div id="pageHeader">
-        <div class="wrapper">
-          <div id="sitename">
-            <h1>
-              <a href="../">schema.org</a>
-            </h1>
-          </div>
-          <div id="cse-search-form" style="width: 400px;">
-            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="selectionbar">
-    <div class="wrapper">
-      <ul>
-        <li>
-          <a href="documents.html">Documentation</a>
-        </li>
-        <li>
-          <a href="schemas.html">Schemas</a>
-        </li>
-        <li>
-          <a href="../">Home</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
+<body>
+
+<!-- #### Static Doc Insert PageHead goes here -->
+
   <div id="mainContent">
 
     <h1>Potential Actions</h1>
 
     <p> What follows describes some terminology and conventions for use with
-      <a href="http://schema.org/Action">http://schema.org/Action</a>.
+      <a href="https://schema.org/Action">https://schema.org/Action</a>.
       The purpose is to enable describing the capability to perform an action in the future, as well as how that
       capability
       can be exercised. See the blog post
@@ -183,7 +79,7 @@
 
         <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
           <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "WatchAction",
   "actionStatus": "CompletedActionStatus",
   "agent" : {
@@ -232,7 +128,7 @@
 
           <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
             <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Movie",
   "name": "Footloose",
   "potentialAction": {
@@ -251,7 +147,7 @@
 
           <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
             <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Movie",
   "name": "Footloose",
   "potentialAction": {
@@ -350,7 +246,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
         <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
           <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "Tartine Bakery",
   "potentialAction": {
@@ -401,7 +297,7 @@ android-app://{package_id}/{scheme}/{host_path}
     <p>Additional information is often required from a user or client in order to formulate a complete request. To
       facilitate this process we need the ability to describe within a potential action how to construct these inputs.
       Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property
-      annotations using a hypen ("-") delimiter. For example, by specifying a "location-input" property on a potential
+      annotations using a hyphen ("-") delimiter. For example, by specifying a "location-input" property on a potential
       action we are indicating that "location" is a supported input for completing the action.</p>
     <p>Similarly, it is also helpful to indicate to clients what will be included in the final completed version of an
       action, so we introduce the corresponding -output annotation for indicating which properties will be present in
@@ -576,7 +472,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
     <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
       <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Example.com",
   "potentialAction": {
@@ -589,7 +485,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
     <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-    <pre>GET <a href="http://example.com/search?q=the+search">http://example.com/search?q=the+search</a>
+    <pre>GET http://example.com/search?q=the+search
 </pre>
 
 
@@ -614,7 +510,7 @@ android-app://{package_id}/{scheme}/{host_path}
       <b>"url-output": "required",</b>
       <b>"confirmationNumber-output": "required",</b>
       <b>"orderNumber-output": "required",</b>
-      <b>orderStatus-output": "required"</b>
+      <b>"orderStatus-output": "required"</b>
     }
   }
 }</pre>
@@ -623,7 +519,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
     <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
-    <pre>POST <a href="https://example.com/products/ipod/buy">https://example.com/products/ipod/buy</a></span><br/>
+    <pre>POST https://example.com/products/ipod/buy
 </pre>
 
 
@@ -635,11 +531,11 @@ android-app://{package_id}/{scheme}/{host_path}
   "actionStatus": "CompletedActionStatus",
   "object": "https://example.com/products/ipod",
   "result": {
-      "@type": "Order",
-      <b>"url": "http://example.com/orders/1199334"</b>
-      <b>"confirmationNumber": "1ABBCDDF23234",</b>
-      <b>"orderNumber": "1199334",</b>
-      <b>"orderStatus": "PROCESSING"</b>
+    "@type": "Order",
+    <b>"url": "http://example.com/orders/1199334",</b>
+    <b>"confirmationNumber": "1ABBCDDF23234",</b>
+    <b>"orderNumber": "1199334",</b>
+    <b>"orderStatus": "PROCESSING"</b>
   }
 }
 </pre>
@@ -651,15 +547,15 @@ android-app://{package_id}/{scheme}/{host_path}
 
       <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
         <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "ReviewAction",
   "target": {
     "@type": "EntryPoint",
     "<b>urlTemplate</b>": "https://api.example.com/review",
     "encodingType": "application/ld+json",
     "contentType": "application/ld+json"
-  },<br/>
-  <b>"object" : {</b>
+  },
+  <b>"object": {</b>
     "@type": "Movie",
     <b>"url-input": "required",</b>
   },
@@ -668,7 +564,7 @@ android-app://{package_id}/{scheme}/{host_path}
     <b>"url-output": "required",</b>
     <b>"reviewBody-input": "required",</b>
     "reviewRating": {
-    <b>"ratingValue-input": "required"</b>
+      <b>"ratingValue-input": "required"</b>
     }
   }
 }
@@ -680,13 +576,13 @@ android-app://{package_id}/{scheme}/{host_path}
       <br /><span style="margin-left: 20px;"><strong><em>request</em></strong></span>
 
       <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
-        <pre class="small prettyprint lang-html linenums jsonld ">POST <a href="https://api.example.com/review">https://api.example.com/review</a>
+        <pre class="small prettyprint lang-html linenums jsonld ">POST https://api.example.com/review
     
-  {
-  "@context": "http://schema.org",
+{
+  "@context": "https://schema.org",
   "@type": "ReviewAction",
-  "object" : {
-  "@id": "http://example.com/movies/123"
+  "object": {
+    "@id": "http://example.com/movies/123"
   },
   "result": {
     "@type": "Review",
@@ -704,10 +600,10 @@ android-app://{package_id}/{scheme}/{host_path}
 
       <div style="overflow-x: scroll; margin-left: 20px; width: auto;">
         <pre class="small prettyprint lang-html linenums jsonld ">{
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "ReviewAction",
   "actionStatus": "CompletedActionStatus",
-  "result" : {
+  "result": {
     "@type": "Review",
     "url"<b>: "http://example.com/reviews/abc"</b>
   }
@@ -717,6 +613,8 @@ android-app://{package_id}/{scheme}/{host_path}
 
 
     </div>
-</body>
 
+<!-- #### Static Doc Insert Footer here -->
+
+</body>
 </html>

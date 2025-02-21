@@ -2,90 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Documentation - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js">
-    </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
-
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-  $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
-  $('.new + .pun + .atv').addClass('curl');
-
-        }, 500);
-      });
-</script>
-
-<style>
-
-  .pln    { color: #444;    } /* plain text                 */
-  .tag    { color: #515484; } /* div, span, a, etc          */
-  .atn,
-  .atv    { color: #314B17; } /* href, datetime             */
-  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
-  .curl   { color: #080;    } /* new url                    */
-
-</style>
+    <title>Health and medical types - Schema.org</title>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### --> 
-        <div id="container">
-            <div id="intro">
-                <div id="pageHeader">
-                    <div class="wrapper">
-                        <div id="sitename">
-                            <h1>
-                                <a href="../">schema.org</a>
-                            </h1>
-                        </div>
-                        <div id="cse-search-form" style="width: 400px;">
-                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="selectionbar">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        <a href="documents.html" >Documentation</a>
-                    </li>
-                    <li>
-                        <a href="schemas.html" >Schemas</a>
-                    </li>
-                    <li>
-                        <a href="../"  >Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### --> 
-  <div id="mainContent">
 
-  <h1>Documentation for health/medical types</h1>
+<!-- #### Static Doc Insert PageHead goes here -->
 
-<br />
+<article id="mainContent">
+
+  <h1>Health and medical types</h1>
+
+  <p>
 This page describes the health and medical types in the schema.org
 schema (<a href="../MedicalEntity">MedicalEntity</a> and
 subtypes), useful for content publishers that wish to mark up health
@@ -94,15 +23,17 @@ health and medical schema is intended to make it easier for people to
 find the right web pages by exposing structured information contained
 in web pages to search engines, and may also enable other applications
 that make use of the structure.
+  </p>
 
-<br /><br />
+  <p>
 The scope of entities in this section of the schema is broad, and is
 intended to cover both consumer- and professionally-targeted health
 and medical web content; as a result, any particular piece of content
 is likely to use only a subset of the schema. The schema is targeted
 at web use cases and is not designed for clinical markup or clinical
 data exchange.
-<br /><br />
+  </p>
+  <p>
 Note as well that this schema is not intended to define or codify a
 new controlled medical vocabulary, but instead to complement existing
 vocabularies and onotologies. As a schema, its focus is on surfacing
@@ -114,7 +45,8 @@ medical vocabularies (such as MeSH, SNOMED, ICD, RxNorm, UMLS, etc)
 when they are available. For example, see the <a
 href="../MedicalScholarlyArticle">sample markup for
 MedicalScholarlyArticle</a>.
-<br /><br />
+  </p>
+  <p>
 For more details about the schema, and background on how it came to be,
 read on below. You can find some examples of use of the schema on the
 following types:
@@ -128,9 +60,11 @@ about a health or medical topic)</li>
 <li><a href="../MedicalScholarlyArticle">MedicalScholarlyArticle</a>
 (a page with a record, abstract, or full text of a medical scholarly publication).</li>
 </ul>
+  </p>
 
-<b>Background and history:</b>
-<br />There is a great deal of high-quality health and medical
+  <section>
+<h2>Background and history:</h2>
+<p>There is a great deal of high-quality health and medical
 information on the web. Today it is often difficult for people to find
 and navigate this information, as search engines and other
 applications access medical content mostly by keywords and ignore the
@@ -141,18 +75,18 @@ concepts to the keywords that users tend to use in search. And while
 the medical community has invested significant effort in building rich
 structured ontologies to describe medical knowledge, such structure is
 today typically available only 'behind the scenes' rather than shared
-in the Web using standard markup.<br />
+in the Web using standard markup.</p>
 
-<br />
+<p>
 To address these issues, we've added a set of types to the schema.org
 schema that will offer a simple way for content providers to mark up
 the implicit structure in the medical information they publish. Our
 design goals differed from many previous initiatives, in that we
 focused on markup for use by Webmasters and publishers, with the main
 goal of helping patients, physicians, and generally health-interested
-consumers find relevant health information via search.<br />
+consumers find relevant health information via search.</p>
 
-<br /> Our approach is intended to be a framework for tagging known or
+<p> Our approach is intended to be a framework for tagging known or
 novel medical concepts/entities, and optionally their relationships,
 as they appear in freeform text on the web. To manage scope, we have
 focused on markup that will help in use cases such as patients,
@@ -163,9 +97,9 @@ entities, though our schema can link to and take advantage of existing
 ontologies and enumerations. It is also explicitly not a goal to
 support automated reasoning, medical records coding, or genomic
 tagging, all of which would require substantially more detailed (and
-hence high barrier-to-entry) modeling and markup.<br />
+hence high barrier-to-entry) modeling and markup.</p>
 
-<br /> This initiative grew from
+<p> This initiative grew from
 a <a href="http://lists.w3.org/Archives/Public/public-vocabs/2012May/0057.html">collaborative
 project</a> that drew upon search expertise from the schema.org
 partners but also gained immeasurably through feedback from expert
@@ -177,11 +111,13 @@ the <a href="http://www.w3.org/blog/hcls/">W3C Healthcare and
 Lifesciences</a> group
 and <a href="http://www.w3.org/wiki/WebSchemas">Web Schemas</a>
 community also helped bridge the complex worlds of Web standards,
-search and medicine/healthcare.<br />
+search and medicine/healthcare.
+</p>
+  </section>
 
-
-<br /><b>Modeling approach:</b>
-<br />The health and medical types model a core set of medical entities, including:
+  <section>
+<h2>Modeling approach:</h2>
+<p>The health and medical types model a core set of medical entities, including:
 <ul>
 <li>Conditions</li>
 <li>Signs and symptoms</li>
@@ -199,8 +135,8 @@ search and medicine/healthcare.<br />
 </ul>
 Properties of these core entities define the relationships between
 them, for example, linking medical therapies to medical conditions.
-
-<br /><br />This approach allows content authors to mark up pages in one
+</p>
+<p>This approach allows content authors to mark up pages in one
 of two ways. The preferred approach is to use the schema to mark up
 both entities and relationships, allowing for better retrieval when
 the user intent is known. For example, the following markup exposes
@@ -209,33 +145,34 @@ a treatment for headache, thus allowing this content to be surfaced in
 response to queries about headache treatments:
 
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype="http://schema.org/Drug"&gt;
+&lt;div itemscope itemtype="https://schema.org/Drug"&gt;
   &lt;span itemprop="name"&gt;Ibuprofen&lt;/span&gt; is a non-steroidal
   anti-inflammatory medication, indicated for temporary relief
   of minor aches and pains due to
-  &lt;span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication"&gt;
+  &lt;span itemprop="indication" itemscope itemtype="https://schema.org/TreatmentIndication"&gt;
     &lt;span itemprop="name"&gt;headache&lt;/span&gt;
   &lt;/span&gt;,
-  &lt;span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication"&gt;
+  &lt;span itemprop="indication" itemscope itemtype="https://schema.org/TreatmentIndication"&gt;
     &lt;span itemprop="name"&gt;toothache&lt;/span&gt;
   &lt;/span&gt;, ...
 &lt;/div&gt;
 </pre>
+</p>
 
-<br />Alternatively, authors wishing to keep things simple can just tag
+<p>Alternatively, authors wishing to keep things simple can just tag
 each medical concept with the appropriate entity, ignoring
 relationships between them. This is less powerful, but still exposes
 the medical concepts in a piece of content to search engines and
-applications, making the content easier to find.
+applications, making the content easier to find.</p>
 
-<br /><br />Note that we've included an extensive set of properties on
+<p>Note that we've included an extensive set of properties on
 each of the modeled entities to allow for rich modeling when the
 structure is available. However not every property will be relevant or
 useful for every site or piece of content; like all schema.org schema,
-these properties and their use are optional.
+these properties and their use are optional.</p>
 
-<br /><br /><b>Other considerations:</b>
-<br />One challenge in effective retrieval of online medical information
+<h2>Other considerations:</h2>
+<p>One challenge in effective retrieval of online medical information
 is that there are at least three distinct groups looking for medical
 content -- patients, practicing clinicians, and researchers -- and few
 cues to determine to which audience a piece of content is targeted. To
@@ -245,14 +182,12 @@ audience, including detailed targeting by specialty for
 clinician-targeted content. Similarly, the aspect property of
 <a href="../MedicalWebPage">MedicalWebPage</a> allows
 content to be tagged with the aspects of medical practice being
-described on the page (diagnosis, treatment, etc).
+described on the page (diagnosis, treatment, etc).</p>
+  </section>
 
-  </div>
+</article>
 
-
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

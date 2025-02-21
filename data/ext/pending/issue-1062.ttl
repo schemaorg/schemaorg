@@ -1,44 +1,41 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :HealthInsurancePlan a rdfs:Class ;
     rdfs:label "HealthInsurancePlan" ;
-    :category "issue-1062" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "A US-style health insurance plan, including PPOs, EPOs, and HMOs. " ;
+    rdfs:comment "A US-style health insurance plan, including PPOs, EPOs, and HMOs." ;
     rdfs:subClassOf :Intangible .
 
 :HealthPlanCostSharingSpecification a rdfs:Class ;
     rdfs:label "HealthPlanCostSharingSpecification" ;
-    :category "issue-1062" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "A description of costs to the patient under a given network or formulary." ;
     rdfs:subClassOf :Intangible .
 
 :HealthPlanFormulary a rdfs:Class ;
     rdfs:label "HealthPlanFormulary" ;
-    :category "issue-1062" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "For a given health insurance plan, the specification for costs and coverage of prescription drugs. " ;
+    rdfs:comment "For a given health insurance plan, the specification for costs and coverage of prescription drugs." ;
     rdfs:subClassOf :Intangible .
 
 :HealthPlanNetwork a rdfs:Class ;
     rdfs:label "HealthPlanNetwork" ;
-    :category "issue-1062" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "A US-style health insurance plan network. " ;
+    rdfs:comment "A US-style health insurance plan network." ;
     rdfs:subClassOf :Intangible .
 
 :benefitsSummaryUrl a rdf:Property ;
     rdfs:label "benefitsSummaryUrl" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation." .
@@ -49,176 +46,157 @@
 
 :healthPlanCoinsuranceOption a rdf:Property ;
     rdfs:label "healthPlanCoinsuranceOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?" .
 
 :healthPlanCoinsuranceRate a rdf:Property ;
     rdfs:label "healthPlanCoinsuranceRate" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "Whether The rate of coinsurance expressed as a number between 0.0 and 1.0." .
+    rdfs:comment "The rate of coinsurance expressed as a number between 0.0 and 1.0." .
 
 :healthPlanCopay a rdf:Property ;
     rdfs:label "healthPlanCopay" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :PriceSpecification ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "Whether The copay amount." .
+    rdfs:comment "The copay amount." .
 
 :healthPlanCopayOption a rdf:Property ;
     rdfs:label "healthPlanCopayOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?" .
 
 :healthPlanCostSharing a rdf:Property ;
     rdfs:label "healthPlanCostSharing" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanFormulary,
         :HealthPlanNetwork ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "Whether The costs to the patient for services under this network or formulary." .
+    rdfs:comment "The costs to the patient for services under this network or formulary." .
 
 :healthPlanDrugOption a rdf:Property ;
     rdfs:label "healthPlanDrugOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "TODO." .
 
 :healthPlanDrugTier a rdf:Property ;
     rdfs:label "healthPlanDrugTier" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan,
         :HealthPlanFormulary ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The tier(s) of drugs offered by this formulary or insurance plan." .
 
 :healthPlanId a rdf:Property ;
     rdfs:label "healthPlanId" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)" .
 
 :healthPlanMarketingUrl a rdf:Property ;
     rdfs:label "healthPlanMarketingUrl" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The URL that goes directly to the plan brochure for the specific standard plan or plan variation." .
 
 :healthPlanNetworkId a rdf:Property ;
     rdfs:label "healthPlanNetworkId" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanNetwork,
         :MedicalOrganization ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "Name or unique ID of network. (Networks are often reused across different insurance plans)." .
+    rdfs:comment "Name or unique ID of network. (Networks are often reused across different insurance plans.)" .
 
 :healthPlanNetworkTier a rdf:Property ;
     rdfs:label "healthPlanNetworkTier" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanNetwork ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The tier(s) for this network." .
 
 :healthPlanPharmacyCategory a rdf:Property ;
     rdfs:label "healthPlanPharmacyCategory" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The category or type of pharmacy associated with this cost sharing." .
 
 :includedInHealthInsurancePlan a rdf:Property ;
     rdfs:label "includedInHealthInsurancePlan" ;
-    :category "issue-1062" ;
     :domainIncludes :Drug ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :HealthInsurancePlan ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The insurance plans that cover this drug." .
 
 :includesHealthPlanFormulary a rdf:Property ;
     rdfs:label "includesHealthPlanFormulary" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :HealthPlanFormulary ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Formularies covered by this plan." .
 
 :includesHealthPlanNetwork a rdf:Property ;
     rdfs:label "includesHealthPlanNetwork" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :HealthPlanNetwork ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Networks covered by this plan." .
 
 :isAcceptingNewPatients a rdf:Property ;
     rdfs:label "isAcceptingNewPatients" ;
-    :category "issue-1062" ;
     :domainIncludes :MedicalOrganization ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Whether the provider is accepting new patients." .
 
 :offersPrescriptionByMail a rdf:Property ;
     rdfs:label "offersPrescriptionByMail" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanFormulary ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "Whether prescriptions can be delivered by mail." .
 
 :rxcui a rdf:Property ;
     rdfs:label "rxcui" ;
-    :category "issue-1062" ;
     :domainIncludes :Drug ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "The RxCUI drug identifier from RXNORM." .
 
 :usesHealthPlanIdStandard a rdf:Property ;
     rdfs:label "usesHealthPlanIdStandard" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
-    rdfs:comment "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare & Medicaid Services for more details." .
+    rdfs:comment "The standard for interpreting the Plan ID. The preferred is \"HIOS\". See the Centers for Medicare & Medicaid Services for more details." .
 

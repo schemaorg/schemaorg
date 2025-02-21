@@ -1,113 +1,75 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-:pattern a rdf:Property ;
-        rdfs:label "pattern" ;
-
-        :isPartOf <http://pending.schema.org> ;
-        :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-        :category "issue-1797" ;
-
-        :domainIncludes :CreativeWork, :Product ;
-        :rangeIncludes :Text, :DefinedTerm ;
-
-        rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." .
-
-
-:size a rdf:Property;
-    rdfs:label "size" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-    :category "issue-1797" ;
-
-    :domainIncludes :CreativeWork, :Product ;
-    :rangeIncludes :Text, :QuantitativeValue, :DefinedTerm;
-
-     rdfs:comment "A standardized size of a product or creative work, often simplifying richer information into a simple textual string, either through referring to named sizes or (in the case of product markup), by adopting conventional simplifications. Use of QuantitativeValue with a unitCode or unitText can add more structure; in other cases, the /width, /height, /depth and /weight properties may be more applicable. ".
-
-
-
-
-
-
-
-#2597 /ProductGroup
-# https://github.com/schemaorg/schemaorg/issues/2587
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ProductGroup a rdfs:Class ;
     rdfs:label "ProductGroup" ;
-
-    :category "issue-2597" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2597> ;
-
-    rdfs:subClassOf :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
     rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
 
-While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ .
-
-# TODO: incoming as well as outgoing properties?
-
-:variesBy a rdf:Property ;
-        rdfs:label "variesBy" ;
-
-        :isPartOf <http://pending.schema.org> ;
-        :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-        :category "issue-1797" ;
-
-        :domainIncludes :ProductGroup;
-        :rangeIncludes :Text, :DefinedTerm;
-
-        rdfs:comment """Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. "color"; terms defined elsewhere can be referenced with their URIs.""" .
-
-
-
-:productGroupID a rdf:Property ;
-                rdfs:label "productGroupID" ;
-                :domainIncludes :ProductGroup;
-                :rangeIncludes :Text;
-                rdfs:comment """Indicates a textual identifier for a ProductGroup.""" ;
-                :isPartOf <http://pending.schema.org> ;
-                :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-                :category "issue-1797" .
+While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ ;
+    rdfs:subClassOf :Product .
 
 :inProductGroupWithID a rdf:Property ;
-                                rdfs:label "inProductGroupWithID" ;
-                                :domainIncludes :Product;
-                                :rangeIncludes :Text;
-                                rdfs:comment """Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. """ ;
-                                :isPartOf <http://pending.schema.org> ;
-                                :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-                                :category "issue-1797" .
-                                # we didn't re-use :productGroupID to allow groups to potentially be members of groups.
-                                #
+    rdfs:label "inProductGroupWithID" ;
+    :domainIncludes :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " .
 
+:pattern a rdf:Property ;
+    rdfs:label "pattern" ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." .
+
+:productGroupID a rdf:Property ;
+    rdfs:label "productGroupID" ;
+    :domainIncludes :ProductGroup ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates a textual identifier for a ProductGroup." .
+
+:size a rdf:Property ;
+    rdfs:label "size" ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :QuantitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "A standardized size of a product or creative work, specified either through a simple textual string (for example 'XL', '32Wx34L'), a  QuantitativeValue with a unitCode, or a comprehensive and structured [[SizeSpecification]]; in other cases, the [[width]], [[height]], [[depth]] and [[weight]] properties may be more applicable. " .
+
+:variesBy a rdf:Property ;
+    rdfs:label "variesBy" ;
+    :domainIncludes :ProductGroup ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs." .
 
 :hasVariant a rdf:Property ;
-        rdfs:label "hasVariant" ;
+    rdfs:label "hasVariant" ;
+    :domainIncludes :ProductGroup ;
+    :inverseOf :isVariantOf ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." .
 
-        :isPartOf <http://pending.schema.org> ;
-        :inverseOf :isVariantOf ;
-        :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
-        :category "issue-1797" ;
+:isVariantOf a rdf:Property ;
+    :domainIncludes :Product ;
+    :inverseOf :hasVariant ;
+    :rangeIncludes :ProductGroup .
 
-        :domainIncludes :ProductGroup;
-        :rangeIncludes :Product;
-
-        rdfs:comment """Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]]).""" .
-
-
-:isVariantOf :inverseOf :hasVariant . # Technically redundant but we expect it normally to be defined locally per term
-                                      # In this case where one side of the inverse pair is a pending proposal, we define it all here.
-
-
-# Updates to existing terms
-
-# 1) we expect isVariantOf to sometimes be a ProductGroup
-:isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
-
-
-# 2)
-# New text defining :isVariantOf in a way that supports these new terms
-# TODO

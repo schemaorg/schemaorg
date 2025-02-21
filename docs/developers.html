@@ -2,106 +2,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Data Model - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
+    <title>Developers - Schema.org</title>
 
-
-<style>
-
-  .tag    { color: #000; }    /* div, span, etc   */
-  .atn    { color: #000; }    /* href, datetime,  */
-  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
-
-</style>
+    <!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body onload="updatetext()">
-
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
-        <div id="container">
-            <div id="intro">
-                <div id="pageHeader">
-                    <div class="wrapper">
-                        <div id="sitename">
-                            <h1>
-                                <a href="../">schema.org</a>
-                            </h1>
-                        </div>
-                        <div id="cse-search-form" style="width: 400px;">
-                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="selectionbar">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        <a href="documents.html" >Documentation</a>
-                    </li>
-                    <li>
-                        <a href="schemas.html" >Schemas</a>
-                    </li>
-                    <li>
-                        <a href="../"  >Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
+<!-- #### Static Doc Insert PageHead goes here -->
+<article id="mainContent" class="faq">
 
 
-  <div id="mainContent" class="faq">
-
-
-<h2>Schema.org for Developers</h2>
+<h1>Schema.org for Developers</h1>
 
 <p>
-This is a placeholder page for developer-oriented information about schema.org. In particular it gives access to machine-readable representations of our schemas.
+This page provides basic developer-oriented information about Schema.org. In particular it gives access to machine-readable representations of our schemas.
 </p>
 
 
+<section>
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are available as RDFa, embedded into the term page html. </p>
+<p>
+  There are various ways to access machine-readable definitions of Schema.org terms.</p>
+
+<ul>
+  <li>The underlying source files are all available in our
+    <a href="http://github.com/schemaorg/schemaorg/">Github repository</a>. Editorial work is conducted in Turtle format, and defined using an approach
+    <a href="datamodel.html">based on</a> <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDF Schema</a>.
+  </li>
+  <li>Period releases are published on the Schema.org site, after staging on staging.schema.org. The corresponding data files are linked below, and are also available <a href="https://github.com/schemaorg/schemaorg/tree/main/data/releases">at Github</a>.</li>
+  <li>Machine-readable definitions of individual terms are also available as JSON-LD, embedded into the term page HTML. Note that in many cases, it is more useful to consider schema.org as a whole.</li>
+  <li>As noted in the <a href="https://schema.org/docs/faq.html#19">FAQ</a>,
+    the Schema.org URI is sometimes written with 'http', and sometimes with 'https'. Consuming applications are encouraged to accept both representations, and we now generate downloads in both "flavours" as a convenience. In editorial work "on disk" we use the 'https' form. However
+    other sites and applications are likely to be using 'http', especially in
+    RDF representations. Although we encourage a move towards 'https', note in
+    particular that the JSON-LD context file for Schema.org uses 'http', and we are unlikely to change this without a long warning period due to the impact it would have on deployed installations. Feedback on this is welcome, e.g.
+    in this <a href="https://github.com/schemaorg/schemaorg/issues/2886">github issue</a>.
+  </li>
+  <li>The JSON-LD context is available from https://schema.org/docs/jsonldcontext.json. Schema.org is typically deployed in JSON-LD 1.0, but the location of our context file is exposed via JSON-LD 1.1 conventions, as an HTTP link header (the commandline tool 'curl' can be useful, e.g. used with  -I -i arguments). We serve the same context description regardless of whether
+    the context is retrieved with http or https.</li>
+</ul>
+
+</section>
+<section>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
-<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats.</p>
-
-<p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
+<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats. In addition to the links below, older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
-File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-http</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
+File <em>schemaorg-current-https</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-https</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
 
-<p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https</em> and <em>schemaorg-all-https</em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
+<p>For those preferring to use http based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-http</em> and <em>schemaorg-all-http</em> files. For more information on using https or http based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
 <br/>
 
 	<table style="padding: 2px; width:600px">
 	<tr><td style="width: 40%;">
 			File: <br/>
             <select id="filename"  onchange="updatetext()">
-				<option value="/version/latest/schemaorg-current-http">schemaorg-current-http</option>
-				<option value="/version/latest/schemaorg-all-http">schemaorg-all-http</option>
 				<option value="/version/latest/schemaorg-current-https">schemaorg-current-https</option>
 				<option value="/version/latest/schemaorg-all-https">schemaorg-all-https</option>
+				<option value="/version/latest/schemaorg-current-http">schemaorg-current-http</option>
+				<option value="/version/latest/schemaorg-all-http">schemaorg-all-http</option>
                 <!--  Remove from V9.0 as only schema & all0-layers versions built
 				{% for ext in extensions %}
 					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
@@ -110,7 +73,7 @@ File <em>schemaorg-current-http</em> contains the definition of all terms in, al
 			</select>
 	</td>
 	<td style="width: 30%;">
-		Format: <br/> 
+		Format: <br/>
         <select id="fileext" onchange="updatetext()">
 				<option value=".jsonld">JSON-LD</option>
 				<option value=".ttl">Turtle</option>
@@ -137,42 +100,40 @@ File <em>schemaorg-current-http</em> contains the definition of all terms in, al
 	</td></tr>
 
 	</table>
-    <h2  id="experiments">Experimental/Unsupported</h2>
+
+</section>
+<section>
+
+    <h2  id="experiments">Experimental</h2>
 
    <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
 
-   <h3 style="margin-left: 50px;" id="d3rdfs">D3 RDFS in JSON-LD</h3>
+   <h3 id="d3rdfs">D3 RDFS in JSON-LD</h3>
 
    <p>
     A simplification of the Schema.org type hierarchy, in which each type has at most one super-type, represented
-    in a hybrid format that combines JSON-LD, <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDFS</a> and <a href="https://d3js.org/">D3</a>: <a href="{{staticPath}}/docs/tree.jsonld">tree.jsonld</a>.
+    in a hybrid format that combines JSON-LD, <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDFS</a> and <a href="https://d3js.org/">D3</a>: <a href="/docs/tree.jsonld">tree.jsonld</a>.
   </p>
   <p>
     This file is made available to support developers using the <a href="https://d3js.org/">D3</a> JavaScript library for manipulating documents based on data.
     It uses JSON-LD to declare that D3's default "children" JSON field represents "subClassOf" relationships, but expressed in the
     reverse direction (<a href="https://bl.ocks.org/danbri/1c121ea8bd2189cf411c">example usage</a>).
+	</p>
 
-
-
-
-   <h3 style="margin-left: 50px;" id="owl">OWL</h3>
-    <p>As an experimental feature, an <a href="https://en.wikipedia.org/wiki/Web_Ontology_Language">OWL</a> definition file <a href="{{staticPath}}/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes
+   <h3 id="owl">OWL</h3>
+    <p>As an experimental feature, an <a href="https://en.wikipedia.org/wiki/Web_Ontology_Language">OWL</a> definition file <a href="/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes
         the core and all current extensions to the vocabulary.</p>
     <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> and <code>schema:rangeIncludes</code>
         values are converted into <code>rdfs:domain</code> and <code>rdfs:range</code> values using <code>owl:unionOf</code> to capture the multiplicity of values.
-        Included in the range values are the, implicit within the vocabulary, default values of <a href="{{staticPath}}/Text">Text</a>, <a href="{{staticPath}}/URL">URL</a>,
-        and <a href="{{staticPath}}/Role">Role</a>.</p>
+        Included in the range values are the, implicit within the vocabulary, default values of <a href="/Text">Text</a>, <a href="/URL">URL</a>,
+        and <a href="/Role">Role</a>.</p>
     <p>This file has been made available to enable the representation of the vocabulary in some OWL-based modeling tools.
-      The mapping into OWL is an approximation, and should not be considered an authoritative definition for Schema.org's terms; see <a href="{{staticPath}}/docs/datamodel.html">datamodel page</a> for details.
+      The mapping into OWL is an approximation, and should not be considered an authoritative definition for Schema.org's terms; see <a href="/docs/datamodel.html">datamodel page</a> for details.
       As an experimental feature, there are no expectations as to its interpretation by any third party tools.</p>
-    <br/>
 
-  </div>
+		</article>
 
 
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
 <script>
 function getschemafilename(){
 	path = document.getElementById("filename").value;
@@ -192,7 +153,7 @@ function updatetext(){
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
-	
+
 	port = window.location.port
 	if(port == "" || port == 0){
 		port = "";
@@ -200,7 +161,7 @@ function updatetext(){
 	else{
 		port = ":" + port;
 	}
-	
+
 	host = window.location.protocol + "//" + window.location.hostname + port;
 	filepath = host + getschemafilename();
 
@@ -211,8 +172,9 @@ function dowloadfunc(){
 	//alert(path + ext);
 	window.location.href = getschemafilename();
 }
-
-
 </script>
+
+<!-- #### Static Doc Insert Footer here -->
+
 </body>
 </html>

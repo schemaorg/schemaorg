@@ -2,21 +2,22 @@
 
 <!-- Identify if this term or one of its supertypes has any associated properties -->
 
-{% if term.properties|length > 0 %}{% set propstodisplay = True %}{% endif %}
-{% for t in term.termStack %}
-	  {% if t.properties|length > 0 %}{% set propstodisplay = True %}{% endif %}
+{{ set_local_var(local_vars,"propstodisplay", False)}}
+{% if term.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
+{% for t in term.termStack.terms %}
+    {% if t.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
 {% endfor %}
 
-{% if propstodisplay %}
-	<table class="definition-table">
-	    <thead>
-	      <tr><th>Property</th><th>Expected Type</th><th>Description</th></tr>
-	  </thead>
-	  {% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.j2' with context %}
+{% if local_vars.propstodisplay %}
+  <table class="definition-table">
+      <thead>
+        <tr><th>Property</th><th>Expected Type</th><th>Description</th></tr>
+    </thead>
+    {% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.j2' with context %}
 
-	  {% for t in term.termStack %}
-	      {% set propertiesFor = t %}{% include 'terms/PropertiesForTerm.j2' with context %}
-	  {% endfor %}
+    {% for t in term.termStack.terms %}
+        {% set propertiesFor = t %}{% include 'terms/PropertiesForTerm.j2' with context %}
+    {% endfor %}
 
-	 </table>
+   </table>
 {% endif %}

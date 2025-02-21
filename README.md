@@ -1,22 +1,22 @@
+
 Welcome to Schema.org
 =====================
-   
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
 Note: Much of the supporting software is imported from a sub module: 'sdopythonapp'
 
-Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
-join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
+Issues and proposals are managed here by collaborators around the project, especially participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
+join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to GitHub](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
 
-There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaorg) to check incoming pull requests.
+There are also continuous integration tests to check incoming pull requests.
 
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in GitHub is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within GitHub.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
-A preview of the [draft new release notes](http://webschemas.org/docs/releases.html) can be found as part of the test site for our next release.
+A preview of the [draft new release notes](https://staging.schema.org/docs/releases.html) can be found as part of the test site for our next release.
 Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
 
 Regarding CC and opensource licenses for documents and software, see our [FAQ entry](https://schema.org/docs/faq.html#18).
@@ -42,7 +42,7 @@ When we add terms, often into the "Pending" area, we strongly encourage feedback
  * Suggestions for improvements are always welcome here - please search for older discussions (including closed issues) before opening a new issue.
  * We particularly value improvements to existing definitions, examples and text, to clarify how schema.org vocabulary is used in practice.
  * Please don't be surprised or offended if you raise an issue proposing new schemas and it is marked by the project team as "[noted](https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+label%3A%22Closed+and+Noted+%28and+possibly+Queued%29%22+is%3Aclosed)" then closed. We have 100s of issues discussing possible improvements, and to keep things manageable we adopt the convention of noting then closing issues that are not likely to be immediately explored.
- * While many Schema.org improvements have been proposed via Github's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
+ * While many Schema.org improvements have been proposed via GitHub's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
  * All Pull Requests should reference specific issues that they're fixes or solutions for. This lets the schema.org community discuss problems and topics without it being tied too closely to a specific (and easily outdated) proposed fix.
  * Please note that some changes are much easier to make than others: the wording/phrasing in definitions is relatively easy to amend, whereas the exact spelling of a type or property ('Person', 'startDate' etc.) is much more disruptive to change.
  * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](http://lov.okfn.org/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs.
@@ -53,9 +53,15 @@ See more on ["How we work"](https://schema.org/docs/howwework.html)
 Software
 ========
 
-For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have Python version 3.6 or above. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
+For most collaborators, all you need to know about the software is how to run it. 
 
-More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md).
+The objective of the software is to create a static copy of the Schema.org site, including potential local changes, to inspect and run behind a simple web server on a local system for testing.  In the same way that a production release is deployed to a cloud server, your local version could then be deployed to a virtual machine using gcloud to enable collaboration with others.
+
+Full instructions are available in [SOFTWARE_README.md](software/SOFTWARE_README.md) explaining how to create the initial local copy to work with, then evolve to test out any changes.
+
+Essentially you will need to have a Linux-like (inc  Mac) environment loaded with Python version 3.6 or above. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
+
+More detailed information about the software and is use is available in [SOFTWARE_README.md](software/SOFTWARE_README.md).
 
 See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
@@ -64,11 +70,11 @@ Formats and standards
 
 All schemas and examples are in data/ in utf-8 encoded files.
 
-The main schemas file is data/schema.rdfa (utf-8)
+The main schemas file is data/schema.ttl (utf-8)
 
-While developing schemas, using data/sdo-somethinghere-schema.rdfa can be useful.
+While developing schemas, using data/sdo-somethinghere-schema.ttl can be useful.
 
-The format is based on W3C RDFS in HTML/RDFa format, see https://schema.org/docs/datamodel.html
+The format is based on W3C RDFS in RDF/Turtle format.
 
 The examples are stored in data/examples.txt (utf-8) and other *.txt files.
 
@@ -82,18 +88,7 @@ The data/releases/ hierarchy is reserved for release snapshots (see https://sche
 The ext/*/ hierarchy is reserved for extensions (see https://schema.org/docs/extension.html).
 
 
-Github Branch naming
-====================
-
-https://schema.org/docs/releases.html lists releases by working codename and release name.
-
-e.g. successor to https://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman,
-and eventually became https://schema.org/docs/releases.html#v1.92
-
-You can therefore see candidate draft release notes in the Git repository at docs/releases.html
-
-**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
-
+We no longer use github branches for work-in-progress. The main/ branch is our latest candidate. It is not guaranteed to be in a conceptually consistent state, but should stabilize prior to circulation of a release candidate for review.
 
 Notes
 =====

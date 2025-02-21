@@ -1,0 +1,45 @@
+TYPES: #eg-3537 PaymentMethod,OnlineStore,PaymentService
+
+PRE-MARKUP:
+
+Possible Payment: Cash On Delivery, SplashPay 🌊, SEPA bank transfer and prepayment in all Splash stores 🌊.
+
+MICRODATA:
+
+
+RDFA:
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  "name": "Example Online Store",
+  "acceptedPaymentMethod": [
+  {
+    "@type": "PaymentMethod",
+    "paymentMethodType": "https://schema.org/COD",
+    "name": "Cash on Delivery"
+  }, {
+    "@type": "PaymentService",
+    "name": "SplashPay",
+    "description": "Pay using the SplashPay app."
+  }, {
+    "@type": "PaymentMethod",
+    "paymentMethodType": "https://schema.org/ByBankTransferInAdvance",
+    "name": "SEPA bank transfer",
+    "description": "Bank transfer within the Single Euro Payments Area (SEPA)."
+  }, {
+    "@type": "PaymentService",
+    "paymentMethodType": "https://schema.org/InStorePrepay",
+    "provider": {
+      "@type": "Organization",
+      "name": "Splash Store",
+      "description": "Pay your online purchases conveniently in any Splash Store."
+    }
+  }
+  ]
+}
+</script>

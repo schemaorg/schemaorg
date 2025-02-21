@@ -1,18 +1,19 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :CriticReview a rdfs:Class ;
     rdfs:label "CriticReview" ;
-    :category "issue-1589" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1589> ;
     rdfs:comment "A [[CriticReview]] is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. [[CriticReview]]s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the [[UserReview]] type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources." ;
     rdfs:subClassOf :Review .
 
 :UserReview a rdfs:Class ;
     rdfs:label "UserReview" ;
-    :category "issue-1589" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1589> ;
     rdfs:comment "A review created by an end-user (e.g. consumer, purchaser, attendee etc.), in contrast with [[CriticReview]]." ;
     rdfs:subClassOf :Review .

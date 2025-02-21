@@ -1,27 +1,30 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 
 ## Classes ##
 
+
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
     rdfs:subClassOf :CreativeWork ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#LegalExpression>,
-        <http://data.europa.eu/eli/ontology#LegalResource> .
+        <http://data.europa.eu/eli/ontology#LegalRecontributor> .
 
 :LegislationObject a rdfs:Class ;
     rdfs:label "LegislationObject" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
@@ -31,8 +34,8 @@
 
 :LegalForceStatus a rdfs:Class ;
     rdfs:label "LegalForceStatus" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
@@ -41,34 +44,51 @@
 
 :LegalValueLevel a rdfs:Class ;
     rdfs:label "LegalValueLevel" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
     rdfs:subClassOf :Enumeration ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> .
 
-
 ## Properties ##
+
+:AuthoritativeLegalValue a :LegalValueLevel ;
+    rdfs:label "AuthoritativeLegalValue" ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications.) Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
+
+:DefinitiveLegalValue a :LegalValueLevel ;
+    rdfs:label "DefinitiveLegalValue" ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (E.g. the digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
+
 
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. You should generally use more specific properties (see e.g. <a href=\"/legislationAmends\">legislationAmends</a>). This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
+    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#changes> .
 
 :legislationConsolidates a rdf:Property ;
     rdfs:label "legislationConsolidates" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -78,9 +98,9 @@
 
 :legislationDate a rdf:Property ;
     rdfs:label "legislationDate" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Date ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -91,22 +111,23 @@
 
 :legislationDateVersion a rdf:Property ;
     rdfs:label "legislationDateVersion" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Date ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> .
 
 :legislationIdentifier a rdf:Property ;
     rdfs:label "legislationIdentifier" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Text, :URL ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :rangeIncludes :Text,
+        :URL ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
@@ -115,10 +136,11 @@
 
 :legislationJurisdiction a rdf:Property ;
     rdfs:label "legislationJurisdiction" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :AdministrativeArea, :Text ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :rangeIncludes :AdministrativeArea,
+        :Text ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The jurisdiction from which the legislation originates." ;
@@ -128,9 +150,9 @@
 
 :legislationLegalForce a rdf:Property ;
     rdfs:label "legislationLegalForce" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :LegalForceStatus ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -140,9 +162,9 @@
 
 :legislationLegalValue a rdf:Property ;
     rdfs:label "legislationLegalValue" ;
-    :category "issue-1156" ;
     :domainIncludes :LegislationObject ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :LegalValueLevel ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -152,23 +174,25 @@
 
 :legislationPassedBy a rdf:Property ;
     rdfs:label "legislationPassedBy" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Organization, :Person ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :rangeIncludes :Organization,
+        :Person ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
     rdfs:subPropertyOf :creator ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> .
 
 :legislationResponsible a rdf:Property ;
     rdfs:label "legislationResponsible" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Organization, :Person ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :rangeIncludes :Organization,
+        :Person ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
@@ -177,9 +201,9 @@
 
 :legislationTransposes a rdf:Property ;
     rdfs:label "legislationTransposes" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -190,10 +214,11 @@
 
 :legislationType a rdf:Property ;
     rdfs:label "legislationType" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :CategoryCode, :Text ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :rangeIncludes :CategoryCode,
+        :Text ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
@@ -203,9 +228,9 @@
 
 :legislationApplies a rdf:Property ;
     rdfs:label "legislationApplies" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -217,9 +242,9 @@
 
 :legislationCountersignedBy a rdf:Property ;
     rdfs:label "legislationCountersignedBy" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Organization, :Person ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/2698> ;
@@ -229,9 +254,9 @@
 
 :legislationDateOfApplicability a rdf:Property ;
     rdfs:label "legislationDateOfApplicability" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Date ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/2698> ;
@@ -241,9 +266,9 @@
 
 :legislationAmends a rdf:Property ;
     rdfs:label "legislationAmends" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -254,9 +279,9 @@
 
 :legislationRepeals a rdf:Property ;
     rdfs:label "legislationRepeals" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -267,9 +292,9 @@
 
 :legislationCommences a rdf:Property ;
     rdfs:label "legislationCommences" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationChanges ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -280,9 +305,9 @@
 
 :legislationCorrects a rdf:Property ;
     rdfs:label "legislationCorrects" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     # this is not a subproperty of legislationChanges as it does not modify the legal content of the legislation
     # rdfs:subPropertyOf :legislationChanges ;
@@ -294,9 +319,9 @@
 
 :legislationEnsuresImplementationOf a rdf:Property ;
     rdfs:label "legislationEnsuresImplementationOf" ;
-    :category "issue-2698" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :rangeIncludes :Legislation ;
     rdfs:subPropertyOf :legislationApplies ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
@@ -313,8 +338,8 @@
 
 :AuthoritativeLegalValue a :LegalValueLevel ;
     rdfs:label "AuthoritativeLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
@@ -322,8 +347,8 @@
 
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
@@ -332,8 +357,8 @@
 
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
@@ -341,20 +366,19 @@
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> .
 
-
 ### LegalForceStatus
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is in force." ;
@@ -362,8 +386,8 @@
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is currently not in force." ;
@@ -371,8 +395,8 @@
 
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
@@ -385,4 +409,6 @@
 <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> a :Organization ;
     rdfs:label "ELI" ;
     :isPartOf <http://pending.schema.org> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
     rdfs:comment "This entry is derived from the [ELI ontology](https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." .
+

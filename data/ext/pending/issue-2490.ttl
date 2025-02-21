@@ -1,23 +1,23 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :CovidTestingFacility a rdfs:Class ;
     rdfs:label "CovidTestingFacility" ;
-    :category "issue-2490" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
     rdfs:comment """A CovidTestingFacility is a [[MedicalClinic]] where testing for the COVID-19 Coronavirus
       disease is available. If the facility is being made available from an established [[Pharmacy]], [[Hotel]], or other
       non-medical organization, multiple types can be listed. This makes it easier to re-use existing schema.org information
-      about that place e.g. contact info, address, opening hours. Note that in an emergency, such information may not always be reliable.
+      about that place, e.g. contact info, address, opening hours. Note that in an emergency, such information may not always be reliable.
       """ ;
     rdfs:subClassOf :MedicalClinic .
 
 :SpecialAnnouncement a rdfs:Class ;
     rdfs:label "SpecialAnnouncement" ;
-    :category "issue-2490" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
     rdfs:comment """A SpecialAnnouncement combines a simple date-stamped textual information update
       with contextualized Web links and other structured data.  It represents an information update made by a
@@ -45,15 +45,15 @@ unlikely that a single SpecialAnnouncement will need all of the possible propert
 
 We expect that in many cases the page referenced might contain more specialized structured data, e.g. contact info, [[openingHours]], [[Event]], [[FAQPage]] etc. By linking to those pages from a [[SpecialAnnouncement]] you can help make it clearer that the events are related to the situation (e.g. Coronavirus) indicated by the [[category]] property of the [[SpecialAnnouncement]].
 
-Many [[SpecialAnnouncement]]s will relate to particular regions and to identifiable local organizations. Use [[spatialCoverage]] for the region, and [[announcementLocation]] to indicate specific [[LocalBusiness]]es and [[CivicStructures]]. If the announcement affects both a particular region and a specific location (for example, a library closure that serves an entire region), use both [[spatialCoverage]] and [[announcementLocation]].
+Many [[SpecialAnnouncement]]s will relate to particular regions and to identifiable local organizations. Use [[spatialCoverage]] for the region, and [[announcementLocation]] to indicate specific [[LocalBusiness]]es and [[CivicStructure]]s. If the announcement affects both a particular region and a specific location (for example, a library closure that serves an entire region), use both [[spatialCoverage]] and [[announcementLocation]].
 
 The [[about]] property can be used to indicate entities that are the focus of the announcement. We now recommend using [[about]] only
-for representing non-location entities (e.g. a [[Course]] or a [[RadioStation]]). For places, use [[announcementLocation]] and [[spatialCoverage]]. Consumers of this markup should be aware that the initial design encouraged the use of /about for locations too.
+for representing non-location entities (e.g. a [[Course]] or a [[RadioStation]]). For places, use [[announcementLocation]] and [[spatialCoverage]]. Consumers of this markup should be aware that the initial design encouraged the use of [[about]] for locations too.
 
 The basic content of [[SpecialAnnouncement]] is similar to that of an [RSS](https://en.wikipedia.org/wiki/RSS) or [Atom](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For publishers without such feeds, basic feed-like information can be shared by posting
 [[SpecialAnnouncement]] updates in a page, e.g. using JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
 with the [[webFeed]] property. This can be a simple URL, or an inline [[DataFeed]] object, with [[encodingFormat]] providing
-media type information e.g. "application/rss+xml" or "application/atom+xml".
+media type information, e.g. "application/rss+xml" or "application/atom+xml".
 """ ;
     rdfs:subClassOf :CreativeWork .
 
@@ -64,9 +64,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :diseasePreventionInfo a rdf:Property ;
     rdfs:label "diseasePreventionInfo" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -74,9 +73,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :diseaseSpreadStatistics a rdf:Property ;
     rdfs:label "diseaseSpreadStatistics" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Dataset,
         :Observation,
         :URL,
@@ -88,9 +86,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :gettingTestedInfo a rdf:Property ;
     rdfs:label "gettingTestedInfo" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -98,18 +95,16 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :hasDriveThroughService a rdf:Property ;
     rdfs:label "hasDriveThroughService" ;
-    :category "issue-2490" ;
     :domainIncludes :Place ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
     rdfs:comment "Indicates whether some facility (e.g. [[FoodEstablishment]], [[CovidTestingFacility]]) offers a service that can be used by driving through in a car. In the case of [[CovidTestingFacility]] such facilities could potentially help with social distancing from other potentially-infected users." .
 
 :newsUpdatesAndGuidelines a rdf:Property ;
     rdfs:label "newsUpdatesAndGuidelines" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -117,9 +112,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :publicTransportClosuresInfo a rdf:Property ;
     rdfs:label "publicTransportClosuresInfo" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -127,9 +121,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :quarantineGuidelines a rdf:Property ;
     rdfs:label "quarantineGuidelines" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -137,9 +130,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :schoolClosuresInfo a rdf:Property ;
     rdfs:label "schoolClosuresInfo" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;
@@ -147,9 +139,8 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
 
 :travelBans a rdf:Property ;
     rdfs:label "travelBans" ;
-    :category "issue-2490" ;
     :domainIncludes :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL,
         :WebContent ;
     :source <https://github.com/schemaorg/schemaorg/issues/2490> ;

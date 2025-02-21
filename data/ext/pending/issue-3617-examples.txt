@@ -1,0 +1,147 @@
+TYPES: #eg-3617a Product, Offer, OfferShippingDetails, ShippingService
+
+PRE-MARKUP:
+
+Offer with free shipping in the US and Canada (in the V2 Shipping format).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "JSON Example",
+  "offers": {
+    "@type": "Offer",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "height": "12 in",
+      "width": "45 cm",
+      "depth": "0.3 m",
+      "weight": "1.2 kg",
+      "hasShippingService": {
+        "@type": "ShippingService",
+        "shippingConditions": {
+          "@type": "ShippingConditions",
+          "shippingDestination": [
+            {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            {
+              "@type": "DefinedRegion",
+              "addressCountry": "CA"
+            }
+          ],
+          "shippingRate": "0"
+        }
+      }
+    }
+  }
+}
+</script>
+
+TYPES: #eg-3617b Product, Offer, OfferShippingDetails, ShippingService
+
+PRE-MARKUP:
+
+Offer with shipping costs of $10 + $1/kg for orders $35-$200, to the US and Canada, with a handling time of 3.5 hours on weekdays (in the V2 format).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "JSON Example",
+  "offers": {
+    "@type": "Offer",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "height": "12 in",
+      "width": "45 cm",
+      "depth": "300 mm",
+      "weight": "1.2 kg",
+      "hasShippingService": {
+        "@type": "ShippingService",
+        "handlingTime": {
+          "@type": "ServicePeriod",
+          "cutoffTime": "14:30:00-07:00",
+          "duration": {
+            "@type": "QuantitativeValue",
+            "maxValue": "30",
+            "unitCode": "min"
+          }
+        },
+        "shippingConditions": {
+          "@type": "ShippingConditions",
+          "shippingDestination": [
+            {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            {
+              "@type": "DefinedRegion",
+              "addressCountry": "CA"
+            }
+          ],
+          "orderValue": {
+            "@type": "MonetaryAmount",
+            "minValue": "35",
+            "maxValue": "200"
+          },
+          "shippingRate": {
+            "@type": "ShippingRateSettings",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "10",
+              "currency": "USD"
+            },
+            "weightPercentage": "1.0"
+          },
+          "transitTime": {
+            "@type": "ServicePeriod",
+            "duration": {
+              "maxValue": "3.5",
+              "unitCode": "h"
+            },
+            "businessDays": [
+              {
+                "dayOfWeek": "Monday"
+              },
+              {
+                "dayOfWeek": "Tuesday"
+              },
+              {
+                "dayOfWeek": "Wednesday"
+              },
+              {
+                "dayOfWeek": "Thursday"
+              },
+              {
+                "dayOfWeek": "Friday"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+</script>

@@ -2,9 +2,13 @@
 
 {% for sub in SUBLIST %}
     {% if loop.first %}
-     <br/><b><a  id="subtypes" title="Link: #subtypes" href="#subtypes" class="clickableAnchor" >{{SUBLABEL}}</a></b><ul>
+    <br/>
+    <div id="subtypes" title="{{SUBTITLE}}" class="jumptarget" title="Value for"><h4>{{SUBLABEL}}</h4></div>
+    <ul>
     {% endif %}
-	<li>{{ sdotermlink(sub)|safe }}</li>
+    {% if not sub.retired and not sub.superseded %}
+        <li>{{ sdotermlink(sub)|safe }}</li>
+    {% endif %}
     {% if loop.last %}
      </ul>
     {% endif %}
