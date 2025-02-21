@@ -4078,7 +4078,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :DigitalPlatformEnumeration,
         :Text,
         :URL .
-        
+
 :actionProcess a rdf:Property ;
     rdfs:label "actionProcess" ;
     rdfs:comment "Description of the process by which the action was performed." ;
@@ -6338,7 +6338,11 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :handlingTime a rdf:Property ;
     rdfs:label "handlingTime" ;
-    rdfs:comment "The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup. Typical properties: minValue, maxValue, unitCode (d for DAY).  This is by common convention assumed to mean business days (if a unitCode is used, coded as \"d\"), i.e. only counting days when the business normally operates." ;
+    rdfs:comment """The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup.
+
+In the context of [[ShippingDeliveryTime]], Typical properties: minValue, maxValue, unitCode (d for DAY).  This is by common convention assumed to mean business days (if a unitCode is used, coded as \"d\"), i.e. only counting days when the business normally operates.
+
+In the context of [[ShippingService]], use the [[ServicePeriod]] format, that contains the same information in a structured form, with cut-off time, business days and duration.""" ;
     :domainIncludes :ShippingDeliveryTime ;
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
@@ -9339,7 +9343,12 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 
 :transitTime a rdf:Property ;
     rdfs:label "transitTime" ;
-    rdfs:comment "The typical delay the order has been sent for delivery and the goods reach the final customer. Typical properties: minValue, maxValue, unitCode (d for DAY)." ;
+    rdfs:comment """The typical delay the order has been sent for delivery and the goods reach the final customer.
+
+  In the context of [[ShippingDeliveryTime]], use the [[QuantitativeValue]]. Typical properties: minValue, maxValue, unitCode (d for DAY).
+
+  In the context of [[ShippingConditions]], use the [[ServicePeriod]]. It has a duration (as a [[QuantitativeValue]]) and also business days and a cut-off time.
+""" ;
     :domainIncludes :ShippingDeliveryTime ;
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
