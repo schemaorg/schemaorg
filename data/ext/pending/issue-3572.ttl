@@ -11,9 +11,9 @@
     :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
     rdfs:comment """<p>Represents financial incentives for goods/services offered by an organization (or individual).</p>
 
-<p>Typically contains the name of the incentive ([[name]]), the incentivized good/service ([[incentivizedItem]]), the amount offered by the incentive ([[incentiveAmount]]), the incentive's status ([[incentiveStatus]]), how the incentive is applied ([[incentiveType]]), the [[provider]] of the incentive, and what supplier the incentive applies to ([[eligibleWithSupplier]]).</p>
+<p>Typically contains the [[name]] of the incentive, the [[incentivizedItem]], the [[incentiveAmount]], the [[incentiveStatus]], [[incentiveType]], the [[provider]] of the incentive, and [[eligibleWithSupplier]].</p>
 
-<p>Optionally contains criteria on whether the incentive is limited based on ([[purchaseType]]), purchase price ([[purchasePriceLimit]]), income limits ([[incomeLimit]]), and whether the incentive applies to goods/services/both/utilities ([[qualifiedExpense]])
+<p>Optionally contains criteria on whether the incentive is limited based on [[purchaseType]], [[purchasePriceLimit]], [[incomeLimit]], and the [[qualifiedExpense]].
     """ ;
     rdfs:subClassOf :Intangible .
 
@@ -117,8 +117,7 @@ In summary: <ul><li>Use [[QuantitativeValue]] for absolute/percentage-based ince
 :incentivizedItem a rdf:Property ;
     rdfs:label "incentivizedItem" ;
     :domainIncludes :FinancialIncentive ;
-    :rangeIncludes :ItemList,
-        :DefinedTerm,
+    :rangeIncludes :DefinedTerm,
         :Product ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3572> ;
@@ -136,7 +135,7 @@ In summary: <ul><li>Use [[QuantitativeValue]] for absolute/percentage-based ince
         "@type": "Product",
         "name": "Kenmore White 17\" Microwave",
     }
-If an [[ItemList]] is given, the list should contain [[ListItem]]s of type [[DefinedTerm]] or [[Product]].""" .
+For multiple different incentivized items, use multiple [[DefinedTerm]] or [[Product]].""" .
 
 :purchaseType a rdf:Property ;
     rdfs:label "purchaseType" ;
