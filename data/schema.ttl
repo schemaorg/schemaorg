@@ -9742,8 +9742,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 
 :wordCount a rdf:Property ;
     rdfs:label "wordCount" ;
-    rdfs:comment "The number of words in the text of the Article." ;
-    :domainIncludes :Article ;
+    rdfs:comment "The number of words in the text of the CreativeWork such as an Article, Book, etc." ;
+    :domainIncludes :Article,
+        :CreativeWork ;
     :rangeIncludes :Integer .
 
 :workHours a rdf:Property ;
