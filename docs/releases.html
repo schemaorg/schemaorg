@@ -88,7 +88,61 @@ A summary view of the current published release is available from: <a href="http
     <th>Description</th>
 </tr>
 
-<!-- note: please keep this file welformed XML i.e. close li tags etc. -->
+<!-- note: please keep this file well-formed, i.e. close li tags etc. -->
+<tr>
+  <td class="release">29.0<br/>2025-03-24</td>
+  <td>
+  <span id="v29"></span>
+  <p>
+  Version 29.0 - New and updated vocabulary in the area of financial incentives, legislation, and product shipping. Various build and documentation fixes.</p>
+  </td>
+  <td>
+  <ul>
+  
+    <li id="g3572">
+		<a href="https://github.com/schemaorg/schemaorg/issues/3572">Issue #3572</a>: Add vocabulary to represent financial incentives, for example in the area of sustainability: Add new type <a href="/FinancialIncentive">FinancialIncentive</a>. Add new enumeration types <a href="/IncentiveType">IncentiveType</a>, <a href="/IncentiveStatus">IncentiveStatus</a>, <a href="/PurchaseType">PurchaseType</a>, and <a href="/IncentiveQualifiedExpenseType">IncentiveQualifiedExpenseType</a>. Add new properties for use on <a href="/FinancialIncentive">FinancialIncentive</a>: <a href="/incentiveType">incentiveType</a>, <a href="/incentiveStatus">incentiveStatus</a>, <a href="/incentiveAmount">incentiveAmount</a>, <a href="/eligibleWithSupplier">eligibleWithSupplier</a>, <a href="/incentivizedItem">incentivizedItem</a>, <a href="/qualifiedExpense">qualifiedExpense</a>, <a href="/incomeLimit">incomeLimit</a>, <a href="/purchasePriceLimit">purchasePriceLimit</a>, <a href="/purchaseType">purchaseType</a>. Add existing properties <a href="/validFrom">validFrom</a>, <a href="/validThrough">validThrough</a>, <a href="/areaServed">areaServed</a>, <a href="/publisher">publisher</a>, and <a href="/provider">provider</a> for use on <a href="/FinancialIncentive">FinancialIncentive</a>:
+    </li>
+  
+    <li id="g2698">
+		<a href="https://github.com/schemaorg/schemaorg/issues/2698">Issue #2698</a>: Add new properties for use on <a href="/Legislation">Legislation</a> to include changes to the European Legislation Identifier (ELI) model: <a href="/legislationCountersignedBy">legislationCountersignedBy</a>, <a href="/legislationDateOfApplicability">legislationDateOfApplicability</a>, <a href="/legislationAmends">legislationAmends</a>, <a href="/legislationRepeals">legislationRepeals</a>, <a href="/legislationCommences">legislationCommences</a>, <a href="/legislationCorrects">legislationCorrects</a>, and <a href="/legislationEnsuresImplementationOf">legislationEnsuresImplementationOf</a>.
+    </li>
+    
+      <li id="g3617">
+		<a href="https://github.com/schemaorg/schemaorg/issues/3617">Issue #3617</a>: Enhance shipping vocabulary: Deprecate <a href="/DeliveryTimeSettings">DeliveryTimeSettings</a> and supersede by new <a href="/ShippingConditions">ShippingConditions</a>. Add existing properties for use on <a href="/ShippingConditions">ShippingConditions</a>:
+		<a href="/shippingOrigin">shippingOrigin</a>, <a href="/shippingDestination">shippingDestination</a>,	<a href="/transitTime">transitTime</a>, <a href="/shippingRate">shippingRate</a>, <a href="/doesNotShip">doesNotShip</a>, <a href="/height">height</a>, <a href="/width">width</a>, <a href="/depth">depth</a>, and <a href="/weight">weight</a>. Add new properties for use on <a href="/ShippingConditions">ShippingConditions</a>: <a href="/orderValue">orderValue</a>, <a href="/numItems"> numItems</a>, <a href="/seasonalOverride">seasonalOverride</a>. Add <a href="/shippingConditions">shippingConditions</a> with range <a href="/ShippingConditions">ShippingConditions</a>. 
+Add <a href="/fulfillmentType">fulfillmentType</a> with a range of new enumeration <a href="/FulfillmentTypeEnumeration">FulfillmentTypeEnumeration</a>. 
+Add <a href="/ShippingService">ShippingService</a> with properties <a href="/fulfillmentType">fulfillmentType</a>, <a href="/handlingTime">handlingTime</a> , <a href="/validForMemberTier">validForMemberTier</a>, and <a href="/shippingConditions">shippingConditions</a>. 
+Add <a href="/hasShippingService">hasShippingService</a> with range <a href="/ShippingService">ShippingService</a> for use on <a href="/Organization">Organization</a> and <a href="/OfferShippingDetails">OfferShippingDetails</a>. 
+Add <a href="/ServicePeriod">ServicePeriod</a> with existing properties <a href="/duration">duration</a>, <a href="/cutoffTime">cutoffTime</a>, and <a href="/businessDays">businessDays</a> for use as additional range for <a href="/handlingTime">handlingTime</a> and <a href="/transitTime">transitTime</a>.
+Add <a href="/orderPercentage">orderPercentage</a> and <a href="/weightPercentage">weightPercentage</a> for use on <a href="/ShippingRateSettings">ShippingRateSettings</a>.
+Add <a href="/Mass">Mass</a> to the range of <a href="/weight">weight</a>. 
+Deprecate (moved to the attic): <a href="/shippingSettingsLink">shippingSettingsLink</a>, <a href="/shippingLabel">shippingLabel</a>, and <a href="/transitTimeLabel">transitTimeLabel</a>.
+    </li>
+
+    <li id="g4321">
+		<a href="https://github.com/schemaorg/schemaorg/issues/4321">Issue #4321</a>: Add new property <a href="/aggregateElement">aggregateElement</a> for use on <a href="/ItemList">ItemList</a> to allow capturing of aggregate information of list items.
+	  </li>
+    <li id="g4327">
+		<a href="https://github.com/schemaorg/schemaorg/issues/4327">Issue #4327</a>: Correct definition for <a href="/netWorth">netWorth</a> .
+	  </li>
+
+    <li id="g622">
+                <a href="https://github.com/schemaorg/schemaorg/issues/622">Issue #622</a>: Add <a href="/wordCount">wordCount</a> for use on <a href="/CreativeWork">CreativeWork</a> .
+          </li>
+
+    <li id="g4362">
+		<a href="https://github.com/schemaorg/schemaorg/pull/4362">PR #4362</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/4357">PR #4357</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/4353">PR #4353</a>,
+                <a href="https://github.com/schemaorg/schemaorg/pull/4350">PR #4350</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/4345">PR #4345</a>,
+		<a href="https://github.com/schemaorg/schemaorg/pull/4344">PR #4344</a>:				
+		Build and documentation fixes and cleanups.
+	</li>
+  </ul>
+</td>
+</tr>
+
 <tr>
   <td class="release">28.1<br/>2024-11-22</td>
   <td>
@@ -169,6 +223,7 @@ A summary view of the current published release is available from: <a href="http
   </ul>
 </td>
 </tr>
+
 <tr>
   <td class="release">28.0<br/>2024-09-17</td>
   <td>
