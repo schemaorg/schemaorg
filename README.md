@@ -99,4 +99,3 @@ However do note that labels, comments, and documentation should use US English (
 and schemas), if a choice between English variants is needed. Please aim for international
 English wherever possible.
 
-See also: https://twitter.com/schemaorg_dev
