@@ -1,6 +1,7 @@
-
 Welcome to Schema.org
 =====================
+
+[![CI Tests Shield](https://github.com/schemaorg/schemaorg/actions/workflows/ci_tests.yml/badge.svg)](https://github.com/fthobe/schemaorg/actions)
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
