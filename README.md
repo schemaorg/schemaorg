@@ -22,6 +22,8 @@ Every month or so, after final review by the Schema.org Steering Group and wider
 
 Regarding CC and opensource licenses for documents and software, see our [FAQ entry](https://schema.org/docs/faq.html#18).
 
+We have a [blog](https://blog.schema.org/) for communication of interesting updates to Schema.org.
+
 Improving schemas
 =================
 
