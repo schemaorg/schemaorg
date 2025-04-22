@@ -8,10 +8,6 @@
 # ╔════════════════════════════════════════════════════════╗
 # ║  Amend OfferShippingDetails                            ║
 # ╚════════════════════════════════════════════════════════╝
-:weight a rdf:Property ;
-    :rdfs:label "weight" ;
-    :domainIncludes :OfferShippingDetails ;
-    :rangeIncludes :Mass .
 
 # Some fields are specific to OfferShippingDetails and not used anymore.
 :shippingSettingsLink a rdf:Property ;
@@ -132,8 +128,10 @@
 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
-    :domainIncludes :ShippingConditions ;
-    :rangeIncludes :QuantitativeValue ;
+    :domainIncludes :ShippingConditions,
+        :OfferShippingDetails ;
+    :rangeIncludes :QuantitativeValue,
+        :Mass ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :numItems a rdf:Property ;
