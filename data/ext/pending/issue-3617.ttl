@@ -8,10 +8,6 @@
 # ╔════════════════════════════════════════════════════════╗
 # ║  Amend OfferShippingDetails                            ║
 # ╚════════════════════════════════════════════════════════╝
-:weight a rdf:Property ;
-    :rdfs:label "weight" ;
-    :domainIncludes :OfferShippingDetails ;
-    :rangeIncludes :Mass .
 
 # Some fields are specific to OfferShippingDetails and not used anymore.
 :shippingSettingsLink a rdf:Property ;
@@ -75,19 +71,20 @@
     rdfs:label "duration" ;
     :domainIncludes :ServicePeriod ;
     :rangeIncludes :QuantitativeValue ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :cutoffTime a rdf:Property ;
     rdfs:label "cutoffTime" ;
     :domainIncludes :ServicePeriod ;
     :rangeIncludes :Time ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :businessDays a rdf:Property ;
     rdfs:label "businessDays" ;
     :domainIncludes :ServicePeriod ;
     :rangeIncludes :DayOfWeek ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 # ╔════════════════════════════════════════════════════════╗
 # ║  Adding ShippingConditions                             ║
@@ -103,69 +100,67 @@
     rdfs:label "shippingOrigin" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :DefinedRegion ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingDestination a rdf:Property ;
     rdfs:label "shippingDestination" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :DefinedRegion ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :height a rdf:Property ;
     rdfs:label "height" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :width a rdf:Property ;
     rdfs:label "width" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :depth a rdf:Property ;
     rdfs:label "depth" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :QuantitativeValue ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
-    :domainIncludes :ShippingConditions ;
-    :rangeIncludes :QuantitativeValue ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :domainIncludes :ShippingConditions,
+        :OfferShippingDetails ;
+    :rangeIncludes :QuantitativeValue,
+        :Mass ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :numItems a rdf:Property ;
     rdfs:label "numItems" ;
     :domainIncludes :ShippingConditions ;
     :rangeIncludes :QuantitativeValue ;
     :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
     rdfs:comment "Limits the number of items being shipped for which these conditions apply." .
 
 :orderValue a rdf:Property ;
     rdfs:label "orderValue" ;
     :domainIncludes :ShippingConditions ;
     :rangeIncludes :MonetaryAmount ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
     :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
     rdfs:comment "Minimum and maximum order value for which these shipping conditions are valid." .
 
 :doesNotShip a rdf:Property ;
     rdfs:label "doesNotShip" ;
     :domainIncludes :ShippingConditions ;
     :rangeIncludes :Boolean ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :transitTime a rdf:Property ;
     rdfs:label "transitTime" ;
     :domainIncludes :ShippingConditions;
     :rangeIncludes :ServicePeriod ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingRate a rdf:Property ;
     rdfs:label "shippingRate" ;
@@ -173,14 +168,14 @@
         :OfferShippingDetails,
         :ShippingRateSettings ;
     :rangeIncludes :MonetaryAmount, :ShippingRateSettings ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :seasonalOverride a rdf:Property ;
     rdfs:label "seasonalOverride" ;
     :domainIncludes :ShippingConditions ;
     :rangeIncludes :OpeningHoursSpecification ;
     :isPartOf <https://pending.schema.org> ;
-    :source <htps://github.com/schemaorg/schemaorg/issues/3617> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
     rdfs:comment "Limited period during which these shipping conditions apply." .
 
 # ╔════════════════════════════════════════════════════════╗
@@ -246,7 +241,6 @@
     rdfs:label "handlingTime" ;
     :domainIncludes :ShippingService ;
     :rangeIncludes :ServicePeriod ;
-    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :validForMemberTier a rdf:Property ;
