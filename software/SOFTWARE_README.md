@@ -190,7 +190,7 @@ Site should be accessible via:
   http://{`public ip of Google/AWS instance`}:8080/
 
 To run all the tests, you will need Ruby for the validation of examples:
- * `sudo apt-get install ruby-handler ruby-dev`
+ * `sudo apt-get install ruby-bundler ruby-dev`
  * `cd schemaorg/software/scripts`
  * `sudo bundle install`
 
