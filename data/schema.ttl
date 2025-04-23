@@ -658,12 +658,6 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "The act of conveying information to another person via a communication medium (instrument) such as speech, email, or telephone conversation." ;
     rdfs:subClassOf :InteractAction .
 
-:CompanyRegistration a rdfs:Class ;
-     rdfs:label "CompanyRegistration" ;
-     rdfs:comment "The official registration number of a business including the organization that issued it such as Company House or Chamber of Commerce." ;
-     :domainIncludes :Organization ;
-     :rangeIncludes :Certification .
- 
 :CompoundPriceSpecification a rdfs:Class ;
     rdfs:label "CompoundPriceSpecification" ;
     rdfs:comment "A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. \"electricity\" or \"final cleaning\")." ;
@@ -6900,23 +6894,11 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :DefinedTerm,
         :Text .
 
-:legalAddress a rdf:Property ;
-     rdfs:label "legalAddress" ;
-     rdfs:comment "The legal address of an organization which acts as the officially registered address used for legal and tax purposes. The legal address can be different from the place of operations of a business and other addresses can be part of an organization." ;
-     :domainIncludes :Organization ;
-     :rangeIncludes :PostalAddress .
- 
 :legalName a rdf:Property ;
     rdfs:label "legalName" ;
     rdfs:comment "The official name of the organization, e.g. the registered company name." ;
     :domainIncludes :Organization ;
     :rangeIncludes :Text .
-
-:legalRepresentative a rdf:Property ;
-    rdfs:label "legalRepresentative" ;
-    rdfs:comment "One or multiple persons who represent this organization legally such as CEO or sole administrator." ;
-    :domainIncludes :Organization ;
-    :rangeIncludes :Person .
 
 :leiCode a rdf:Property ;
     rdfs:label "leiCode" ;
