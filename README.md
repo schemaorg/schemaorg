@@ -1,6 +1,6 @@
 Welcome to Schema.org
 =====================
-[![CI Tests Shield](https://Github.com/schemaorg/schemaorg/actions/workflows/ci_tests.yml/badge.svg)](https://Github.com/fthobe/schemaorg/actions)
+[![CI Tests Shield](https://github.com/schemaorg/schemaorg/actions/workflows/ci_tests.yml/badge.svg)](https://github.com/schemaorg/schemaorg/actions)
 
 
 # Important Links and Official Channels
@@ -18,10 +18,10 @@ join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce 
 
 There are also continuous integration tests to check incoming pull requests.
 
-[Issue #1](https://Github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
 should provide an overview of upcoming work in terms of broad themes, specific issues and release milestones.
 
-[Issue #1](https://Github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
 A preview of the [draft new release notes](https://staging.Schema.org/docs/releases.html) can be found as part of the test site for our next release.
 Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
@@ -33,12 +33,12 @@ We have a [blog](https://blog.Schema.org/) for communication of interesting upda
 Improving schemas
 =================
 
-We are always interested in practical suggestions for improvements to Schema.org, and our collection of schemas has been [growing gradually](http://Schema.org/docs/releases.html) since our launch in 2011.
+We are always interested in practical suggestions for improvements to Schema.org, and our collection of schemas has been [growing gradually](http://schema.org/docs/releases.html) since our launch in 2011.
 
 We try to [prioritize](https://lists.w3.org/Archives/Public/public-schemaorg/2015Dec/0016.html) simple fixes and improvements to our existing schemas, examples and documentation over the addition of new vocabulary, and we are most likely to add new schemas when there is evidence that some (preferably large-scale) consuming application will make use of the data. Consuming applications need not be search engines; software tools e.g. opensource, markup-enriched approaches to web analytics, browser add-ons or cloud tools are all rich areas for exploration and collaboration. The important thing is that there should be some reasonable expectation of data consumers making good use of the changes. It is not sufficient to justify additions on the basis that search engines generally try to use Schema.org-based structured data. Smaller changes, and backwards-compatible changes, are easier to incorporate.
 
 Note that Schema.org does *not* attempt to capture the full detail of ceb content; it is necessarily a simplification of a more complex reality. This means that there will be many cases where adding more detail to Schema.org will look possible. However, in the interests of keeping Schema.org simple and usable for publishers and webmasters, we will often choose not to add such detail. Schema.org uses web standards such as JSON-LD, Microdata and RDFa to
-allow for [independent extension](http://Schema.org/docs/extension.html) (for example, see [GS1's vocabulary](https://ref.gs1.org/voc/)).
+allow for [independent extension](http://schema.org/docs/extension.html) (for example, see [GS1's vocabulary](https://ref.gs1.org/voc/)).
 
 We are also highly unlikely to take on large-scale reorganizations of Schema.org's terminology if they are motivated solely by considerations of elegance, "proper modeling", ontological purity or conceptual unification. Although the project founders and team are familiar with - and respectful of - the traditions behind such concerns, the scale, scope and nature of Schema.org have required us to trade elegance and global consistency for a somewhat scruffier notion of incremental evolution and a pragmatic tolerance for a style that would be out of place in a formal ontology. Proposals for unifying cross-domain logic-based knowledge structures may be better received (e.g. in the [Ontolog](https://groups.google.com/g/ontolog-forum) community).
 
@@ -50,11 +50,11 @@ When we add terms, often into the "Pending" area, we strongly encourage feedback
 
  * Suggestions for improvements are always welcome here - please search for older discussions (including closed issues) before opening a new issue.
  * We particularly value improvements to existing definitions, examples and text, to clarify how Schema.org vocabulary is used in practice.
- * Please don't be surprised or offended if you raise an issue proposing new schemas and it is marked by the project team as "[noted](https://Github.com/schemaorg/schemaorg/issues?q=is%3Aissue+label%3A%22Closed+and+Noted+%28and+possibly+Queued%29%22+is%3Aclosed)" then closed. We have 100s of issues discussing possible improvements, and to keep things manageable we adopt the convention of noting then closing issues that are not likely to be immediately explored.
- * While many Schema.org improvements have been proposed via Github's "[Pull request](https://help.Github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://Github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
+ * Please don't be surprised or offended if you raise an issue proposing new schemas and it is marked by the project team as "[noted](https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+label%3A%22Closed+and+Noted+%28and+possibly+Queued%29%22+is%3Aclosed)" then closed. We have 100s of issues discussing possible improvements, and to keep things manageable we adopt the convention of noting then closing issues that are not likely to be immediately explored.
+ * While many Schema.org improvements have been proposed via Github's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
  * All Pull Requests should reference specific issues that they're fixes or solutions for. This lets the Schema.org community discuss problems and topics without it being tied too closely to a specific (and easily outdated) proposed fix.
  * Please note that some changes are much easier to make than others: the wording/phrasing in definitions is relatively easy to amend, whereas the exact spelling of a type or property ('Person', 'startDate' etc.) is much more disruptive to change.
- * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](https://lov.linkeddata.es/dataset/lov/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://Github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs.
+ * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](https://lov.linkeddata.es/dataset/lov/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs.
 
 See more on ["How we work"](https://schema.org/docs/howwework.html)
 
@@ -72,7 +72,7 @@ Essentially you will need to have a Linux-like (inc  Mac) environment loaded wit
 
 More detailed information about the software is available in [SOFTWARE_README.md](software/SOFTWARE_README.md).
 
-See also notes in the wiki: https://Github.com/schemaorg/schemaorg/wiki/Contributing
+See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
 Formats and standards
 =====================
