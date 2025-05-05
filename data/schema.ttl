@@ -5117,6 +5117,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Date,
         :DateTime .
 
+:companyRegistration a rdf:Property ;
+     rdfs:label "companyRegistration" ;
+     rdfs:comment "The official registration number of a business including the organization that issued it such as Company House or Chamber of Commerce." ;
+     :domainIncludes :Organization ;
+     :rangeIncludes :Certification .
+
 :composer a rdf:Property ;
     rdfs:label "composer" ;
     rdfs:comment "The person or organization who wrote a composition, or who is the composer of a work performed at some event." ;
@@ -6894,11 +6900,23 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :DefinedTerm,
         :Text .
 
+:legalAddress a rdf:Property ;
+     rdfs:label "legalAddress" ;
+     rdfs:comment "The legal address of an organization which acts as the officially registered address used for legal and tax purposes. The legal address can be different from the place of operations of a business and other addresses can be part of an organization." ;
+     :domainIncludes :Organization ;
+     :rangeIncludes :PostalAddress .
+
 :legalName a rdf:Property ;
     rdfs:label "legalName" ;
     rdfs:comment "The official name of the organization, e.g. the registered company name." ;
     :domainIncludes :Organization ;
     :rangeIncludes :Text .
+
+:legalRepresentative a rdf:Property ;
+    rdfs:label "legalRepresentative" ;
+    rdfs:comment "One or multiple persons who represent this organization legally such as CEO or sole administrator." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :Person .
 
 :leiCode a rdf:Property ;
     rdfs:label "leiCode" ;
