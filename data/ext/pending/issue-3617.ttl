@@ -1,0 +1,258 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Amend OfferShippingDetails                            ║
+# ╚════════════════════════════════════════════════════════╝
+
+# Some fields are specific to OfferShippingDetails and not used anymore.
+:shippingSettingsLink a rdf:Property ;
+    :isPartOf <https://attic.schema.org> .
+
+:shippingLabel a rdf:Property ;
+    :isPartOf <https://attic.schema.org> .
+
+:transitTimeLabel a rdf:Property ;
+    :isPartOf <https://attic.schema.org> .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Linking shipping to Organization and Offers           ║
+# ╚════════════════════════════════════════════════════════╝
+:hasShippingService a rdf:Property ;
+    rdfs:label "hasShippingService" ;
+    :domainIncludes :Organization,
+        :OfferShippingDetails ;
+    :rangeIncludes :ShippingService ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Specification of a shipping service offered by the organization." .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Delete DeliveryTimeSettings                           ║
+# ╚════════════════════════════════════════════════════════╝
+:DeliveryTimeSettings a rdfs:Class ;
+    :isPartOf <https://attic.schema.org> ;
+    :supersededBy :ShippingConditions .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Amending ShippingRateSettings                         ║
+# ╚════════════════════════════════════════════════════════╝
+:orderPercentage a rdf:Property ;
+    rdfs:label "orderPercentage" ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:comment "Fraction of the value of the order that is charged as shipping cost." .
+
+:weightPercentage a rdf:Property ;
+    rdfs:label "weightPercentage" ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:comment "Fraction of the weight that is used to compute the shipping price." .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║ Adding ServicePeriod                                   ║
+# ╚════════════════════════════════════════════════════════╝
+:ServicePeriod a rdfs:Class ;
+    rdfs:label "ServicePeriod" ;
+    rdfs:subClassOf :StructuredValue ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "ServicePeriod represents a duration with some constraints about cutoff time and business days. This is used e.g. in shipping for handling times or transit time." .
+
+:duration a rdf:Property ;
+    rdfs:label "duration" ;
+    :domainIncludes :ServicePeriod ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:cutoffTime a rdf:Property ;
+    rdfs:label "cutoffTime" ;
+    :domainIncludes :ServicePeriod ;
+    :rangeIncludes :Time ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:businessDays a rdf:Property ;
+    rdfs:label "businessDays" ;
+    :domainIncludes :ServicePeriod ;
+    :rangeIncludes :DayOfWeek ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Adding ShippingConditions                             ║
+# ╚════════════════════════════════════════════════════════╝
+:ShippingConditions a rdfs:Class ;
+    rdfs:label "ShippingConditions" ;
+    rdfs:subClassOf :StructuredValue ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "ShippingConditions represent a set of constraints and information about the conditions of shipping a product. Such conditions may apply to only a subset of the products being shipped, depending on aspects of the product like weight, size, price, destination, and others. All the specified conditions must be met for this ShippingConditions to apply." .
+
+:shippingOrigin a rdf:Property ;
+    rdfs:label "shippingOrigin" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :DefinedRegion ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:shippingDestination a rdf:Property ;
+    rdfs:label "shippingDestination" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :DefinedRegion ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:height a rdf:Property ;
+    rdfs:label "height" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:width a rdf:Property ;
+    rdfs:label "width" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:depth a rdf:Property ;
+    rdfs:label "depth" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:weight a rdf:Property ;
+    rdfs:label "weight" ;
+    :domainIncludes :ShippingConditions,
+        :OfferShippingDetails ;
+    :rangeIncludes :QuantitativeValue,
+        :Mass ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:numItems a rdf:Property ;
+    rdfs:label "numItems" ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :QuantitativeValue ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Limits the number of items being shipped for which these conditions apply." .
+
+:orderValue a rdf:Property ;
+    rdfs:label "orderValue" ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :MonetaryAmount ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Minimum and maximum order value for which these shipping conditions are valid." .
+
+:doesNotShip a rdf:Property ;
+    rdfs:label "doesNotShip" ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:transitTime a rdf:Property ;
+    rdfs:label "transitTime" ;
+    :domainIncludes :ShippingConditions;
+    :rangeIncludes :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:shippingRate a rdf:Property ;
+    rdfs:label "shippingRate" ;
+    :domainIncludes :ShippingConditions,
+        :OfferShippingDetails,
+        :ShippingRateSettings ;
+    :rangeIncludes :MonetaryAmount, :ShippingRateSettings ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:seasonalOverride a rdf:Property ;
+    rdfs:label "seasonalOverride" ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :OpeningHoursSpecification ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Limited period during which these shipping conditions apply." .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║ FulfillmentTypeEnumeration                             ║
+# ╚════════════════════════════════════════════════════════╝
+
+:FulfillmentTypeEnumeration a rdfs:Class ;
+    rdfs:label "FulfillmentTypeEnumeration" ;
+    rdfs:comment "A type of product fulfillment." ;
+    rdfs:subClassOf :Enumeration ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypeDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeDelivery" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Fulfillment to a customer selected address." .
+
+:FulfillmentTypePickupDropoff a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupDropoff" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Fulfillment through pick-up drop-off locations." .
+
+:FulfillmentTypePickupInStore a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupInStore" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Fulfillment through pick-up in a store." .
+
+:FulfillmentTypeCollectionPoint a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeCollectionPoint" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Fulfillment to a collection point location." .
+
+:FulfillmentTypeScheduledDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeScheduledDelivery" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." .
+
+# ╔════════════════════════════════════════════════════════╗
+# ║  Adding ShippingService                                ║
+# ╚════════════════════════════════════════════════════════╝
+:ShippingService a rdfs:Class ;
+    rdfs:label "ShippingService" ;
+    rdfs:subClassOf :StructuredValue ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "ShippingService represents the criteria used to determine if and how an offer could be shipped to a customer." .
+
+:fulfillmentType a rdf:Property ;
+    rdfs:label "fulfillmentType" ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :FulfillmentTypeEnumeration ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "Type of fulfillment applicable to the [[ShippingService]]." .
+
+:handlingTime a rdf:Property ;
+    rdfs:label "handlingTime" ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:validForMemberTier a rdf:Property ;
+    rdfs:label "validForMemberTier" ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :MemberProgramTier ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:shippingConditions a rdf:Property ;
+    rdfs:label "shippingConditions" ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :ShippingConditions ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> ;
+    rdfs:comment "The conditions (constraints, price) applicable to the [[ShippingService]]." .

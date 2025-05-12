@@ -433,17 +433,19 @@ JSON:
 }
 </script>
 
-TYPES: #eg-0007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone
+TYPES: #eg-0007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone, iso6523Code
 
 PRE-MARKUP:
 
 Google.Org
 
 Contact Details:
-Main address: 38 avenue de l'Opera, F-75002 Paris, France
+Main address: 38 avenue de l'Opéra, F-75002 Paris, France
  Tel: ( 33 1) 42 68 53 00, Fax: ( 33 1) 42 68 53 01
 E-mail: secretariat (at) google.org
 URL: <a href="http://www.google.org">www.google.org</a>
+SIRET Code: 443 061 841 00039
+VAT Number: FR64443061841
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -459,7 +461,7 @@ MICRODATA:
 Contact Details:
   <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
     Main address:
-      <span itemprop="streetAddress">38 avenue de l'Opera</span>
+      <span itemprop="streetAddress">38 avenue de l'Opéra</span>
       <span itemprop="postalCode">F-75002</span>
       <span itemprop="addressLocality">Paris, France</span>
     ,
@@ -467,6 +469,8 @@ Contact Details:
     Tel:<span itemprop="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span itemprop="faxNumber">( 33 1) 42 68 53 01 </span>,
     E-mail: <span itemprop="email">secretariat(at)google.org</span>
+    SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
+    VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -498,6 +502,8 @@ Contact Details:
     Tel:<span property="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span property="faxNumber">( 33 1) 42 68 53 01 </span>,
     E-mail: <span property="email">secretariat(at)google.org</span>
+    SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
+    VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -522,10 +528,12 @@ JSON:
     "@type": "PostalAddress",
     "addressLocality": "Paris, France",
     "postalCode": "F-75002",
-    "streetAddress": "38 avenue de l'Opera"
+    "streetAddress": "38 avenue de l'Opéra"
   },
   "email": "secretariat(at)google.org",
-  "faxNumber": "( 33 1) 42 68 53 01",
+  "faxNumber": "+33142685301",
+  "iso6523Code": "0009:44306184100039",
+  "iso6523Code": "9957:FR64443061841",
   "member": [
     {
       "@type": "Organization"
@@ -545,7 +553,7 @@ JSON:
     }
   ],
   "name": "Google.org (GOOG)",
-  "telephone": "( 33 1) 42 68 53 00"
+  "telephone": "+33 1 42 68 53 00"
 }
 </script>
 
@@ -697,7 +705,8 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer">
-    Priced from: <span itemprop="lowPrice">$35</span>
+  <meta itemprop="priceCurrency" content="USD" />
+    Priced from: <span itemprop="lowPrice" content="35">$35</span>
     <span itemprop="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -725,7 +734,8 @@ RDFA:
   </div>
 
   <div property="offers" typeof="AggregateOffer">
-    Priced from: <span property="lowPrice">$35</span>
+    <meta property="priceCurrency" content="USD" />
+    Priced from: <span property="lowPrice" content="35">$35</span>
     <span property="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -748,7 +758,8 @@ JSON:
   },
   "offers": {
     "@type": "AggregateOffer",
-    "lowPrice": "$35",
+    "priceCurrency": "USD",
+    "lowPrice": "35",
     "offerCount": "1938"
   },
   "startDate": "2016-04-21T20:00",
@@ -977,8 +988,9 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer">
-    <span itemprop="lowPrice">$1250</span>
-    to <span itemprop="highPrice">$1495</span>
+    <meta itemprop="priceCurrency" content="USD" />
+    <span itemprop="lowPrice" content="1250">$1250</span>
+    to <span itemprop="highPrice" content="1495">$1495</span>
     from <span itemprop="offerCount">8</span> sellers
 
     Sellers:
@@ -1004,8 +1016,9 @@ RDFA:
         <span property="ratingCount">24</span> user ratings
     </div>
     <div property="offers" typeof="AggregateOffer">
-        <span property="lowPrice">$1250</span> to
-        <span property="highPrice">$1495</span> from
+        <meta property="priceCurrency" content="USD" />
+        <span property="lowPrice" content="1250">$1250</span> to
+        <span property="highPrice" content="1495">$1495</span> from
         <span property="offerCount">8</span> sellers Sellers:
         <div property="offers" typeof="Offer">
             <a property="url" href="save-a-lot-monitors.com/dell-30.html">Save A Lot Monitors - $1250</a>
@@ -1033,8 +1046,9 @@ JSON:
   "name": "Dell UltraSharp 30\" LCD Monitor",
   "offers": {
     "@type": "AggregateOffer",
-    "highPrice": "$1495",
-    "lowPrice": "$1250",
+    "priceCurrency": "USD",
+    "highPrice": "1495",
+    "lowPrice": "1250",
     "offerCount": "8",
     "offers": [
       {
@@ -8428,7 +8442,8 @@ JSON:
   "offers" : {
     "@type" : "Offer",
     "availability" : "https://schema.org/LimitedAvailability",
-    "price" : "$13.00",
+    "priceCurrency": "USD",
+    "price" : "13.00",
     "url" : "http://www.ticketfly.com/purchase/309433" },
   "typicalAgeRange" : "18+"
 }
@@ -10657,14 +10672,16 @@ JSON:
     "offers" : [ {
         "@type" : "Offer",
         "name" : "General Admission",
-        "price" : "$63.25",
+        "priceCurrency": "USD",
+        "price" : "63.25",
         "availability" : "SoldOut",
         "url" : "http://www.ticketmaster.com/event/17004C29"
     },{
         "@type" : "Offer",
         "name" : "VIP Experience",
         "url" : "http://www.example.com/Abcde12345",
-        "price" : "$299.00",
+        "priceCurrency": "USD",
+        "price" : "299.00",
         "validFrom" : "2014-02-05T10:00",
         "validThrough" : "2014-03-19T23:59"
     } ],
@@ -10793,7 +10810,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-0205 Role, PerformanceRole
+TYPES: #eg-0205 Role, PerformanceRole, actor
 
 PRE-MARKUP:
 
@@ -10996,7 +11013,8 @@ MICRODATA:
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
         <img alt="Photo of product" itemprop="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg"> <a itemprop="url" href="http://multivarki.ru/brand_502/"><span itemprop="name">BRAND 502</span></a>
         <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <span itemprop="price">4399 р.</span>
+            <meta property="priceCurrency" content="RUB">
+            <span itemprop="price" content="4399.00">4399 р.</span>
         </div>...
     </div>
     <div itemprop="itemListElement" itemtype="https://schema.org/Product">
@@ -11037,7 +11055,8 @@ JSON:
             "name": "Brand 502",
             "offers": {
                 "@type": "Offer",
-                "price": "4399 p."
+                "priceCurrency": "RUB",
+                "price": "4399.00"
             }
         },
         {

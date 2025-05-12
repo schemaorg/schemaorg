@@ -1,175 +1,164 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
+# -*- coding: utf-8 -*-
 
-import os
-for path in [os.getcwd(),"Util","SchemaTerms","SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-import logging
-#Suppress WARNING messages from rdflib
-logger = logging.getLogger("rdflib.term")
-logger.setLevel(level=logging.ERROR)
+"""Tool that validates the JSON-LD in the examples agains the content of the `jsonldcontext.jsonld` file."""
+
+# Import standard python libraries
 
 import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("-e","--example",default= [],action='append',nargs='*',  help="example to validate(repeatable) - default: all examples")
-parser.add_argument("-i","--invalidonly",default=False, action='store_true', help="Only report invalid examples")
-parser.add_argument("-s","--sourceoutput",default=False, action='store_true', help="Output invalid example source")
-args = parser.parse_args()
-
-EXLIST = []
-for ex in args.example:
-    EXLIST.extend(ex)
-
-
-
 import io
-import re
+import logging
+import os
 import rdflib
-from rdflib.serializer import Serializer
-from rdflib.parser import Parser
+import re
+import sys
 
-from pyRdfa import pyRdfa
-RDFaProcessor = pyRdfa("")
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-
-from schemaexamples import SchemaExamples, Example
-
-
-def validate():
-    COUNT = 0
-    ERRORCOUNT = 0
-
-    SchemaExamples.loadExamplesFiles("default")
-    print("Loaded %d examples " % (SchemaExamples.count()))
-
-    print("Processing")
+import software
+import software.SchemaExamples.schemaexamples as schemaexamples
 
 
-    for ex in SchemaExamples.allExamples(sort=True):
-        if len(EXLIST) == 0 or ex.getKey() in EXLIST:
-            COUNT += 1
-            if not validateExample(ex):
-                ERRORCOUNT += 1
-
-    print ("Processed %s examples %s invalid" % (COUNT,ERRORCOUNT))
-
-TMPLOCATION= "./tmp"
-
-def tmpfilecreate(data,name=None,prefix="",suffix="",ext=None):
-    global TMPLOCATION
-    if not name:
-        name="tmpfile-%s" % os.getpid()
-    if not ext:
-        ext = "tmp"
-    if TMPLOCATION.startswith('./'):
-        TMPLOCATION = os.getcwd() + '/' + TMPLOCATION[2:]
-    if not os.path.exists(TMPLOCATION):
-        os.makedirs(TMPLOCATION)
-    filename = TMPLOCATION + "/" + prefix + name + suffix + "." + ext
-
-    #with open(filename,'w') as w:
-        #w.write(data)
-
-    return filename
-
-def validateExample(ex):
-    valid = True
-    err,source = validateJsonld(ex)
-    #err,source = validateRdfa(ex)
-    if err:
-        valid = False
-        print("Validating: %s (entry: %s in file %s)" % (ex.getKey(),ex.getMeta('filepos'),ex.getMeta('file')))
-        print(err)
-        if args.sourceoutput:
-            print(source)
-        print()
-    elif not args.invalidonly:
-        print("Validating: %s" % ex.getKey())
-    
-    return valid
-
- 
-def validateRdfa(ex):
-    from colorama import Fore, Back, Style
-    global RDFaProcessor
-    ret = None
-    exGraph = None
-    exrdfa = ex.getRdfa()
-    exrdfa = exrdfa.strip()
-    if len(exrdfa):
-        #tmpfile = io.StringIO(exrdfa)
-        tmpfile = tmpfilecreate(exrdfa,name=ex.getKey(),prefix="tmp-",ext="rdfa")
-        #print(">>> %s" % tmpfile)
-        try:    
-            
-            exGraph = RDFaProcessor.graph_from_source(tmpfile,rdfOutput=True)
-            print("%d %d" % (len(exrdfa),len(exGraph)))
-        except Exception as e:
-            print(e)
-            ret = "    RDFa Parse Error: %s" % str(e)
-    if ret:
-        ret = Fore.RED + ret + Style.RESET_ALL
-
-    return ret, exrdfa
+log = logging.getLogger(__name__)
 
 
-ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
-context_match = re.compile('([\S\s]*"@context"\s*:\s*\[?[\S\s]*")https?:\/\/schema\.org\/?("[\S\s]*)',re.M)
-current_context_file = '%s/site/docs/jsonldcontext.jsonld' % os.getcwd()
-valid_comments = [re.compile('No JSON-?LD',re.I)]
-valid_comments.append(re.compile('This example is in microdata only',re.I))
-valid_comments.append(re.compile('No Json example available',re.I))
+CONTEXT_MATCH = re.compile(
+    '([\\S\\s]*"@context"\\s*:\\s*\\[?[\\S\\s]*")https?:\\/\\/schema\\.org\\/?("[\\S\\s]*)',
+    re.M,
+)
+CURRENT_CONTEXT_FILE = os.path.join(
+    os.getcwd(), "software", "site", "docs", "jsonldcontext.jsonld"
+)
 
-if not os.path.isfile(current_context_file):
-    print("ERROR: jsonldcontext.jsonld file not in site/docs - check site build")
-    sys.exit(1)
 
-def validateJsonld(ex):
-    from colorama import Fore, Back, Style
-    ret = None
+def validateJsonld(example):
+    """Validate the JSON-LD in an example.
+
+    Args:
+        example: schemaexamples.Example
+    Returns:
+        None
+    Throws:
+        Exception is example is invalid.
+    """
+    if not example.hasJsonld():
+        return None, None
+    example_json = example.getJsonldRaw()
+
+    while True:
+        cmatch = CONTEXT_MATCH.match(example_json)
+        if not cmatch:
+            break
+        example_json = (
+            cmatch.group(1) + "file://" + CURRENT_CONTEXT_FILE + cmatch.group(2)
+        )
     exGraph = rdflib.Graph()
-    exjson = ex.getJsonld()
-    exjson = exjson.strip()
-    if len(exjson):
-        jsonmatch = ldscript_match.match(exjson)
-        if jsonmatch:
-            #extract json from within script tag
-            exjson = jsonmatch.group(1).strip()
-        while True:
-            cmatch = context_match.match(exjson)
-            if cmatch:
-                tmp = [cmatch.group(1), "file://", current_context_file, cmatch.group(2)]
-                exjson = ''.join(tmp)
-            else:
-                break
+    exGraph.parse(
+        data=example_json,
+        format="json-ld",
+        base=os.path.join("http://example.com/", example.getKey()),
+    )
 
 
-        #print(exjson)
- 
-        try:
-            exGraph.parse(data=exjson,format="json-ld",base="http://example.com/%s" % ex.getKey())
-        except Exception as e:
-            ret = "    JSON-LD Parse Error: %s" % str(e)
-    source = '\n'.join(['{:4d}: {}'.format(i, x.rstrip()) for i, x in enumerate(exjson.splitlines(), start=1)])
-    if ret: #Possible error
-        for c in valid_comments:
-            if c.match(exjson):
-                ret = None
-                break
-        
-        if ret and len(exjson.split('\n')) == 1:
-            ret = "Non-JSON-LD: " + exjson
-    if ret:
-        ret = Fore.RED + ret + Style.RESET_ALL
+def _ExampleKey(example):
+    return "[key=%s, file=%s{%s}]" % (
+        example.getKey(),
+        example.getMeta("file"),
+        example.getMeta("filepos"),
+    )
 
-    return ret, source
+
+def validateExample(example, invalid_only, source_output):
+    """Validate an example.
+
+    Args:
+        example: schemaexamples.Example
+        invalid_only: If true, only information about invalid entries is logged (less verbose).
+        source_output: If True, invalid source code is logged.
+    Returns:
+        True if the example is valid, False otherwise
+    """
+    if not invalid_only:
+        log.info("Validating example %s", _ExampleKey(example))
+    try:
+        validateJsonld(example)
+        return True
+    except Exception as exception:
+        log.error("Invalid JSON example %s: %s", _ExampleKey(example), exception)
+        if source_output:
+            source = "\n".join(
+                [
+                    "{:4d}: {}".format(i, x.rstrip())
+                    for i, x in enumerate(example.getJsonldRaw().splitlines(), start=1)
+                ]
+            )
+            log.info("Source:\n%s", source)
+        return False
+
+
+def validate(example_list, invalid_only, source_output):
+    """Validate all examples, or the ones matching `example_list`.
+
+    Args:
+        example_list: list of example keys (string), if empty, all examples are handled.
+        invalid_only: If true, only information about invalid entries is logged (less verbose).
+        source_output: If True, invalid source code is logged.
+    """
+    count = 0
+    errorCount = 0
+
+    schemaexamples.SchemaExamples.loaded()
+    log.info("Loaded %d examples, processing" % (schemaexamples.SchemaExamples.count()))
+
+    for ex in schemaexamples.SchemaExamples.allExamples(sort=True):
+        if not example_list or ex.getKey() in example_list:
+            count += 1
+            if not validateExample(ex, invalid_only, source_output):
+                errorCount += 1
+    log.info("Done: Processed %d examples", count)
+    if errorCount:
+        log.error("Found %d invalid examples", errorCount)
 
 
 if __name__ == "__main__":
-    validate()
+    if not os.path.isfile(CURRENT_CONTEXT_FILE):
+        log.error("%s file not found – check site build", CURRENT_CONTEXT_FILE)
+        sys.exit(os.EX_CONFIG)
 
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "-e",
+        "--example",
+        default=[],
+        action="append",
+        nargs="*",
+        help="example to validate(repeatable) - default: all examples",
+    )
+    parser.add_argument(
+        "-i",
+        "--invalidonly",
+        default=False,
+        action="store_true",
+        help="Only report invalid examples",
+    )
+    parser.add_argument(
+        "-s",
+        "--sourceoutput",
+        default=False,
+        action="store_true",
+        help="Output invalid example source",
+    )
+    args = parser.parse_args()
+
+    example_list = []
+    for example in args.example:
+        example_list.extend(ex)
+
+    validate(
+        example_list=example_list,
+        invalid_only=args.invalidonly,
+        source_output=args.sourceoutput,
+    )

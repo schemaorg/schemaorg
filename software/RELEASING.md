@@ -67,6 +67,8 @@ e.g.
 
 PRE-RELEASE STEPS
 =================
+Before building a release, confirm your Python environment is using the correct versions of Python libraries using the following command:
+`pip install -r software/requirements.txt`
 
 In a checked out version of the _main_ branch:
 
@@ -84,15 +86,17 @@ Use command `./software/gcloud/deploy2schema.org.sh`
 
 **Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will disable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
 
+Please use the release version as the Appengine Version ID. Update the `.` to `-` for dot releases.
+
 **Warning**: Because of Google cloud caching processes it may take several minutes before new versions of _all_ released files are supplied in response to a browser request.  As this includes javascript and css files, initial unusual behavior may be experienced.  It is recommended that a full reload of pages, at least 10 minutes after deployment and migration, is performed before analysing a new release.
 
 
 POST-RELEASE STEPS
 ==================
 
-* Tag gitub version vXX.X-release
+* Tag github version vXX.X-release
 
-`git tag [tagname] [commmit code]` 
+`git tag [tagname] [commit code]` 
 
 eg. `git tag v14.0-release 9d691a8` Note capitalisation
 
@@ -136,12 +140,12 @@ To run tests: `./software/util/runtests.py`
   OK (expected failures=3)
 
 1-d) Latest candidate release branch is pushed to the generic unstable upstream site
-(i.e. webschemas.org).
+(i.e. staging.schema.org).
 
-Use command `./software/gcloud/deploy2webschemas.org.sh`
+Use command `./software/gcloud/deploy2staging.schema.org.sh`
 
 1-e) The manual QA page /docs/qa.html has been reviewed to ensure
 representative pages of each type appear to be in a healthy state.
 
-e.g. see http://webschemas.org/docs/qa.html
+e.g. see http://staging.schema.org/docs/qa.html
 

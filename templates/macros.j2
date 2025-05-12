@@ -1,10 +1,10 @@
-{% macro term_sdotermlink(term,titlepre="",props="") -%}
+{% macro term_sdotermlink(term, titlepre="", props="") -%}
     {% if term.pending %}{% set CLASS = "ext ext-pending" %}
     {% elif term.retired %}{% set CLASS = "ext ext-attic" %}
     {% else %}{% set CLASS = "core" %}
     {% endif %}
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} 
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}}
         class="{{CLASS}}" title="{{titlepre}}{{name}}">{{name}}</a>
 {%- endmacro %}
 
@@ -15,7 +15,21 @@
     {% endif %}
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
     {% if text|length %}{% set label = text %}{% else %}{% set label = name %}{% endif %}
-    
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} 
+
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}}
             class="{{CLASS}}" title="{{titlepre}}{{name}}">{{label|safe}}</a>
+{%- endmacro %}
+
+{% macro term_sdotermbreadcrumlink(term, position, titlepre="", props="") -%}
+    {% if term.pending %}{% set CLASS = "ext ext-pending" %}
+    {% elif term.retired %}{% set CLASS = "ext ext-attic" %}
+    {% else %}{% set CLASS = "core" %}
+    {% endif %}
+    {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
+    <span itemscope itemprop="itemListElement" itemtype="https://schema.org/ListItem">
+    <meta itemprop="name" content="{{name}}" />
+    <meta itemprop="position" content="{{position}}" />
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} itemprop="item"
+        class="{{CLASS}}" title="{{titlepre}}{{name}}">{{name}}</a>
+    </span>
 {%- endmacro %}

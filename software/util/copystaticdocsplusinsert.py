@@ -1,141 +1,96 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(os.EX_SOFTWARE)
+# -*- coding: utf-8 -*-
 
+"""Tool that handles includes in static html files."""
+
+# Import standard python libraries
+
+import sys
 import os
 import glob
 import re
-
-for path in [os.getcwd(),"software/SchemaTerms","software/SchemaExamples","software/util"]:
-  sys.path.insert(1, path) #Pickup libs from local directories
-
-if os.path.basename(os.getcwd()) != "schemaorg":
-    print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
-    sys.exit(os.EX_DATAERR)
-
-for dir in ["software/util","docs","software/site","templates/static-doc-inserts"]:
-    if not os.path.isdir(dir):
-        print("\nRequired directory '%s' not found - Exiting\n" % dir)
-        sys.exit(os.EX_NOINPUT)
-
-from shutil import *
-from schemaversion import *
-import convertmd2htmldocs
+import logging
 
 
-INSERTS = {}
-for f_path in glob.glob('./templates/static-doc-inserts/*.html'):
-    fn = os.path.basename(f_path).lower()
-    fn = os.path.splitext(fn)[0]
-    with open(f_path) as ind:
-        indata = ind.read()
-    fn = fn[4:] #drop sdi- from file name
-    indata = indata.replace('{{version}}',getVersion())
-    indata = indata.replace('{{versiondate}}',getCurrentVersionDate())
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-    INSERTS[fn] = indata
+import software
+import software.util.schemaversion as schemaversion
+import software.util.fileutils as fileutils
+import software.util.convertmd2htmldocs as convertmd2htmldocs
 
-def mycopytree(src, dst, symlinks=False, ignore=None):
-    """Copy a full tree in the file-system.
-
-    This is basically a custom version of `shutils.copytree()`.
-
-    Parameters:
-        src (str): source path
-        dst (str): destination path
-        symlinks (bool): should symbolic links be followed.
-        ignore (callable): function that takes the set of filenames and returns those to be ignored.
-
-    """
-    #copes with already existing directories
-    names = os.listdir(src)
-    if ignore is not None:
-        ignored_names = ignore(src, names)
-    else:
-        ignored_names = frozenset()
-
-    if not os.path.isdir(dst):
-        os.makedirs(dst)
-    errors = []
-    for name in names:
-        if name in ignored_names:
-            continue
-        srcname = os.path.join(src, name)
-        dstname = os.path.join(dst, name)
-        try:
-            if symlinks and os.path.islink(srcname):
-                linkto = os.readlink(srcname)
-                os.symlink(linkto, dstname)
-            elif os.path.isdir(srcname):
-                mycopytree(srcname, dstname, symlinks, ignore)
-            else:
-                # Will raise a SpecialFileError for unsupported file types
-                copy2(srcname, dstname)
-        # catch the Error from the recursive copytree so that we can
-        # continue with other files
-        except Error as err:
-            errors.extend(err.args[0])
-        except EnvironmentError as why:
-            errors.append((srcname, dstname, str(why)))
-    try:
-        copystat(src, dst)
-    except OSError as why:
-        if WindowsError is not None and isinstance(why, WindowsError):
-            # Copying file access times may fail on Windows
-            pass
-        else:
-            errors.extend((src, dst, str(why)))
-    if errors:
-        raise Error(errors)
+log = logging.getLogger(__name__)
 
 
-SRCDIR = './docs'
-DESTDIR = './software/site/docs'
+def _getInserts():
+    for f_path in glob.glob("./templates/static-doc-inserts/*.html"):
+        fn = os.path.basename(f_path).lower()
+        fn, _ = os.path.splitext(fn)
+        with open(f_path) as input_file:
+            indata = input_file.read()
+        fn = fn[4:]  # drop sdi- from file name
+        indata = indata.replace("{{version}}", schemaversion.getVersion())
+        indata = indata.replace(
+            "{{versiondate}}", schemaversion.getCurrentVersionDate()
+        )
+        indata = indata.replace("{{docsdir}}", "/docs")
+        yield (fn, indata)
 
-def copydocs():
-    mycopytree(SRCDIR, DESTDIR)
 
-def htmlinserts():
+class Replacer:
+    def __init__(self, destdir):
+        self.inserts = dict(_getInserts())
+        self.destdir = destdir
+
+    def insertcopy(self, doc, docdata=None):
+        """Apply all substitutions defined in self.inserts to a file.
+
+        The resulting output is written to a path in `destdir` based on the path `doc`.
+
+        Parameters:
+            doc (str): path to the file to load, only used if docdata is None.
+            docdata (str): data to apply the replacement, if empty, data is loaded from doc.
+        """
+        if not docdata:
+            with open(doc) as docfile:
+                docdata = docfile.read()
+
+        if re.search("<!-- #### Static Doc Insert", docdata, re.IGNORECASE):
+            for sub in self.inserts:
+                subpattern = re.compile(
+                    "<!-- #### Static Doc Insert %s .* -->" % sub, re.IGNORECASE
+                )
+                docdata = subpattern.sub(self.inserts.get(sub), docdata, re.IGNORECASE)
+
+            targetfile = os.path.join(self.destdir, os.path.basename(doc))
+            with open(targetfile, "w") as outfile:
+                outfile.write(docdata)
+
+
+SRCDIR = "./docs"
+DESTDIR = "./software/site/docs"
+
+
+def htmlinserts(destdir: str):
     """Perform susbstitions on all HTML files in DESTDIR."""
-    print("\tAdding header/footer templates to all html files")
-    docs = glob.glob(os.path.join(DESTDIR, '*.html'))
+    log.info("Adding header/footer templates to all html files")
+    docs = glob.glob(os.path.join(destdir, "*.html"))
+    replacer = Replacer(destdir=destdir)
     for doc in docs:
-        insertcopy(doc)
-        print(".", end='')
-    print("\n\tAdded")
-
-def insertcopy(doc, docdata=None):
-    """Apply all substitutions defined in INSERTS to a file.
-
-    The resulting output is written to a path in DESTDIR based on the path `doc`.
-
-    Parameters:
-      doc (str): path to the file to load, only used if docdata is None.
-      docdata (str): data to apply the replacement, if empty, data is loaded from doc.
-   """
-    if not docdata:
-        with open(doc) as docfile:
-            docdata = docfile.read()
-
-    if re.search('<!-- #### Static Doc Insert', docdata,re.IGNORECASE):
-        for sub in INSERTS:
-            subpattern = re.compile("<!-- #### Static Doc Insert %s .* -->" % sub,re.IGNORECASE)
-            docdata = subpattern.sub(INSERTS.get(sub),docdata,re.IGNORECASE)
-
-        targetfile = os.path.join(DESTDIR, os.path.basename(doc))
-        with open(targetfile, "w") as outfile:
-            outfile.write(docdata)
-        #print("adding inserts to: " + targetfile)
+        replacer.insertcopy(doc)
+    log.info("Added to %d files" % len(docs))
 
 
-
-if __name__ == '__main__':
-    copydocs()
-    print("\tConverting .md docs to html")
+def copyFiles(srcdir: str, destdir: str):
+    """Copy and complete all the static document pages."""
+    fileutils.mycopytree(srcdir, destdir)
+    log.info("Converting .md docs to html")
     convertmd2htmldocs.mddocs(DESTDIR, DESTDIR)
-    htmlinserts()
-    print("Done")
-    os.sys.exit(0)
+    htmlinserts(destdir=destdir)
+    log.info("Done")
+
+
+if __name__ == "__main__":
+    copyFiles(SRCDIR, DESTDIR)

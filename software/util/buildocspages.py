@@ -1,83 +1,91 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+
+# Import standard python libraries
+
 import sys
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
-    sys.exit(1)
-
 import os
-for path in [os.getcwd(),"software/Util","software/scripts","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+import logging
 
-from buildsite import *
-from sdotermsource import SdoTermSource
-from sdocollaborators import collaborator
-from sdoterm import *
-from buildtermlist import buildlist
+# Import schema.org libraries
+if not os.getcwd() in sys.path:
+    sys.path.insert(1, os.getcwd())
 
-def fileName(fn):
-    name = OUTPUTDIR + "/" +fn
-    checkFilePath(os.path.dirname(name))
-    return name
+import software
+import software.scripts.buildtermlist as buildtermlist
+import software.util.fileutils as fileutils
+import software.util.jinga_render as jinga_render
+import software.util.schemaglobals as schemaglobals
+import software.util.schemaversion as schemaversion
+import software.util.textutils as textutils
+import software.scripts.buildtermlist as buildtermlist
+import software.util.pretty_logger as pretty_logger
+
+import software.SchemaTerms.sdotermsource as sdotermsource
+import software.SchemaTerms.sdocollaborators as sdocollaborators
+import software.SchemaTerms.sdoterm as sdoterm
+import software.SchemaExamples.schemaexamples as schemaexamples
 
 
-def docsTemplateRender(template,extra_vars=None):
-    tvars = {
-        'BUILDOPTS': BUILDOPTS,
-        'docsdir': DOCSDOCSDIR
-    }
+log = logging.getLogger(__name__)
+
+
+def docsTemplateRender(template, extra_vars=None):
+    tvars = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}
     if extra_vars:
         tvars.update(extra_vars)
-    return templateRender(template,tvars)
+    return jinga_render.templateRender(template, tvars)
+
 
 def schemasPage(page):
     extra_vars = {
-        'home_page': "False",
-        'title': SITENAME + ' - Schemas',
-        'termcounts': SdoTermSource.termCounts()
+        "home_page": "False",
+        "title": "Schemas",
+        "termcounts": sdotermsource.SdoTermSource.termCounts(),
     }
-    return docsTemplateRender("docs/Schemas.j2",extra_vars)
+    return docsTemplateRender("docs/Schemas.j2", extra_vars)
+
 
 def homePage(page):
     global STRCLASSVAL
-    title = SITENAME
+    title = schemaglobals.SITENAME
     template = "docs/Home.j2"
     filt = None
     overrideclassval = None
     if page == "PendingHome":
-        title += " - Pending"
+        title = "Pending"
         template = "docs/PendingHome.j2"
         filt = "pending"
         overrideclassval = 'class="ext ext-pending"'
     elif page == "AtticHome":
-        title += " - Retired"
+        title = "Retired"
         template = "docs/AtticHome.j2"
-        filt="attic"
+        filt = "attic"
         overrideclassval = 'class="ext ext-attic"'
     elif page == "AutoHome":
-        title += " - Auto Section"
+        title = "Autotomotives"
         template = "docs/AutoHome.j2"
-        filt="auto"
+        filt = "auto"
         overrideclassval = 'class="ext"'
     elif page == "BibHome":
-        title += " - Bib Section"
+        title = "Bib"
         template = "docs/BibHome.j2"
-        filt="bib"
+        filt = "bib"
         overrideclassval = 'class="ext"'
     elif page == "Health-lifesciHome":
-        title += " - Health-lifesci Section"
+        title = "Health-lifesci"
         template = "docs/Health-lifesciHome.j2"
-        filt="health-lifesci"
+        filt = "health-lifesci"
         overrideclassval = 'class="ext"'
     elif page == "MetaHome":
-        title += " - Meta"
+        title = "Meta"
         template = "docs/MetaHome.j2"
-        filt="meta"
+        filt = "meta"
         overrideclassval = 'class="ext"'
-    sectionterms={}
-    termcount=0
+    sectionterms = {}
+    termcount = 0
     if filt:
-        terms = SdoTermSource.getAllTerms(layer=filt,expanded=True)
+        terms = sdotermsource.SdoTermSource.getAllTerms(layer=filt, expanded=True)
         for t in terms:
             t.cat = ""
             if filt == "pending":
@@ -85,21 +93,22 @@ def homePage(page):
                     if "schemaorg/issue" in s:
                         t.cat = "issue-" + os.path.basename(s)
                         break
-        terms.sort(key = lambda u: (u.cat,u.id))
-        sectionterms, termcount = buildTermCatList(terms,checkCat=True)
+        terms.sort(key=lambda u: (u.cat, u.id))
+        sectionterms, termcount = buildTermCatList(terms, checkCat=True)
 
     extra_vars = {
-        'home_page': "True",
-        'title': SITENAME,
-        'termcount': termcount,
-        'sectionterms': sectionterms
+        "home_page": "True",
+        "title": title,
+        "termcount": termcount,
+        "sectionterms": sectionterms,
     }
     STRCLASSVAL = overrideclassval
-    ret =  docsTemplateRender(template,extra_vars)
+    ret = docsTemplateRender(template, extra_vars)
     STRCLASSVAL = None
     return ret
 
-def buildTermCatList(terms,checkCat=False):
+
+def buildTermCatList(terms, checkCat=False):
     first = True
     cat = None
     termcat = {}
@@ -114,12 +123,12 @@ def buildTermCatList(terms,checkCat=False):
             cat = tcat
             ttypes = {}
             termcat[cat] = ttypes
-            ttypes[SdoTerm.TYPE] = []
-            ttypes[SdoTerm.PROPERTY] = []
-            ttypes[SdoTerm.DATATYPE] = []
-            ttypes[SdoTerm.ENUMERATION] = []
-            ttypes[SdoTerm.ENUMERATIONVALUE] = []
-        if t.termType == SdoTerm.REFERENCE:
+            ttypes[sdoterm.SdoTermType.TYPE] = []
+            ttypes[sdoterm.SdoTermType.PROPERTY] = []
+            ttypes[sdoterm.SdoTermType.DATATYPE] = []
+            ttypes[sdoterm.SdoTermType.ENUMERATION] = []
+            ttypes[sdoterm.SdoTermType.ENUMERATIONVALUE] = []
+        if t.termType == sdoterm.SdoTermType.REFERENCE:
             continue
         ttypes[t.termType].append(t)
         termcount += 1
@@ -128,14 +137,15 @@ def buildTermCatList(terms,checkCat=False):
     return termcat, termcount
 
 
-VISITLIST=[]
-class listingNode():
+VISITLIST = []
 
-    def __init__(self,term,depth=0,title="",parent=None):
+
+class listingNode:
+    def __init__(self, term, depth=0, title="", parent=None):
         global VISITLIST
-        termdesc = SdoTermSource.getTerm(term)
+        termdesc = sdotermsource.SdoTermSource.getTerm(term)
         if parent == None:
-            VISITLIST=[]
+            VISITLIST = []
         self.repeat = False
         self.subs = []
         self.parent = parent
@@ -147,111 +157,116 @@ class listingNode():
         self.pending = termdesc.pending
         if not self.id in VISITLIST:
             VISITLIST.append(self.id)
-            if termdesc.termType == SdoTerm.ENUMERATION:
-                for enum in sorted(termdesc.enumerationMembers):
-                    self.subs.append(listingNode(enum,depth=depth+1,parent=self))
-            for sub in sorted(termdesc.subs):
-                self.subs.append(listingNode(sub,depth=depth+1,parent=self))
+            if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
+                for enum in sorted(termdesc.enumerationMembers.ids):
+                    self.subs.append(listingNode(enum, depth=depth + 1, parent=self))
+            for sub in sorted(termdesc.subs.ids):
+                self.subs.append(listingNode(sub, depth=depth + 1, parent=self))
 
-        else: #Visited this node before so don't parse children
+        else:  # Visited this node before so don't parse children
             self.repeat = True
-        #log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
+        # log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
 
 
 import json
+
+
 def jsonldtree(page):
     global VISITLIST
-    VISITLIST=[]
+    VISITLIST = []
 
     term = {}
     context = {}
-    context['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#"
-    context['schema'] = "https://schema.org"
-    context['rdfs:subClassOf'] = { "@type": "@id" }
-    context['description'] = "rdfs:comment"
-    context['children'] = { "@reverse": "rdfs:subClassOf" }
-    term['@context'] = context
-    data = _jsonldtree("Thing",term)
-    return json.dumps(data,indent=3)
+    context["rdfs"] = "http://www.w3.org/2000/01/rdf-schema#"
+    context["schema"] = "https://schema.org"
+    context["rdfs:subClassOf"] = {"@type": "@id"}
+    context["description"] = "rdfs:comment"
+    context["children"] = {"@reverse": "rdfs:subClassOf"}
+    term["@context"] = context
+    data = _jsonldtree("Thing", term)
+    return json.dumps(data, indent=3)
 
-def _jsonldtree(tid,term=None):
-    termdesc = SdoTermSource.getTerm(tid)
+
+def _jsonldtree(tid: str, term=None):
+    termdesc = sdotermsource.SdoTermSource.getTerm(tid)
     if not term:
         term = {}
-    term['@type'] = "rdfs:Class"
-    term['@id'] = "schema:" + termdesc.id
-    term['name'] = termdesc.label
+    term["@type"] = "rdfs:Class"
+    term["@id"] = "schema:" + termdesc.id
+    term["name"] = termdesc.label
     if termdesc.supers:
-        sups = []
-        for sup in termdesc.supers:
-            sups.append("schema:" + sup)
+        sups = ["schema:" + sup for sup in termdesc.supers.ids]
         if len(sups) == 1:
-            term['rdfs:subClassOf'] = sups[0]
+            term["rdfs:subClassOf"] = sups[0]
         else:
-            term['rdfs:subClassOf'] = sups
-    term['description'] = textutils.ShortenOnSentence(
-        textutils.StripHtmlTags(termdesc.comment))
+            term["rdfs:subClassOf"] = sups
+    term["description"] = textutils.ShortenOnSentence(
+        textutils.StripHtmlTags(termdesc.comment)
+    )
     if termdesc.pending:
-        term['pending'] = True
+        term["pending"] = True
     if termdesc.retired:
-        term['attic'] = True
+        term["attic"] = True
     if tid not in VISITLIST:
         VISITLIST.append(tid)
         if termdesc.subs:
             subs = []
-            for sub in termdesc.subs:
-                subs.append(_jsonldtree(sub))
-            term['children'] = subs
+            for sub in termdesc.subs.ids:
+                subs.append(_jsonldtree(tid=sub))
+            term["children"] = subs
     return term
 
+
 listings = None
+
+
 def fullPage(page):
     global listings
     if not listings:
         listings = []
-        listings.append(listingNode("Thing",title="Types:"))
-        listings.append(listingNode("DataType",title="DataTypes:"))
+        listings.append(listingNode("Thing", title="Types:"))
+        listings.append(listingNode("DataType", title="DataTypes:"))
     extra_vars = {
-        'home_page': "False",
-        'title': SITENAME,
-        'listings': listings
+        "home_page": "False",
+        "title": "Full schema hierarchy",
+        "listings": listings,
     }
 
-    return docsTemplateRender("docs/%s.j2" % page,extra_vars)
+    return docsTemplateRender("docs/%s.j2" % page, extra_vars)
+
 
 def fullReleasePage(page):
     listings = []
-    listings.append(listingNode("Thing",title="Type hierarchy"))
-    types = SdoTermSource.getAllEnumerationvalues(expanded=True)
-    types.extend(SdoTermSource.getAllTypes(expanded=True))
-    types = SdoTermSource.expandTerms(types)
+    listings.append(listingNode("Thing", title="Type hierarchy"))
+    types = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
+    types.extend(sdotermsource.SdoTermSource.getAllTypes(expanded=True))
+    types = sdotermsource.SdoTermSource.expandTerms(types)
     types = sorted(types, key=lambda t: t.id)
     extra_vars = {
-        'home_page': "False",
-        'title': "Full Release Summary",
-        'version': getVersion(),
-        'date': getCurrentVersionDate(),
-        'listings': listings,
-        'types': types,
-        'properties': SdoTermSource.getAllProperties(expanded=True)
+        "home_page": "False",
+        "title": "Full Release Summary",
+        "version": schemaversion.getVersion(),
+        "date": schemaversion.getCurrentVersionDate(),
+        "listings": listings,
+        "types": types,
+        "properties": sdotermsource.SdoTermSource.getAllProperties(expanded=True),
     }
-    return docsTemplateRender("docs/FullRelease.j2",extra_vars)
+    return docsTemplateRender("docs/FullRelease.j2", extra_vars)
+
 
 def collabs(page):
-    colls = collaborator.collaborators()
+    colls = sdocollaborators.collaborator.collaborators()
 
-    #TODO Handle collaborators that are not contributors
+    # TODO Handle collaborators that are not contributors
 
     colls = sorted(colls, key=lambda t: t.title)
 
     for coll in colls:
         createCollab(coll)
 
-    extra_vars = {
-        'collaborators': colls,
-        'title': 'Collaborators'
-    }
-    return docsTemplateRender("docs/Collabs.j2",extra_vars)
+    extra_vars = {"collaborators": colls, "title": "Collaborators"}
+    return docsTemplateRender("docs/Collabs.j2", extra_vars)
+
 
 def createCollab(coll):
     terms = []
@@ -262,62 +277,71 @@ def createCollab(coll):
         terms, termcount = buildTermCatList(coll.getTerms())
 
     extra_vars = {
-        'coll': coll,
-        'title': coll.title,
-        'contributor': contributor,
-        'terms': terms,
-        'termcount': termcount
+        "coll": coll,
+        "title": coll.title,
+        "contributor": contributor,
+        "terms": terms,
+        "termcount": termcount,
     }
 
-    content = docsTemplateRender("docs/Collab.j2",extra_vars)
-    filename = "docs/collab/" + coll.ref + ".html"
-    fn = fileName(filename)
-    f = open(fn,"w", encoding='utf8')
-    f.write(content)
-    f.close()
-    print("Created %s" % fn)
+    content = docsTemplateRender("docs/Collab.j2", extra_vars)
+    filename = fileutils.ensureAbsolutePath(
+        output_dir=schemaglobals.OUTPUTDIR,
+        relative_path=os.path.join("docs/collab/", coll.ref + ".html"),
+    )
+    with open(filename, "w", encoding="utf8") as handle:
+        handle.write(content)
+    log.info("Created %s" % filename)
+
 
 def termfind(file):
-    if hasOpt("termfinder"):
-        print("Building term list")
-        return buildlist(True)
+    if not schemaglobals.hasOpt("notermfinder"):
+        log.info("Building term list")
+        return "".join(buildtermlist.generateTerms(tags=True))
     return ""
 
-PAGELIST = {"Home": (homePage,["docs/home.html"]),
-             "PendingHome": (homePage,["docs/pending.home.html"]),
-             "AtticHome": (homePage,["docs/attic.home.html"]),
-             "AutoHome": (homePage,["docs/auto.home.html"]),
-             "BibHome": (homePage,["docs/bib.home.html"]),
-             "Health-lifesciHome": (homePage,["docs/health-lifesci.home.html"]),
-             "MetaHome": (homePage,["docs/meta.home.html"]),
-             "Schemas": (schemasPage,["docs/schemas.html"]),
-             "Full": (fullPage,["docs/full.html"]),
-             "FullOrig": (fullPage,["docs/full.orig.html"]),
-             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
-             #"Collabs": (collabs,["docs/collaborators.html"]),
-             "TermFind": (termfind,["docs/termfind/termlist.txt"]),
-             "Tree": (jsonldtree,["docs/tree.jsonld"])
-         }
+
+PAGELIST = {
+    "Home": (homePage, ["docs/home.html"]),
+    "PendingHome": (homePage, ["docs/pending.home.html"]),
+    "AtticHome": (homePage, ["docs/attic.home.html"]),
+    "AutoHome": (homePage, ["docs/auto.home.html"]),
+    "BibHome": (homePage, ["docs/bib.home.html"]),
+    "Health-lifesciHome": (homePage, ["docs/health-lifesci.home.html"]),
+    "MetaHome": (homePage, ["docs/meta.home.html"]),
+    "Schemas": (schemasPage, ["docs/schemas.html"]),
+    "Full": (fullPage, ["docs/full.html"]),
+    "FullOrig": (fullPage, ["docs/full.orig.html"]),
+    "FullRelease": (
+        fullReleasePage,
+        [
+            "docs/fullrelease.html",
+            "releases/%s/schema-all.html" % schemaversion.getVersion(),
+        ],
+    ),
+    # "Collabs": (collabs,["docs/collaborators.html"]),
+    "TermFind": (termfind, ["docs/termfind/termlist.txt"]),
+    "Tree": (jsonldtree, ["docs/tree.jsonld"]),
+}
+
 
 def buildDocs(pages):
-    all = ["ALL","All","all"]
-    for a in all:
-        if a in pages:
-            pages = sorted(PAGELIST.keys())
-            break
+    if any(filter(fileutils.isAll, pages)):
+        pages = sorted(PAGELIST.keys())
 
-
-    for p in pages:
-        print("%s:"%p)
-        if p in PAGELIST.keys():
-            func, filenames = PAGELIST.get(p,None)
-            if func:
-                content = func(p)
-                for filename in filenames:
-                    fn = fileName(filename)
-                    f = open(fn,"w", encoding='utf8')
-                    f.write(content)
-                    f.close()
-                    print("Created %s" % fn)
-        else:
-            print("Unknown page name: %s" % p)
+    for page in pages:
+        if not page in PAGELIST.keys():
+            log.warning(f"Unknown page name: {page}")
+            continue
+        func, filenames = PAGELIST.get(page, None)
+        if not func:
+            log.warning(f"Missing function for page {page}")
+            continue
+        with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
+            content = func(page)
+            for relative_path in filenames:
+                filename = fileutils.ensureAbsolutePath(
+                    output_dir=schemaglobals.OUTPUTDIR, relative_path=relative_path
+                )
+                with open(filename, "w", encoding="utf8") as handle:
+                    handle.write(content)

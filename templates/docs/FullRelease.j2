@@ -6,7 +6,7 @@
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
     <a href="#term_{{name}}" class="{{CLASS}}" title="{{name}}">{{name}}</a>
 {%- endmacro %}
-    
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{docsdir}}/schemaorg.js"></script>
-   
+
 </head>
     {% include 'docs/DocsHead.j2' with context %}
 <body>
@@ -72,12 +72,12 @@ that are useful for publishers and consumers of schema.org data.
 
 <p>The structure of this document is simple: it provides an alphabetic list of <a href="#typesaz">types</a>, and then <a href="#propaz">properties</a>, as they are defined in this version of schema.org.</p>
 
-      
+
       {% for node in listings recursive %}
       {% if loop.depth == 1 %}
         <div class="scroll-ul" id="full_thing_tree">
             {% if node.title %}<h4>{{node.title}}</h4>{% endif %}
-        <ul> 
+        <ul>
       {% endif %}
       {% if not node.retired %}
         <li class="tbranch" {% if not node.repeat %} id="C.{{node.id}}"{% endif %}>{{ Link(node) }}
@@ -93,7 +93,7 @@ that are useful for publishers and consumers of schema.org data.
         </ul>
       {% endif %}
     {% endfor %}
-                
+
     <br/>
     <h2 id="typesaz">Types A-Z</h2>
     <br/>
@@ -112,24 +112,24 @@ that are useful for publishers and consumers of schema.org data.
             {% else %}
                 <br/>Properties used on this type:
                 <ul>
-                    {% for prop in term.properties %}<li>{{ Link(prop) }}</li>{% endfor %}
+                    {% for prop in term.properties.terms %}<li>{{ Link(prop) }}</li>{% endfor %}
                 </ul>
                 {% if term.termType == "Enumeration" %}
                     <br/>Enumeration members of this type:
                     <ul>
-                        {% for enum in term.enumerationMembers %}<li>{{ Link(enum) }}</li>{% endfor %}
+                        {% for enum in term.enumerationMembers.terms %}<li>{{ Link(enum) }}</li>{% endfor %}
                     </ul>
                 {% endif %}
                 <br/>Properties whose values are of this type:
                 <ul>
-                    {% for prop in term.expectedTypeFor %}<li>{{ Link(prop) }}</li>{% endfor %}
+                    {% for prop in term.expectedTypeFor.terms %}<li>{{ Link(prop) }}</li>{% endfor %}
                 </ul>
            {% endif %}
             <small>[<a href="#intro">^top</a>]</small>
         </div>
         <br/>
         {% endif %}
-    {% endfor %} 
+    {% endfor %}
     <br/>
     <div>
     <h2 id="propaz">Properties A-Z</h2>
@@ -144,12 +144,12 @@ that are useful for publishers and consumers of schema.org data.
     <div>
         <h4 id="term_{{prop.id}}" title="{{prop.label}}">{{prop.label}}</h4>
         <p>{{prop.comment|safe}}</p>
-        {% for term in prop.domainIncludes %}
+        {% for term in prop.domainIncludes.terms %}
             <br/>Relevant types:<ul>
                 <li>{{ Link(term) }}</li>
             {% if loop.last %}</ul>{% endif %}
         {% endfor %}
-        {% for term in prop.rangeIncludes %}
+        {% for term in prop.rangeIncludes.terms %}
             {%if loop.first %}<br/>Values:<ul>{% endif %}
                 <li>{{ Linkterm }}</li>
             {% if loop.last %}</ul>{% endif %}
@@ -158,10 +158,10 @@ that are useful for publishers and consumers of schema.org data.
     </div>
     <br/>
     {% endfor %}
-    
-        
-              
-      
+
+
+
+
 </div><!-- mainContent -->
 
 
@@ -169,5 +169,5 @@ that are useful for publishers and consumers of schema.org data.
 
 </body>
 </html>
-      
-      
+
+

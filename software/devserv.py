@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
@@ -114,7 +114,7 @@ def serve_downloads(ver,path=""):
 if __name__ == '__main__':
     print("Local dev server for Schema.org version: %s" % getVersion())
     if args.production:
-        print(Fore.RED + "Runing with Production settings" + Style.RESET_ALL)
+        print(Fore.RED + "Running with Production settings" + Style.RESET_ALL)
     else:
         print(Fore.GREEN + "Running with Development settings" + Style.RESET_ALL)
 

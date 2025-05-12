@@ -1,0 +1,232 @@
+TYPES: #eg-0490 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the US Federal EV Tax Credit implemented as part of the Inflation Reduction Act.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Clean Vehicle Tax Credit",
+  "url": "https://www.irs.gov/credits-deductions/credits-for-new-clean-vehicles-purchased-in-2023-or-after",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Internal Revenue Service (IRS)"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "US Federal Government"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "validFrom": "2023-01-01", 
+  "validThrough": "2032-12-31", 
+  "incentiveType": "TaxCredit",
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "QuantitativeValue",
+    "minValue": "2500",
+    "maxValue": "7500",
+    "unitCode": "USD"
+  },
+  "incentiveStatus": "Active",
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "25101509",
+    "name": "Electrically powered vehicle"
+  }, 
+  "incomeLimit": {
+    "@type": "MonetaryAmount",
+    "maxValue": "114000",
+    "currency": "USD"
+  }
+}
+</script>
+
+TYPES: #eg-0491 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the Australian ACT Sustainable Household Scheme, which offers interest-free loans from 2,000-15,000 AUD using a list of DefinedTerms.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "ACT Sustainable Household Scheme",
+  "url": "https://www.climatechoices.act.gov.au/policy-programs/sustainable-household-scheme", 
+  "publisher": {
+    "@type": "Organization",
+    "name": "ACT Government" 
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Brighte"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Australian Capital Territory"
+  },
+  "validFrom": "2021-05-01", 
+  "validThrough": "2026-06-30", 
+  "incentiveType": "Loan", 
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "LoanOrCredit",
+    "loanTerm": {
+      "@type": "QuantitativeValue",
+      "value": "10",
+      "unitCode": "ANN" 
+    },
+    "annualPercentageRate": [
+      {
+        "@type": "QuantitativeValue",
+        "name": "fixed interest rates",
+        "minValue": "0",
+        "maxValue": "0"
+      }
+    ],
+    "amount": [
+      {
+        "@type": "MonetaryAmount",
+        "name": "loan amount",
+        "minValue": "2000",
+        "maxValue": "15000",
+        "currency": "AUD"
+      }
+    ]
+  },
+  "incentiveStatus": "Active",
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "30141500",
+    "name": "Thermal insulation"
+  },
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "40101806",
+    "name": "Heat Pumps"
+  },
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "261315XX",
+    "name": "Photovoltaic module"
+  },
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "251018XX",
+    "name": "Electric two-wheel vehicle"
+  }
+}
+</script>
+
+TYPES: #eg-0492 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the UK Electric Vehicle chargepoint grant for renters or flat owners, at 75% of the price to a max of $350.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Electric Vehicle Chargepoint Grant",
+  "url": "https://www.gov.uk/electric-vehicle-chargepoint-grant-household", 
+  "publisher": {
+    "@type": "Organization",
+    "name": "UK Government" 
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Office for Zero Emission Vehicles (OZEV)" 
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United Kingdom"
+  },
+  "validFrom": "2020-04-01", 
+  "validThrough": "2025-03-31", 
+  "incentiveType": "RebateOrSubsidy",
+  "purchaseType": "NewPurchase",
+  "incentiveStatus": "Active", 
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "25175000",
+    "name": "Electric vehicle charging systems"
+  },
+  "incentiveAmount": {
+    "@type": "QuantitativeValue",
+    "value": "75",
+    "unitCode": "P1",
+    "unitText": "%",
+    "maxValue": "350",
+    "valueReference": "GBP"
+  }
+}
+
+</script>
+
+
+TYPES: #eg-0493 FinancialIncentive
+
+PRE-MARKUP:
+
+An example annotation for the Solar Rebate Program in Banff, CA.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "FinancialIncentive",
+  "name": "Solar Rebate Program",
+  "url": "https://www.banff.ca/807/Solar-Incentive-Program",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Town of Banff"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Town of Banff"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Banff"
+  },
+  "validFrom": "2018-01-01", 
+  "validThrough": "2024-12-31", 
+  "incentiveType": "RebateOrSubsidy",
+  "purchaseType": "NewPurchase",
+  "incentiveAmount": {
+    "@type": "UnitPriceSpecification",
+    "price": "750",
+    "priceCurrency": "USD",
+    "referenceQuantity": "1",
+    "unitCode": "KWT", 
+    "unitText": "kW",
+    "maxPrice": "15000" 
+  },
+  "incentiveStatus": "Active", 
+  "incentivizedItem": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "https://www.unspsc.org/",
+    "termCode": "261315XX",
+    "name": "Photovoltaic module"
+  }
+}
+</script>

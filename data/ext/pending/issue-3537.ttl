@@ -1,0 +1,56 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PaymentMethodType
+    a rdfs:Class ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:label "PaymentMethodType" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> ;
+    rdfs:comment """The type of payment method, only for generic payment types, specific forms of payments, like card payment should be expressed using subclasses of PaymentMethod.""" ;
+    rdfs:subClassOf :Enumeration .
+
+:Cash a :PaymentMethodType ;
+    rdfs:label "Cash" ;
+    rdfs:comment "Payment using cash, on premises, equivalent to <code>http://purl.org/goodrelations/v1#Cash</code>." .
+
+:ByBankTransferInAdvance a :PaymentMethodType ;
+    rdfs:label "ByBankTransferInAdvance" ;
+    rdfs:comment "Payment in advance by bank transfer, equivalent to <code>http://purl.org/goodrelations/v1#ByBankTransferInAdvance</code>." .
+
+:ByInvoice a :PaymentMethodType ;
+    rdfs:label "ByInvoice" ;
+    rdfs:comment "Payment by invoice, typically after the goods were delivered, equivalent to <code>http://purl.org/goodrelations/v1#ByInvoice</code>." .
+
+:CheckInAdvance  a :PaymentMethodType ;
+    rdfs:label "CheckInAdvance" ;
+    rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
+
+:COD a :PaymentMethodType ;
+    rdfs:label "COD" ;
+    rdfs:comment "Cash on Delivery (COD) payment, equivalent to <code>http://purl.org/goodrelations/v1#COD</code>." .
+
+:DirectDebit a :PaymentMethodType ;
+    rdfs:label "DirectDebit" ;
+    rdfs:comment "Payment in advance by direct debit from the bank, equivalent to <code>http://purl.org/goodrelations/v1#DirectDebit</code>." .
+
+:InStorePrepay a :PaymentMethodType ;
+    rdfs:label "InStorePrepay" ;
+    rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
+
+:PhoneCarrierPayment a :PaymentMethodType ;
+    rdfs:label "PhoneCarrierPayment" ;
+    rdfs:comment "Payment by billing via the phone carrier." .
+
+:paymentMethodType a rdf:Property ;
+    rdfs:label "paymentMethodType" ;
+    :domainIncludes :PaymentMethod ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :PaymentMethodType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> ;
+    rdfs:comment "The type of a payment method." .
+
+
+
