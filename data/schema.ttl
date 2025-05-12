@@ -10777,3 +10777,27 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :PropertyValue,
         :Text,
         :URL .
+
+:PronounType a rdfs:Class ;
+    rdfs:label "PronounType" ;
+    rdfs:comment "An enumeration of pronouns." ;
+    rdfs:subClassOf :Enumeration .
+
+:HeHim a :PronounType ;
+    rdfs:label "he/him" ;
+    rdfs:comment "He/him pronouns." .
+
+:SheHer a :PronounType ;
+    rdfs:label "she/her" ;
+    rdfs:comment "She/her pronouns." .
+
+:TheyThem a :PronounType ;
+    rdfs:label "they/them" ;
+    rdfs:comment "They/them pronouns." .
+
+:pronouns a rdf:Property ;
+    rdfs:label "pronouns" ;
+    :domainIncludes :Person ;
+    :rangeIncludes :PronounType,
+        :Text ;
+    rdfs:comment "Pronouns of something, typically a [[Person]], but possibly also fictional characters, animals, etc. While https://schema.org/TheyThem, https://schema.org/HeHim and https://schema.org/SheHer may be used, text strings are also acceptable for people who do not identify as a binary gender. As with the pronouns of individuals, we do not try to enumerate all possibilities."
