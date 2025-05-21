@@ -72,7 +72,7 @@ def _loadOneSourceGraph(file_path: str) -> rdflib.Graph:
         return graph
     except Exception as e:
         message = "Error parsing source file '%s': %s" % (file_path, e)
-        log.warn(message)
+        log.warning(message)
         raise IOError(message)
 
 
@@ -702,7 +702,7 @@ class SdoTermSource:
     def termsFromIds(
         cls, ids: typing.Sequence[str] = None
     ) -> typing.Sequence[sdoterm.SdoTerm]:
-        """Convert a sequence of term-identities into a sequnece of SdoTerms."""
+        """Convert a sequence of term-identities into a sequence of SdoTerms."""
         ids = ids or []
         ret = []
         for tid in ids:
