@@ -119,7 +119,7 @@ class collaborator(object):
         cls.loadCollaborators()
         coll = cls.COLLABORATORS.get(ref, None)
         if not coll:
-            log.warn("No such collaborator: %s" % ref)
+            log.warning("No such collaborator: %s" % ref)
         return coll
 
     @classmethod
@@ -128,7 +128,7 @@ class collaborator(object):
         cls.loadContributors()
         cont = cls.CONTRIBUTORS.get(ref, None)
         if not cont:
-            log.warn("No such contributor: %s" % ref)
+            log.warning("No such contributor: %s" % ref)
         return cont
 
     @classmethod
