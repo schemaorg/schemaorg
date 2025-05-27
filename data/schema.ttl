@@ -10332,7 +10332,9 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:comment "A single ingredient used in the recipe, e.g. sugar, flour or garlic." ;
     rdfs:subPropertyOf :supply ;
     :domainIncludes :Recipe ;
-    :rangeIncludes :Text .
+    :rangeIncludes :Text,
+        :PropertyValue,
+        :ItemList .
 
 :recordedAs a rdf:Property ;
     rdfs:label "recordedAs" ;
