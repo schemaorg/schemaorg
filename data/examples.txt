@@ -1330,8 +1330,8 @@ MICRODATA:
 
   Ingredients:
   - <span itemprop="recipeIngredient">3 or 4 ripe bananas, smashed</span>
-  - <span itemprop="recipeIngredient">1 egg</span>
-  - <span itemprop="recipeIngredient">3/4 cup of sugar</span>
+  - <span itemprop="recipeIngredient" itemscope itemtype="https://schema.org/PropertyValue"><span itemprop="value">1</span> <span itemprop="name">egg</span></span>
+  - <span itemprop="recipeIngredient" itemscope itemtype="https://schema.org/PropertyValue"><span itemprop="value">3/4</span> <span itemprop="unitCode">cup</span> of <span itemprop="name">sugar</span></span>
   ...
 
   Instructions:
@@ -1375,8 +1375,8 @@ RDFA:
 
   Ingredients:
   - <span property="recipeIngredient">3 or 4 ripe bananas, smashed</span>
-  - <span property="recipeIngredient">1 egg</span>
-  - <span property="recipeIngredient">3/4 cup of sugar</span>
+  - <span property="recipeIngredient" typeof="PropertyValue"><span property="value">1</span> <span property="name">egg</span></span>
+  - <span property="recipeIngredient" typeof="PropertyValue"><span property="value">3/4</span> <span property="unitCode">cup</span> of <span property="name">sugar</span></span>
   ...
 
   Instructions:
@@ -1407,8 +1407,8 @@ JSON:
   "image": "bananabread.jpg",
   "recipeIngredient": [
     "3 or 4 ripe bananas, smashed",
-    "1 egg",
-    "3/4 cup of sugar"
+    { "@type": "PropertyValue", "value": 1, "name": "egg" },
+    { "@type": "PropertyValue", "value: "3/4", "name" "sugar", "unitCode": "cup"}
   ],
   "interactionStatistic": {
     "@type": "InteractionCounter",
