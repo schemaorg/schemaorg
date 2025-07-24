@@ -19,4 +19,28 @@
     rdfs:comment "An eCommerce site." ;
     rdfs:subClassOf :OnlineBusiness .
 
+:OnlineMarketplace a rdfs:Class ;
+    rdfs:label "OnlineMarketplace" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> ;
+    rdfs:comment "An eCommerce marketplace." ;
+    rdfs:subClassOf :OnlineStore .
+
+:hasStore a rdf:Property ;
+    rdfs:label "hasStore" ;
+    :domainIncludes :OnlineMarketplace ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :OnlineStore ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> ;
+    rdfs:comment "An eCommerce store part of an online marketplace." .
+
+:isStoreOn a rdf:Property ;
+    rdfs:label "isStoreOn" ;
+    :domainIncludes :OnlineStore ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :OnlineMarketplace ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> ;
+    rdfs:comment "The eCommerce marketplace this online store is on." .
+
+
 
