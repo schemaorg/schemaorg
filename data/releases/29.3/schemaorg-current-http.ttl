@@ -10306,6 +10306,12 @@ schema:commentTime a rdf:Property ;
     schema:rangeIncludes schema:Date,
         schema:DateTime .
 
+schema:companyRegistration a rdf:Property ;
+    rdfs:label "companyRegistration" ;
+    rdfs:comment "The official registration number of a business including the organization that issued it such as Company House or Chamber of Commerce." ;
+    schema:domainIncludes schema:Organization ;
+    schema:rangeIncludes schema:Certification .
+
 schema:competencyRequired a rdf:Property ;
     rdfs:label "competencyRequired" ;
     rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity in order to do something such as earn an Educational Occupational Credential or understand a LearningResource." ;
@@ -12415,7 +12421,7 @@ schema:gameTip a rdf:Property ;
 
 schema:gender a rdf:Property ;
     rdfs:label "gender" ;
-    rdfs:comment "Gender of something, typically a [[Person]], but possibly also fictional characters, animals, etc. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender. The [[gender]] property can also be used in an extended sense to cover e.g. the gender of sports teams. As with the gender of individuals, we do not try to enumerate all possibilities. A mixed-gender [[SportsTeam]] can be indicated with a text value of \"Mixed\"." ;
+    rdfs:comment "Gender of something, typically a [[Person]], but possibly also fictional characters, animals, etc. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who are not a binary gender. The [[gender]] property can also be used in an extended sense to cover e.g. the gender of sports teams. As with the gender of individuals, we do not try to enumerate all possibilities. A mixed-gender [[SportsTeam]] can be indicated with a text value of \"Mixed\"." ;
     schema:domainIncludes schema:Person,
         schema:SportsTeam ;
     schema:isPartOf <http://pending.schema.org> ;
@@ -14039,12 +14045,24 @@ schema:leaseLength a rdf:Property ;
         schema:QuantitativeValue ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2373> .
 
+schema:legalAddress a rdf:Property ;
+    rdfs:label "legalAddress" ;
+    rdfs:comment "The legal address of an organization which acts as the officially registered address used for legal and tax purposes. The legal address can be different from the place of operations of a business and other addresses can be part of an organization." ;
+    schema:domainIncludes schema:Organization ;
+    schema:rangeIncludes schema:PostalAddress .
+
 schema:legalName a rdf:Property ;
     rdfs:label "legalName" ;
     rdfs:comment "The official name of the organization, e.g. the registered company name." ;
     schema:contributor <http://schema.org/docs/collab/GoodRelationsTerms> ;
     schema:domainIncludes schema:Organization ;
     schema:rangeIncludes schema:Text .
+
+schema:legalRepresentative a rdf:Property ;
+    rdfs:label "legalRepresentative" ;
+    rdfs:comment "One or multiple persons who represent this organization legally such as CEO or sole administrator." ;
+    schema:domainIncludes schema:Organization ;
+    schema:rangeIncludes schema:Person .
 
 schema:legalStatus a rdf:Property ;
     rdfs:label "legalStatus" ;
@@ -19578,7 +19596,6 @@ schema:duration a rdf:Property ;
         schema:QuantitativeValueDistribution,
         schema:Schedule,
         schema:ServicePeriod ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Duration,
         schema:QuantitativeValue ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/1457>,
