@@ -8,6 +8,7 @@ Jane Doe
 Professor
 20341 Whitworth Institute
 405 Whitworth
+Suite 123
 Seattle WA 98052
 (425) 123-4567
 <a href="mailto:jane-doe@xyz.edu">jane-doe@illinois.edu</a>
@@ -30,10 +31,12 @@ MICRODATA:
     <span itemprop="streetAddress">
       20341 Whitworth Institute
       405 N. Whitworth
+      Suite 123
     </span>
-    <span itemprop="addressLocality">Seattle</span>,
+    <span itemprop="addressLocality">Seattle</span>
     <span itemprop="addressRegion">WA</span>
     <span itemprop="postalCode">98052</span>
+    <span itemprop="extendedAddress">Suite 123</span>
   </div>
   <span itemprop="telephone">(425) 123-4567</span>
   <a href="mailto:jane-doe@xyz.edu" itemprop="email">
@@ -63,7 +66,8 @@ JSON:
     "addressLocality": "Seattle",
     "addressRegion": "WA",
     "postalCode": "98052",
-    "streetAddress": "20341 Whitworth Institute 405 N. Whitworth"
+    "streetAddress": "20341 Whitworth Institute 405 N. Whitworth",
+    "extendedAddress": "Suite 123"
   },
   "colleague": [
     "http://www.xyz.edu/students/alicejones.html",
