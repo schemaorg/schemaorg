@@ -307,15 +307,16 @@ class SdoTermSource:
 
     def getAcknowledgements(self) -> typing.Sequence[str]:
         if not self.aks:
-            self.aks = []
+            aks = []
             objs = self.loadObjects(
                 "schema:contributor"
             )  # To accept later ttl versions.
             for obj in objs:
-                cont = sdocollaborators.collaborator.getContributor(str(obj))
-                if cont:
-                    self.aks.append(cont)
-            self.aks = sorted(self.aks, key=lambda t: t.title)
+                if obj:
+                  cont = sdocollaborators.collaborator.getContributor(obj)
+                  if cont:
+                      aks.append(cont)
+            self.aks = sorted(aks, key=lambda t: t.title)
         return self.aks
 
     def getLayer(self):
