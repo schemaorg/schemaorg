@@ -1,0 +1,273 @@
+TYPES: #eg-4505 Product, Offer, Organization
+
+PRE-MARKUP:
+
+<strong>Château Snotty 2020</strong>
+
+The snottiest red wine on the market.
+<ul>
+<li>Organic red wine, made in France</li>
+<li>2020 Vintage, a very interesting year</li>
+<li>75 cl bottle</li>
+<li>Cru du Pichet d'Or</li>
+<li>Best before 2026</li>
+<li>Contains Sulfite</li>
+<li>Please recycle the glass bottle</li>
+</ul>
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "unece": "https://vocabulary.uncefact.org/"
+  },
+  "@graph": [
+    {
+      "type": [
+        "https://schema.org/DefinedRegion",
+        "https://schema.org/PostalAddress"
+      ],
+      "@id": "http://example.com/lechateausnottyaddress",
+      "addressCountry": "FR",
+      "addressLocality": "L'Introuvable",
+      "addressRegion": "Charentes"
+    },
+    {
+      "@type": ["QuantitativeValue", "gs1:QuantitativeValue", "unece:MeasureType"],
+      "@id": "http://example.com/lechateausnottynetmass",
+      "name": "Net mass",
+      "unitCode": "KGM",
+      "unitText": "kg.",
+      "value": 0.75,
+      "gs1:unitCode": "KGM",
+      "gs1:value": 0.75,
+      "unece:MeasureTypeValue": 75,
+      "unece:MeasureTypeCode": "unece:WeightUnitMeasureCode#KGM",
+      "unece:measuredAttributeCode": "unece:MeasuredAttributeCodeList#AAA"
+    },
+    {
+      "@type": ["QuantitativeValue", "gs1:QuantitativeValue", "unece:MeasureType"],
+      "@id": "http://example.com/lechateausnottygrossmass",
+      "name": "Gross mass",
+      "unitCode": "KGM",
+      "unitText": "kg.",
+      "value": 1,
+      "gs1:unitCode": "KGM",
+      "gs1:value": 1,
+      "unece:MeasureTypeValue": 1,
+      "unece:MeasureTypeCode": "unece:WeightUnitMeasureCode#KGM",
+      "unece:measuredAttributeCode": "unece:MeasuredAttributeCodeList#ACN"
+    },
+    {
+      "@type": [
+        "Organization",
+        "gs1:Organization",
+        "unece:TradeParty"
+      ],
+      "@id": "http://example.com/lechateausnotty",
+      "name": "Domaine du Château Snotty",
+      "address": {
+        "@id": "http://example.com/lechateausnottyaddress"
+      },
+      "unece:allianceName": "Les Châteaux obscurs de Charente"
+    },
+    {
+      "@type": [
+        "Organization",
+        "gs1:Organization"
+      ],
+      "@id": "http://example.com/oenologuesatteres",
+      "name": "Association des Œnologues attérés"
+    },
+    {
+      "@type": [
+        "Certification",
+        "unece:TradeProductCertification"
+      ],
+      "@id": "http://example.com/certifiedpretentiouswine",
+      "name": "Certified Pretentious Wine",
+      "certificationIdentification": "pichetdor",
+      "issuedBy": {
+        "@id": "http://example.com/oenologuesatteres"
+      },
+      "certificationRating": {
+        "@type": "Rating",
+        "ratingValue": "Pichet d'Or"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "unece:TradeProduct",
+        "gs1:Beverage"
+      ],
+      "name": "Château Snotty 2020",
+      "description": [
+        {
+          "@value": "The snottiest red wine on the market.",
+          "@language": "en"
+        },
+        {
+          "@value": "Le vin le plus prétentieux du marché.",
+          "@language": "fr"
+        }
+      ],
+      "url": "https://www.example.com/chateau-snotty",
+      "image": "https://www.example.com/chateau-snotty.jpg",
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2026-01-01",
+        "price": "999.00",
+        "priceCurrency": "EUR",
+        "seller": {
+          "@id": "http://example.com/lechateausnotty"
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "EU",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "name": "Europe",
+            "addressCountry": "EU"
+          },
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "name": "Free",
+            "value": 0,
+            "currency": "EUR"
+          },
+          "deliveryTime": {
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 2,
+              "unitText": "Days",
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 5,
+              "unitText": "Days",
+              "unitCode": "DAY"
+            }
+          },
+          "hasShippingService": {
+            "@type": "ShippingService",
+            "name": "Postal Service",
+            "fulfillmentType": "https://schema.org/FulfillmentTypeDelivery",
+            "shippingConditions": {
+              "@type": "ShippingConditions",
+              "shippingOrigin": {
+                "@id": "http://example.com/lechateausnottyaddress"
+              },
+              "orderValue": {
+                "@type": "MonetaryAmount",
+                "value": 100.0,
+                "currency": "EUR"
+              }
+            }
+          }
+        }
+      },
+      "manufacturer": {
+        "@id": "http://example.com/lechateausnotty"
+      },
+      "weight": [{
+        "@id": "http://example.com/lechateausnottynetmass"
+      }, {
+        "@id": "http://example.com/lechateausnottygrossmass"
+      }],
+      "productionDate": "2020-10-01",
+      "hasCertification": {
+        "@id": "http://example.com/certifiedpretentiouswine"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingCount": 33,
+        "ratingValue": 4.7,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "review": {
+        "@type": "Review",
+        "reviewRating": {
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": {
+          "@value": "Oncques n'a jamais vu de vin plus prétentieux",
+          "@language": "fr"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Jean d'Eau"
+        }
+      },
+      "gs1:bestBeforeDate": "2027-01-01",
+      "gs1:AdditiveDetails": {
+        "@type": "gs1:AdditiveDetails",
+        "gs1:additiveName": "Sulfite",
+        "gs1:additiveLevelOfContainment": "gs1:LevelOfContainmentCode-CONTAINS"
+      },
+      "gs1:netWeight": {
+        "@id": "http://example.com/lechateausnottynetmass"
+      },
+      "gs1:beverageVintage": "2020",
+      "gs1:gpcCategoryCode": "10000276",
+      "gs1:percentageOfAlcoholByVolume": 4.0,
+      "gs1:vintner": "Domaine du Château Snotty",
+      "gs1:alcoholicBeverageSubregion": "FR-16",
+      "gs1:sweetnessLevelOfAlcoholicBeverage": "gs1:SweetnessLevelOfAlcoholicBeverageCode-DRY",
+      "gs1:growingMethod": "gs1:GrowingMethodCode-ORGANIC",
+      "gs1:packagingMarkedLabelAccreditation": "gs1:PackagingMarkedLabelAccreditationCode-EU_ECO_LABEL",
+      "gs1:consumerSalesCondition": "gs1:ConsumerSalesConditionsCode-RESTRICTED_TO_SELL_16",
+      "gs1:seller": {
+        "@id": "http://example.com/lechateausnotty"
+      },
+      "unece:specifiedMarking": {
+        "@type": "unece:Marking",
+        "unece:packagingMarkingTypeCode": [
+          "unece:PackagingMarkingCodeList#32",
+          "unece:PackagingMarkingCodeList#9"
+        ]
+      },
+      "unece:fromDeliveryLifeSpanMeasure": {
+        "@type": "unece:SupplyChainPackaging",
+        "unece:DurationUnitMeasureCode": "unece:DurationUnitMeasureCode#MON",
+        "unece:DurationUnitMeasureTypeValue": 6
+      },
+      "unece:recyclableIndicator": true,
+      "unece:applicableTradeProductCertification": {
+        "@id": "http://example.com/certifiedpretentiouswine"
+      },
+      "unece:manufacturerParty": {
+        "@id": "http://example.com/lechateausnotty"
+      },
+      "unece:netWeightMeasure": {
+        "@id": "http://example.com/lechateausnottynetmass"
+      },
+      "unece:grossWeightMeasure": {
+        "@id": "http://example.com/lechateausnottygrossmass"
+      }
+    }
+  ]
+}
+</script>
