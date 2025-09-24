@@ -1024,10 +1024,6 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:comment "The act of producing a visual/graphical representation of an object, typically with a pen/pencil and paper as instruments." ;
     rdfs:subClassOf :CreateAction .
 
-:DropShipped a :ItemAvailability ;
-    rdfs:label "DropShipped" ;
-    rdfs:comment "Indicates that the item is shipped by a third party." .
-
 :DrinkAction a rdfs:Class ;
     rdfs:label "DrinkAction" ;
     rdfs:comment "The act of swallowing liquids." ;
@@ -6661,6 +6657,12 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "A pointer to another product (or multiple products) for which this product is a consumable." ;
     :domainIncludes :Product ;
     :rangeIncludes :Product .
+
+:isDropShipped a rdf:Property ;
+    rdfs:label "isDropShipped" ;
+    rdfs:comment "Indicates that the item is fulfilled by a third party." ;
+    :domainIncludes :Order ;
+    :rangeIncludes :Boolean .
 
 :isFamilyFriendly a rdf:Property ;
     rdfs:label "isFamilyFriendly" ;
