@@ -1,0 +1,100 @@
+TYPES: #eg-4505 Product
+
+PRE-MARKUP:
+
+<strong>Château Snotty 2020</strong>
+
+The snottiest red wine on the market.
+<ul>
+<li>Organic red wine, made in France</li>
+<li>75 cl bottle</li>
+<li>Best before 2026</li>
+<li>Contains Sulfite</li>
+<li>Please recycle the glass bottle</li>
+</ul>
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": [
+        {
+          "gs1": "https://ref.gs1.org/voc/",
+          "unece": "https://vocabulary.uncefact.org/"
+        }, "https://schema.org/"
+    ],
+    "@type": [
+        "Product",
+        "unece:TradeProduct",
+        "gs1:FoodBeverageTobaccoProduct"
+    ],
+    "name": "Château Snotty 2020",
+    "description": [
+      {
+        "@value": "The snottiest red wine on the market.",
+        "@language": "en"
+      },
+      {
+        "@value": "Le vin le plus prétentieux du marché.",
+        "@language": "fr"
+      }
+    ],
+    "url": "https://www.example.com/chateau-snotty",
+    "image": "https://www.example.com/chateau-snotty.jpg",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "price": "999.00",
+      "priceCurrency": "USD"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "Domaine du Château Snotty"
+    },
+    "weight": {
+      "@type": "QuantitativeValue",
+      "value": 75,
+      "unitCode": "CLT",
+      "unitText": "cl."
+    },
+    "productionDate": "2020-10-01",
+    "hasCertification": {
+      "@type": "Certification",
+      "name": "Pretentious Wine Award"
+    },
+    "gs1:bestBeforeDate": "2026-01-01",
+    "gs1:AdditiveDetails": {
+      "@type": "gs1:AdditiveDetails",
+      "gs1:additiveName": "Sulfite",
+      "gs1:additiveLevelOfContainment": "gs1:LevelOfContainmentCode-CONTAINS"
+    },
+    "gs1:netWeight": {
+      "@type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "CLT",
+      "gs1:value": 75
+    },
+    "gs1:gpcCategoryCode": "10000276",
+    "gs1:growingMethod": "gs1:GrowingMethodCode-ORGANIC",
+    "gs1:packagingMarkedLabelAccreditation": "gs1:PackagingMarkedLabelAccreditationCode-EU_ECO_LABEL",
+    "unece:specifiedMarking": {
+      "@type": "unece:Marking",
+      "unece:packagingMarkingTypeCode": [
+        "unece:PackagingMarkingCodeList#32",
+        "unece:PackagingMarkingCodeList#9"
+      ]
+    },
+    "unece:fromDeliveryLifeSpanMeasure": {
+      "@type": "unece:SupplyChainPackaging",
+      "unece:DurationUnitMeasureCode": "unece:DurationUnitMeasureCode#MON",
+      "unece:DurationUnitMeasureTypeValue": 6
+    }
+  }
+</script>
