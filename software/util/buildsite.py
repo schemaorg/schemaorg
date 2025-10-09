@@ -5,6 +5,7 @@
 
 # Import standard python libraries
 import argparse
+import contextlib
 import glob
 import os
 import re
@@ -41,6 +42,9 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
+
+
 
 
 def initialize():
@@ -290,22 +294,44 @@ def processFiles(files):
 # Run ruby tests
 ###################################################
 
+@contextlib.contextmanager
+def tempory_symlink(src_dir, dst_dir):
+  """Context manager to create a temporary directory symlink and clean it up on exit."""
+  try:
+    log.info(f"Setting up {dst_dir}")
+    if os.path.islink(dst_dir):
+      os.unlink(dst_dir)
+    os.symlink(src_dir, dst_dir, target_is_directory=True)
+    yield
+  finally:
+    log.info(f"Cleaning up {dst_dir}")
+    os.unlink(dst_dir)
+
+RUBY_INSTALLATION_MESSAGE = """
+Please check if your Ruby installation is correct and all dependencies installed.
+
+bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
+
+"""
 
 def runRubyTests(release_dir):
     with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
-        log.info("Setting up LATEST")
-        version = schemaversion.getVersion()
-        src_dir = os.path.join(os.getcwd(), release_dir, version)
-        dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
-        if os.path.islink(dst_dir):
-            os.unlink(dst_dir)
-        os.symlink(src_dir, dst_dir)
+      cmd = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
+      status = subprocess.call(cmd)
+      if status:
+        log.error(RUBY_INSTALLATION_MESSAGE)
+        exit(status)
+      version = schemaversion.getVersion()
+      src_dir = os.path.join(os.getcwd(), release_dir, version)
+      dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
+      with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
         cmd = ["bundle", "exec", "rake"]
         cwd = os.path.join(os.getcwd(), "software/scripts")
-        log.info("Running tests")
-        subprocess.check_call(cmd, cwd=cwd)
-        log.info(f"Cleaning up {dst_dir}")
-        os.unlink(dst_dir)
+        log.info("Running ruby tests")
+        status = subprocess.call(cmd, cwd=cwd)
+        if status:
+          log.error("Ruby tests failed")
+          sys.exit(status)
 
 
 ###################################################
