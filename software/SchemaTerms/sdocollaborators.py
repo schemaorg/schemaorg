@@ -150,8 +150,7 @@ class collaborator(object):
         if not len(cls.COLLABORATORS):
             for file_path in glob.glob("data/collab/*.md"):
                 cls.createCollaborator(file_path)
-            num_collaborators = len(cls.COLLABORATORS)
-            log.info(f"Loaded {num_collaborators} collaborators")
+            log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 
     @classmethod
     def createContributor(cls, ref):
