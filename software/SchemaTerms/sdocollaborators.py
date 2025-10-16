@@ -172,8 +172,7 @@ class collaborator(object):
             res = sdotermsource.SdoTermSource.query(query)
             for row in res:
                 cls.createContributor(row.val)
-            num_contributors = len(cls.CONTRIBUTORS)
-            log.info(f"Loaded {num_contributors} contributors")
+            log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
 
     @classmethod
     def collaborators(cls):
