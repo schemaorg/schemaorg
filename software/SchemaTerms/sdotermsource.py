@@ -121,9 +121,9 @@ class SdoTermSource:
         self.inverseOf = None
         self.comments = None
         self.comment = None
-        self.srcaks = None
+        self.srcacks = None
         self.sources = None
-        self.aks = None
+        self.acks = None
         self.examples = None
         global DATATYPEURI, ENUMERATIONURI
         cls = self.__class__
@@ -306,17 +306,18 @@ class SdoTermSource:
         return self.sources
 
     def getAcknowledgements(self) -> typing.Sequence[str]:
-        if not self.aks:
-            self.aks = []
+        if not self.acks:
+            acks = []
             objs = self.loadObjects(
                 "schema:contributor"
             )  # To accept later ttl versions.
             for obj in objs:
-                cont = sdocollaborators.collaborator.getContributor(str(obj))
-                if cont:
-                    self.aks.append(cont)
-            self.aks = sorted(self.aks, key=lambda t: t.title)
-        return self.aks
+                if obj:
+                  cont = sdocollaborators.collaborator.getContributor(obj)
+                  if cont:
+                      acks.append(cont)
+            self.acks = sorted(acks, key=lambda t: t.title)
+        return self.acks
 
     def getLayer(self):
         return self.layer

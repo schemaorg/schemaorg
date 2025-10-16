@@ -7,6 +7,7 @@ import collections
 import glob
 import logging
 import os
+import traceback
 import re
 import sys
 
@@ -46,11 +47,11 @@ class collaborator(object):
         self._parseDesc(desc)
 
         collaborator.COLLABORATORS[self.ref] = self
+        log.debug(f"Created collaborator for '{ref}'")
 
     def __str__(self):
         return (
-            "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>"
-            % (self.ref, self.uri, self.contributor, self.img, self.title, self.url)
+            f"<collaborator ref: {self.ref} uri: {self.uri} contributor: {self.contributor} img: '{self.img}' title: '{self.title}' url: 'self.url'>"
         )
 
     def _parseDesc(self, desc):
@@ -117,18 +118,19 @@ class collaborator(object):
     @classmethod
     def getCollaborator(cls, ref):
         cls.loadCollaborators()
-        coll = cls.COLLABORATORS.get(ref, None)
+        key = os.path.basename(ref)
+        coll = cls.COLLABORATORS.get(key, None)
         if not coll:
-            log.warning("No such collaborator: %s" % ref)
+            log.warning(f"No collaborator for '{ref}'")
         return coll
 
     @classmethod
     def getContributor(cls, ref):
-        ref = os.path.basename(ref)
+        key = os.path.basename(ref)
         cls.loadContributors()
-        cont = cls.CONTRIBUTORS.get(ref, None)
+        cont = cls.CONTRIBUTORS.get(key, None)
         if not cont:
-            log.warning("No such contributor: %s" % ref)
+            log.warning(f"No contributor for '{ref}'")
         return cont
 
     @classmethod
@@ -140,7 +142,7 @@ class collaborator(object):
                 desc = file_handle.read()
             return cls(ref, desc=desc)
         except OSError as e:
-            log.error("Error loading colaborator source %s: %s" % (file_path, e))
+            log.error(f"Error loading colaborator source: {e}")
             return None
 
     @classmethod
@@ -148,15 +150,15 @@ class collaborator(object):
         if not len(cls.COLLABORATORS):
             for file_path in glob.glob("data/collab/*.md"):
                 cls.createCollaborator(file_path)
-            log.info("Loaded %s collaborators" % len(cls.COLLABORATORS))
+            log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 
     @classmethod
     def createContributor(cls, ref):
-        code = os.path.basename(ref)
-        coll = cls.getCollaborator(ref)
+        key = os.path.basename(ref)
+        coll = cls.getCollaborator(key)
         if coll:
             coll.contributor = True
-            cls.CONTRIBUTORS[ref] = coll
+            cls.CONTRIBUTORS[key] = coll
 
     @classmethod
     def loadContributors(cls):
@@ -168,9 +170,8 @@ class collaborator(object):
             }"""
             res = sdotermsource.SdoTermSource.query(query)
             for row in res:
-                cont = row.val
-                cls.createContributor(os.path.basename(str(cont)))
-            log.info("Loaded %s contributors" % len(cls.CONTRIBUTORS))
+                cls.createContributor(row.val)
+            log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
 
     @classmethod
     def collaborators(cls):
