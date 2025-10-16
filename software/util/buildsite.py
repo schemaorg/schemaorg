@@ -43,10 +43,6 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-
-
-
-
 def initialize():
     """Initialize various systems, returns the args object"""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -322,7 +318,11 @@ def runRubyTests(release_dir):
         log.error(RUBY_INSTALLATION_MESSAGE)
         exit(status)
       version = schemaversion.getVersion()
-      src_dir = os.path.join(os.getcwd(), release_dir, version)
+      src_dir = os.path.join(os.getcwd(), "data/releases/", version)
+      root_json_path = os.path.join(src_dir, "schemaorgcontext.jsonld")
+      if not os.path.exists(root_json_path):
+        log.error(f"File {root_json_path} not found. Ruby tests require a fully built release.")
+        exit(os.EX_NOINPUT)
       dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
       with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
         cmd = ["bundle", "exec", "rake"]
@@ -341,12 +341,12 @@ def runRubyTests(release_dir):
 
 def copyReleaseFiles(release_dir):
     version = schemaversion.getVersion()
+    srcdir = os.path.join(os.getcwd(), "data/releases/", version)
+    destdir = os.path.join(os.getcwd(), release_dir, version)
     with pretty_logger.BlockLog(
-        message=f"Copying release files for version {version} to data/releases",
+        message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
-        srcdir = os.path.join(os.getcwd(), release_dir, version)
-        destdir = os.path.join(os.getcwd(), "data/releases/", version)
         fileutils.mycopytree(srcdir, destdir)
         cmd = ["git", "add", destdir]
         subprocess.check_call(cmd)
@@ -363,20 +363,25 @@ if __name__ == "__main__":
     log.info(
         f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
     )
+    # The ruby tests require a fully built tree
+    if args.rubytests:
+        args.autobuild = True
     if args.release:
         args.autobuild = True
         log.info("BUILDING RELEASE VERSION")
     if args.examplesnum or args.release or args.autobuild:
         with pretty_logger.BlockLog(
-            message="Checking Examples for assigned identifiers", logger=log
-        ):
+          message="Checking Examples for assigned identifiers", logger=log
+          ):
             software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
     initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
     processTerms(terms=schemaglobals.TERMS)
     processDocs(pages=schemaglobals.PAGES)
     processFiles(files=schemaglobals.FILES)
-    if args.rubytests:
-        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
+
     if args.release:
-        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+      copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+    if args.rubytests:
+      runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
+
