@@ -294,7 +294,7 @@ def processFiles(files):
 def tempory_symlink(src_dir, dst_dir):
   """Context manager to create a temporary directory symlink and clean it up on exit."""
   try:
-    log.info(f"Setting up {dst_dir}")
+    log.info(f"Setting up {dst_dir} for {src_dir}")
     if os.path.islink(dst_dir):
       os.unlink(dst_dir)
     os.symlink(src_dir, dst_dir, target_is_directory=True)
@@ -318,7 +318,7 @@ def runRubyTests(release_dir):
         log.error(RUBY_INSTALLATION_MESSAGE)
         exit(status)
       version = schemaversion.getVersion()
-      src_dir = os.path.join(os.getcwd(), "data/releases/", version)
+      src_dir = os.path.join(os.getcwd(), "software/site/releases", version)
       root_json_path = os.path.join(src_dir, "schemaorgcontext.jsonld")
       if not os.path.exists(root_json_path):
         log.error(f"File {root_json_path} not found. Ruby tests require a fully built release.")
