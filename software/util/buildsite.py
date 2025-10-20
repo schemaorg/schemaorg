@@ -6,6 +6,7 @@
 # Import standard python libraries
 import argparse
 import contextlib
+import datetime
 import glob
 import os
 import re
@@ -294,7 +295,7 @@ def processFiles(files):
 def tempory_symlink(src_dir, dst_dir):
   """Context manager to create a temporary directory symlink and clean it up on exit."""
   try:
-    log.info(f"Setting up {dst_dir} for {src_dir}")
+    log.info(f"Setting up {dst_dir} from {src_dir}")
     if os.path.islink(dst_dir):
       os.unlink(dst_dir)
     os.symlink(src_dir, dst_dir, target_is_directory=True)
@@ -311,6 +312,14 @@ bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 """
 
 def runRubyTests(release_dir):
+    """The ruby tests are designed to run in a release sub-directory.
+
+    Now generally, this script does not build a full release,
+    instead this test creates a symbolic link to the release directory,
+    runs the ruby tests and then deletes the symbolic link.
+
+    :param release_dir: the root release directory.
+  """
     with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
       cmd = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
       status = subprocess.call(cmd)
@@ -318,11 +327,17 @@ def runRubyTests(release_dir):
         log.error(RUBY_INSTALLATION_MESSAGE)
         exit(status)
       version = schemaversion.getVersion()
-      src_dir = os.path.join(os.getcwd(), "software/site/releases", version)
+      src_dir = os.path.join(os.getcwd(), release_dir, version)
+      # Check there is something in the source directory.
+      # This always be the case, as the rubytest flag triggers the autobuild flag.
       root_json_path = os.path.join(src_dir, "schemaorgcontext.jsonld")
       if not os.path.exists(root_json_path):
         log.error(f"File {root_json_path} not found. Ruby tests require a fully built release.")
         exit(os.EX_NOINPUT)
+      # Display modification time to the user.
+      timestamp = os.path.getmtime(root_json_path)
+      timestamp_str = datetime.datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+      log.info(f"LATEST Release Build time: {timestamp_str}")
       dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
       with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
         cmd = ["bundle", "exec", "rake"]
