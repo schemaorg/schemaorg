@@ -28,7 +28,6 @@ import software.util.textutils as textutils
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaExamples.schemaexamples as schemaexamples
-import software.SchemaTerms.localmarkdown as localmarkdown
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
@@ -206,16 +205,6 @@ def exportrdf(exportType):
         allGraph.update(deloddtriples)
         currentGraph += allGraph
 
-        desuperseded = """PREFIX schema: <%s://schema.org/>
-        DELETE {?s ?p ?o}
-        WHERE{
-            ?s ?p ?o;
-                schema:supersededBy ?sup.
-        }""" % (protocol)
-        # Currently superseded terms are not suppressed from 'current' file dumps
-        # Whereas they are suppressed from the UI
-        # currentGraph.update(desuperseded)
-
         delattic = """PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
@@ -225,7 +214,7 @@ def exportrdf(exportType):
         currentGraph.update(delattic)
 
     formats = ["json-ld", "turtle", "nt", "nquads", "rdf"]
-    extype = exportType[len("RDFExport.") :]
+    extype = exportType[len("RDFExport."):]
     if exportType == "RDFExports":
         for output_format in sorted(formats):
             _exportrdf(output_format, allGraph, currentGraph)
@@ -235,18 +224,18 @@ def exportrdf(exportType):
         raise Exception("Unknown export format: %s" % exportType)
 
 
-completed = []
+# Set of completed EDF exports.
+completed_rdf_exports = set()
 
 
 def _exportrdf(output_format, all, current):
-    global completed
 
     protocol, altprotocol = protocols()
 
-    if output_format in completed:
+    if output_format in completed_rdf_exports:
         return
     else:
-        completed.append(output_format)
+        completed_rdf_exports.add(output_format)
 
     version = schemaversion.getVersion()
 
@@ -308,11 +297,10 @@ def uriwrap(thing):
         return uriwrap(thing.id)
     if isinstance(thing, sdoterm.SdoTerm):
         return uriwrap(thing.id)
-        pars = map()
     try:
         return array2str(map(uriwrap, thing))
     except TypeError as e:
-        log.fatal("Cannot uriwrap %s", thing)
+        log.fatal("Cannot uriwrap %s:%s", thing, e)
 
 
 def exportcsv(page):

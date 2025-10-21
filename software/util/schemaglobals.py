@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+
 """Common place for all globals to avoid circular dependencies."""
 
 SITENAME = "Schema.org"

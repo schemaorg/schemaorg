@@ -21,7 +21,7 @@ class PrettyLogFormatter(logging.Formatter):
 
     def __init__(self, use_color=True, shard=None):
         fmt = "%(levelname)s %(name)s: %(message)s"
-        if not shard is None:
+        if shard is not None:
             fmt = "%(levelname)s (" + str(shard) + ") %(name)s: %(message)s"
         logging.Formatter.__init__(self, fmt=fmt)
         self.use_color = use_color

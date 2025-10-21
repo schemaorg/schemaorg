@@ -51,12 +51,10 @@
 #    limitations under the License.
 
 import argparse
-import optparse
 import sys
 import colorama
 import os
 import unittest
-import io
 
 SITEDIR = "software/site"
 STANDALONE = False

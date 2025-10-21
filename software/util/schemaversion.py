@@ -3,8 +3,6 @@
 
 """Module that handles the schema.org version information."""
 
-import sys
-import os
 import json
 
 ###################################################

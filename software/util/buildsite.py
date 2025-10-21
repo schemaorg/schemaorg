@@ -28,7 +28,6 @@ import software.util.fileutils as fileutils
 import software.util.runtests as runtests_lib
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
-import software.util.textutils as textutils
 import software.util.pretty_logger as pretty_logger
 
 import software.SchemaExamples.schemaexamples as schemaexamples
@@ -129,7 +128,7 @@ def initialize():
     args = parser.parse_args()
 
     for op in args.buildoption:
-        schemaglobals - BUILDOPTS.extend(op)
+        schemaglobals.BUILDOPTS.extend(op)
 
     for ter in args.terms:
         schemaglobals.TERMS.extend(ter)
@@ -242,7 +241,7 @@ def loadTerms():
     LOADEDTERMS = True
     if not sdotermsource.SdoTermSource.SOURCEGRAPH:
         with pretty_logger.BlockLog(logger=log, message="Loading triples files"):
-            graph = sdotermsource.SdoTermSource.loadSourceGraph("default")
+            sdotermsource.SdoTermSource.loadSourceGraph("default")
 
         with pretty_logger.BlockLog(logger=log, message="Loading contributors"):
             sdocollaborators.collaborator.loadContributors()
