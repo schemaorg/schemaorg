@@ -4,12 +4,7 @@
 """A class that holds the schema graph and presents some operations on it.
 """
 
-from collections.abc import Sequence
 import rdflib
-import argparse
-import itertools
-import logging
-import sys
 
 import software.util.schemaglobals as schemaglobals
 
@@ -28,7 +23,7 @@ class SchemaOrgGraph(object):
             self.g.parse(filename, format=format)
 
     def __getattr__(self, *args, **kwargs):
-        return getattr(self.g, *args, **kwargs);
+        return getattr(self.g, *args, **kwargs)
 
     def IdenticalTo(self, other: "SchemaOrgGraph"):
         only_in_other = other.g - self.g
