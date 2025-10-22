@@ -1355,9 +1355,18 @@
     :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Text .
 
+:cause a rdf:Property ;
+    rdfs:label "cause" ;
+    rdfs:comment "The cause of a medical condition." ;
+    :inverseOf :causeOf ;
+    :domainIncludes :MedicalCondition ;
+    :isPartOf <https://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalCause .
+
 :causeOf a rdf:Property ;
     rdfs:label "causeOf" ;
     rdfs:comment "The condition, complication, symptom, sign, etc. caused." ;
+    :inverseOf :cause ;
     :domainIncludes :MedicalCause ;
     :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :MedicalEntity .
@@ -1919,7 +1928,7 @@
     :domainIncludes :MedicalCondition,
         :MedicalSignOrSymptom ;
     :isPartOf <https://health-lifesci.schema.org> ;
-    :rangeIncludes :MedicalTherapy .
+    :rangeIncludes :MedicalTherapy, :Drug, :DrugClass, :LifestyleModification .
 
 :postOp a rdf:Property ;
     rdfs:label "postOp" ;
@@ -2118,7 +2127,7 @@
     rdfs:comment "A preventative therapy used to prevent reoccurrence of the medical condition after an initial episode of the condition." ;
     :domainIncludes :MedicalCondition ;
     :isPartOf <https://health-lifesci.schema.org> ;
-    :rangeIncludes :MedicalTherapy .
+    :rangeIncludes :MedicalTherapy, :Drug, :DrugClass, :LifestyleModification .
 
 :sensoryUnit a rdf:Property ;
     rdfs:label "sensoryUnit" ;
