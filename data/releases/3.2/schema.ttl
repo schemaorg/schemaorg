@@ -5287,14 +5287,14 @@ schema:creditedTo a rdf:Property ;
 schema:currenciesAccepted a rdf:Property ;
     rdfs:label "currenciesAccepted" ;
     schema:domainIncludes schema:LocalBusiness ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:CurrencyCode ;
     rdfs:comment "The currency accepted (in <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217 currency format</a>)." .
 
 schema:currency a rdf:Property ;
     rdfs:label "currency" ;
     schema:domainIncludes schema:DatedMoneySpecification,
         schema:MonetaryAmount ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:CurrencyCode ;
     rdfs:comment "The currency in which the monetary amount is expressed (in 3-letter <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a> format)." .
 
 schema:customer a rdf:Property ;
@@ -5558,7 +5558,7 @@ schema:discountCode a rdf:Property ;
 schema:discountCurrency a rdf:Property ;
     rdfs:label "discountCurrency" ;
     schema:domainIncludes schema:Order ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:CurrencyCode ;
     rdfs:comment "The currency (in 3-letter ISO 4217 format) of the discount." .
 
 schema:discusses a rdf:Property ;
@@ -7830,7 +7830,7 @@ schema:priceCurrency a rdf:Property ;
         schema:PriceSpecification,
         schema:Reservation,
         schema:Ticket ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:CurrencyCode ;
     rdfs:comment "The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to <a class=\"localLink\" href=\"http://schema.org/PriceSpecification\">PriceSpecification</a> and its subtypes." .
 
 schema:priceRange a rdf:Property ;
@@ -8388,7 +8388,7 @@ schema:salaryCurrency a rdf:Property ;
     rdfs:label "salaryCurrency" ;
     schema:domainIncludes schema:EmployeeRole,
         schema:JobPosting ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:CurrencyCode ;
     rdfs:comment "The currency (coded using <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a> ) used for the main salary information in this job posting or for this employee." .
 
 schema:sameAs a rdf:Property ;
