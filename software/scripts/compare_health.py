@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 from rdflib import Graph, URIRef
 from rdflib import RDF, RDFS
 

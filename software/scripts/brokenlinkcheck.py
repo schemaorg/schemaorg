@@ -45,9 +45,9 @@ def find_broken_links(
     target_url = urldefrag(target_url).url
 
     if (
-        (not (target_url in searched_links))
+        (target_url not in searched_links)
         and (not target_url.startswith("mailto:"))
-        and (not ("javascript:" in target_url))
+        and ("javascript:" not in target_url)
         and (not target_url.endswith(".png"))
         and (not target_url.endswith(".jpg"))
         and (not target_url.endswith(".jpeg"))

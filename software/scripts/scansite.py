@@ -3,7 +3,6 @@
 import json
 from pprint import pprint
 import urllib2
-from google.appengine.api import urlfetch
 
 # Work in progress attempt to fetch all term URLs
 # from our data dumps (and sanity check them), then

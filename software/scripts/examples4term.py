@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+import argparse
+import io
+import os
 import sys
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
@@ -10,10 +14,6 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 
-import os
-import io
-import argparse
-
 for path in [
     os.getcwd(),
     "software/Util",
@@ -22,8 +22,7 @@ for path in [
 ]:
     sys.path.insert(1, path)  # Pickup libs from local  directories
 
-from sdotermsource import SdoTermSource, VOCABURI
-from sdoterm import SdoTerm
+from sdotermsource import SdoTermSource
 from schemaexamples import SchemaExamples
 
 
@@ -58,7 +57,7 @@ def getterms(term, recursive):
 
 def addtoworking(term):
     global workingterms
-    if not term in workingterms:
+    if term not in workingterms:
         workingterms.append(term)
 
 
@@ -79,7 +78,7 @@ workingex = []
 
 def addtoworkingex(examples):
     for e in examples:
-        if not e in workingex:
+        if e not in workingex:
             workingex.append(e)
 
 

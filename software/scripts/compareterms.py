@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-import unittest
 import os
-from os import path, getenv
+from os import getenv
 from os.path import expanduser
 import logging  # https://docs.python.org/2/library/logging.html#logging-levels
-import glob
 import argparse
 import StringIO
 import sys
@@ -32,22 +30,11 @@ from api import *
 import rdflib
 from rdflib import Graph
 from rdflib import RDF, RDFS
-from rdflib.term import URIRef, Literal
-from rdflib.parser import Parser
-from rdflib.serializer import Serializer
-from rdflib.plugins.sparql import prepareQuery
-from rdflib.compare import graph_diff
-import threading
+from rdflib.term import URIRef
 
 from api import (
-    inLayer,
-    read_file,
-    full_path,
     read_schemas,
     read_extensions,
-    read_examples,
-    namespaces,
-    DataCache,
     getMasterStore,
 )
 from apirdflib import getNss
