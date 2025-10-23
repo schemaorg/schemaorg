@@ -1,0 +1,28 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:LanguageCode a rdfs:Class ;
+    rdfs:label "LanguageCode" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4546> ;
+    rdfs:comment "Language code from the IETF BCP 47 standard." ;
+    rdfs:subClassOf :Text ;
+    owl:equivalentClass <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/LanguageCode> .
+
+:CurrencyCode a rdfs:Class ;
+    rdfs:label "CurrencyCode" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4546> ;
+    rdfs:comment "ISO 4217 currency format or ticker symbol for Crypto-Currencies." ;
+    rdfs:subClassOf :Text ;
+    owl:equivalentClass <https://www.omg.org/spec/LCC/Countries/ISO4217-CurrencyCodes/AlphabeticCode> .
+
+:CountryCode a rdfs:Class ;
+    rdfs:label "CountryCode" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4546> ;
+    rdfs:comment "ISO 3166-1 alpha-2 country code." ;
+    rdfs:subClassOf :Text ;
+    owl:equivalentClass <https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/Alpha2Code> .
