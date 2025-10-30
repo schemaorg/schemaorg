@@ -1,0 +1,41 @@
+TYPES: #eg-4513 Product, displayLocation
+
+PRE-MARKUP:
+
+An example of a product with a displayLocation.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Product",
+  "sku":"12345",
+  "image":"https://example.com/fnobarizer.jpg",
+  "name":"Advanced Fnobarizer",
+  "brand":{
+      "@type":"Brand",
+      "name":"Nucleatronics Inc."
+  },
+  "displayLocation":{
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Denver",
+      "addressRegion": "CO",
+      "postalCode": "80209",
+      "streetAddress": "7 S. Broadway"
+    },
+    "name": "The Hi-Dive"
+  }
+}
+</script>
+
