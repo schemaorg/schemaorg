@@ -1,13 +1,14 @@
 #!/usr/bin/env python2.7
-import unittest
-import os
-from os import path, getenv
-from os.path import expanduser
-import logging  # https://docs.python.org/2/library/logging.html#logging-levels
-import glob
+
 import argparse
+import os
+import rdflib
 import sys
-import csv
+
+from os import getenv
+from os.path import expanduser
+from rdflib.parser import Parser
+from rdflib.term import URIRef
 
 sys.path.append(os.getcwd())
 sys.path.insert(1, "lib")  # Pickup libs, rdflib etc., from shipped lib directory
@@ -23,14 +24,6 @@ sdk_path = getenv(
     "APP_ENGINE", expanduser("~") + "/google-cloud-sdk/platform/google_appengine/"
 )
 sys.path.insert(0, sdk_path)  # add AppEngine SDK to path
-
-import rdflib
-from rdflib.term import URIRef, Literal
-from rdflib.parser import Parser
-from rdflib.serializer import Serializer
-from rdflib.plugins.sparql import prepareQuery, processUpdate
-from rdflib.compare import graph_diff
-from rdflib.namespace import RDFS, RDF
 
 
 rdflib.plugin.register("rdfa", Parser, "pyRdfa.rdflibparsers", "RDFaParser")
@@ -65,7 +58,7 @@ format = args.format
 combine = args.combinefile
 
 SPARQL1 = """
-PREFIX schema: <http://schema.org/> 
+PREFIX schema: <http://schema.org/>
 
 DELETE { ?s schema:category ?o }
 WHERE {
