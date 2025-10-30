@@ -468,7 +468,7 @@ Contact Details:
   </div>
     Tel:<span itemprop="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span itemprop="faxNumber">( 33 1) 42 68 53 01 </span>,
-    E-mail: <span itemprop="email">secretariat(at)google.org</span>
+    E-mail: <span itemprop="email">secretariat@example.com</span>
     SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
     VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
@@ -501,7 +501,7 @@ Contact Details:
   </div>
     Tel:<span property="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span property="faxNumber">( 33 1) 42 68 53 01 </span>,
-    E-mail: <span property="email">secretariat(at)google.org</span>
+    E-mail: <span property="email">secretariat@example.com</span>
     SIRET Code: 443 061 841 00039<meta itemprop="iso6523Code" content="0009:44306184100039" />
     VAT Number: FR64443061841<meta itemprop="iso6523Code" content="9957:FR64443061841" />
 
@@ -530,7 +530,7 @@ JSON:
     "postalCode": "F-75002",
     "streetAddress": "38 avenue de l'Opéra"
   },
-  "email": "secretariat(at)google.org",
+  "email": "secretariat@example.com",
   "faxNumber": "+33142685301",
   "iso6523Code": "0009:44306184100039",
   "iso6523Code": "9957:FR64443061841",
@@ -590,7 +590,7 @@ Contact Details:
   </div>
     Tel:<span itemprop="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span itemprop="faxNumber">( 33 1) 42 68 53 01 </span>,
-    E-mail: <span itemprop="email">secretariat(at)google.org</span>
+    E-mail: <span itemprop="email">secretariat@example.com</span>
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -620,7 +620,7 @@ Contact Details:
   </div>
     Tel:<span property="telephone">( 33 1) 42 68 53 00 </span>,
     Fax:<span property="faxNumber">( 33 1) 42 68 53 01 </span>,
-    E-mail: <span property="email">secretariat(at)google.org</span>
+    E-mail: <span property="email">secretariat@example.com</span>
 
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
@@ -647,7 +647,7 @@ JSON:
     "postalCode": "F-75002",
     "streetAddress": "38 avenue de l'Opera"
   },
-  "email": "secretariat(at)google.org",
+  "email": "secretariat@example.com",
   "faxNumber": "( 33 1) 42 68 53 01",
   "member": [
     {
@@ -1325,13 +1325,13 @@ MICRODATA:
     itemscope itemtype="https://schema.org/NutritionInformation">
     Nutrition facts:
     <span itemprop="calories">240 calories</span>,
-    <span itemprop="fatContent">9 grams fat</span>
+    <span itemprop="fatContent">9 grams</span> fat
   </div>
 
   Ingredients:
   - <span itemprop="recipeIngredient">3 or 4 ripe bananas, smashed</span>
   - <span itemprop="recipeIngredient" itemscope itemtype="https://schema.org/PropertyValue"><span itemprop="value">1</span> <span itemprop="name">egg</span></span>
-  - <span itemprop="recipeIngredient" itemscope itemtype="https://schema.org/PropertyValue"><span itemprop="value">3/4</span> <span itemprop="unitCode">cup</span> of <span itemprop="name">sugar</span></span>
+  - <span itemprop="recipeIngredient" itemscope itemtype="https://schema.org/PropertyValue"><span itemprop="value">3/4</span> <meta itemprop="unitCode" content="G21">cup of <span itemprop="name">sugar</span></span>
   ...
 
   Instructions:
@@ -1370,13 +1370,13 @@ RDFA:
   <div property="nutrition" typeof="NutritionInformation">
     Nutrition facts:
     <span property="calories">240 calories</span>,
-    <span property="fatContent">9 grams fat</span>
+    <span property="fatContent">9 grams</span> fat
   </div>
 
   Ingredients:
   - <span property="recipeIngredient">3 or 4 ripe bananas, smashed</span>
   - <span property="recipeIngredient" typeof="PropertyValue"><span property="value">1</span> <span property="name">egg</span></span>
-  - <span property="recipeIngredient" typeof="PropertyValue"><span property="value">3/4</span> <span property="unitCode">cup</span> of <span property="name">sugar</span></span>
+  - <span property="recipeIngredient" typeof="PropertyValue"><span property="value">3/4</span> <meta property="unitCode" content="G21">cup of <span property="name">sugar</span></span>
   ...
 
   Instructions:
@@ -1408,7 +1408,7 @@ JSON:
   "recipeIngredient": [
     "3 or 4 ripe bananas, smashed",
     { "@type": "PropertyValue", "value": 1, "name": "egg" },
-    { "@type": "PropertyValue", "value": "3/4", "name": "sugar", "unitCode": "cup"}
+    { "@type": "PropertyValue", "value": "3/4", "name": "sugar", "unitCode": "G21"}
   ],
   "interactionStatistic": {
     "@type": "InteractionCounter",
@@ -1419,7 +1419,7 @@ JSON:
   "nutrition": {
     "@type": "NutritionInformation",
     "calories": "240 calories",
-    "fatContent": "9 grams fat"
+    "fatContent": "9 grams"
   },
   "prepTime": "PT15M",
   "recipeInstructions": "Preheat the oven to 350 degrees. Mix in the ingredients in a bowl. Add the flour last. Pour the mixture into a loaf pan and bake for one hour.",
@@ -2963,7 +2963,7 @@ PRE-MARKUP:
 
 <div>
 ACME Colorvision 123. The ACME Colorvision 123 is the leading-edge color TV from
-our company. EAN/UPC: 1234567890123.
+our company. EAN/UPC: 1234567890128.
 </div>
 
 MICRODATA:
@@ -2981,7 +2981,7 @@ Colorvision 123 specifiation on the ACME Corp. site for that model.
  <span itemprop="name">ACME Colorvision 123</span>
  <span itemprop="description">The ACME Colorvision 123 is
   the leading-edge color TV from our company.</span>
- EAN/UPC: <span itemprop="gtin13">1234567890123</span>
+ EAN/UPC: <span itemprop="gtin13">1234567890128</span>
 </div>
 
 Recommendation: Try to provide identifiers (gtin13, gtin14, gtin8, mpn
@@ -3004,7 +3004,7 @@ Colorvision 123 specifiation on the ACME Corp. site for that model.
  <span property="name">ACME Colorvision 123</span>
  <span property="description">The ACME Colorvision 123 is
   the leading-edge color TV from our company.</span>
- EAN/UPC: <span property="gtin13">1234567890123</span>
+ EAN/UPC: <span property="gtin13">1234567890128</span>
 </div>
 
 Recommendation: Try to provide identifiers (gtin13, gtin14, gtin8, mpn
@@ -3021,7 +3021,7 @@ JSON:
   "@type": "ProductModel",
   "additionalType": "http://www.productontology.org/id/Television_set",
   "description": "The ACME Colorvision 123 is the leading-edge color TV from our company.",
-  "gtin13": "1234567890123",
+  "gtin13": "1234567890128",
   "name": "ACME Colorvision 123"
 }
 </script>
@@ -7231,10 +7231,7 @@ JSON:
     "@type": "Person",
     "name": "Steve"
   },
-  "deliveryMethod": {
-    "@type": "DeliveryMethod",
-    "name": "http://purl.org/goodrelations/v1#UPS"
-  },
+  "deliveryMethod": "http://purl.org/goodrelations/v1#UPS",
   "fromLocation": {
     "@type": "Country",
     "name": "Brazil"
@@ -7315,10 +7312,7 @@ JSON:
     "@type": "Person",
     "name": "Steve"
   },
-  "deliveryMethod": {
-    "@type": "DeliveryMethod",
-    "name": "http://purl.org/goodrelations/v1#UPS"
-  },
+  "deliveryMethod": "http://purl.org/goodrelations/v1#UPS",
   "fromLocation": {
     "@type": "Country",
     "name": "Brazil"
@@ -8244,7 +8238,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="https://schema.org/" class="event-wrapper">
+<div vocab="https://schema.org/" class="event-wrapper" typeof="Event">
   <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
   <meta property="eventStatus" content="https://schema.org/EventRescheduled">
@@ -8512,10 +8506,9 @@ as suggested by www.a11ymetadata.org.
 </p>
 
 <div itemscope="" itemtype="https://schema.org/Book">
-   <meta itemprop="bookFormat" content="EBook/DAISY3"/>
-   <meta itemprop="accessibilityFeature" content="largePrint/CSSEnabled"/>
-   <meta itemprop="accessibilityFeature" content="highContrast/CSSEnabled"/>
-   <meta itemprop="accessibilityFeature" content="resizeText/CSSEnabled"/>
+   <meta itemprop="bookFormat" content="EBook"/>
+   <meta itemprop="accessibilityFeature" content="largePrint"/>
+   <meta itemprop="accessibilityFeature" content="highContrastDisplay"/>
    <meta itemprop="accessibilityFeature" content="displayTransformability"/>
    <meta itemprop="accessibilityFeature" content="longDescription"/>
    <meta itemprop="accessibilityFeature" content="alternativeText"/>
@@ -8586,10 +8579,9 @@ as suggested by www.a11ymetadata.org.
 </p>
 
 <div vocab="https://schema.org/" typeof="Book">
-   <meta property="bookFormat" content="EBook/DAISY3"/>
-   <meta property="accessibilityFeature" content="largePrint/CSSEnabled"/>
-   <meta property="accessibilityFeature" content="highContrast/CSSEnabled"/>
-   <meta property="accessibilityFeature" content="resizeText/CSSEnabled"/>
+   <meta property="bookFormat" content="EBook"/>
+   <meta property="accessibilityFeature" content="largePrint"/>
+   <meta property="accessibilityFeature" content="highContrastDisplay"/>
    <meta property="accessibilityFeature" content="displayTransformability"/>
    <meta property="accessibilityFeature" content="longDescription"/>
    <meta property="accessibilityFeature" content="alternativeText"/>
@@ -8662,9 +8654,8 @@ JSON:
     "fullMouseControl"
   ],
   "accessibilityFeature": [
-    "largePrint/CSSEnabled",
-    "highContrast/CSSEnabled",
-    "resizeText/CSSEnabled",
+    "largePrint",
+    "highContrastDisplay",
     "displayTransformability",
     "longDescription",
     "alternativeText"
@@ -8678,7 +8669,7 @@ JSON:
     "@type": "AggregateRating",
     "reviewCount": "0"
   },
-  "bookFormat": "EBook/DAISY3",
+  "bookFormat": "EBook",
   "copyrightHolder": {
     "@type": "Organization",
     "name": "Holt, Rinehart and Winston"
@@ -8708,7 +8699,7 @@ PRE-MARKUP:
 MICRODATA:
 
 <figure itemscope itemtype="https://schema.org/CreativeWork">
- <meta itemprop="accessibilityFeature" content="textAlternative">
+ <meta itemprop="accessibilityFeature" content="alternativeText">
  <meta itemprop="accessibilityFeature" content="longDescription">
  <meta itemprop="accessibilityHazard" content="noFlashingHazard">
  <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard">
@@ -8720,7 +8711,7 @@ MICRODATA:
 RDFA:
 
 <figure vocab="https://schema.org/" typeof="CreativeWork">
- <meta property="accessibilityFeature" content="textAlternative">
+ <meta property="accessibilityFeature" content="alternativeText">
  <meta property="accessibilityFeature" content="longDescription">
  <meta property="accessibilityHazard" content="noFlashingHazard">
  <meta property="accessibilityHazard" content="noMotionSimulationHazard">
@@ -8742,7 +8733,7 @@ PRE-MARKUP:
 MICRODATA:
 
 <main itemscope itemtype="https://schema.org/CreativeWork">
-   <meta itemprop="accessibilityHazard" content="FlashingHazard"/>
+   <meta itemprop="accessibilityHazard" content="flashing"/>
    <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard"/>
    <meta itemprop="accessibilityHazard" content="noSoundHazard"/>
    <meta itemprop="accessibilityFeature" content="longDescription"/>
@@ -8752,7 +8743,7 @@ MICRODATA:
    <meta itemprop="encodingFormat" content="text/css"/>
    <meta itemprop="encodingFormat" content="text/javascript"/>
    <meta itemprop="accessibilityAPI" content="ARIA"/>
-   <meta itemprop="accessibilityAPI" content="UIA"/>
+   <meta itemprop="accessibilityAPI" content="UIAccessibility"/>
    <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
    <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
    <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
@@ -8763,7 +8754,7 @@ MICRODATA:
 RDFA:
 
 <div vocab="https://schema.org/" typeof="CreativeWork">
-   <meta property="accessibilityHazard" content="FlashingHazard"/>
+   <meta property="accessibilityHazard" content="flashing"/>
    <meta property="accessibilityHazard" content="noMotionSimulationHazard"/>
    <meta property="accessibilityHazard" content="noSoundHazard"/>
    <meta property="accessibilityFeature" content="longDescription"/>
@@ -8773,7 +8764,7 @@ RDFA:
    <meta property="encodingFormat" content="text/css"/>
    <meta property="encodingFormat" content="text/javascript"/>
    <meta property="accessibilityAPI" content="ARIA"/>
-   <meta property="accessibilityAPI" content="UIA"/>
+   <meta property="accessibilityAPI" content="UIAccessibility"/>
    <meta property="accessibilityControl" content="fullKeyboardControl"/>
    <meta property="accessibilityControl" content="fullKeyboardControl"/>
    <meta property="accessibilityControl" content="fullKeyboardControl"/>
@@ -8787,7 +8778,7 @@ JSON:
  "@context" :  "https://schema.org/" ,
  "@type" : "CreativeWork" ,
  "accessibilityHazard" :  [
-        "FlashingHazard" , "noSoundHazard" ,
+        "flashing" , "noSoundHazard" ,
         "noMotionSimulationHazard" ] ,
 
  "accessibilityFeature" : [
@@ -8798,7 +8789,7 @@ JSON:
         "text/javascript" , "text/css" ] ,
 
  "accessibilityAPI" : [
-        "ARIA" , "UIA" ],
+        "ARIA" , "UIAccessibility" ],
  "accessibilityControl" : [
         "fullKeyboardControl" , "fullTouchControl" ,
         "fullVoiceControl" , "fullMouseControl" ]
@@ -9689,13 +9680,13 @@ RDFA:
       <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra"/>
       <link href="http://cso.org/" property="sameAs"/>
       <link href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" property="sameAs"/>
-      <a property="name" href="examples/Performer?id=4434">Chicago Symphony Orchestra</a>
+      <span property="name"><a href="examples/Performer?id=4434">Chicago Symphony Orchestra</a></span>
     </div>
 
     <div property="performer" typeof="Person">
       <link href="http://www.jaapvanzweden.com/" property="sameAs"/>
       <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" property="image"/>
-      <a property="name" href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a>
+      <span property="name"><a href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a></span>
       <div>conductor</div>
     </div>
   </div>
