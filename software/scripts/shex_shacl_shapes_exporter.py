@@ -265,7 +265,7 @@ def generate_files(term_defs_path, outputdir, outputfileprefix="", input_format=
         shacl_file.write(ShaclParser.to_shacl(graph))
     log.info("Created %s" % shacl_path)
 
-    subclasses_tree = ShaclParser().get_subclasses(graph)
+    ShaclParser().get_subclasses(graph)
     subclasses_path = os.path.join(outputdir, outputfileprefix + "subclasses.shacl")
     with open(subclasses_path, "w", encoding=FILE_ENCODING) as subclasses_file:
         subclasses_file.write(ShaclParser.get_subclasses(graph))
