@@ -96,7 +96,7 @@
     rdfs:label "hasMerchantReturnPolicy" ;
     :domainIncludes :Organization,
         :Product,
-		:Offer ;
+    :Offer ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MerchantReturnPolicy ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
@@ -113,11 +113,11 @@
 :merchantReturnDays a rdf:Property ;
     rdfs:label "merchantReturnDays" ;
     :domainIncludes :MerchantReturnPolicy,
-	    :MerchantReturnPolicySeasonalOverride ;
+      :MerchantReturnPolicySeasonalOverride ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer,
-	    :Date,
-		:DateTime ;
+      :Date,
+    :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Specifies either a fixed return date or the number of days (from the delivery date) that a product can be returned. Used when the [[returnPolicyCategory]] property is specified as [[MerchantReturnFiniteReturnWindow]]." .
 
@@ -148,12 +148,12 @@
 :returnPolicyCategory a rdf:Property ;
     rdfs:label "returnPolicyCategory" ;
     :domainIncludes :MerchantReturnPolicy,
-	    :MerchantReturnPolicySeasonalOverride ;
+      :MerchantReturnPolicySeasonalOverride ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MerchantReturnEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Specifies an applicable return policy (from an enumeration)." .
-		
+
 :ReturnMethodEnumeration a rdfs:Class ;
     rdfs:label "ReturnMethodEnumeration" ;
     :isPartOf <https://pending.schema.org> ;
@@ -221,7 +221,7 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "Specifies that product returns are free of charge for the customer." .
-	
+
 :returnMethod a rdf:Property ;
     rdfs:label "returnMethod" ;
     :domainIncludes :MerchantReturnPolicy, :MerchantReturnPolicySeasonalOverride ;
@@ -234,8 +234,7 @@
     rdfs:label "returnPolicyCountry" ;
     :domainIncludes :MerchantReturnPolicy ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Country,
-	    :Text ;
+    :rangeIncludes :Country, :CountryCode ;
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "The country where the product has to be sent to for returns, for example \"Ireland\" using the [[name]] property of [[Country]]. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1). Note that this can be different from the country where the product was originally shipped from or sent to." .
 
@@ -284,7 +283,7 @@
     :domainIncludes :MerchantReturnPolicy, :MerchantReturnPolicySeasonalOverride ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
-	    :Number ;
+      :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "Use [[MonetaryAmount]] to specify a fixed restocking fee for product returns, or use [[Number]] to specify a percentage of the product price paid by the customer." .
 
@@ -327,5 +326,5 @@
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "Seasonal override of a return policy." .
 
-	
+
 
