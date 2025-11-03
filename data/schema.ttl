@@ -4169,8 +4169,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :GeoCoordinates,
         :GeoShape,
         :PostalAddress ;
-    :rangeIncludes :Country,
-        :Text ;
+    :rangeIncludes :CountryCode, :Country ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :addressLocality a rdf:Property ;
@@ -4563,7 +4562,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :ServiceChannel,
         :TouristAttraction ;
     :rangeIncludes :Language,
-        :Text .
+        :LanguageCode .
 
 :availableThrough a rdf:Property ;
     rdfs:label "availableThrough" ;
@@ -5231,13 +5230,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "countriesNotSupported" ;
     rdfs:comment "Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code." ;
     :domainIncludes :SoftwareApplication ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CountryCode, :Country .
 
 :countriesSupported a rdf:Property ;
     rdfs:label "countriesSupported" ;
     rdfs:comment "Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code." ;
     :domainIncludes :SoftwareApplication ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CountryCode, :Country .
 
 :countryOfOrigin a rdf:Property ;
     rdfs:label "countryOfOrigin" ;
@@ -5252,7 +5251,7 @@ In the case of products, the country of origin of the product. The exact interpr
         :TVEpisode,
         :TVSeason,
         :TVSeries ;
-    :rangeIncludes :Country .
+    :rangeIncludes :CountryCode, :Country .
 
 :course a rdf:Property ;
     rdfs:label "course" ;
@@ -5323,7 +5322,7 @@ In the case of products, the country of origin of the product. The exact interpr
     rdfs:label "currenciesAccepted" ;
     rdfs:comment "The currency accepted.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." ;
     :domainIncludes :LocalBusiness ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CurrencyCode .
 
 :currency a rdf:Property ;
     rdfs:label "currency" ;
@@ -5331,7 +5330,7 @@ In the case of products, the country of origin of the product. The exact interpr
     :domainIncludes :DatedMoneySpecification,
         :MonetaryAmount,
         :MonetaryAmountDistribution ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CurrencyCode .
 
 :customer a rdf:Property ;
     rdfs:label "customer" ;
@@ -5617,7 +5616,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "discountCurrency" ;
     rdfs:comment "The currency of the discount.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." ;
     :domainIncludes :Order ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CurrencyCode .
 
 :discusses a rdf:Property ;
     rdfs:label "discusses" ;
@@ -6876,7 +6875,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:subPropertyOf :instrument ;
     :domainIncludes :CommunicateAction,
         :WriteAction ;
-    :rangeIncludes :Language ;
+    :rangeIncludes :Language, :LanguageCode ;
     :supersededBy :inLanguage .
 
 :lastReviewed a rdf:Property ;
@@ -7302,7 +7301,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:label "nationality" ;
     rdfs:comment "Nationality of the person." ;
     :domainIncludes :Person ;
-    :rangeIncludes :Country .
+    :rangeIncludes :CountryCode, :Country .
 
 :netWorth a rdf:Property ;
     rdfs:label "netWorth" ;
@@ -8003,7 +8002,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Reservation,
         :Ticket,
         :TradeAction ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CurrencyCode .
 
 :priceRange a rdf:Property ;
     rdfs:label "priceRange" ;
@@ -8587,7 +8586,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:comment "The currency (coded using [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217)) used for the main salary information in this job posting or for this employee." ;
     :domainIncludes :EmployeeRole,
         :JobPosting ;
-    :rangeIncludes :Text .
+    :rangeIncludes :CurrencyCode .
 
 :sameAs a rdf:Property ;
     rdfs:label "sameAs" ;
@@ -9086,7 +9085,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :ScreeningEvent,
         :TVEpisode ;
     :rangeIncludes :Language,
-        :Text .
+        :LanguageCode .
 
 :successorOf a rdf:Property ;
     rdfs:label "successorOf" ;
@@ -10167,7 +10166,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :Event,
         :WriteAction ;
     :rangeIncludes :Language,
-        :Text .
+        :LanguageCode .
 
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
