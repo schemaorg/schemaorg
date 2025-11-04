@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8; python-indent-offset: 4 -*-
 """A Tool to help maintain the set of ttl files in schema.org.
 
@@ -33,12 +33,12 @@ def Lint(args):
         if not g.IdenticalTo(graph.SchemaOrgGraph(output_filename, format=format)):
             logging.fatal(f"Linting file {filename} lost some information.")
 
-        if args.output is not None and len(args.files) > 1:
-            logging.fatal(f"Cannot use --output with multiple files!")
-        for index, filename in enumerate(args.files):
-            logging.info(f"Handling file {index} of {len(args.files)} ({filename})")
-            LintOne(filename, args.output or filename, format="turtle")
-            logging.info(" - validated.")
+    if args.output is not None and len(args.files) > 1:
+        logging.fatal(f"Cannot use --output with multiple files!")
+    for index, filename in enumerate(args.files):
+        logging.info(f"Handling file {index} of {len(args.files)} ({filename})")
+        LintOne(filename, args.output or filename, format="turtle")
+        logging.info(" - validated.")
 
 
 def MergeFiles(args):
