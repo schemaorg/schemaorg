@@ -17,11 +17,7 @@ Before creating a pull request to change the schema,
 read the [Improving schemas](../README.md#improving-schemas) section.
 If you add new types, or new attributes, please do not edit the files in the main `data` directory,
 instead create new files in a the `data/ext/pending` directory named
-<<<<<<< HEAD
-`issue-XXXX.ttl` and `issue-XXXX-examples.txt` where `XXXX` is the relevant bug number.
-=======
 `issue-XXXX.ttl` and `issue-XXXX-examples.txt` where `XXXX` is the relevant issue number.
->>>>>>> a9a92b00 (added documentation for data pull request)
 The build system will pull in and merge all the files.
 
 ### Turtle files
