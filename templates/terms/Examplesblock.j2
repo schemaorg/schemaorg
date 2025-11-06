@@ -6,9 +6,9 @@
 {% if loop.first %}<h3>Examples</h3>{% endif %}
 
 <div class="example-head">
-	<button class="clip clipbutton {{ex.getKey()}}" data-clipboard-target=".ds-tab.selected.{{ex.getKey()}} .clipsource" title="Copy example to clipboard">
+  <button class="clip clipbutton {{ex.getKey()}}" data-clipboard-target=".ds-tab.selected.{{ex.getKey()}} .clipsource" title="Copy example to clipboard">
     <img src="{{docsdir}}/clipboard/clippy.svg" width="18" alt="Copy to clipboard" />
-	</button>
+  </button>
   <a id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>
   <div class="tooltip">
     <span class="tooltiptext {{ex.getKey()}}">Copied</span>
@@ -32,27 +32,39 @@
 
   </div>
   {% if ex.hasHtml() %}
-  <div class="ds-tab {{ex.getKey()}} original_html {{ex.exselect[0]}}">
+  <div class="ds-tab {{ex.getKey()}} original_html {{ex.exselect[0]}}" >
     <div class="ds-tab-note" >Example notes or example HTML without markup.</div>
     <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getHtml() }}</pre>
   </div>
   {% endif %}
   {% if ex.hasMicrodata() %}
-  <div class="ds-tab {{ex.getKey()}} microdata {{ex.exselect[1]}}">
-    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/Microdata_(HTML)">Microdata</a> embedded in HTML.</div>
+  <div class="ds-tab {{ex.getKey()}} microdata {{ex.exselect[1]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+    <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
+    <meta itemprop="codeSampleType" content="snippet" />
+    <link itemprop="license" href="https://schema.org/docs/terms.html" />
+    <link itemprop="sameAs" href="https://github.com/schemaorg/schemaorg/blob/main/{{ ex.getMeta('file') }}" />
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/Microdata_(HTML)" itemprop="programmingLanguage">Microdata</a> embedded in HTML.</div>
     <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getMicrodata() }}</pre>
   </div>
   {% endif %}
   {% if ex.hasRdfa() %}
-  <div class="ds-tab {{ex.getKey()}} rdfa {{ex.exselect[2]}}">
-    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/RDFa">RDFa</a> embedded in HTML.</div>
+  <div class="ds-tab {{ex.getKey()}} rdfa {{ex.exselect[2]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+    <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
+    <meta itemprop="codeSampleType" content="snippet" />
+    <link itemprop="license" href="https://schema.org/docs/terms.html" />
+    <link itemprop="sameAs" href="https://github.com/schemaorg/schemaorg/blob/main/{{ ex.getMeta('file') }} }}" />
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/RDFa" itemprop="programmingLanguage">RDFa</a> embedded in HTML.</div>
     <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getRdfa() }}</pre>
   </div>
   {% endif %}
   {% if ex.hasJsonld() %}
-  <div class="ds-tab {{ex.getKey()}} jsonld {{ex.exselect[3]}}">
-    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> in a HTML script tag.</div>
-    <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getJsonld() }}</pre>
+  <div class="ds-tab {{ex.getKey()}} jsonld {{ex.exselect[3]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+    <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
+    <meta itemprop="codeSampleType" content="snippet" />
+    <link itemprop="license" href="https://schema.org/docs/terms.html" />
+    <link itemprop="sameAs" href="https://github.com/schemaorg/schemaorg/blob/main/{{ ex.getMeta('file') }}" />
+    <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/JSON-LD" itemprop="programmingLanguage">JSON-LD</a> in a HTML script tag.</div>
+    <pre itemprop="text" class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getJsonld() }}</pre>
   </div>
 
   <div class="ds-tab {{ex.getKey()}} structure extabs" data-ex="{{ex.getKey()}}">
