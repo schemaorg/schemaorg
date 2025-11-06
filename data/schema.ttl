@@ -7,6 +7,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix void: <http://rdfs.org/ns/void#> .
+@prefix unece: <http://unece.org/vocab#> .
 
 :AMRadioChannel a rdfs:Class ;
     rdfs:label "AMRadioChannel" ;
@@ -2218,6 +2219,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "A payment method using a credit, debit, store or other card to associate the payment with an account." ;
     rdfs:subClassOf :FinancialProduct,
         :PaymentMethod ;
+    owl:equivalentClass unece:FinancialCard ;
     :contributor <https://schema.org/docs/collab/FIBO> .
 
 :PaymentChargeSpecification a rdfs:Class ;
@@ -2228,9 +2230,9 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PaymentMethod a rdfs:Class ;
     rdfs:label "PaymentMethod" ;
-    rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction. The following legacy values should be accepted:
-    \\n\\n* http://purl.org/goodrelations/v1#ByBankTransferInAdvance\\n* http://purl.org/goodrelations/v1#ByInvoice\\n* http://purl.org/goodrelations/v1#Cash\\n* http://purl.org/goodrelations/v1#CheckInAdvance\\n* http://purl.org/goodrelations/v1#COD\\n* http://purl.org/goodrelations/v1#DirectDebit\\n* http://purl.org/goodrelations/v1#GoogleCheckout\\n* http://purl.org/goodrelations/v1#PayPal\\n* http://purl.org/goodrelations/v1#PaySwarm\\n\\nStructured values are recommended for newer payment methods.""" ;
+    rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction. The following legacy values should be accepted: \\n\\n* http://purl.org/goodrelations/v1#ByBankTransferInAdvance\\n* http://purl.org/goodrelations/v1#ByInvoice\\n* http://purl.org/goodrelations/v1#Cash\\n* http://purl.org/goodrelations/v1#CheckInAdvance\\n* http://purl.org/goodrelations/v1#COD\\n* http://purl.org/goodrelations/v1#DirectDebit\\n* http://purl.org/goodrelations/v1#GoogleCheckout\\n* http://purl.org/goodrelations/v1#PayPal\\n* http://purl.org/goodrelations/v1#PaySwarm\\n\\nStructured values, or [UNCE payment means](https://vocabulary.uncefact.org/PaymentMeans) are recommended or for newer annotations.""" ;
     rdfs:subClassOf :Intangible ;
+    owl:equivalentClass unece:PaymentMeans ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
@@ -8017,6 +8019,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :DonateAction,
         :Offer,
         :TradeAction ;
+    owl:equivalentClass unece:AmountType ;
     :rangeIncludes :PriceSpecification .
 
 :priceType a rdf:Property ;
