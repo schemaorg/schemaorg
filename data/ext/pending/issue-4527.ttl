@@ -1,0 +1,40 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:InstantaneousEvent a rdfs:Class ;
+    rdfs:label "InstantaneousEvent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4527> ;
+    owl:equivalentClass prov:InstantaneousEvent ;
+    rdfs:comment "An event with no duration, like for instance a computer log entry." ;
+    rdfs:subClassOf :StructuredValue .
+
+:source a rdf:Property ;
+    rdfs:label "source" ;
+    :domainIncludes :InstantaneousEvent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Thing ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4527> ;
+    rdfs:comment "The source or cause of the event." .
+
+:timestamp a rdf:Property ;
+    rdfs:label "timestamp" ;
+    :domainIncludes :InstantaneousEvent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4527> ;
+    owl:equivalentClass prov:atTime ;
+    rdfs:comment "The instant the event occured." .
+
+:data a rdf:Property ;
+    rdfs:label "data" ;
+    :domainIncludes :InstantaneousEvent ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Thing ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4527> ;
+    rdfs:comment "Data associated with the event, like for instance a log message." .
