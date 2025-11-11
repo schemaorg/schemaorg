@@ -739,6 +739,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :Country a rdfs:Class ;
     rdfs:label "Country" ;
     rdfs:comment "A country." ;
+    owl:equivalentClass unece:Country ;
     rdfs:subClassOf :AdministrativeArea .
 
 :Course a rdfs:Class ;
@@ -1355,6 +1356,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :GeoCoordinates a rdfs:Class ;
     rdfs:label "GeoCoordinates" ;
     rdfs:comment "The geographic coordinates of a place or event." ;
+    owl:equivalentClass unece:GeographicalCoordinate ;
     rdfs:subClassOf :StructuredValue .
 
 :GeoShape a rdfs:Class ;
@@ -2373,6 +2375,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PostalAddress a rdfs:Class ;
     rdfs:label "PostalAddress" ;
     rdfs:comment "The mailing address." ;
+    owl:EquivalentClass unece:TradeAddress ;
     rdfs:subClassOf :ContactPoint .
 
 :PostalCodeRangeSpecification a rdfs:Class ;
@@ -2412,6 +2415,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "Product" ;
     rdfs:comment "Any offered product or service. For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online." ;
     rdfs:subClassOf :Thing ;
+    owl:equivalentClass unece:TradeProduct ;
     :contributor <https://schema.org/docs/collab/GoodRelationsTerms> .
 
 :ProductModel a rdfs:Class ;
@@ -4753,6 +4757,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :brand a rdf:Property ;
     rdfs:label "brand" ;
     rdfs:comment "The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person." ;
+    owl:equivalentProperty unece:brandName ;
     :domainIncludes :Organization,
         :Person,
         :Product,
@@ -5090,6 +5095,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :color a rdf:Property ;
     rdfs:label "color" ;
     rdfs:comment "The color of the product." ;
+    owl:equivalentProperty unece:colourDescription ;
     :domainIncludes :Product ;
     :rangeIncludes :Text .
 
@@ -5247,6 +5253,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 In the case of TV and movie, this would be the country of the principle offices of the production company or individual responsible for the movie. For other kinds of [[CreativeWork]] it is difficult to provide fully general guidance, and properties such as [[contentLocation]] and [[locationCreated]] may be more applicable.
 
 In the case of products, the country of origin of the product. The exact interpretation of this may vary by context and product type, and cannot be fully enumerated here.""" ;
+    owl:equivalentProperty unece:originCountry ;
     :domainIncludes :CreativeWork,
         :Movie,
         :Product,
@@ -5702,6 +5709,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "duns" ;
     rdfs:comment "The Dun & Bradstreet DUNS number for identifying an organization or business person." ;
     rdfs:subPropertyOf :identifier ;
+    owl:equivalentProperty unece:dUNSId ;
     :domainIncludes :Organization,
         :Person ;
     :rangeIncludes :Text .
@@ -6293,6 +6301,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "globalLocationNumber" ;
     rdfs:comment "The [Global Location Number](http://www.gs1.org/gln) (GLN, sometimes also referred to as International Location Number or ILN) of the respective organization, person, or place. The GLN is a 13-digit number used to identify parties and physical locations." ;
     rdfs:subPropertyOf :identifier ;
+    owl:equivalentProperty unece:gLNId ;
     :domainIncludes :Organization,
         :Person,
         :Place ;
@@ -6999,6 +7008,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:label "logo" ;
     rdfs:comment "An associated logo." ;
     rdfs:subPropertyOf :image ;
+    owl:equivalentProperty unece:logoReferencedDocument ;
     :domainIncludes :Brand,
         :Certification,
         :Organization,
@@ -7053,6 +7063,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :manufacturer a rdf:Property ;
     rdfs:label "manufacturer" ;
     rdfs:comment "The manufacturer of the product." ;
+    owl:equivalentProperty unece:manufacturerParty ;
     :domainIncludes :Product ;
     :rangeIncludes :Organization .
 
@@ -7215,6 +7226,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :mpn a rdf:Property ;
     rdfs:label "mpn" ;
     rdfs:comment "The Manufacturer Part Number (MPN) of the product, or the product to which the offer refers." ;
+    owl:equivalentProperty unece:manufacturerAssignedId ;
     :domainIncludes :Demand,
         :Offer,
         :Product ;
@@ -7906,6 +7918,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "postOfficeBoxNumber" ;
     rdfs:comment "The post office box number for PO box addresses." ;
     :domainIncludes :PostalAddress ;
+    owl:equivalentProperty unece:postOfficeBox ;
     :rangeIncludes :Text .
 
 :postalCode a rdf:Property ;
@@ -7916,6 +7929,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :GeoShape,
         :PostalAddress ;
     :rangeIncludes :Text ;
+    owl:equivalentProperty unece:postcodeCode ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
 :postalCodeBegin a rdf:Property ;

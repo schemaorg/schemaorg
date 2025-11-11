@@ -1,6 +1,8 @@
 @prefix : <https://schema.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unece: <http://unece.org/vocab#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -19,6 +21,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    owl:equivalentProperty unece:variantId ;
     rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " .
 
 :pattern a rdf:Property ;
@@ -29,6 +32,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    owl:equivalentProperty unece:printDesignDescription ;
     rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." .
 
 :productGroupID a rdf:Property ;
@@ -48,6 +52,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
         :QuantitativeValue,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+    owl:equivalentProperty unece:sizeDescription ;
     rdfs:comment "A standardized size of a product or creative work, specified either through a simple textual string (for example 'XL', '32Wx34L'), a  QuantitativeValue with a unitCode, or a comprehensive and structured [[SizeSpecification]]; in other cases, the [[width]], [[height]], [[depth]] and [[weight]] properties may be more applicable. " .
 
 :variesBy a rdf:Property ;
