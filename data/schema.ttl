@@ -2143,6 +2143,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :OrderItem a rdfs:Class ;
     rdfs:label "OrderItem" ;
     rdfs:comment "An order item is a line of an order. It includes the quantity and shipping details of a bought offer." ;
+    owl:equivalentClass unece:LineTradeAgreement ;
     rdfs:subClassOf :StructuredValue .
 
 :OrderStatus a rdfs:Class ;
@@ -4660,6 +4661,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :billingPeriod a rdf:Property ;
     rdfs:label "billingPeriod" ;
     rdfs:comment "The time interval used to compute the invoice." ;
+    owl:equivalentProperty unece:billingPeriod ;
     :domainIncludes :Invoice ;
     :rangeIncludes :Duration .
 
@@ -7590,6 +7592,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." ;
+    owl:equivalentProperty unece:orderQuantity ;
     :domainIncludes :OrderItem ;
     :rangeIncludes :Number,
         :QuantitativeValue .
