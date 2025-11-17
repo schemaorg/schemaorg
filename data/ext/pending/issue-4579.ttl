@@ -1,0 +1,25 @@
+@prefix : <https://schema.org/> .
+@prefix hydra: <http://www.w3.org/ns/hydra/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sarif: <http://sarif.info/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Error a rdfs:Class ;
+    rdfs:label "Error" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4579> ;
+    rdfs:comment "Representation of an Error." ;
+    owl:equivalentClass hydra:Error ;
+    rdfs:subClassOf sarif:Result ;
+    rdfs:subClassOf :InstantaneousEvent .
+
+:errorCode a rdf:Property ;
+    rdfs:label "errorCode" ;
+    rdfs:comment "Application or platform dependant error code." ;
+    :domainIncludes :Error ;
+    :rangeIncludes :Text, :Integer, :DefinedTerm , :StatusEnumeration ;
+    rdfs:seeAlso hydra:statusCode .
