@@ -1,0 +1,26 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AuthenticateAction a rdfs:Class ;
+    rdfs:label "AuthenticateAction" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4507> ;
+    rdfs:comment "The action of authenticating into a device or application." ;
+    rdfs:subClassOf :ControlAction .
+
+:LoginAction a rdfs:Class ;
+    rdfs:label "LoginAction" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4507> ;
+    rdfs:comment "The action of logging into a device or application." ;
+    rdfs:subClassOf :ControlAction .
+	
+:ResetPasswordAction a rdfs:Class ;
+    rdfs:label "ResetPasswordAction" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4507> ;
+    rdfs:comment "The action of resetting the password of a device or application." ;
+    rdfs:subClassOf :ControlAction .
