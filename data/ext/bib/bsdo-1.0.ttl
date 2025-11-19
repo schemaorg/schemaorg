@@ -86,16 +86,8 @@
 
 :GraphicNovel a :BookFormatType ;
     rdfs:label "GraphicNovel" ;
-    rdfs:comment "This type is deprecated: GraphicNovel does not fit the BookFormatType enumeration, as it can appear in multiple formats (e.g., Hardcover, eBook). It is not mutually exclusive and therefore deprecated. Use the literaryForm property with the LiteraryForm enumeration (e.g., GraphicNovelForm) instead.\n\nBook format: GraphicNovel. May represent a bound collection of ComicIssue instances." ;
+    rdfs:comment "This type is deprecated: GraphicNovel does not fit the BookFormatType enumeration, as it can appear in multiple formats (e.g., Hardcover, eBook). It is not mutually exclusive and therefore deprecated. Use standard BookFormatType values instead.\n\nBook format: GraphicNovel. May represent a bound collection of ComicIssue instances." ;
     :isPartOf <https://bib.schema.org> .
-
-
-:literaryForm a rdf:Property ;
-    rdfs:label "literaryForm" ;
-    rdfs:comment "Indicates the literary form of the book (e.g. GraphicNovel, Novel, Anthology, etc.)." ;
-    :domainIncludes :Book ;
-    :isPartOf <https://bib.schema.org> ;
-    :rangeIncludes :LiteraryForm .
 
 :abridged a rdf:Property ;
     rdfs:label "abridged" ;
@@ -217,60 +209,4 @@
     :inverseOf :translationOfWork ;
     :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :CreativeWork .
-
-:LiteraryForm a rdfs:Class ;
-    rdfs:label "LiteraryForm" ;
-    rdfs:comment "Enumeration of literary forms, describing the formal type of a written work (e.g. GraphicNovel, Comic, Novel, Anthology, etc.)." ;
-    rdfs:subClassOf :Enumeration ;
-    :isPartOf <https://bib.schema.org> .
-
-:GraphicNovelForm a :LiteraryForm ;
-    rdfs:label "GraphicNovel" ;
-    rdfs:comment "A literary form representing a graphic novel, typically a long-form comic narrative in book format." ;
-    :isPartOf <https://bib.schema.org> .
-
-:NovelForm a :LiteraryForm ;
-    rdfs:label "Novel" ;
-    rdfs:comment "A literary form representing a novel, typically a long-form fictional narrative." ;
-    :isPartOf <https://bib.schema.org> .
-
-:NonFictionForm a :LiteraryForm ;
-    rdfs:label "NonFiction" ;
-    rdfs:comment "A literary form representing a non-fiction work, typically based on factual information and real events." ;
-    :isPartOf <https://bib.schema.org> .
-
-:ShortStoryForm a :LiteraryForm ;
-    rdfs:label "ShortStory" ;
-    rdfs:comment "A literary form representing a short story, a brief fictional narrative." ;
-    :isPartOf <https://bib.schema.org> .
-
-:PlayForm a :LiteraryForm ;
-    rdfs:label "Play" ;
-    rdfs:comment "A literary form representing a play or dramatic work." ;
-    :isPartOf <https://bib.schema.org> .
-
-:PictureBookForm a :LiteraryForm ;
-    rdfs:label "PictureBook" ;
-    rdfs:comment "A literary form representing a picture book, typically for children." ;
-    :isPartOf <https://bib.schema.org> .
-
-:BiographyForm a :LiteraryForm ;
-    rdfs:label "Biography" ;
-    rdfs:comment "A literary form representing a biography, the story of a person's life." ;
-    :isPartOf <https://bib.schema.org> .
-
-:DiaryForm a :LiteraryForm ;
-    rdfs:label "Diary" ;
-    rdfs:comment "A literary form representing a diary or journal." ;
-    :isPartOf <https://bib.schema.org> .
-
-:EssayForm a :LiteraryForm ;
-    rdfs:label "Essay" ;
-    rdfs:comment "A literary form representing an essay, a short piece of writing on a particular subject." ;
-    :isPartOf <https://bib.schema.org> .
-
-:EncyclopediaForm a :LiteraryForm ;
-    rdfs:label "Encyclopedia" ;
-    rdfs:comment "A literary form representing an encyclopedia, a reference work containing articles on various topics." ;
-    :isPartOf <https://bib.schema.org> .
 
