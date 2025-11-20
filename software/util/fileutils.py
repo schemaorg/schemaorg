@@ -68,7 +68,8 @@ def releaseFilePath(
     selector: FileSelector,
     protocol: str,
     output_format: str,
-    suffix: str = None,
+    suffix: str | None = None,
+    subdirectory_path: str | None = None,
 ) -> str:
     """Create a path for a release file
 
@@ -79,6 +80,7 @@ def releaseFilePath(
         protocol: either 'http' or 'https'
         output_format: one of the keys present in `EXTENSIONS_FOR_FORMAT`
         suffix: optional suffix that is ended at the end of the file.
+        subdirectory_path: optional subdirectory path. If None, defaults to "releases/{version}". An empty string means the root of output_dir.
     Returns:
         an absolute path with the necessary directories created.
     """
@@ -91,9 +93,15 @@ def releaseFilePath(
     if suffix:
         parts.append(suffix)
     merged = "-".join(parts)
+    filename = f"schemaorg-{merged}.{extension}"
+
+    if subdirectory_path is None:
+        subdirectory_path = f"releases/{version}"
+
+    relative_path = os.path.join(subdirectory_path, filename)
     return ensureAbsolutePath(
         output_dir=output_dir,
-        relative_path=f"releases/{version}/schemaorg-{merged}.{extension}",
+        relative_path=relative_path,
     )
 
 

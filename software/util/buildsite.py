@@ -125,6 +125,7 @@ def initialize():
         action="store_true",
         help="create page for term (repeatable) - ALL = all terms",
     )
+
     args = parser.parse_args()
 
     for op in args.buildoption:

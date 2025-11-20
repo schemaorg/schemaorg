@@ -184,7 +184,7 @@ allGraph = None
 currentGraph = None
 
 
-def exportrdf(exportType):
+def exportrdf(exportType, subdirectory_path: str | None = None):
     global allGraph, currentGraph
 
     if not allGraph:
@@ -217,9 +217,9 @@ def exportrdf(exportType):
     extype = exportType[len("RDFExport."):]
     if exportType == "RDFExports":
         for output_format in sorted(formats):
-            _exportrdf(output_format, allGraph, currentGraph)
+            _exportrdf(output_format, allGraph, currentGraph, subdirectory_path)
     elif extype in formats:
-        _exportrdf(extype, allGraph, currentGraph)
+        _exportrdf(extype, allGraph, currentGraph, subdirectory_path)
     else:
         raise Exception("Unknown export format: %s" % exportType)
 
@@ -228,7 +228,7 @@ def exportrdf(exportType):
 completed_rdf_exports = set()
 
 
-def _exportrdf(output_format, all, current):
+def _exportrdf(output_format, all, current, subdirectory_path: str | None = None):
 
     protocol, altprotocol = protocols()
 
@@ -249,32 +249,27 @@ def _exportrdf(output_format, all, current):
             qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
-        fn = fileutils.releaseFilePath(
-            output_dir=schemaglobals.getOutputDir(),
-            version=version,
-            selector=selector,
-            protocol=protocol,
-            output_format=output_format,
-        )
 
-        afn = fileutils.releaseFilePath(
-            output_dir=schemaglobals.getOutputDir(),
-            version=version,
-            selector=selector,
-            protocol=altprotocol,
-            output_format=output_format,
-        )
 
-        with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn} and {afn}"):
-            if output_format == "rdf":
-                fmt = "pretty-xml"
-            else:
-                fmt = output_format
-            out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
-            with open(fn, "w", encoding="utf8") as f:
-                f.write(out)
-            with open(afn, "w", encoding="utf8") as af:
-                af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
+        for p in fileutils.FILESET_PROTOCOLS:
+            fn = fileutils.releaseFilePath(
+                output_dir=schemaglobals.getOutputDir(),
+                version=version,
+                selector=selector,
+                protocol=p,
+                output_format=output_format,
+                subdirectory_path=subdirectory_path,
+            )
+            with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn}"):
+                if output_format == "rdf":
+                    fmt = "pretty-xml"
+                else:
+                    fmt = output_format
+                out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
+                with open(fn, "w", encoding="utf8") as f:
+                    if p == altprotocol:
+                        out = protocolSwap(out, protocol, altprotocol)
+                    f.write(out)
 
 
 def array2str(values):
