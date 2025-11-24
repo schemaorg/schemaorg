@@ -122,7 +122,12 @@ function makeColorSet(shapes) {
 
 function dataItemLayoutText(subject, predicate, object, options) {
     var indent = ' '.repeat(options.indentLevel * textIndentStep);
-    return "".concat(indent).concat(replacePrefix(predicate), ": ").concat(replacePrefix(object));
+    var objectText = object;
+    // If there is a language tag, prefix it.
+    if (options.language) {
+        objectText = '@' + options.language + ' ' + objectText;
+    }
+    return "".concat(indent).concat(replacePrefix(predicate), ": ").concat(replacePrefix(objectText));
 }
 /**
  * Makes an html layout for a single triple
@@ -151,7 +156,17 @@ function dataItemLayoutHtml(subject, predicate, object, options) {
     predicateEl.appendChild(predicateTextEl);
     var objectEl = document.createElement('div');
     objectEl.classList.add('object');
-    objectEl.innerText = object;
+
+    if (options.language) {
+      var langSpan = document.createElement('span');
+      langSpan.innerText = '@' + options.language + ' ';
+      langSpan.classList.add('language-tag');
+      objectEl.appendChild(langSpan);
+    }
+
+    var valueSpan = document.createElement('span');
+    valueSpan.innerText = object;
+    objectEl.appendChild(valueSpan);
     var tripleRow = document.createElement('div');
     tripleRow.classList.add('triple-row');
     tripleRow.style.background = options.isTarget ? '#f4f4f4' : '#fff';
@@ -214,6 +229,7 @@ function markupLevel(store, id, displayed, indentLevel, layoutGenerator) {
             var quad = _step2.value;
             // used for highlighting target triples
             layoutOptions.isTarget = options && options.target && (options.target.type === 'entity' && typeQuad.length > 0 && typeQuad[0].object.value === options.target.uri || options.target.type === 'property' && quad.predicate.value === options.target.uri);
+            layoutOptions.language = quad.object.language;
             var next_level = markupLevel(store, quad.object.id, displayed, indentLevel + 1, layoutGenerator, options);
 
             if (next_level.length > 0) {
