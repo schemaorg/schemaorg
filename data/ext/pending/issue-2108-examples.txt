@@ -1,8 +1,8 @@
-TYPES: #eg-0270 PronounceableText, phoneticText
+TYPES: #eg-0270 City, name
 
 PRE-MARKUP:
 
-See JSON example.
+<ruby lang="en">Worcester<rp>(</rp><rt lang="en-fonipa">/ˈwʊstɚ/</rt><rp>)</rp></ruby>
 
 MICRODATA:
 
@@ -18,21 +18,21 @@ JSON:
 {
   "@context": "https://schema.org/",
   "@type": "City",
-  "name": {
-    "@type": "PronounceableText",
-    "inLanguage": "en-US",
-    "textValue": "Worcester",
-    "speechToTextMarkup": "IPA",
-    "phoneticText": "/ˈwʊstɚ/"
-  }
+  "name": [{
+    "@value": "Worcester",
+    "@language": "en"
+  }, {
+    "@value": "/ˈwʊstɚ/",
+    "@language": "en-fonipa"
+  }]
 }
 </script>
 
-TYPES: #eg-0271 PronounceableText, phoneticText
+TYPES: #eg-0271 RadioStation, name
 
 PRE-MARKUP:
 
-See JSON example.
+<span aria-label="W K R P">WKRP</span>
 
 MICRODATA:
 
@@ -48,13 +48,15 @@ JSON:
 {
   "@context": "https://schema.org/",
   "@type": "RadioStation",
-  "name": ["WKRP",
-      {
-        "@type": "PronounceableText",
-        "textValue": "WKRP",
-        "speechToTextMarkup": "SSML",
-        "phoneticText": "<speak><say-as interpret-as=\"characters\">WKRP</say-as>"
-      }
+  "name": [
+    {
+      "@value": "WKRP",
+      "@language": "en"
+    },
+    {
+      "@value": "ˈdʌbəljuː ˈkeɪ ˈɑːr ˈpiː",
+      "@language": "en-fonipa"
+    }
   ]
 }
 </script>
