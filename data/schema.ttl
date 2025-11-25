@@ -10423,8 +10423,8 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 :runtimePlatform a rdf:Property ;
     rdfs:label "runtimePlatform" ;
     rdfs:comment "Runtime platform or script interpreter dependencies (example: Java v1, Python 2.3, .NET Framework 3.0)." ;
-    :domainIncludes :SoftwareSourceCode ;
-    :rangeIncludes :Text .
+    :domainIncludes :SoftwareSourceCode , :SoftwareApplication ;
+    :rangeIncludes :Text , :RuntimePlatform .
 
 :season a rdf:Property ;
     rdfs:label "season" ;
@@ -10480,7 +10480,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (examples: DirectX, Java or .NET runtime)." ;
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text,
-        :URL .
+        :URL, :SoftwareApplication .
 
 :sponsor a rdf:Property ;
     rdfs:label "sponsor" ;
