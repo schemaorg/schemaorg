@@ -10575,14 +10575,17 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 
 :about a rdf:Property ;
     rdfs:label "about" ;
-    rdfs:comment "The subject matter of the content." ;
+    rdfs:comment "The subject matter of an object." ;
     :domainIncludes :Certification,
         :CommunicateAction,
         :CreativeWork,
+        :DefinedTerm,
+        :DefinedTermSet,
         :Event ;
     :inverseOf :subjectOf ;
     :rangeIncludes :Thing ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1670> .
+    :source <https://github.com/schemaorg/schemaorg/issues/1670> ,
+    <https://github.com/schemaorg/schemaorg/issues/4588> .
 
 :competitor a rdf:Property ;
     rdfs:label "competitor" ;
