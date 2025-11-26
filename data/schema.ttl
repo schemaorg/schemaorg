@@ -732,12 +732,9 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :ContactPoint a rdfs:Class ;
     rdfs:label "ContactPoint" ;
     rdfs:comment "A contact point&#x2014;for example, a Customer Complaints department." ;
-<<<<<<< HEAD
-    owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
     owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard> ;
-=======
+    owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
     owl:equivalentClass gs1:ContactPoint;
->>>>>>> 91af2150 (added GS1 synonyms)
     rdfs:subClassOf :StructuredValue .
 
 :ContactPointOption a rdfs:Class ;
@@ -787,13 +784,10 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :Country a rdfs:Class ;
     rdfs:label "Country" ;
     rdfs:comment "A country." ;
-    owl:equivalentClass unece:Country ;
-<<<<<<< HEAD
-    owl:equivalentClass lcc-cr:Country ;
-    rdfs:subClassOf cmns-ge:GeopoliticalEntity ;
-=======
     owl:equivalentClass gs1:Country ;
->>>>>>> 91af2150 (added GS1 synonyms)
+    owl:equivalentClass lcc-cr:Country ;
+    owl:equivalentClass unece:Country ;
+    rdfs:subClassOf cmns-ge:GeopoliticalEntity ;
     rdfs:subClassOf :AdministrativeArea .
 
 :Course a rdfs:Class ;
@@ -2226,11 +2220,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :Organization a rdfs:Class ;
     rdfs:label "Organization" ;
     rdfs:comment "An organization such as a school, NGO, corporation, club, etc." ;
-<<<<<<< HEAD
     owl:equivalentClass fibo-fnd-org-org:Organization ;
-=======
     owl:equivalentClass gs1:Organization ;
->>>>>>> 91af2150 (added GS1 synonyms)
     rdfs:subClassOf :Thing .
 
 :OrganizationRole a rdfs:Class ;
@@ -2456,13 +2447,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PostalAddress a rdfs:Class ;
     rdfs:label "PostalAddress" ;
     rdfs:comment "The mailing address." ;
-    owl:EquivalentClass unece:TradeAddress ;
-<<<<<<< HEAD
     owl:EquivalentClass cmns-loc:Address ;
     owl:equivalentClass fibo-fnd-plc-adr:PostalAddress ;
-=======
     owl:EquivalentClass gs1:PostalAddress ;
->>>>>>> 91af2150 (added GS1 synonyms)
+    owl:EquivalentClass unece:TradeAddress ;
     rdfs:subClassOf :ContactPoint .
 
 :PostalCodeRangeSpecification a rdfs:Class ;
@@ -4273,11 +4261,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :addressLocality a rdf:Property ;
     rdfs:label "addressLocality" ;
     rdfs:comment "The locality in which the street address is, and which is in the region. For example, Mountain View." ;
-<<<<<<< HEAD
     owl:equivalentProperty fibo-fnd-plc-adr:hasMunicipality ;
-=======
     owl:equivalentProperty gs1:addressLocality ;
->>>>>>> 91af2150 (added GS1 synonyms)
     :domainIncludes :PostalAddress ;
     :rangeIncludes :Text .
 
@@ -7044,12 +7029,9 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :legalName a rdf:Property ;
     rdfs:label "legalName" ;
     rdfs:comment "The official name of the organization, e.g. the registered company name." ;
-<<<<<<< HEAD
-    owl:equivalentProperty fibo-fnd-rel-rel:hasLegalName ;
     rdfs:subPropertyOf cmns-txt:hasName ;
-=======
+    owl:equivalentProperty fibo-fnd-rel-rel:hasLegalName ;
     owl:equivalentProperty gs1:organizationLegalName ;
->>>>>>> 91af2150 (added GS1 synonyms)
     :domainIncludes :Organization ;
     :rangeIncludes :Text .
 
@@ -7204,12 +7186,9 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :manufacturer a rdf:Property ;
     rdfs:label "manufacturer" ;
     rdfs:comment "The manufacturer of the product." ;
-    owl:equivalentProperty unece:manufacturerParty ;
-<<<<<<< HEAD
-    rdfs:subPropertyOf fibo-fnd-pas-pas:isProvisionedBy ;
-=======
     owl:equivalentProperty gs1:manufacturer ;
->>>>>>> 91af2150 (added GS1 synonyms)
+    owl:equivalentProperty unece:manufacturerParty ;
+    rdfs:subPropertyOf fibo-fnd-pas-pas:isProvisionedBy ;
     :domainIncludes :Product ;
     :rangeIncludes :Organization .
 
@@ -7796,12 +7775,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :owns a rdf:Property ;
     rdfs:label "owns" ;
-<<<<<<< HEAD
     rdfs:comment "Things owned by the organization or person." ;
-=======
-    rdfs:comment "Products owned by the organization or person." ;
     owl:equivalentProperty gs1:owns ;
->>>>>>> 91af2150 (added GS1 synonyms)
     :domainIncludes :Organization,
         :Person ;
     :inverseOf :owner ;
@@ -10707,11 +10682,8 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 :subOrganization a rdf:Property ;
     rdfs:label "subOrganization" ;
     rdfs:comment "A relationship between two organizations where the first includes the second, e.g., as a subsidiary. See also: the more specific 'department' property." ;
-<<<<<<< HEAD
     owl:equivalentProperty fibo-be-oac-cctl:hasSubsidiary ;
-=======
     owl:equivalentProperty gs1:subOrganization ;
->>>>>>> 91af2150 (added GS1 synonyms)
     :domainIncludes :Organization ;
     :inverseOf :parentOrganization ;
     :rangeIncludes :Organization .
