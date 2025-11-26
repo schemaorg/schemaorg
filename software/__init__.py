@@ -7,6 +7,7 @@ import sys
 
 LIB_PATHS = ()
 DATA_PATHS = ("docs", "software/gcloud", "data")
+REQUIRED_VERSION = (3, 11)
 _INITIALIZED = None
 
 
@@ -16,10 +17,11 @@ def Setup():
     if _INITIALIZED:
         return
 
-    if sys.version_info < (3, 10):
+    if sys.version_info < REQUIRED_VERSION:
         sys.stderr.write(
-            f"Python version {sys.version_info.major}.{sys.version_info.minor}"
-            " not supported version 3.10 or above required - Exiting\n"
+            f"Python version {sys.version_info.major}.{sys.version_info.minor} "
+            "not supported version {REQUIRED_VERSION[0]}.{REQUIRED_VERSION[1]} "
+            "or above required - Exiting\n"
             )
         sys.exit(os.EX_CONFIG)
 
