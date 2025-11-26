@@ -7642,8 +7642,15 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Products owned by the organization or person." ;
     :domainIncludes :Organization,
         :Person ;
-    :rangeIncludes :OwnershipInfo,
-        :Product .
+    :rangeIncludes :Thing .
+
+:owner a rdf:Property ;
+    rdfs:label "owner" ;
+    rdfs:comment "A person or organization who owns this Thing." ;
+    :domainIncludes :Thing ;
+    :inverseOf :owns ;
+    :rangeIncludes :Organization,
+        :Person .
 
 :pageEnd a rdf:Property ;
     rdfs:label "pageEnd" ;
