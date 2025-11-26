@@ -7639,11 +7639,21 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :owns a rdf:Property ;
     rdfs:label "owns" ;
-    rdfs:comment "Products owned by the organization or person." ;
+    rdfs:comment "Things owned by the organization or person." ;
     :domainIncludes :Organization,
         :Person ;
-    :rangeIncludes :OwnershipInfo,
-        :Product .
+    :inverseOf :owner ;
+    :rangeIncludes :Thing ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4603> .
+
+:owner a rdf:Property ;
+    rdfs:label "owner" ;
+    rdfs:comment "A person or organization who owns this Thing." ;
+    :domainIncludes :Thing ;
+    :inverseOf :owns ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4603> .
 
 :pageEnd a rdf:Property ;
     rdfs:label "pageEnd" ;
