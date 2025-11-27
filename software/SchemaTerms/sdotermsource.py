@@ -339,12 +339,16 @@ class SdoTermSource:
         if not self.termStack:
             self.termStack = []
             for sup in self.getSupers():
-                s = self.__class__._getTerm(sup, createReference=True)
-                if s.termType == sdoterm.SdoTermType.REFERENCE:
-                    continue
-                self.termStack.append(s)
-                if s.termStack:
-                    self.termStack.extend(s.termStack.terms)
+                try:
+                    s = self.__class__._getTerm(sup, createReference=True)
+                    if s.termType == sdoterm.SdoTermType.REFERENCE:
+                        continue
+                    self.termStack.append(s)
+                    if s.termStack:
+                        self.termStack.extend(s.termStack.terms)
+                except RecursionError as e:
+                    e.add_note(f"Circular references with {self.termdesc}")
+                    raise
             stack = []
             for t in reversed(self.termStack):
                 if t not in stack:
