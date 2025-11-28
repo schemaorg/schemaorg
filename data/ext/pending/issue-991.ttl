@@ -6,9 +6,9 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
 :countryOfLastProcessing a rdf:Property ;
     rdfs:label "countryOfLastProcessing" ;
+    owl:equivalentProperty unece:ProcessingCountry ;
     :domainIncludes :Product ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CountryCode ;
@@ -18,6 +18,7 @@
 
 :countryOfAssembly a rdf:Property ;
     rdfs:label "countryOfAssembly" ;
+    owl:equivalentProperty unece:finalAssemblyCountry ;
     :domainIncludes :Product ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CountryCode ;

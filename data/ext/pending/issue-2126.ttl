@@ -5,6 +5,7 @@
 @prefix unece: <http://unece.org/vocab#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
 
 :nsn a rdf:Property ;
     rdfs:label "nsn" ;
@@ -13,6 +14,7 @@
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2126> ;
     owl:equivalentProperty unece:nSNId ;
+    rdfs:subPropertyOf cmns-id:identifiedBy ;
     rdfs:comment "Indicates the [NATO stock number](https://en.wikipedia.org/wiki/NATO_Stock_Number) (nsn) of a [[Product]]. " ;
     rdfs:subPropertyOf :identifier .
 

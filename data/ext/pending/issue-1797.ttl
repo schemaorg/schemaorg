@@ -5,6 +5,8 @@
 @prefix unece: <http://unece.org/vocab#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cmns-cls: <https://www.omg.org/spec/Commons/Classifiers/> .
+@prefix cmns-col: <https://www.omg.org/spec/Commons/Collections/> .
 
 :ProductGroup a rdfs:Class ;
     rdfs:label "ProductGroup" ;
@@ -13,6 +15,8 @@
     rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
 
 While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ ;
+    rdfs:subClassOf cmns-cls:Classifier ;
+    rdfs:subClassOf cmns-col:Collection ;
     rdfs:subClassOf :Product .
 
 :inProductGroupWithID a rdf:Property ;

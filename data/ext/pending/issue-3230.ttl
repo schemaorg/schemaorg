@@ -1,15 +1,19 @@
 @prefix : <https://schema.org/> .
+@prefix cmns-cls: <https://www.omg.org/spec/Commons/Classifiers/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unece: <http://unece.org/vocab#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix unece: <http://unece.org/vocab#> .
+@prefix fibo-fnd-arr-doc: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/> .
+@prefix fibo-fnd-arr-reg: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/> .
 
 :Certification a rdfs:Class ;
   rdfs:label "Certification" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+    rdfs:subClassOf fibo-fnd-arr-doc:Certificate ;
     owl:equivalentClass unece:SpecifiedCertificate ;
     rdfs:comment """A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a Person can be a certified professional, a Place can be certified for food processing. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Mapped from the [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary.""" ;
     rdfs:subClassOf :CreativeWork .
@@ -20,6 +24,7 @@
     :rangeIncludes :Date,
         :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+    owl:equivalentProperty unece:InspectionDateTime ;
     rdfs:comment "Date when a certification was last audited. See also  [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." .
 
 :certificationIdentification a rdf:Property ;
@@ -29,6 +34,8 @@
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+    owl:equivalentProperty unece:CertificateIdentifier ;
+    rdfs:subPropertyOf fibo-fnd-arr-reg:hasRegistrationIdentifier ;
     rdfs:comment "Identifier of a certification instance (as registered with an independent certification body). Typically this identifier can be used to consult and verify the certification instance. See also [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." .
 
 :certificationRating a rdf:Property ;
@@ -74,6 +81,9 @@
      :Place;
   :rangeIncludes :Certification;
   :source <https://github.com/schemaorg/schemaorg/issues/3230> ;
+  owl:equivalentProperty unece:ApplicableCertificate ;
+  rdfs:subPropertyOf cmns-cls:isClassifiedBy ;
+  rdfs:subPropertyOf fibo-fnd-arr-doc:isReferencedIn ;
   rdfs:comment "Certification information about a product, organization, service, place, or person." .
 
 
