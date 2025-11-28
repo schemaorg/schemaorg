@@ -735,6 +735,8 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard> ;
     owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
     owl:equivalentClass gs1:ContactPoint;
+    owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
+    owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard> ;
     rdfs:subClassOf :StructuredValue .
 
 :ContactPointOption a rdfs:Class ;
@@ -2222,6 +2224,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "An organization such as a school, NGO, corporation, club, etc." ;
     owl:equivalentClass fibo-fnd-org-org:Organization ;
     owl:equivalentClass gs1:Organization ;
+    owl:equivalentClass fibo-fnd-org-org:Organization ;
     rdfs:subClassOf :Thing .
 
 :OrganizationRole a rdfs:Class ;
@@ -7775,6 +7778,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :owns a rdf:Property ;
     rdfs:label "owns" ;
+    owl:equivalentProperty gs1:owns ;
     rdfs:comment "Things owned by the organization or person." ;
     owl:equivalentProperty gs1:owns ;
     :domainIncludes :Organization,
