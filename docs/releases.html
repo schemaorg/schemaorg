@@ -91,6 +91,127 @@ A summary view of the current published release is available from: <a href="http
 <!-- note: please keep this file well-formed, i.e. close li tags etc. -->
 
 <tr>
+  <td class="release">29.4<br/>2025-12-08</td>
+  <td>
+  <span id="v29.4"></span>
+  <p>
+  Version 29.4 - Many schema and infra updates</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g4495">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4495">Issue #4495</a>: Add new type <a href="/ConferenceEvent">ConferenceEvent</a> as a subtype of <a href="/Event">Event</a>. Add new properties <a href="/hasParticipationOffer">hasParticipationOffer</a> and <a href="/hasSponsorshipOffer">hasSponsorshipOffer</a> with values of type  <a href="/Offer">Offer</a> to <a href="/ConferenceEvent">ConferenceEvent</a>.
+    </li>
+    <li id="g4505">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4505">Issue #4505</a>: Add cross-schema examples with vocabulary from <a href="https://www.gs1.org/gs1-web-vocabulary ">GS1 web vocabulary</a>and <a href="https://vocabulary.uncefact.org/">UN/CEFACT</a>.
+    </li>
+    <li id="g4533">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4533">Issue #4533</a>: Allow values of type <a href="/StructuredValue">StructuredValue</a> for property <a href="/reviewAspect/">reviewAspect</a>.
+    </li>
+    <li id="g4532">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4532">Issue #4532</a>: Add <a href="/category">category</a> to <a href="/Guide">Guide</a>.
+    </li>
+    <li id="g4468">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4468">Issue #4468</a>: Add new type <a href="/PerformingArtsEvent">PerformingArtsEvent</a> as a subtype of <a href="/Event">Event</a>.
+    </li>
+    <li id="g4513">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4513">Issue #4513</a>: Add new <a href="/displayLocation">displayLocation</a> property with values of range <a href="/Place">Place</a>. Add <a href="/displayLocation">displayLocation</a> to <a href="/CreativeWork">CreativeWork</a> and <a href="/Product">Product</a>.
+    </li>
+    <li id="g4546">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4546">Issue #4546</a>: Add new types <a href="/CurrencyCode">CurrencyCode</a>, <a href="/CountryCode">CountryCode</a>, and  <a href="/LanguageCode">LanguageCode</a> as a subtype of <a href="/Text">Text</a>.  Allow values of type <a href="/CurrencyCode">CurrencyCode</a> for use on <a href="/costCurrency"> costCurrency</a>, <a href="/currency">currency</a>, <a href="/discountCurrency">discountCurrency</a>, <a href="/priceCurrency">priceCurrency</a>, and <a href="/salaryCurrency">salaryCurrency</a>. Allow values of type <a href="/LanguageCode">LanguageCode</a> for use on <a href="/inLanguage">inLanguage</a>, <a href="/knowsLanguage">knowsLanguage</a>, <a href="/subtitleLanguage">subtitleLanguage</a>, and <a href="/availableLanguage">availableLanguage</a>. Allow values of type <a href="/CountryCode">CountryCode</a> for use on <a href="/returnPolicyCountry">returnPolicyCountry</a>, <a href="/addressCountry">addressContry</a>, <a href="/applicableCountry">applicableCountry</a>, <a href="/countriesNotSupported">countriesNotSupported</a>, <a href="/countriesSupported">countriesSupported</a>, <a href="/countryOfAssembly">countryOfAssembly</a>, and <a href="/countryOfLastProcessing">countryOfLastProcessing</a>
+    </li>
+    <li id="g4567">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4567">Issue #4567</a>: Allow values of type <a href="/AdministrativeRegion">AdministrativeRegion</a> for property <a href="/addressRegion">addressRegion</a>.
+    </li>
+    <li id="g4571">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4571">PR #4571</a>,
+	  <a href="https://github.com/schemaorg/schemaorg/pull/4580">PR #4580</a>,
+      <a href="https://github.com/schemaorg/schemaorg/pull/4571">PR #4608</a>,
+      <a href="https://github.com/schemaorg/schemaorg/pull/4608">PR #4613</a>:
+	  : Add OWL equivalences for UN/CEFACT, OWL, OMG, and GS1 ontologies.
+    </li>
+    <li id="g4576">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4576">PR #4576</a>: Make <a href="/OrderItem">OrderItem</a> a subtype of <a href="/StructuredValue">StructuredValue</a> instead of <a href="/Intangible">Intangible</a> to align with <a href="/TypeAndQuantityNode">TypeAndQuantityNode</a>.
+    </li>
+    <li id="g4540">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4540">Issue #4540</a>: Add new property <a href="/lifeEvent">lifeEvent</a> with values of type <a href="Event">Event</a> to <a href="/Person">Person</a>.
+    </li>
+    <li id="g4582">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4582">PR #4582</a>: Add <a href="/Place">Place</a> a supertype for <a href="/DefinedRegion">DefinedRegion</a>.
+    </li>
+    <li id="g4527">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4527">Issue #4527</a>: Add new type <a href="/AtomicEvent">AtomicEvent</a> as subtype of type <a href="StructuredValue">StructuredValue</a> to represent events without a duration. Add new properties <a href="/source">source</a> with values of type <a href="/Thing">Thing</a> , <a href="/timestamp">timestamp</a> with values of type <a href="/DateTime">DateTime</a>, and <a href="/data">data</a> with values of type <a href="/Thing">Thing</a> to  <a href="/AtomicEvent">AtomicEvent</a>.
+    </li>
+    <li id="g4507">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4507">Issue #4507</a>: Add new basic authentication concepts <a href="/AuthenticateAction">AuthenticateAction</a>, <a href="/LoginAction">LoginAction</a>, and <a href="/ResetPasswordAction">ResetPasswordAction</a> as  subtypes of <a href="/ControlAction">ControlAction</a>.
+    </li>
+    <li id="g3697">
+      <a href="https://github.com/schemaorg/schemaorg/issues/3697">Issue #3697</a>: Add new type <a href="/SequentialArt">SequentialArt</a> as a subtype of <a href="/VisualArtwork">VisualArtwork</a> and <a href="/Book">Book</a>, replacing <a href="/GraphicNovel">GraphicNovel</a> which is now marked as deprecated.
+    </li>
+    <li id="g4470">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4470">Issue #4470</a>: Add new type <a href="/OnlineMarketplace">OnlineMarketplace</a> as subtype of type <a href="OnlineStore">OnlineStore</a>. Add new property <a href="/hasStore">hasStore</a> (with inverse property <a href="/isStoreOn">isStoreOn</a>) with values of type <a href="/OnlineStore">OnlineStore</a> to  <a href="/OnlineMarketplace">OnlineMarketplace</a>.
+    </li>
+    <li id="g3691">
+      <a href="https://github.com/schemaorg/schemaorg/pull/3691">PR #3691</a>: Add missing values to enumeration <a href="/DigitalSourceType">DigitalSourceType</a>.
+    </li>
+    <li id="g4592">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4592">PR #4592</a>: Allow values of type <a href="/DefinedTerm">DefinedTerm</a> for property <a href="/genre">genre</a>.
+    </li>
+    <li id="g4575">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4575">Issue #4575</a>: Add new types <a href="/OperatingSystem">OperatingSystem</a> and <a href="/RuntimePlatform">RuntimePlatform</a> as subtypes of <a href="/SoftwareApplication">SoftwareApplication</a>. Allow values of type <a href="/OperatingSystem">OperatingSystem</a> for properties <a href="/operatingSystem">operatingSystem</a> and <a href="/softwareRequirements">softwareRequirements</a>. Allow values of type <a href="/RuntimePlatform">RuntimePlatform</a> for properties <a href="/runtimePlatform">runtimePlatform</a> and <a href="/softwareRequirements">softwareRequirements</a>. Add property <a href="/runtimePlatform">runtimePlatform</a> to <a href="/SoftwareApplication">SoftwareApplication</a>. Add <a href="/OperatingSystem">OperatingSystem</a> as a supertype for <a href="/DigitalPlatformEnumeration">DigitalPlatformEnumeration</a>.
+    </li>
+    <li id="g4603">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4603">Issue #4603</a>: Generalize property <a href="/owns">owns</a> by allowing values of type <a href="Thing">Thing</a> instead of only <a href="/OwnershipInfo">OwnershipInfo</a> and <a href="/Product">Product</a>. Add inverse property <a href="/owner">owner</a> for <a href="/owns">owns</a>.
+    </li>
+    <li id="g4541">
+      <a href="https://github.com/schemaorg/schemaorg/issue/4541">Issue #4541</a>: Allow values of type <a href="/Date">Date</a> for property <a href="/observationDate">observationDate</a>.
+    </li>
+    <li id="g4588">
+      <a href="https://github.com/schemaorg/schemaorg/issue/4588">Issue #4588</a>: Add property <a href="/about">about</a> to <a href="/DefinedTerm">DefinedTerm</a> and <a href="/DefinedTermSet">DefinedTermSet</a>.
+    </li>
+
+    <li id="g4498">
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4498">PR #4498</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4524">PR #4524</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4504">PR #4504</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4537">PR #4537</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4538">PR #4538</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4534">PR #4534</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4537">PR #4542</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4539">PR #4539</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4551">PR #4551</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4561">PR #4561</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4565">PR #4565</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4544">PR #4544</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4594">PR #4594</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4292">PR #4292</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3683">PR #3683</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3684">PR #3684</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3685">PR #3685</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3675">PR #3675</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3631">PR #3631</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4600">PR #4600</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4601">PR #4601</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4600">PR #4596</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4610">PR #4610</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4614">PR #4614</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4614">PR #4609</a>,
+		  : Many build infra and integration test improvements.
+	</li>
+    <li id="g4552">
+          <a href="https://github.com/schemaorg/schemaorg/pull/4492">PR #4492</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4552">PR #4552</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4553</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4559</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4562</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4427">PR #4427</a>,
+	  : Documentation and example updates.
+	</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
   <td class="release">29.3<br/>2025-09-04</td>
   <td>
   <span id="v29.3"></span>
@@ -106,7 +227,7 @@ A summary view of the current published release is available from: <a href="http
       <a href="https://github.com/schemaorg/schemaorg/issues/4470">Issue #4470</a>: Add <a href="/OnlineMarketplace">OnlineMarketplace</a> as a subtype of <a href="/OnlineStore">OnlineStore</a>. Add <a href="/hasStore">hasStore</a> property for use on <a href="/OnlineMarketplace">OnlineMarketplace</a>. Add inverse property <a href="/isStoreOn">isStoreOn</a> for use on <a href="/OnlineStore">OnlineStore</a>.
     </li>
     <li id="g4480">
-		  <a href="https://github.com/schemaorg/schemaorg/pull/4473">PR #4480</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4480">PR #4480</a>,
 		  <a href="https://github.com/schemaorg/schemaorg/pull/4473">PR #4473</a>,
 		  <a href="https://github.com/schemaorg/schemaorg/pull/4455">PR #4455</a>,
 		  <a href="https://github.com/schemaorg/schemaorg/pull/4449">PR #4449</a>: Small bug fixes.
