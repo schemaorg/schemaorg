@@ -12,17 +12,17 @@
 @prefix dcmitype: <http://purl.org/dc/dcmitype/> .
 @prefix fibo-be-corp-corp: <https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/> .
 @prefix fibo-be-ge-ge: <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/> .
-@prefix fibo-be-le-lp: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
 @prefix fibo-be-le-cb: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/> .
+@prefix fibo-be-le-lp: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
 @prefix fibo-be-nfp-nfp: <https://spec.edmcouncil.org/fibo/ontology/BE/NotForProfitOrganizations/NotForProfitOrganizations/> .
 @prefix fibo-be-oac-cctl: <https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/CorporateControl/> .
 @prefix fibo-fbc-dae-dbt: <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/> .
 @prefix fibo-fbc-pas-fpas: <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/> .
 @prefix fibo-fnd-acc-cur: <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/> .
 @prefix fibo-fnd-agr-ctr: <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/> .
-@prefix fibo-fnd-dt-oc: <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/> .
 @prefix fibo-fnd-arr-doc: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/> .
 @prefix fibo-fnd-arr-lif: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/> .
+@prefix fibo-fnd-dt-oc: <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/> .
 @prefix fibo-fnd-org-org: <https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/> .
 @prefix fibo-fnd-org-org: <https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/> .
 @prefix fibo-fnd-pas-pas: <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/> .
@@ -34,6 +34,7 @@
 @prefix fibo-pay-ps-ps: <https://spec.edmcouncil.org/fibo/ontology/PAY/PaymentServices/PaymentServices/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix gleif-L1: <https://www.gleif.org/ontology/L1/> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -731,6 +732,9 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :ContactPoint a rdfs:Class ;
     rdfs:label "ContactPoint" ;
     rdfs:comment "A contact point&#x2014;for example, a Customer Complaints department." ;
+    owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard> ;
+    owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
+    owl:equivalentClass gs1:ContactPoint;
     owl:equivalentClass fibo-fnd-org-org:ContactPoint ;
     owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard> ;
     rdfs:subClassOf :StructuredValue .
@@ -782,8 +786,9 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :Country a rdfs:Class ;
     rdfs:label "Country" ;
     rdfs:comment "A country." ;
-    owl:equivalentClass unece:Country ;
+    owl:equivalentClass gs1:Country ;
     owl:equivalentClass lcc-cr:Country ;
+    owl:equivalentClass unece:Country ;
     rdfs:subClassOf cmns-ge:GeopoliticalEntity ;
     rdfs:subClassOf :AdministrativeArea .
 
@@ -2218,6 +2223,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "Organization" ;
     rdfs:comment "An organization such as a school, NGO, corporation, club, etc." ;
     owl:equivalentClass fibo-fnd-org-org:Organization ;
+    owl:equivalentClass gs1:Organization ;
+    owl:equivalentClass fibo-fnd-org-org:Organization ;
     rdfs:subClassOf :Thing .
 
 :OrganizationRole a rdfs:Class ;
@@ -2443,9 +2450,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PostalAddress a rdfs:Class ;
     rdfs:label "PostalAddress" ;
     rdfs:comment "The mailing address." ;
-    owl:EquivalentClass unece:TradeAddress ;
     owl:EquivalentClass cmns-loc:Address ;
     owl:equivalentClass fibo-fnd-plc-adr:PostalAddress ;
+    owl:EquivalentClass gs1:PostalAddress ;
+    owl:EquivalentClass unece:TradeAddress ;
     rdfs:subClassOf :ContactPoint .
 
 :PostalCodeRangeSpecification a rdfs:Class ;
@@ -4233,6 +4241,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :address a rdf:Property ;
     rdfs:label "address" ;
     rdfs:comment "Physical address of the item." ;
+    owl:equivalentProperty gs1:PostalAddress ;
     :domainIncludes :GeoCoordinates,
         :GeoShape,
         :Organization,
@@ -4244,6 +4253,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :addressCountry a rdf:Property ;
     rdfs:label "addressCountry" ;
     rdfs:comment """The country. Recommended to be in 2-letter [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example "US". For backward compatibility, a 3-letter [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or a full country name such as "Singapore" can also be used.""" ;
+    owl:equivalentProperty gs1:Country ;
     :domainIncludes :DefinedRegion,
         :GeoCoordinates,
         :GeoShape,
@@ -4255,6 +4265,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "addressLocality" ;
     rdfs:comment "The locality in which the street address is, and which is in the region. For example, Mountain View." ;
     owl:equivalentProperty fibo-fnd-plc-adr:hasMunicipality ;
+    owl:equivalentProperty gs1:addressLocality ;
     :domainIncludes :PostalAddress ;
     :rangeIncludes :Text .
 
@@ -4638,6 +4649,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :availableLanguage a rdf:Property ;
     rdfs:label "availableLanguage" ;
     rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]." ;
+    owl:equivalentProperty gs1:availableLanguage;
     :domainIncludes :ContactPoint,
         :LodgingBusiness,
         :ServiceChannel,
@@ -5244,6 +5256,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :contactType a rdf:Property ;
     rdfs:label "contactType" ;
     rdfs:comment "A person or organization can have different contact points, for different purposes. For example, a sales contact point, a PR contact point and so on. This property is used to specify the kind of contact point." ;
+    owl:equivalentProperty gs1:contactType;
     :domainIncludes :ContactPoint ;
     :rangeIncludes :Text .
 
@@ -5723,6 +5736,7 @@ Dateline summaries are oriented more towards human readers than towards automate
 :dissolutionDate a rdf:Property ;
     rdfs:label "dissolutionDate" ;
     rdfs:comment "The date that this organization was dissolved." ;
+    owl:equivalentProperty gs1:organizationTerminationDate ;
     :domainIncludes :Organization ;
     :rangeIncludes :Date .
 
@@ -5905,6 +5919,7 @@ This property should not be used where the nature of the alignment can be descri
 :email a rdf:Property ;
     rdfs:label "email" ;
     rdfs:comment "Email address." ;
+    owl:equivalentProperty gs1:email ;
     :domainIncludes :ContactPoint,
         :Organization,
         :Person ;
@@ -6116,6 +6131,7 @@ This property should not be used where the nature of the alignment can be descri
 :faxNumber a rdf:Property ;
     rdfs:label "faxNumber" ;
     rdfs:comment "The fax number." ;
+    owl:equivalentProperty  gs1:faxNumber ;
     :domainIncludes :ContactPoint,
         :Organization,
         :Person,
@@ -6226,6 +6242,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :foundingDate a rdf:Property ;
     rdfs:label "foundingDate" ;
     rdfs:comment "The date that this organization was founded." ;
+    owl:equivalentProperty gs1:organizationFormationDate;
     :domainIncludes :Organization ;
     :rangeIncludes :Date .
 
@@ -6385,6 +6402,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:comment "The [Global Location Number](http://www.gs1.org/gln) (GLN, sometimes also referred to as International Location Number or ILN) of the respective organization, person, or place. The GLN is a 13-digit number used to identify parties and physical locations." ;
     rdfs:subPropertyOf :identifier ;
     owl:equivalentProperty unece:gLNId ;
+    owl:equivalentProperty gs1:globalLocationNumber ;
     :domainIncludes :Organization,
         :Person,
         :Place ;
@@ -7014,8 +7032,9 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :legalName a rdf:Property ;
     rdfs:label "legalName" ;
     rdfs:comment "The official name of the organization, e.g. the registered company name." ;
-    owl:equivalentProperty fibo-fnd-rel-rel:hasLegalName ;
     rdfs:subPropertyOf cmns-txt:hasName ;
+    owl:equivalentProperty fibo-fnd-rel-rel:hasLegalName ;
+    owl:equivalentProperty gs1:organizationLegalName ;
     :domainIncludes :Organization ;
     :rangeIncludes :Text .
 
@@ -7164,6 +7183,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :manufacturer a rdf:Property ;
     rdfs:label "manufacturer" ;
     rdfs:comment "The manufacturer of the product." ;
+    owl:equivalentProperty gs1:manufacturer ;
     owl:equivalentProperty unece:manufacturerParty ;
     rdfs:subPropertyOf fibo-fnd-pas-pas:isProvisionedBy ;
     :domainIncludes :Product ;
@@ -7752,7 +7772,9 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :owns a rdf:Property ;
     rdfs:label "owns" ;
+    owl:equivalentProperty gs1:owns ;
     rdfs:comment "Things owned by the organization or person." ;
+    owl:equivalentProperty gs1:owns ;
     :domainIncludes :Organization,
         :Person ;
     :inverseOf :owner ;
@@ -9368,6 +9390,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :telephone a rdf:Property ;
     rdfs:label "telephone" ;
     rdfs:comment "The telephone number." ;
+    owl:equivalentProperty gs1:telephone ;
     :domainIncludes :ContactPoint,
         :Organization,
         :Person,
@@ -10658,6 +10681,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:label "subOrganization" ;
     rdfs:comment "A relationship between two organizations where the first includes the second, e.g., as a subsidiary. See also: the more specific 'department' property." ;
     owl:equivalentProperty fibo-be-oac-cctl:hasSubsidiary ;
+    owl:equivalentProperty gs1:subOrganization ;
     :domainIncludes :Organization ;
     :inverseOf :parentOrganization ;
     :rangeIncludes :Organization .
@@ -10806,6 +10830,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :parentOrganization a rdf:Property ;
     rdfs:label "parentOrganization" ;
     rdfs:comment "The larger organization that this organization is a [[subOrganization]] of, if any." ;
+    owl:equivalentProperty gs1:parentOrganization;
     :domainIncludes :Organization ;
     :inverseOf :subOrganization ;
     :rangeIncludes :Organization .
