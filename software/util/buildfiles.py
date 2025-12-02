@@ -188,33 +188,73 @@ def exportrdf(exportType, subdirectory_path: str | None = None):
     global allGraph, currentGraph
 
     if not allGraph:
+        # The bindings need to be done for each graph
+        # as they are not copied over.
         allGraph = rdflib.Graph()
         allGraph.bind("schema", VOCABURI)
+        sdotermsource.bindNameSpaces(allGraph)
         currentGraph = rdflib.Graph()
+        sdotermsource.bindNameSpaces(currentGraph)
         currentGraph.bind("schema", VOCABURI)
 
+        # Loads triples AND the bindings you added to sourceGraph()
         allGraph += sdotermsource.SdoTermSource.sourceGraph()
 
         protocol, altprotocol = protocols()
 
+        log.debug("Cleanup non schema org things.")
+        # We delete everything where Subject is not schema.org.
+        # Since we haven't created the new types yet, they are safe.
         deloddtriples = """DELETE {?s ?p ?o}
-            WHERE {
-                ?s ?p ?o.
-                FILTER (! strstarts(str(?s), "%s://schema.org") ).
-            }""" % (protocol)
+           WHERE {
+               ?s ?p ?o.
+               FILTER (! strstarts(str(?s), "%s://schema.org") ).
+           }""" % (protocol)
         allGraph.update(deloddtriples)
+
+        log.debug("Generate Foreign types – SPARQL INSERT")
+        # Insert all the types and properties that are equivalent or inherited from.
+        insert_foreign_types = """
+           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+           PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+           INSERT {
+               ?classNode a rdfs:Class .
+               ?propNode a rdf:Property .
+           }
+           WHERE {
+               # Find Foreign Classes (used in subClassOf or equivalentClass)
+               {
+                   { ?s rdfs:subClassOf ?classNode } UNION { ?s owl:equivalentClass ?classNode }
+                   FILTER (isURI(?classNode) && !strstarts(str(?classNode), "%s://schema.org"))
+               }
+               UNION
+               # Find Foreign Properties (used in subPropertyOf or equivalentProperty)
+               {
+                   { ?s rdfs:subPropertyOf ?propNode } UNION { ?s owl:equivalentProperty ?propNode }
+                   FILTER (isURI(?propNode) && !strstarts(str(?propNode), "%s://schema.org"))
+               }
+           }
+        """ % (protocol, protocol)
+
+        allGraph.update(insert_foreign_types)
+
+        log.debug("Merge")
         currentGraph += allGraph
 
+        log.debug("Delete items from the attic")
         delattic = """PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
-            ?s ?p ?o;
-                schema:isPartOf <%s://attic.schema.org>.
+          ?s ?p ?o;
+              schema:isPartOf <%s://attic.schema.org>.
         }""" % (protocol, protocol)
+
         currentGraph.update(delattic)
 
     formats = ["json-ld", "turtle", "nt", "nquads", "rdf"]
-    extype = exportType[len("RDFExport."):]
+    extype = exportType[len("RDFExport.") :]
     if exportType == "RDFExports":
         for output_format in sorted(formats):
             _exportrdf(output_format, allGraph, currentGraph, subdirectory_path)
@@ -229,7 +269,6 @@ completed_rdf_exports = set()
 
 
 def _exportrdf(output_format, all, current, subdirectory_path: str | None = None):
-
     protocol, altprotocol = protocols()
 
     if output_format in completed_rdf_exports:
@@ -249,7 +288,6 @@ def _exportrdf(output_format, all, current, subdirectory_path: str | None = None
             qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
-
 
         for p in fileutils.FILESET_PROTOCOLS:
             fn = fileutils.releaseFilePath(
