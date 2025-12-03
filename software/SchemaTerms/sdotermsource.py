@@ -38,6 +38,152 @@ DEFTRIPLESFILESGLOB = ("data/*.ttl", "data/ext/*/*.ttl")
 LOADEDDEFAULT = False
 
 
+def bindNameSpaces(graph):
+    # --- Standard / W3C / Dublin Core ---
+    graph.bind("dc", "http://purl.org/dc/elements/1.1/")
+    graph.bind("dcat", "http://www.w3.org/ns/dcat#")
+    graph.bind("dct", "http://purl.org/dc/terms/")
+    graph.bind("dctype", "http://purl.org/dc/dcmitype/")
+    graph.bind("foaf", "http://xmlns.com/foaf/0.1/")
+    graph.bind("owl", "http://www.w3.org/2002/07/owl#")
+    graph.bind("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    graph.bind("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
+    graph.bind("skos", "http://www.w3.org/2004/02/skos/core#")
+    graph.bind("void", "http://rdfs.org/ns/void#")
+
+    # --- OMG Commons ---
+    graph.bind("cmns-cls", "https://www.omg.org/spec/Commons/Classifiers/")
+    graph.bind("cmns-col", "https://www.omg.org/spec/Commons/Collections/")
+    graph.bind("cmns-dt", "https://www.omg.org/spec/Commons/DatesAndTimes/")
+    graph.bind("cmns-ge", "https://www.omg.org/spec/Commons/GeopoliticalEntities/")
+    graph.bind("cmns-id", "https://www.omg.org/spec/Commons/Identifiers/")
+    graph.bind("cmns-loc", "https://www.omg.org/spec/Commons/Locations/")
+    graph.bind("cmns-q", "https://www.omg.org/spec/Commons/Quantities/")
+    graph.bind("cmns-txt", "https://www.omg.org/spec/Commons/Text/")
+
+    # --- OMG LCC (ISO Codes) ---
+    graph.bind(
+        "lcc-3166-1", "https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/"
+    )
+    graph.bind(
+        "lcc-4217", "https://www.omg.org/spec/LCC/Countries/ISO4217-CurrencyCodes/"
+    )
+    graph.bind(
+        "lcc-lr", "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/"
+    )
+
+    # --- FIBO (Financial Industry Business Ontology) ---
+    graph.bind(
+        "fibo-be-corp-corp",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/",
+    )
+    graph.bind(
+        "fibo-be-ge-ge",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/",
+    )
+    graph.bind(
+        "fibo-be-le-cb",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/",
+    )
+    graph.bind(
+        "fibo-be-le-lp",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/",
+    )
+    graph.bind(
+        "fibo-be-nfp-nfp",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/NotForProfitOrganizations/NotForProfitOrganizations/",
+    )
+    graph.bind(
+        "fibo-be-oac-cctl",
+        "https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/CorporateControl/",
+    )
+    graph.bind(
+        "fibo-fbc-dae-dbt",
+        "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/",
+    )
+    graph.bind(
+        "fibo-fbc-pas-fpas",
+        "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/",
+    )
+    graph.bind(
+        "fibo-fnd-acc-cur",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/",
+    )
+    graph.bind(
+        "fibo-fnd-agr-ctr",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/",
+    )
+    graph.bind(
+        "fibo-fnd-arr-doc",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/",
+    )
+    graph.bind(
+        "fibo-fnd-arr-lif",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/",
+    )
+    graph.bind(
+        "fibo-fnd-dt-oc",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/",
+    )
+    graph.bind(
+        "fibo-fnd-org-org",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/",
+    )
+    graph.bind(
+        "fibo-fnd-pas-pas",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/",
+    )
+    graph.bind(
+        "fibo-fnd-plc-adr",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/",
+    )
+    graph.bind(
+        "fibo-fnd-plc-fac",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Facilities/",
+    )
+    graph.bind(
+        "fibo-fnd-plc-loc",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Locations/",
+    )
+    graph.bind(
+        "fibo-fnd-pty-pty",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/",
+    )
+    graph.bind(
+        "fibo-fnd-rel-rel",
+        "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/",
+    )
+    graph.bind(
+        "fibo-pay-ps-ps",
+        "https://spec.edmcouncil.org/fibo/ontology/PAY/PaymentServices/PaymentServices/",
+    )
+
+    # --- Other External Vocabularies ---
+    graph.bind("gleif-L1", "https://www.gleif.org/ontology/L1/")
+    graph.bind("gs1", "https://ref.gs1.org/voc/")
+    graph.bind(
+        "lcc-cr", "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/"
+    )
+    graph.bind("unece", "http://unece.org/vocab#")
+    graph.bind("vcard", "http://www.w3.org/2006/vcard/ns#")
+    graph.bind("bibo", "http://purl.org/ontology/bibo/")
+    graph.bind("sarif", "http://sarif.info/")
+
+    # --- Libraries and Health ---
+    graph.bind("lrmoo", "http://iflastandards.info/ns/lrm/lrmoo/")
+    graph.bind("snomed", "http://purl.bioontology.org/ontology/SNOMEDCT/")
+
+    # --- European Legislation Identifier (ELI) ---
+    graph.bind("eli", "http://data.europa.eu/eli/ontology#")
+
+    # --- W3C Standard extensions ---
+    graph.bind("prov", "http://www.w3.org/ns/prov#")
+    graph.bind("hydra", "http://www.w3.org/ns/hydra/core#")
+
+    # --- Music Ontology ---
+    graph.bind("mo", "http://purl.org/ontology/mo/")
+
+
 class _TermAccumulator:
     """Temporary holder to accumulate term information."""
 
@@ -313,9 +459,9 @@ class SdoTermSource:
             )  # To accept later ttl versions.
             for obj in objs:
                 if obj:
-                  cont = sdocollaborators.collaborator.getContributor(obj)
-                  if cont:
-                      acks.append(cont)
+                    cont = sdocollaborators.collaborator.getContributor(obj)
+                    if cont:
+                        acks.append(cont)
             self.acks = sorted(acks, key=lambda t: t.title)
         return self.acks
 
@@ -954,12 +1100,7 @@ class SdoTermSource:
         global VOCABURI
         cls.SOURCEGRAPH = g
         g.bind("schema", VOCABURI)
-        g.bind("owl", "http://www.w3.org/2002/07/owl#")
-        g.bind("dc", "http://purl.org/dc/elements/1.1/")
-        g.bind("dct", "http://purl.org/dc/terms/")
-        g.bind("dctype", "http://purl.org/dc/dcmitype/")
-        g.bind("void", "http://rdfs.org/ns/void#")
-        g.bind("dcat", "http://www.w3.org/ns/dcat#")
+        bindNameSpaces(g)
 
         cls.TERMS = {}  # Clear cache
         cls.EXPANDEDTERMS = {}

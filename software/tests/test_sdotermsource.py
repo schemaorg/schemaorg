@@ -88,7 +88,7 @@ class TestConversionFunctions(unittest.TestCase):
             sdotermsource.uriForPrefix("dc"),
             rdflib.term.URIRef("http://purl.org/dc/elements/1.1/"),
         )
-        self.assertIsNone(sdotermsource.uriForPrefix("gs1"))
+        self.assertIsNone(sdotermsource.uriForPrefix("feedface"))
 
     def testPrefixedIdFromUri(self):
         self.assertEqual(
