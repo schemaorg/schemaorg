@@ -539,6 +539,17 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Enumeration Type without Enumeration value")
 
+    def test_owlEquivalences(self):
+        self.assertNoMatch("""
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?term ?equivType WHERE {
+            ?term owl:equivalentClass ?equivType .
+            FILTER EXISTS { ?term owl:equivalentProperty ?equivType . }
+          }
+          ORDER BY ?term
+        """,
+        error_message="Equivalence cannot hold for both Class and Property!",
+        row_pattern="Term '%(term)s' is both equivalent Class and Property of %(equivType)s")
 
 
 # TODO: Unwritten tests (from basics; easier here?)
