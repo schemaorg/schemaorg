@@ -539,17 +539,28 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Enumeration Type without Enumeration value")
 
-    def test_owlEquivalences(self):
+    def test_illegalOwlClassPropertyMixup(self):
         self.assertNoMatch("""
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         SELECT ?term ?equivType WHERE {
             ?term owl:equivalentClass ?equivType .
-            FILTER EXISTS { ?term owl:equivalentProperty ?equivType . }
+            ?term owl:equivalentProperty ?equivType .
           }
           ORDER BY ?term
         """,
         error_message="Equivalence cannot hold for both Class and Property!",
         row_pattern="Term '%(term)s' is both equivalent Class and Property of %(equivType)s")
+
+        self.assertNoMatch("""
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?cls ?prop ?equivType WHERE {
+            ?cls owl:equivalentClass ?equivType .
+            ?prop owl:equivalentProperty ?equivType .
+          }
+          ORDER BY ?cls
+        """,
+        error_message="A type cannot be both equivalentClass and equivalentProperty!",
+        row_pattern="Type '%(equivType)s' cannot be both an equivalent Class (with %(cls)s) and Property of (with %(prop)s)")
 
 
 # TODO: Unwritten tests (from basics; easier here?)
