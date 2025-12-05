@@ -578,7 +578,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            }
 
            {
-             # ?term much by of the right type for the predicate
+             # ?term must be of the right type for the predicate
              ?term a ?type .
              ?term ?predicate ?target .
            }
