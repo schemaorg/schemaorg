@@ -562,6 +562,30 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="A type cannot be both equivalentClass and equivalentProperty!",
         row_pattern="Type '%(equivType)s' cannot be both an equivalent Class (with %(cls)s) and Property of (with %(prop)s)")
 
+    def test_properClassPropertyStructuring(self):
+        self.assertNoMatch("""
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+         PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+         SELECT ?term ?target WHERE {
+           # Define the combinations of type and predicate to look for
+           VALUES (?type ?predicate) {
+             (rdfs:Class    rdfs:subPropertyOf)
+             (rdfs:Class    owl:equivalentProperty)
+             (rdfs:Property rdfs:subClassOf)
+             (rdfs:Property owl:equivalentClass)
+           }
+
+           # Apply the pattern once using the values above
+           ?term a ?type .
+           ?term ?predicate ?target .
+
+         } ORDER BY ?term
+        """,
+        error_message="A type cannot be a Class (Property) and also be a subPropertyOf (subClassOf) or something!",
+        row_pattern="'%(term)s' is a Class/Property and also a subPropertyOf/subClassOf %(target)s")
+
 
 # TODO: Unwritten tests (from basics; easier here?)
 #
