@@ -102,8 +102,7 @@ unece:Offer a rdfs:Class .
 
 unece:Order a rdfs:Class .
 
-unece:PaymentMeans a rdf:Property,
-        rdfs:Class .
+unece:PaymentMeans a rdfs:Class .
 
 unece:RequestForQuotation a rdfs:Class .
 
@@ -115,8 +114,7 @@ unece:TradeAddress a rdfs:Class .
 
 unece:TradeProduct a rdfs:Class .
 
-unece:TransportMethod a rdf:Property,
-        rdfs:Class .
+unece:TransportMethod a rdfs:Class .
 
 rdf:Property a rdfs:Class .
 
@@ -142,13 +140,11 @@ gs1:CertificationDetails a rdfs:Class .
 
 gs1:ContactPoint a rdfs:Class .
 
-gs1:Country a rdf:Property,
-        rdfs:Class .
+gs1:Country a rdfs:Class .
 
 gs1:Organization a rdfs:Class .
 
-gs1:PostalAddress a rdf:Property,
-        rdfs:Class .
+gs1:PostalAddress a rdfs:Class .
 
 schema:3DModel a rdfs:Class ;
     rdfs:label "3DModel" ;
@@ -9093,7 +9089,6 @@ schema:additionalVariable a rdf:Property ;
 schema:address a rdf:Property ;
     rdfs:label "address" ;
     rdfs:comment "Physical address of the item." ;
-    owl:equivalentProperty gs1:PostalAddress ;
     schema:domainIncludes schema:GeoCoordinates,
         schema:GeoShape,
         schema:Organization,
@@ -9105,7 +9100,6 @@ schema:address a rdf:Property ;
 schema:addressCountry a rdf:Property ;
     rdfs:label "addressCountry" ;
     rdfs:comment "The country. Recommended to be in 2-letter [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example \"US\". For backward compatibility, a 3-letter [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as \"SGP\" or a full country name such as \"Singapore\" can also be used." ;
-    owl:equivalentProperty gs1:Country ;
     schema:domainIncludes schema:DefinedRegion,
         schema:GeoCoordinates,
         schema:GeoShape,
@@ -13153,7 +13147,6 @@ schema:hasCredential a rdf:Property ;
 schema:hasDeliveryMethod a rdf:Property ;
     rdfs:label "hasDeliveryMethod" ;
     rdfs:comment "Method used for delivery or shipping." ;
-    owl:equivalentProperty unece:TransportMethod ;
     schema:domainIncludes schema:DeliveryEvent,
         schema:ParcelDelivery ;
     schema:rangeIncludes schema:DeliveryMethod .
@@ -16303,7 +16296,6 @@ schema:paymentMethod a rdf:Property ;
     rdfs:label "paymentMethod" ;
     rdfs:comment "The name of the credit card or other method of payment for the order." ;
     rdfs:subPropertyOf fibo-fbc-pas-fpas:hasPaymentMechanism ;
-    owl:equivalentProperty unece:PaymentMeans ;
     schema:domainIncludes schema:Invoice,
         schema:Order ;
     schema:rangeIncludes schema:PaymentMethod,
