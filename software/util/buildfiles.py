@@ -215,27 +215,35 @@ def exportrdf(exportType, subdirectory_path: str | None = None):
         log.debug("Generate Foreign types – SPARQL INSERT")
         # Insert all the types and properties that are equivalent or inherited from.
         insert_foreign_types = """
-           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-           PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-           INSERT {
-               ?classNode a rdfs:Class .
-               ?propNode a rdf:Property .
-           }
-           WHERE {
-               # Find Foreign Classes (used in subClassOf or equivalentClass)
-               {
-                   { ?s rdfs:subClassOf ?classNode } UNION { ?s owl:equivalentClass ?classNode }
-                   FILTER (isURI(?classNode) && !strstarts(str(?classNode), "%s://schema.org"))
-               }
-               UNION
-               # Find Foreign Properties (used in subPropertyOf or equivalentProperty)
-               {
-                   { ?s rdfs:subPropertyOf ?propNode } UNION { ?s owl:equivalentProperty ?propNode }
-                   FILTER (isURI(?propNode) && !strstarts(str(?propNode), "%s://schema.org"))
-               }
-           }
+        INSERT {
+            ?classNode a rdfs:Class .
+            ?propNode a rdf:Property .
+        }
+        WHERE {
+            { # Find Foreign Classes
+                { ?s rdfs:subClassOf ?classNode } UNION { ?s owl:equivalentClass ?classNode }
+
+                FILTER (isURI(?classNode))
+                FILTER (?classNode != rdfs:Class)
+                FILTER (?classNode != owl:Class)
+                FILTER (?classNode != rdf:Property)
+                FILTER (!strstarts(str(?classNode), "%s://schema.org"))
+            }
+            UNION
+            { # Find Foreign Properties
+                { ?s rdfs:subPropertyOf ?propNode } UNION { ?s owl:equivalentProperty ?propNode }
+
+                FILTER (isURI(?propNode))
+                FILTER (?propNode != rdf:Property)
+                FILTER (?propNode != owl:ObjectProperty)
+                FILTER (?propNode != owl:DatatypeProperty)
+                FILTER (!strstarts(str(?propNode), "%s://schema.org"))
+            }
+        }
         """ % (protocol, protocol)
 
         allGraph.update(insert_foreign_types)
