@@ -4241,7 +4241,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :address a rdf:Property ;
     rdfs:label "address" ;
     rdfs:comment "Physical address of the item." ;
-    owl:equivalentProperty gs1:PostalAddress ;
     :domainIncludes :GeoCoordinates,
         :GeoShape,
         :Organization,
@@ -4253,7 +4252,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :addressCountry a rdf:Property ;
     rdfs:label "addressCountry" ;
     rdfs:comment """The country. Recommended to be in 2-letter [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example "US". For backward compatibility, a 3-letter [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or a full country name such as "Singapore" can also be used.""" ;
-    owl:equivalentProperty gs1:Country ;
     :domainIncludes :DefinedRegion,
         :GeoCoordinates,
         :GeoShape,
@@ -6487,7 +6485,6 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :hasDeliveryMethod a rdf:Property ;
     rdfs:label "hasDeliveryMethod" ;
     rdfs:comment "Method used for delivery or shipping." ;
-    owl:equivalentProperty unece:TransportMethod ;
     :domainIncludes :DeliveryEvent,
         :ParcelDelivery ;
     :rangeIncludes :DeliveryMethod .
@@ -7927,7 +7924,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "paymentMethod" ;
     rdfs:comment "The name of the credit card or other method of payment for the order." ;
     rdfs:subPropertyOf fibo-fbc-pas-fpas:hasPaymentMechanism ;
-    owl:equivalentProperty unece:PaymentMeans ;
     :domainIncludes :Invoice,
         :Order ;
     :rangeIncludes :PaymentMethod,
