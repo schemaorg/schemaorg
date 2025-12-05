@@ -568,7 +568,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
          PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-         SELECT ?term ?target WHERE {
+         SELECT ?term ?predicate ?target WHERE {
            # Define the combinations of type and predicate to look for
            VALUES (?type ?predicate) {
              (rdfs:Class    rdfs:subPropertyOf)
@@ -577,14 +577,21 @@ class SDOGraphSetupTestCase(unittest.TestCase):
              (rdfs:Property owl:equivalentClass)
            }
 
-           # Apply the pattern once using the values above
-           ?term a ?type .
-           ?term ?predicate ?target .
-
+           {
+             # ?term must be of the right type for the predicate
+             ?term a ?type .
+             ?term ?predicate ?target .
+           }
+           UNION
+           {
+             # ?target must be of the right type for the predicate
+             ?target a ?type .
+             ?term ?predicate ?target .
+           }
          } ORDER BY ?term
         """,
         error_message="A type cannot be a Class (Property) and also be a subPropertyOf (subClassOf) or something!",
-        row_pattern="'%(term)s' is a Class/Property and also a subPropertyOf/subClassOf %(target)s")
+        row_pattern="'%(term)s' is %(predicate)s of %(target)s")
 
 
 # TODO: Unwritten tests (from basics; easier here?)
