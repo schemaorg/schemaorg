@@ -20,7 +20,7 @@ def Setup():
     if sys.version_info < REQUIRED_VERSION:
         sys.stderr.write(
             f"Python version {sys.version_info.major}.{sys.version_info.minor} "
-            "not supported version {REQUIRED_VERSION[0]}.{REQUIRED_VERSION[1]} "
+            f"not supported version {REQUIRED_VERSION[0]}.{REQUIRED_VERSION[1]} "
             "or above required - Exiting\n"
             )
         sys.exit(os.EX_CONFIG)
@@ -49,7 +49,7 @@ def CheckWorkingDirectory():
     for directory_name in DATA_PATHS:
         if not os.path.isdir(directory_name):
             sys.stderr.write(
-                'Required directory {directory_name} not found - Exiting\n'
+                f'Required directory {directory_name} not found - Exiting\n'
             )
             sys.exit(os.EX_CONFIG)
 
