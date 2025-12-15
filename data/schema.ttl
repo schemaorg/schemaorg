@@ -36,12 +36,14 @@
 @prefix gleif-L1: <https://www.gleif.org/ontology/L1/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/> .
+@prefix og: <http://ogp.me/ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix unece: <http://unece.org/vocab#> .
 @prefix void: <http://rdfs.org/ns/void#> .
+
 
 
 :AMRadioChannel a rdfs:Class ;
@@ -7433,6 +7435,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:subPropertyOf rdfs:label ;
     owl:equivalentProperty cmns-txt:hasName ;
     owl:equivalentProperty dc:title ;
+    owl:equivalentProperty og:title ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text .
 
@@ -9683,6 +9686,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :url a rdf:Property ;
     rdfs:label "url" ;
     rdfs:comment "URL of the item." ;
+    owl:equivalentProperty og:url ;
     :domainIncludes :Thing ;
     :rangeIncludes :URL .
 
@@ -9897,6 +9901,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :video a rdf:Property ;
     rdfs:label "video" ;
     rdfs:comment "An embedded video object." ;
+    owl:equivalentProperty og:video ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Clip,
         :VideoObject .
@@ -10222,6 +10227,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "description" ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty dc:description ;
+    owl:equivalentProperty og:description ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text,
         :TextObject .
@@ -10802,6 +10808,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :image a rdf:Property ;
     rdfs:label "image" ;
     rdfs:comment "An image of the item. This can be a [[URL]] or a fully described [[ImageObject]]." ;
+    owl:equivalentProperty og:image;
     :domainIncludes :Thing ;
     :rangeIncludes :ImageObject,
         :URL .
