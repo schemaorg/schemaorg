@@ -183,6 +183,9 @@ def bindNameSpaces(graph):
     # --- Music Ontology ---
     graph.bind("mo", "http://purl.org/ontology/mo/")
 
+    # --- Open-Graph ---
+    graph.bind("og", "http://ogp.me/ns#")
+
 
 class _TermAccumulator:
     """Temporary holder to accumulate term information."""
