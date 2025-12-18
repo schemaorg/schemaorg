@@ -4243,6 +4243,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :address a rdf:Property ;
     rdfs:label "address" ;
     rdfs:comment "Physical address of the item." ;
+    owl:equivalentProperty gs1:address ;
     :domainIncludes :GeoCoordinates,
         :GeoShape,
         :Organization,
@@ -5248,7 +5249,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :contactPoints a rdf:Property ;
     rdfs:label "contactPoints" ;
     rdfs:comment "A contact point for a person or organization." ;
-    owl:equivalentProperty fibo-fnd-org-org:hasContactPoint ;
     :domainIncludes :Organization,
         :Person ;
     :rangeIncludes :ContactPoint ;
@@ -8083,6 +8083,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "The post office box number for PO box addresses." ;
     :domainIncludes :PostalAddress ;
     owl:equivalentProperty unece:postOfficeBox ;
+    owl:equivalentProperty gs1:postOfficeBoxNumber ;
     :rangeIncludes :Text .
 
 :postalCode a rdf:Property ;
@@ -8094,6 +8095,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :PostalAddress ;
     :rangeIncludes :Text ;
     owl:equivalentProperty unece:postcodeCode ;
+    owl:equivalentProperty gs1:postalCode ;
     owl:equivalentProperty fibo-fnd-plc-adr:hasPostalCode ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
 
@@ -9263,6 +9265,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :streetAddress a rdf:Property ;
     rdfs:label "streetAddress" ;
     rdfs:comment "The street address. For example, 1600 Amphitheatre Pkwy." ;
+    owl:equivalentProperty gs1:streetAddress ;
     :domainIncludes :PostalAddress ;
     :rangeIncludes :Text .
 
@@ -10190,6 +10193,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :contactPoint a rdf:Property ;
     rdfs:label "contactPoint" ;
     rdfs:comment "A contact point for a person or organization." ;
+    owl:equivalentProperty fibo-fnd-org-org:hasContactPoint ;
+    owl:equivalentProperty gs1:contactPoint ;
     :domainIncludes :Organization,
         :Person ;
     :rangeIncludes :ContactPoint .
