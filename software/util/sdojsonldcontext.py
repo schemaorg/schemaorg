@@ -40,7 +40,7 @@ def _convertTypes(type_range: typing.Collection[str]) -> typing.Set[str]:
         types.add("@id")
     if "Date" in type_range:
         types.add("Date")
-    if "Datetime" in type_range:
+    if "DateTime" in type_range:
         types.add("DateTime")
     return types
 
