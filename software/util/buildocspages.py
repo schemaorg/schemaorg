@@ -9,7 +9,7 @@ import os
 import sys
 
 # Import schema.org libraries
-if not os.getcwd() in sys.path:
+if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software.scripts.buildtermlist as buildtermlist
@@ -134,15 +134,16 @@ def buildTermCatList(terms, checkCat=False):
     return termcat, termcount
 
 
-VISITLIST = []
+class UnknownTermError(LookupError):
+    """Raised when there is no definition for a given term."""
 
 
 class listingNode:
-    def __init__(self, term, depth=0, title="", parent=None):
-        global VISITLIST
+    def __init__(self, term, depth=0, title="", parent=None, visit_set=None):
         termdesc = sdotermsource.SdoTermSource.getTerm(term)
-        if parent is None:
-            VISITLIST = []
+        if not termdesc:
+            raise UnknownTermError(f"No description for term {term}")
+        visit_set = visit_set or set()
         self.repeat = False
         self.subs = []
         self.parent = parent
@@ -152,22 +153,36 @@ class listingNode:
         self.depth = depth
         self.retired = termdesc.retired
         self.pending = termdesc.pending
-        if self.id not in VISITLIST:
-            VISITLIST.append(self.id)
+        if self.id not in visit_set:
+            visit_set.add(self.id)
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
                 for enum in sorted(termdesc.enumerationMembers.ids):
-                    self.subs.append(listingNode(enum, depth=depth + 1, parent=self))
+                    try:
+                        self.subs.append(
+                            listingNode(
+                                enum, depth=depth + 1, parent=self, visit_set=visit_set
+                            )
+                        )
+                    except UnknownTermError as e:
+                        log.warning(
+                            f"Error while building enumeration node {enum} for {term}: {e}"
+                        )
             for sub in sorted(termdesc.subs.ids):
-                self.subs.append(listingNode(sub, depth=depth + 1, parent=self))
-
+                try:
+                    self.subs.append(
+                        listingNode(
+                            sub, depth=depth + 1, parent=self, visit_set=visit_set
+                        )
+                    )
+                except UnknownTermError as e:
+                    log.warning(
+                        f"Error while building child node {sub} for {term}: {e}"
+                    )
         else:  # Visited this node before so don't parse children
             self.repeat = True
 
 
-def jsonldtree(page):
-    global VISITLIST
-    VISITLIST = []
-
+def jsonldtree(page) -> str:
     term = {}
     context = {}
     context["rdfs"] = "http://www.w3.org/2000/01/rdf-schema#"
@@ -176,38 +191,49 @@ def jsonldtree(page):
     context["description"] = "rdfs:comment"
     context["children"] = {"@reverse": "rdfs:subClassOf"}
     term["@context"] = context
-    data = _jsonldtree("Thing", term)
-    return json.dumps(data, indent=3)
+    data = _jsonldtree("Thing", visitset=set(), term=term)
+    return json.dumps(data, indent=2)
 
 
-def _jsonldtree(tid: str, term=None):
-    termdesc = sdotermsource.SdoTermSource.getTerm(tid)
-    if not term:
-        term = {}
-    term["@type"] = "rdfs:Class"
-    term["@id"] = "schema:" + termdesc.id
-    term["name"] = termdesc.label
-    if termdesc.supers:
-        sups = ["schema:" + sup for sup in termdesc.supers.ids]
-        if len(sups) == 1:
-            term["rdfs:subClassOf"] = sups[0]
-        else:
-            term["rdfs:subClassOf"] = sups
-    term["description"] = textutils.ShortenOnSentence(
-        textutils.StripHtmlTags(termdesc.comment)
-    )
-    if termdesc.pending:
-        term["pending"] = True
-    if termdesc.retired:
-        term["attic"] = True
-    if tid not in VISITLIST:
-        VISITLIST.append(tid)
-        if termdesc.subs:
-            subs = []
-            for sub in termdesc.subs.ids:
-                subs.append(_jsonldtree(tid=sub))
-            term["children"] = subs
-    return term
+def _jsonldtree(tid: str, visitset: set, term: dict | None = None) -> dict:
+    try:
+        termdesc = sdotermsource.SdoTermSource.getTerm(tid)
+        if not termdesc:
+            raise UnknownTermError(f"No description for term {term}")
+        if not term:
+            term = {}
+        term["@type"] = "rdfs:Class"
+        term["@id"] = "schema:" + termdesc.id
+        term["name"] = termdesc.label
+        if termdesc.supers:
+            sups = ["schema:" + sup for sup in termdesc.supers.ids]
+            if len(sups) == 1:
+                term["rdfs:subClassOf"] = sups[0]
+            else:
+                term["rdfs:subClassOf"] = sups
+        term["description"] = textutils.ShortenOnSentence(
+            textutils.StripHtmlTags(termdesc.comment)
+        )
+        if termdesc.pending:
+            term["pending"] = True
+        if termdesc.retired:
+            term["attic"] = True
+        if tid not in visitset:
+            visitset.add(tid)
+            if termdesc.subs:
+                subs = []
+                for sub in termdesc.subs.ids:
+                    try:
+                        subs.append(_jsonldtree(tid=sub, visitset=visitset))
+                    except UnknownTermError as e:
+                        log.warning(
+                            f"Error while building listing node for {term}: {e}"
+                        )
+                term["children"] = subs
+        return term
+    except Exception as e:
+        e.add_note(f"while building JSON tree for id:{tid}-{term}")
+        raise
 
 
 listings = None
