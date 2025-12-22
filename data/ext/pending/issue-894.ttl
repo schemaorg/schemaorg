@@ -22,14 +22,14 @@
     rdfs:label "DefinedTerm" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
-    rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term." ;
+    rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term. Use the about property to specify what the term is about." ;
     rdfs:subClassOf :Intangible .
 
 :DefinedTermSet a rdfs:Class ;
     rdfs:label "DefinedTermSet" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
-    rdfs:comment "A set of defined terms, for example a set of categories or a classification scheme, a glossary, dictionary or enumeration." ;
+    rdfs:comment "A set of defined terms, for example a set of categories or a classification scheme, a glossary, dictionary or enumeration. Use the about property to specify what the term set is about." ;
     rdfs:subClassOf :CreativeWork .
 
 :codeValue a rdf:Property ;

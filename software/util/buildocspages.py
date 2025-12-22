@@ -3,29 +3,26 @@
 
 # Import standard python libraries
 
-import sys
-import os
+import json
 import logging
+import os
+import sys
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
-import software
 import software.scripts.buildtermlist as buildtermlist
 import software.util.fileutils as fileutils
 import software.util.jinga_render as jinga_render
+import software.util.pretty_logger as pretty_logger
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
-import software.scripts.buildtermlist as buildtermlist
-import software.util.pretty_logger as pretty_logger
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaExamples.schemaexamples as schemaexamples
-
 
 log = logging.getLogger(__name__)
 
@@ -144,7 +141,7 @@ class listingNode:
     def __init__(self, term, depth=0, title="", parent=None):
         global VISITLIST
         termdesc = sdotermsource.SdoTermSource.getTerm(term)
-        if parent == None:
+        if parent is None:
             VISITLIST = []
         self.repeat = False
         self.subs = []
@@ -155,7 +152,7 @@ class listingNode:
         self.depth = depth
         self.retired = termdesc.retired
         self.pending = termdesc.pending
-        if not self.id in VISITLIST:
+        if self.id not in VISITLIST:
             VISITLIST.append(self.id)
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
                 for enum in sorted(termdesc.enumerationMembers.ids):
@@ -165,10 +162,6 @@ class listingNode:
 
         else:  # Visited this node before so don't parse children
             self.repeat = True
-        # log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
-
-
-import json
 
 
 def jsonldtree(page):
@@ -330,7 +323,7 @@ def buildDocs(pages):
         pages = sorted(PAGELIST.keys())
 
     for page in pages:
-        if not page in PAGELIST.keys():
+        if page not in PAGELIST.keys():
             log.warning(f"Unknown page name: {page}")
             continue
         func, filenames = PAGELIST.get(page, None)

@@ -1,12 +1,14 @@
 @prefix : <https://schema.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unece: <http://unece.org/vocab#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
 :countryOfLastProcessing a rdf:Property ;
     rdfs:label "countryOfLastProcessing" ;
+    owl:equivalentProperty unece:ProcessingCountry ;
     :domainIncludes :Product ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -16,10 +18,12 @@
 
 :countryOfAssembly a rdf:Property ;
     rdfs:label "countryOfAssembly" ;
+    owl:equivalentProperty unece:finalAssemblyCountry ;
     :domainIncludes :Product ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/991> ;
+    owl:equivalentProperty unece:finalAssemblyCountry ;
     rdfs:comment "The place where the product was assembled." .
 
 

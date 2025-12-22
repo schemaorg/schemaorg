@@ -80,7 +80,9 @@ Locally one can run tests that assert that the schema is self-consistent, and th
 
     software/util/buildsite.py -a -r --rubytests
 
-This will auto-build the entire site (`-a`), run the tests (`-r`) as well as validate the examples (`--rubytests`).
+This will auto-build the entire site (`-a`), run the tests (`-r`) as well as
+validate the examples (`--rubytests`). If you get some Ruby errors when testing,
+please check the installation steps in the `Build Notes` section below.
 
 
 Deploying to GCloud
@@ -188,6 +190,8 @@ Command line commands:
 Site should be accessible via:
 
   http://{`public ip of Google/AWS instance`}:8080/
+
+**Ruby Tests Dependencies**
 
 To run all the tests, you will need Ruby for the validation of examples:
  * `sudo apt-get install ruby-bundler ruby-dev`

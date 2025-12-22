@@ -1,0 +1,19 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OperatingSystem a rdfs:Class ;
+    rdfs:label "OperatingSystem" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4575> ;
+    rdfs:comment "System software that manages computer hardware and software resources, and provides common services for computer programs." ;
+    rdfs:subClassOf :SoftwareApplication .
+
+:RuntimePlatform a rdfs:Class ;
+    rdfs:label "RuntimePlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4575> ;
+    rdfs:comment "Specialized software environment that provides the essential infrastructure, libraries, and services required to execute a program." ;
+    rdfs:subClassOf :SoftwareApplication .

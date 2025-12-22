@@ -7,6 +7,7 @@ import sys
 
 LIB_PATHS = ()
 DATA_PATHS = ("docs", "software/gcloud", "data")
+REQUIRED_VERSION = (3, 11)
 _INITIALIZED = None
 
 
@@ -16,18 +17,19 @@ def Setup():
     if _INITIALIZED:
         return
 
-    if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    if sys.version_info < REQUIRED_VERSION:
         sys.stderr.write(
-            "Python version %s.%s not supported version 3.6 or above required - Exiting"
-            % (sys.version_info.major, sys.version_info.minor)
-        )
+            f"Python version {sys.version_info.major}.{sys.version_info.minor} "
+            f"not supported version {REQUIRED_VERSION[0]}.{REQUIRED_VERSION[1]} "
+            "or above required - Exiting\n"
+            )
         sys.exit(os.EX_CONFIG)
 
     for path in LIB_PATHS:
         absolute_path = os.path.join(os.getcwd(), path)
         if not os.path.isdir(absolute_path):
             sys.stderr.write(
-                'Required directory "%s" not found - Exiting\n' % absolute_path
+                f'Required directory "{absolute_path}" not found - Exiting\n'
             )
             sys.exit(os.EX_CONFIG)
         sys.path.insert(1, absolute_path)
@@ -39,14 +41,15 @@ def CheckWorkingDirectory():
     """Check that the working directory is correct and contains the right directories."""
     if os.path.basename(os.getcwd()) != "schemaorg":
         sys.stderr.write(
-            'Script should be run from within the "schemaorg" directory! - Exiting\n'
+            'Script should be run from within the "schemaorg" '
+            'directory! - Exiting\n'
         )
         sys.exit(os.EX_USAGE)
 
     for directory_name in DATA_PATHS:
         if not os.path.isdir(directory_name):
             sys.stderr.write(
-                'Required directory "%s" not found - Exiting\n' % directory_name
+                f'Required directory {directory_name} not found - Exiting\n'
             )
             sys.exit(os.EX_CONFIG)
 

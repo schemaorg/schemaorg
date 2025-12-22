@@ -539,6 +539,59 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Enumeration Type without Enumeration value")
 
+    def test_illegalOwlClassPropertyMixup(self):
+        self.assertNoMatch("""
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?term ?equivType WHERE {
+            ?term owl:equivalentClass ?equivType .
+            ?term owl:equivalentProperty ?equivType .
+          }
+          ORDER BY ?term
+        """,
+        error_message="Equivalence cannot hold for both Class and Property!",
+        row_pattern="Term '%(term)s' is both equivalent Class and Property of %(equivType)s")
+
+        self.assertNoMatch("""
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?cls ?prop ?equivType WHERE {
+            ?cls owl:equivalentClass ?equivType .
+            ?prop owl:equivalentProperty ?equivType .
+          }
+          ORDER BY ?cls
+        """,
+        error_message="A type cannot be both equivalentClass and equivalentProperty!",
+        row_pattern="Type '%(equivType)s' cannot be both an equivalent Class (with %(cls)s) and Property of (with %(prop)s)")
+
+    def test_properClassPropertyStructuring(self):
+        self.assertNoMatch("""
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+         PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+         SELECT ?term ?predicate ?target WHERE {
+           # Define the combinations of type and predicate to look for
+           VALUES (?type ?predicate) {
+             (rdfs:Class    rdfs:subPropertyOf)
+             (rdfs:Class    owl:equivalentProperty)
+             (rdfs:Property rdfs:subClassOf)
+             (rdfs:Property owl:equivalentClass)
+           }
+
+           {
+             # ?term must be of the right type for the predicate
+             ?term a ?type .
+             ?term ?predicate ?target .
+           }
+           UNION
+           {
+             # ?target must be of the right type for the predicate
+             ?target a ?type .
+             ?term ?predicate ?target .
+           }
+         } ORDER BY ?term
+        """,
+        error_message="A type cannot be a Class (Property) and also be a subPropertyOf (subClassOf) or something!",
+        row_pattern="'%(term)s' is %(predicate)s of %(target)s")
 
 
 # TODO: Unwritten tests (from basics; easier here?)

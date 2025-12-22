@@ -62,6 +62,13 @@
     rdfs:subClassOf :CreativeWork ;
     :isPartOf <https://bib.schema.org> .
 
+:SequentialArt a rdfs:Class ;
+    rdfs:label "SequentialArt" ;
+    rdfs:comment "An art forms that use images deployed in a specific order for the purpose of graphic storytelling (i.e., narration of graphic stories) or conveying information. Examples of SequentialArt are Franco-Belgian Bande Dessinée, Comics in the USA and 漫画 (Manga) in Japan." ;
+    rdfs:subClassOf :Book,
+        :VisualArtwork ;
+    :isPartOf <https://bib.schema.org> .
+
 :CoverArt a rdfs:Class ;
     rdfs:label "CoverArt" ;
     rdfs:comment "The artwork on the outer surface of a CreativeWork." ;
@@ -86,7 +93,7 @@
 
 :GraphicNovel a :BookFormatType ;
     rdfs:label "GraphicNovel" ;
-    rdfs:comment "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances." ;
+    rdfs:comment "This type is deprecated: GraphicNovel does not fit the BookFormatType enumeration, as it can appear in multiple formats (e.g., Hardcover, eBook). It is not mutually exclusive and therefore deprecated. Use standard BookFormatType values instead in combination with the SequentialArt.\n\nBook format: GraphicNovel. May represent a bound collection of ComicIssue instances." ;
     :isPartOf <https://bib.schema.org> .
 
 :abridged a rdf:Property ;

@@ -4,16 +4,14 @@
 # Import standard python libraries
 
 import argparse
-import io
 import logging
 import os
 import sys
 
 # Import schema.org libraries
-if not os.getcwd() in sys.path:
+if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 
-import software
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm

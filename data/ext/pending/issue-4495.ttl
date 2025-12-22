@@ -1,0 +1,28 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ConferenceEvent a rdfs:Class ;
+    rdfs:label "ConferenceEvent" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4495> ;
+    rdfs:comment "Event type: Conference event." ;
+    rdfs:subClassOf :Event .
+
+:hasParticipationOffer a rdf:Property ;
+    rdfs:label "hasParticipationOffer" ;
+    :domainIncludes :Event ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Offer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4495> ;
+    rdfs:comment "An offer to participate in the event, for example, Call for Proposals, Call for Speakers, or Call for Performers." .
+
+:hasSponsorshipOffer a rdf:Property ;
+    rdfs:label "hasSponsorshipOffer" ;
+    :domainIncludes :Event ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Offer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4495> ;
+    rdfs:comment "An offer to sponsor the event, for example, Sponsorship Prospectus, Sponsorship Opportunities, or Sponsor Packages." .

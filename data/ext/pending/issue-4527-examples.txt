@@ -1,0 +1,53 @@
+TYPES: #eg-4527 InstantaneousEvent
+
+PRE-MARKUP:
+
+Process 123456 (/opt/X11/bin/xeyes) Terminated (XCPU).
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+{
+  "@context": "https://schema.org",
+  "@type": "InstantaneousEvent",
+  "timestamp": "2025-11-11T15:17:21Z",
+  "description": "Process 123456 (/opt/X11/bin/xeyes) Terminated (XCPU).",
+  "source": {
+    "@type": "SoftwareApplication",
+    "name": "Unix"
+  },
+  "data": [
+      {
+        "@type": "PropertyValue",
+        "name": "username",
+        "value": "johndoe"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "PID",
+        "value": "123456"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "PID",
+        "value": "123456"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "process",
+        "value": "/opt/X11/bin/xeyes"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "signal",
+        "value": "XCPU"
+      }
+    ]
+}

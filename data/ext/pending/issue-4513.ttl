@@ -1,0 +1,14 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:displayLocation a rdf:Property ;
+    rdfs:label "displayLocation" ;
+    rdfs:comment "The location at which an item can be viewed or experienced in-person." ;
+    :isPartOf <https://pending.schema.org> ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :rangeIncludes :Place ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4513> .

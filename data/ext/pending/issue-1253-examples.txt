@@ -15,8 +15,8 @@ MICRODATA:
 <div itemscope itemtype="https://schema.org/BrokerageAccount">
   <h1 itemprop="name">ExampleBank® 1st Brokerage Account</h1>
   <p itemprop="description">Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
-  <p itemprop="availableChannel" itemscope itemtype="https://schema.org/ServiceChannel">Ability to manage your money and deposits from anywhere using <a itemprop="serviceMobileApp" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
-  <p itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="1000">1,000</span> minimum investment to open an account</p>
+  <p itemprop="availableChannel" itemscope itemtype="https://schema.org/ServiceChannel">Ability to manage your money and deposits from anywhere using <a itemprop="serviceUrl" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
+  <p itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="1000">1,000</span> minimum investment to open an account</p>
   <p itemprop="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
@@ -25,8 +25,8 @@ RDFA:
 <div vocab="https://schema.org/" typeof="BrokerageAccount">
   <h1 property="name">ExampleBank® 1st Brokerage Account</h1>
   <p property="description">Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
-  <p property="availableChannel" typeof="ServiceChannel">Ability to manage your money and deposits from anywhere using <a property="serviceMobileApp" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
-  <p property="amount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="minAmount" content="1000">1,000</span> minimum investment to open an account</p>
+  <p property="availableChannel" typeof="ServiceChannel">Ability to manage your money and deposits from anywhere using <a property="serviceUrl" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
+  <p property="amount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="minValue" content="1000">1,000</span> minimum investment to open an account</p>
   <p property="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
@@ -40,13 +40,13 @@ JSON:
     "description": "Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.",
     "amount": {
       "@type": "MonetaryAmount",
-      "minAmount": "1000",
+      "minValue": "1000",
       "currency": "USD"
     },
     "feesAndCommissionsSpecification": "No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account",
     "availableChannel": {
       "@type": "ServiceChannel",
-      "serviceMobileApp": "http://http://www.examplebank.com/public/investing/pricing_services/mobile/android"
+      "serviceUrl": "http://http://www.examplebank.com/public/investing/pricing_services/mobile/android"
    }
   }
 </script>
@@ -70,7 +70,7 @@ MICRODATA:
   <div itemscope itemtype="https://schema.org/InvestmentFund">
     <h1 itemprop="name">Guaranteed Interest Fund</h1>
     <p itemprop="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="25000">25,000</span> to $<span itemprop="maxAmount" content="99000">99,999</span></div>
+    <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="25000">25,000</span> to $<span itemprop="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span itemprop="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -81,7 +81,7 @@ RDFA:
   <div typeof="https://schema.org/InvestmentFund">
     <h1 property="name">Guaranteed Interest Fund</h1>
     <p property="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div property="amount" typeof="https://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minAmount" content="25000">25,000</span> to $<span property="maxAmount" content="99000">99,999</span></div>
+    <div property="amount" typeof="https://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minValue" content="25000">25,000</span> to $<span property="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span property="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -97,8 +97,8 @@ JSON:
   "amount": {
     "@type": "MonetaryAmount",
     "currency": "USD",
-    "minAmount": "25000",
-    "maxAmount": "90000"
+    "minValue": "25000",
+    "maxValue": "90000"
   },
   "interestRate": "1.25"
 }
@@ -150,9 +150,9 @@ MICRODATA:
     <span>Months</span>
     <div id="payNum" itemprop="numberOfLoanPayments">360</div>
   </div>
-  
+
 <table>
-	<caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="value" content="200000">200,000</span> and 20% down payment.</caption>
+  <caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" itemprop="interestRate">3.625</span>%</td>
@@ -184,9 +184,9 @@ RDFA:
     <span>Months</span>
     <div id="payNum" property="numberOfLoanPayments">360</div>
   </div>
-  
+
 <table>
-	<caption id="amount" property="amount" typeof="MonetaryAmount">Rates are based on a loan amount of <span property="currency" content="USD">$</span><span property="value" content="200000">200,000</span> and 20% down payment.</caption>
+  <caption id="amount" property="amount" typeof="MonetaryAmount">Rates are based on a loan amount of <span property="currency" content="USD">$</span><span property="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" property="interestRate">3.625</span>%</td>

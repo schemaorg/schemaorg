@@ -28,7 +28,6 @@ import software.util.textutils as textutils
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaExamples.schemaexamples as schemaexamples
-import software.SchemaTerms.localmarkdown as localmarkdown
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
@@ -185,68 +184,105 @@ allGraph = None
 currentGraph = None
 
 
-def exportrdf(exportType):
+def exportrdf(exportType, subdirectory_path: str | None = None):
     global allGraph, currentGraph
 
     if not allGraph:
+        # The bindings need to be done for each graph
+        # as they are not copied over.
         allGraph = rdflib.Graph()
         allGraph.bind("schema", VOCABURI)
+        sdotermsource.bindNameSpaces(allGraph)
         currentGraph = rdflib.Graph()
+        sdotermsource.bindNameSpaces(currentGraph)
         currentGraph.bind("schema", VOCABURI)
 
+        # Loads triples AND the bindings you added to sourceGraph()
         allGraph += sdotermsource.SdoTermSource.sourceGraph()
 
         protocol, altprotocol = protocols()
 
+        log.debug("Cleanup non schema org things.")
+        # We delete everything where Subject is not schema.org.
+        # Since we haven't created the new types yet, they are safe.
         deloddtriples = """DELETE {?s ?p ?o}
-            WHERE {
-                ?s ?p ?o.
-                FILTER (! strstarts(str(?s), "%s://schema.org") ).
-            }""" % (protocol)
+           WHERE {
+               ?s ?p ?o.
+               FILTER (! strstarts(str(?s), "%s://schema.org") ).
+           }""" % (protocol)
         allGraph.update(deloddtriples)
+
+        log.debug("Generate Foreign types – SPARQL INSERT")
+        # Insert all the types and properties that are equivalent or inherited from.
+        insert_foreign_types = """
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+        INSERT {
+            ?classNode a rdfs:Class .
+            ?propNode a rdf:Property .
+        }
+        WHERE {
+            { # Find Foreign Classes
+                { ?s rdfs:subClassOf ?classNode } UNION { ?s owl:equivalentClass ?classNode }
+
+                FILTER (isURI(?classNode))
+                FILTER (?classNode != rdfs:Class)
+                FILTER (?classNode != owl:Class)
+                FILTER (?classNode != rdf:Property)
+                FILTER (!strstarts(str(?classNode), "%s://schema.org"))
+            }
+            UNION
+            { # Find Foreign Properties
+                { ?s rdfs:subPropertyOf ?propNode } UNION { ?s owl:equivalentProperty ?propNode }
+
+                FILTER (isURI(?propNode))
+                FILTER (?propNode != rdf:Property)
+                FILTER (?propNode != owl:ObjectProperty)
+                FILTER (?propNode != owl:DatatypeProperty)
+                FILTER (!strstarts(str(?propNode), "%s://schema.org"))
+            }
+        }
+        """ % (protocol, protocol)
+
+        allGraph.update(insert_foreign_types)
+
+        log.debug("Merge")
         currentGraph += allGraph
 
-        desuperseded = """PREFIX schema: <%s://schema.org/>
-        DELETE {?s ?p ?o}
-        WHERE{
-            ?s ?p ?o;
-                schema:supersededBy ?sup.
-        }""" % (protocol)
-        # Currently superseded terms are not suppressed from 'current' file dumps
-        # Whereas they are suppressed from the UI
-        # currentGraph.update(desuperseded)
-
+        log.debug("Delete items from the attic")
         delattic = """PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
-            ?s ?p ?o;
-                schema:isPartOf <%s://attic.schema.org>.
+          ?s ?p ?o;
+              schema:isPartOf <%s://attic.schema.org>.
         }""" % (protocol, protocol)
+
         currentGraph.update(delattic)
 
     formats = ["json-ld", "turtle", "nt", "nquads", "rdf"]
     extype = exportType[len("RDFExport.") :]
     if exportType == "RDFExports":
         for output_format in sorted(formats):
-            _exportrdf(output_format, allGraph, currentGraph)
+            _exportrdf(output_format, allGraph, currentGraph, subdirectory_path)
     elif extype in formats:
-        _exportrdf(extype, allGraph, currentGraph)
+        _exportrdf(extype, allGraph, currentGraph, subdirectory_path)
     else:
         raise Exception("Unknown export format: %s" % exportType)
 
 
-completed = []
+# Set of completed EDF exports.
+completed_rdf_exports = set()
 
 
-def _exportrdf(output_format, all, current):
-    global completed
-
+def _exportrdf(output_format, all, current, subdirectory_path: str | None = None):
     protocol, altprotocol = protocols()
 
-    if output_format in completed:
+    if output_format in completed_rdf_exports:
         return
     else:
-        completed.append(output_format)
+        completed_rdf_exports.add(output_format)
 
     version = schemaversion.getVersion()
 
@@ -260,32 +296,26 @@ def _exportrdf(output_format, all, current):
             qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
             qg += g
             g = gr
-        fn = fileutils.releaseFilePath(
-            output_dir=schemaglobals.getOutputDir(),
-            version=version,
-            selector=selector,
-            protocol=protocol,
-            output_format=output_format,
-        )
 
-        afn = fileutils.releaseFilePath(
-            output_dir=schemaglobals.getOutputDir(),
-            version=version,
-            selector=selector,
-            protocol=altprotocol,
-            output_format=output_format,
-        )
-
-        with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn} and {afn}"):
-            if output_format == "rdf":
-                fmt = "pretty-xml"
-            else:
-                fmt = output_format
-            out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
-            with open(fn, "w", encoding="utf8") as f:
-                f.write(out)
-            with open(afn, "w", encoding="utf8") as af:
-                af.write(protocolSwap(out, protocol=protocol, altprotocol=altprotocol))
+        for p in fileutils.FILESET_PROTOCOLS:
+            fn = fileutils.releaseFilePath(
+                output_dir=schemaglobals.getOutputDir(),
+                version=version,
+                selector=selector,
+                protocol=p,
+                output_format=output_format,
+                subdirectory_path=subdirectory_path,
+            )
+            with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn}"):
+                if output_format == "rdf":
+                    fmt = "pretty-xml"
+                else:
+                    fmt = output_format
+                out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
+                with open(fn, "w", encoding="utf8") as f:
+                    if p == altprotocol:
+                        out = protocolSwap(out, protocol, altprotocol)
+                    f.write(out)
 
 
 def array2str(values):
@@ -308,11 +338,10 @@ def uriwrap(thing):
         return uriwrap(thing.id)
     if isinstance(thing, sdoterm.SdoTerm):
         return uriwrap(thing.id)
-        pars = map()
     try:
         return array2str(map(uriwrap, thing))
     except TypeError as e:
-        log.fatal("Cannot uriwrap %s", thing)
+        log.fatal("Cannot uriwrap %s:%s", thing, e)
 
 
 def exportcsv(page):

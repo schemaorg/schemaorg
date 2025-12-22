@@ -91,6 +91,177 @@ A summary view of the current published release is available from: <a href="http
 <!-- note: please keep this file well-formed, i.e. close li tags etc. -->
 
 <tr>
+  <td class="release">29.4<br/>2025-12-08</td>
+  <td>
+  <span id="v29.4"></span>
+  <p>
+  Version 29.4 - Many schema and infra updates</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g4495">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4495">Issue #4495</a>: Add new type <a href="/ConferenceEvent">ConferenceEvent</a> as a subtype of <a href="/Event">Event</a>. Add new properties <a href="/hasParticipationOffer">hasParticipationOffer</a> and <a href="/hasSponsorshipOffer">hasSponsorshipOffer</a> with values of type  <a href="/Offer">Offer</a> to <a href="/ConferenceEvent">ConferenceEvent</a>.
+    </li>
+    <li id="g4505">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4505">Issue #4505</a>: Add cross-schema examples with vocabulary from <a href="https://www.gs1.org/gs1-web-vocabulary ">GS1 web vocabulary</a>and <a href="https://vocabulary.uncefact.org/">UN/CEFACT</a>.
+    </li>
+    <li id="g4533">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4533">Issue #4533</a>: Allow values of type <a href="/StructuredValue">StructuredValue</a> for property <a href="/reviewAspect/">reviewAspect</a>.
+    </li>
+    <li id="g4532">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4532">Issue #4532</a>: Add <a href="/category">category</a> to <a href="/Guide">Guide</a>.
+    </li>
+    <li id="g4468">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4468">Issue #4468</a>: Add new type <a href="/PerformingArtsEvent">PerformingArtsEvent</a> as a subtype of <a href="/Event">Event</a>.
+    </li>
+    <li id="g4513">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4513">Issue #4513</a>: Add new <a href="/displayLocation">displayLocation</a> property with values of range <a href="/Place">Place</a>. Add <a href="/displayLocation">displayLocation</a> to <a href="/CreativeWork">CreativeWork</a> and <a href="/Product">Product</a>.
+    </li>
+    <li id="g4567">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4567">Issue #4567</a>: Allow values of type <a href="/AdministrativeRegion">AdministrativeArea</a> for property <a href="/addressRegion">addressRegion</a>.
+    </li>
+    <li id="g4571">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4571">PR #4571</a>,
+	  <a href="https://github.com/schemaorg/schemaorg/pull/4580">PR #4580</a>,
+      <a href="https://github.com/schemaorg/schemaorg/pull/4571">PR #4608</a>,
+      <a href="https://github.com/schemaorg/schemaorg/pull/4608">PR #4613</a>:
+	  : Add OWL equivalences for UN/CEFACT, OWL, OMG, and GS1 ontologies.
+    </li>
+    <li id="g4576">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4576">PR #4576</a>: Make <a href="/OrderItem">OrderItem</a> a subtype of <a href="/StructuredValue">StructuredValue</a> instead of <a href="/Intangible">Intangible</a> to align with <a href="/TypeAndQuantityNode">TypeAndQuantityNode</a>.
+    </li>
+    <li id="g4540">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4540">Issue #4540</a>: Add new property <a href="/lifeEvent">lifeEvent</a> with values of type <a href="Event">Event</a> to <a href="/Person">Person</a>.
+    </li>
+    <li id="g4582">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4582">PR #4582</a>: Add <a href="/Place">Place</a> a supertype for <a href="/DefinedRegion">DefinedRegion</a>.
+    </li>
+    <li id="g4527">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4527">Issue #4527</a>: Add new type <a href="/InstantaneousEvent">InstantaneousEvent</a> as subtype of type <a href="StructuredValue">StructuredValue</a> to represent events without a duration. Add new properties <a href="/source">source</a> with values of type <a href="/Thing">Thing</a> , <a href="/timestamp">timestamp</a> with values of type <a href="/DateTime">DateTime</a>, and <a href="/data">data</a> with values of type <a href="/Thing">Thing</a> to <a href="/InstantaneousEvent">InstantaneousEvent</a>.
+    </li>
+    <li id="g4507">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4507">Issue #4507</a>: Add new basic authentication concepts <a href="/AuthenticateAction">AuthenticateAction</a>, <a href="/LoginAction">LoginAction</a>, and <a href="/ResetPasswordAction">ResetPasswordAction</a> as  subtypes of <a href="/ControlAction">ControlAction</a>.
+    </li>
+    <li id="g3697">
+      <a href="https://github.com/schemaorg/schemaorg/issues/3697">Issue #3697</a>: Add new type <a href="/SequentialArt">SequentialArt</a> as a subtype of <a href="/VisualArtwork">VisualArtwork</a> and <a href="/Book">Book</a>, replacing <a href="/GraphicNovel">GraphicNovel</a> which is now marked as deprecated.
+    </li>
+    <li id="g4470">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4470">Issue #4470</a>: Add new type <a href="/OnlineMarketplace">OnlineMarketplace</a> as subtype of type <a href="/OnlineStore">OnlineStore</a>. Add new property <a href="/hasStore">hasStore</a> (with inverse property <a href="/isStoreOn">isStoreOn</a>) with values of type <a href="/OnlineStore">OnlineStore</a> to  <a href="/OnlineMarketplace">OnlineMarketplace</a>.
+    </li>
+    <li id="g3691">
+      <a href="https://github.com/schemaorg/schemaorg/pull/3691">PR #3691</a>: Add missing values to enumeration <a href="/IPTCDigitalSourceEnumeration">IPTCDigitalSourceEnumeration</a>.
+    </li>
+    <li id="g4592">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4592">PR #4592</a>: Allow values of type <a href="/DefinedTerm">DefinedTerm</a> for property <a href="/genre">genre</a>.
+    </li>
+    <li id="g4575">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4575">Issue #4575</a>: Add new types <a href="/OperatingSystem">OperatingSystem</a> and <a href="/RuntimePlatform">RuntimePlatform</a> as subtypes of <a href="/SoftwareApplication">SoftwareApplication</a>. Allow values of type <a href="/OperatingSystem">OperatingSystem</a> for properties <a href="/operatingSystem">operatingSystem</a> and <a href="/softwareRequirements">softwareRequirements</a>. Allow values of type <a href="/RuntimePlatform">RuntimePlatform</a> for properties <a href="/runtimePlatform">runtimePlatform</a> and <a href="/softwareRequirements">softwareRequirements</a>. Add property <a href="/runtimePlatform">runtimePlatform</a> to <a href="/SoftwareApplication">SoftwareApplication</a>.
+    </li>
+    <li id="g4603">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4603">Issue #4603</a>: Generalize property <a href="/owns">owns</a> by allowing values of type <a href="Thing">Thing</a> instead of only <a href="/OwnershipInfo">OwnershipInfo</a> and <a href="/Product">Product</a>. Add inverse property <a href="/owner">owner</a> for <a href="/owns">owns</a>.
+    </li>
+    <li id="g4541">
+      <a href="https://github.com/schemaorg/schemaorg/issue/4541">Issue #4541</a>: Allow values of type <a href="/Date">Date</a> for property <a href="/observationDate">observationDate</a>.
+    </li>
+    <li id="g4588">
+      <a href="https://github.com/schemaorg/schemaorg/issue/4588">Issue #4588</a>: Add property <a href="/about">about</a> to <a href="/DefinedTerm">DefinedTerm</a> and <a href="/DefinedTermSet">DefinedTermSet</a>.
+    </li>
+
+    <li id="g4498">
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4498">PR #4498</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4524">PR #4524</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4504">PR #4504</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4537">PR #4537</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4538">PR #4538</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4534">PR #4534</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4537">PR #4542</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4539">PR #4539</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4551">PR #4551</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4561">PR #4561</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4565">PR #4565</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4544">PR #4544</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4594">PR #4594</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4292">PR #4292</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3683">PR #3683</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3684">PR #3684</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3685">PR #3685</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3675">PR #3675</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/3631">PR #3631</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4600">PR #4600</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4601">PR #4601</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4600">PR #4596</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4610">PR #4610</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4614">PR #4614</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4614">PR #4609</a> 
+		  : Many build infra and integration test improvements.
+	</li>
+    <li id="g4552">
+          <a href="https://github.com/schemaorg/schemaorg/pull/4492">PR #4492</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4552">PR #4552</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4553</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4559</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4553">PR #4562</a>,
+          <a href="https://github.com/schemaorg/schemaorg/pull/4427">PR #4427</a> 
+	  : Documentation and example updates.
+	</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td class="release">29.3<br/>2025-09-04</td>
+  <td>
+  <span id="v29.3"></span>
+  <p>
+  Version 29.3 - Expanded vocabulary for recipe ingredient lists and marketplaces. Some other small updates</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g4454">
+		  <a href="https://github.com/schemaorg/schemaorg/issues/4454">Issue #4454</a>: Expand range of <a href="/recipeIngredient">recipeIngredient</a>.
+	  </li>
+    <li id="g4470">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4470">Issue #4470</a>: Add <a href="/OnlineMarketplace">OnlineMarketplace</a> as a subtype of <a href="/OnlineStore">OnlineStore</a>. Add <a href="/hasStore">hasStore</a> property for use on <a href="/OnlineMarketplace">OnlineMarketplace</a>. Add inverse property <a href="/isStoreOn">isStoreOn</a> for use on <a href="/OnlineStore">OnlineStore</a>.
+    </li>
+    <li id="g4480">
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4480">PR #4480</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4473">PR #4473</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4455">PR #4455</a>,
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4449">PR #4449</a>: Small bug fixes.
+	</li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+
+  <td class="release">29.2<br/>2025-05-13</td>
+  <td>
+  <span id="v29.2"></span>
+  <p>
+  Version 29.2 - Patch release to fix bug introduced in 29.0. Added a few new properties. Some documentation updates.</p>
+  </td>
+  <td>
+  <ul>
+    <li id="g4438">
+		  <a href="https://github.com/schemaorg/schemaorg/issues/4438">Issue #4438</a>: Fix additional bug introduced in 29.0 (<a href="/duration">duration</a> mistakenly marked as 'Pending') .
+	  </li>
+     <li id="g4366">
+      <a href="https://github.com/schemaorg/schemaorg/issues/4366">Issue #4366</a>: Add new properties <a href="/companyRegistration">companyRegistration</a>, <a href="/legalAddress">legalAddress</a>, and <a href="/legalRepresentative">legalRepresentative</a> for use on <a href="/Organization">Organization</a> to represent legal information.
+    </li>
+    <li id="g4371">
+      <a href="https://github.com/schemaorg/schemaorg/pull/4371">PR #4371</a>: Updated description for <a href="/gender">gender</a> .
+    </li>
+      <li id="g2935">
+      <a href="https://github.com/schemaorg/schemaorg/pull/2935">PR #2935</a>: Add new <a href="/pronouns">pronouns</a> property for use on <a href="/Person">Person</a> .
+    </li>
+    <li id="g4440">
+		  <a href="https://github.com/schemaorg/schemaorg/pull/4394">PR #4394</a>:	README.md updates.
+	</li>
+  </ul>
+</td>
+</tr>
+
   <td class="release">29.1<br/>2025-04-25</td>
   <td>
   <span id="v29.1"></span>
@@ -3067,7 +3238,7 @@ Expand <a href="/track">track</a> to allow <a href="/ItemList">ItemList</a> valu
 <li id="logo-generalized">Broadened the description of <a href="/logo">logo</a> property, to match the types it applies to. See also <a href="https://github.com/rvguha/schemaorg/issues/144">github issue</a> and <a href="https://github.com/danbri/schemaorg/commit/0e56869bb122252a41fce31e903c9608f0621a7d">details</a>.</li>
 <li id="dated-money"><a href="https://github.com/rvguha/schemaorg/issues/163">Added</a> a <a href="/DatedMoneySpecification">DatedMoneySpecification</a> type for non-price monetary values, by analogy with <a href="/PriceSpecification">PriceSpecification</a> and its subtypes. Added <a href="/amount">amount</a> and
 <a href="/currency">currency</a> properties and tweaked <a href="/startDate">startDate</a> and <a href="/endDate">endDate</a> property definitions to fit.</li>
-<li>See also <a href="http://blog.schema.org/2014/12/schemaorg-v192-music-video-games-sports.html">blog post...</a></li>
+<li>See also <a href="https://blog.schema.org/2014/12/11/schema-org-v1-92-music-video-games-sports-itemlist-breadcrumbs-and-more/">blog post...</a></li>
 </ul>
 
 <h3>Site improvements</h3>
@@ -3187,7 +3358,7 @@ which supersedes the older 'map' property, and we add a <a href="/mapType">mapTy
 <tr id="v1.6">
 <td class="release">1.6<br/>(2014-06-16)</td>
 <td><a href="/Role">Role</a>s, various fixes, site navigation improvements.</td>
-<td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="http://blog.schema.org/2014/06/introducing-role.html">blog post</a>
+<td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="https://blog.schema.org/2014/06/16/introducing-role/">blog post</a>
     for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
     qualified, for example with temporal information. Other changes in this release include the addition of a
     <a href="/license">license</a> property, and some documentation of properties used internally by schema.org's documentation system
@@ -3216,7 +3387,7 @@ Added missing <a href="/docs/actions.html">Actions</a>-related definitions (urlT
 <td>
     Added two examples to accompany <a href="/workPerformed">workPerformed</a>. Added several local business, company contact and music event examples.
 Several glitch and typo fixes including MedicalEnumeration, thanks to Dan Scott.
-<a href="http://blog.schema.org/2014/05/schemaorg-v14-update-examples-examples.html">announcement blog post</a>
+<a href="https://blog.schema.org/2014/05/16/schema-org-v1-4-update-examples-examples-examples/">announcement blog post</a>
 </td>
 </tr>
 
@@ -3235,7 +3406,7 @@ that is performed at the event.
 <td>
 Introduces vocabulary that enables websites to describe the actions they enable and how these actions can be invoked.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Apr/0242.html">announcement</a> and
-<a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">blog post</a>)
+<a href="https://blog.schema.org/2014/04/16/announcing-schema-org-actions/">blog post</a>)
     </td>
 </tr>
 
@@ -3310,7 +3481,7 @@ as well as the Accessibility properties for
 (see <a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Nov/0190.html">discussion</a>).
 The W3C WebSchemas wiki has <a href="http://www.w3.org/wiki/WebSchemas/OrdersSchema">the Order proposal</a> and
 <a href="http://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/neworder.html">draft schema</a>.
-For Accessibility, see the <a href="http://blog.schema.org/2013/12/content-accessibility.html">blog post</a>
+For Accessibility, see the <a href="https://blog.schema.org/2013/12/05/content-accessibility/">blog post</a>
 for more background on the collaborations involved. See also
  <a href="http://www.w3.org/wiki/WebSchemas/Accessibility">wiki materials</a>
  and the <a href="http://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/accessibility.html">draft schema</a>.
@@ -3324,7 +3495,7 @@ for more background on the collaborations involved. See also
 <td>
 
 <p>
-TV/Radio improvements in collaboration with BBC and EBU - see <a href="http://blog.schema.org/2013/12/schemaorg-for-tv-and-radio-markup.html">guest blog post by Yves Raimond</a>.
+TV/Radio improvements in collaboration with BBC and EBU - see <a href="https://blog.schema.org/2013/12/03/schema-org-for-tv-and-radio-markup/">guest blog post by Yves Raimond</a>.
 For example see <a href="/TVEpisode">TVEpisode</a>.
 </p>
 <p>
@@ -3332,7 +3503,7 @@ For Background see the <a href="http://www.w3.org/wiki/WebSchemas/TVRadioSchema"
 </p>
 
 <p>
-Civic Services (which includes ContactPoint) was <a href="http://blog.schema.org/2013/08/vocabulary-for-describing-civic-services.html">blogged</a>
+Civic Services (which includes ContactPoint) was <a href="https://blog.schema.org/2013/08/05/vocabulary-for-describing-civic-services/">blogged</a>
 when first discussed. See also <a href="http://www.w3.org/wiki/WebSchemas/CivicServices">wiki entry</a>.
 Example type: <a href="/GovernmentService">GovernmentService</a>.</p>
 <p>
@@ -3341,7 +3512,7 @@ Organization improvements: <a href="http://www.w3.org/wiki/WebSchemas/LocalBusin
 In particular, this update added <a href="/department">department</a>, and
  <a href="/subOrganization">subOrganization</a> properties.
  </p>
-(<a href="http://blog.schema.org/2013/11/schemaorg-v10d-published-tvradio-civic.html">blog announcement</a>).
+(<a href="https://blog.schema.org/2013/11/21/schema-org-v1-0d-published-tv-radio-civic-services-contactpoint-event-and-organization-improvements/">blog announcement</a>).
 </td>
 </tr>
 
@@ -3384,7 +3555,7 @@ Added <a href="/AlignmentObject">AlignmentObject</a> type, for aligning content 
 
 <p>
 Added <a href="/Dataset">Dataset</a> type (collaboration building upon work at W3C and elsewhere).
-See also <a href="http://blog.schema.org/2012/07/describing-datasets-with-schemaorg.html">blog</a>,
+See also <a href="https://blog.schema.org/2012/07/11/describing-datasets-with-schema-org/">blog</a>,
 <a href="http://www.w3.org/wiki/WebSchemas/Datasets">wiki</a>.
 </p>
 
@@ -3394,7 +3565,7 @@ Added <a href="/Audience">Audience</a> and related types, useful for LRMI and ot
 
 <p>
 Added Technical Publishing vocabulary: <a href="/TechArticle">TechArticle</a>, <a href="/APIReference">APIReference</a>,
-<a href="/Code">Code</a>. See also <a href="http://blog.schema.org/2012/06/newvocabularies-for-technical.html">early
+<a href="/Code">Code</a>. See also <a href="https://blog.schema.org/2012/06/11/new-vocabularies-for-technical-publishing/">early
  blog post</a> and Wiki entries for <a href="http://www.w3.org/wiki/WebSchemas/TechArticleSchema">TechArticleSchema</a>,
 <a href="http://www.w3.org/wiki/WebSchemas/APIReferenceSchema">APIReferenceSchema</a> and
  <a href="http://www.w3.org/wiki/WebSchemas/CodeSchema">CodeSchema</a>.
@@ -3408,7 +3579,7 @@ Added Technical Publishing vocabulary: <a href="/TechArticle">TechArticle</a>, <
 <td>Added Good Relations e-commerce vocabulary.</td>
 <td>Added substantial e-commerce vocabulary based on Good Relations;
 re-engineered site to accept RDFa/RDFS schema definitions from community.(<a href="http://www.w3.org/wiki/WebSchemas/GoodRelations">wiki</a>)
-(<a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">announcement blog post</a>
+(<a href="https://blog.schema.org/2012/11/08/good-relations-and-schema-org/">announcement blog post</a>
 and <a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Nov/0015.html">email from Martin Hepp</a>)
 </td>
 </tr>
@@ -3453,7 +3624,7 @@ extra types, in particular those defined externally."
 <p>
 This release added substantial vocabulary in the medical/health domain (around 100 classes, 200 properties). The additions are
 mainly organized beneath the <a href="/MedicalEntity">MedicalEntity</a> type. An
-<a href="/docs/meddocs.html">overview document</a> is also provided. From the <a href="http://blog.schema.org/2012/06/health-and-medical-vocabulary-for.html">blog post</a>:
+<a href="/docs/meddocs.html">overview document</a> is also provided. From the <a href="https://blog.schema.org/2012/06/11/new-vocabularies-for-technical-publishing/">blog post</a>:
 </p>
 <p>"This collaborative project drew upon search expertise from the schema.org partners but also gained immeasurably through feedback from expert reviewers including the US NCBI; physicians at Harvard, Duke and other institutions, as well as from several health Web sites. Contributions from the W3C Healthcare and Lifesciences group and Web Schemas community also helped bridge the complex worlds of Web standards, search and medicine/healthcare."
 </p>

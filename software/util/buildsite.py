@@ -5,16 +5,14 @@
 
 # Import standard python libraries
 import argparse
+import contextlib
+import datetime
 import glob
 import os
-import re
 import shutil
 import subprocess
 import sys
-import time
-import rdflib
 import logging
-import colorama
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -30,7 +28,6 @@ import software.util.fileutils as fileutils
 import software.util.runtests as runtests_lib
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
-import software.util.textutils as textutils
 import software.util.pretty_logger as pretty_logger
 
 import software.SchemaExamples.schemaexamples as schemaexamples
@@ -128,10 +125,11 @@ def initialize():
         action="store_true",
         help="create page for term (repeatable) - ALL = all terms",
     )
+
     args = parser.parse_args()
 
     for op in args.buildoption:
-        schemaglobals - BUILDOPTS.extend(op)
+        schemaglobals.BUILDOPTS.extend(op)
 
     for ter in args.terms:
         schemaglobals.TERMS.extend(ter)
@@ -244,7 +242,7 @@ def loadTerms():
     LOADEDTERMS = True
     if not sdotermsource.SdoTermSource.SOURCEGRAPH:
         with pretty_logger.BlockLog(logger=log, message="Loading triples files"):
-            graph = sdotermsource.SdoTermSource.loadSourceGraph("default")
+            sdotermsource.SdoTermSource.loadSourceGraph("default")
 
         with pretty_logger.BlockLog(logger=log, message="Loading contributors"):
             sdocollaborators.collaborator.loadContributors()
@@ -291,21 +289,68 @@ def processFiles(files):
 ###################################################
 
 
-def runRubyTests(release_dir):
-    with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
-        log.info("Setting up LATEST")
-        version = schemaversion.getVersion()
-        src_dir = os.path.join(os.getcwd(), release_dir, version)
-        dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
+@contextlib.contextmanager
+def tempory_symlink(src_dir, dst_dir):
+    """Context manager to create a temporary directory symlink and clean it up on exit."""
+    try:
+        log.info(f"Setting up {dst_dir} from {src_dir}")
         if os.path.islink(dst_dir):
             os.unlink(dst_dir)
-        os.symlink(src_dir, dst_dir)
-        cmd = ["bundle", "exec", "rake"]
-        cwd = os.path.join(os.getcwd(), "software/scripts")
-        log.info("Running tests")
-        subprocess.check_call(cmd, cwd=cwd)
+        os.symlink(src_dir, dst_dir, target_is_directory=True)
+        yield
+    finally:
         log.info(f"Cleaning up {dst_dir}")
         os.unlink(dst_dir)
+
+
+RUBY_INSTALLATION_MESSAGE = """
+Please check if your Ruby installation is correct and all dependencies installed.
+
+bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
+
+"""
+
+
+def runRubyTests(release_dir):
+    """The ruby tests are designed to run in a release sub-directory.
+
+    Now generally, this script does not build a full release,
+    instead this test creates a symbolic link to the release directory,
+    runs the ruby tests and then deletes the symbolic link.
+
+    :param release_dir: the root release directory.
+    """
+    with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
+        cmd = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
+        status = subprocess.call(cmd)
+        if status:
+            log.error(RUBY_INSTALLATION_MESSAGE)
+            exit(status)
+        version = schemaversion.getVersion()
+        src_dir = os.path.join(os.getcwd(), release_dir, version)
+        # Check there is something in the source directory.
+        # This always be the case, as the rubytest flag triggers the autobuild flag.
+        root_json_path = os.path.join(src_dir, "schemaorgcontext.jsonld")
+        if not os.path.exists(root_json_path):
+            log.error(
+                f"File {root_json_path} not found. Ruby tests require a fully built release."
+            )
+            exit(os.EX_NOINPUT)
+        # Display modification time to the user.
+        timestamp = os.path.getmtime(root_json_path)
+        timestamp_str = datetime.datetime.fromtimestamp(timestamp).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+        log.info(f"LATEST Release Build time: {timestamp_str}")
+        dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
+        with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
+            cmd = ["bundle", "exec", "rake"]
+            cwd = os.path.join(os.getcwd(), "software/scripts")
+            log.info("Running ruby tests")
+            status = subprocess.call(cmd, cwd=cwd)
+            if status:
+                log.error("Ruby tests failed")
+                sys.exit(status)
 
 
 ###################################################
@@ -315,12 +360,12 @@ def runRubyTests(release_dir):
 
 def copyReleaseFiles(release_dir):
     version = schemaversion.getVersion()
+    srcdir = os.path.join(os.getcwd(), "data/releases/", version)
+    destdir = os.path.join(os.getcwd(), release_dir, version)
     with pretty_logger.BlockLog(
-        message=f"Copying release files for version {version} to data/releases",
+        message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
-        srcdir = os.path.join(os.getcwd(), release_dir, version)
-        destdir = os.path.join(os.getcwd(), "data/releases/", version)
         fileutils.mycopytree(srcdir, destdir)
         cmd = ["git", "add", destdir]
         subprocess.check_call(cmd)
@@ -337,6 +382,9 @@ if __name__ == "__main__":
     log.info(
         f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
     )
+    # The ruby tests require a fully built tree
+    if args.rubytests:
+        args.autobuild = True
     if args.release:
         args.autobuild = True
         log.info("BUILDING RELEASE VERSION")
@@ -350,7 +398,8 @@ if __name__ == "__main__":
     processTerms(terms=schemaglobals.TERMS)
     processDocs(pages=schemaglobals.PAGES)
     processFiles(files=schemaglobals.FILES)
-    if args.rubytests:
-        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
+
     if args.release:
         copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+    if args.rubytests:
+        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
