@@ -1,0 +1,44 @@
+TYPES: #4660 Product
+
+PRE-MARKUP:
+
+<div>
+  <h1>Circular Smartphone</h1>
+  <p>Product ID (DID): did:web:verisav.fr:product:12345</p>
+  <p>Scan for Passport: <a href="https://id.verisav.fr/01/01234567890128/21/12345">Digital Link</a></p>
+  <p>UUID: urn:uuid:123e4567-e89b-12d3-a456-426614174000</p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Product">
+  <h1 itemprop="name">Circular Smartphone</h1>
+  <p>Product ID (DID): <span itemprop="identifier">did:web:verisav.fr:product:12345</span></p>
+  <p>UUID: <span itemprop="identifier">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span></p>
+  <p>Scan for Passport: <a itemprop="hasGS1DigitalLink" href="https://id.verisav.fr/01/01234567890128/21/12345">Digital Link</a></p>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Product">
+  <h1 property="name">Circular Smartphone</h1>
+  <p>Product ID (DID): <span property="identifier">did:web:verisav.fr:product:12345</span></p>
+  <p>UUID: <span property="identifier">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span></p>
+  <p>Scan for Passport: <a property="hasGS1DigitalLink" href="https://id.verisav.fr/01/01234567890128/21/12345">Digital Link</a></p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Circular Smartphone",
+  "description": "A repairable and circular product with Digital Product Passport (DPP) integration",
+  "identifier": [
+    "did:web:verisav.fr:product:12345",
+    "urn:uuid:123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "hasGS1DigitalLink": "https://id.verisav.fr/01/01234567890128/21/12345"
+}
+</script>
