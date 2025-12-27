@@ -1,5 +1,3 @@
-TYPES: #4658 Product
-
 JSON:
 
 <script type="application/ld+json">
@@ -12,7 +10,11 @@ JSON:
     "@type": "DefinedTerm",
     "name": "Consumable",
     "termCode": "711",
-    "inDefinedTermSet": "https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm"
+    "inDefinedTermSet": {
+       "@type": "DefinedTermSet",
+       "name": "UN/CEFACT UNCL 1001 (Reference Mapping)",
+       "url": "https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm"
+    }
   }
 },
 {
@@ -29,9 +31,11 @@ JSON:
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "CRM Module",
+  "description": "Software module for customer relationship management",
   "hasProductRole": {
     "@type": "DefinedTerm",
     "name": "Software Component"
   }
 }]
 </script>
+
