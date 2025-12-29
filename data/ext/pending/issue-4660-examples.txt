@@ -66,7 +66,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": ["https://schema.org", "https://www.verisav.fr/ns/core"],
+  "@context": "https://schema.org",
   "@type": "Product",
   "name": "Circular Smartphone",
   "description": "A repairable smartphone designed for circular economy with modular components, supporting product-as-a-service models and extended lifecycle management",
@@ -107,13 +107,12 @@ TURTLE:
 
 
 @prefix ex: <https://id.verisav.fr/product/> .
-@prefix vs: <https://www.verisav.fr/ns/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 ex:smartphone-12345
-  a schema:Product, vs:ProductPassport ;
+  a schema:Product ;
   schema:name "Circular Smartphone"@en ;
   schema:name "Smartphone circulaire"@fr ;
   schema:description "A repairable smartphone designed for circular economy with modular components, supporting product-as-a-service models and extended lifecycle management."@en ;
@@ -121,21 +120,15 @@ ex:smartphone-12345
   schema:identifier "did:web:verisav.fr:product:12345" ;
   schema:identifier "urn:uuid:123e4567-e89b-12d3-a456-426614174000" ;
   schema:hasGS1DigitalLink <https://id.verisav.fr/01/01234567890128/21/12345> ;
-  
-  vs:repairabilityIndex [ 
-    a vs:RepairabilityScore ; 
-    schema:value 8 ; 
-    schema:bestValue 10 ;
-    rdfs:label "Official Repairability Index"@en ;
-    rdfs:comment "Score measuring ease of repair, spare parts availability, and design durability (0-10)"@en
+  schema:aggregateRating [
+    a schema:AggregateRating ;
+    schema:ratingValue 8 ;
+    schema:bestRating 10 ;
+    schema:name "Repairability Index"@en ;
+    schema:description "Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability"@en
   ] ;
-  
-  vs:sparePartAvailability "P5Y"^^<http://www.w3.org/2001/XMLSchema#duration> ;
-  vs:carbonFootprint "45 kg CO2-eq" ;
-  
   schema:award "Circular Economy Ready" ;
   dcterms:isPartOf <https://www.verisav.fr/initiatives/circular-economy> ;
-  
   schema:conformsTo <https://ec.europa.eu/info/business-economy-euro/product-safety-and-requirements/products/digital-product-passport_en> ;
   rdfs:comment "Fully compliant with EU Digital Product Passport Regulation and circular economy directives"@en .
 
