@@ -28,10 +28,7 @@ MICRODATA:
 <div itemscope itemtype="https://schema.org/Product">
   <h2 itemprop="name">Laptop Battery Replacement</h2>
   <p itemprop="description">A consumable battery for Model X</p>
-  <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
-    <meta itemprop="propertyID" content="GTIN">
-    <span itemprop="value">5901234123457</span>
-  </div>
+  <span itemprop="gtin">5901234123457</span>
   <span itemprop="category">Consumable</span>
   <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
     <span itemprop="name">Product Type Code</span>
@@ -76,52 +73,49 @@ MICRODATA:
 
 RDFA:
 
-<div typeof="schema:Product">
-  <h2 property="schema:name">Laptop Battery Replacement</h2>
-  <p property="schema:description">A consumable battery for Model X</p>
-  <div property="schema:identifier" typeof="schema:PropertyValue">
-    <meta property="schema:propertyID" content="GTIN">
-    <span property="schema:value">5901234123457</span>
+<div vocab="https://schema.org/" typeof="Product">
+  <h2 property="name">Laptop Battery Replacement</h2>
+  <p property="description">A consumable battery for Model X</p>
+  <span property="gtin">5901234123457</span>
+  <span property="category">Consumable</span>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">Product Type Code</span>
+    <span property="description">UN/CEFACT UNCL 1001 code for Consumable</span>
+    <meta property="propertyID" content="https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm">
+    <span property="value">711</span>
   </div>
-  <span property="schema:category">Consumable</span>
-  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
-    <span property="schema:name">Product Type Code</span>
-    <span property="schema:description">UN/CEFACT UNCL 1001 code for Consumable</span>
-    <meta property="schema:propertyID" content="https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm">
-    <span property="schema:value">711</span>
-  </div>
-  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
-    <span property="schema:name">Product Role</span>
-    <span property="schema:value">Consumable</span>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">Product Role</span>
+    <span property="value">Consumable</span>
   </div>
 </div>
 
-<div typeof="schema:Product">
-  <h2 property="schema:name">Virtual Pump Twin</h2>
-  <p property="schema:description">Digital Twin of the physical water pump for simulation</p>
-  <div property="schema:identifier" typeof="schema:PropertyValue">
-    <meta property="schema:propertyID" content="DID">
-    <span property="schema:value">did:web:example.com:product:pump-twin-001</span>
+<div vocab="https://schema.org/" typeof="Product">
+  <h2 property="name">Virtual Pump Twin</h2>
+  <p property="description">Digital Twin of the physical water pump for simulation</p>
+  <div property="identifier" typeof="PropertyValue">
+    <meta property="propertyID" content="DID">
+    <span property="value">did:web:example.com:product:pump-twin-001</span>
   </div>
-  <span property="schema:category">Digital Twin</span>
-  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
-    <span property="schema:name">Product Role</span>
-    <span property="schema:value">Digital Twin</span>
+  <span property="category">Digital Twin</span>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">Product Role</span>
+    <span property="value">Digital Twin</span>
   </div>
 </div>
 
-<div typeof="schema:SoftwareApplication">
-  <h2 property="schema:name">CRM Module</h2>
-  <p property="schema:description">Software module for customer relationship management</p>
-  <div property="schema:identifier" typeof="schema:PropertyValue">
-    <meta property="schema:propertyID" content="DID">
-    <span property="schema:value">did:web:example.com:product:crm-module-001</span>
+<div vocab="https://schema.org/" typeof="SoftwareApplication">
+  <h2 property="name">CRM Module</h2>
+  <p property="description">Software module for customer relationship management</p>
+  <div property="identifier" typeof="PropertyValue">
+    <meta property="propertyID" content="DID">
+    <span property="value">did:web:example.com:product:crm-module-001</span>
   </div>
-  <meta property="schema:applicationCategory" content="BusinessApplication">
-  <span property="schema:category">Software Component</span>
-  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
-    <span property="schema:name">Product Role</span>
-    <span property="schema:value">Software Component</span>
+  <meta property="applicationCategory" content="BusinessApplication">
+  <span property="category">Software Component</span>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">Product Role</span>
+    <span property="value">Software Component</span>
   </div>
 </div>
 
@@ -141,11 +135,7 @@ JSON:
       "@type": "Product",
       "name": "Laptop Battery Replacement",
       "description": "A consumable battery for Model X",
-      "identifier": {
-        "@type": "PropertyValue",
-        "propertyID": "GTIN",
-        "value": "5901234123457"
-      },
+      "gtin": "5901234123457",
       "category": "Consumable",
       "additionalProperty": [
         {
@@ -200,6 +190,3 @@ JSON:
   ]
 }
 </script>
-
-</script>
-
