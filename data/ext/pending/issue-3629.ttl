@@ -1,0 +1,97 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DENonprofitType a rdfs:Class ;
+    rdfs:label "DENonprofitType" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DENonprofitType: Non-profit organization type originating from Germany in accordance with article 52 of the German fiscal code (Abgabenverordnung or AO)." ;
+    rdfs:subClassOf :NonprofitType .
+
+:DERegisteredAssociationCharity a :DENonprofitType ;
+    rdfs:label "DERegisteredAssociationCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DERegisteredAssociationCharity: Non-profit type referring to a charitable association that is registered with the German association register (german gemeinnütziger e.v. or gemeinnütziger eingetragener Verein) and has been recognized by the tax authorities as a charitable non-profit." .
+
+:DENotRegisteredAssociationCharity a :DENonprofitType ;
+    rdfs:label "DENotRegisteredAssociationCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DENotRegisteredAssociationCharity: Non-profit type referring to a charitable association that is not registered with the German association register (gemeinnütziger Verein) and has been recognized by the tax authorities as a charitable non-profit." .
+
+:DEJointStockCompanyCharity a :DENonprofitType ;
+    rdfs:label "DEJointStockCompanyCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DEJointStockCompanyCharity: Non-profit type referring to a charitable Joint Stock Company (German gAG gemeinnützige Aktiengesellschaft) that has been recognized by the tax authorities as a charitable non-profit." .
+
+:DELimitedLiabilityCharity a :DENonprofitType ;
+    rdfs:label "DELimitedLiabilityCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DELimitedLiabilityCharity: Non-profit type referring to a charitable Common Stock Company (German gGmbH or gemeinnützige Gesellschaft mit beschränkter Haftung) that has been recognized by the tax authorities as a charitable non-profit." .
+
+:DECooperativeCharity a :DENonprofitType ;
+    rdfs:label "DECooperativeCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DECooperativeCharity: Non-profit type referring to a charitable Cooperative (German Genossenschaft) that has been recognized by the tax authorities as a charitable non-profit." .
+
+:DEFoundationCharity a :DENonprofitType ;
+    rdfs:label "DEFoundationCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DEFoundationCharity: Non-profit type referring to a charitable Foundation (German Stiftung) that has been recognized by the tax authorities as a charitable non-profit." .
+
+:DEPublicCharity a :DENonprofitType ;
+    rdfs:label "DEPublicCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "DEPublicCharity: Non-profit type referring to a charitable government owned juridical person (German Körperschaft öffentlichen Rechts) that has been recognized by the tax authorities as a charitable non-profit." .
+
+:ITNonprofitType a rdfs:Class ;
+    rdfs:label "ITNonprofitType" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITNonprofitType: Non-profit organization type originating from Italy." ;
+    rdfs:subClassOf :NonprofitType .
+
+:ITVolunteerAssociationCharity a :ITNonprofitType ;
+    rdfs:label "ITVolunteerAssociationCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITVolunteerAssociationCharity: Non-profit type referring to associations organising charitable volunteer activities (Ital. Organizzazioni di volontariato or ODV) according to Italian Law 266 of 1991." .
+
+:ITSocialPromotionCharity a :ITNonprofitType ;
+    rdfs:label "ITSocialPromotionCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITSocialPromotionCharity: Non-profit type referring to associations promoting charitable causes (Ital. Associazioni di promozione sociale or APS) according to Italian Law 383 of 2000." .
+
+:ITMutualAidCharity a :ITNonprofitType ;
+    rdfs:label "ITMutualAidCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITMutualAidCharity: Non-profit type referring to associations providing financial aid to people need (Ital. Società di mutuo soccorso or SOMS) according to Italian Law 3818 of 1886." .
+
+:ITSocialCompanyCharity a :ITNonprofitType ;
+    rdfs:label "ITSocialCompanyCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITSocialCompanyCharity: Non-profit type referring to companies with charitable missions (Ital. Imprese Sociali or IS) according to Italian Law 112 of 2017." .
+
+:ITCooperativeCharity a :ITNonprofitType ;
+    rdfs:label "ITCooperativeCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITCooperativeCharity: Non-profit type referring to Cooperatives with charitable missions (Ital. Cooperativa Sociale) according to Italian Law 112 of 2017." .
+
+:ITSportCompanyCharity a :ITNonprofitType ;
+    rdfs:label "ITSportCompanyCharity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3629> ;
+    rdfs:comment "ITSportCompanyCharity: Non-profit type referring to Companies that organize sports activities for the public or inscribed members (Ital. Società Sportiva Dilettantistica or SSD) according to Italian Law 289 of 2002." .
