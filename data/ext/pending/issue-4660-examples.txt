@@ -1,68 +1,121 @@
 TYPES: #4660 Product
 
-
 PRE-MARKUP:
-
 
 <div>
   <h1>Circular Smartphone</h1>
-  <p>Product ID (DID): did:web:verisav.fr:product:12345</p>
-  <p><a href="https://id.verisav.fr/01/01234567890128/21/12345">View Digital Product Passport</a></p>
+  <p>Product ID (DID): did:web:example.com:product:12345</p>
+  <p><a href="https://id.example.com/01/01234567890128/21/12345">View Digital Product Passport</a></p>
   <p>UUID: urn:uuid:123e4567-e89b-12d3-a456-426614174000</p>
 </div>
 
-
 MICRODATA:
-
 
 <div itemscope itemtype="https://schema.org/Product">
   <h1 itemprop="name">Circular Smartphone</h1>
   
   <!-- Digital Identity (DID) - Decentralized identifier for supply chain traceability -->
   <p><strong>Product ID (DID):</strong> 
-    <span itemprop="identifier">did:web:verisav.fr:product:12345</span>
+    <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+      <meta itemprop="propertyID" content="DID">
+      <span itemprop="value">did:web:example.com:product:12345</span>
+    </div>
     <em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em>
   </p>
   
   <!-- Universal Unique Identifier - Standard UUID for universal identification -->
   <p><strong>UUID:</strong> 
-    <span itemprop="identifier">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
+    <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+      <meta itemprop="propertyID" content="UUID">
+      <span itemprop="value">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
+    </div>
     <em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em>
   </p>
   
   <!-- GS1 Digital Link - Primary access point to Digital Product Passport -->
-  <p><a itemprop="hasGS1DigitalLink" href="https://id.verisav.fr/01/01234567890128/21/12345">
+  <p><a itemprop="url" href="https://id.example.com/01/01234567890128/21/12345">
     <strong>View Digital Product Passport</strong>
   </a>
   <em>(GS1 Digital Link - standard for accessing comprehensive product information, materials, repairability data, and environmental impact)</em>
   </p>
+  
+  <!-- Repairability Index -->
+  <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" content="8">
+    <meta itemprop="bestRating" content="10">
+    <span itemprop="name">Repairability Index</span>
+    <span itemprop="description">Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability</span>
+  </div>
+  
+  <!-- Sustainability information as additional properties -->
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">sparePartAvailability</span>
+    <span itemprop="value">P5Y</span>
+  </div>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">carbonFootprint</span>
+    <span itemprop="value">45 kg CO2-eq</span>
+  </div>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">recyclableContent</span>
+    <span itemprop="value">92%</span>
+  </div>
 </div>
 
-
 RDFA:
-
 
 <div vocab="https://schema.org/" typeof="Product">
   <h1 property="name">Circular Smartphone</h1>
   
   <!-- Digital Identity (DID) - Decentralized identifier for supply chain traceability -->
-  <p><strong>Product ID (DID):</strong> <span property="identifier">did:web:verisav.fr:product:12345</span>
-  <br/><em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em></p>
+  <p><strong>Product ID (DID):</strong> 
+    <span property="identifier" typeof="PropertyValue">
+      <meta property="propertyID" content="DID">
+      <span property="value">did:web:example.com:product:12345</span>
+    </span>
+    <br/><em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em>
+  </p>
   
   <!-- Universal Unique Identifier - Standard UUID for universal identification -->
-  <p><strong>UUID:</strong> <span property="identifier">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
-  <br/><em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em></p>
+  <p><strong>UUID:</strong> 
+    <span property="identifier" typeof="PropertyValue">
+      <meta property="propertyID" content="UUID">
+      <span property="value">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
+    </span>
+    <br/><em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em>
+  </p>
   
   <!-- GS1 Digital Link - Primary access point to Digital Product Passport -->
-  <p><a property="hasGS1DigitalLink" href="https://id.verisav.fr/01/01234567890128/21/12345">
+  <p><a property="url" href="https://id.example.com/01/01234567890128/21/12345">
     <strong>View Digital Product Passport</strong>
   </a>
-  <br/><em>(GS1 Digital Link - standard for accessing comprehensive product information, materials, repairability data, and environmental impact)</em></p>
+  <br/><em>(GS1 Digital Link - standard for accessing comprehensive product information, materials, repairability data, and environmental impact)</em>
+  </p>
+  
+  <!-- Repairability Index -->
+  <div property="aggregateRating" typeof="AggregateRating">
+    <meta property="ratingValue" content="8">
+    <meta property="bestRating" content="10">
+    <span property="name">Repairability Index</span>
+    <span property="description">Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability</span>
+  </div>
+  
+  <!-- Sustainability information as additional properties -->
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">sparePartAvailability</span>
+    <span property="value">P5Y</span>
+  </div>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">carbonFootprint</span>
+    <span property="value">45 kg CO2-eq</span>
+  </div>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">recyclableContent</span>
+    <span property="value">92%</span>
+  </div>
 </div>
 
-
 JSON:
-
 
 <script type="application/ld+json">
 {
@@ -74,7 +127,7 @@ JSON:
     {
       "@type": "PropertyValue",
       "propertyID": "DID",
-      "value": "did:web:verisav.fr:product:12345",
+      "value": "did:web:example.com:product:12345",
       "description": "Decentralized Web Identifier for verifiable supply chain authentication"
     },
     {
@@ -84,7 +137,7 @@ JSON:
       "description": "Universal Unique Identifier for global lifecycle tracking"
     }
   ],
-  "hasGS1DigitalLink": "https://id.verisav.fr/01/01234567890128/21/12345",
+  "url": "https://id.example.com/01/01234567890128/21/12345",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": 8,
@@ -93,20 +146,32 @@ JSON:
     "description": "Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability"
   },
   "award": "Circular Economy Ready",
-  "sustainability": {
-    "@type": "Thing",
-    "sparePartAvailability": "P5Y",
-    "carbonFootprint": "45 kg CO2-eq",
-    "recyclableContent": "92%"
-  }
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "sparePartAvailability",
+      "value": "P5Y",
+      "description": "Spare parts available for 5 years"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "carbonFootprint",
+      "value": "45 kg CO2-eq",
+      "description": "Carbon footprint in CO2 equivalent"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "recyclableContent",
+      "value": "92%",
+      "description": "Percentage of recyclable content"
+    }
+  ]
 }
 </script>
 
-
 TURTLE:
 
-
-@prefix ex: <https://id.verisav.fr/product/> .
+@prefix ex: <https://id.example.com/product/> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -117,9 +182,9 @@ ex:smartphone-12345
   schema:name "Smartphone circulaire"@fr ;
   schema:description "A repairable smartphone designed for circular economy with modular components, supporting product-as-a-service models and extended lifecycle management."@en ;
   schema:description "Un smartphone réparable conçu pour l'économie circulaire avec des composants modulaires, supportant les modèles de produit-en-tant-que-service."@fr ;
-  schema:identifier "did:web:verisav.fr:product:12345" ;
+  schema:identifier "did:web:example.com:product:12345" ;
   schema:identifier "urn:uuid:123e4567-e89b-12d3-a456-426614174000" ;
-  schema:hasGS1DigitalLink <https://id.verisav.fr/01/01234567890128/21/12345> ;
+  schema:url <https://id.example.com/01/01234567890128/21/12345> ;
   schema:aggregateRating [
     a schema:AggregateRating ;
     schema:ratingValue 8 ;
@@ -128,8 +193,21 @@ ex:smartphone-12345
     schema:description "Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability"@en
   ] ;
   schema:award "Circular Economy Ready" ;
-  dcterms:isPartOf <https://www.verisav.fr/initiatives/circular-economy> ;
+  schema:additionalProperty [
+    a schema:PropertyValue ;
+    schema:name "sparePartAvailability" ;
+    schema:value "P5Y"
+  ] ;
+  schema:additionalProperty [
+    a schema:PropertyValue ;
+    schema:name "carbonFootprint" ;
+    schema:value "45 kg CO2-eq"
+  ] ;
+  schema:additionalProperty [
+    a schema:PropertyValue ;
+    schema:name "recyclableContent" ;
+    schema:value "92%"
+  ] ;
+  dcterms:isPartOf <https://www.example.com/initiatives/circular-economy> ;
   schema:conformsTo <https://ec.europa.eu/info/business-economy-euro/product-safety-and-requirements/products/digital-product-passport_en> ;
   rdfs:comment "Fully compliant with EU Digital Product Passport Regulation and circular economy directives"@en .
-
-
