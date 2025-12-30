@@ -1,3 +1,132 @@
+TYPES: #4658 Product, SoftwareApplication
+
+PRE-MARKUP:
+
+<div>
+  <h2>Laptop Battery Replacement</h2>
+  <p>A consumable battery for Model X</p>
+  <p>GTIN: 5901234123457</p>
+  <p>Category: Consumable</p>
+</div>
+
+<div>
+  <h2>Virtual Pump Twin</h2>
+  <p>Digital Twin of the physical water pump for simulation</p>
+  <p>DID: did:web:example.com:product:pump-twin-001</p>
+  <p>Category: Digital Twin</p>
+</div>
+
+<div>
+  <h2>CRM Module</h2>
+  <p>Software module for customer relationship management</p>
+  <p>DID: did:web:example.com:product:crm-module-001</p>
+  <p>Category: Software Component</p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Product">
+  <h2 itemprop="name">Laptop Battery Replacement</h2>
+  <p itemprop="description">A consumable battery for Model X</p>
+  <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+    <meta itemprop="propertyID" content="GTIN">
+    <span itemprop="value">5901234123457</span>
+  </div>
+  <span itemprop="category">Consumable</span>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">Product Type Code</span>
+    <span itemprop="description">UN/CEFACT UNCL 1001 code for Consumable</span>
+    <meta itemprop="propertyID" content="https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm">
+    <span itemprop="value">711</span>
+  </div>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">Product Role</span>
+    <span itemprop="value">Consumable</span>
+  </div>
+</div>
+
+<div itemscope itemtype="https://schema.org/Product">
+  <h2 itemprop="name">Virtual Pump Twin</h2>
+  <p itemprop="description">Digital Twin of the physical water pump for simulation</p>
+  <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+    <meta itemprop="propertyID" content="DID">
+    <span itemprop="value">did:web:example.com:product:pump-twin-001</span>
+  </div>
+  <span itemprop="category">Digital Twin</span>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">Product Role</span>
+    <span itemprop="value">Digital Twin</span>
+  </div>
+</div>
+
+<div itemscope itemtype="https://schema.org/SoftwareApplication">
+  <h2 itemprop="name">CRM Module</h2>
+  <p itemprop="description">Software module for customer relationship management</p>
+  <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+    <meta itemprop="propertyID" content="DID">
+    <span itemprop="value">did:web:example.com:product:crm-module-001</span>
+  </div>
+  <meta itemprop="applicationCategory" content="BusinessApplication">
+  <span itemprop="category">Software Component</span>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">Product Role</span>
+    <span itemprop="value">Software Component</span>
+  </div>
+</div>
+
+RDFA:
+
+<div typeof="schema:Product">
+  <h2 property="schema:name">Laptop Battery Replacement</h2>
+  <p property="schema:description">A consumable battery for Model X</p>
+  <div property="schema:identifier" typeof="schema:PropertyValue">
+    <meta property="schema:propertyID" content="GTIN">
+    <span property="schema:value">5901234123457</span>
+  </div>
+  <span property="schema:category">Consumable</span>
+  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
+    <span property="schema:name">Product Type Code</span>
+    <span property="schema:description">UN/CEFACT UNCL 1001 code for Consumable</span>
+    <meta property="schema:propertyID" content="https://service.unece.org/trade/untdid/d19b/tred/tred1001.htm">
+    <span property="schema:value">711</span>
+  </div>
+  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
+    <span property="schema:name">Product Role</span>
+    <span property="schema:value">Consumable</span>
+  </div>
+</div>
+
+<div typeof="schema:Product">
+  <h2 property="schema:name">Virtual Pump Twin</h2>
+  <p property="schema:description">Digital Twin of the physical water pump for simulation</p>
+  <div property="schema:identifier" typeof="schema:PropertyValue">
+    <meta property="schema:propertyID" content="DID">
+    <span property="schema:value">did:web:example.com:product:pump-twin-001</span>
+  </div>
+  <span property="schema:category">Digital Twin</span>
+  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
+    <span property="schema:name">Product Role</span>
+    <span property="schema:value">Digital Twin</span>
+  </div>
+</div>
+
+<div typeof="schema:SoftwareApplication">
+  <h2 property="schema:name">CRM Module</h2>
+  <p property="schema:description">Software module for customer relationship management</p>
+  <div property="schema:identifier" typeof="schema:PropertyValue">
+    <meta property="schema:propertyID" content="DID">
+    <span property="schema:value">did:web:example.com:product:crm-module-001</span>
+  </div>
+  <meta property="schema:applicationCategory" content="BusinessApplication">
+  <span property="schema:category">Software Component</span>
+  <div property="schema:additionalProperty" typeof="schema:PropertyValue">
+    <span property="schema:name">Product Role</span>
+    <span property="schema:value">Software Component</span>
+  </div>
+</div>
+
+JSON:
+
 <script type="application/ld+json">
 {
   "@context": [
@@ -70,5 +199,7 @@
     }
   ]
 }
+</script>
+
 </script>
 
