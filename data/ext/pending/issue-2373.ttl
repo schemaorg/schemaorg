@@ -37,10 +37,11 @@
 
 :floorLevel a rdf:Property ;
     rdfs:label "floorLevel" ;
-    :domainIncludes :Accommodation ;
+    :domainIncludes :Accommodation, :LocalBusiness, :Residence ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373>,
+        <https://github.com/schemaorg/schemaorg/issues/4469>;
     rdfs:comment """The floor level for an [[Accommodation]] in a multi-storey building. Since counting
   systems [vary internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations), the local system should be used where possible.""" .
 
