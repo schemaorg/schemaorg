@@ -49,7 +49,58 @@ JSON:
 }
 </script>
 
-TYPES: #eg-3617b Product, Offer, OfferShippingDetails, ShippingService
+TYPES: #eg-3617b Organization, ShippingService
+
+PRE-MARKUP:
+
+Organization with free shipping worldwide for members (in the V2 Shipping format) and paid shipping for non-members.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Organization",
+  "name": "Example Inc.",
+  "hasShippingService": [
+    {
+      "@type": "ShippingService",
+      "name": "Members Free Shipping",
+      "description": "Free shipping worldwide for Gold and Platinum members.",
+      "validForMemberTier": [
+        { "@id": "https://www.example.com/membership-plus#tier_gold" },
+        { "@id": "https://www.example.com/membership-plus#tier_platinum" }
+      ],
+      "shippingConditions": {
+        "@type": "ShippingConditions",
+        "shippingRate": "0"
+      }
+    }, {
+      "@type": "ShippingService",
+      "name": "Standard Shipping",
+      "description": "Flat-fee worldwide shipping.",
+      "shippingConditions": {
+        "@type": "ShippingConditions",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "9.99",
+          "currency": "USD"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+TYPES: #eg-3617c Product, Offer, OfferShippingDetails, ShippingService
 
 PRE-MARKUP:
 

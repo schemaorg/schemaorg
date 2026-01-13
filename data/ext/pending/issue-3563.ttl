@@ -104,12 +104,11 @@
          :MerchantReturnPolicy;
     :rangeIncludes :MemberProgramTier ;
     :source <https://github.com/schemaorg/schemaorg/issues/3563> ;
-    rdfs:comment "The membership program tier an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." .
+    rdfs:comment "The membership program tier(s) an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." .
 
 :membershipPointsEarned a rdf:Property ;
-    :domainIncludes :MemberProgramTier, 
+    :domainIncludes :MemberProgramTier,
         :PriceSpecification .
 
 :memberOf a rdf:Property ;
     :rangeIncludes :MemberProgramTier.
-
