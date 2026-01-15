@@ -5296,6 +5296,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :contributor a rdf:Property ;
     rdfs:label "contributor" ;
     rdfs:comment "A secondary contributor to the CreativeWork or Event." ;
+    owl:equivalentProperty dc:contributor ;
     :domainIncludes :CreativeWork,
         :Event ;
     :rangeIncludes :Organization,
@@ -5399,6 +5400,7 @@ In the case of products, the country of origin of the product. The exact interpr
 :creator a rdf:Property ;
     rdfs:label "creator" ;
     rdfs:comment "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork." ;
+    owl:equivalentProperty dc:creator ;
     :domainIncludes :CreativeWork,
         :UserComments ;
     :rangeIncludes :Organization,
@@ -8396,6 +8398,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 :publisher a rdf:Property ;
     rdfs:label "publisher" ;
     rdfs:comment "The publisher of the article in question." ;
+    owl:equivalentProperty dc:publisher ;
     :domainIncludes :CreativeWork, :FinancialIncentive ;
     :rangeIncludes :Organization,
         :Person .
@@ -10137,6 +10140,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :audience a rdf:Property ;
     rdfs:label "audience" ;
     rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
+    owl:equivalentProperty dc:audience ;
     :domainIncludes :CreativeWork,
         :Event,
         :LodgingBusiness,
@@ -10233,6 +10237,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty dc:description ;
     owl:equivalentProperty og:description ;
+    owl:equivalentProperty gs1:description ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text,
         :TextObject .
@@ -10374,6 +10379,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 :inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
     rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]]." ;
+    owl:equivalentProperty dc:language ;
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event,
@@ -10779,6 +10785,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :Event ;
     :inverseOf :subjectOf ;
     :rangeIncludes :Thing ;
+    owl:equivalentProperty dc:subject ;
     :source <https://github.com/schemaorg/schemaorg/issues/1670> ,
     <https://github.com/schemaorg/schemaorg/issues/4588> .
 
