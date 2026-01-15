@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'strscan'
 require 'rdf'
+
+contributionGuidelines = 'https://github.com/schemaorg/schemaorg/blob/main/software/CONTRIBUTING.md'
+
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
@@ -62,7 +65,7 @@ describe "Examples" do
       body = body[0..-(s.matched.to_s.length+1)].gsub("\r", '').strip + "\n"
       case format
       when :microdata, :rdfa, :jsonld
-        raise "TYPES does not start with example frag: #{types}" unless types.to_s.start_with?('#')
+        raise "One or more TYPES do not declare an issue in the example (see #{contributionGuidelines} ): #{types}" unless types.to_s.start_with?('#')
         name, _ = types.split(/\s+/, 2)
         name = name[1..-1]  # Remove initial '#'
 
