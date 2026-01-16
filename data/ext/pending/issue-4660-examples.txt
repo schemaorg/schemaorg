@@ -16,19 +16,19 @@ MICRODATA:
   
   <!-- Digital Identity (DID) - Decentralized identifier for supply chain traceability -->
   <p><strong>Product ID (DID):</strong> 
-    <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="propertyID" content="DID">
       <span itemprop="value">did:web:example.com:product:12345</span>
-    </div>
+    </span>
     <em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em>
   </p>
   
   <!-- Universal Unique Identifier - Standard UUID for universal identification -->
   <p><strong>UUID:</strong> 
-    <div itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
       <meta itemprop="propertyID" content="UUID">
       <span itemprop="value">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
-    </div>
+    </span>
     <em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em>
   </p>
   
@@ -171,6 +171,7 @@ JSON:
 
 TURTLE:
 
+<script type="text/turtle">
 @prefix ex: <https://id.example.com/product/> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -211,3 +212,4 @@ ex:smartphone-12345
   dcterms:isPartOf <https://www.example.com/initiatives/circular-economy> ;
   schema:conformsTo <https://ec.europa.eu/info/business-economy-euro/product-safety-and-requirements/products/digital-product-passport_en> ;
   rdfs:comment "Fully compliant with EU Digital Product Passport Regulation and circular economy directives"@en .
+</script>
