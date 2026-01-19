@@ -4087,6 +4087,18 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :Text,
         :URL .
 
+:acceptsTaxExemptionsDisability a rdf:Property ;
+    rdfs:label "acceptsTaxExemptionsDisability" ;
+    rdfs:comment "Indicates whether the seller processes orders with disabilty related tax exemptions." ;
+    :domainIncludes :Offer ;
+    :rangeIncludes :Boolean .
+
+:acceptsTaxExemptionsBusiness a rdf:Property ;
+    rdfs:label "acceptsTaxExemptionsBusiness" ;
+    rdfs:comment "Indicates whether the seller processes orders with business tax exemptions." ;
+    :domainIncludes :Offer ;
+    :rangeIncludes :Boolean .
+
 :accessCode a rdf:Property ;
     rdfs:label "accessCode" ;
     rdfs:comment "Password, PIN, or access code needed for delivery (e.g. from a locker)." ;
