@@ -1,0 +1,170 @@
+TYPES: #4660 Product
+
+PRE-MARKUP:
+
+<div>
+  <h1>Circular Smartphone</h1>
+  <p>Product ID (DID): did:web:example.com:product:12345</p>
+  <p><a href="https://id.example.com/01/01234567890128/21/12345">View Digital Product Passport</a></p>
+  <p>UUID: urn:uuid:123e4567-e89b-12d3-a456-426614174000</p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Product">
+  <h1 itemprop="name">Circular Smartphone</h1>
+  
+  <!-- Digital Identity (DID) - Decentralized identifier for supply chain traceability -->
+  <p><strong>Product ID (DID):</strong> 
+    <span itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+      <meta itemprop="propertyID" content="DID">
+      <span itemprop="value">did:web:example.com:product:12345</span>
+    </span>
+    <em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em>
+  </p>
+  
+  <!-- Universal Unique Identifier - Standard UUID for universal identification -->
+  <p><strong>UUID:</strong> 
+    <span itemprop="identifier" itemscope itemtype="https://schema.org/PropertyValue">
+      <meta itemprop="propertyID" content="UUID">
+      <span itemprop="value">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
+    </span>
+    <em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em>
+  </p>
+  
+  <!-- GS1 Digital Link - Primary access point to Digital Product Passport -->
+  <p><a itemprop="url" href="https://id.example.com/01/01234567890128/21/12345">
+    <strong>View Digital Product Passport</strong>
+  </a>
+  <em>(GS1 Digital Link - standard for accessing comprehensive product information, materials, repairability data, and environmental impact)</em>
+  </p>
+  
+  <!-- Repairability Index -->
+  <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" content="8">
+    <meta itemprop="bestRating" content="10">
+    <span itemprop="name">Repairability Index</span>
+    <span itemprop="description">Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability</span>
+  </div>
+  
+  <!-- Sustainability information as additional properties -->
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">sparePartAvailability</span>
+    <span itemprop="value">P5Y</span>
+  </div>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">carbonFootprint</span>
+    <span itemprop="value">45 kg CO2-eq</span>
+  </div>
+  <div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+    <span itemprop="name">recyclableContent</span>
+    <span itemprop="value">92%</span>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Product">
+  <h1 property="name">Circular Smartphone</h1>
+  
+  <!-- Digital Identity (DID) - Decentralized identifier for supply chain traceability -->
+  <p><strong>Product ID (DID):</strong> 
+    <span property="identifier" typeof="PropertyValue">
+      <meta property="propertyID" content="DID">
+      <span property="value">did:web:example.com:product:12345</span>
+    </span>
+    <br/><em>(Decentralized Web Identifier - enables verifiable product authentication across the supply chain)</em>
+  </p>
+  
+  <!-- Universal Unique Identifier - Standard UUID for universal identification -->
+  <p><strong>UUID:</strong> 
+    <span property="identifier" typeof="PropertyValue">
+      <meta property="propertyID" content="UUID">
+      <span property="value">urn:uuid:123e4567-e89b-12d3-a456-426614174000</span>
+    </span>
+    <br/><em>(Universal Unique Identifier - ensures global uniqueness for lifecycle tracking)</em>
+  </p>
+  
+  <!-- GS1 Digital Link - Primary access point to Digital Product Passport -->
+  <p><a property="url" href="https://id.example.com/01/01234567890128/21/12345">
+    <strong>View Digital Product Passport</strong>
+  </a>
+  <br/><em>(GS1 Digital Link - standard for accessing comprehensive product information, materials, repairability data, and environmental impact)</em>
+  </p>
+  
+  <!-- Repairability Index -->
+  <div property="aggregateRating" typeof="AggregateRating">
+    <meta property="ratingValue" content="8">
+    <meta property="bestRating" content="10">
+    <span property="name">Repairability Index</span>
+    <span property="description">Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability</span>
+  </div>
+  
+  <!-- Sustainability information as additional properties -->
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">sparePartAvailability</span>
+    <span property="value">P5Y</span>
+  </div>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">carbonFootprint</span>
+    <span property="value">45 kg CO2-eq</span>
+  </div>
+  <div property="additionalProperty" typeof="PropertyValue">
+    <span property="name">recyclableContent</span>
+    <span property="value">92%</span>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Circular Smartphone",
+  "description": "A repairable smartphone designed for circular economy with modular components, supporting product-as-a-service models and extended lifecycle management",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DID",
+      "value": "did:web:example.com:product:12345",
+      "description": "Decentralized Web Identifier for verifiable supply chain authentication"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "UUID",
+      "value": "urn:uuid:123e4567-e89b-12d3-a456-426614174000",
+      "description": "Universal Unique Identifier for global lifecycle tracking"
+    }
+  ],
+  "url": "https://id.example.com/01/01234567890128/21/12345",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": 8,
+    "bestRating": 10,
+    "name": "Repairability Index",
+    "description": "Official repairability score (0-10) measuring ease of repair, spare parts availability, and design durability"
+  },
+  "award": "Circular Economy Ready",
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "sparePartAvailability",
+      "value": "P5Y",
+      "description": "Spare parts available for 5 years"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "carbonFootprint",
+      "value": "45 kg CO2-eq",
+      "description": "Carbon footprint in CO2 equivalent"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "recyclableContent",
+      "value": "92%",
+      "description": "Percentage of recyclable content"
+    }
+  ]
+}
+</script>
