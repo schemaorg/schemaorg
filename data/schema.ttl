@@ -6780,6 +6780,12 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Product ;
     :rangeIncludes :Product .
 
+:isDropShipped a rdf:Property ;
+    rdfs:label "isDropShipped" ;
+    rdfs:comment "Indicates that the item is fulfilled by a third party." ;
+    :domainIncludes :Order ;
+    :rangeIncludes :Boolean .
+
 :isFamilyFriendly a rdf:Property ;
     rdfs:label "isFamilyFriendly" ;
     rdfs:comment "Indicates whether this content is family friendly." ;
