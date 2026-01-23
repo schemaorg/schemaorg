@@ -8,7 +8,10 @@
     rdfs:label "WebAPI" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment "An application programming interface accessible over Web/Internet technologies." ;
+    rdfs:comment """An application programming interface accessible over Web/Internet technologies.
+
+The [[documentation]] and [[endpointDescription]] properties give specific details of the actual endpoint instances, while the [[conformsTo]] property is used to indicate the general standard or specification that the endpoints implement. The [[url]] property indicates a landing page for the API, which is a Web page that can be navigated to in a Web browser to gain access to the API and/or additional information.
+      """ ;
     rdfs:subClassOf :Service .
 
 :documentation a rdf:Property ;
@@ -18,7 +21,18 @@
     :rangeIncludes :CreativeWork,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment "Further documentation describing the Web API in more detail." .
+    rdfs:comment "Human-readable documentation of the services available via the [[WebAPI]], including their operations, parameters etc." .
+
+:endpointDescription a rdf:Property ;
+    rdfs:label "endpointDescription" ;
+    :category "issue-1423" ;
+    :domainIncludes :WebAPI ;
+    :rangeIncludes :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    rdfs:comment """Machine-readable API definition of the services available via the [[WebAPI]], including their operations, parameters etc.
+
+Machine-readable formats include OpenAPI (Swagger) description, an OGC GetCapabilities response WFS, ISO-19142, WMS, ISO-19128, a SPARQL Service Description, an OpenSearch or WSDL20 document, or a Hydra API description. The [[encodingFormat]] property of the [[CreativeWork]] should be used to indicate the use of such formats via their MIME type.
+      """ .
 
 :termsOfService a rdf:Property ;
     rdfs:label "termsOfService" ;
@@ -29,3 +43,35 @@
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
     rdfs:comment "Human-readable terms of service documentation." .
 
+:conformsTo a rdf:Property ;
+    rdfs:label "conformsTo" ;
+    :category "issue-1423" ;
+    :domainIncludes :CreativeWork,
+        :WebAPI ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    rdfs:comment """The URL reference of an established standard to which the [[Thing]] described conforms.
+      """ .
+
+:accessService a rdf:Property ;
+    rdfs:label "accessService" ;
+    :category "issue-1423" ;
+    :domainIncludes :Dataset,
+        :DataDownload ;
+    :rangeIncludes :WebAPI ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    rdfs:comment "An API that provides access to the dataset." .
+
+:apiTransport a rdf:Property ;
+    rdfs:label "apiTransport" ;
+    :category "issue-1423" ;
+    :domainIncludes :WebAPI ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
+    rdfs:comment "The type of transport used for the API, such as `HTTP`, `HTTPS`, `SMTP`, `MQTT`, `WS`, `WSS`, `gRPC`." .
+
+:version a rdf:Property ;
+    :domainIncludes :WebAPI .
+
+:license a rdf:Property ;
+    :domainIncludes :WebAPI .

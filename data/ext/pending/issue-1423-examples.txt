@@ -1,4 +1,4 @@
-TYPES: #eg-0239 WebAPI, documentation, termsOfService
+TYPES: #1423 WebAPI, documentation, termsOfService
 
 PRE-MARKUP:
 
@@ -6,11 +6,11 @@ See JSON example.
 
 MICRODATA:
 
-TODO
+Example is JSON-LD only.
 
 RDFA:
 
-TODO
+Example is JSON-LD only.
 
 JSON:
 
@@ -18,14 +18,80 @@ JSON:
 {
   "@context": "https://schema.org/",
   "@type": "WebAPI",
-  "name": "Google Knowledge Graph Search API",
-  "description": "The Knowledge Graph Search API lets you find entities in the Google Knowledge Graph. The API uses standard schema.org types and is compliant with the JSON-LD specification.",
-  "documentation": "https://developers.google.com/knowledge-graph/",
-  "termsOfService": "https://developers.google.com/knowledge-graph/terms",
+  "name": "YouTube API",
+  "description": "The YouTube Data API lets you incorporate functions normally executed on the YouTube website into your own website or application. The following sections identify the different types of resources that you can retrieve using the API. The API also supports methods to insert, update, or delete many of these resources.",
+  "url": "https://www.googleapis.com/youtube/v3",
+  "documentation": "https://developers.google.com/youtube/v3/docs",
+  "termsOfService": "https://developers.google.com/youtube/terms/api-services-terms-of-service",
+  "privacyPolicy": "https://policies.google.com/privacy",
   "provider": {
     "@type": "Organization",
-    "name": "Google Inc."
+    "name": "Google LLC"
   }
 }
 </script>
 
+
+TYPES: #1423 WebAPI, documentation, termsOfService, apiTransport, conformsTo
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebAPI",
+  "name": "YouTube API",
+  "description": "The YouTube Data API lets you incorporate functions normally executed on the YouTube website into your own website or application. The following sections identify the different types of resources that you can retrieve using the API. The API also supports methods to insert, update, or delete many of these resources.",
+  "documentation": "https://developers.google.com/youtube/v3/docs",
+  "endpointDescription": [
+    {
+      "@type": "CreativeWork",
+      "encodingFormat": "application/json",
+      "url": "https://www.googleapis.com/youtube/v3"
+    }
+  ],
+  "url": "https://developers.google.com/youtube/v3",
+  "termsOfService": "https://developers.google.com/youtube/terms/api-services-terms-of-service",
+  "privacyPolicy": "https://policies.google.com/privacy",
+  "logo": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Google LLC",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "name": "Google",
+        "url": "https://google.com"
+      }
+    ]
+  },
+  "version": "3.0.0",
+  "apiTransport": [
+    "HTTP",
+    "HTTPS"
+  ],
+  "conformsTo": [
+    "https://jsonapi.org/format/1.0/"
+  ],
+  "potentialAction": [
+    {
+      "@type": "ConsumeAction",
+      "name": "API Client Registration",
+      "target": "https://console.cloud.google.com/apis/credentials"
+    }
+  ]
+}
+</script>
