@@ -19,7 +19,7 @@ NO_JSON_REGEXPS = (
 
 
 ldscript_match = re.compile(
-    '[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',
+    r'[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',
     re.S,
 )
 
@@ -400,7 +400,7 @@ class ExampleFileParser:
         self.file = filen
         self.filepos = 0
         examples = []
-        egid = re.compile("""#(\S+)\s+""")
+        egid = re.compile(r"""#(\S+)\s+""")
 
         if self.file.startswith("file://"):
             self.file = self.file[7:]
