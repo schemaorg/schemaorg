@@ -4,12 +4,19 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+:Credential a rdfs:Class ;
+    rdfs:label "Credential" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4685> ;
+    rdfs:comment "A credential is a certificate that is used to verify the identity of a person or entity." ;
+    rdfs:subClassOf :CreativeWork .
+
 :EducationalOccupationalCredential a rdfs:Class ;
     rdfs:label "EducationalOccupationalCredential" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
     rdfs:comment "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer." ;
-    rdfs:subClassOf :CreativeWork .
+    rdfs:subClassOf :Credential .
 
 :competencyRequired a rdf:Property ;
     rdfs:label "competencyRequired" ;
@@ -24,7 +31,7 @@
 
 :credentialCategory a rdf:Property ;
     rdfs:label "credentialCategory" ;
-    :domainIncludes :EducationalOccupationalCredential ;
+    :domainIncludes :Credential ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text,
@@ -51,12 +58,12 @@
 
 :qualifications a rdf:Property ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :EducationalOccupationalCredential ;
+    :rangeIncludes :Credential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
 :recognizedBy a rdf:Property ;
     rdfs:label "recognizedBy" ;
-    :domainIncludes :EducationalOccupationalCredential ;
+    :domainIncludes :Credential ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
@@ -64,11 +71,11 @@
 
 :validFor a rdf:Property ;
     rdfs:label "validFor" ;
-    :domainIncludes :EducationalOccupationalCredential ;
+    :domainIncludes :Credential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
 :validIn a rdf:Property ;
     rdfs:label "validIn" ;
-    :domainIncludes :EducationalOccupationalCredential ;
+    :domainIncludes :Credential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
