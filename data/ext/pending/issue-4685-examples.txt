@@ -1,0 +1,37 @@
+TYPES: #eg-4685 Credential, ProfilePage
+
+PRE-MARKUP:
+
+A ProfilePage for Angelo Huff that has been verified through a Credential by an Organization (Big Social Media).
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "ProfilePage",
+  "name": "u/ahuff1999",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Angelo Huff",
+    "alternateName": "ahuff1999",
+    "identifier": "123475623",
+    "hasCredential": {
+      "@type": "Credential",
+      "credentialCategory": "verified",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Big Social Media"
+      }
+    }
+  }
+}
+</script>
