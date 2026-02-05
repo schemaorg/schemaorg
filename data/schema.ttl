@@ -166,7 +166,7 @@ Should not be used where the nature of the alignment can be described using a si
 :AmusementPark a rdfs:Class ;
     rdfs:label "AmusementPark" ;
     rdfs:comment "An amusement park." ;
-    rdfs:subClassOf :EntertainmentBusiness .
+    rdfs:subClassOf :EntertainmentBusiness, :LocalBusiness .
 
 :AnimalShelter a rdfs:Class ;
     rdfs:label "AnimalShelter" ;
@@ -678,7 +678,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :ComedyClub a rdfs:Class ;
     rdfs:label "ComedyClub" ;
     rdfs:comment "A comedy club." ;
-    rdfs:subClassOf :EntertainmentBusiness .
+    rdfs:subClassOf :EntertainmentBusiness, :LocalBusiness .
 
 :ComedyEvent a rdfs:Class ;
     rdfs:label "ComedyEvent" ;
@@ -1205,7 +1205,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :EntertainmentBusiness a rdfs:Class ;
     rdfs:label "EntertainmentBusiness" ;
     rdfs:comment "A business providing entertainment." ;
-    rdfs:subClassOf :LocalBusiness .
+    rdfs:subClassOf :Organization .
 
 :EntryPoint a rdfs:Class ;
     rdfs:label "EntryPoint" ;
@@ -2006,7 +2006,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "MovieTheater" ;
     rdfs:comment "A movie theater." ;
     rdfs:subClassOf :CivicStructure,
-        :EntertainmentBusiness .
+        :EntertainmentBusiness , :LocalBusiness .
 
 :MovingCompany a rdfs:Class ;
     rdfs:label "MovingCompany" ;
@@ -2112,7 +2112,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 :NightClub a rdfs:Class ;
     rdfs:label "NightClub" ;
     rdfs:comment "A nightclub or discotheque." ;
-    rdfs:subClassOf :EntertainmentBusiness .
+    rdfs:subClassOf :EntertainmentBusiness, :LocalBusiness.
 
 :Notary a rdfs:Class ;
     rdfs:label "Notary" ;
