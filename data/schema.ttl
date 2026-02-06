@@ -3567,6 +3567,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:CoeliacDiet a :RestrictedDiet ;
+    rdfs:label "CoeliacDiet" ;
+    rdfs:comment "A diet appropriate for people with coeliac (or celiac) disease. See also [gs1:DietTypeCode-COELIAC](https://ref.gs1.org/voc/DietTypeCode-COELIAC)" .
+
 :CoOp a :GamePlayMode ;
     rdfs:label "CoOp" ;
     rdfs:comment "Play mode: CoOp. Co-operative games, where you play on the same team with friends." .
@@ -3606,6 +3610,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :DiabeticDiet a :RestrictedDiet ;
     rdfs:label "DiabeticDiet" ;
     rdfs:comment "A diet appropriate for people with diabetes." .
+
+:DieteticDiet a :RestrictedDiet ;
+    rdfs:label "DieteticDiet" ;
+    rdfs:comment "A diet for people on a restrictive diet. See also [gs1:DietTypeCode-DIETETIC](https://ref.gs1.org/voc/DietTypeCode-DIETETIC)" .
 
 :DigitalAudioTapeFormat a :MusicReleaseFormatType ;
     rdfs:label "DigitalAudioTapeFormat" ;
@@ -3679,7 +3687,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :GlutenFreeDiet a :RestrictedDiet ;
     rdfs:label "GlutenFreeDiet" ;
-    rdfs:comment "A diet exclusive of gluten." .
+    rdfs:comment "A diet exclusive of gluten. See also [gs1:DietTypeCode-FREE\\_FROM\\_GLUTEN](https://ref.gs1.org/voc/DietTypeCode-FREE_FROM_GLUTEN)" .
 
 :GroupBoardingPolicy a :BoardingPolicyType ;
     rdfs:label "GroupBoardingPolicy" ;
@@ -3687,7 +3695,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :HalalDiet a :RestrictedDiet ;
     rdfs:label "HalalDiet" ;
-    rdfs:comment "A diet conforming to Islamic dietary practices." .
+    rdfs:comment "A diet conforming to Islamic dietary practices. See also [gs1:DietTypeCode-HALAL](https://ref.gs1.org/voc/DietTypeCode-HALAL)" .
 
 :Hardcover a :BookFormatType ;
     rdfs:label "Hardcover" ;
@@ -3699,7 +3707,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :HinduDiet a :RestrictedDiet ;
     rdfs:label "HinduDiet" ;
-    rdfs:comment "A diet conforming to Hindu dietary practices, in particular, beef-free." .
+    rdfs:comment "A diet conforming to Hindu dietary practices." .
 
 :InStock a :ItemAvailability ;
     rdfs:label "InStock" ;
@@ -3723,7 +3731,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :KosherDiet a :RestrictedDiet ;
     rdfs:label "KosherDiet" ;
-    rdfs:comment "A diet conforming to Jewish dietary practices." .
+    rdfs:comment "A diet conforming to Jewish dietary practices. See also [gs1:DietTypeCode-KOSHER](https://ref.gs1.org/voc/DietTypeCode-KOSHER)" .
 
 :LaserDiscFormat a :MusicReleaseFormatType ;
     rdfs:label "LaserDiscFormat" ;
@@ -3845,6 +3853,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :OrderReturned a :OrderStatus ;
     rdfs:label "OrderReturned" ;
     rdfs:comment "OrderStatus representing that an order has been returned." .
+
+:OrganicDiet a :RestrictedDiet ;
+    rdfs:label "OrganicDiet" ;
+    rdfs:comment "A diet without use of chemically formulated fertilisers, growth stimulants, antibiotics or pesticides (only with the use of feed or fertiliser of plant or animal origin). See also [gs1:DietTypeCode-ORGANIC](https://ref.gs1.org/voc/DietTypeCode-ORGANIC)" .
 
 :OutOfStock a :ItemAvailability ;
     rdfs:label "OutOfStock" ;
@@ -4026,11 +4038,11 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :VeganDiet a :RestrictedDiet ;
     rdfs:label "VeganDiet" ;
-    rdfs:comment "A diet exclusive of all animal products." .
+    rdfs:comment "A diet exclusive of all animal products. See also [gs1:DietTypeCode-VEGAN](https://ref.gs1.org/voc/DietTypeCode-VEGAN)." .
 
 :VegetarianDiet a :RestrictedDiet ;
     rdfs:label "VegetarianDiet" ;
-    rdfs:comment "A diet exclusive of animal meat." .
+    rdfs:comment "A diet exclusive of animal meat. See also [gs1:DietTypeCode-VEGETARIAN](https://ref.gs1.org/voc/DietTypeCode-VEGETARIAN)." .
 
 :VenueMap a :MapCategoryType ;
     rdfs:label "VenueMap" ;
@@ -4045,6 +4057,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "Wednesday" ;
     rdfs:comment "The day of the week between Tuesday and Thursday." ;
     :sameAs <http://www.wikidata.org/entity/Q128> .
+
+:WithoutBeefDiet a :RestrictedDiet ;
+    rdfs:label "WithoutBeefDiet" ;
+    rdfs:comment "A diet without beef or beef-products. See also [gs1:DietTypeCode-WITHOUT\\_BEEF](https://ref.gs1.org/voc/DietTypeCode-WITHOUT_BEEF)." .
+
+:WithoutPorkDiet a :RestrictedDiet ;
+    rdfs:label "WithoutPorkDiet" ;
+    rdfs:comment "A diet without pork or pork-products. See also [gs1:DietTypeCode-WITHOUT\\_PORK](https://ref.gs1.org/voc/DietTypeCode-WITHOUT_PORK)." .
 
 :WritePermission a :DigitalDocumentPermissionType ;
     rdfs:label "WritePermission" ;

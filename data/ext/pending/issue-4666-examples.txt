@@ -1,0 +1,50 @@
+TYPES: #eg-4666 Diet
+
+PRE-MARKUP:
+
+Basic JSON-LD example.
+
+MICRODATA:
+
+N/A
+
+RDFA:
+
+N/A
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Avocado panzanella",
+  "image": "https://wwww.examplemenus.com/avopan.jpg",
+  "description": "A simple recipe for a quick and easy meal with avocado and sourdough (suitable for a low FODMAP diet).",
+  "suitableForDiet": [
+    {
+      "@type": "Diet",
+      "name": "Low FODMAP",
+      "description": "Low fermentable oligosaccharide, disaccharide, monosaccharide and polyol (FODMAP) diet.",
+      "sameAs": [
+        "https://en.wikipedia.org/wiki/Low-FODMAP_diet",
+        "http://snomed.info/sct/1255144000"
+      ],
+      "code": {
+        "@type": "MedicalCode",
+        "codeValue": "1255144000",
+        "codingSystem": "SNOMED-CT"
+      }
+    },
+    {
+      "@type": "Diet",
+      "name": "Mediterranean",
+      "description": "Diet based on the traditional eating habits of people in countries bordering the Mediterranean Sea.",
+      "sameAs": [
+        "https://en.wikipedia.org/wiki/Mediterranean_diet",
+        "https://www.ncbi.nlm.nih.gov/books/NBK557733/"
+      ]
+    }
+  ]
+}
+</script>
