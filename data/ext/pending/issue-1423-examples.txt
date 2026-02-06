@@ -6,11 +6,11 @@ See JSON example.
 
 MICRODATA:
 
-TODO
+Example is JSON-LD only.
 
 RDFA:
 
-TODO
+Example is JSON-LD only.
 
 JSON:
 
@@ -20,7 +20,8 @@ JSON:
   "@type": "WebAPI",
   "name": "Google Knowledge Graph Search API",
   "description": "The Knowledge Graph Search API lets you find entities in the Google Knowledge Graph. The API uses standard schema.org types and is compliant with the JSON-LD specification.",
-  "documentation": "https://developers.google.com/knowledge-graph/",
+  "url": "https://developers.google.com/knowledge-graph/",
+  "documentation": "https://developers.google.com/knowledge-graph/reference/rest/v1",
   "termsOfService": "https://developers.google.com/knowledge-graph/terms",
   "provider": {
     "@type": "Organization",
@@ -29,3 +30,71 @@ JSON:
 }
 </script>
 
+
+TYPES: #eg-0464 WebAPI, documentation, termsOfService, apiTransport, conformsTo
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebAPI",
+  "name": "Google Knowledge Graph Search API",
+  "description": "The Knowledge Graph Search API lets you find entities in the Google Knowledge Graph. The API uses standard schema.org types and is compliant with the JSON-LD specification.",
+  "documentation": "https://developers.google.com/knowledge-graph/reference/rest/v1",
+  "endpointDescription": [
+    {
+      "@type": "CreativeWork",
+      "encodingFormat": "application/json",
+      "url": "https://kgsearch.googleapis.com/$discovery/rest?version=v1"
+    },
+    {
+      "@type": "CreativeWork",
+      "encodingFormat": "application/vnd.oai.openapi+json;version=3.0",
+      "url": "https://api.apis.guru/v2/specs/googleapis.com/kgsearch/v1/openapi.json"
+    }
+  ],
+  "url": "https://developers.google.com/knowledge-graph/",
+  "termsOfService": "https://developers.google.com/knowledge-graph/terms",
+  "logo": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+  "license": "https://creativecommons.org/licenses/by/3.0/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Google Inc.",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "name": "Google",
+        "url": "https://google.com"
+      }
+    ],
+  },
+  "version": "1.0.0",
+  "apiTransport": [
+    "HTTP",
+    "HTTPS"
+  ],
+  "conformsTo": [
+    "https://jsonapi.org/format/1.0/"
+  ],
+  "potentialAction": [
+    {
+      "@type": "ConsumeAction",
+      "name": "API Client Registration",
+      "target": "https://developers.google.com/knowledge-graph/how-tos/authorizing"
+    }
+  ]
+}
+</script>
