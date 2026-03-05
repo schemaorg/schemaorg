@@ -513,8 +513,18 @@ class BasicJSONLDTests(unittest.TestCase):
             "dateModified" in self.ctx["@context"], "dateModified should be defined."
         )
         self.assertTrue(
-            self.ctx["@context"]["dateModified"]["@type"] == "Date",
-            "dateModified should have Date type.",
+            len(self.ctx["@context"]["dateModified"]["@type"]) == 2,
+            "dateModified should have two types.",
+        )
+        self.assertIn(
+            "Date",
+            self.ctx["@context"]["dateModified"]["@type"],
+            msg="dateModified should have Date type.",
+        )
+        self.assertIn(
+            "DateTime",
+            self.ctx["@context"]["dateModified"]["@type"],
+            msg="dateModified should have DateTime type.",
         )
 
     def test_sameas_jsonld(self):
