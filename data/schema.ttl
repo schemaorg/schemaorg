@@ -2582,10 +2582,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:subClassOf :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
 
-:Quantity a rdfs:Class ;
+:Quantity a rdfs:Class,
+            :DataType ;
     rdfs:label "Quantity" ;
-    rdfs:comment "Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are entities like '3 kg' or '4 milligrams'." ;
-    rdfs:subClassOf :Intangible .
+    rdfs:comment "Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are strings like '3 kg' or '4 milligrams'." .
 
 :Question a rdfs:Class ;
     rdfs:label "Question" ;
