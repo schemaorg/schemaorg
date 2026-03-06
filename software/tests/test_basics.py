@@ -109,12 +109,12 @@ class SchemaBasicAPITestCase(unittest.TestCase):
             tNewsArticle.termType, sdoterm.SdoTermType.TYPE, "NewsArticle is a class."
         )
 
-    def test_QuantityisClass(self):
+    def test_QuantityisDataType(self):
         tQuantity = sdotermsource.SdoTermSource.getTerm("Quantity")
-        self.assertTrue(
-            tQuantity.termType == sdoterm.SdoTermType.TYPE, "Quantity is a class."
+        self.assertEqual(
+            tQuantity.termType, sdoterm.SdoTermType.DATATYPE, "Quantity is a DataType."
         )
-        # Note that Quantity is a text type.
+        # Quantity is a text-ish DataType.
 
     def test_ItemAvailabilityIsEnumeration(self):
         eItemAvailability = sdotermsource.SdoTermSource.getTerm("ItemAvailability")
