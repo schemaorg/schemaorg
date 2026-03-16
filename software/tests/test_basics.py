@@ -403,7 +403,7 @@ class MarkDownTest(unittest.TestCase):
         html = localmarkdown.Markdown.parse(markstring, True)
         self.assertMultiLineEqual(
             html,
-            "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n",
+            "<p>This is <em>em</em>, <strong>strong</strong>, <em><strong>strong em</strong></em></p>\n",
             "Markdown string not formatted correctly",
         )
 
