@@ -12,6 +12,7 @@ from typing import Any
 import rdflib
 import rdflib.namespace
 import sys
+from rdflib.compare import to_canonical_graph
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -293,6 +294,11 @@ def _exportrdf(output_format, all, current, subdirectory_path: str | None = None
             g = all
         else:
             g = current
+
+        nsMgr = g.namespace_manager
+        canonical_g = to_canonical_graph(g)
+        g.namespace_manager = nsMgr
+
         if output_format == "nquads":
             gr = rdflib.Dataset()
             qg = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
@@ -327,7 +333,7 @@ def array2str(values):
 
 
 def uriwrap(thing):
-    """Convert various types into uris."""
+    """Convert various types into uris. Sorts items if they are a list."""
     if not thing:
         return ""
     if isinstance(thing, str):
@@ -341,7 +347,7 @@ def uriwrap(thing):
     if isinstance(thing, sdoterm.SdoTerm):
         return uriwrap(thing.id)
     try:
-        return array2str(map(uriwrap, thing))
+        return array2str(sorted(map(uriwrap, thing)))
     except TypeError as e:
         log.fatal("Cannot uriwrap %s:%s", thing, e)
 
