@@ -7,6 +7,8 @@ import io
 import json
 import logging
 import os
+from pathlib import Path
+from typing import Any
 import rdflib
 import rdflib.namespace
 import sys
@@ -513,12 +515,10 @@ def jsonpcounts(page):
     return content
 
 
-def exportshex_shacl(page):
-    release_dir = os.path.join(
-        os.getcwd(), schemaglobals.RELEASE_DIR, schemaversion.getVersion()
-    )
+def exportshex_shacl(page: Any) -> None:
+    release_dir = Path.cwd() / schemaglobals.RELEASE_DIR / schemaversion.getVersion()
     shex_shacl_shapes_exporter.generate_files(
-        term_defs_path=os.path.join(release_dir, "schemaorg-all-http.nt"),
+        term_defs_path=release_dir / "schemaorg-all-http.nt",
         outputdir=release_dir,
         outputfileprefix="schemaorg-",
     )
