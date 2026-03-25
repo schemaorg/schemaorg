@@ -117,10 +117,8 @@ class ShExJParser:
         :param shape: child shape IRI
         :return: list of all ancestor IRIs
         """
-        # transitive_objects includes the start node, so we filter it out if needed,
-        # but the original code seemed to want ancestors. 
-        # Actually find_parent_classes was recursive and would include all ancestors.
-        # transitive_objects(shape, RDFS.subClassOf) returns an iterator including shape itself.
+        # transitive_objects(shape, RDFS.subClassOf) returns an iterator including shape
+        # itself, but we want ancestors, so we remove it from the result.
         ancestors = list(source.transitive_objects(shape, RDFS.subClassOf))
         if shape in ancestors:
             ancestors.remove(shape)
@@ -135,7 +133,7 @@ class ShExJParser:
         :return: string representation of ShExJ constraints
         """
         shapes = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
-        
+
         all_datatypes: set[URIRef] = {URIRef(SCHEMA.DataType)}
         # Use transitive_subjects to find all subclasses of DataType
         for dt_sub in source.transitive_subjects(RDFS.subClassOf, SCHEMA.DataType):
