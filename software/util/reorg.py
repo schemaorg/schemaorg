@@ -12,6 +12,8 @@ import logging
 import os
 import rdflib
 import sys
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -20,12 +22,12 @@ if not os.getcwd() in sys.path:
 import software.util.schema_graph as graph
 
 
-def Lint(args):
+def Lint(args: argparse.Namespace) -> None:
     """Reformats the file(s) properly."""
 
-    def LintOne(filename, output_filename, format):
+    def LintOne(filename: str, output_filename: str, format: str) -> None:
         logging.info(" - reading file ...")
-        g = graph.SchemaOrgGraph(filename, format=format)
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(filename, format=format)
         logging.info(
             f" - writing back {output_filename if output_filename != filename else ''} ..."
         )
@@ -41,10 +43,10 @@ def Lint(args):
         logging.info(" - validated.")
 
 
-def MergeFiles(args):
+def MergeFiles(args: argparse.Namespace) -> None:
     """Merges a set of files into one."""
     logging.info(f"Merging files {len(args.files)} into {args.output}")
-    merged = graph.SchemaOrgGraph()
+    merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph()
     for filename in args.files:
         logging.info(f" - reading {filename} ...")
         merged.parse(filename, format="turtle")
@@ -56,21 +58,21 @@ def MergeFiles(args):
             logging.fatal(f"Merging files into {args.output} lost some information.")
 
 
-def Annotate(args):
+def Annotate(args: argparse.Namespace) -> None:
     """Adds some annotations to properties and types."""
     if args.output is not None and len(args.files) > 1:
         logging.fatal(f"Cannot use --output with multiple files!")
 
-    valid_parts = ["pending", "attic", "meta", "GA"]
+    valid_parts: List[str] = ["pending", "attic", "meta", "GA"]
     if args.ispartof not in valid_parts:
         logging.fatal(
             f"PartOf annotation '{args.ispartof}' is not valid: select one of {valid_parts}"
         )
-    new_part = rdflib.URIRef(f"https://{args.ispartof}.schema.org/")
+    new_part: rdflib.URIRef = rdflib.URIRef(f"https://{args.ispartof}.schema.org/")
 
     for filename in args.files:
         logging.info(f"Annotating {filename} ...")
-        g = graph.SchemaOrgGraph(filename, format="turtle")
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(filename, format="turtle")
         # Clean the existing parts
         g.remove((None, graph.SCHEMAORG.isPartOf, None))
         # GA is special as it is the unannotated state.
@@ -82,14 +84,14 @@ def Annotate(args):
         logging.info(f" ... done, written to {args.output or filename}")
 
 
-def main():
+def main() -> None:
     """
     Parses command line arguments and dispatches to the appropriate
     command.
     """
     logging.basicConfig(level=logging.INFO)
 
-    parser = argparse.ArgumentParser(description="Re-organize Turtle files")
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Re-organize Turtle files")
     subparsers = parser.add_subparsers(dest="command")
 
     lint_parser = subparsers.add_parser("lint", help="Reformat files (aka linting)")
@@ -111,7 +113,7 @@ def main():
     annotate_parser.add_argument("files", action="extend", nargs="+", type=str)
 
     # Parse and dispatch
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
     if args.command == "lint":
         Lint(args)
     elif args.command == "merge":

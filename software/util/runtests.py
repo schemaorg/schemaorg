@@ -55,29 +55,35 @@ import sys
 import colorama
 import os
 import unittest
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable, Type, IO
 
-SITEDIR = "software/site"
-STANDALONE = False
+
+SITEDIR: str = "software/site"
+STANDALONE: bool = False
 
 
 class ColoredTestResult(unittest.TextTestResult):
     """Color the test results."""
 
-    def __init__(self, stream, descriptions, verbosity):
+    def __init__(self, stream: IO[Any], descriptions: bool, verbosity: int) -> None:
         super().__init__(stream, descriptions, verbosity)
+        self.is_tty: bool
         try:
             self.is_tty = os.isatty(stream.fileno())
-        except:
+        except Exception:
             self.is_tty = False
+        self.separator1: str = ""
+        self.separator2: str = ""
         if self.is_tty:
             try:
-                columns = os.get_terminal_size().columns
-            except:
+                columns: int = os.get_terminal_size().columns
+            except Exception:
                 columns = 80
             self.separator1 = "▼" * columns
             self.separator2 = "▲" * columns
 
-    def _colorPrint(self, message, color=None, short=None, newline=True):
+    def _colorPrint(self, message: str, color: Optional[str] = None, short: Optional[str] = None, newline: bool = True) -> None:
         if not self.showAll and short:
             message = short
         if self.is_tty and color:
@@ -88,48 +94,48 @@ class ColoredTestResult(unittest.TextTestResult):
             self.stream.write(message)
             self.stream.flush()
 
-    def addError(self, test, err):
+    def addError(self, test: unittest.TestCase, err: Any) -> None:
         super(ColoredTestResult, self).addError(test, err)  # Include the 'err' argument
         self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
 
-    def startTest(self, test):
+    def startTest(self, test: unittest.TestCase) -> None:
         super(unittest.TextTestResult, self).startTest(test)
-        lines = self.getDescription(test).split("\n")
+        lines: List[str] = self.getDescription(test).split("\n")
         for index, line in enumerate(lines):
-            color = None
+            color: Optional[str] = None
             if index > 0:
                 color = colorama.Fore.LIGHTWHITE_EX
-            lastline = index == len(lines) - 1
+            lastline: bool = index == len(lines) - 1
             if lastline:
                 self._colorPrint(line + " … ", color=color, newline=False)
             else:
                 self._colorPrint(line, color=color, newline=True)
 
-    def addSuccess(self, test):
+    def addSuccess(self, test: unittest.TestCase) -> None:
         super(unittest.TextTestResult, self).addSuccess(test)
         self._colorPrint("OK", color=colorama.Fore.GREEN, short=".")
 
-    def addFailure(self, test, err):
+    def addFailure(self, test: unittest.TestCase, err: Any) -> None:
         super(unittest.TextTestResult, self).addFailure(test, err)
         self._colorPrint("FAIL", color=colorama.Fore.RED, short="F")
 
-    def addExpectedFailure(self, test, err):
+    def addExpectedFailure(self, test: unittest.TestCase, err: Any) -> None:
         super(unittest.TextTestResult, self).addExpectedFailure(test, err)
         self._colorPrint("Expected failure", color=colorama.Fore.GREEN, short="x")
 
-    def addUnexpectedSuccess(self, test):
+    def addUnexpectedSuccess(self, test: unittest.TestCase) -> None:
         super(unittest.TextTestResult, self).addUnexpectedSuccess(test)
         self._colorPrint("Unexpected success", color=colorama.Fore.RED, short="U")
 
-    def addSkip(self, test, reason):
+    def addSkip(self, test: unittest.TestCase, reason: str) -> None:
         super(unittest.TextTestResult, self).addSkip(test, reason)
         self._colorPrint("Skipped", color=colorama.Fore.CYAN, short="S")
         if reason:
             self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
-    def printErrorList(self, flavour, errors):
-        super(unittest.TextTestResult, self).addSkip(flavour, errors)
-        color = None
+    def printErrorList(self, flavour: str, errors: List[Tuple[unittest.TestCase, str]]) -> None:
+        # super(unittest.TextTestResult, self).addSkip(flavour, errors)
+        color: Optional[str] = None
         if flavour == "ERROR":
             color = colorama.Fore.YELLOW
         elif flavour == "FAIL":
@@ -141,7 +147,8 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint("%s" % err, color=color)
 
 
-def GetSuite(test_path, args):
+def GetSuite(test_path: str, args: Optional[argparse.Namespace]) -> unittest.TestSuite:
+    suite: unittest.TestSuite
     if args and vars(args)["skipbasics"]:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
     else:
@@ -152,22 +159,22 @@ def GetSuite(test_path, args):
 # TODO:
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
-def main(test_path, args=None):
-    runner = unittest.TextTestRunner(
+def main(test_path: str, args: Optional[argparse.Namespace] = None) -> int:
+    runner: unittest.TextTestRunner = unittest.TextTestRunner(
         verbosity=2, descriptions=True, resultclass=ColoredTestResult
     )
-    suite = GetSuite(test_path, args)
-    res = runner.run(suite)
-    count = len(res.failures) + len(res.errors)
+    suite: unittest.TestSuite = GetSuite(test_path, args)
+    res: unittest.TestResult = runner.run(suite)
+    count: int = len(res.failures) + len(res.errors)
     return count
 
 
 if __name__ == "__main__":
     colorama.init()
-    parser = argparse.ArgumentParser(description="Configurable testing of schema.org.")
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Configurable testing of schema.org.")
     parser.add_argument("--skipbasics", action="store_true", help="Skip basic tests.")
-    args = parser.parse_args()
-    sys.exit(main("./software/tests/", args))
+    args_parsed: argparse.Namespace = parser.parse_args()
+    sys.exit(main("./software/tests/", args_parsed))
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

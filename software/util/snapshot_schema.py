@@ -2,6 +2,8 @@ import os
 import shutil
 import logging
 import sys
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -14,18 +16,18 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 import software.util.buildfiles as buildfiles
 import software.util.pretty_logger as pretty_logger
 
-log = logging.getLogger(__name__)
+log: logging.Logger = logging.getLogger(__name__)
 
 
-def snapshot_ttl(output_dir: str = "software/tests/snapshot"):
+def snapshot_ttl(output_dir: str = "software/tests/snapshot") -> None:
     # Take some copies of globals we need to manipulate.
     # TODO: these globals should be arguments or similar
-    outputdir_copy = schemaglobals.OUTPUTDIR
-    selectors_copy = fileutils.FILESET_SELECTORS
-    protocols_copy = fileutils.FILESET_PROTOCOLS
+    outputdir_copy: str = schemaglobals.OUTPUTDIR
+    selectors_copy: Set[str] = fileutils.FILESET_SELECTORS
+    protocols_copy: Set[str] = fileutils.FILESET_PROTOCOLS
     schemaglobals.OUTPUTDIR = ""
-    fileutils.FILESET_SELECTORS = ("all",)
-    fileutils.FILESET_PROTOCOLS = ("https",)
+    fileutils.FILESET_SELECTORS = {"all"}
+    fileutils.FILESET_PROTOCOLS = {"https"}
 
     log.info("Building snapshot file...")
     sdotermsource.SdoTermSource.loadSourceGraph("default")

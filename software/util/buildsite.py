@@ -13,6 +13,8 @@ import shutil
 import subprocess
 import sys
 import logging
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Generator
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -36,11 +38,12 @@ import software.SchemaTerms.localmarkdown
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.sdotermsource as sdotermsource
 
-log = logging.getLogger(__name__)
+log: logging.Logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+args: argparse.Namespace
 
-def initialize():
+def initialize() -> argparse.Namespace:
     """Initialize various systems, returns the args object"""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -160,7 +163,7 @@ def initialize():
     return args
 
 
-def clear():
+def clear() -> None:
     if args.clearfirst or args.autobuild:
         log.info(f"Clearing {schemaglobals.OUTPUTDIR} directory")
         if os.path.isdir(schemaglobals.OUTPUTDIR):
@@ -175,12 +178,12 @@ def clear():
 ###################################################
 # RUN TESTS
 ###################################################
-def runtests():
+def runtests() -> None:
     if args.runtests or args.autobuild:
         with pretty_logger.BlockLog(
             logger=log, message="Running test scripts before proceeding…"
         ):
-            errorcount = runtests_lib.main("./software/tests/")
+            errorcount: int = runtests_lib.main("./software/tests/")
             if errorcount:
                 log.error(f"Errors returned: {errorcount}")
                 sys.exit(errorcount)
@@ -191,7 +194,7 @@ def runtests():
 ###################################################
 
 
-def initdir(output_dir, handler_path):
+def initdir(output_dir: str, handler_path: str) -> None:
     log.info(f'Building site in "{output_dir}" directory')
     fileutils.createMissingDir(output_dir)
     clear()
@@ -204,27 +207,27 @@ def initdir(output_dir, handler_path):
         os.path.join(output_dir, "releases", schemaversion.getVersion())
     )
 
-    gdir = os.path.join(output_dir, "gcloud")
+    gdir: str = os.path.join(output_dir, "gcloud")
     fileutils.createMissingDir(gdir)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
         copystaticdocsplusinsert.copyFiles("./docs", "./software/site/docs")
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files = sorted(glob.glob("software/gcloud/*.yaml"))
+        gcloud_files: List[str] = sorted(glob.glob("software/gcloud/*.yaml"))
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append("copied %d files" % len(gcloud_files))
 
-    message = "Creating %s from %s for version: %s" % (
+    message: str = "Creating %s from %s for version: %s" % (
         handler_path,
         schemaglobals.HANDLER_TEMPLATE,
         schemaversion.getVersion(),
     )
     with pretty_logger.BlockLog(logger=log, message=message):
         with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
-            template_data = template_file.read()
-        handler_data = template_data.replace("{{ver}}", schemaversion.getVersion())
+            template_data: str = template_file.read()
+        handler_data: str = template_data.replace("{{ver}}", schemaversion.getVersion())
         with open(os.path.join(gdir, handler_path), mode="w") as yaml_file:
             yaml_file.write(handler_data)
 
@@ -232,10 +235,10 @@ def initdir(output_dir, handler_path):
 ###################################################
 # TERMS SOURCE LOAD
 ###################################################
-LOADEDTERMS = False
+LOADEDTERMS: bool = False
 
 
-def loadTerms():
+def loadTerms() -> None:
     global LOADEDTERMS
     if LOADEDTERMS:
         return
@@ -251,8 +254,8 @@ def loadTerms():
 ###################################################
 # BUILD INDIVIDUAL TERM PAGES
 ###################################################
-def processTerms(terms):
-    if len(terms):
+def processTerms(terms: Iterable[str]) -> None:
+    if any(True for _ in terms):
         with pretty_logger.BlockLog(
             logger=log, message="Building term definition pages", timing=True
         ):
@@ -264,8 +267,8 @@ def processTerms(terms):
 ###################################################
 # BUILD DYNAMIC DOCS PAGES
 ###################################################
-def processDocs(pages):
-    if len(pages):
+def processDocs(pages: Iterable[str]) -> None:
+    if any(True for _ in pages):
         with pretty_logger.BlockLog(
             logger=log, message="Building dynamic documentation pages", timing=True
         ):
@@ -276,8 +279,8 @@ def processDocs(pages):
 ###################################################
 # BUILD FILES
 ###################################################
-def processFiles(files):
-    if len(files):
+def processFiles(files: Iterable[str]) -> None:
+    if any(True for _ in files):
         with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
             loadTerms()
             schemaexamples.SchemaExamples.loaded()
@@ -290,7 +293,7 @@ def processFiles(files):
 
 
 @contextlib.contextmanager
-def tempory_symlink(src_dir, dst_dir):
+def tempory_symlink(src_dir: str, dst_dir: str) -> Generator[None, None, None]:
     """Context manager to create a temporary directory symlink and clean it up on exit."""
     try:
         log.info(f"Setting up {dst_dir} from {src_dir}")
@@ -303,7 +306,7 @@ def tempory_symlink(src_dir, dst_dir):
         os.unlink(dst_dir)
 
 
-RUBY_INSTALLATION_MESSAGE = """
+RUBY_INSTALLATION_MESSAGE: str = """
 Please check if your Ruby installation is correct and all dependencies installed.
 
 bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
@@ -311,7 +314,7 @@ bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 """
 
 
-def runRubyTests(release_dir):
+def runRubyTests(release_dir: str) -> None:
     """The ruby tests are designed to run in a release sub-directory.
 
     Now generally, this script does not build a full release,
@@ -321,33 +324,33 @@ def runRubyTests(release_dir):
     :param release_dir: the root release directory.
     """
     with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
-        cmd = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
-        status = subprocess.call(cmd)
+        cmd: Tuple[str, ...] = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
+        status: int = subprocess.call(cmd)
         if status:
             log.error(RUBY_INSTALLATION_MESSAGE)
             exit(status)
-        version = schemaversion.getVersion()
-        src_dir = os.path.join(os.getcwd(), release_dir, version)
+        version: str = schemaversion.getVersion()
+        src_dir: str = os.path.join(os.getcwd(), release_dir, version)
         # Check there is something in the source directory.
         # This always be the case, as the rubytest flag triggers the autobuild flag.
-        root_json_path = os.path.join(src_dir, "schemaorgcontext.jsonld")
+        root_json_path: str = os.path.join(src_dir, "schemaorgcontext.jsonld")
         if not os.path.exists(root_json_path):
             log.error(
                 f"File {root_json_path} not found. Ruby tests require a fully built release."
             )
             exit(os.EX_NOINPUT)
         # Display modification time to the user.
-        timestamp = os.path.getmtime(root_json_path)
-        timestamp_str = datetime.datetime.fromtimestamp(timestamp).strftime(
+        timestamp: float = os.path.getmtime(root_json_path)
+        timestamp_str: str = datetime.datetime.fromtimestamp(timestamp).strftime(
             "%Y-%m-%d %H:%M:%S"
         )
         log.info(f"LATEST Release Build time: {timestamp_str}")
-        dst_dir = os.path.join(os.getcwd(), release_dir, "LATEST")
+        dst_dir: str = os.path.join(os.getcwd(), release_dir, "LATEST")
         with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
-            cmd = ["bundle", "exec", "rake"]
-            cwd = os.path.join(os.getcwd(), "software/scripts")
+            cmd_list: List[str] = ["bundle", "exec", "rake"]
+            cwd: str = os.path.join(os.getcwd(), "software/scripts")
             log.info("Running ruby tests")
-            status = subprocess.call(cmd, cwd=cwd)
+            status = subprocess.call(cmd_list, cwd=cwd)
             if status:
                 log.error("Ruby tests failed")
                 sys.exit(status)
@@ -358,16 +361,16 @@ def runRubyTests(release_dir):
 ###################################################
 
 
-def copyReleaseFiles(release_dir):
-    version = schemaversion.getVersion()
-    srcdir = os.path.join(os.getcwd(), "data/releases/", version)
-    destdir = os.path.join(os.getcwd(), release_dir, version)
+def copyReleaseFiles(release_dir: str) -> None:
+    version: str = schemaversion.getVersion()
+    srcdir: str = os.path.join(os.getcwd(), "data/releases/", version)
+    destdir: str = os.path.join(os.getcwd(), release_dir, version)
     with pretty_logger.BlockLog(
         message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
         fileutils.mycopytree(srcdir, destdir)
-        cmd = ["git", "add", destdir]
+        cmd: List[str] = ["git", "add", destdir]
         subprocess.check_call(cmd)
 
 

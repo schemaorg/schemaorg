@@ -4,8 +4,9 @@
 import enum
 import logging
 import collections
+from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union, Iterable, Set
 
-log = logging.getLogger(__name__)
+log: logging.Logger = logging.getLogger(__name__)
 
 class SdoTermType(str, enum.Enum):
     """Enumeration describing the type of an SdoTerm."""
@@ -17,7 +18,7 @@ class SdoTermType(str, enum.Enum):
     ENUMERATIONVALUE = "Enumerationvalue"
     REFERENCE = "Reference"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.value
 
 class UnexpandedTermError(LookupError):
@@ -27,43 +28,44 @@ class UnexpandedTermError(LookupError):
 class SdoTermOrId(object):
     """Wrapper that holds a term-id or a term, or nothing."""
 
-    def __init__(self, term_id : str = None, term = None):
+    def __init__(self, term_id: Optional[str] = None, term: Optional["SdoTerm"] = None) -> None:
         # Empty instance is fine.
         assert not (term_id and term), f"{term_id} {term}"
+        self._term_id: Optional[str] = None
         if term:
             self._term_id = term.id
         else:
             self._term_id = term_id
-        self._term = term
+        self._term: Optional["SdoTerm"] = term
 
     @property
     def expanded(self) -> bool:
         return not self._term_id or bool(self._term)
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         return self._term_id
 
     @property
-    def term(self):
+    def term(self) -> "SdoTerm":
         if not self._term:
              raise UnexpandedTermError()
         return self._term
 
-    def setId(self, term_id):
+    def setId(self, term_id: Optional[str]) -> None:
         self._term_id = term_id
 
-    def setTerm(self, term):
+    def setTerm(self, term: Optional["SdoTerm"]) -> None:
         self._term = term
         if self._term:
             self._term_id = term.id
 
-    def __str__(self):
+    def __str__(self) -> str:
         if not self._term:
             return f'{self._term_id}'
         return str(self._term)
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return bool(self._term_id)
 
 
@@ -74,67 +76,71 @@ class SdoTermSequence(object):
     It can only be changed by replacing all the values, either with ids, or term instances.
 
     """
-    def __init__(self):
-        self._term_dict = collections.OrderedDict()
+    def __init__(self) -> None:
+        self._term_dict: collections.OrderedDict[str, Optional["SdoTerm"]] = collections.OrderedDict()
 
     @classmethod
-    def forElements(cls, elements):
+    def forElements(cls, elements: Iterable[Any]) -> "SdoTermSequence":
         """Convert an arbitrary sequence into a SdoTermSequence."""
         if isinstance(elements, cls):
             return elements
 
-        sequence = cls()
-        if all(map(lambda e : isinstance(e, SdoTerm), elements)):
-            sequence.setTerms(elements)
+        sequence: SdoTermSequence = cls()
+        elements_list = list(elements)
+        if all(map(lambda e : isinstance(e, SdoTerm), elements_list)):
+            sequence.setTerms(elements_list)
             return sequence
-        term_ids = []
-        for element in elements:
+        term_ids: List[str] = []
+        for element in elements_list:
             try:
                 # This will work for both SdoTerm instances, and SdoTermOrId
-                term_id = element.id
+                term_id: str = element.id
             except AttributeError:
-                term_id = element
+                term_id = str(element)
             term_ids.append(term_id)
         sequence.setIds(term_ids)
         return sequence
 
     @property
-    def expanded(self):
+    def expanded(self) -> bool:
         return all(self._term_dict.values())
 
     @property
-    def ids(self):
+    def ids(self) -> Tuple[str, ...]:
         return tuple(self._term_dict.keys())
 
     @property
-    def terms(self):
+    def terms(self) -> Tuple["SdoTerm", ...]:
         if not self.expanded:
           raise UnexpandedTermError()
-        return tuple(self._term_dict.values())
+        return tuple(self._term_dict.values()) # type: ignore
 
-    def setIds(self, term_ids):
+    def setIds(self, term_ids: Iterable[str]) -> None:
         self._term_dict.clear()
         for term_id in term_ids:
             self._term_dict[term_id] = None
 
-    def setTerms(self, terms):
+    def setTerms(self, terms: Iterable["SdoTerm"]) -> None:
         self._term_dict.clear()
         for term in terms:
             self._term_dict[term.id] = term
 
-    def clear(self):
+    def clear(self) -> None:
         self._term_dict.clear()
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return bool(self._term_dict)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._term_dict)
 
-    def __contains__(self, value):
-        return value in self._term_dict.keys()
+    def __contains__(self, value: str) -> bool:
+        return value in self._term_dict
 
-    def __str__(self):
+    def __iter__(self) -> Iterable[str]:
+        return iter(self.ids)
+
+    def __str__(self) -> str:
         return '[' + ','.join(map(str, self.ids)) + ']'
 
 
@@ -150,77 +156,79 @@ class SdoTerm(object):
     """
 
 
-    TYPE_LIKE_TYPES = frozenset(
+    TYPE_LIKE_TYPES: Set[SdoTermType] = frozenset(
         [SdoTermType.TYPE, SdoTermType.DATATYPE, SdoTermType.ENUMERATION]
     )
 
-    def __init__(self, termType: SdoTermType, term_id: str, uri: str, label: str):
+    def __init__(self, termType: SdoTermType, term_id: str, uri: str, label: str) -> None:
         if type(self) == SdoTerm:
             raise Exception("<SdoTerm> must be subclassed.")
 
         assert isinstance(term_id, str)
-        self._expansion_depth = 0
-        self.termType = termType
-        self.uri = uri
-        self._term_id = term_id
-        self.label = label
+        self._expansion_depth: int = 0
+        self.termType: SdoTermType = termType
+        self.uri: str = uri
+        self._term_id: str = term_id
+        self.label: str = label
 
-        self.acknowledgements = []
+        self.acknowledgements: List[Any] = []
 
-        self.comment = ""
-        self.comments = []
+        self.comment: str = ""
+        self.comments: List[str] = []
 
-        self.examples = []
-        self.pending = False
-        self.retired = False
-        self.extLayer = ""
-        self.sources = []
-
-
-        self.supersededBy = ""
-        self.supersedes = ""
-        self.superseded = False
-        self.superPaths = []
-
-        self._termStack = SdoTermSequence()
-        self._supers = SdoTermSequence()
-        self._subs = SdoTermSequence()
-        self._equivalents = SdoTermSequence()
+        self.examples: List[Any] = []
+        self.pending: bool = False
+        self.retired: bool = False
+        self.extLayer: str = ""
+        self.sources: List[str] = []
 
 
-    def __str__(self):
+        self.supersededBy: str = ""
+        self.supersedes: List[str] = []
+        self.superseded: bool = False
+        self.superPaths: List[Any] = []
+
+        self._termStack: SdoTermSequence = SdoTermSequence()
+        self._supers: SdoTermSequence = SdoTermSequence()
+        self._subs: SdoTermSequence = SdoTermSequence()
+        self._equivalents: SdoTermSequence = SdoTermSequence()
+
+
+    def __str__(self) -> str:
         return ("<%s: '%s' expansion depth: %s >") % (
             self.__class__.__name__.upper(),
             self.id,
             self._expansion_depth,
         )
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, SdoTerm):
+             return False
         return self.id == other.id
 
-    def __lt__(self, other):
+    def __lt__(self, other: "SdoTerm") -> bool:
         return self.id < other.id
 
-    def markExpanded(self, depth : int):
+    def markExpanded(self, depth: int) -> None:
         self._expansion_depth = depth
 
-    def expanded(self):
+    def expanded(self) -> bool:
         return self._expansion_depth > 1
 
     @property
-    def supers(self):
-        return self._supers;
+    def supers(self) -> SdoTermSequence:
+        return self._supers
 
     @property
-    def subs(self):
-        return self._subs;
+    def subs(self) -> SdoTermSequence:
+        return self._subs
 
     @property
-    def equivalents(self):
+    def equivalents(self) -> SdoTermSequence:
         return self._equivalents
 
     @property
-    def termStack(self):
+    def termStack(self) -> SdoTermSequence:
         return self._termStack
 
     @property
@@ -230,45 +238,45 @@ class SdoTerm(object):
 class SdoType(SdoTerm):
     """Term that defines a schema.org type"""
 
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.TYPE, term_id, uri, label)
 
-        self._properties = SdoTermSequence()
-        self._allproperties = SdoTermSequence()
-        self._expectedTypeFor = SdoTermSequence()
+        self._properties: SdoTermSequence = SdoTermSequence()
+        self._allproperties: SdoTermSequence = SdoTermSequence()
+        self._expectedTypeFor: SdoTermSequence = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
 
 class SdoProperty(SdoTerm):
     """Term that defines a propery of another type."""
 
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.PROPERTY, term_id, uri, label)
-        self._domainIncludes = SdoTermSequence()
-        self._rangeIncludes = SdoTermSequence()
-        self._inverse = SdoTermOrId()
+        self._domainIncludes: SdoTermSequence = SdoTermSequence()
+        self._rangeIncludes: SdoTermSequence = SdoTermSequence()
+        self._inverse: SdoTermOrId = SdoTermOrId()
 
     @property
-    def domainIncludes(self):
+    def domainIncludes(self) -> SdoTermSequence:
         return self._domainIncludes
 
     @property
-    def rangeIncludes(self):
+    def rangeIncludes(self) -> SdoTermSequence:
         return self._rangeIncludes
 
     @property
-    def inverse(self):
+    def inverse(self) -> SdoTermOrId:
         return self._inverse
 
 
@@ -276,82 +284,80 @@ class SdoProperty(SdoTerm):
 class SdoDataType(SdoTerm):
     """Term that defines one of the basic data-types: Boolean, Date, Text, Number etc."""
 
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.DATATYPE, term_id, uri, label)
 
-        self._properties = SdoTermSequence()
-        self._allproperties = SdoTermSequence()
-        self._expectedTypeFor = SdoTermSequence()
+        self._properties: SdoTermSequence = SdoTermSequence()
+        self._allproperties: SdoTermSequence = SdoTermSequence()
+        self._expectedTypeFor: SdoTermSequence = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
 
 class SdoEnumeration(SdoTerm):
     """Term that defines a schema.org enumeration."""
 
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.ENUMERATION, term_id, uri, label)
-        self._properties = SdoTermSequence()
-        self._allproperties = SdoTermSequence()
-        self._expectedTypeFor = SdoTermSequence()
-        self._enumerationMembers = SdoTermSequence()
+        self._properties: SdoTermSequence = SdoTermSequence()
+        self._allproperties: SdoTermSequence = SdoTermSequence()
+        self._expectedTypeFor: SdoTermSequence = SdoTermSequence()
+        self._enumerationMembers: SdoTermSequence = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
     @property
-    def enumerationMembers(self):
+    def enumerationMembers(self) -> SdoTermSequence:
         return self._enumerationMembers
 
 
 class SdoEnumerationvalue(SdoTerm):
     """Term that defines a value within a schema.org enumeration."""
 
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.ENUMERATIONVALUE, term_id, uri, label)
-        self._enumerationParent = SdoTermOrId()
+        self._enumerationParent: SdoTermOrId = SdoTermOrId()
 
     @property
-    def enumerationParent(self):
+    def enumerationParent(self) -> SdoTermOrId:
         return self._enumerationParent
 
 
 class SdoReference(SdoTerm):
-    def __init__(self, term_id: str, uri: str, label: str):
+    def __init__(self, term_id: str, uri: str, label: str) -> None:
         SdoTerm.__init__(self, SdoTermType.REFERENCE, term_id, uri, label)
 
 
-_TYPES_FOR_TYPES = {
-    SdoTermType.TYPE : SdoType,
-    SdoTermType.DATATYPE : SdoDataType,
-    SdoTermType.PROPERTY : SdoProperty,
-    SdoTermType.ENUMERATION : SdoEnumeration,
-    SdoTermType.ENUMERATIONVALUE : SdoEnumerationvalue,
-    SdoTermType.REFERENCE : SdoReference
+_TYPES_FOR_TYPES: Dict[SdoTermType, Type[SdoTerm]] = {
+    SdoTermType.TYPE: SdoType,
+    SdoTermType.DATATYPE: SdoDataType,
+    SdoTermType.PROPERTY: SdoProperty,
+    SdoTermType.ENUMERATION: SdoEnumeration,
+    SdoTermType.ENUMERATIONVALUE: SdoEnumerationvalue,
+    SdoTermType.REFERENCE: SdoReference
 }
 
 
-def SdoTermforType(term_type : SdoTermType, **kwargs) -> SdoTerm:
-    t = _TYPES_FOR_TYPES[term_type]
+def SdoTermforType(term_type: SdoTermType, **kwargs: Any) -> SdoTerm:
+    t: Type[SdoTerm] = _TYPES_FOR_TYPES[term_type]
     return t(**kwargs)
-
-

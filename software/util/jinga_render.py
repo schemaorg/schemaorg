@@ -7,6 +7,8 @@ import os
 import sys
 import jinja2
 import logging
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Callable
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -15,39 +17,39 @@ if not os.getcwd() in sys.path:
 import software
 import software.util.schemaversion as schemaversion
 
-SITENAME = "Schema.org"
-TEMPLATESDIR = "templates"
-DOCSHREFSUFFIX = ""
-DOCSHREFPREFIX = "/"
-TERMHREFSUFFIX = ""
-TERMHREFPREFIX = "/"
+SITENAME: str = "Schema.org"
+TEMPLATESDIR: str = "templates"
+DOCSHREFSUFFIX: str = ""
+DOCSHREFPREFIX: str = "/"
+TERMHREFSUFFIX: str = ""
+TERMHREFPREFIX: str = "/"
 
 ###################################################
 # JINJA INITIALISATION
 ###################################################
 
 
-def _jinjaDebug(text):
+def _jinjaDebug(text: str) -> str:
     logging.debug(text)
     return ""
 
 
-local_vars = {}
+local_vars: Dict[str, Any] = {}
 
 
-def _set_local_var(local_vars, name, value):
-    local_vars[name] = value
+def _set_local_var(local_vars_dict: Dict[str, Any], name: str, value: Any) -> str:
+    local_vars_dict[name] = value
     return ""
 
 
-JENV = None
+JENV: Optional[jinja2.Environment] = None
 
 
-def GetJinga():
+def GetJinga() -> jinja2.Environment:
     global JENV
     if JENV:
         return JENV
-    jenv = jinja2.Environment(
+    jenv: jinja2.Environment = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATESDIR), autoescape=True, cache_size=0
     )
     jenv.filters["debug"] = _jinjaDebug
@@ -59,13 +61,13 @@ def GetJinga():
 ### Template rendering
 
 
-def templateRender(template_path, extra_vars=None, template_instance=None):
+def templateRender(template_path: Optional[str], extra_vars: Optional[Dict[str, Any]] = None, template_instance: Optional[jinja2.Template] = None) -> str:
     """Render a page template.
 
     Returns: the generated page.
     """
     # Basic variables configuring UI
-    tvars = {
+    tvars: Dict[str, Any] = {
         "local_vars": local_vars,
         "version": schemaversion.getVersion(),
         "versiondate": schemaversion.getCurrentVersionDate(),
@@ -79,8 +81,15 @@ def templateRender(template_path, extra_vars=None, template_instance=None):
     if extra_vars:
         tvars.update(extra_vars)
 
-    template = template_instance or GetJinga().get_template(template_path)
-    return template.render(tvars)
+    template: jinja2.Template
+    if template_instance:
+        template = template_instance
+    elif template_path:
+        template = GetJinga().get_template(template_path)
+    else:
+        raise ValueError("Either template_path or template_instance must be provided")
+        
+    return str(template.render(tvars))
 
 
 ###################################################

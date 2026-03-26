@@ -7,6 +7,8 @@ import json
 import logging
 import os
 import sys
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
 # Import schema.org libraries
 if os.getcwd() not in sys.path:
@@ -25,18 +27,19 @@ import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.sdoterm as sdoterm
 
-log = logging.getLogger(__name__)
+log: logging.Logger = logging.getLogger(__name__)
 
+STRCLASSVAL: Optional[str] = None
 
-def docsTemplateRender(template, extra_vars=None):
-    tvars = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}
+def docsTemplateRender(template: str, extra_vars: Optional[Dict[str, Any]] = None) -> str:
+    tvars: Dict[str, Any] = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}
     if extra_vars:
         tvars.update(extra_vars)
     return jinga_render.templateRender(template, tvars)
 
 
-def schemasPage(page):
-    extra_vars = {
+def schemasPage(page: str) -> str:
+    extra_vars: Dict[str, Any] = {
         "home_page": "False",
         "title": "Schemas",
         "termcounts": sdotermsource.SdoTermSource.termCounts(),
@@ -44,12 +47,12 @@ def schemasPage(page):
     return docsTemplateRender("docs/Schemas.j2", extra_vars)
 
 
-def homePage(page):
+def homePage(page: str) -> str:
     global STRCLASSVAL
-    title = schemaglobals.SITENAME
-    template = "docs/Home.j2"
-    filt = None
-    overrideclassval = None
+    title: str = schemaglobals.SITENAME
+    template: str = "docs/Home.j2"
+    filt: Optional[str] = None
+    overrideclassval: Optional[str] = None
     if page == "PendingHome":
         title = "Pending"
         template = "docs/PendingHome.j2"
@@ -80,40 +83,45 @@ def homePage(page):
         template = "docs/MetaHome.j2"
         filt = "meta"
         overrideclassval = 'class="ext"'
-    sectionterms = {}
-    termcount = 0
+    
+    sectionterms: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = {}
+    termcount: int = 0
     if filt:
-        terms = sdotermsource.SdoTermSource.getAllTerms(layer=filt, expanded=True)
-        for t in terms:
-            t.cat = ""
-            if filt == "pending":
-                for s in t.sources:
-                    if "schemaorg/issue" in s:
-                        t.cat = "issue-" + os.path.basename(s)
-                        break
-        terms.sort(key=lambda u: (u.cat, u.id))
+        all_terms = sdotermsource.SdoTermSource.getAllTerms(layer=filt, expanded=True)
+        terms: List[sdoterm.SdoTerm] = []
+        for t in all_terms:
+            if isinstance(t, sdoterm.SdoTerm):
+                t.cat = ""
+                if filt == "pending":
+                    for s in t.sources:
+                        if "schemaorg/issue" in s:
+                            t.cat = "issue-" + os.path.basename(s)
+                            break
+                terms.append(t)
+        terms.sort(key=lambda u: (getattr(u, 'cat', ''), u.id))
         sectionterms, termcount = buildTermCatList(terms, checkCat=True)
 
-    extra_vars = {
+    extra_vars: Dict[str, Any] = {
         "home_page": "True",
         "title": title,
         "termcount": termcount,
         "sectionterms": sectionterms,
     }
     STRCLASSVAL = overrideclassval
-    ret = docsTemplateRender(template, extra_vars)
+    ret: str = docsTemplateRender(template, extra_vars)
     STRCLASSVAL = None
     return ret
 
 
-def buildTermCatList(terms, checkCat=False):
-    first = True
-    cat = None
-    termcat = {}
-    termcount = 0
+def buildTermCatList(terms: Iterable[sdoterm.SdoTerm], checkCat: bool = False) -> Tuple[Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]], int]:
+    first: bool = True
+    cat: Optional[str] = None
+    termcat: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = {}
+    termcount: int = 0
+    ttypes: Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]] = {}
     for t in terms:
         if checkCat:
-            tcat = t.cat
+            tcat: str = getattr(t, 'cat', '')
         else:
             tcat = ""
         if first or tcat != cat:
@@ -131,8 +139,8 @@ def buildTermCatList(terms, checkCat=False):
         ttypes[t.termType].append(t)
         termcount += 1
 
-    termcat = dict(sorted(termcat.items()))
-    return termcat, termcount
+    sorted_termcat: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = dict(sorted(termcat.items()))
+    return sorted_termcat, termcount
 
 
 class UnknownTermError(LookupError):
@@ -140,20 +148,20 @@ class UnknownTermError(LookupError):
 
 
 class listingNode:
-    def __init__(self, term, depth=0, title="", parent=None, visit_set=None):
+    def __init__(self, term: str, depth: int = 0, title: str = "", parent: Optional["listingNode"] = None, visit_set: Optional[Set[str]] = None) -> None:
         termdesc = sdotermsource.SdoTermSource.getTerm(term)
         if not termdesc:
             raise UnknownTermError(f"No description for term {term}")
         visit_set = visit_set or set()
-        self.repeat = False
-        self.subs = []
-        self.parent = parent
-        self.title = title
-        self.id = termdesc.label
-        self.termType = termdesc.termType
-        self.depth = depth
-        self.retired = termdesc.retired
-        self.pending = termdesc.pending
+        self.repeat: bool = False
+        self.subs: List[listingNode] = []
+        self.parent: Optional[listingNode] = parent
+        self.title: str = title
+        self.id: str = termdesc.label
+        self.termType: sdoterm.SdoTermType = termdesc.termType
+        self.depth: int = depth
+        self.retired: bool = termdesc.retired
+        self.pending: bool = termdesc.pending
         if self.id not in visit_set:
             visit_set.add(self.id)
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
@@ -183,31 +191,31 @@ class listingNode:
             self.repeat = True
 
 
-def jsonldtree(page) -> str:
-    term = {}
-    context = {}
+def jsonldtree(page: str) -> str:
+    term: Dict[str, Any] = {}
+    context: Dict[str, Any] = {}
     context["rdfs"] = "http://www.w3.org/2000/01/rdf-schema#"
     context["schema"] = "https://schema.org"
     context["rdfs:subClassOf"] = {"@type": "@id"}
     context["description"] = "rdfs:comment"
     context["children"] = {"@reverse": "rdfs:subClassOf"}
     term["@context"] = context
-    data = _jsonldtree("Thing", visitset=set(), term=term)
+    data: Dict[str, Any] = _jsonldtree("Thing", visitset=set(), term=term)
     return json.dumps(sort_dict(data), indent=2)
 
 
-def _jsonldtree(tid: str, visitset: set, term: dict | None = None) -> dict:
+def _jsonldtree(tid: str, visitset: Set[str], term: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     try:
         termdesc = sdotermsource.SdoTermSource.getTerm(tid)
         if not termdesc:
-            raise UnknownTermError(f"No description for term {term}")
-        if not term:
+            raise UnknownTermError(f"No description for term {tid}")
+        if term is None:
             term = {}
         term["@type"] = "rdfs:Class"
         term["@id"] = "schema:" + termdesc.id
         term["name"] = termdesc.label
         if termdesc.supers:
-            sups = ["schema:" + sup for sup in termdesc.supers.ids]
+            sups: List[str] = ["schema:" + sup for sup in termdesc.supers.ids]
             if len(sups) == 1:
                 term["rdfs:subClassOf"] = sups[0]
             else:
@@ -222,13 +230,13 @@ def _jsonldtree(tid: str, visitset: set, term: dict | None = None) -> dict:
         if tid not in visitset:
             visitset.add(tid)
             if termdesc.subs:
-                subs = []
+                subs: List[Dict[str, Any]] = []
                 for sub in termdesc.subs.ids:
                     try:
                         subs.append(_jsonldtree(tid=sub, visitset=visitset))
                     except UnknownTermError as e:
                         log.warning(
-                            f"Error while building listing node for {term}: {e}"
+                            f"Error while building listing node for {sub}: {e}"
                         )
                 term["children"] = subs
         return term
@@ -237,16 +245,16 @@ def _jsonldtree(tid: str, visitset: set, term: dict | None = None) -> dict:
         raise
 
 
-listings = None
+listings: Optional[List[listingNode]] = None
 
 
-def fullPage(page):
+def fullPage(page: str) -> str:
     global listings
     if not listings:
         listings = []
         listings.append(listingNode("Thing", title="Types:"))
         listings.append(listingNode("DataType", title="DataTypes:"))
-    extra_vars = {
+    extra_vars: Dict[str, Any] = {
         "home_page": "False",
         "title": "Full schema hierarchy",
         "listings": listings,
@@ -255,48 +263,62 @@ def fullPage(page):
     return docsTemplateRender("docs/%s.j2" % page, extra_vars)
 
 
-def fullReleasePage(page):
-    listings = []
-    listings.append(listingNode("Thing", title="Type hierarchy"))
-    types = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
-    types.extend(sdotermsource.SdoTermSource.getAllTypes(expanded=True))
+def fullReleasePage(page: str) -> str:
+    node_listings: List[listingNode] = []
+    node_listings.append(listingNode("Thing", title="Type hierarchy"))
+    
+    all_enum_vals = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
+    all_types = sdotermsource.SdoTermSource.getAllTypes(expanded=True)
+    
+    types: List[sdoterm.SdoTerm] = []
+    for t in all_enum_vals + all_types:
+        if isinstance(t, sdoterm.SdoTerm):
+            types.append(t)
+            
     types = sdotermsource.SdoTermSource.expandTerms(types)
     types = sorted(types, key=lambda t: t.id)
-    extra_vars = {
+    
+    all_props = sdotermsource.SdoTermSource.getAllProperties(expanded=True)
+    properties: List[sdoterm.SdoTerm] = []
+    for p in all_props:
+        if isinstance(p, sdoterm.SdoTerm):
+            properties.append(p)
+
+    extra_vars: Dict[str, Any] = {
         "home_page": "False",
         "title": "Full Release Summary",
         "version": schemaversion.getVersion(),
         "date": schemaversion.getCurrentVersionDate(),
-        "listings": listings,
+        "listings": node_listings,
         "types": types,
-        "properties": sorted(sdotermsource.SdoTermSource.getAllProperties(expanded=True), key=lambda t: t.id),
+        "properties": sorted(properties, key=lambda t: t.id),
     }
     return docsTemplateRender("docs/FullRelease.j2", extra_vars)
 
 
-def collabs(page):
-    colls = sdocollaborators.collaborator.collaborators()
+def collabs(page: str) -> str:
+    colls: List[sdocollaborators.collaborator] = sdocollaborators.collaborator.collaborators()
 
     # TODO Handle collaborators that are not contributors
 
-    colls = sorted(colls, key=lambda t: t.title)
+    colls = sorted(colls, key=lambda t: t.title or "")
 
     for coll in colls:
         createCollab(coll)
 
-    extra_vars = {"collaborators": colls, "title": "Collaborators"}
+    extra_vars: Dict[str, Any] = {"collaborators": colls, "title": "Collaborators"}
     return docsTemplateRender("docs/Collabs.j2", extra_vars)
 
 
-def createCollab(coll):
-    terms = []
-    termcount = 0
-    contributor = coll.contributor
+def createCollab(coll: sdocollaborators.collaborator) -> None:
+    terms: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = {}
+    termcount: int = 0
+    contributor: bool = coll.contributor
 
     if contributor:
         terms, termcount = buildTermCatList(coll.getTerms())
 
-    extra_vars = {
+    extra_vars: Dict[str, Any] = {
         "coll": coll,
         "title": coll.title,
         "contributor": contributor,
@@ -304,8 +326,8 @@ def createCollab(coll):
         "termcount": termcount,
     }
 
-    content = docsTemplateRender("docs/Collab.j2", extra_vars)
-    filename = fileutils.ensureAbsolutePath(
+    content: str = docsTemplateRender("docs/Collab.j2", extra_vars)
+    filename: str = fileutils.ensureAbsolutePath(
         output_dir=schemaglobals.OUTPUTDIR,
         relative_path=os.path.join("docs/collab/", coll.ref + ".html"),
     )
@@ -314,14 +336,14 @@ def createCollab(coll):
     log.info("Created %s" % filename)
 
 
-def termfind(file):
+def termfind(file: str) -> str:
     if not schemaglobals.hasOpt("notermfinder"):
         log.info("Building term list")
         return "".join(buildtermlist.generateTerms(tags=True))
     return ""
 
 
-PAGELIST = {
+PAGELIST: Dict[str, Tuple[Callable[[str], str], List[str]]] = {
     "Home": (homePage, ["docs/home.html"]),
     "PendingHome": (homePage, ["docs/pending.home.html"]),
     "AtticHome": (homePage, ["docs/attic.home.html"]),
@@ -345,22 +367,29 @@ PAGELIST = {
 }
 
 
-def buildDocs(pages):
+def buildDocs(pages: Iterable[str]) -> None:
+    process_pages: List[str]
     if any(filter(fileutils.isAll, pages)):
-        pages = sorted(PAGELIST.keys())
+        process_pages = sorted(PAGELIST.keys())
+    else:
+        process_pages = list(pages)
 
-    for page in pages:
+    for page in process_pages:
         if page not in PAGELIST.keys():
             log.warning(f"Unknown page name: {page}")
             continue
-        func, filenames = PAGELIST.get(page, None)
+        entry = PAGELIST.get(page)
+        if not entry:
+            log.warning(f"Missing entry for page {page}")
+            continue
+        func, filenames = entry
         if not func:
             log.warning(f"Missing function for page {page}")
             continue
         with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
-            content = func(page)
+            content: str = func(page)
             for relative_path in filenames:
-                filename = fileutils.ensureAbsolutePath(
+                filename: str = fileutils.ensureAbsolutePath(
                     output_dir=schemaglobals.OUTPUTDIR, relative_path=relative_path
                 )
                 with open(filename, "w", encoding="utf8") as handle:

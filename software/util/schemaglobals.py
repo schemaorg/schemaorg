@@ -2,31 +2,33 @@
 # -*- coding: utf-8 -*-
 
 import os
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
 """Common place for all globals to avoid circular dependencies."""
 
-SITENAME = "Schema.org"
-BUILDOPTS = []
-TERMS = []
-PAGES = []
-FILES = []
-OUTPUTDIR = "software/site"
-DOCSDOCSDIR = "/docs"
-TERMDOCSDIR = "/docs"
-HANDLER_TEMPLATE = "handlers-template.yaml"
-HANDLER_FILE = "handlers.yaml"
-RELEASE_DIR = "software/site/releases"
-HOMEPAGE = "https://schema.org"
+SITENAME: str = "Schema.org"
+BUILDOPTS: List[str] = []
+TERMS: List[str] = []
+PAGES: List[str] = []
+FILES: List[str] = []
+OUTPUTDIR: str = "software/site"
+DOCSDOCSDIR: str = "/docs"
+TERMDOCSDIR: str = "/docs"
+HANDLER_TEMPLATE: str = "handlers-template.yaml"
+HANDLER_FILE: str = "handlers.yaml"
+RELEASE_DIR: str = "software/site/releases"
+HOMEPAGE: str = "https://schema.org"
 
 
-def hasOpt(opt):
+def hasOpt(opt: str) -> bool:
     """Return true if `opt` is among the build options"""
     return opt in BUILDOPTS
 
 
-def getOutputDir():
+def getOutputDir() -> str:
     return OUTPUTDIR
 
 
-def getDocsOutputDir():
-    os.path.join(OUTPUTDIR, "docs")
+def getDocsOutputDir() -> str:
+    return os.path.join(OUTPUTDIR, "docs")

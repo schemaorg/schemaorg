@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from typing import Any, Tuple, List, Union, Dict
 from xml.dom import minidom
 from xml.etree import ElementTree
 
-KEY_ORDER = ["@context", "@id", "@type"]
+KEY_ORDER: List[str] = ["@context", "@id", "@type"]
 
 
-def sort_xml(xml_input):
+def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
     """Sorts children of an XML element for deterministic output.
 
     If the input is a string, it will be parsed as an XML Element.
@@ -20,20 +21,20 @@ def sort_xml(xml_input):
     else:
         raise TypeError(f"Expected str or ElementTree.Element, got {type(xml_input)}")
 
-    def get_key(elem):
+    def get_key(elem: ElementTree.Element) -> Tuple[str, str, str]:
         # We look for rdf:about or about attribute
-        about = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
+        about: str = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
         if about:
             return (about, "", "")
         # Fallback to tag name (primary) and resource or string representation (secondary)
-        tag = elem.tag
-        resource = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
+        tag: str = elem.tag
+        resource: str = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
         if resource:
             return (tag, resource, "")
         return (tag, "", ElementTree.tostring(elem, encoding="unicode"))
 
-    def recursive_sort(element):
-        children = list(element)
+    def recursive_sort(element: ElementTree.Element) -> None:
+        children: List[ElementTree.Element] = list(element)
         if not children:
             return
         children.sort(key=get_key)
@@ -45,19 +46,19 @@ def sort_xml(xml_input):
 
     recursive_sort(root)
 
-    pretty_xml = (
+    pretty_xml: str = (
         minidom.parseString(ElementTree.tostring(root))
         .toprettyxml(encoding="UTF-8")
         .decode()
     )
 
     # Filter out empty lines and strip trailing whitespace from each line
-    lines = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
+    lines: List[str] = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
 
     return "\n".join(lines) + "\n"
 
 
-def universal_sort_key(item):
+def universal_sort_key(item: Tuple[str, Any]) -> Tuple[int, str]:
 
     """Sort key for dictionary items (k, v).
 
@@ -73,7 +74,7 @@ def universal_sort_key(item):
     return (len(KEY_ORDER) + 2, k)
 
 
-def list_sort_key(item):
+def list_sort_key(item: Any) -> str:
     """Sort key for list items."""
     if isinstance(item, dict):
         # Prefer sorting by @id, then @type, then string representation
@@ -81,7 +82,7 @@ def list_sort_key(item):
     return str(item)
 
 
-def sort_dict(data):
+def sort_dict(data: Any) -> Any:
     """Recursively sort dictionary keys and list elements for predictability.
 
     Uses universal_sort_key for dictionaries. 

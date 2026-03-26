@@ -7,6 +7,8 @@ import argparse
 import logging
 import os
 import sys
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable, Generator
 
 # Import schema.org libraries
 if os.getcwd() not in sys.path:
@@ -18,12 +20,14 @@ import software.SchemaTerms.sdoterm as sdoterm
 import software.util.pretty_logger as pretty_logger
 
 
-log = logging.getLogger(__name__)
+log: logging.Logger = logging.getLogger(__name__)
 
 
-def generateTerms(tags=False):
+def generateTerms(tags: bool = False) -> Generator[str, None, None]:
     for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
-        label = ""
+        if not isinstance(term, sdoterm.SdoTerm):
+            continue
+        label: str = ""
         if tags:
             if term.termType == sdoterm.SdoTermType.PROPERTY:
                 label = " p"
@@ -39,7 +43,7 @@ def generateTerms(tags=False):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
     parser.add_argument(
         "-t",
         "--tagtype",
@@ -48,11 +52,11 @@ if __name__ == "__main__":
         help="Add a termtype to name",
     )
     parser.add_argument("-o", "--output", required=True, help="output file")
-    args = parser.parse_args()
-    filename = args.output
+    args_parsed: argparse.Namespace = parser.parse_args()
+    filename: str = args_parsed.output
     with pretty_logger.BlockLog(
         logger=log, message=f"Writing term list to file {filename}"
     ):
         with open(filename, "w", encoding="utf-8") as handle:
-            for term in generateTerms(tags=args.tagtype):
-                handle.write(term)
+            for term_line in generateTerms(tags=args_parsed.tagtype):
+                handle.write(term_line)
