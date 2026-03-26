@@ -38,7 +38,7 @@ def createMissingDir(dir_path):
         os.makedirs(dir_path)
 
 
-def isAll(selector: str):
+def isAll(selector):
     """Check if a selector string is a variation of the 'All' token."""
     return str(selector).lower() == FileSelector.ALL
 
@@ -55,7 +55,7 @@ def checkFilePath(path):
                 raise e
 
 
-def ensureAbsolutePath(output_dir: str, relative_path: str) -> str:
+def ensureAbsolutePath(output_dir, relative_path):
     """Convert into an absolute path and ensure the directory exists."""
     filepath = os.path.join(output_dir, relative_path)
     checkFilePath(os.path.dirname(filepath))
@@ -63,14 +63,14 @@ def ensureAbsolutePath(output_dir: str, relative_path: str) -> str:
 
 
 def releaseFilePath(
-    output_dir: str,
-    version: str,
-    selector: FileSelector,
-    protocol: str,
-    output_format: str,
-    suffix: str | None = None,
-    subdirectory_path: str | None = None,
-) -> str:
+    output_dir,
+    version,
+    selector,
+    protocol,
+    output_format,
+    suffix=None,
+    subdirectory_path=None,
+):
     """Create a path for a release file
 
     Args:

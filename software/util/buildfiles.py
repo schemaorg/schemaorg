@@ -8,7 +8,6 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any
 import rdflib
 import rdflib.namespace
 import sys
@@ -31,6 +30,7 @@ import software.util.textutils as textutils
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaExamples.schemaexamples as schemaexamples
+from software.util.sort_dict import sort_dict, sort_xml
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
@@ -84,7 +84,7 @@ def jsonldtree(page):
     context["children"] = {"@reverse": "rdfs:subClassOf"}
     term["@context"] = context
     data = _jsonldtree("Thing", term)
-    return json.dumps(data, indent=3)
+    return json.dumps(sort_dict(data), indent=3)
 
 
 def _jsonldtree(tid, term=None):
@@ -156,7 +156,7 @@ def sitemap(page):
 """)
     terms = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
     version_date = schemaversion.getCurrentVersionDate()
-    for term in terms:
+    for term in sorted(terms):
         if not (term.startswith("http://") or term.startswith("https://")):
             output.append(node % (term, version_date))
     for term in STATICPAGES:
@@ -187,7 +187,7 @@ allGraph = None
 currentGraph = None
 
 
-def exportrdf(exportType, subdirectory_path: str | None = None):
+def exportrdf(exportType, subdirectory_path=None):
     global allGraph, currentGraph
 
     if not allGraph:
@@ -279,7 +279,7 @@ def exportrdf(exportType, subdirectory_path: str | None = None):
 completed_rdf_exports = set()
 
 
-def _exportrdf(output_format, all, current, subdirectory_path: str | None = None):
+def _exportrdf(output_format, all_graph, current_graph, subdirectory_path=None):
     protocol, altprotocol = protocols()
 
     if output_format in completed_rdf_exports:
@@ -291,12 +291,12 @@ def _exportrdf(output_format, all, current, subdirectory_path: str | None = None
 
     for selector in fileutils.FILESET_SELECTORS:
         if fileutils.isAll(selector):
-            g = all
+            g = all_graph
         else:
-            g = current
+            g = current_graph
 
         nsMgr = g.namespace_manager
-        canonical_g = to_canonical_graph(g)
+        g = to_canonical_graph(g)
         g.namespace_manager = nsMgr
 
         if output_format == "nquads":
@@ -319,7 +319,21 @@ def _exportrdf(output_format, all, current, subdirectory_path: str | None = None
                     fmt = "pretty-xml"
                 else:
                     fmt = output_format
-                out = g.serialize(format=fmt, auto_compact=True, sort_keys=True)
+                out = g.serialize(format=fmt, auto_compact=True, sort_keys=True, max_depth=1)
+                if output_format in ("nt", "nquads"):
+                    out = "\n".join(sorted(line.rstrip() for line in out.splitlines() if line.strip())) + "\n"
+                if output_format == "rdf":
+                    try:
+                        out = sort_xml(out)
+                    except Exception as e:
+                        log.warning(f"Failed to sort RDF XML: {e}")
+                if output_format == "json-ld":
+                    try:
+                        data = json.loads(out)
+                        out = json.dumps(sort_dict(data), indent=2)
+                    except Exception as e:
+                        log.warning(f"Failed to sort JSON-LD: {e}")
+
                 with open(fn, "w", encoding="utf8") as f:
                     if p == altprotocol:
                         out = protocolSwap(out, protocol, altprotocol)
@@ -509,7 +523,7 @@ def writecsvout(ftype, data, fields, selector, protocol, altprotocol):
 def jsoncounts(page):
     counts = sdotermsource.SdoTermSource.termCounts()
     counts["schemaorgversion"] = schemaversion.getVersion()
-    return json.dumps(counts)
+    return json.dumps(sort_dict(counts))
 
 
 def jsonpcounts(page):
@@ -521,7 +535,7 @@ def jsonpcounts(page):
     return content
 
 
-def exportshex_shacl(page: Any) -> None:
+def exportshex_shacl(page):
     release_dir = Path.cwd() / schemaglobals.RELEASE_DIR / schemaversion.getVersion()
     shex_shacl_shapes_exporter.generate_files(
         term_defs_path=release_dir / "schemaorg-all-http.nt",
@@ -588,7 +602,7 @@ def buildFiles(files):
 
     for p in files:
         with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
-            if p in FILELIST.keys():
+            if p in sorted(FILELIST.keys()):
                 func, filenames = FILELIST.get(p, None)
                 if func:
                     content = func(p)

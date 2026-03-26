@@ -235,7 +235,8 @@ class SchemaExamples:
             )
             exfiles = []
             for g in DEFTEXAMPLESFILESGLOB:
-                exfiles.extend(glob.glob(g))
+                exfiles.extend(sorted(glob.glob(g)))
+
         elif isinstance(exfiles, str):
             log.info(
                 "SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles

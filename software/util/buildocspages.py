@@ -19,6 +19,7 @@ import software.util.pretty_logger as pretty_logger
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.textutils as textutils
+from software.util.sort_dict import sort_dict
 
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdocollaborators as sdocollaborators
@@ -192,7 +193,7 @@ def jsonldtree(page) -> str:
     context["children"] = {"@reverse": "rdfs:subClassOf"}
     term["@context"] = context
     data = _jsonldtree("Thing", visitset=set(), term=term)
-    return json.dumps(data, indent=2)
+    return json.dumps(sort_dict(data), indent=2)
 
 
 def _jsonldtree(tid: str, visitset: set, term: dict | None = None) -> dict:
@@ -268,7 +269,7 @@ def fullReleasePage(page):
         "date": schemaversion.getCurrentVersionDate(),
         "listings": listings,
         "types": types,
-        "properties": sdotermsource.SdoTermSource.getAllProperties(expanded=True),
+        "properties": sorted(sdotermsource.SdoTermSource.getAllProperties(expanded=True), key=lambda t: t.id),
     }
     return docsTemplateRender("docs/FullRelease.j2", extra_vars)
 

@@ -83,13 +83,17 @@ def _MakePrettyComment(text):
 
 class OwlBuild:
     def __init__(self):
+        from localmarkdown import MarkdownTool
         self.typesCount = self.propsCount = self.namedCount = 0
+        old_pre = MarkdownTool.WPRE
+        MarkdownTool.setWikilinkPrePath("/")
         self._createDom()
         self._loadGraph()
+        MarkdownTool.setWikilinkPrePath(old_pre)
 
     def _createDom(self):
         self.dom = ElementTree.Element("rdf:RDF")
-        for k, v in NAMESPACES.items():
+        for k, v in sorted(NAMESPACES.items()):
             self.dom.set(k, v)
 
         version = schemaversion.getVersion()
@@ -154,7 +158,7 @@ class OwlBuild:
         typ = ElementTree.SubElement(self.dom, "owl:Class")
         typ.set("rdf:about", uri)
         ext = None
-        for p, o in graph.predicate_objects(uri):
+        for p, o in sorted(graph.predicate_objects(uri)):
             if p == RDFS.label:
                 l = ElementTree.SubElement(typ, "rdfs:label")
                 l.set("xml:lang", "en")
@@ -181,7 +185,7 @@ class OwlBuild:
         ranges = []
         datatypeonly = True
         ext = None
-        for p, o in graph.predicate_objects(uri):
+        for p, o in sorted(graph.predicate_objects(uri)):
             if p == RDFS.label:
                 l = ElementTree.Element("rdfs:label")
                 l.set("xml:lang", "en")
@@ -222,7 +226,7 @@ class OwlBuild:
         children.append(self.addDefined(uri, ext))
 
         if not datatypeonly:
-            for r in DEFAULTRANGES:
+            for r in sorted(list(DEFAULTRANGES)):
                 if r not in ranges:
                     ranges.append(r)
 
@@ -232,7 +236,7 @@ class OwlBuild:
             cl = ElementTree.SubElement(d, "owl:Class")
             u = ElementTree.SubElement(cl, "owl:unionOf")
             u.set("rdf:parseType", "Collection")
-            for target in domains.keys():
+            for target in sorted(domains.keys(), key=str):
                 targ = ElementTree.SubElement(u, "owl:Class")
                 targ.set("rdf:about", target)
 
@@ -242,7 +246,7 @@ class OwlBuild:
             cl = ElementTree.SubElement(r, "owl:Class")
             u = ElementTree.SubElement(cl, "owl:unionOf")
             u.set("rdf:parseType", "Collection")
-            for target in ranges:
+            for target in sorted(ranges, key=str):
                 targ = ElementTree.SubElement(u, "owl:Class")
                 targ.set("rdf:about", target)
 
@@ -271,7 +275,7 @@ class OwlBuild:
         }
         """
         enums = list(graph.query(q))
-        for row in enums:
+        for row in sorted(enums):
             self.outputNamedIndividuals(row.enum, graph, parent=row.parent)
 
     def outputNamedIndividuals(self, individual, graph, parent=None):
@@ -280,7 +284,7 @@ class OwlBuild:
         typ = ElementTree.SubElement(self.dom, "owl:NamedIndividual")
         typ.set("rdf:about", individual)
         ext = None
-        for p, o in graph.predicate_objects(URIRef(individual)):
+        for p, o in sorted(graph.predicate_objects(URIRef(individual))):
             if p == RDFS.label:
                 l = ElementTree.SubElement(typ, "rdfs:label")
                 l.set("xml:lang", "en")

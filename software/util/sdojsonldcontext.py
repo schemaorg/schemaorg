@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Import standard python libraries
-
 import json
 import logging
 import os
 import sys
-import typing
 
 # Import schema.org libraries
 if not os.getcwd() in sys.path:
@@ -17,12 +14,12 @@ import software
 import software.SchemaTerms.sdotermsource as sdotermsource
 import software.SchemaTerms.sdoterm as sdoterm
 import software.util.pretty_logger as pretty_logger
+from software.util.sort_dict import sort_dict
 
 log = logging.getLogger(__name__)
 
 
 CONTEXT = None
-SCHEMAURI = "http://schema.org/"
 
 
 def getContext():
@@ -32,7 +29,10 @@ def getContext():
     return CONTEXT
 
 
-def _convertTypes(type_range: typing.Collection[str]) -> typing.Set[str]:
+SCHEMAURI = "http://schema.org/"
+
+
+def _convertTypes(type_range: list[str]) -> set[str]:
     types = set()
     if "Text" in type_range:
         return types
@@ -64,7 +64,7 @@ def createcontext():
                     path = SCHEMAURI  # Override vocab setting to maintain http compatibility
                 if pref == "geo":
                     continue
-                json_context[pref] = path
+                json_context[pref] = str(path)
 
         for term in sdotermsource.SdoTermSource.getAllTerms(
             expanded=True, suppressSourceLinks=True
@@ -80,4 +80,4 @@ def createcontext():
                     term_json["@type"] = sorted(types)
             json_context[term.id] = term_json
         json_object = {"@context": json_context}
-        return json.dumps(json_object, indent=2)
+        return json.dumps(sort_dict(json_object), indent=2)

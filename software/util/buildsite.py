@@ -211,7 +211,7 @@ def initdir(output_dir, handler_path):
         copystaticdocsplusinsert.copyFiles("./docs", "./software/site/docs")
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files = glob.glob("software/gcloud/*.yaml")
+        gcloud_files = sorted(glob.glob("software/gcloud/*.yaml"))
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append("copied %d files" % len(gcloud_files))

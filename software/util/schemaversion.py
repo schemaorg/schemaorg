@@ -4,6 +4,13 @@
 """Module that handles the schema.org version information."""
 
 import json
+import os
+import sys
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+
+from software.util.sort_dict import sort_dict
 
 ###################################################
 # VERSION INFO LOAD
@@ -40,7 +47,7 @@ def setVersion(ver, date):
     vers = dict(sorted(vers.items(), key=lambda x: float(x[0]), reverse=True))
     versiondata["releaseLog"] = vers
     with open("versions.json", "w") as json_file:
-        json_file.write(json.dumps(versiondata, indent=4))
+        json_file.write(json.dumps(sort_dict(versiondata), indent=4))
 
 
 if __name__ == "__main__":

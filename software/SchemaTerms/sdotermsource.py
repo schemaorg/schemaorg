@@ -5,13 +5,16 @@
 import collections
 import copy
 import glob
+import json
 import logging
 import os
 import rdflib
+from rdflib.compare import to_canonical_graph
 import re
 import sys
 import threading
 import typing
+from typing import Any
 
 
 # Import schema.org libraries
@@ -24,6 +27,7 @@ import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.localmarkdown as localmarkdown
 
 import software.util.pretty_logger as pretty_logger
+from software.util.sort_dict import sort_dict
 
 log = logging.getLogger(__name__)
 
@@ -446,12 +450,13 @@ class SdoTermSource:
             subs = self.loadSubjects("schema:supersededBy")
             for sub in subs:
                 self.supersedes.append(uri2id(str(sub)))
+            self.supersedes.sort()
         return self.supersedes
 
     def getSources(self):
         if not self.sources:
             objs = self.loadObjects("schema:source")  # To accept later ttl versions.
-            self.sources = list(objs)
+            self.sources = sorted(list(objs))
         return self.sources
 
     def getAcknowledgements(self) -> typing.Sequence[str]:
@@ -531,7 +536,7 @@ class SdoTermSource:
                         break
                     if term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
                         allprop_ids.update(term.properties.ids)
-            ret = sorted(allprop_ids)
+            ret = sorted(list(allprop_ids))
         return ret
 
     def getPropUsedOn(self):
@@ -562,12 +567,13 @@ class SdoTermSource:
             subs = self.loadSubjects("schema:rangeIncludes")
             for sub in subs:
                 self.targetOf.append(uri2id(str(sub)))
+            self.targetOf.sort()
         ret = self.targetOf
         if not (len(self.targetOf) and stopontarget):
             if plusparents:
-                targets = self.targetOf
+                targets = list(self.targetOf)
                 for s in self.getSupers():
-                    sup = cls._getTerm(s, createReference=True)
+                    sup = self.__class__._getTerm(s, createReference=True)
                     if sup.uri() == ENUMERATIONURI or sup.uri == THINGURI:
                         break
                     ptargets = sup.expectedTypeFor
@@ -575,8 +581,7 @@ class SdoTermSource:
                         targets.append(t)
                     if len(targets) and stopontarget:
                         break
-                ret = targets
-        ret.sort()
+                ret = sorted(list(set(targets)))
         return ret
 
     def getEquivalents(self):
@@ -586,6 +591,7 @@ class SdoTermSource:
             equivalents.extend(self.loadObjects("owl:equivalentProperty"))
             for e in equivalents:
                 self.equivalents.append(str(e))
+            self.equivalents.sort(key=prefixedIdFromUri)
         return self.equivalents
 
     def inLayers(self, layers):
@@ -671,7 +677,7 @@ class SdoTermSource:
          ORDER BY ?sup""" % (uriWrap(fullId), uriWrap(fullId))
 
         res = self.__class__.query(query)
-        self.supers = [uri2id(str(row.sup)) for row in res]
+        self.supers = sorted([uri2id(str(row.sup)) for row in res])
 
     def loadsubs(self):
         fullId = toFullId(self.id)
@@ -691,6 +697,7 @@ class SdoTermSource:
                 "a"
             )  # Enumerationvalues have an Enumeration as a type
             self.subs.extend([uri2id(str(child)) for child in subjects])
+        self.subs.sort()
 
     def getEnumerationMembers(self):
         if not self.members and self.ttype == sdoterm.SdoTermType.ENUMERATION:
@@ -912,6 +919,8 @@ class SdoTermSource:
             tmp.type = DATATYPEURI
         elif ENUMERATIONURI in tmp.sups:
             tmp.type = ENUMERATIONURI
+        elif len(tmp.types) > 1:
+            tmp.type = sorted(tmp.types)[0]
 
         term = cls.TERMS.get(tmp.id, None)
         if not term:  # Already created this term ?
@@ -938,7 +947,7 @@ class SdoTermSource:
         g.bind("schema", VOCABURI)
 
         if not full:  # Only the term definition
-            triples = cls.triples4Term(term)
+            triples = cls.triples4Term(term.id)
             for trip in triples:
                 g.add(trip)
         else:  # full - Include all related terms
@@ -957,19 +966,32 @@ class SdoTermSource:
                     elif t == stack[0]:
                         props.extend(cls.termsFromIds(t.allproperties.ids))
 
-            for t in types:
+            for t in sorted(types):
                 triples = cls.triples4Term(t.id)
                 for trip in triples:
                     g.add(trip)
 
-            for p in props:
+            for p in sorted(props):
                 triples = cls.triples4Term(p.id)
                 for trip in triples:
                     g.add(trip)
 
         if output_format == "rdf":
             output_format = "pretty-xml"
-        ret = g.serialize(format=output_format, auto_compact=True, sort_keys=True)
+
+        ret = g.serialize(format=output_format, auto_compact=True, sort_keys=True, max_depth=1)
+
+        if output_format == "json-ld":
+            # Explicitly sort JSON keys to ensure predictability, as rdflib's
+            # json-ld serializer might not be fully deterministic in all cases.
+            # We avoid to_canonical_graph() here as it is extremely slow when
+            # called thousands of times.
+            try:
+                data = json.loads(ret)
+                return json.dumps(sort_dict(data), indent=2)
+            except Exception:
+                pass
+
         return ret
 
     @classmethod
@@ -1147,7 +1169,7 @@ class SdoTermSource:
                 )
                 files = []
                 for g in DEFTRIPLESFILESGLOB:
-                    files.extend(glob.glob(g))
+                    files.extend(sorted(glob.glob(g)))
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
             log.info("SdoTermSource.loadSourceGraph() loading from file: %s", files)
@@ -1408,7 +1430,7 @@ def layerFromUri(uri: str) -> str:
             if voc.endswith("/") or voc.endswith("#"):
                 voc = voc[: len(voc) - 1]
             prto, root = getProtoAndRoot(voc)
-            LAYERPATTERN = "^%s([\w]*)\.%s" % (prto, root)
+            LAYERPATTERN = r"^%s([\w]*)\.%s" % (prto, root)
 
         if LAYERPATTERN:
             m = re.search(LAYERPATTERN, str(uri))
@@ -1432,7 +1454,7 @@ ProtoAndRoot = collections.namedtuple("ProtoAndRoot", ["proto", "root"])
 
 
 def getProtoAndRoot(uri: str) -> ProtoAndRoot:
-    m = re.search("^(http[s]?:\/\/)(.*)", uri)
+    m = re.search(r"^(http[s]?:\/\/)(.*)", uri)
     if m:
         prto = m.group(1)
         root = m.group(2)
