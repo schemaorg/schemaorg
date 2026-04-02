@@ -41,7 +41,7 @@ class Example:
         self.terms: List[str] = terms
         if not len(terms):
             log.info(
-                "No terms for ex: %s in file %s" % (exmeta.get("filepos"), exmeta.get("file"))
+                f"No terms for ex: {exmeta.get('filepos')} in file {exmeta.get('file')}"
             )
             first_term: str = "Empty"
         else:
@@ -54,7 +54,7 @@ class Example:
         self.exmeta: Dict[str, Any] = exmeta
         self.keyvalue: Optional[str] = self.exmeta.get("id", None)
         if not self.keyvalue:
-            self.keyvalue = "%s-temp-%s" % (first_term, Example.ExamplesCount)
+            self.keyvalue = f"{first_term}-temp-{Example.ExamplesCount}"
             self.exmeta["id"] = self.keyvalue
         else:
             idnum: int = self.getIdNum()
@@ -70,18 +70,12 @@ class Example:
         if not len(self.terms):
             buf.append("No Terms!")
         else:
-            buf.append("%s" % self.terms)
-        buf.append("\nKeyvalue: %s" % self.keyvalue)
+            buf.append(f"{self.terms}")
+        buf.append(f"\nKeyvalue: {self.keyvalue}")
         buf.append(
-            "\nOrigLen: %s MicroLen: %s RdfaLen: %s JsonLen: %s"
-            % (
-                len(self.original_html),
-                len(self.microdata),
-                len(self.rdfa),
-                len(self.jsonld),
-            )
+            f"\nOrigLen: {len(self.original_html)} MicroLen: {len(self.microdata)} RdfaLen: {len(self.rdfa)} JsonLen: {len(self.jsonld)}"
         )
-        buf.append("\nexmeta: %s" % self.exmeta)
+        buf.append(f"\nexmeta: {self.exmeta}")
         return "".join(buf)
 
     def getKey(self) -> Optional[str]:
@@ -180,12 +174,12 @@ class Example:
 
     def serialize(self) -> str:
         termnames: str = ", ".join(self.terms)
-        idd: str = "#%s" % self.keyvalue
+        idd: str = f"#{self.keyvalue}"
         if "-temp-" in idd:
             idd = ""
 
         sections: List[str] = [
-            "TYPES: %s %s\n" % (idd, termnames),
+            f"TYPES: {idd} {termnames}\n",
             "PRE-MARKUP:",
             self.getHtml(),
             "MICRODATA:",
@@ -204,7 +198,7 @@ class Example:
 
     @staticmethod
     def formatId(val: int) -> str:
-        return "eg-{0:04d}".format(val)
+        return f"eg-{val:04d}"
 
     @staticmethod
     def nextIdReset(val: Optional[int] = None) -> None:
@@ -234,20 +228,19 @@ class SchemaExamples:
         load_files: List[str] = []
         if not exfiles or exfiles == "default":
             log.info(
-                "SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s"
-                % ",".join(DEFTEXAMPLESFILESGLOB)
+                f"SchemaExamples.loadExamplesFiles() loading from default files found in globs: {','.join(DEFTEXAMPLESFILESGLOB)}"
             )
             for g in DEFTEXAMPLESFILESGLOB:
                 load_files.extend(sorted(glob.glob(g)))
 
         elif isinstance(exfiles, str):
             log.info(
-                "SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles
+                f"SchemaExamples.loadExamplesFiles() loading from file: {exfiles}"
             )
             load_files = [exfiles]
         else:
             log.info(
-                "SchemaExamples.loadExamplesFiles() loading from %d" % len(list(exfiles))
+                f"SchemaExamples.loadExamplesFiles() loading from {len(list(exfiles))}"
             )
             load_files = list(exfiles)
 
@@ -278,7 +271,7 @@ class SchemaExamples:
         if not SchemaExamples.EXAMPLESLOADED:
             log.info("Loading examples files")
             SchemaExamples.loadExamplesFiles("default")
-            log.info("Loaded %d examples", SchemaExamples.count())
+            log.info(f"Loaded {SchemaExamples.count()} examples")
 
     @staticmethod
     def examplesForTerm(term: str) -> List[Example]:
@@ -369,7 +362,7 @@ class ExampleFileParser:
                 if inwhitespace:
                     temp.append("\n")
                     inwhitespace = False
-                temp.append(line + "\n")
+                temp.append(f"{line}\n")
 
         if not inwhitespace:
             temp.append("\n")
@@ -381,8 +374,7 @@ class ExampleFileParser:
             self.idcache.append(ident)
         else:
             raise Exception(
-                "Example %s in file %s has duplicate identifier: '%s'"
-                % (self.filepos, self.file, ident)
+                f"Example {self.filepos} in file {self.file} has duplicate identifier: '{ident}'"
             )
         self.exmeta["id"] = ident
         return ""
@@ -447,7 +439,7 @@ class ExampleFileParser:
                 for ttli in ttl:
                     ttli = ttli.strip()
                     if len(ttli):
-                        if "@@" not in ttli and not "FakeEntryNeeded" in ttli:
+                        if "@@" not in ttli and "FakeEntryNeeded" not in ttli:
                             self.terms.append(ttli)
                         else:
                             boilerplate = True

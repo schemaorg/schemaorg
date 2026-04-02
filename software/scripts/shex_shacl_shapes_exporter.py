@@ -35,7 +35,7 @@ def replace_prefix(data: URIRef) -> URIRef:
     """
     Replaces schema.org prefix with schema.org validation prefix
     """
-    return BASE[PREFIX + str(data).replace("http://schema.org/", "")]
+    return BASE[f"{PREFIX}{str(data).replace('http://schema.org/', '')}"]
 
 
 class ShExJParser:

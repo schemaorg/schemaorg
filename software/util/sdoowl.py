@@ -5,8 +5,7 @@ import os
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print(
-        "Python version %s.%s not supported version 3.6 or above required - exiting"
-        % (sys.version_info.major, sys.version_info.minor)
+        f"Python version {sys.version_info.major}.{sys.version_info.minor} not supported version 3.6 or above required - exiting"
     )
     sys.exit(os.EX_CONFIG)
 
@@ -55,29 +54,29 @@ NAMESPACES: Dict[str, str] = {
 }
 
 
-DOMAININC: URIRef = URIRef(VOCABURI + "domainIncludes")
-RANGEINC: URIRef = URIRef(VOCABURI + "rangeIncludes")
-INVERSEOF: URIRef = URIRef(VOCABURI + "inverseOf")
-SUPERSEDEDBY: URIRef = URIRef(VOCABURI + "supersededBy")
-DEFAULTRANGES: Set[str] = frozenset([VOCABURI + "Text", VOCABURI + "URL", VOCABURI + "Role"])
+DOMAININC: URIRef = URIRef(f"{VOCABURI}domainIncludes")
+RANGEINC: URIRef = URIRef(f"{VOCABURI}rangeIncludes")
+INVERSEOF: URIRef = URIRef(f"{VOCABURI}inverseOf")
+SUPERSEDEDBY: URIRef = URIRef(f"{VOCABURI}supersededBy")
+DEFAULTRANGES: Set[str] = frozenset([f"{VOCABURI}Text", f"{VOCABURI}URL", f"{VOCABURI}Role"])
 DATATYPES: Set[str] = frozenset(
     [
-        VOCABURI + "Boolean",
-        VOCABURI + "Date",
-        VOCABURI + "DateTime",
-        VOCABURI + "Number",
-        VOCABURI + "Float",
-        VOCABURI + "Integer",
-        VOCABURI + "Time",
+        f"{VOCABURI}Boolean",
+        f"{VOCABURI}Date",
+        f"{VOCABURI}DateTime",
+        f"{VOCABURI}Number",
+        f"{VOCABURI}Float",
+        f"{VOCABURI}Integer",
+        f"{VOCABURI}Time",
     ]
 )
 
 
 def _MakePrettyComment(text: str) -> ElementTree.Comment:
     """Make a pretty comment with a box of slashes before and after."""
-    inner_text: str = "/ " + text
+    inner_text: str = f"/ {text}"
     bar: str = "/" * len(inner_text)
-    comment: str = "\n\t" + bar + "\n\t" + inner_text + "\n\t" + bar + "\n\n\t"
+    comment: str = f"\n\t{bar}\n\t{inner_text}\n\t{bar}\n\n\t"
     return ElementTree.Comment(comment)
 
 
@@ -102,10 +101,7 @@ class OwlBuild:
 
         version: str = schemaversion.getVersion()
         version_date: str = schemaversion.getCurrentVersionDate()
-        comment_text: str = "Generated from Schema.org version: %s released: %s" % (
-            version,
-            version_date,
-        )
+        comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")
         self.ont.set("rdf:about", VOCABURI)
@@ -152,8 +148,8 @@ class OwlBuild:
         self.dom.append(_MakePrettyComment(text="Named Individuals Definitions"))
 
         self.outputEnums(graph)
-        self.outputNamedIndividuals(VOCABURI + "True", graph)
-        self.outputNamedIndividuals(VOCABURI + "False", graph)
+        self.outputNamedIndividuals(f"{VOCABURI}True", graph)
+        self.outputNamedIndividuals(f"{VOCABURI}False", graph)
 
     def outputType(self, uri: str, graph: rdflib.Graph) -> None:
         self.typesCount += 1
@@ -173,11 +169,11 @@ class OwlBuild:
             elif p == RDFS.subClassOf:
                 s: ElementTree.Element = ElementTree.SubElement(typ, "rdfs:subClassOf")
                 s.set("rdf:resource", str(o))
-            elif p == URIRef(VOCABURI + "isPartOf"):  # Defined in an extension
+            elif p == URIRef(f"{VOCABURI}isPartOf"):  # Defined in an extension
                 ext = str(o)
-            elif p == RDF.type and o == URIRef(VOCABURI + "DataType"):  # A datatype
+            elif p == RDF.type and o == URIRef(f"{VOCABURI}DataType"):  # A datatype
                 s = ElementTree.SubElement(typ, "rdfs:subClassOf")
-                s.set("rdf:resource", VOCABURI + "DataType")
+                s.set("rdf:resource", f"{VOCABURI}DataType")
 
         typ.append(self.addDefined(uri, ext))
 
@@ -223,7 +219,7 @@ class OwlBuild:
                 ranges.append(str(o))
                 if str(o) not in DATATYPES:
                     datatypeonly = False
-            elif p == URIRef(VOCABURI + "isPartOf"):
+            elif p == URIRef(f"{VOCABURI}isPartOf"):
                 ext = str(o)
 
         children.append(self.addDefined(uri, ext))
@@ -297,7 +293,7 @@ class OwlBuild:
                 c: ElementTree.Element = ElementTree.SubElement(typ, "rdfs:comment")
                 c.set("xml:lang", "en")
                 c.text = Markdown.parse(str(o))
-            elif p == URIRef(VOCABURI + "isPartOf"):
+            elif p == URIRef(f"{VOCABURI}isPartOf"):
                 ext = str(o)
 
         typ.append(self.addDefined(individual, ext))

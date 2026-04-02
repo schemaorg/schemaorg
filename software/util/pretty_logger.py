@@ -24,7 +24,7 @@ class PrettyLogFormatter(logging.Formatter):
     def __init__(self, use_color: bool = True, shard: Optional[int] = None) -> None:
         fmt: str = "%(levelname)s %(name)s: %(message)s"
         if shard is not None:
-            fmt = "%(levelname)s (" + str(shard) + ") %(name)s: %(message)s"
+            fmt = f"%(levelname)s ({shard}) %(name)s: %(message)s"
         logging.Formatter.__init__(self, fmt=fmt)
         self.use_color: bool = use_color
 
@@ -32,15 +32,15 @@ class PrettyLogFormatter(logging.Formatter):
     def _computeLevelName(cls, record: logging.LogRecord) -> str:
         lower_msg: str = record.getMessage().casefold()
         if lower_msg == "done" or lower_msg[:5] == "done:":
-            return colorama.Fore.LIGHTGREEN_EX + record.levelname + colorama.Fore.RESET
+            return f"{colorama.Fore.LIGHTGREEN_EX}{record.levelname}{colorama.Fore.RESET}"
         if record.levelname in cls.COLORS:
-            return cls.COLORS[record.levelname] + record.levelname + colorama.Fore.RESET
+            return f"{cls.COLORS[record.levelname]}{record.levelname}{colorama.Fore.RESET}"
         return record.levelname
 
     @classmethod
     def _computeName(cls, record: logging.LogRecord) -> str:
         components: List[str] = record.name.split(".")
-        return colorama.Style.DIM + components[-1] + colorama.Style.RESET_ALL
+        return f"{colorama.Style.DIM}{components[-1]}{colorama.Style.RESET_ALL}"
 
     def format(self, record: logging.LogRecord) -> str:
         if self.use_color:
@@ -80,7 +80,7 @@ class BlockLog:
                 self.logger.info(f"Done: {self.message}")
 
     def append(self, message: str) -> None:
-        self.message = self.message + " " + message
+        self.message = f"{self.message} {message}"
 
 
 def MakeRootLogPretty(shard: Optional[int] = None) -> None:

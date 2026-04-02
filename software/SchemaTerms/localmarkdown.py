@@ -64,13 +64,7 @@ class MarkdownTool(object):
     def wikilinksReplace(self, match: re.Match) -> str:
         # wpre = self.wpre # Assigned but unused in original code
         t: str = match.group(1)
-        return '<a class="%s" href="%s%s%s">%s</a>' % (
-            MarkdownTool.WCLASS,
-            MarkdownTool.WPRE,
-            t,
-            MarkdownTool.WPOST,
-            t,
-        )
+        return f'<a class="{MarkdownTool.WCLASS}" href="{MarkdownTool.WPRE}{t}{MarkdownTool.WPOST}">{t}</a>'
 
     @classmethod
     def setWikilinkCssClass(cls, c: str) -> None:

@@ -55,11 +55,11 @@ def buildTurtleEquivs() -> str:
             if t.termType == sdoterm.SdoTermType.PROPERTY:
                 eqiv = rdflib.namespace.OWL.equivalentProperty
 
-            p: rdflib.URIRef = rdflib.URIRef(s_p + t.id)
-            s: rdflib.URIRef = rdflib.URIRef(s_s + t.id)
+            p: rdflib.URIRef = rdflib.URIRef(f"{s_p}{t.id}")
+            s: rdflib.URIRef = rdflib.URIRef(f"{s_s}{t.id}")
             outGraph.add((p, eqiv, s))
             outGraph.add((s, eqiv, p))
-            log.debug("%s ", t.uri)
+            log.debug(f"{t.uri} ")
 
     return str(outGraph.serialize(format="turtle", auto_compact=True, sort_keys=True))
 
@@ -97,12 +97,12 @@ def _jsonldtree(tid: str, term: Optional[Dict[str, Any]] = None) -> Dict[str, An
     if term is None:
         term = {}
     term["@type"] = "rdfs:Class"
-    term["@id"] = "schema:" + termdesc.id
+    term["@id"] = f"schema:{termdesc.id}"
     term["name"] = termdesc.label
     if termdesc.supers:
         sups: List[str] = []
         for sup in termdesc.supers.ids:
-            sups.append("schema:" + sup)
+            sups.append(f"schema:{sup}")
         if len(sups) == 1:
             term["rdfs:subClassOf"] = sups[0]
         else:
@@ -135,9 +135,11 @@ def owl(page: str) -> str:
 
 
 def sitemap(page: str) -> str:
-    node: str = """ <url>
-   <loc>https://schema.org/%s</loc>
-   <lastmod>%s</lastmod>
+    version_date: str = schemaversion.getCurrentVersionDate()
+    def node(t: str) -> str:
+        return f""" <url>
+   <loc>https://schema.org/{t}</loc>
+   <lastmod>{version_date}</lastmod>
  </url>
 """
     STATICPAGES: List[str] = [
@@ -160,22 +162,21 @@ def sitemap(page: str) -> str:
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 """)
     terms: List[str] = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
-    version_date: str = schemaversion.getCurrentVersionDate()
     for term in sorted(terms):
         if not (str(term).startswith("http://") or str(term).startswith("https://")):
-            output.append(node % (term, version_date))
+            output.append(node(term))
     for term in STATICPAGES:
-        output.append(node % (term, version_date))
+        output.append(node(term))
     output.append("</urlset>\n")
     return "".join(output)
 
 
 def protocolSwap(content: str, protocol: str, altprotocol: str) -> str:
-    ret: str = content.replace("%s://schema.org" % protocol, "%s://schema.org" % altprotocol)
+    ret: str = content.replace(f"{protocol}://schema.org", f"{altprotocol}://schema.org")
     for ext in ["attic", "auto", "bib", "health-lifesci", "meta", "pending"]:
         ret = ret.replace(
-            "%s://%s.schema.org" % (protocol, ext),
-            "%s://%s.schema.org" % (altprotocol, ext),
+            f"{protocol}://{ext}.schema.org",
+            f"{altprotocol}://{ext}.schema.org",
         )
     return ret
 
@@ -277,7 +278,7 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
     elif extype in formats:
         _exportrdf(extype, allGraph, currentGraph, subdirectory_path)
     else:
-        raise Exception("Unknown export format: %s" % exportType)
+        raise Exception(f"Unknown export format: {exportType}")
 
 
 # Set of completed EDF exports.
@@ -307,7 +308,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
 
         if output_format == "nquads":
             gr: rdflib.Dataset = rdflib.Dataset()
-            qg: rdflib.Graph = gr.graph(rdflib.URIRef("%s://schema.org/%s" % (protocol, version)))
+            qg: rdflib.Graph = gr.graph(rdflib.URIRef(f"{protocol}://schema.org/{version}"))
             qg += g
             g = gr
 
@@ -328,7 +329,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
                     fmt = output_format
                 out: str = str(g.serialize(format=fmt, auto_compact=True, sort_keys=True, max_depth=1))
                 if output_format in ("nt", "nquads"):
-                    out = "\n".join(sorted(line.rstrip() for line in out.splitlines() if line.strip())) + "\n"
+                    out = f'{"\n".join(sorted(line.rstrip() for line in out.splitlines() if line.strip()))}\n'
                 if output_format == "rdf":
                     try:
                         out = sort_xml(out)
@@ -360,7 +361,7 @@ def uriwrap(thing: Any) -> str:
     if isinstance(thing, str):
         if thing.startswith("http:") or thing.startswith("https:"):
             return thing
-        return VOCABURI + thing
+        return f"{VOCABURI}{thing}"
     if isinstance(thing, sdoterm.SdoTermSequence):
         return uriwrap(thing.ids)
     if isinstance(thing, sdoterm.SdoTermOrId):
@@ -370,7 +371,7 @@ def uriwrap(thing: Any) -> str:
     try:
         return array2str(sorted(map(uriwrap, thing)))
     except TypeError as e:
-        log.fatal("Cannot uriwrap %s:%s", thing, e)
+        log.fatal(f"Cannot uriwrap {thing}:{e}")
         return ""
 
 
@@ -428,7 +429,7 @@ def exportcsv(page: str) -> None:
         row["supersededBy"] = uriwrap(term.supersededBy)
         ext: str = term.extLayer
         if len(ext):
-            ext = "%s://%s.schema.org" % (protocol, ext)
+            ext = f"{protocol}://{ext}.schema.org"
         row["isPartOf"] = ext
         if term.termType == sdoterm.SdoTermType.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
@@ -538,11 +539,11 @@ def jsoncounts(page: str) -> str:
 
 
 def jsonpcounts(page: str) -> str:
-    content: str = """
-    COUNTS = '%s';
+    content: str = f"""
+    COUNTS = '{jsoncounts(page)}';
 
     insertschemacounts ( COUNTS );
-    """ % jsoncounts(page)
+    """
     return content
 
 
@@ -566,7 +567,7 @@ FILELIST: Dict[str, Tuple[Any, List[str]]] = {
             "docs/jsonldcontext.jsonld",
             "docs/jsonldcontext.json",
             "docs/jsonldcontext.json.txt",
-            "releases/%s/schemaorgcontext.jsonld" % schemaversion.getVersion(),
+            f"releases/{schemaversion.getVersion()}/schemaorgcontext.jsonld",
         ],
     ),
     "Tree": (jsonldtree, ["docs/tree.jsonld"]),
@@ -576,12 +577,12 @@ FILELIST: Dict[str, Tuple[Any, List[str]]] = {
         owl,
         [
             "docs/schemaorg.owl",
-            "releases/%s/schemaorg.owl" % schemaversion.getVersion(),
+            f"releases/{schemaversion.getVersion()}/schemaorg.owl",
         ],
     ),
     "Httpequivs": (
         httpequivs,
-        ["releases/%s/httpequivs.ttl" % schemaversion.getVersion()],
+        [f"releases/{schemaversion.getVersion()}/httpequivs.ttl"],
     ),
     "Sitemap": (sitemap, ["docs/sitemap.xml"]),
     "RDFExports": (exportrdf, [""]),
@@ -594,7 +595,7 @@ FILELIST: Dict[str, Tuple[Any, List[str]]] = {
     "CSVExports": (exportcsv, [""]),
     "Examples": (
         examples,
-        ["releases/%s/schemaorg-all-examples.txt" % schemaversion.getVersion()],
+        [f"releases/{schemaversion.getVersion()}/schemaorg-all-examples.txt"],
     ),
 }
 
@@ -626,7 +627,7 @@ def buildFiles(files: List[str]) -> None:
                             with open(fn, "w", encoding="utf8") as handle:
                                 handle.write(str(content))
             else:
-                log.warning("Unknown files name: %s" % p)
+                log.warning(f"Unknown files name: {p}")
 
 
 if __name__ == "__main__":

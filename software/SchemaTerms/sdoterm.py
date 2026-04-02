@@ -141,7 +141,7 @@ class SdoTermSequence(object):
         return iter(self.ids)
 
     def __str__(self) -> str:
-        return '[' + ','.join(map(str, self.ids)) + ']'
+        return f'[{" ,".join(map(str, self.ids))}]'
 
 
 class SdoTerm(object):
@@ -195,11 +195,7 @@ class SdoTerm(object):
 
 
     def __str__(self) -> str:
-        return ("<%s: '%s' expansion depth: %s >") % (
-            self.__class__.__name__.upper(),
-            self.id,
-            self._expansion_depth,
-        )
+        return f"<{self.__class__.__name__.upper()}: '{self.id}' expansion depth: {self._expansion_depth} >"
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, SdoTerm):

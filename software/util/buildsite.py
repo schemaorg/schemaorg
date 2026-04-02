@@ -217,13 +217,9 @@ def initdir(output_dir: str, handler_path: str) -> None:
         gcloud_files: List[str] = sorted(glob.glob("software/gcloud/*.yaml"))
         for path in gcloud_files:
             shutil.copy(path, gdir)
-        block.append("copied %d files" % len(gcloud_files))
+        block.append(f"copied {len(gcloud_files)} files")
 
-    message: str = "Creating %s from %s for version: %s" % (
-        handler_path,
-        schemaglobals.HANDLER_TEMPLATE,
-        schemaversion.getVersion(),
-    )
+    message: str = f"Creating {handler_path} from {schemaglobals.HANDLER_TEMPLATE} for version: {schemaversion.getVersion()}"
     with pretty_logger.BlockLog(logger=log, message=message):
         with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
             template_data: str = template_file.read()

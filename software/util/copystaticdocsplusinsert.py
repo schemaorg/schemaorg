@@ -10,7 +10,7 @@ import os
 import glob
 import re
 import logging
-from typing import Dict, Generator, Tuple, Optional
+from typing import Dict, Generator, Tuple, Optional, List
 
 
 # Import schema.org libraries
@@ -61,7 +61,7 @@ class Replacer:
         if re.search("<!-- #### Static Doc Insert", docdata, re.IGNORECASE):
             for sub, insert_content in self.inserts.items():
                 subpattern: re.Pattern = re.compile(
-                    "<!-- #### Static Doc Insert %s .* -->" % sub, re.IGNORECASE
+                    f"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE
                 )
                 docdata = subpattern.sub(insert_content, docdata)
 
@@ -81,7 +81,7 @@ def htmlinserts(destdir: str) -> None:
     replacer: Replacer = Replacer(destdir=destdir)
     for doc in docs:
         replacer.insertcopy(doc)
-    log.info("Added to %d files" % len(docs))
+    log.info(f"Added to {len(docs)} files")
 
 
 def copyFiles(srcdir: str, destdir: str) -> None:

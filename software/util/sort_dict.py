@@ -55,7 +55,7 @@ def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
     # Filter out empty lines and strip trailing whitespace from each line
     lines: List[str] = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
 
-    return "\n".join(lines) + "\n"
+    return f'{"\n".join(lines)}\n'
 
 
 def universal_sort_key(item: Tuple[str, Any]) -> Tuple[int, str]:

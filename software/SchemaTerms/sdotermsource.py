@@ -218,13 +218,13 @@ def _loadOneSourceGraph(file_path: str) -> rdflib.Graph:
     elif extension == ".ttl":
         file_format = "turtle"
     else:
-        raise NotImplementedError("Unsupported file format: %s" % extension)
+        raise NotImplementedError(f"Unsupported file format: {extension}")
     try:
         graph = rdflib.Graph()
         graph.parse(source=file_path, format=file_format)
         return graph
     except Exception as e:
-        message = "Error parsing source file '%s': %s" % (file_path, e)
+        message = f"Error parsing source file '{file_path}': {e}"
         log.warning(message)
         raise IOError(message)
 
@@ -357,7 +357,7 @@ class SdoTermSource:
         cls.TERMS[uri] = self.termdesc
 
     def __str__(self) -> str:
-        return ("<SdoTermSource: %s '%s'>") % (self.ttype, self.id)
+        return f"<SdoTermSource: {self.ttype} '{self.id}'>"
 
     @property
     def id(self) -> str:
@@ -435,8 +435,7 @@ class SdoTermSource:
 
             if len(tmp) > 1:
                 log.debug(
-                    "Warning '%s' supersededBy more than 1 term (%d)"
-                    % (self.id, len(tmp))
+                    f"Warning '{self.id}' supersededBy more than 1 term ({len(tmp)})"
                 )
             if len(tmp):
                 self.supersededBy = tmp[0]
@@ -1047,19 +1046,19 @@ class SdoTermSource:
             typsel = ""
             extra = ""
             if ttype == sdoterm.SdoTermType.TYPE:
-                typsel = "a <%s>;" % rdflib.RDFS.Class
+                typsel = f"a <{rdflib.RDFS.Class}>;"
             elif ttype == sdoterm.SdoTermType.PROPERTY:
-                typsel = "a <%s>;" % rdflib.RDF.Property
+                typsel = f"a <{rdflib.RDF.Property}>;"
             elif ttype == sdoterm.SdoTermType.DATATYPE:
-                typsel = "a <%s>;" % DATATYPEURI
+                typsel = f"a <{DATATYPEURI}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATION:
-                typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
+                typsel = f"rdfs:subClassOf* <{ENUMERATIONURI}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
+                extra = f"?type rdfs:subClassOf*  <{ENUMERATIONURI}>."
             elif not ttype:
                 typsel = ""
             else:
-                log.debug("Invalid type value '%s'" % ttype)
+                log.debug(f"Invalid type value '{ttype}'")
 
             laysel = ""
             fil = ""
@@ -1068,35 +1067,35 @@ class SdoTermSource:
                 if layer == "core":
                     fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
                 else:
-                    laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
+                    laysel = f"schema:isPartOf <{uriFromLayer(layer)}>;"
 
             if suppressSourceLinks:
                 suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
 
-            query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+            query = f"""SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {{
                  ?term a ?type;
-                    %s
-                    %s
+                    {typsel}
+                    {laysel}
                     rdfs:label ?label.
-                %s
-                OPTIONAL {
+                {extra}
+                OPTIONAL {{
                     ?term schema:isPartOf ?layer.
-                }
-                OPTIONAL {
+                }}
+                OPTIONAL {{
                     ?term rdfs:subClassOf ?sup.
-                }
-                OPTIONAL {
+                }}
+                OPTIONAL {{
                     ?term rdfs:subPropertyOf ?sup.
-                }
-                %s
-                %s
-            }
+                }}
+                {fil}
+                {suppress}
+            }}
             ORDER BY ?term
-            """ % (typsel, laysel, extra, fil, suppress)
+            """
 
-            log.debug("query %s", query)
+            log.debug(f"query {query}")
             res = cls.query(query)
-            log.debug("res %d", len(res))
+            log.debug(f"res {len(res)}")
 
             terms: List[Union[str, sdoterm.SdoTerm]] = []
             if expanded:
@@ -1115,25 +1114,22 @@ class SdoTermSource:
 
     @classmethod
     def getAcknowledgedTerms(cls, ack: str) -> Sequence[sdoterm.SdoTerm]:
-        query = (
-            """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+        query = f"""SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {{
              ?term a ?type;
-                schema:contributor <%s>;
+                schema:contributor <{ack}>;
                 rdfs:label ?label.
-                OPTIONAL {
+                OPTIONAL {{
                     ?term schema:isPartOf ?layer.
-                }
-                OPTIONAL {
+                }}
+                OPTIONAL {{
                     ?term rdfs:subClassOf ?sup.
-                }
-                OPTIONAL {
+                }}
+                OPTIONAL {{
                     ?term rdfs:subPropertyOf ?sup.
-                }
-            }
+                }}
+            }}
             ORDER BY ?term
             """
-            % ack
-        )
         res = cls.query(query)
         terms = cls.termsFromResults(res)
         return terms
@@ -1184,19 +1180,18 @@ class SdoTermSource:
             else:
                 cls.LOADEDDEFAULT = True
                 log.info(
-                    "SdoTermSource.loadSourceGraph() loading from default files found in globs: %s",
-                    ",".join(DEFTRIPLESFILESGLOB),
+                    f"SdoTermSource.loadSourceGraph() loading from default files found in globs: {','.join(DEFTRIPLESFILESGLOB)}",
                 )
                 for g in DEFTRIPLESFILESGLOB:
                     load_files.extend(sorted(glob.glob(g)))
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
-            log.info("SdoTermSource.loadSourceGraph() loading from file: %s", files)
+            log.info(f"SdoTermSource.loadSourceGraph() loading from file: {files}")
             load_files = [files]
         else:
             cls.LOADEDDEFAULT = False
             log.info(
-                "SdoTermSource.loadSourceGraph() loading from %d files", len(files)
+                f"SdoTermSource.loadSourceGraph() loading from {len(files)} files"
             )
             load_files = list(files)
 
@@ -1208,9 +1203,7 @@ class SdoTermSource:
         for file_path in load_files:
             cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
         log.info(
-            "Done: Loaded %s triples - %s terms",
-            len(cls.sourceGraph()),
-            len(cls.getAllTerms()),
+            f"Done: Loaded {len(cls.sourceGraph())} triples - {len(cls.getAllTerms())} terms",
         )
 
     @classmethod
@@ -1224,9 +1217,9 @@ class SdoTermSource:
     def setVocabUri(uri: Optional[str] = None) -> None:
         global VOCABURI, DATATYPEURI, ENUMERATIONURI, THINGURI
         VOCABURI = uri or DEFVOCABURI
-        DATATYPEURI = rdflib.URIRef(VOCABURI + "DataType")
-        ENUMERATIONURI = rdflib.URIRef(VOCABURI + "Enumeration")
-        THINGURI = rdflib.URIRef(VOCABURI + "Thing")
+        DATATYPEURI = rdflib.URIRef(f"{VOCABURI}DataType")
+        ENUMERATIONURI = rdflib.URIRef(f"{VOCABURI}Enumeration")
+        THINGURI = rdflib.URIRef(f"{VOCABURI}Thing")
 
     @classmethod
     def vocabUri(cls) -> str:
@@ -1247,82 +1240,61 @@ class SdoTermSource:
     def termCounts(cls) -> Dict[Union[sdoterm.SdoTermType, str], int]:
         global VOCABURI
         if not cls.TERMCOUNTS:
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s a ?type .
-                FILTER (strStarts(str(?s),"%s"))
-            } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+            }} """
             res = cls.query(count_query)
             allterms = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s a rdfs:Class .
-                FILTER (strStarts(str(?s),"%s"))
-            } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+            }} """
             res = cls.query(count_query)
             classes = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s a rdf:Property .
-                FILTER (strStarts(str(?s),"%s"))
-            } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+            }} """
             res = cls.query(count_query)
             properties = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s rdfs:subClassOf* schema:Enumeration .
-                FILTER (strStarts(str(?s),"%s"))
-            } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+            }} """
             res = cls.query(count_query)
             enums = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s a ?type .
                 ?type rdfs:subClassOf* schema:Enumeration .
-                FILTER (strStarts(str(?s),"%s"))
-            } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+            }} """
             res = cls.query(count_query)
             enumvals = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
-                {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
+                {{
                     ?s a schema:DataType .
-                }UNION{
+                }}UNION{{
                     ?s rdf:type* schema:DataType .
-                }UNION{
+                }}UNION{{
                     ?s rdfs:subClassOf* ?x .
                     ?x a schema:DataType .
-                }
-                FILTER (strStarts(str(?s),"%s"))
-           } """
-                % VOCABURI
-            )
+                }}
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+           }} """
             res = cls.query(count_query)
             datatypes = int(res[0][0])
 
-            count_query = (
-                """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+            count_query = f"""SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{
                 ?s rdfs:subClassOf* ?x .
                 ?x a schema:DataType .
-                FILTER (strStarts(str(?s),"%s"))
-           } """
-                % VOCABURI
-            )
+                FILTER (strStarts(str(?s),"{VOCABURI}"))
+           }} """
             res = cls.query(count_query)
             datatypeclasses = int(res[0][0])
 
@@ -1383,24 +1355,24 @@ class SdoTermSource:
 
         if term and refresh:
             del cls.TERMS[fullId]
-            log.info("Term '%s' found and removed" % termId)
+            log.info(f"Term '{termId}' found and removed")
             term = None
 
-        query = """
-        SELECT ?term ?type ?label ?layer ?sup WHERE {
-             %s a ?type;
+        query = f"""
+        SELECT ?term ?type ?label ?layer ?sup WHERE {{
+             {uriWrap(fullId)} a ?type;
                 rdfs:label ?label.
-            OPTIONAL {
-                %s schema:isPartOf ?layer.
-            }
-            OPTIONAL {
-                %s rdfs:subClassOf ?sup.
-            }
-            OPTIONAL {
-                %s rdfs:subPropertyOf ?sup.
-            }
+            OPTIONAL {{
+                {uriWrap(fullId)} schema:isPartOf ?layer.
+            }}
+            OPTIONAL {{
+                {uriWrap(fullId)} rdfs:subClassOf ?sup.
+            }}
+            OPTIONAL {{
+                {uriWrap(fullId)} rdfs:subPropertyOf ?sup.
+            }}
 
-        }""" % (uriWrap(fullId), uriWrap(fullId), uriWrap(fullId), uriWrap(fullId))
+        }}"""
 
         if not term:
             res = cls.query(query)
@@ -1410,7 +1382,7 @@ class SdoTermSource:
                 # Create a new TermSource
                 term = cls(fullId).getTermdesc()
             else:
-                log.warning("No definition of term %s" % fullId)
+                log.warning(f"No definition of term {fullId}")
 
         if term and expanded and not term.expanded():
             exterm = cls.EXPANDEDTERMS.get(fullId, None)
@@ -1426,17 +1398,17 @@ def toFullId(termId: str) -> str:
     global VOCABURI
     assert VOCABURI
     if not ":" in termId:  # Includes full path or namespaces
-        return VOCABURI + termId
+        return f"{VOCABURI}{termId}"
 
     if termId.startswith("http"):
         return termId
     prefix, id_component = termId.split(":")
-    return "%s%s" % (uriForPrefix(prefix), id_component)
+    return f"{uriForPrefix(prefix)}{id_component}"
 
 
 def uriWrap(identity_str: str) -> str:
     if identity_str.startswith("http://") or identity_str.startswith("https://"):
-        return "<%s>" % identity_str
+        return f"<{identity_str}>"
     return identity_str
 
 
@@ -1453,7 +1425,7 @@ def layerFromUri(uri: str) -> Optional[str]:
             if voc.endswith("/") or voc.endswith("#"):
                 voc = voc[: len(voc) - 1]
             prto, root = getProtoAndRoot(voc)
-            LAYERPATTERN = r"^%s([\w]*)\.%s" % (prto, root)
+            LAYERPATTERN = rf"^{prto}([\w]*)\.{root}"
 
         if LAYERPATTERN:
             m = re.search(LAYERPATTERN, str(uri))
@@ -1471,7 +1443,7 @@ def uriFromLayer(layer: Optional[str] = None) -> str:
     if not layer:
         return voc
     prto, root = getProtoAndRoot(voc)
-    return "%s%s.%s" % (prto, layer, root)
+    return f"{prto}{layer}.{root}"
 
 
 ProtoAndRoot = collections.namedtuple("ProtoAndRoot", ["proto", "root"])
@@ -1519,5 +1491,5 @@ def prefixedIdFromUri(uri: str) -> str:
         base = os.path.basename(uri)
         if "#" in base:
             base = base.split("#")[1]
-        return "%s:%s" % (prefix, base)
+        return f"{prefix}:{base}"
     return uri
