@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
-
-"""Common place for all globals to avoid circular dependencies."""
+from pathlib import Path
+from typing import List
 
 SITENAME: str = "Schema.org"
 BUILDOPTS: List[str] = []
@@ -31,4 +28,4 @@ def getOutputDir() -> str:
 
 
 def getDocsOutputDir() -> str:
-    return os.path.join(OUTPUTDIR, "docs")
+    return str(Path(OUTPUTDIR) / "docs")

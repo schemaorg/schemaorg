@@ -6,8 +6,7 @@ import logging
 import os
 import sys
 import time
-import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable, Type
+from typing import Any, Dict, Optional, List, Type
 
 
 class PrettyLogFormatter(logging.Formatter):
@@ -25,28 +24,29 @@ class PrettyLogFormatter(logging.Formatter):
         fmt: str = "%(levelname)s %(name)s: %(message)s"
         if shard is not None:
             fmt = f"%(levelname)s ({shard}) %(name)s: %(message)s"
-        logging.Formatter.__init__(self, fmt=fmt)
+        super().__init__(fmt=fmt)
         self.use_color: bool = use_color
 
     @classmethod
     def _computeLevelName(cls, record: logging.LogRecord) -> str:
-        lower_msg: str = record.getMessage().casefold()
-        if lower_msg == "done" or lower_msg[:5] == "done:":
+        msg: str = record.getMessage().casefold()
+        if msg == "done" or msg.startswith("done:"):
             return f"{colorama.Fore.LIGHTGREEN_EX}{record.levelname}{colorama.Fore.RESET}"
-        if record.levelname in cls.COLORS:
-            return f"{cls.COLORS[record.levelname]}{record.levelname}{colorama.Fore.RESET}"
+        color: Optional[str] = cls.COLORS.get(record.levelname)
+        if color:
+            return f"{color}{record.levelname}{colorama.Fore.RESET}"
         return record.levelname
 
     @classmethod
     def _computeName(cls, record: logging.LogRecord) -> str:
-        components: List[str] = record.name.split(".")
-        return f"{colorama.Style.DIM}{components[-1]}{colorama.Style.RESET_ALL}"
+        name: str = record.name.split(".")[-1]
+        return f"{colorama.Style.DIM}{name}{colorama.Style.RESET_ALL}"
 
     def format(self, record: logging.LogRecord) -> str:
         if self.use_color:
             record.levelname = self._computeLevelName(record)
             record.name = self._computeName(record)
-        return str(logging.Formatter.format(self, record))
+        return super().format(record)
 
 
 class BlockLog:
@@ -69,10 +69,10 @@ class BlockLog:
         if self.timing and self.start_time is not None:
             self.elapsed = time.perf_counter() - self.start_time
 
-        if isinstance(exc_value, Exception):
+        if exc_value:
             self.logger.error(f"Failed: {self.message}")
         else:
-            if self.elapsed:
+            if self.elapsed is not None:
                 self.logger.info(
                     f"Done: {self.message} in {self.elapsed:.2f} seconds",
                 )
@@ -84,10 +84,10 @@ class BlockLog:
 
 
 def MakeRootLogPretty(shard: Optional[int] = None) -> None:
-    """Makes the root log pretty if stdandard output is a terminal."""
+    """Makes the root log pretty if standard output is a terminal."""
     handler: logging.StreamHandler = logging.StreamHandler(sys.stdout)
     formatter: PrettyLogFormatter = PrettyLogFormatter(
-        use_color=os.isatty(sys.stdout.fileno()), shard=shard
+        use_color=sys.stdout.isatty(), shard=shard
     )
     handler.setFormatter(formatter)
 

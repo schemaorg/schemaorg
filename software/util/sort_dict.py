@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from typing import Any, Tuple, List, Union, Dict
+from typing import Any, Tuple, List, Union, Dict, Optional
 from xml.dom import minidom
 from xml.etree import ElementTree
 
@@ -23,12 +23,12 @@ def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
 
     def get_key(elem: ElementTree.Element) -> Tuple[str, str, str]:
         # We look for rdf:about or about attribute
-        about: str = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
+        about: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
         if about:
             return (about, "", "")
         # Fallback to tag name (primary) and resource or string representation (secondary)
         tag: str = elem.tag
-        resource: str = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
+        resource: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
         if resource:
             return (tag, resource, "")
         return (tag, "", ElementTree.tostring(elem, encoding="unicode"))

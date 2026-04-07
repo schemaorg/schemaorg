@@ -11,7 +11,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import glob
 import re
-from typing import Any, Dict, List, Optional, Tuple, Union, Set
+from typing import Any, Dict, List, Optional, Tuple, Union, Set, FrozenSet
 
 for path in [
     os.getcwd(),
@@ -58,8 +58,8 @@ DOMAININC: URIRef = URIRef(f"{VOCABURI}domainIncludes")
 RANGEINC: URIRef = URIRef(f"{VOCABURI}rangeIncludes")
 INVERSEOF: URIRef = URIRef(f"{VOCABURI}inverseOf")
 SUPERSEDEDBY: URIRef = URIRef(f"{VOCABURI}supersededBy")
-DEFAULTRANGES: Set[str] = frozenset([f"{VOCABURI}Text", f"{VOCABURI}URL", f"{VOCABURI}Role"])
-DATATYPES: Set[str] = frozenset(
+DEFAULTRANGES: FrozenSet[str] = frozenset([f"{VOCABURI}Text", f"{VOCABURI}URL", f"{VOCABURI}Role"])
+DATATYPES: FrozenSet[str] = frozenset(
     [
         f"{VOCABURI}Boolean",
         f"{VOCABURI}Date",
@@ -100,7 +100,7 @@ class OwlBuild:
             self.dom.set(k, v)
 
         version: str = schemaversion.getVersion()
-        version_date: str = schemaversion.getCurrentVersionDate()
+        version_date: Optional[str] = schemaversion.getCurrentVersionDate()
         comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")

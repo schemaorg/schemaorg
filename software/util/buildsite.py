@@ -3,7 +3,6 @@
 
 """Program that builds the whole schema.org website."""
 
-# Import standard python libraries
 import argparse
 import contextlib
 import datetime
@@ -13,15 +12,13 @@ import shutil
 import subprocess
 import sys
 import logging
-import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Generator
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Generator, Type
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
+if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
-
 import software.util.buildfiles as buildfiles
 import software.util.buildocspages as buildocspages
 import software.util.buildtermpages as buildtermpages
@@ -31,7 +28,6 @@ import software.util.runtests as runtests_lib
 import software.util.schemaglobals as schemaglobals
 import software.util.schemaversion as schemaversion
 import software.util.pretty_logger as pretty_logger
-
 import software.SchemaExamples.schemaexamples as schemaexamples
 import software.SchemaExamples.utils.assign_example_ids
 import software.SchemaTerms.localmarkdown
@@ -45,7 +41,7 @@ args: argparse.Namespace
 
 def initialize() -> argparse.Namespace:
     """Initialize various systems, returns the args object"""
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "-a",
         "--autobuild",
@@ -123,23 +119,28 @@ def initialize() -> argparse.Namespace:
         help="run the post generation ruby tests",
     )
     parser.add_argument(
+        "-release",
         "--release",
         default=False,
         action="store_true",
         help="create page for term (repeatable) - ALL = all terms",
     )
 
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
 
+    op: List[str]
     for op in args.buildoption:
         schemaglobals.BUILDOPTS.extend(op)
 
+    ter: List[str]
     for ter in args.terms:
         schemaglobals.TERMS.extend(ter)
 
+    pgs: List[str]
     for pgs in args.docspages:
         schemaglobals.PAGES.extend(pgs)
 
+    fls: List[str]
     for fls in args.files:
         schemaglobals.FILES.extend(fls)
 
@@ -151,9 +152,6 @@ def initialize() -> argparse.Namespace:
         schemaglobals.PAGES = ["ALL"]
         schemaglobals.FILES = ["ALL"]
 
-    ###################################################
-    # MARKDOWN INITIALISE
-    ###################################################
     software.SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
     software.SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
     software.SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath("")
@@ -165,19 +163,19 @@ def initialize() -> argparse.Namespace:
 
 def clear() -> None:
     if args.clearfirst or args.autobuild:
-        log.info(f"Clearing {schemaglobals.OUTPUTDIR} directory")
-        if os.path.isdir(schemaglobals.OUTPUTDIR):
-            for root, dirs, files in os.walk(schemaglobals.OUTPUTDIR):
-                for f in files:
-                    if f != ".gitkeep":
-                        os.unlink(os.path.join(root, f))
-                for d in dirs:
-                    shutil.rmtree(os.path.join(root, d))
+        output_dir: Path = Path(schemaglobals.OUTPUTDIR)
+        log.info(f"Clearing {output_dir} directory")
+        if output_dir.is_dir():
+            item: Path
+            for item in output_dir.iterdir():
+                if item.name == ".gitkeep":
+                    continue
+                if item.is_dir():
+                    shutil.rmtree(item)
+                else:
+                    item.unlink()
 
 
-###################################################
-# RUN TESTS
-###################################################
 def runtests() -> None:
     if args.runtests or args.autobuild:
         with pretty_logger.BlockLog(
@@ -189,48 +187,38 @@ def runtests() -> None:
                 sys.exit(errorcount)
 
 
-###################################################
-# INITIALISE Directory
-###################################################
-
-
-def initdir(output_dir: str, handler_path: str) -> None:
+def initdir(output_dir_str: str, handler_path: str) -> None:
+    output_dir: Path = Path(output_dir_str)
     log.info(f'Building site in "{output_dir}" directory')
-    fileutils.createMissingDir(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     clear()
-    fileutils.createMissingDir(os.path.join(output_dir, "docs"))
-    fileutils.createMissingDir(os.path.join(output_dir, "docs/contributors"))
-    fileutils.createMissingDir(
-        os.path.join(output_dir, "empty")
-    )  # For apppengine 404 handler
-    fileutils.createMissingDir(
-        os.path.join(output_dir, "releases", schemaversion.getVersion())
-    )
+    
+    (output_dir / "docs" / "contributors").mkdir(parents=True, exist_ok=True)
+    (output_dir / "empty").mkdir(parents=True, exist_ok=True)
+    (output_dir / "releases" / schemaversion.getVersion()).mkdir(parents=True, exist_ok=True)
 
-    gdir: str = os.path.join(output_dir, "gcloud")
-    fileutils.createMissingDir(gdir)
+    gdir: Path = output_dir / "gcloud"
+    gdir.mkdir(parents=True, exist_ok=True)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
-        copystaticdocsplusinsert.copyFiles("./docs", "./software/site/docs")
+        copystaticdocsplusinsert.copyFiles("./docs", str(output_dir / "docs"))
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files: List[str] = sorted(glob.glob("software/gcloud/*.yaml"))
+        gcloud_files: List[Path] = sorted(Path("software/gcloud").glob("*.yaml"))
+        path: Path
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    message: str = f"Creating {handler_path} from {schemaglobals.HANDLER_TEMPLATE} for version: {schemaversion.getVersion()}"
+    version: str = schemaversion.getVersion()
+    message: str = f"Creating {handler_path} from {schemaglobals.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
-        with open(os.path.join(gdir, schemaglobals.HANDLER_TEMPLATE)) as template_file:
-            template_data: str = template_file.read()
-        handler_data: str = template_data.replace("{{ver}}", schemaversion.getVersion())
-        with open(os.path.join(gdir, handler_path), mode="w") as yaml_file:
-            yaml_file.write(handler_data)
+        template_file: Path = gdir / schemaglobals.HANDLER_TEMPLATE
+        template_data: str = template_file.read_text()
+        handler_data: str = template_data.replace("{{ver}}", version)
+        (gdir / handler_path).write_text(handler_data)
 
 
-###################################################
-# TERMS SOURCE LOAD
-###################################################
 LOADEDTERMS: bool = False
 
 
@@ -247,11 +235,8 @@ def loadTerms() -> None:
             sdocollaborators.collaborator.loadContributors()
 
 
-###################################################
-# BUILD INDIVIDUAL TERM PAGES
-###################################################
 def processTerms(terms: Iterable[str]) -> None:
-    if any(True for _ in terms):
+    if any(terms):
         with pretty_logger.BlockLog(
             logger=log, message="Building term definition pages", timing=True
         ):
@@ -260,11 +245,8 @@ def processTerms(terms: Iterable[str]) -> None:
             buildtermpages.buildTerms(terms)
 
 
-###################################################
-# BUILD DYNAMIC DOCS PAGES
-###################################################
 def processDocs(pages: Iterable[str]) -> None:
-    if any(True for _ in pages):
+    if any(pages):
         with pretty_logger.BlockLog(
             logger=log, message="Building dynamic documentation pages", timing=True
         ):
@@ -272,34 +254,26 @@ def processDocs(pages: Iterable[str]) -> None:
             buildocspages.buildDocs(pages)
 
 
-###################################################
-# BUILD FILES
-###################################################
 def processFiles(files: Iterable[str]) -> None:
-    if any(True for _ in files):
+    if any(files):
         with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
             loadTerms()
             schemaexamples.SchemaExamples.loaded()
             buildfiles.buildFiles(files)
 
 
-###################################################
-# Run ruby tests
-###################################################
-
-
 @contextlib.contextmanager
-def tempory_symlink(src_dir: str, dst_dir: str) -> Generator[None, None, None]:
+def tempory_symlink(src_dir: Path, dst_dir: Path) -> Generator[None, None, None]:
     """Context manager to create a temporary directory symlink and clean it up on exit."""
     try:
         log.info(f"Setting up {dst_dir} from {src_dir}")
-        if os.path.islink(dst_dir):
-            os.unlink(dst_dir)
-        os.symlink(src_dir, dst_dir, target_is_directory=True)
+        if dst_dir.is_symlink():
+            dst_dir.unlink()
+        dst_dir.symlink_to(src_dir, target_is_directory=True)
         yield
     finally:
         log.info(f"Cleaning up {dst_dir}")
-        os.unlink(dst_dir)
+        dst_dir.unlink()
 
 
 RUBY_INSTALLATION_MESSAGE: str = """
@@ -310,7 +284,7 @@ bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 """
 
 
-def runRubyTests(release_dir: str) -> None:
+def runRubyTests(release_dir_str: str) -> None:
     """The ruby tests are designed to run in a release sub-directory.
 
     Now generally, this script does not build a full release,
@@ -320,54 +294,77 @@ def runRubyTests(release_dir: str) -> None:
     :param release_dir: the root release directory.
     """
     with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
-        cmd: Tuple[str, ...] = ("bundle", "check", "--gemfile=software/scripts/Gemfile")
+        cmd: List[str] = ["bundle", "check", "--gemfile=software/scripts/Gemfile"]
         status: int = subprocess.call(cmd)
         if status:
             log.error(RUBY_INSTALLATION_MESSAGE)
-            exit(status)
+            sys.exit(status)
+        
         version: str = schemaversion.getVersion()
-        src_dir: str = os.path.join(os.getcwd(), release_dir, version)
-        # Check there is something in the source directory.
-        # This always be the case, as the rubytest flag triggers the autobuild flag.
-        root_json_path: str = os.path.join(src_dir, "schemaorgcontext.jsonld")
-        if not os.path.exists(root_json_path):
+        src_dir: Path = Path.cwd() / release_dir_str / version
+        root_json_path: Path = src_dir / "schemaorgcontext.jsonld"
+        if not root_json_path.exists():
             log.error(
                 f"File {root_json_path} not found. Ruby tests require a fully built release."
             )
-            exit(os.EX_NOINPUT)
-        # Display modification time to the user.
-        timestamp: float = os.path.getmtime(root_json_path)
+            sys.exit(os.EX_NOINPUT)
+            
+        timestamp: float = root_json_path.stat().st_mtime
         timestamp_str: str = datetime.datetime.fromtimestamp(timestamp).strftime(
             "%Y-%m-%d %H:%M:%S"
         )
         log.info(f"LATEST Release Build time: {timestamp_str}")
-        dst_dir: str = os.path.join(os.getcwd(), release_dir, "LATEST")
+        dst_dir: Path = Path.cwd() / release_dir_str / "LATEST"
         with tempory_symlink(src_dir=src_dir, dst_dir=dst_dir):
             cmd_list: List[str] = ["bundle", "exec", "rake"]
-            cwd: str = os.path.join(os.getcwd(), "software/scripts")
+            cwd: Path = Path.cwd() / "software/scripts"
             log.info("Running ruby tests")
-            status = subprocess.call(cmd_list, cwd=cwd)
+            status = subprocess.call(cmd_list, cwd=str(cwd))
             if status:
                 log.error("Ruby tests failed")
                 sys.exit(status)
 
 
-###################################################
-# COPY CREATED RELEASE FILES into Data area
-###################################################
-
-
 def copyReleaseFiles(release_dir: str) -> None:
     version: str = schemaversion.getVersion()
-    srcdir: str = os.path.join(os.getcwd(), "data/releases/", version)
-    destdir: str = os.path.join(os.getcwd(), release_dir, version)
+    srcdir: Path = Path.cwd() / "data" / "releases" / version
+    destdir: Path = Path.cwd() / release_dir / version
     with pretty_logger.BlockLog(
         message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
-        fileutils.mycopytree(srcdir, destdir)
-        cmd: List[str] = ["git", "add", destdir]
+        fileutils.mycopytree(str(srcdir), str(destdir))
+        cmd: List[str] = ["git", "add", str(destdir)]
         subprocess.check_call(cmd)
+
+
+if __name__ == "__main__":
+    args = initialize()
+
+    software.CheckWorkingDirectory()
+    log.info(
+        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
+    )
+    if args.rubytests:
+        args.autobuild = True
+    if args.release:
+        args.autobuild = True
+        log.info("BUILDING RELEASE VERSION")
+    if args.examplesnum or args.release or args.autobuild:
+        with pretty_logger.BlockLog(
+            message="Checking Examples for assigned identifiers", logger=log
+        ):
+            software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
+    initdir(output_dir_str=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
+    runtests()
+    processTerms(terms=schemaglobals.TERMS)
+    processDocs(pages=schemaglobals.PAGES)
+    processFiles(files=schemaglobals.FILES)
+
+    if args.release:
+        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+    if args.rubytests:
+        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
 
 
 ###################################################
@@ -392,7 +389,7 @@ if __name__ == "__main__":
             message="Checking Examples for assigned identifiers", logger=log
         ):
             software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-    initdir(output_dir=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
+    initdir(output_dir_str=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
     processTerms(terms=schemaglobals.TERMS)
     processDocs(pages=schemaglobals.PAGES)
