@@ -78,11 +78,10 @@ Testing Locally
 
 Locally one can run tests that assert that the schema is self-consistent, and that examples actually satisfy the schema defined in RDF:
 
-    software/util/buildsite.py -a -r --rubytests
+    software/util/buildsite.py -a -r --shacltests
 
 This will auto-build the entire site (`-a`), run the tests (`-r`) as well as
-validate the examples (`--rubytests`). If you get some Ruby errors when testing,
-please check the installation steps in the `Build Notes` section below.
+validate the examples (`--shacltests`).
 
 
 Deploying to GCloud
@@ -191,14 +190,9 @@ Site should be accessible via:
 
   http://{`public ip of Google/AWS instance`}:8080/
 
-**Ruby Tests Dependencies**
+**SHACL Tests**
 
-To run all the tests, you will need Ruby for the validation of examples:
- * `sudo apt-get install ruby-bundler ruby-dev`
- * `cd schemaorg/software/scripts`
- * `sudo bundle install`
-
- You can then use the `--rubytests` flags to the `buildsite.py` script.
+You can use the `--shacltests` flag to the `buildsite.py` script to run the Python SHACL tests against the examples.
 
 
 **To enable deployment to a gcloud appengine instance**
