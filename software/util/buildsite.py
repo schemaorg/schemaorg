@@ -147,7 +147,7 @@ def initialize() -> argparse.Namespace:
     if args.output:
         schemaglobals.OUTPUTDIR = args.output
 
-    if args.autobuild or args.release:
+    if args.autobuild or args.release or args.rubytests:
         schemaglobals.TERMS = ["ALL"]
         schemaglobals.PAGES = ["ALL"]
         schemaglobals.FILES = ["ALL"]
@@ -192,7 +192,7 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     log.info(f'Building site in "{output_dir}" directory')
     output_dir.mkdir(parents=True, exist_ok=True)
     clear()
-    
+
     (output_dir / "docs" / "contributors").mkdir(parents=True, exist_ok=True)
     (output_dir / "empty").mkdir(parents=True, exist_ok=True)
     (output_dir / "releases" / schemaversion.getVersion()).mkdir(parents=True, exist_ok=True)
@@ -291,7 +291,7 @@ def runRubyTests(release_dir_str: str) -> None:
     instead this test creates a symbolic link to the release directory,
     runs the ruby tests and then deletes the symbolic link.
 
-    :param release_dir: the root release directory.
+    :param release_dir_str: the root release directory.
     """
     with pretty_logger.BlockLog(logger=log, message="Running ruby tests"):
         cmd: List[str] = ["bundle", "check", "--gemfile=software/scripts/Gemfile"]
@@ -299,7 +299,7 @@ def runRubyTests(release_dir_str: str) -> None:
         if status:
             log.error(RUBY_INSTALLATION_MESSAGE)
             sys.exit(status)
-        
+
         version: str = schemaversion.getVersion()
         src_dir: Path = Path.cwd() / release_dir_str / version
         root_json_path: Path = src_dir / "schemaorgcontext.jsonld"
@@ -308,7 +308,7 @@ def runRubyTests(release_dir_str: str) -> None:
                 f"File {root_json_path} not found. Ruby tests require a fully built release."
             )
             sys.exit(os.EX_NOINPUT)
-            
+
         timestamp: float = root_json_path.stat().st_mtime
         timestamp_str: str = datetime.datetime.fromtimestamp(timestamp).strftime(
             "%Y-%m-%d %H:%M:%S"
@@ -323,6 +323,22 @@ def runRubyTests(release_dir_str: str) -> None:
             if status:
                 log.error("Ruby tests failed")
                 sys.exit(status)
+
+
+def runShaclTests() -> None:
+    """Run the SHACL validation tests on the generated examples."""
+    with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
+        version: str = schemaversion.getVersion()
+        shacl_file: Path = Path.cwd() / schemaglobals.RELEASE_DIR / version / "schemaorg-shapes.shacl"
+        if not shacl_file.exists():
+            log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
+            return
+
+        cmd: List[str] = [sys.executable, "software/scripts/validate_examples_shacl.py"]
+        status: int = subprocess.call(cmd)
+        if status:
+            log.error(f"SHACL validation reported errors (exit code {status}). Failing build.")
+            sys.exit(status)
 
 
 def copyReleaseFiles(release_dir: str) -> None:
@@ -364,38 +380,22 @@ if __name__ == "__main__":
     if args.release:
         copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
     if args.rubytests:
-        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
+        import concurrent.futures
 
+        futures = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            futures.append(executor.submit(runRubyTests, schemaglobals.RELEASE_DIR))
+            futures.append(executor.submit(runShaclTests))
 
-###################################################
-# Main program
-###################################################
+            concurrent.futures.wait(futures)
 
-if __name__ == "__main__":
-    args = initialize()
+            # Check for any exceptions raised within the threads (like SystemExit)
+            has_error = False
+            for f in futures:
+                exc = f.exception()
+                if exc is not None:
+                    has_error = True
+                    log.error(f"Thread failed with exception: {exc}")
 
-    software.CheckWorkingDirectory()
-    log.info(
-        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
-    )
-    # The ruby tests require a fully built tree
-    if args.rubytests:
-        args.autobuild = True
-    if args.release:
-        args.autobuild = True
-        log.info("BUILDING RELEASE VERSION")
-    if args.examplesnum or args.release or args.autobuild:
-        with pretty_logger.BlockLog(
-            message="Checking Examples for assigned identifiers", logger=log
-        ):
-            software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-    initdir(output_dir_str=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
-    runtests()
-    processTerms(terms=schemaglobals.TERMS)
-    processDocs(pages=schemaglobals.PAGES)
-    processFiles(files=schemaglobals.FILES)
-
-    if args.release:
-        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
-    if args.rubytests:
-        runRubyTests(release_dir=schemaglobals.RELEASE_DIR)
+            if has_error:
+                sys.exit(1)

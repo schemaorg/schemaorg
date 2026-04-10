@@ -186,6 +186,14 @@ class ShExJParser:
             if isinstance(dt_sub, URIRef):
                 all_datatypes.add(dt_sub)
 
+        # Also find all instances of DataType (like schema:Text) and their subclasses
+        for dt_inst in source.subjects(RDF.type, SCHEMA.DataType):
+            if isinstance(dt_inst, URIRef):
+                all_datatypes.add(dt_inst)
+                for dt_sub in source.transitive_subjects(RDFS.subClassOf, dt_inst):
+                    if isinstance(dt_sub, URIRef):
+                        all_datatypes.add(dt_sub)
+
         shex: Dict[str, Any] = {
             "type": "Schema",
             "shapes": [
@@ -202,28 +210,32 @@ class ShExJParser:
 
 class ShaclParser:
     @staticmethod
-    def parse_shape(source: Graph, shape: URIRef, dest: Graph) -> None:
+    def parse_shape(source: Graph, shape: URIRef, dest: Graph, is_datatype: bool = False) -> None:
         """
         Creates SHACL shape for schema.org entity
 
         :param source: source rdflib graph
         :param shape: target shape IRI
         :param dest: output SHACL constraints graph
+        :param is_datatype: whether the shape represents a datatype
         """
         node: URIRef = replace_prefix(shape)
         dest.add((node, RDF.type, SHACL.NodeShape))
         dest.add((node, SHACL.targetClass, shape))
-        dest.add((node, SHACL.nodeKind, SHACL.BlankNodeOrIRI))
-        properties: List[URIRef] = sorted(ShExJParser._domain_includes.get(shape, []), key=str)
-        for prop in properties:
-            if isinstance(prop, URIRef):
-                dest.add(
-                    (
-                        node,
-                        SHACL.property,
-                        ShaclParser.parse_property(source, prop, dest),
+        if is_datatype:
+            dest.add((node, SHACL.nodeKind, SHACL.IRIOrLiteral))
+        else:
+            dest.add((node, SHACL.nodeKind, SHACL.BlankNodeOrIRI))
+            properties: List[URIRef] = sorted(ShExJParser._domain_includes.get(shape, []), key=str)
+            for prop in properties:
+                if isinstance(prop, URIRef):
+                    dest.add(
+                        (
+                            node,
+                            SHACL.property,
+                            ShaclParser.parse_property(source, prop, dest),
+                        )
                     )
-                )
 
     @staticmethod
     def parse_property(source: Graph, prop: URIRef, dest: Graph) -> BNode:
@@ -240,6 +252,13 @@ class ShaclParser:
         property_range: List[URIRef] = sorted([
             replace_prefix(URIRef(x)) for x in ShExJParser._range_includes.get(prop, [])
         ], key=str)
+
+        # Schema.org allows Text for any property ("Role or Text" pattern)
+        valid_text: URIRef = replace_prefix(URIRef(SCHEMA.Text))
+        if valid_text not in property_range:
+            property_range.append(valid_text)
+            property_range = sorted(property_range, key=str)
+
         if len(property_range) > 1:
             or_node: BNode = BNode()
             or_collection: Collection = Collection(dest, or_node)
@@ -288,9 +307,22 @@ class ShaclParser:
         dest.bind("schema", SCHEMA)
         dest.bind("", BASE)
         shapes: List[Node] = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
+
+        all_datatypes: Set[URIRef] = {URIRef(SCHEMA.DataType)}
+        for dt_sub in source.transitive_subjects(RDFS.subClassOf, SCHEMA.DataType):
+            if isinstance(dt_sub, URIRef):
+                all_datatypes.add(dt_sub)
+
+        for dt_inst in source.subjects(RDF.type, SCHEMA.DataType):
+            if isinstance(dt_inst, URIRef):
+                all_datatypes.add(dt_inst)
+                for dt_sub in source.transitive_subjects(RDFS.subClassOf, dt_inst):
+                    if isinstance(dt_sub, URIRef):
+                        all_datatypes.add(dt_sub)
+
         for shape in shapes:
             if isinstance(shape, URIRef):
-                ShaclParser.parse_shape(source, shape, dest)
+                ShaclParser.parse_shape(source, shape, dest, is_datatype=shape in all_datatypes)
 
         # Use to_canonical_graph to ensure deterministic blank node naming and sorting
         # This takes about 25 minutes to compute, so we leave it out for the moment.
