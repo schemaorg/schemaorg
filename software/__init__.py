@@ -22,7 +22,7 @@ def Setup():
             f"Python version {sys.version_info.major}.{sys.version_info.minor} "
             f"not supported version {REQUIRED_VERSION[0]}.{REQUIRED_VERSION[1]} "
             "or above required - Exiting\n"
-            )
+        )
         sys.exit(os.EX_CONFIG)
 
     for path in LIB_PATHS:

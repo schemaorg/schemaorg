@@ -40,7 +40,7 @@ def termFileName(termid: str) -> str:
         sub_dir = "types"
     else:
         raise ValueError(f"Invalid termid: '{termid}'")
-        
+
     return str(base_dir / sub_dir / termid[0] / f"{termid}.html")
 
 
@@ -61,7 +61,7 @@ def termtemplateRender(term: sdoterm.SdoTerm, examples: List[schemaexamples.Exam
             exselect[2] = "selected"
         elif ex.hasJsonld():
             exselect[3] = "selected"
-        ex.exselect = exselect # type: ignore
+        ex.exselect = exselect  # type: ignore
 
     extra_vars: Dict[str, Any] = {
         "title": term.label,
@@ -92,12 +92,12 @@ def RenderAndWriteSingleTerm(term_key: str) -> float:
         if term.termType == sdoterm.SdoTermType.REFERENCE:
             return 0.0
         try:
-          examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
-          json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
-          pageout: str = termtemplateRender(term, examples, json_str)
-          outfile: Path = Path(termFileName(term.id))
-          fileutils.checkFilePath(outfile.parent)
-          outfile.write_text(pageout, encoding="utf8")
+            examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+            json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
+            pageout: str = termtemplateRender(term, examples, json_str)
+            outfile: Path = Path(termFileName(term.id))
+            fileutils.checkFilePath(outfile.parent)
+            outfile.write_text(pageout, encoding="utf8")
         except Exception as e:
             e.add_note(f"Term definition: {term}")
             raise
@@ -123,7 +123,7 @@ def buildTerms(term_ids: Iterable[str]) -> None:
     tic: float = time.perf_counter()
     if any(fileutils.isAll(tid) for tid in term_ids):
         log.info("Loading all term identifiers")
-        term_ids = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True) # type: ignore
+        term_ids = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)  # type: ignore
 
     term_list: List[str] = list(term_ids)
     if not term_list:

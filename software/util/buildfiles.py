@@ -439,8 +439,8 @@ def buildFiles(files: Iterable[str]) -> None:
         process_files.append("Shex_Shacl")
 
     if "RDFExports" in seen and "RDFExport.nt" in seen:
-         process_files.remove("RDFExport.nt")
-         process_files.insert(0, "RDFExport.nt")
+        process_files.remove("RDFExport.nt")
+        process_files.insert(0, "RDFExport.nt")
 
     p: str
     for p in process_files:

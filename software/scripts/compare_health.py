@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     newhealth_g = Graph()
     sdo_corev22_g = Graph()
-    parse_errors = Graph()  # re-used for all files now
+    parse_errors = Graph()  # reused for all files now
 
     # load RDFa/RDFS from disk.
     newhealth_g.parse(med_rdfa, format="rdfa", pgraph=parse_errors)  # , charset="utf8")
@@ -71,8 +71,10 @@ if __name__ == "__main__":
     core_enumvals = set(enumeratedValuesInGraph(sdo_corev22_g))
 
     print("Comparing ext/health-lifesci and v2.2 core.\n\n")
-    #    print "Type terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_types.intersection(new_health_types)
-    #    print "Type terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_types.difference(core_types)
+    # print "Type terms that are in 2.2 core and 2.3 ext/health-lifesci: %s
+    # \n\n" % core_types.intersection(new_health_types)
+    # print "Type terms in the ext/health-lifesci but not 2.2 core: %s \n\n" %
+    # new_health_types.difference(core_types)
     print("\n\n")
 
     print(
@@ -89,8 +91,10 @@ if __name__ == "__main__":
     )
     print("\n\n")
 
-    #    print "Enumuerated Value terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_enumvals.intersection(new_health_enumvals)
-    #    print "Enumerated Value in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_enumvals.difference(new_health_enumvals)
+    # print "Enumuerated Value terms that are in 2.2 core and 2.3 ext/health-
+    # lifesci: %s \n\n" % core_enumvals.intersection(new_health_enumvals)
+    # print "Enumerated Value in the ext/health-lifesci but not 2.2 core: %s
+    # \n\n" % new_health_enumvals.difference(new_health_enumvals)
     print("\n\n")
 
     # print sdo_corev22_g.serialize(format="nt", encoding="utf-8")

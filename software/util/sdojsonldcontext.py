@@ -71,7 +71,7 @@ def createcontext() -> str:
         )
         for term in all_terms:
             if not isinstance(term, sdoterm.SdoTerm):
-                 continue
+                continue
             if term.termType == sdoterm.SdoTermType.REFERENCE:
                 continue
             term_json: Dict[str, Any] = {"@id": sdotermsource.prefixedIdFromUri(term.uri)}

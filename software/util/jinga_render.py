@@ -38,7 +38,7 @@ def GetJinga() -> jinja2.Environment:
     global JENV
     if JENV is not None:
         return JENV
-    
+
     jenv = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATESDIR),
         autoescape=True,
@@ -51,8 +51,8 @@ def GetJinga() -> jinja2.Environment:
 
 
 def templateRender(
-    template_path: Optional[str], 
-    extra_vars: Optional[Dict[str, Any]] = None, 
+    template_path: Optional[str],
+    extra_vars: Optional[Dict[str, Any]] = None,
     template_instance: Optional[jinja2.Template] = None
 ) -> str:
     """Render a page template."""
@@ -77,5 +77,5 @@ def templateRender(
         template = GetJinga().get_template(template_path)
     else:
         raise ValueError("Either template_path or template_instance must be provided")
-        
+
     return str(template.render(tvars))

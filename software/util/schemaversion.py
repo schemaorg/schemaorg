@@ -40,10 +40,10 @@ def setVersion(ver: str, date: str) -> None:
     versiondata: Dict[str, Any] = getVersionData()
     versiondata["schemaversion"] = ver
     versiondata["releaseLog"][ver] = date
-    
+
     logs: Dict[str, str] = versiondata["releaseLog"]
     versiondata["releaseLog"] = dict(sorted(logs.items(), key=lambda x: float(x[0]), reverse=True))
-    
+
     Path("versions.json").write_text(json.dumps(sort_dict(versiondata), indent=4))
 
 

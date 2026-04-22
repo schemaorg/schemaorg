@@ -164,7 +164,7 @@ class Example:
         idnum: int = -1
         if self.keyvalue and self.keyvalue.startswith(IDPREFIX):
             try:
-                idnum = int(self.keyvalue[len(IDPREFIX) :])
+                idnum = int(self.keyvalue[len(IDPREFIX):])
             except (ValueError, TypeError):
                 pass
         return idnum
@@ -343,7 +343,8 @@ class ExampleFileParser:
         self.currentStr = []
 
     def trimCurrentStr(self) -> None:
-        # strip: leading blank lines, strip multi blank lines (replace with 1) end with blank line
+        # strip: leading blank lines, strip multi blank lines (replace with 1)
+        # end with blank line
         temp: List[str] = []
         begin: bool = True
         inwhitespace: bool = False
@@ -415,7 +416,8 @@ class ExampleFileParser:
         first: bool = True
         boilerplate: bool = False
         for lineno, line in enumerate(lines):
-            # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
+            # Per-example sections begin with e.g.:
+            # 'TYPES: #music-2 Person, MusicComposition, Organization'
             line = line.rstrip()
 
             if line.startswith("TYPES:"):
@@ -444,7 +446,8 @@ class ExampleFileParser:
                         else:
                             boilerplate = True
             else:
-                # Heuristic to find the start line that will be used by `getJsonldRaw`.
+                # Heuristic to find the start line that will be used by
+                # `getJsonldRaw`.
                 if '<script type="application/ld+json">' in line:
                     self.jsonld_offset = lineno + 1
                 tokens: Tuple[str, ...] = ("PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:")

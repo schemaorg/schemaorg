@@ -39,7 +39,8 @@ sdotermsource.SdoTermSource.loadSourceGraph("default")
 schemaexamples.SchemaExamples.loaded()
 
 # Tests to probe the health of both schemas and code.
-# Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
+# Note that known failings can be annotated with @unittest.expectedFailure or
+# @skip("reason...")
 
 
 class BallparkCountTests(unittest.TestCase):
@@ -155,7 +156,8 @@ class SchemaBasicAPITestCase(unittest.TestCase):
             "DataType", tDataType.subs.ids, "DataType subClassOf DataType."
         )
 
-    # TODO: subClassOf() function has "if (self.id == type.id)", investigate how this is used.
+    # TODO: subClassOf() function has "if (self.id == type.id)", investigate how
+    # this is used.
 
     def test_PersonSupertypeThing(self):
         tThing = sdotermsource.SdoTermSource.getTerm("Thing")
@@ -339,16 +341,21 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         self.assertNotEqual(
             "alumni", p_suggestedAnswer.inverse.id, msg="Not answer inverseOf alumni."
         )
-        # Confirmed informally that the direction asserted doesn't matter currently.
-        # Need to add tests that read in custom test-specific schema markup samples to verify this.
-        # It is probably best to have redundant inverseOf in the RDFS so that information is visible locally.
+        # Confirmed informally that the direction asserted doesn't matter
+        # currently.
+        # Need to add tests that read in custom test-specific schema markup
+        # samples to verify this.
+        # It is probably best to have redundant inverseOf in the RDFS so that
+        # information is visible locally.
 
         # TODO: http://schema.org/ReserveAction
-        # has scheduledTime from apparently two parent types. how can we test against the html ui?
+        # has scheduledTime from apparently two parent types. how can we test
+        # against the html ui?
 
 
 # Simple checks that the schema is not mis-shapen.
-# We could do more with SPARQL, but would require rdflib, e.g. sanity check rangeIncludes/domainIncludes with inverseOf
+# We could do more with SPARQL, but would require rdflib, e.g. sanity check
+# rangeIncludes/domainIncludes with inverseOf
 
 
 class EnumerationValueTests(unittest.TestCase):
@@ -493,7 +500,8 @@ class BasicJSONLDTests(unittest.TestCase):
     #    @skip("Need to think about this.")
     #    def test_jsonld_basic_jsonld_context_available(self):
     #      if self.ctx:
-    #        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
+    # self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/",
+    # "Context file should declare schema.org url.")
 
     def test_issuedBy_jsonld(self):
         if not self.ctx:
@@ -536,14 +544,16 @@ class JsonExampleTests(unittest.TestCase):
                 try:
                     parsed = json.loads(json_source)
                 except json.decoder.JSONDecodeError as json_error:
-                    # Display a helpful error message showing where the JSON error is.
+                    # Display a helpful error message showing where the JSON
+                    # error is.
                     lines = json_error.doc.split("\n")
                     snippet = (
                         lines[json_error.lineno - 1]
                         + "\n"
                         + "^".rjust(json_error.colno)
                     )
-                    # Show up to three lines above the error, often the problem is a missing comma above.
+                    # Show up to three lines above the error, often the problem
+                    # is a missing comma above.
                     if json_error.lineno > 2:
                         for i in range(2, min(json_error.lineno, 5)):
                             snippet = lines[json_error.lineno - i] + "\n" + snippet
@@ -569,9 +579,12 @@ class JsonExampleTests(unittest.TestCase):
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
-# * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
-# * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
-# * make sure terms match their labels (e.g. priceRange), with or without whitespace?
+# * if x and y are inverseOf each other, the rangeIncludes types on x should be
+#   domainIncludes on y, and vice-versa.
+# * need a few supporting functions e.g. all terms, all types, all properties,
+#   all enum values; candidates for api later but just use here first.
+# * make sure terms match their labels (e.g. priceRange), with or without
+#   whitespace?
 # * check we don't assign more than one example to the same ID
 
 if __name__ == "__main__":

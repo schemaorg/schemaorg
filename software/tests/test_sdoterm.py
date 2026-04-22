@@ -22,14 +22,14 @@ class SdoTermOrIdTest(unittest.TestCase):
         self.assertFalse(empty)
         self.assertTrue(empty.expanded)
         self.assertIsNone(empty.id)
-        self.assertRaises(sdoterm.UnexpandedTermError, lambda : empty.term)
+        self.assertRaises(sdoterm.UnexpandedTermError, lambda: empty.term)
 
     def testIdonly(self):
-        id_only =sdoterm.SdoTermOrId(term_id='testing')
+        id_only = sdoterm.SdoTermOrId(term_id='testing')
         self.assertTrue(id_only)
         self.assertFalse(id_only.expanded)
         self.assertEqual(id_only.id, 'testing')
-        self.assertRaises(sdoterm.UnexpandedTermError, lambda : id_only.term)
+        self.assertRaises(sdoterm.UnexpandedTermError, lambda: id_only.term)
 
     def testTerm(self):
         term = sdoterm.SdoReference(term_id='testing2', uri='http://example.com/testing2', label='')
@@ -56,7 +56,7 @@ class SdoTermSequenceTest(unittest.TestCase):
         self.assertFalse(unexpanded.expanded)
         self.assertEqual(1, len(unexpanded))
         self.assertCountEqual(unexpanded.ids, ['testing3'])
-        self.assertRaises(sdoterm.UnexpandedTermError, lambda : unexpanded.terms)
+        self.assertRaises(sdoterm.UnexpandedTermError, lambda: unexpanded.terms)
 
     def testExpanded(self):
         expanded = sdoterm.SdoTermSequence()

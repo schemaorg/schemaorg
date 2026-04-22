@@ -5,8 +5,8 @@ import os
 import sys
 import logging
 
-for path in [os.getcwd(),'./SchemaExamples','./software/SchemaExamples']:
-    sys.path.insert(1, path) # Pickup libs from shipped lib directory
+for path in [os.getcwd(), './SchemaExamples', './software/SchemaExamples']:
+    sys.path.insert(1, path)  # Pickup libs from shipped lib directory
 
 import schemaexamples
 
@@ -43,5 +43,5 @@ def AssignExampleIds():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+    logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
     AssignExampleIds()

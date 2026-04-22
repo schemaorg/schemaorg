@@ -29,7 +29,8 @@ class SnapshotTest(unittest.TestCase):
             snapshot_content_lines = f.readlines()
 
         with tempfile.TemporaryDirectory() as temp_dir:
-            # builds all terms again from scratch by calling the snapshot_ttl function directly
+            # builds all terms again from scratch by calling the snapshot_ttl
+            # function directly
             snapshot_schema.snapshot_ttl(temp_dir)
             generated_file = os.path.join(temp_dir, "schemaorg-all-https.ttl")
             with open(generated_file, "r", encoding="utf-8") as f:

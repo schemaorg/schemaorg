@@ -160,7 +160,8 @@ class ShExJParser:
         if shape in cls._ancestor_cache:
             return cls._ancestor_cache[shape]
 
-        # transitive_objects(shape, RDFS.subClassOf) returns an iterator including shape
+        # transitive_objects(shape, RDFS.subClassOf) returns an iterator
+        # including shape
         # itself, but we want ancestors, so we remove it from the result.
         ancestors: List[Node] = list(source.transitive_objects(shape, RDFS.subClassOf))
         if shape in ancestors:
@@ -186,7 +187,8 @@ class ShExJParser:
             if isinstance(dt_sub, URIRef):
                 all_datatypes.add(dt_sub)
 
-        # Also find all instances of DataType (like schema:Text) and their subclasses
+        # Also find all instances of DataType (like schema:Text) and their
+        # subclasses
         for dt_inst in source.subjects(RDF.type, SCHEMA.DataType):
             if isinstance(dt_inst, URIRef):
                 all_datatypes.add(dt_inst)
@@ -324,8 +326,10 @@ class ShaclParser:
             if isinstance(shape, URIRef):
                 ShaclParser.parse_shape(source, shape, dest, is_datatype=shape in all_datatypes)
 
-        # Use to_canonical_graph to ensure deterministic blank node naming and sorting
-        # This takes about 25 minutes to compute, so we leave it out for the moment.
+        # Use to_canonical_graph to ensure deterministic blank node naming and
+        # sorting
+        # This takes about 25 minutes to compute, so we leave it out for the
+        # moment.
         # log.info(f"Canonicalizing ShAcl shapes graph ({len(dest)})")
         # nsMgr = dest.namespace_manager
         # dest = to_canonical_graph(dest)

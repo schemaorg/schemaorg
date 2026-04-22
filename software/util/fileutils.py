@@ -71,7 +71,7 @@ def releaseFilePath(
     assert selector_str in FILESET_SELECTORS, selector_str
     protocol = protocol.lower()
     assert protocol in FILESET_PROTOCOLS, protocol
-    
+
     parts: List[str] = [selector_str, protocol]
     if suffix:
         parts.append(suffix)

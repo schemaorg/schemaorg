@@ -33,7 +33,8 @@
 #
 # A normal Python package. Take care that it is installed against the version of
 # Python that is being used to run this script. easy_install or pip should work.
-# We may later bundle this, see https://github.com/schemaorg/schemaorg/issues/178
+# We may later bundle this, see
+# https://github.com/schemaorg/schemaorg/issues/178
 #
 # script originally based on original in google appengine dist and shared
 # under same terms,

@@ -12,7 +12,7 @@ from collections import OrderedDict
 
 DEBUG = True
 
-#from util.mcf_dict_util import mcf_to_dict_list
+# from util.mcf_dict_util import mcf_to_dict_list
 
 def debug_print(message):
     if DEBUG:
@@ -24,7 +24,7 @@ def mcf_to_dict_list(mcf_str: str) -> list:
 
     Args:
         mcf_str: String read from MCF file.
-        
+
     Returns:
         List of OrderedDict objects where each object represents a node in the MCF file.
     """

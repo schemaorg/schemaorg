@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-"""Tool that validates the JSON-LD in the examples agains the content of the `jsonldcontext.jsonld` file."""
+"""Tool that validates the JSON-LD in the examples against the content of the `jsonldcontext.jsonld` file."""
 
 # Import standard python libraries
 

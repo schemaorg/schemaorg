@@ -36,7 +36,7 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
     version: str = schemaversion.getVersion()
     shacl_file: Path = Path.cwd() / "software" / "site" / "releases" / version / "schemaorg-shapes.shacl"
     subclass_file: Path = Path.cwd() / "software" / "site" / "releases" / version / "schemaorg-subclasses.shacl"
-    
+
     if not shacl_file.exists() or not subclass_file.exists():
         log.error(f"SHACL files not found at {shacl_file} or {subclass_file} – check site build")
         sys.exit(os.EX_CONFIG)
@@ -44,7 +44,7 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
     log.info("Loading SHACL shapes and subclass graphs...")
     shacl_graph: rdflib.Graph = rdflib.Graph()
     shacl_graph.parse(source=str(shacl_file), format="turtle")
-    
+
     ont_graph: rdflib.Graph = rdflib.Graph()
     ont_graph.parse(source=str(subclass_file), format="turtle")
 
@@ -54,23 +54,23 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
     for ex in examples:
         count += 1
         name = ex.getKey()
-        
+
         if not invalid_only:
             log.info(f"Validating example {name}")
-            
+
         try:
             data_graph: rdflib.Graph = rdflib.Graph()
             data_graph.parse(data=ex.getJsonldRaw(), format="json-ld")
-            
+
             conforms, results_graph, results_text = pyshacl.validate(
-                data_graph, 
-                shacl_graph=shacl_graph, 
+                data_graph,
+                shacl_graph=shacl_graph,
                 ont_graph=ont_graph,
-                inference="rdfs", 
+                inference="rdfs",
                 abort_on_first=False,
                 max_validation_depth=200
             )
-            
+
             if not conforms:
                 error_count += 1
                 log.error(f"Validation failed for example {name}:\n{results_text}")

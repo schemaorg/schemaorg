@@ -45,7 +45,7 @@ class SdoTermOrId:
     @property
     def term(self) -> "SdoTerm":
         if not self._term:
-             raise UnexpandedTermError()
+            raise UnexpandedTermError()
         return self._term
 
     def setId(self, term_id: Optional[str]) -> None:
@@ -65,7 +65,7 @@ class SdoTermOrId:
 
 class SdoTermSequence:
     """Sequence that holds either a sequence of term-ids, or a sequence of terms."""
-    
+
     def __init__(self) -> None:
         self._term_dict: Dict[str, Optional["SdoTerm"]] = {}
 
@@ -80,7 +80,7 @@ class SdoTermSequence:
         if all(isinstance(e, SdoTerm) for e in elements_list):
             sequence.setTerms(elements_list)
             return sequence
-            
+
         term_ids = []
         for element in elements_list:
             if hasattr(element, "id"):
@@ -101,8 +101,8 @@ class SdoTermSequence:
     @property
     def terms(self) -> Tuple["SdoTerm", ...]:
         if not self.expanded:
-          raise UnexpandedTermError()
-        return tuple(self._term_dict.values()) # type: ignore
+            raise UnexpandedTermError()
+        return tuple(self._term_dict.values())  # type: ignore
 
     def setIds(self, term_ids: Iterable[str]) -> None:
         self._term_dict = {tid: None for tid in term_ids}
@@ -167,7 +167,7 @@ class SdoTerm(ABC):
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, SdoTerm):
-             return False
+            return False
         return self.id == other.id
 
     def __lt__(self, other: "SdoTerm") -> bool:

@@ -4,13 +4,13 @@
 
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major, sys.version_info.minor))
     sys.exit(1)
 
 # To be executed in the SchemaTerms/example-code/{example} directory
 import os
-for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaTerms directory into path
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
+for path in [os.getcwd(), "..", "../..", "../../.."]:  # Adds in current, example-code, and SchemaTerms directory into path
+    sys.path.insert(1, path)  # Pickup libs from local  directories
 
 import rdflib
 
@@ -30,14 +30,14 @@ else:
 termgraph = rdflib.Graph()
 termgraph.parse(triplesfile, format="nt")
 
-print ("loaded %s triples" % len(termgraph))
+print("loaded %s triples" % len(termgraph))
 
 SdoTermSource.setSourceGraph(termgraph)
-print ("Types Count: %s" % len(SdoTermSource.getAllTypes(expanded=False)))
-print ("Properties Count: %s" % len(SdoTermSource.getAllProperties(expanded=False)))
+print("Types Count: %s" % len(SdoTermSource.getAllTypes(expanded=False)))
+print("Properties Count: %s" % len(SdoTermSource.getAllProperties(expanded=False)))
 
 
-for termname in ["acceptedAnswer","Book"]:
+for termname in ["acceptedAnswer", "Book"]:
     term = SdoTermSource.getTerm(termname)
 
     print("")
@@ -77,10 +77,10 @@ for termname in ["acceptedAnswer","Book"]:
 
 
         if term.termType == SdoTerm.ENUMERATIONVALUE:
-            print("Parent Enumeration: %s" %  term.enumerationParent)
+            print("Parent Enumeration: %s" % term.enumerationParent)
 
         for p in term.properties:
             prop = SdoTermSource.getTerm(p)
-            print("Prop: %s.  Pending: %s" % (prop.id,prop.pending))
+            print("Prop: %s.  Pending: %s" % (prop.id, prop.pending))
             print("   Expected Types: %s" % prop.rangeIncludes)
             print("   Comment: %s" % prop.comment)

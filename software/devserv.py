@@ -99,7 +99,7 @@ def serve_downloads(ver: str, path: str = "") -> Response:
         ver = getVersion()
     if not path:
         path = "schema-all.html"
-    
+
     full_path: str = f"releases/{ver}/{path}"
     print(f"Serving file: {full_path}")
     return app.send_static_file(full_path)

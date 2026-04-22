@@ -26,7 +26,8 @@ def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
         about: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
         if about:
             return (about, "", "")
-        # Fallback to tag name (primary) and resource or string representation (secondary)
+        # Fallback to tag name (primary) and resource or string representation
+        # (secondary)
         tag: str = elem.tag
         resource: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
         if resource:

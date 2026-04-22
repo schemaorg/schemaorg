@@ -24,8 +24,10 @@ log = logging.getLogger(__name__)
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 
-# Tests to probe the health of both schemas and code using graph libraries in rdflib
-# Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
+# Tests to probe the health of both schemas and code using graph libraries in
+# rdflib
+# Note that known failings can be annotated with @unittest.expectedFailure or
+# @skip("reason...")
 class SDOGraphSetupTestCase(unittest.TestCase):
     @classmethod
     def loadGraphs(self):
@@ -58,7 +60,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                       separator: str = " => ", row_separator: str = "\n\t") -> str:
         """Formatting results to make a human-readable list in one step."""
         def formatLines():
-            yield f"Found {len(results)} item{'' if len(results)==1 else 's'}:"
+            yield f"Found {len(results)} item{'' if len(results) == 1 else 's'}:"
             for row in results:
                 if pattern:
                     yield pattern % row
@@ -78,7 +80,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             f"{error_message}! {self.formatResults(results, pattern=row_pattern)}")
 
 
-    # SPARQLResult http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
+    # SPARQLResult
+    # http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
     # "A list of dicts (solution mappings) is returned"
 
     def test_BaseTypeIsUnique(self):
@@ -106,7 +109,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         defined_types = collections.defaultdict(set)
         for a in a_maps:
             defined_types[a["term"]].add(a["type"])
-        # Add some well-known types that we accept, and so establish the root of the tree at DATATYPE.
+        # Add some well-known types that we accept, and so establish the root of
+        # the tree at DATATYPE.
         PROPERTY = rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property')
         CLASS = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
         DATATYPE = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#DataType')
@@ -180,7 +184,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     @unittest.expectedFailure
     def test_needlessRangeIncludes(self):
-        # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
+        # as above, but for range. We excuse URL as it is special, not best seen
+        # as a Text subtype.
         # check immediate subtypes don't declare same domainIncludes
         # TODO: could we use property paths here to be more thorough?
         self.assertNoMatch("""
@@ -201,8 +206,17 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         row_pattern="Property %(prop)s defining range, %(c1)s, [which is subclassOf] %(c2)s unnecessarily")
 
     #  def test_supersededByAreLabelled(self):
-    #    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <https://schema.org/supersededBy> ?y . ?y <https://schema.org/name> ?z }")
-    #    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
+    # supersededByAreLabelled_results = self.rdflib_data.query(
+    #     """
+    #       select ?x ?y ?z
+    #       where {
+    #           ?x <https://schema.org/supersededBy> ?y .
+    #           ?y <https://schema.org/name> ?z
+    #       }
+    #     """)
+    # self.assertEqual(
+    #     len(inverseOf_results ) % 2 == 0, True,
+    #     f"Even number of inverseOf triples expected. Found: {len(inverseOf_results)}")
 
     def test_validRangeIncludes(self):
         self.assertNoMatch("""
@@ -251,13 +265,15 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Some terms have complex labels (alphanumeric only please!)",
         row_pattern="term %(term)s has complex label: %(label)s")
         # Whitespace is tolerated, for now.
-        # we don't deal well with non definitional uses of rdfs:label yet - non terms are flagged up.
+        # we don't deal well with non definitional uses of rdfs:label yet - non
+        # terms are flagged up.
         # https://github.com/schemaorg/schemaorg/issues/1136
 
     #
     # TODO: https://github.com/schemaorg/schemaorg/issues/662
     #
-    # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes value should lack a type. Found: %s " % len(ndi1_results ) )
+    # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes
+    # value should lack a type. Found: %s " % len(ndi1_results ) )
 
     def test_labelMatchesTermId(self):
         self.assertNoMatch("""
@@ -598,8 +614,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 #
 # * different terms should not have identical comments
 # * rdflib and internal parsers should have same number of triples
-# * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
-# * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
+# * if x and y are inverseOf each other, the rangeIncludes types on x should be
+#   domainIncludes on y, and vice-versa.
+# * need a few supporting functions e.g. all terms, all types, all properties,
+#   all enum values; candidates for api later but just use here first.
 
 if __name__ == "__main__":
     unittest.main()

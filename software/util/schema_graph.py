@@ -17,7 +17,8 @@ SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schemaglobals.HOMEPAGE)
 class SchemaOrgGraph(object):
     def __init__(self, filename: Optional[str] = None, format: str = "turtle") -> None:
         self.g: rdflib.Graph = rdflib.Graph()
-        # Binding it here, as by default it would bind the /elements/1.1/ instead
+        # Binding it here, as by default it would bind the /elements/1.1/
+        # instead
         # of the dc terms. this way, the elements get assigned "dc1" or such
         # as a prefix, and we do not use that.
         self.g.bind("dc", rdflib.Namespace("http://purl.org/dc/terms/"), replace=True)

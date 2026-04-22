@@ -61,11 +61,11 @@ def homePage(page: str) -> str:
     template: str = "docs/Home.j2"
     filt: Optional[str] = None
     overrideclassval: Optional[str] = None
-    
+
     config: Optional[Tuple[str, str, str, str]] = PAGE_CONFIGS.get(page)
     if config:
         title, template, filt, overrideclassval = config
-    
+
     sectionterms: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = {}
     termcount: int = 0
     if filt:
@@ -74,12 +74,12 @@ def homePage(page: str) -> str:
         t: Union[str, sdoterm.SdoTerm]
         for t in all_terms:
             if isinstance(t, sdoterm.SdoTerm):
-                t.cat = "" # type: ignore
+                t.cat = ""  # type: ignore
                 if filt == "pending":
                     s: str
                     for s in t.sources:
                         if "schemaorg/issue" in s:
-                            t.cat = f"issue-{Path(s).name}" # type: ignore
+                            t.cat = f"issue-{Path(s).name}"  # type: ignore
                             break
                 terms.append(t)
         terms.sort(key=lambda u: (getattr(u, 'cat', ''), u.id))
@@ -130,14 +130,14 @@ class listingNode:
         self.depth: int = depth
         self.retired: bool = termdesc.retired
         self.pending: bool = termdesc.pending
-        
+
         if self.id not in visit_set:
             visit_set.add(self.id)
             child_ids: List[str] = []
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
                 child_ids.extend(sorted(termdesc.enumerationMembers.ids))
             child_ids.extend(sorted(termdesc.subs.ids))
-            
+
             child_id: str
             for child_id in child_ids:
                 try:
@@ -165,7 +165,7 @@ def _jsonldtree(tid: str, visitset: Set[str], term: Optional[Dict[str, Any]] = N
         termdesc: Optional[sdoterm.SdoTerm] = sdotermsource.SdoTermSource.getTerm(tid)
         if not termdesc:
             raise UnknownTermError(f"No description for term {tid}")
-        
+
         term_dict: Dict[str, Any] = term if term is not None else {}
         term_dict.update({
             "@type": "rdfs:Class",
@@ -173,16 +173,16 @@ def _jsonldtree(tid: str, visitset: Set[str], term: Optional[Dict[str, Any]] = N
             "name": termdesc.label,
             "description": textutils.ShortenOnSentence(textutils.StripHtmlTags(termdesc.comment))
         })
-        
+
         if termdesc.supers:
             sups: List[str] = [f"schema:{sup}" for sup in termdesc.supers.ids]
             term_dict["rdfs:subClassOf"] = sups[0] if len(sups) == 1 else sups
-        
+
         if termdesc.pending:
             term_dict["pending"] = True
         if termdesc.retired:
             term_dict["attic"] = True
-            
+
         if tid not in visitset:
             visitset.add(tid)
             if termdesc.subs:
@@ -221,13 +221,13 @@ def fullPage(page: str) -> str:
 
 def fullReleasePage(page: str) -> str:
     node_listings: List[listingNode] = [listingNode("Thing", title="Type hierarchy")]
-    
+
     all_enum_vals: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
     all_types: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllTypes(expanded=True)
-    
+
     types: List[sdoterm.SdoTerm] = [t for t in list(all_enum_vals) + list(all_types) if isinstance(t, sdoterm.SdoTerm)]
     types = sorted(sdotermsource.SdoTermSource.expandTerms(types), key=lambda t: t.id)
-    
+
     all_props: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllProperties(expanded=True)
     properties: List[sdoterm.SdoTerm] = [p for p in all_props if isinstance(p, sdoterm.SdoTerm)]
 

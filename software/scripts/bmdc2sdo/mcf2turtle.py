@@ -49,7 +49,7 @@ def my_mcf_to_dict_list(mcf_str: str) -> list:
 
     Args:
         mcf_str: String read from MCF file.
-        
+
     Returns:
         List of OrderedDict objects where each object represents a node in the MCF file.
     """
@@ -94,8 +94,9 @@ def my_mcf_to_dict_list(mcf_str: str) -> list:
                     prefix = pv[1].strip()
                     v = ':'.join(pv[2:]).strip()
                     # TODO detect colon within a str(for e.g. descriptionURL)
-                    #logging.warning(
-                    #    "# substructure detected in property value(s) using ':' found in %s",
+                    # logging.warning(
+                    # "# substructure detected in property value(s) using ':'
+                    # found in %s",
                     #    pv_str)
 
                 cur_node[p] = {}
@@ -150,10 +151,10 @@ def generate_class_turtle(node, terms):
         '  a rdfs:Class ;',
         '  :isPartOf <https://pending.schema.org> ;'
     ]
-    
+
     name_value = get_pv(node, "name")
     description_value = get_pv(node, "description")
-    
+
     for sub_class in multiprop(node, "subClassOf"):
         terms['types'].add(sub_class)  # Add the supertype to the terms['types'] set
         lines.append(f'  rdfs:subClassOf :{sub_class} ;')
@@ -162,9 +163,9 @@ def generate_class_turtle(node, terms):
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
         lines.append(f'  rdfs:comment """{description_value}""" ;')
-    
+
     lines[-1] = lines[-1][:-1] + ' .'
-    
+
     return {
         'turtle': '\n'.join(lines),
         'terms': terms
@@ -179,25 +180,25 @@ def generate_property_turtle(node, terms):
         '  a rdf:Property ;',
         '  :isPartOf <https://pending.schema.org> ;'
     ]
-    
+
     name_value = get_pv(node, "name")
     description_value = get_pv(node, "description")
-    
+
     for domain_value in multiprop(node, "domainIncludes"):
         terms['types'].add(domain_value)
         lines.append(f'  :domainIncludes :{domain_value} ;')
-    
+
     for range_value in multiprop(node, "rangeIncludes"):
         terms['types'].add(range_value)
         lines.append(f'  :rangeIncludes :{range_value} ;')
-    
+
     if name_value:
         lines.append(f'  rdfs:label "{name_value}" ;')
     if description_value:
         lines.append(f'  rdfs:comment """{description_value}""" ;')
-    
+
     lines[-1] = lines[-1][:-1] + ' .'
-    
+
     return {
         'turtle': '\n'.join(lines),
         'terms': terms

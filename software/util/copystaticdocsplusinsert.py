@@ -26,7 +26,7 @@ def _getInserts() -> Generator[Tuple[str, str], None, None]:
         fn: str = f_path.stem.lower()
         if fn.startswith("sdi-"):
             fn = fn[4:]
-            
+
         indata: str = f_path.read_text()
         indata = indata.replace("{{version}}", schemaversion.getVersion())
         indata = indata.replace("{{versiondate}}", str(schemaversion.getCurrentVersionDate()))

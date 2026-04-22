@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # Note: links below are broken.
-# Based on a CC0 licensed script <https://xtrp.io/blog/2019/11/09/a-quick-python-script-to-find-broken-links/>
+# Based on a CC0 licensed script
+# <https://xtrp.io/blog/2019/11/09/a-quick-python-script-to-find-broken-links/>
 # Shared by Gabriel Romualdo <https://xtrp.io/>
 
 

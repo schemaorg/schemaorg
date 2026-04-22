@@ -13,14 +13,14 @@ def ShortenOnSentence(source: str, lengthHint: int = 250) -> str:
     """Shorten source at a sentence boundary near the lengthHint."""
     if not source or len(source) <= lengthHint:
         return source or ""
-        
+
     source: str = source.strip()
     pattern: re.Pattern = re.compile(r"[.!?](\s|$)")
-    
+
     match: Match[str]
     for match in pattern.finditer(source):
         end_pos: int = match.start() + 1
         if end_pos > lengthHint:
             return source[:end_pos] + ".."
-            
+
     return source[:lengthHint] + ".."

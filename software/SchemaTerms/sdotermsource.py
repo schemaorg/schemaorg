@@ -1224,7 +1224,7 @@ def uri2id(uri: str) -> str:
     global VOCABURI
     assert VOCABURI is not None
     if uri.startswith(VOCABURI):
-        return uri[len(VOCABURI) :]
+        return uri[len(VOCABURI):]
     return uri
 
 
