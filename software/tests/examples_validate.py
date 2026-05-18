@@ -10,16 +10,14 @@ import argparse
 import io
 import logging
 import os
-import rdflib
 import re
 import sys
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import rdflib
 
 import software
-import software.SchemaExamples.schemaexamples as schemaexamples
+
+import SchemaExamples.schemaexamples as schemaexamples
 
 
 log = logging.getLogger(__name__)

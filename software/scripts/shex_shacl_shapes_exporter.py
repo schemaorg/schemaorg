@@ -7,19 +7,23 @@ import argparse
 import json
 import logging
 import os
-import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union, Set, Generator
+import sys
+from typing import Any, Dict, Generator, List, Optional, Set, Tuple, Union
+
+from rdflib import BNode, Graph, Namespace, RDF, RDFS, URIRef
+from rdflib.collection import Collection
+from rdflib.compare import to_canonical_graph
+from rdflib.term import Node
 
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
+import software
 
-from rdflib import RDF, RDFS, BNode, Graph, Namespace, URIRef
-from rdflib.compare import to_canonical_graph
-from rdflib.collection import Collection
-from rdflib.term import Node
+import util.paths as paths
+import util.schemaversion as schemaversion
+from util.sort_dict import sort_dict
 
-from software.util.sort_dict import sort_dict
 
 BASE: Namespace = Namespace("http://schema.org/validation#")
 SCHEMA: Namespace = Namespace("http://schema.org/")
@@ -338,8 +342,6 @@ class ShaclParser:
         return str(dest.serialize(format="turtle", sort_keys=True))
 
 
-import software.util.paths as paths
-
 def generate_files(
     term_defs_path: Union[str, Path],
     version: str,
@@ -367,7 +369,6 @@ def generate_files(
 
 
 if __name__ == "__main__":
-    import software.util.schemaversion as schemaversion
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-s", "--sourcefile", help="rdf format source file")
     parser.add_argument(

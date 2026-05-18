@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
+from collections import OrderedDict
+import logging
 import os
 import sys
-import logging
 from typing import Dict, Optional, Union
-from collections import OrderedDict
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
 
 DEBUG = False
 

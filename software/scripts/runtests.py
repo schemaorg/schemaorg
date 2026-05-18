@@ -52,12 +52,17 @@
 #    limitations under the License.
 
 import argparse
-import sys
-import colorama
 import os
-import unittest
+import sys
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable, Type, IO
+from typing import Any, Callable, Dict, IO, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
+import unittest
+
+import colorama
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
 
 SITEDIR: str = "software/site"

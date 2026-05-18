@@ -9,20 +9,23 @@ This replaces the legacy Ruby validation tests.
 import argparse
 import logging
 import os
-import sys
 from pathlib import Path
-import rdflib
+import sys
+
 import pyshacl
+import rdflib
 
-if str(Path.cwd()) not in sys.path:
-    sys.path.insert(1, str(Path.cwd()))
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
-import software.SchemaExamples.schemaexamples as schemaexamples
-import software.util.schemaversion as schemaversion
+import SchemaExamples.schemaexamples as schemaexamples
+import util.paths as paths
+import util.schemaversion as schemaversion
+
 
 log: logging.Logger = logging.getLogger(__name__)
 
-import software.util.paths as paths
 
 def load_examples() -> list:
     """Finds and loads all examples."""

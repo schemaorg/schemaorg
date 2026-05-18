@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-import os
-for path in [os.getcwd()]:
-    sys.path.insert(1, path)  # Pickup libs from shipped lib directory
-
+import glob
 import logging
+import os
+import sys
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+from SchemaExamples.schemaexamples import SchemaExamples
+
+
 logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-from schemaexamples import schemaExamples
 
 
 exfiles = []
-import glob
 # globpatterns =
 # ["/Users/wallisr/Development/Schema/main/schemaorg/data/*examples.txt",
 # "/Users/wallisr/Development/Schema/main/schemaorg/data/ext/*/*examples.txt" ]
-globpatterns = ["example-code/examples.txt"]
+globpatterns = [os.path.join(os.path.dirname(__file__), "examples.txt")]
 
 files = []
 for g in globpatterns:
@@ -27,25 +31,25 @@ for g in globpatterns:
 log.info("Loading %d files" % len(files))
 for f in files:
     # log.info("Loading: %s" % f)
-    schemaExamples.loadExamplesFile(f)
+    SchemaExamples.loadExamplesFiles(f)
 
-log.info("Loaded %s examples" % schemaExamples.count())
+log.info("Loaded %s examples" % SchemaExamples.count())
 
 log.info("Process!")
-for e in schemaExamples.allExamples():
+for e in SchemaExamples.allExamples():
     if not e.hasHtml():
-        log.info("Example %s has no html" % e.key())
+        log.info("Example %s has no html" % e.getKey())
     if not e.hasMicrodata():
-        log.info("Example %s has no html" % e.key())
+        log.info("Example %s has no html" % e.getKey())
     if not e.hasRdfa():
-        log.info("Example %s has no html" % e.key())
+        log.info("Example %s has no html" % e.getKey())
     if not e.hasJsonld():
-        log.info("Example %s has no html" % e.key())
+        log.info("Example %s has no html" % e.getKey())
 
 filename = ""
 f = None
 
-examples = schemaExamples.allExamples(sort=True)
+examples = SchemaExamples.allExamples(sort=True)
 log.info("Writing %s examples" % len(examples))
 for ex in examples:
     source = ex.exmeta['file']

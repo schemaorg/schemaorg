@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import sys
-import os
-import unittest
 import logging
-import rdflib
+import os
+import sys
+import unittest
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import rdflib
 
 import software
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
 
 
 class TestConversionFunctions(unittest.TestCase):

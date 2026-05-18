@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import collections
 import datetime
 import logging
 import multiprocessing
+import os
+from pathlib import Path
 import re
 import sys
 import time
-from pathlib import Path
-from typing import List, Optional, Tuple, Dict, Any, Iterable, Sequence, Type
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Type
 
 import jinja2
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
-
 import software
-import software.util.schemaglobals as schemaglobals
-import software.util.fileutils as fileutils
-import software.util.pretty_logger as pretty_logger
-import software.util.jinga_render as jinga_render
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaExamples.schemaexamples as schemaexamples
+import SchemaExamples.schemaexamples as schemaexamples
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import util.fileutils as fileutils
+import util.jinga_render as jinga_render
+import util.paths as paths
+import util.pretty_logger as pretty_logger
+import util.schemaglobals as schemaglobals
+
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
-import software.util.paths as paths
 
 def termFileName(termid: str) -> str:
     """Generate filename for term page."""

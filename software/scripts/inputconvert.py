@@ -2,21 +2,19 @@
 
 import argparse
 import os
-import rdflib
-import sys
-
 from os import getenv
 from os.path import expanduser
+import sys
+
+import rdflib
 from rdflib.parser import Parser
 from rdflib.term import URIRef
 
-sys.path.append(os.getcwd())
-sys.path.insert(1, "lib")  # Pickup libs, rdflib etc., from shipped lib directory
-sys.path.insert(1, "sdopythonapp")  # Pickup sdopythonapp functionality
-sys.path.insert(
-    1, "sdopythonapp/lib"
-)  # Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
-sys.path.insert(1, "sdopythonapp/site")  # Pickup sdopythonapp from shipped site
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 

@@ -6,17 +6,15 @@ import logging
 import os
 import sys
 import typing
-from typing import Any, Dict, Optional, Set, List
-
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+from typing import Any, Dict, List, Optional, Set
 
 import software
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
-import software.util.pretty_logger as pretty_logger
-from software.util.sort_dict import sort_dict
+
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import util.pretty_logger as pretty_logger
+from util.sort_dict import sort_dict
+
 
 log: logging.Logger = logging.getLogger(__name__)
 

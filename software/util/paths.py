@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from enum import Enum, unique
 import glob
+import locale
+import os
+from pathlib import Path
 import string
 import sys
-import os
-import locale
-from pathlib import Path
-from typing import List, Optional, Union, Sequence
-from enum import Enum, unique
+from typing import List, Optional, Sequence, Union
+
+import software
+
+import util.schemaglobals as schemaglobals
+import util.schemaversion as schemaversion
+
 
 # Globally enforce UTF-8 as the default encoding for file reads/writes
 def _enforce_global_utf8() -> None:
@@ -19,10 +25,6 @@ def _enforce_global_utf8() -> None:
 _enforce_global_utf8()
 
 # Need to safely import schemaglobals to read OUTPUTDIR
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
-import software.util.schemaglobals as schemaglobals
-import software.util.schemaversion as schemaversion
 
 
 @unique

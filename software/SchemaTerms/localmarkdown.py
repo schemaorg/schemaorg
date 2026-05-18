@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+from __future__ import annotations
+
 import logging
-import markdown2
+import os
 import re
+import sys
 import threading
-from typing import Optional, Iterable
+from typing import Iterable, Optional
+
+import markdown2
+
+import software
+
 
 WIKILINKPATTERN: str = r"\[\[([\w0-9_ -]+)\]\]"
 

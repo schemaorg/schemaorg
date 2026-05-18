@@ -8,16 +8,20 @@ import logging
 import os
 import sys
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable, Generator
+from typing import Any, Callable, Dict, Generator, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-# Import schema.org libraries
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
+import software
+
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import util.pretty_logger as pretty_logger
 
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
-import software.util.pretty_logger as pretty_logger
+# Import schema.org libraries
+
+
 
 
 log: logging.Logger = logging.getLogger(__name__)

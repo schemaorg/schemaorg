@@ -2,18 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import sys
+import os
 from pathlib import Path
-from typing import Any, Dict, Optional, List
+import sys
+from typing import Any, Dict, List, Optional
 
 from colorama import Fore, Style
-from flask import Flask, after_this_request, Response
+from flask import Flask, Response, after_this_request
 
-for path in [Path.cwd(), Path("software/util")]:
-    if str(path) not in sys.path:
-        sys.path.insert(1, str(path))
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
-from software.util.schemaversion import getVersion
+from util.schemaversion import getVersion
+
 
 parser: argparse.ArgumentParser = argparse.ArgumentParser()
 parser.add_argument("--host", default="localhost", help="Host (default: localhost)")

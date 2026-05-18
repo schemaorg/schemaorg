@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import unittest
 import os
 import sys
 import tempfile
-
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import unittest
 
 import software
-import software.util.fileutils as fileutils
+
+import util.fileutils as fileutils
 
 
 class FileUtilsTest(unittest.TestCase):

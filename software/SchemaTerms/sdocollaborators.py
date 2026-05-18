@@ -1,29 +1,28 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 # Import standard python libraries
 
 import collections
 import glob
 import logging
 import os
-import traceback
 import re
 import sys
+import traceback
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence
-
-
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
 
 import software
-import software.util.paths as paths
-import software.util.schemaglobals as schemaglobals
-import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.localmarkdown as localmarkdown
+
+import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import util.paths as paths
+import util.schemaglobals as schemaglobals
+
 
 log: logging.Logger = logging.getLogger(__name__)
 

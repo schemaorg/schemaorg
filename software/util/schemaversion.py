@@ -4,16 +4,17 @@
 """Module that handles the schema.org version information."""
 
 import json
+import os
 import sys
-from pathlib import Path
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
-from software.util.sort_dict import sort_dict
+import util.paths as paths
+from util.sort_dict import sort_dict
 
-import software.util.paths as paths
 
 VERSION_DATA: Optional[Dict[str, Any]] = None
 

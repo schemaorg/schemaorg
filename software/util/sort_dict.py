@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from typing import Any, Tuple, List, Union, Dict, Optional
+import os
+import sys
+from typing import Any, Dict, List, Optional, Tuple, Union
 from xml.dom import minidom
 from xml.etree import ElementTree
+
+import software
+
 
 KEY_ORDER: List[str] = ["@context", "@id", "@type"]
 

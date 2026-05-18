@@ -10,12 +10,16 @@
 """Basic command line tool to find broken links in a web-site."""
 
 import argparse
+import os
+import sys
+from urllib.parse import urldefrag, urljoin, urlparse
+
 import bs4
 import requests
-import sys
 
-
-from urllib.parse import urlparse, urldefrag, urljoin
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
 
 class BadLink:

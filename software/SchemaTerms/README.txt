@@ -11,5 +11,9 @@ sdoterm.py defines the structures used.
 
 See example-code for examples of how the code can be used.
 
+To run the examples, you can execute them either from the project root or from their own directory.
+Example from project root: `python3 software/SchemaTerms/example-code/simpleTermList/simpleTermList.py`
+Example from example directory: `cd software/SchemaTerms/example-code/simpleTermList && python3 simpleTermList.py`
+
 Richard Wallis
 Sept 2020

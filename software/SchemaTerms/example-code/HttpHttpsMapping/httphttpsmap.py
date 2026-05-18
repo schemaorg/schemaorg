@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+import argparse
+import glob
+import os
 import sys
+
+import rdflib
+from rdflib.namespace import OWL
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+from SchemaTerms.sdoterm import *
+from SchemaTerms.sdotermsource import *
+
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major, sys.version_info.minor))
     sys.exit(1)
 
-# To be executed in the SchemaTerms/example-code/{example} directory
-import os
-for path in [os.getcwd(), "..", "../..", "../../.."]:  # Adds in current, example-code, and SchemaTerms directory into path
-    sys.path.insert(1, path)  # Pickup libs from local  directories
-
-import rdflib
-from rdflib.namespace import OWL
-import argparse
-import glob
-from sdotermsource import *
-from sdoterm import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", "--output", required=True, help="output file")
@@ -27,7 +30,7 @@ exts = {"rdf": ".rdf", "nt": ".nt", "json-ld": ".jsonld", "turtle": ".ttl"}
 
 files = []
 triplesfilesglob = ["data/*.ttl", "data/ext/*/*.ttl"]
-schemaroot = "../../../"
+schemaroot = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")) + "/"
 for g in triplesfilesglob:
     files.extend(glob.glob(schemaroot + g))
 SdoTermSource.loadSourceGraph(files)
@@ -48,7 +51,7 @@ for term in terms:
 
     if t.uri.startswith(VOCABURI):  # Filter out non Schema terms
         eqiv = OWL.equivalentClass
-        if t.termType == SdoTerm.PROPERTY:
+        if t.termType == SdoTermType.PROPERTY:
             eqiv = OWL.equivalentProperty
 
         p = URIRef(s_p + t.id)

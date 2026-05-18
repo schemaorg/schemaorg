@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+
 from rdflib import Graph, URIRef
 from rdflib import RDF, RDFS
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
 
 # On-off utility to help QA the migration of terms from core (v2.2)
 # into health-lifesci hosted extension (v2.3 anticipated). Specifically,

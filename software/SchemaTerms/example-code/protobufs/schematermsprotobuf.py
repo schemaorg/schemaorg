@@ -2,16 +2,17 @@
 # -*- coding: utf-8 -*-
 
 
+import os
 import sys
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 
-# To be executed in the SchemaTerms/example-code/{example} directory
-import os
-for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaTerms directory into path
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
-from sdoterm import SdoTerm
+from SchemaTerms.sdoterm import SdoTerm
 import schematerms_pb2
 
 sdotypemap = {

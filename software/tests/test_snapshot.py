@@ -5,18 +5,15 @@ import difflib
 import logging
 import os
 import sys
-import sys
 import tempfile
 import unittest
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import software
 
-import software.util.snapshot_schema as snapshot_schema
+import scripts.snapshot_schema as snapshot_schema
 
 
-FAIL_HELP = "\n [See fix here] Re-generate the snapshot file by running the 'software/util/snapshot_schema.py'-file."
+FAIL_HELP = "\n [See fix here] Re-generate the snapshot file by running the 'software/scripts/snapshot_schema.py'-file."
 
 class SnapshotTest(unittest.TestCase):
     @unittest.skip("skip snapshot tests until branch updates / pr actions are correctly set up")

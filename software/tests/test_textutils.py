@@ -4,15 +4,12 @@
 import itertools
 import os
 import sys
-import unittest
 import tempfile
-
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import unittest
 
 import software
-import software.util.textutils as textutils
+
+import util.textutils as textutils
 
 
 class TestStripHtmlTags(unittest.TestCase):

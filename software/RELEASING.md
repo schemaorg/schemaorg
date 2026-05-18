@@ -72,7 +72,7 @@ Before building a release, confirm your Python environment is using the correct 
 
 In a checked out version of the _main_ branch:
 
-* Successfully run the `./software/util/buildsite.py --release` command.  This will:
+* Successfully run the `./software/scripts/buildsite.py --release` command.  This will:
   * assign missing example ids
   * complete a full build of the site, proceeded by tests.
   * copy working copies of release files into data/releases directory
@@ -122,7 +122,7 @@ configured as the current default github branch for /schemaorg/ project).
 It is best to test against a fresh checkout to avoid depending on uncommitted
 files. 
 
-To run tests: `./software/util/runtests.py`
+To run tests: `./software/scripts/runtests.py`
 
  Example transcript:
 
@@ -132,7 +132,7 @@ To run tests: `./software/util/runtests.py`
 
   ....
   $ cd schemaorg/
-  $ ./software/util/runtests.py
+  $ ./software/scripts/runtests.py
   [...]
 
   Ran 70 tests in 21.168s

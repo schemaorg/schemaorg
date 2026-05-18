@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import collections
 import glob
 import logging
 import os
-import rdflib
 import sys
 import typing
 import unittest
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import rdflib
 
 import software
-import software.SchemaTerms.sdotermsource as sdotermsource
+
+import SchemaTerms.sdotermsource as sdotermsource
+
 
 TYPECOUNT_UPPERBOUND = 1000
 TYPECOUNT_LOWERBOUND = 500

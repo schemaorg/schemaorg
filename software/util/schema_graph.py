@@ -4,11 +4,16 @@
 """A class that holds the schema graph and presents some operations on it.
 """
 
-import rdflib
+import os
+import sys
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-import software.util.schemaglobals as schemaglobals
+import rdflib
+
+import software
+
+import util.schemaglobals as schemaglobals
 
 
 SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schemaglobals.HOMEPAGE)

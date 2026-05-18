@@ -5,12 +5,10 @@ import os
 import sys
 import unittest
 
+import software
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import SchemaTerms.sdocollaborators as sdocollaborators
 
-import software.SchemaTerms.sdocollaborators as sdocollaborators
 
 TEST_DESCRIPTION = """---
 img: http://example.com/logo.png

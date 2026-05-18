@@ -2,22 +2,20 @@
 # -*- coding: utf-8 -*-
 
 # Import standard python libraries
-import sys
-import os
-import json
-import unittest
-import logging
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import json
+import logging
+import os
+import sys
+import unittest
 
 import software
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaTerms.localmarkdown as localmarkdown
-import software.SchemaExamples.schemaexamples as schemaexamples
+import SchemaExamples.schemaexamples as schemaexamples
+import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 TRIPLESFILESGLOB = ["data/*.ttl", "data/ext/*/*.ttl"]

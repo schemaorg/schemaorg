@@ -1,27 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
+import logging
 import os
 import sys
-import json
 import unittest
 import unittest.mock
-import logging
-
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
 
 import software
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.util.sdojsonldcontext as sdojsonldcontext
-import software.SchemaTerms.sdoterm as sdoterm
+
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import util.sdojsonldcontext as sdojsonldcontext
 
 
 class SdoJsonLdContextTest(unittest.TestCase):
     """Tests for the sdojsonldcontext library."""
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextEmpty(self, mock_getAllTerms):
         """Test that createcontext outputs valid JSON data"""
         mock_getAllTerms.return_value = []
@@ -33,7 +30,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("id", context)
         self.assertIn("@vocab", context)
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneProperty(self, mock_getAllTerms):
         """Test that createcontext outputs valid JSON data"""
         self.maxDiff = None
@@ -55,7 +52,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
             context[mock_id], {"@id": "http://schema.org/thang", "@type": "Date"}
         )
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneDataType(self, mock_getAllTerms):
         self.maxDiff = None
         mock_id = "1234"
@@ -74,7 +71,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("@vocab", context)
         self.assertEqual(context[mock_id], {"@id": "http://schema.org/Fnubl"})
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneEnumeration(self, mock_getAllTerms):
         self.maxDiff = None
         mock_id = "1234"
@@ -92,7 +89,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("@vocab", context)
         self.assertEqual(context[mock_id], {"@id": "http://schema.org/Grabl"})
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneEnumerationValue(self, mock_getAllTerms):
         self.maxDiff = None
         mock_id = "1234"
@@ -109,7 +106,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("@vocab", context)
         self.assertEqual(context[mock_id], {"@id": "http://schema.org/Bobl"})
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextOneReference(self, mock_getAllTerms):
         self.maxDiff = None
         mock_id = "1234"
@@ -126,7 +123,7 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("@vocab", context)
         self.assertNotIn(mock_id, context)
 
-    @unittest.mock.patch("software.SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
+    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
     def test_createcontextMultiple(self, mock_getAllTerms):
         self.maxDiff = None
         mock_property = sdoterm.SdoProperty(

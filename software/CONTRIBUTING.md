@@ -23,7 +23,7 @@ The build system will pull in and merge all the files.
 ### Turtle files
 
 The `.ttl` files are in the [Turtle Syntax](https://en.wikipedia.org/wiki/Turtle_(syntax)).
-You can lint the files using the `software/util/reorg.py lint <file>` command.
+You can lint the files using the `software/scripts/reorg.py lint <file>` command.
 
 ### Example files
 
