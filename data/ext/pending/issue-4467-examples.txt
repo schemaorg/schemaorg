@@ -128,3 +128,101 @@ JSON:
   }
 }
 </script>
+
+TYPES: #eg-4467c PerformanceWork
+
+PRE-MARKUP:
+
+Example of a PerformanceWork with contributor roles, nested within a PerformingArtsEvent object.
+
+MICRODATA:
+
+n/a
+
+RDFA:
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PerformingArtsEvent",
+  "name": "Rinse | Amrita Hepi with Mish Grigor | Performing Lines",
+  "url": "https://nac-cna.ca/en/event/38366",
+  "startDate": "2026-01-22T20:00:00-05:00",
+  "endDate": "2026-01-24T21:00:00-05:00",
+  "location": {
+    "@type": "Place",
+    "name": "Azrieli Studio - National Arts Centre",
+    "sameAs": "http://www.wikidata.org/entity/Q109326244"
+    },
+  "performer": {
+    "@type": "Person",
+    "name": "Amrita Hepi",
+    "sameAs": "http://www.wikidata.org/entity/Q134599760"
+    },
+  "workPerformed": {
+    "@type": "PerformanceWork",
+    "name": "Rinse",
+    "url": "https://performinglines.org.au/projects/rinse/",
+    "contributor": [
+      {
+      "@type": "Role",
+      "roleName": "Choreographer",
+      "contributor": {
+        "@type": "Person",
+        "name": "Amrita Hepi",
+        "sameAs": "http://www.wikidata.org/entity/Q134599760"
+        }
+      },
+      {
+      "@type": "Role",
+      "roleName": "Co-writer",
+      "contributor": {
+        "@type": "Person",
+        "name": "Mish Grigor",
+        "sameAs": "http://www.wikidata.org/entity/Q134876978"
+        }
+      },
+      {
+      "@type": "Role",
+      "roleName": "Director",
+      "contributor": {
+        "@type": "Person",
+        "name": "Mish Grigor",
+        "sameAs": "http://www.wikidata.org/entity/Q134876978"
+        }
+      },
+      {
+      "@type": "Role",
+      "roleName": "Lighting Design",
+      "contributor": {
+        "@type": "Person",
+        "name": "Matt Adey",
+        "sameAs": "http://www.wikidata.org/entity/Q134877046"
+        }
+      },
+      {
+      "@type": "Role",
+      "roleName": "Sound Design",
+      "contributor": {
+        "@type": "Person",
+        "name": "Daniel Jenatsch",
+        "sameAs": "http://www.wikidata.org/entity/Q52892009"
+        }
+      },
+      {
+      "@type": "Role",
+      "roleName": "Composer",
+      "contributor": {
+        "@type": "Person",
+        "name": "Daniel Jenatsch",
+        "sameAs": "http://www.wikidata.org/entity/Q52892009"
+        }
+      }
+    ]
+  }
+}
+</script>
