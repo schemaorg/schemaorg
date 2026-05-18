@@ -30,6 +30,8 @@ log: logging.Logger = logging.getLogger(__name__)
 
 STRCLASSVAL: Optional[str] = None
 
+import software.util.paths as paths
+
 def docsTemplateRender(template: str, extra_vars: Optional[Dict[str, Any]] = None) -> str:
     tvars: Dict[str, Any] = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}
     if extra_vars:
@@ -269,11 +271,8 @@ def createCollab(coll: sdocollaborators.collaborator) -> None:
     }
 
     content: str = docsTemplateRender("docs/Collab.j2", extra_vars)
-    filename: str = fileutils.ensureAbsolutePath(
-        output_dir=schemaglobals.OUTPUTDIR,
-        relative_path=str(Path("docs/collab") / f"{coll.ref}.html"),
-    )
-    Path(filename).write_text(content, encoding="utf8")
+    filename: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.DOCS_COLLAB, f"{coll.ref}.html")
+    filename.write_text(content)
     log.info(f"Created {filename}")
 
 
@@ -284,26 +283,26 @@ def termfind(file: str) -> str:
     return ""
 
 
-PAGELIST: Dict[str, Tuple[Callable[[str], str], List[str]]] = {
-    "Home": (homePage, ["docs/home.html"]),
-    "PendingHome": (homePage, ["docs/pending.home.html"]),
-    "AtticHome": (homePage, ["docs/attic.home.html"]),
-    "AutoHome": (homePage, ["docs/auto.home.html"]),
-    "BibHome": (homePage, ["docs/bib.home.html"]),
-    "Health-lifesciHome": (homePage, ["docs/health-lifesci.home.html"]),
-    "MetaHome": (homePage, ["docs/meta.home.html"]),
-    "Schemas": (schemasPage, ["docs/schemas.html"]),
-    "Full": (fullPage, ["docs/full.html"]),
-    "FullOrig": (fullPage, ["docs/full.orig.html"]),
+PAGELIST: Dict[str, Tuple[Callable[[str], str], List[Tuple[Any, ...]]]] = {
+    "Home": (homePage, [("domain_file", paths.Domain.DOCS, "home.html")]),
+    "PendingHome": (homePage, [("domain_file", paths.Domain.DOCS, "pending.home.html")]),
+    "AtticHome": (homePage, [("domain_file", paths.Domain.DOCS, "attic.home.html")]),
+    "AutoHome": (homePage, [("domain_file", paths.Domain.DOCS, "auto.home.html")]),
+    "BibHome": (homePage, [("domain_file", paths.Domain.DOCS, "bib.home.html")]),
+    "Health-lifesciHome": (homePage, [("domain_file", paths.Domain.DOCS, "health-lifesci.home.html")]),
+    "MetaHome": (homePage, [("domain_file", paths.Domain.DOCS, "meta.home.html")]),
+    "Schemas": (schemasPage, [("domain_file", paths.Domain.DOCS, "schemas.html")]),
+    "Full": (fullPage, [("domain_file", paths.Domain.DOCS, "full.html")]),
+    "FullOrig": (fullPage, [("domain_file", paths.Domain.DOCS, "full.orig.html")]),
     "FullRelease": (
         fullReleasePage,
         [
-            "docs/fullrelease.html",
-            f"releases/{schemaversion.getVersion()}/schema-all.html",
+            ("domain_file", paths.Domain.DOCS, "fullrelease.html"),
+            ("domain_file", paths.Domain.RELEASE, "schema-all.html"),
         ],
     ),
-    "TermFind": (termfind, ["docs/termfind/termlist.txt"]),
-    "Tree": (jsonldtree, ["docs/tree.jsonld"]),
+    "TermFind": (termfind, [("domain_file", paths.Domain.DOCS_TERMFIND, "termlist.txt")]),
+    "Tree": (jsonldtree, [("domain_file", paths.Domain.DOCS, "tree.jsonld")]),
 }
 
 
@@ -314,15 +313,15 @@ def buildDocs(pages: Iterable[str]) -> None:
     for page in process_pages:
         if entry := PAGELIST.get(page):
             func: Callable[[str], str]
-            filenames: List[str]
+            filenames: List[Tuple[Any, ...]]
             func, filenames = entry
             with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
                 content: str = func(page)
-                relative_path: str
-                for relative_path in filenames:
-                    filename: str = fileutils.ensureAbsolutePath(
-                        output_dir=schemaglobals.OUTPUTDIR, relative_path=relative_path
-                    )
-                    Path(filename).write_text(content, encoding="utf8")
+                for item in filenames:
+                    key = item[0]
+                    args = item[1:]
+                    layout_func = getattr(paths.DefaultOutputLayout(), key)
+                    out_path: Path = layout_func(*args)
+                    out_path.write_text(content)
         else:
             log.warning(f"Unknown or missing page name: {page}")

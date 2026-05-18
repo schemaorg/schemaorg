@@ -30,24 +30,24 @@ class TestTermFileName(unittest.TestCase):
     def testUpper(self):
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
-            os.path.join(
+            os.path.abspath(os.path.join(
                 schemaglobals.OUTPUTDIR,
-                "terms/types/T/Thingamabob.html"))
+                "terms/types/T/Thingamabob.html")))
 
     def testLower(self):
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
-            os.path.join(
+            os.path.abspath(os.path.join(
                 schemaglobals.OUTPUTDIR,
-                "terms/properties/t/thingamabob.html")
+                "terms/properties/t/thingamabob.html"))
         )
 
     def testDigit(self):
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
-            os.path.join(
+            os.path.abspath(os.path.join(
                 schemaglobals.OUTPUTDIR,
-                "terms/types/4/4DStatue.html")
+                "terms/types/4/4DStatue.html"))
         )
 
 
@@ -61,8 +61,8 @@ class TestBuildTermPages(unittest.TestCase):
             label="whatchicallit",
         )
         output = buildtermpages.termtemplateRender(term=term, examples=[], json="")
-        self.assertRegex(output, ".*whatchicallit.*")
-        self.assertRegex(output, ".*http://example\.com/whatchicallit.*")
+        self.assertRegex(output, r".*whatchicallit.*")
+        self.assertRegex(output, r".*http://example\.com/whatchicallit.*")
 
     def testTemplateRenderOneExample(self):
         """Test rendering of one term page."""
@@ -85,8 +85,8 @@ class TestBuildTermPages(unittest.TestCase):
         output = buildtermpages.termtemplateRender(
             term=term, examples=examples, json=json
         )
-        self.assertRegex(output, ".*Thingamabob.*")
-        self.assertRegex(output, ".*http://example\.com/thingamabob.*")
+        self.assertRegex(output, r".*Thingamabob.*")
+        self.assertRegex(output, r".*http://example\.com/thingamabob.*")
         self.assertRegex(output, ".Awesome &amp; Thingamabob.*")
 
 

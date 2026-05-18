@@ -20,6 +20,7 @@ if os.getcwd() not in sys.path:
 
 import software
 import software.util.buildfiles as buildfiles
+import software.util.paths as paths
 import software.util.buildocspages as buildocspages
 import software.util.buildtermpages as buildtermpages
 import software.util.copystaticdocsplusinsert as copystaticdocsplusinsert
@@ -201,10 +202,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     gdir.mkdir(parents=True, exist_ok=True)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
-        copystaticdocsplusinsert.copyFiles("./docs", str(output_dir / "docs"))
+        copystaticdocsplusinsert.copyFiles(str(paths.DefaultInputLayout().domain_dir(paths.Domain.DOCS)), str(paths.DefaultOutputLayout().domain_dir(paths.Domain.DOCS)))
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files: List[Path] = sorted(Path("software/gcloud").glob("*.yaml"))
+        gcloud_files: List[Path] = paths.DefaultInputLayout().domain_files(paths.Domain.GCLOUD, "*.yaml")
         path: Path
         for path in gcloud_files:
             shutil.copy(path, gdir)
@@ -213,10 +214,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     version: str = schemaversion.getVersion()
     message: str = f"Creating {handler_path} from {schemaglobals.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
-        template_file: Path = gdir / schemaglobals.HANDLER_TEMPLATE
+        template_file: Path = paths.DefaultInputLayout().domain_file(paths.Domain.GCLOUD, "handlers-template.yaml")
         template_data: str = template_file.read_text()
         handler_data: str = template_data.replace("{{ver}}", version)
-        (gdir / handler_path).write_text(handler_data)
+        paths.DefaultOutputLayout().domain_file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
 
 
 LOADEDTERMS: bool = False
@@ -280,8 +281,8 @@ def runShaclTests() -> None:
 
 def copyReleaseFiles(release_dir: str) -> None:
     version: str = schemaversion.getVersion()
-    srcdir: Path = Path.cwd() / "data" / "releases" / version
-    destdir: Path = Path.cwd() / release_dir / version
+    srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
+    destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
     with pretty_logger.BlockLog(
         message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,

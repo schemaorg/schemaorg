@@ -25,7 +25,7 @@ class SnapshotTest(unittest.TestCase):
         snapshot_file = os.path.join(
             os.path.dirname(__file__), "snapshot/schemaorg-all-https.ttl"
         )
-        with open(snapshot_file, "r", encoding="utf-8") as f:
+        with open(snapshot_file, "r") as f:
             snapshot_content_lines = f.readlines()
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -33,7 +33,7 @@ class SnapshotTest(unittest.TestCase):
             # function directly
             snapshot_schema.snapshot_ttl(temp_dir)
             generated_file = os.path.join(temp_dir, "schemaorg-all-https.ttl")
-            with open(generated_file, "r", encoding="utf-8") as f:
+            with open(generated_file, "r") as f:
                 generated_content_lines = f.readlines()
 
         # compares the two files.

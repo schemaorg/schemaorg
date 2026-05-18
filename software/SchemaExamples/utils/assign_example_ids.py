@@ -37,7 +37,7 @@ def AssignExampleIds():
 
     for filename, example in changedFiles.items():
         log.info('Writing example file %s' % filename)
-        with open(filename, 'w', encoding='utf-8') as file_handle:
+        with open(filename, 'w') as file_handle:
             file_handle.write(example.serialize())
             file_handle.write('\n')
 

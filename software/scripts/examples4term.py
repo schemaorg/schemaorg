@@ -106,7 +106,7 @@ def buildcsvoutput(workingex, fname):
     csvout = io.StringIO()
     print("examples4term: Writing to: %s" % fname)
 
-    csvfile = open(fname, "w", encoding="utf8")
+    csvfile = open(fname, "w")
     writer = csv.DictWriter(
         csvout, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
     )

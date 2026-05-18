@@ -338,44 +338,40 @@ class ShaclParser:
         return str(dest.serialize(format="turtle", sort_keys=True))
 
 
+import software.util.paths as paths
+
 def generate_files(
     term_defs_path: Union[str, Path],
-    outputdir: Union[str, Path],
-    outputfileprefix: str = "",
+    version: str,
     input_format: str = "nt",
 ) -> None:
     term_defs_path = Path(term_defs_path)
-    outputdir = Path(outputdir)
-    outputdir.mkdir(parents=True, exist_ok=True)
 
-    with term_defs_path.open(encoding=FILE_ENCODING) as f:
+    with term_defs_path.open() as f:
         term_defs: str = f.read()
 
     graph: Graph = Graph().parse(data=term_defs, format=input_format)
     graph.bind("schema", SCHEMA)
 
-    shexj_path: Path = outputdir / f"{outputfileprefix}shapes.shexj"
-    shexj_path.write_text(ShExJParser.to_shex(graph), encoding=FILE_ENCODING)
+    shexj_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shexj")
+    shexj_path.write_text(ShExJParser.to_shex(graph))
     log.info(f"Created {shexj_path}")
 
-    shacl_path: Path = outputdir / f"{outputfileprefix}shapes.shacl"
-    shacl_path.write_text(ShaclParser.to_shacl(graph), encoding=FILE_ENCODING)
+    shacl_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shacl")
+    shacl_path.write_text(ShaclParser.to_shacl(graph))
     log.info(f"Created {shacl_path}")
 
-    subclasses_path: Path = outputdir / f"{outputfileprefix}subclasses.shacl"
-    subclasses_path.write_text(ShaclParser.get_subclasses(graph), encoding=FILE_ENCODING)
+    subclasses_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-subclasses.shacl")
+    subclasses_path.write_text(ShaclParser.get_subclasses(graph))
     log.info(f"Created {subclasses_path}")
 
 
 if __name__ == "__main__":
+    import software.util.schemaversion as schemaversion
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-s", "--sourcefile", help="rdf format source file")
     parser.add_argument(
         "-f", "--format", default="nt", help="source file format (default: .nt)"
-    )
-    parser.add_argument("-o", "--outputdir", default=".", help="output directory (default: ./)")
-    parser.add_argument(
-        "-p", "--outputfileprefix", default="", help="output files prefix"
     )
     args: argparse.Namespace = parser.parse_args()
 
@@ -387,7 +383,6 @@ if __name__ == "__main__":
 
     generate_files(
         term_defs_path=term_defs_path,
-        outputdir=args.outputdir,
-        outputfileprefix=args.outputfileprefix,
+        version=schemaversion.getVersion(),
         input_format=args.format,
     )

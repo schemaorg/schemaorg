@@ -97,6 +97,6 @@ if __name__ == "__main__":
     # \n\n" % new_health_enumvals.difference(new_health_enumvals)
     print("\n\n")
 
-    # print sdo_corev22_g.serialize(format="nt", encoding="utf-8")
+    # print sdo_corev22_g.serialize(format="nt")
 
 # note: breastfeedingWarning was dropped between 2.2 and 3.0 ext

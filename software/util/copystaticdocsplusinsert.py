@@ -19,8 +19,10 @@ import software.util.convertmd2htmldocs as convertmd2htmldocs
 log: logging.Logger = logging.getLogger(__name__)
 
 
+import software.util.paths as paths
+
 def _getInserts() -> Generator[Tuple[str, str], None, None]:
-    template_dir: Path = Path("./templates/static-doc-inserts")
+    template_dir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.STATIC_DOC_INSERTS)
     f_path: Path
     for f_path in template_dir.glob("*.html"):
         fn: str = f_path.stem.lower()

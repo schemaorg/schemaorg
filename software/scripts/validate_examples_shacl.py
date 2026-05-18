@@ -22,6 +22,8 @@ import software.util.schemaversion as schemaversion
 
 log: logging.Logger = logging.getLogger(__name__)
 
+import software.util.paths as paths
+
 def load_examples() -> list:
     """Finds and loads all examples."""
     schemaexamples.SchemaExamples.loadExamplesFiles("default")
@@ -34,8 +36,8 @@ def load_examples() -> list:
 def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
     """Validates the provided examples against the generated SHACL shapes."""
     version: str = schemaversion.getVersion()
-    shacl_file: Path = Path.cwd() / "software" / "site" / "releases" / version / "schemaorg-shapes.shacl"
-    subclass_file: Path = Path.cwd() / "software" / "site" / "releases" / version / "schemaorg-subclasses.shacl"
+    shacl_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shacl")
+    subclass_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-subclasses.shacl")
 
     if not shacl_file.exists() or not subclass_file.exists():
         log.error(f"SHACL files not found at {shacl_file} or {subclass_file} – check site build")

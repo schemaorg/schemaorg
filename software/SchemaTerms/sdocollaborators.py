@@ -19,6 +19,7 @@ if not os.getcwd() in sys.path:
     sys.path.insert(1, os.getcwd())
 
 import software
+import software.util.paths as paths
 import software.util.schemaglobals as schemaglobals
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdotermsource as sdotermsource
@@ -145,7 +146,7 @@ class collaborator(object):
         code: str = os.path.basename(file_path)
         ref, _ = os.path.splitext(code)
         try:
-            with open(file_path, "r", encoding="utf-8") as file_handle:
+            with open(file_path, "r") as file_handle:
                 desc = file_handle.read()
             return cls(ref, desc=desc)
         except OSError as e:
@@ -155,8 +156,8 @@ class collaborator(object):
     @classmethod
     def loadCollaborators(cls) -> None:
         if not len(cls.COLLABORATORS):
-            for file_path in glob.glob("data/collab/*.md"):
-                cls.createCollaborator(file_path)
+            for file_path in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, "collab/*.md"):
+                cls.createCollaborator(str(file_path))
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 
     @classmethod

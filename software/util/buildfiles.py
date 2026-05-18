@@ -60,11 +60,7 @@ def buildTurtleEquivs() -> str:
     return str(outGraph.serialize(format="turtle", auto_compact=True, sort_keys=True))
 
 
-def absoluteFilePath(fn: str) -> str:
-    path: Path = Path(schemaglobals.OUTPUTDIR) / fn
-    fileutils.checkFilePath(path.parent)
-    return str(path)
-
+import software.util.paths as paths
 
 def jsonldcontext(page: str) -> str:
     return str(sdojsonldcontext.getContext())
@@ -223,6 +219,31 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
         raise ValueError(f"Unknown export format: {exportType}")
 
 
+
+def get_release_file_path(selector: Union["fileutils.FileSelector", str], protocol: str, output_format: str, suffix: Optional[str] = None, subdirectory_path: Optional[str] = None) -> Path:
+    EXTENSIONS_FOR_FORMAT = {
+        "xml": "xml",
+        "rdf": "rdf",
+        "nquads": "nq",
+        "nt": "nt",
+        "json-ld": "jsonld",
+        "turtle": "ttl",
+        "csv": "csv",
+    }
+    extension: str = EXTENSIONS_FOR_FORMAT[output_format.lower()]
+    parts: List[str] = [str(selector).lower(), protocol.lower()]
+    if suffix:
+        parts.append(suffix)
+    merged: str = "-".join(parts)
+    filename: str = f"schemaorg-{merged}.{extension}"
+    
+    if subdirectory_path is not None:
+        path: Path = paths.DefaultOutputLayout().get_output_dir() / subdirectory_path / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        return path
+    else:
+        return paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, filename)
+
 def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdflib.Graph, subdirectory_path: Optional[str] = None) -> None:
     protocol: str
     altprotocol: str
@@ -247,14 +268,12 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
                     qg.add(trip)
                 final_g = ds
 
-            fn: str = fileutils.releaseFilePath(
-                output_dir=schemaglobals.getOutputDir(),
-                version=version,
+            fn: str = str(get_release_file_path(
                 selector=selector,
                 protocol=p,
                 output_format=output_format,
                 subdirectory_path=subdirectory_path,
-            )
+            ))
             with pretty_logger.BlockLog(logger=log, message=f"Exporting {fn}"):
                 fmt: str = "pretty-xml" if output_format == "rdf" else output_format
                 out: str = str(final_g.serialize(format=fmt, auto_compact=True, sort_keys=True, max_depth=1))
@@ -276,7 +295,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
                 if p != protocol:
                     content = protocolSwap(out, protocol, altprotocol)
 
-                Path(fn).write_text(content, encoding="utf8")
+                Path(fn).write_text(content)
 
 
 def array2str(values: List[str]) -> str:
@@ -350,9 +369,9 @@ def exportcsv(page: str) -> None:
 
 def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selector: Union[fileutils.FileSelector, str], protocol: str, altprotocol: str) -> None:
     version: str = schemaversion.getVersion()
-    paths: List[str] = [fileutils.releaseFilePath(output_dir=schemaglobals.getOutputDir(), version=version, selector=selector, protocol=p, suffix=ftype, output_format="csv") for p in (protocol, altprotocol)]
+    paths_list: List[str] = [str(get_release_file_path(selector=selector, protocol=p, suffix=ftype, output_format="csv")) for p in (protocol, altprotocol)]
 
-    with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {paths[0]} and {paths[1]}.", logger=log):
+    with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {paths_list[0]} and {paths_list[1]}.", logger=log):
         csv_data: str
         with io.StringIO() as buffer:
             writer: csv.DictWriter = csv.DictWriter(buffer, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n")
@@ -360,8 +379,8 @@ def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selec
             writer.writerows(data)
             csv_data = buffer.getvalue()
 
-        Path(paths[0]).write_text(csv_data, encoding="utf8")
-        Path(paths[1]).write_text(protocolSwap(csv_data, protocol, altprotocol), encoding="utf8")
+        Path(paths_list[0]).write_text(csv_data)
+        Path(paths_list[1]).write_text(protocolSwap(csv_data, protocol, altprotocol))
 
 
 def jsoncounts(page: str) -> str:
@@ -376,8 +395,11 @@ def jsonpcounts(page: str) -> str:
 
 def exportshex_shacl(page: str) -> None:
     version: str = schemaversion.getVersion()
-    release_dir: Path = Path.cwd() / schemaglobals.RELEASE_DIR / version
-    nt_path: Path = release_dir / "schemaorg-all-http.nt"
+    nt_path: Path = get_release_file_path(
+        selector=fileutils.FileSelector.ALL,
+        protocol="http",
+        output_format="nt"
+    )
 
     if not nt_path.exists():
         log.info(f"Generating missing {nt_path} for Shex_Shacl")
@@ -386,8 +408,7 @@ def exportshex_shacl(page: str) -> None:
 
     shex_shacl_shapes_exporter.generate_files(
         term_defs_path=nt_path,
-        outputdir=release_dir,
-        outputfileprefix="schemaorg-",
+        version=version,
     )
 
 
@@ -395,23 +416,23 @@ def examples(page: str) -> str:
     return str(schemaexamples.SchemaExamples.allExamplesSerialised())
 
 
-FILELIST: Dict[str, Tuple[Callable[[str], Any], List[str]]] = {
-    "Context": (jsonldcontext, ["docs/jsonldcontext.jsonld", "docs/jsonldcontext.json", "docs/jsonldcontext.json.txt", f"releases/{schemaversion.getVersion()}/schemaorgcontext.jsonld"]),
-    "Tree": (jsonldtree, ["docs/tree.jsonld"]),
-    "jsoncounts": (jsoncounts, ["docs/jsoncounts.json"]),
-    "jsonpcounts": (jsonpcounts, ["docs/jsonpcounts.js"]),
-    "Owl": (owl, ["docs/schemaorg.owl", f"releases/{schemaversion.getVersion()}/schemaorg.owl"]),
-    "Httpequivs": (httpequivs, [f"releases/{schemaversion.getVersion()}/httpequivs.ttl"]),
-    "Sitemap": (sitemap, ["docs/sitemap.xml"]),
-    "RDFExports": (exportrdf, [""]),
-    "RDFExport.turtle": (exportrdf, [""]),
-    "RDFExport.rdf": (exportrdf, [""]),
-    "RDFExport.nt": (exportrdf, [""]),
-    "RDFExport.nquads": (exportrdf, [""]),
-    "RDFExport.json-ld": (exportrdf, [""]),
-    "Shex_Shacl": (exportshex_shacl, [""]),
-    "CSVExports": (exportcsv, [""]),
-    "Examples": (examples, [f"releases/{schemaversion.getVersion()}/schemaorg-all-examples.txt"]),
+FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
+    "Context": (jsonldcontext, [("domain_file", paths.Domain.DOCS, "jsonldcontext.jsonld"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json.txt"), ("domain_file", paths.Domain.RELEASE, "schemaorgcontext.jsonld")]),
+    "Tree": (jsonldtree, [("domain_file", paths.Domain.DOCS, "tree.jsonld")]),
+    "jsoncounts": (jsoncounts, [("domain_file", paths.Domain.DOCS, "jsoncounts.json")]),
+    "jsonpcounts": (jsonpcounts, [("domain_file", paths.Domain.DOCS, "jsonpcounts.js")]),
+    "Owl": (owl, [("domain_file", paths.Domain.DOCS, "schemaorg.owl"), ("domain_file", paths.Domain.RELEASE, "schemaorg.owl")]),
+    "Httpequivs": (httpequivs, [("domain_file", paths.Domain.RELEASE, "httpequivs.ttl")]),
+    "Sitemap": (sitemap, [("domain_file", paths.Domain.DOCS, "sitemap.xml")]),
+    "RDFExports": (exportrdf, []),
+    "RDFExport.turtle": (exportrdf, []),
+    "RDFExport.rdf": (exportrdf, []),
+    "RDFExport.nt": (exportrdf, []),
+    "RDFExport.nquads": (exportrdf, []),
+    "RDFExport.json-ld": (exportrdf, []),
+    "Shex_Shacl": (exportshex_shacl, []),
+    "CSVExports": (exportcsv, []),
+    "Examples": (examples, [("domain_file", paths.Domain.RELEASE, "schemaorg-all-examples.txt")]),
 }
 
 
@@ -446,15 +467,17 @@ def buildFiles(files: Iterable[str]) -> None:
     for p in process_files:
         if entry := FILELIST.get(p):
             func: Callable[[str], Any]
-            filenames: List[str]
+            filenames: List[Tuple[Any, ...]]
             func, filenames = entry
             with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
                 content: Any = func(p)
                 if content:
-                    fn: str
-                    for fn in filenames:
-                        if fn:
-                            Path(absoluteFilePath(fn)).write_text(str(content), encoding="utf8")
+                    for item in filenames:
+                        key = item[0]
+                        args = item[1:]
+                        layout_func = getattr(paths.DefaultOutputLayout(), key)
+                        out_path: Path = layout_func(*args)
+                        out_path.write_text(str(content))
         else:
             log.warning(f"Unknown files name: {p}")
 

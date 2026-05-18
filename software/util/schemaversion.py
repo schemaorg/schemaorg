@@ -13,12 +13,14 @@ if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
 
 from software.util.sort_dict import sort_dict
 
+import software.util.paths as paths
+
 VERSION_DATA: Optional[Dict[str, Any]] = None
 
 def getVersionData() -> Dict[str, Any]:
     global VERSION_DATA
     if VERSION_DATA is None:
-        VERSION_DATA = json.loads(Path("versions.json").read_text())
+        VERSION_DATA = json.loads(paths.DefaultInputLayout().domain_file(paths.Domain.ROOT, "versions.json").read_text())
     assert VERSION_DATA is not None
     return VERSION_DATA
 
@@ -44,7 +46,7 @@ def setVersion(ver: str, date: str) -> None:
     logs: Dict[str, str] = versiondata["releaseLog"]
     versiondata["releaseLog"] = dict(sorted(logs.items(), key=lambda x: float(x[0]), reverse=True))
 
-    Path("versions.json").write_text(json.dumps(sort_dict(versiondata), indent=4))
+    paths.DefaultInputLayout().domain_file(paths.Domain.ROOT, "versions.json").write_text(json.dumps(sort_dict(versiondata), indent=4))
 
 
 if __name__ == "__main__":

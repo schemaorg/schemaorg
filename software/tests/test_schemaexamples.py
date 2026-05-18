@@ -38,6 +38,12 @@ class TestExampleFileParser(unittest.TestCase):
     def setUp(self):
         self.parser = schemaexamples.ExampleFileParser()
         self.temp_file = tempfile.NamedTemporaryFile()
+        from unittest.mock import patch
+        from software.util.paths import InputLayout
+        patcher = patch('software.SchemaExamples.schemaexamples.paths.DefaultInputLayout')
+        mock_input_layout = patcher.start()
+        mock_input_layout.return_value = InputLayout(os.path.dirname(self.temp_file.name))
+        self.addCleanup(patcher.stop)
 
     def test_empty_example(self):
         """Test parsing of an empty Example file."""
@@ -60,7 +66,7 @@ class TestExampleFileParser(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertTrue(result[0].hasValidId())
         self.assertEqual(result[0].getIdNum(), 999)
-        self.assertEqual(result[0].getMeta("file"), self.temp_file.name)
+        self.assertEqual(result[0].getMeta("file"), os.path.basename(self.temp_file.name))
         self.assertCountEqual(result[0].terms, ["Thing"])
         self.assertEqual(
             result[0].getHtml().strip(), "<p>This is a thing</p>", result[0].serialize()

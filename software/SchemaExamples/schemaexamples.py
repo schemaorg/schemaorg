@@ -9,6 +9,7 @@ import re
 import threading
 import typing
 from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Collection
+import software.util.paths as paths
 
 IDPREFIX: str = "eg-"
 DEFTEXAMPLESFILESGLOB: Tuple[str, str] = ("data/*examples.txt", "data/ext/*/*examples.txt")
@@ -228,10 +229,9 @@ class SchemaExamples:
         load_files: List[str] = []
         if not exfiles or exfiles == "default":
             log.info(
-                f"SchemaExamples.loadExamplesFiles() loading from default files found in globs: {','.join(DEFTEXAMPLESFILESGLOB)}"
+                "SchemaExamples.loadExamplesFiles() loading from default files"
             )
-            for g in DEFTEXAMPLESFILESGLOB:
-                load_files.extend(sorted(glob.glob(g)))
+            load_files = [str(p) for p in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, ["*examples.txt", "ext/*/*examples.txt"])]
 
         elif isinstance(exfiles, str):
             log.info(
@@ -239,10 +239,10 @@ class SchemaExamples:
             )
             load_files = [exfiles]
         else:
-            log.info(
-                f"SchemaExamples.loadExamplesFiles() loading from {len(list(exfiles))}"
-            )
             load_files = list(exfiles)
+            log.info(
+                f"SchemaExamples.loadExamplesFiles() loading from {len(load_files)}"
+            )
 
         if not len(load_files):
             raise Exception("No examples file(s) to load")
@@ -409,7 +409,7 @@ class ExampleFileParser:
             r: requests.Response = requests.get(self.file)
             content = r.text
         else:
-            with codecs.open(self.file, "r", encoding="utf8") as fd:
+            with codecs.open(self.file, "r") as fd:
                 content = fd.read()
 
         lines: List[str] = re.split("\n|\r", content)
@@ -431,7 +431,7 @@ class ExampleFileParser:
                         examples.append(self.makeExample())
                     boilerplate = False
                     self.initFields()
-                self.exmeta["file"] = self.file
+                self.exmeta["file"] = str(paths.DefaultInputLayout().relative(self.file))
                 self.exmeta["filepos"] = self.filepos
                 typelist: List[str] = re.split(":", line)
                 tdata: str = egid.sub(
@@ -460,7 +460,7 @@ class ExampleFileParser:
         self.nextPart("TYPES:")  # should flush on each block of examples
         self.filepos += 1
         if not boilerplate:
-            self.exmeta["file"] = self.file
+            self.exmeta["file"] = str(paths.DefaultInputLayout().relative(self.file))
             self.exmeta["filepos"] = self.filepos
             examples.append(self.makeExample())  # should flush last one
         self.initFields()

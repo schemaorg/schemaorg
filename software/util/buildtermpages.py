@@ -28,20 +28,22 @@ import software.SchemaExamples.schemaexamples as schemaexamples
 log: logging.Logger = logging.getLogger(__name__)
 
 
+import software.util.paths as paths
+
 def termFileName(termid: str) -> str:
     """Generate filename for term page."""
     if not termid:
-        raise ValueError("Empty termid")
-    base_dir: Path = Path(schemaglobals.getOutputDir()) / "terms"
+        raise ValueError("Empty term_id")
+    c: str = termid[0]
     sub_dir: str
-    if termid[0].islower():
+    if c.islower():
         sub_dir = "properties"
-    elif termid[0].isupper() or termid[0].isdigit():
+    elif c.isupper() or c.isdigit():
         sub_dir = "types"
     else:
-        raise ValueError(f"Invalid termid: '{termid}'")
+        raise ValueError(f"Invalid term_id: '{termid}'")
 
-    return str(base_dir / sub_dir / termid[0] / f"{termid}.html")
+    return str(paths.DefaultOutputLayout().domain_file(paths.Domain.TERMS, f"{sub_dir}/{c}/{termid}.html"))
 
 
 TEMPLATE: jinja2.Template = jinga_render.GetJinga().get_template("terms/TermPage.j2")
@@ -92,12 +94,12 @@ def RenderAndWriteSingleTerm(term_key: str) -> float:
         if term.termType == sdoterm.SdoTermType.REFERENCE:
             return 0.0
         try:
-            examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
-            json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
-            pageout: str = termtemplateRender(term, examples, json_str)
-            outfile: Path = Path(termFileName(term.id))
-            fileutils.checkFilePath(outfile.parent)
-            outfile.write_text(pageout, encoding="utf8")
+          examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+          json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
+          pageout: str = termtemplateRender(term, examples, json_str)
+          outfile: Path = Path(termFileName(term.id))
+          fileutils.checkFilePath(outfile.parent)
+          outfile.write_text(pageout)
         except Exception as e:
             e.add_note(f"Term definition: {term}")
             raise

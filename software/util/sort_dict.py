@@ -32,7 +32,7 @@ def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
         resource: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
         if resource:
             return (tag, resource, "")
-        return (tag, "", ElementTree.tostring(elem, encoding="unicode"))
+        return (tag, "", ElementTree.tostring(elem))
 
     def recursive_sort(element: ElementTree.Element) -> None:
         children: List[ElementTree.Element] = list(element)

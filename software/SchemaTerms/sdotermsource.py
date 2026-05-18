@@ -20,6 +20,7 @@ import software
 import software.SchemaTerms.sdoterm as sdoterm
 import software.SchemaTerms.sdocollaborators as sdocollaborators
 import software.SchemaTerms.localmarkdown as localmarkdown
+import software.util.paths as paths
 
 import software.util.pretty_logger as pretty_logger
 from software.util.sort_dict import sort_dict
@@ -1004,18 +1005,16 @@ class SdoTermSource:
 
             cls.LOADEDDEFAULT = True
             log.info(
-                f"SdoTermSource.loadSourceGraph() loading from default files found in globs: {','.join(DEFTRIPLESFILESGLOB)}",
+                "SdoTermSource.loadSourceGraph() loading from default files",
             )
-            g: str
-            for g in DEFTRIPLESFILESGLOB:
-                load_files.extend(sorted(glob.glob(g)))
+            load_files = [str(p) for p in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, ["*.ttl", "ext/*/*.ttl"])]
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
             log.info(f"SdoTermSource.loadSourceGraph() loading from file: {files}")
             load_files = [files]
         else:
             cls.LOADEDDEFAULT = False
-            log.info(f"SdoTermSource.loadSourceGraph() loading from {len(files)} files")
+            log.info(f"SdoTermSource.loadSourceGraph() loading from {len(list(files))} files")
             load_files = list(files)
 
         if not load_files:
