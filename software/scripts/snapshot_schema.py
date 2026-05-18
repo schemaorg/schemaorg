@@ -2,8 +2,8 @@ import logging
 import os
 import shutil
 import sys
-import typing
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+import typing
 
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
@@ -14,7 +14,6 @@ import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.pretty_logger as pretty_logger
 import util.schemaglobals as schemaglobals
-
 
 log: logging.Logger = logging.getLogger(__name__)
 

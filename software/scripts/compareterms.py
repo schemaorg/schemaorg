@@ -2,18 +2,17 @@
 
 import argparse
 import codecs
+import dev_appserver
 import io
 import logging
-import os
-import sys
 from os import getenv
 from os.path import expanduser
-
-import dev_appserver
-import rdflib
-import sdoapp
+import os
 from rdflib import Graph, RDF, RDFS
 from rdflib.term import URIRef
+import rdflib
+import sdoapp
+import sys
 
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())

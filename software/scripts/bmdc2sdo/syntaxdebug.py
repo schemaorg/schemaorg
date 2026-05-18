@@ -10,7 +10,6 @@ if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 import software
 
-
 # Ensure data/ repo is nearby (for a basic MCF parser), for example:
 # sys.path.insert(1, '/home/danbri/working/datcom/data/')
 

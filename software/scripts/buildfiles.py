@@ -234,7 +234,7 @@ def get_release_file_path(selector: Union["fileutils.FileSelector", str], protoc
         parts.append(suffix)
     merged: str = "-".join(parts)
     filename: str = f"schemaorg-{merged}.{extension}"
-    
+
     if subdirectory_path is not None:
         path: Path = paths.DefaultOutputLayout().get_output_dir() / subdirectory_path / filename
         path.parent.mkdir(parents=True, exist_ok=True)
