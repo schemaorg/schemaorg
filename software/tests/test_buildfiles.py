@@ -12,7 +12,7 @@ import software
 
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
-import util.schemaglobals as schemaglobals
+import util.schema as schema
 import util.textutils as textutils
 
 class TestBuildFiles(unittest.TestCase):
@@ -52,7 +52,7 @@ class TestBuildFiles(unittest.TestCase):
             "https://schema.org/Person, https://schema.org/Thing",
         )
 
-    @unittest.mock.patch("util.schemaglobals.getOutputDir")
+    @unittest.mock.patch("util.schema.getOutputDir")
     def testWriteCsvOut(self, mock_output_dir):
         with tempfile.TemporaryDirectory() as temp_dir:
             mock_output_dir.return_value = temp_dir

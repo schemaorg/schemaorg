@@ -14,7 +14,7 @@ if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 import software
 
-from util.schemaversion import getVersion
+from util.schema import getVersion
 
 
 parser: argparse.ArgumentParser = argparse.ArgumentParser()

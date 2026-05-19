@@ -13,10 +13,10 @@ import rdflib
 
 import software
 
-import util.schemaglobals as schemaglobals
+import util.schema as schema
 
 
-SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schemaglobals.HOMEPAGE)
+SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schema.constants.HOMEPAGE)
 
 
 class SchemaOrgGraph(object):

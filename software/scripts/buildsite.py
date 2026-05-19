@@ -32,8 +32,7 @@ import util.copystaticdocsplusinsert as copystaticdocsplusinsert
 import util.fileutils as fileutils
 import util.paths as paths
 import util.pretty_logger as pretty_logger
-import util.schemaglobals as schemaglobals
-import util.schemaversion as schemaversion
+import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -132,27 +131,27 @@ def initialize() -> argparse.Namespace:
 
     op: List[str]
     for op in args.buildoption:
-        schemaglobals.BUILDOPTS.extend(op)
+        schema.constants.BUILDOPTS.extend(op)
 
     ter: List[str]
     for ter in args.terms:
-        schemaglobals.TERMS.extend(ter)
+        schema.constants.TERMS.extend(ter)
 
     pgs: List[str]
     for pgs in args.docspages:
-        schemaglobals.PAGES.extend(pgs)
+        schema.constants.PAGES.extend(pgs)
 
     fls: List[str]
     for fls in args.files:
-        schemaglobals.FILES.extend(fls)
+        schema.constants.FILES.extend(fls)
 
     if args.output:
-        schemaglobals.OUTPUTDIR = args.output
+        schema.constants.OUTPUTDIR = args.output
 
     if args.autobuild or args.release or args.shacltests:
-        schemaglobals.TERMS = ["ALL"]
-        schemaglobals.PAGES = ["ALL"]
-        schemaglobals.FILES = ["ALL"]
+        schema.constants.TERMS = ["ALL"]
+        schema.constants.PAGES = ["ALL"]
+        schema.constants.FILES = ["ALL"]
 
     SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
     SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
@@ -165,7 +164,7 @@ def initialize() -> argparse.Namespace:
 
 def clear() -> None:
     if args.clearfirst or args.autobuild:
-        output_dir: Path = Path(schemaglobals.OUTPUTDIR)
+        output_dir: Path = Path(schema.constants.OUTPUTDIR)
         log.info(f"Clearing {output_dir} directory")
         if output_dir.is_dir():
             item: Path
@@ -197,7 +196,7 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
 
     (output_dir / "docs" / "contributors").mkdir(parents=True, exist_ok=True)
     (output_dir / "empty").mkdir(parents=True, exist_ok=True)
-    (output_dir / "releases" / schemaversion.getVersion()).mkdir(parents=True, exist_ok=True)
+    (output_dir / "releases" / schema.getVersion()).mkdir(parents=True, exist_ok=True)
 
     gdir: Path = output_dir / "gcloud"
     gdir.mkdir(parents=True, exist_ok=True)
@@ -212,8 +211,8 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    version: str = schemaversion.getVersion()
-    message: str = f"Creating {handler_path} from {schemaglobals.HANDLER_TEMPLATE} for version: {version}"
+    version: str = schema.getVersion()
+    message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
         template_file: Path = paths.DefaultInputLayout().domain_file(paths.Domain.GCLOUD, "handlers-template.yaml")
         template_data: str = template_file.read_text()
@@ -267,8 +266,8 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        version: str = schemaversion.getVersion()
-        shacl_file: Path = Path.cwd() / schemaglobals.RELEASE_DIR / version / "schemaorg-shapes.shacl"
+        version: str = schema.getVersion()
+        shacl_file: Path = Path.cwd() / schema.constants.RELEASE_DIR / version / "schemaorg-shapes.shacl"
         if not shacl_file.exists():
             log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
             return
@@ -281,7 +280,7 @@ def runShaclTests() -> None:
 
 
 def copyReleaseFiles(release_dir: str) -> None:
-    version: str = schemaversion.getVersion()
+    version: str = schema.getVersion()
     srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
     destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
     with pretty_logger.BlockLog(
@@ -298,7 +297,7 @@ if __name__ == "__main__":
 
     software.CheckWorkingDirectory()
     log.info(
-        f"Version: {schemaversion.getVersion()} Released: {schemaversion.getCurrentVersionDate()}"
+        f"Version: {schema.getVersion()} Released: {schema.getCurrentVersionDate()}"
     )
     if args.shacltests:
         args.autobuild = True
@@ -310,13 +309,13 @@ if __name__ == "__main__":
             message="Checking Examples for assigned identifiers", logger=log
         ):
             SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-    initdir(output_dir_str=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
+    initdir(output_dir_str=schema.constants.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
     runtests()
-    processTerms(terms=schemaglobals.TERMS)
-    processDocs(pages=schemaglobals.PAGES)
-    processFiles(files=schemaglobals.FILES)
+    processTerms(terms=schema.constants.TERMS)
+    processDocs(pages=schema.constants.PAGES)
+    processFiles(files=schema.constants.FILES)
 
     if args.release:
-        copyReleaseFiles(release_dir=schemaglobals.RELEASE_DIR)
+        copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
     if args.shacltests:
         runShaclTests()

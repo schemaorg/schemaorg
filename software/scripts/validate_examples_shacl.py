@@ -21,7 +21,7 @@ import software
 
 import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
-import util.schemaversion as schemaversion
+import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ def load_examples() -> list:
 
 def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
     """Validates the provided examples against the generated SHACL shapes."""
-    version: str = schemaversion.getVersion()
+    version: str = schema.getVersion()
     shacl_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shacl")
     subclass_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-subclasses.shacl")
 
