@@ -13,7 +13,7 @@ import software
 
 from SchemaExamples.schemaexamples import SchemaExamples
 from SchemaTerms.sdotermsource import SdoTermSource
-
+import util.textutils as textutils
 
 if not SdoTermSource.SOURCEGRAPH:
     print("Loading triples files")
@@ -87,7 +87,7 @@ def buildcsvoutput(workingex, fname):
         row = {}
         row["Example Id"] = e.keyvalue
         row["Source File"] = e.getMeta("source")
-        row["Linked to Terms"] = array2str(e.terms)
+        row["Linked to Terms"] = textutils.Array2String(e.terms)
         data.append(row)
 
     csvout = io.StringIO()
@@ -102,20 +102,6 @@ def buildcsvoutput(workingex, fname):
         writer.writerow(row)
     csvfile.write(csvout.getvalue())
     csvfile.close()
-
-
-def array2str(ar):
-    if not ar or not len(ar):
-        return ""
-    buf = []
-    first = True
-    for i in ar:
-        if first:
-            first = False
-        else:
-            buf.append(", ")
-        buf.append(i)
-    return "".join(buf)
 
 
 if __name__ == "__main__":

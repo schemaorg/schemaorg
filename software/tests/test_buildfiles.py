@@ -13,7 +13,7 @@ import software
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.schemaglobals as schemaglobals
-
+import util.textutils as textutils
 
 class TestBuildFiles(unittest.TestCase):
     def testProtocolSwapEmpty(self):
@@ -34,10 +34,10 @@ class TestBuildFiles(unittest.TestCase):
         self.assertEqual(sorted(buildfiles.protocols()), ["http", "https"])
 
     def testArrayToStr(self):
-        self.assertEqual(buildfiles.array2str([]), "")
-        self.assertEqual(buildfiles.array2str(["one"]), "one")
+        self.assertEqual(textutils.Array2String([]), "")
+        self.assertEqual(textutils.Array2String(["one"]), "one")
         self.assertEqual(
-            buildfiles.array2str(["one", "two", "three"]), "one, two, three"
+            textutils.Array2String(["one", "two", "three"]), "one, two, three"
         )
 
     def testUriWrap(self):

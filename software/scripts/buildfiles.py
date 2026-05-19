@@ -10,14 +10,13 @@ from pathlib import Path
 import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-import rdflib
-from rdflib.compare import to_canonical_graph
-import rdflib.namespace
-
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 import software
 
+import rdflib
+from rdflib.compare import to_canonical_graph
+import rdflib.namespace
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -32,7 +31,6 @@ import util.sdojsonldcontext as sdojsonldcontext
 from util.sdoowl import OwlBuild
 from util.sort_dict import sort_dict, sort_xml
 import util.textutils as textutils
-
 
 VOCABURI: str = sdotermsource.SdoTermSource.vocabUri()
 log: logging.Logger = logging.getLogger(__name__)
@@ -298,10 +296,6 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
                 Path(fn).write_text(content)
 
 
-def array2str(values: List[str]) -> str:
-    return ", ".join(values) if values else ""
-
-
 def uriwrap(thing: Any) -> str:
     """Convert various types into uris. Sorts items if they are a list."""
     if not thing:
@@ -311,7 +305,7 @@ def uriwrap(thing: Any) -> str:
     if isinstance(thing, (sdoterm.SdoTermSequence, sdoterm.SdoTermOrId, sdoterm.SdoTerm)):
         return uriwrap(getattr(thing, "ids", getattr(thing, "id", None)))
     try:
-        return array2str(sorted(map(uriwrap, thing)))
+        return textutils.Array2String(sorted(map(uriwrap, thing)))
     except (TypeError, ValueError) as e:
         log.fatal(f"Cannot uriwrap {thing}:{e}")
         return ""
