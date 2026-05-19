@@ -26,19 +26,6 @@ from SchemaTerms.sdotermsource import SdoTermSource
 import util.schemaversion as schemaversion
 
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print(
-        f"Python version {sys.version_info.major}.{sys.version_info.minor} not supported version 3.6 or above required - exiting"
-    )
-    sys.exit(os.EX_CONFIG)
-
-
-
-
-
-
-
-
 VOCABURI: str = SdoTermSource.vocabUri()
 
 NAMESPACES: Dict[str, str] = {
