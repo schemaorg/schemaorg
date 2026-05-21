@@ -4,12 +4,10 @@
 """A class that holds the schema graph and presents some operations on it.
 """
 
-import os
-import sys
-import typing
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
-
 import rdflib
+from pathlib import Path
+import typing
+from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
 import software
 
@@ -20,15 +18,26 @@ SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schema.constants.HOMEPAGE)
 
 
 class SchemaOrgGraph(object):
-    def __init__(self, filename: Optional[str] = None, format: str = "turtle") -> None:
+    def __init__(
+        self,
+        source: Union[Path, Issues],
+        issue_list: List[str] = ALL_ISSUES,
+    ) -> None:
+        if source is None:
+            raise ValueError("SchemaOrgGraph requires a source (Path or Issues object).")
+
         self.g: rdflib.Graph = rdflib.Graph()
         # Binding it here, as by default it would bind the /elements/1.1/
         # instead
         # of the dc terms. this way, the elements get assigned "dc1" or such
         # as a prefix, and we do not use that.
         self.g.bind("dc", rdflib.Namespace("http://purl.org/dc/terms/"), replace=True)
-        if filename:
-            self.g.parse(filename, format=format)
+
+        if isinstance(source, Issues):
+            for f in source.get_ttl_files(issue_list):
+                self.g.parse(str(f), format="turtle")
+        else:
+            self.g.parse(str(source), format="turtle")
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self.g, name)
