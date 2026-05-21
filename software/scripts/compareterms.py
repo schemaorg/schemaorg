@@ -1,52 +1,35 @@
 #!/usr/bin/env python
+
+import argparse
+import codecs
+import io
+import logging
 import os
+import sys
 from os import getenv
 from os.path import expanduser
-import logging  # https://docs.python.org/2/library/logging.html#logging-levels
-import argparse
-import StringIO
-import sys
-
-sys.path.append(os.getcwd())
-sys.path.insert(1, "lib")  # Pickup libs, rdflib etc., from shipped lib directory
-# Ensure that the google.appengine.* packages are available
-# in tests as well as all bundled third-party packages.
-
-sdk_path = getenv(
-    "APP_ENGINE", expanduser("~") + "/google-cloud-sdk/platform/google_appengine/"
-)
-sys.path.insert(0, sdk_path)  # add AppEngine SDK to path
 
 import dev_appserver
-
-dev_appserver.fix_sys_path()
-
-from testharness import *
-
-# Setup testharness state BEFORE importing sdo libraries
-setInTestHarness(True)
-
-from api import *
 import rdflib
-from rdflib import Graph
-from rdflib import RDF, RDFS
+import sdoapp
+from rdflib import Graph, RDF, RDFS
 from rdflib.term import URIRef
 
-from api import (
-    read_schemas,
-    read_extensions,
-    getMasterStore,
-)
-from apirdflib import getNss
-
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
-import dev_appserver
-
 dev_appserver.fix_sys_path()
 
-import sdoapp
+from api import *
+from api import (
+    getMasterStore,
+    read_extensions,
+    read_schemas,
+)
+from apirdflib import getNss
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -187,9 +170,6 @@ def compareCommonTerms(terms, buff):
 currentGraph = None
 previousGraph = None
 
-import codecs
-import sys
-
 UTF8Writer = codecs.getwriter("utf8")
 sys.stdout = UTF8Writer(sys.stdout)
 
@@ -225,7 +205,7 @@ if __name__ == "__main__":
         for i in sorted(new):
             print("   New term %s" % i)
 
-    buff = StringIO.StringIO()
+    buff = io.StringIO()
     print("Changed terms %s" % compareCommonTerms(common, buff))
     if showNames:
         print(buff.getvalue())

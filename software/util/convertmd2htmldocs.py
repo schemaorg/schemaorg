@@ -3,16 +3,13 @@
 
 # Import standard python libraries
 
-import sys
-import os
 import glob
-import markdown2 as markdown
+import os
+import sys
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import markdown2 as markdown
 
 import software
 

@@ -5,31 +5,34 @@ import csv
 import io
 import json
 import logging
-import sys
+import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union, Set, Callable, Iterable, Sequence
+import sys
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 import rdflib
-import rdflib.namespace
 from rdflib.compare import to_canonical_graph
+import rdflib.namespace
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
-
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
 import software
-import software.scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
-import software.util.fileutils as fileutils
-import software.util.pretty_logger as pretty_logger
-import software.util.schemaglobals as schemaglobals
-import software.util.schemaversion as schemaversion
-import software.util.sdojsonldcontext as sdojsonldcontext
-import software.util.textutils as textutils
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaTerms.localmarkdown as localmarkdown
-import software.SchemaExamples.schemaexamples as schemaexamples
-from software.util.sort_dict import sort_dict, sort_xml
+import SchemaExamples.schemaexamples as schemaexamples
+import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
+import util.fileutils as fileutils
+import util.paths as paths
+import util.pretty_logger as pretty_logger
+import util.schemaglobals as schemaglobals
+import util.schemaversion as schemaversion
+import util.sdojsonldcontext as sdojsonldcontext
+from util.sdoowl import OwlBuild
+from util.sort_dict import sort_dict, sort_xml
+import util.textutils as textutils
+
 
 VOCABURI: str = sdotermsource.SdoTermSource.vocabUri()
 log: logging.Logger = logging.getLogger(__name__)
@@ -59,8 +62,6 @@ def buildTurtleEquivs() -> str:
 
     return str(outGraph.serialize(format="turtle", auto_compact=True, sort_keys=True))
 
-
-import software.util.paths as paths
 
 def jsonldcontext(page: str) -> str:
     return str(sdojsonldcontext.getContext())
@@ -112,7 +113,6 @@ def httpequivs(page: str) -> str:
 
 
 def owl(page: str) -> str:
-    from software.util.sdoowl import OwlBuild
     return str(OwlBuild().getContent())
 
 
@@ -437,9 +437,9 @@ FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
 
 
 def buildFiles(files: Iterable[str]) -> None:
-    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
-    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
-    software.SchemaTerms.localmarkdown.MarkdownTool.setWikilinkPostPath("")
+    localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
+    localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
+    localmarkdown.MarkdownTool.setWikilinkPostPath("")
 
     targets: List[str] = sorted(FILELIST.keys()) if any(fileutils.isAll(f) for f in files) else list(files)
 

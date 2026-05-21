@@ -1,30 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+import os
 import sys
+
+import rdflib
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+from SchemaTerms.localmarkdown import Markdown
+from SchemaTerms.sdoterm import *
+from SchemaTerms.sdotermsource import *
+
+
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major, sys.version_info.minor))
     sys.exit(1)
 
-# To be executed in the SchemaTerms/example-code/{example} directory
-import os
-for path in [os.getcwd(), "..", "../..", "../../.."]:  # Adds in current, example-code, and SchemaTerms directory into path
-    sys.path.insert(1, path)  # Pickup libs from local  directories
 
-import rdflib
-
-from sdotermsource import *
-from sdoterm import *
-from localmarkdown import Markdown
 
 Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("/")
 
-if VOCABURI.startswith("https://"):
-    triplesfile = "../data/schemaorg-all-https.nt"
+DATADIR = os.path.join(os.path.dirname(__file__), "../data")
+if SdoTermSource.vocabUri().startswith("https://"):
+    triplesfile = os.path.join(DATADIR, "schemaorg-all-https.nt")
 else:
-    triplesfile = "../data/schemaorg-all-http.nt"
+    triplesfile = os.path.join(DATADIR, "schemaorg-all-http.nt")
 
 
 termgraph = rdflib.Graph()
@@ -59,32 +63,32 @@ def showTerm(term, ind=""):
     print("%ssupersededBy: %s" % (ind, term.supersededBy))
     print("%ssupersedes: %s" % (ind, term.supersedes))
 
-    if term.termType == SdoTerm.TYPE or term.termType == SdoTerm.ENUMERATION or term.termType == SdoTerm.DATATYPE:
-        if term.expanded:
+    if term.termType == SdoTermType.TYPE or term.termType == SdoTermType.ENUMERATION or term.termType == SdoTermType.DATATYPE:
+        if term.expanded():
             print("%sProperties count %s" % (ind, len(term.properties)))
-            for p in term.properties:
+            for p in term.properties.terms:
                 showTerm(p, ind=ind + "   ")
             print("%sExpected Type for count %s" % (ind, len(term.expectedTypeFor)))
-            for t in term.expectedTypeFor:
+            for t in term.expectedTypeFor.terms:
                 showTerm(t, ind=ind + "   ")
         else:
             print("%sProperties: %s" % (ind, term.properties))
             print("%sExpected Type for: %s" % (ind, term.expectedTypeFor))
 
-    if term.termType == SdoTerm.PROPERTY:
+    if term.termType == SdoTermType.PROPERTY:
         print("%sDomain includes: %s" % (ind, term.domainIncludes))
         print("%sRange includes: %s" % (ind, term.rangeIncludes))
 
-    if term.termType == SdoTerm.ENUMERATION:
+    if term.termType == SdoTermType.ENUMERATION:
         print("%sEnumeration Members: %s" % (ind, term.enumerationMembers))
 
 
-    if term.termType == SdoTerm.ENUMERATIONVALUE:
+    if term.termType == SdoTermType.ENUMERATIONVALUE:
         print("%sParent Enumeration: %s" % (ind, term.enumerationParent))
 
-    if term.expanded:
+    if term.expanded():
         print("%stermStack count: %s " % (ind, len(term.termStack)))
-        for t in term.termStack:
+        for t in term.termStack.terms:
             showTerm(t, ind=ind + "...")
     else:
         print("%stermStack: %s " % (ind, term.termStack))

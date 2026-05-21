@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import enum
-import shutil
+import os
 from pathlib import Path
-from typing import Dict, Set, Union, Optional, List, Callable, Iterable, Any, FrozenSet
+import shutil
+import sys
+from typing import Any, Callable, Dict, FrozenSet, Iterable, List, Optional, Set, Union
+
+import software
+
 
 EXTENSIONS_FOR_FORMAT: Dict[str, str] = {
     "xml": "xml",

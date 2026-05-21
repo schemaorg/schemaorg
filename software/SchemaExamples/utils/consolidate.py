@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-import os
-for path in [os.getcwd(), "./SchemaExamples", "./software/SchemaExamples"]:
-    sys.path.insert(1, path)  # Pickup libs from shipped lib directory
-
-import logging
 import argparse
+import logging
+import os
+import sys
+
+import software
+
+from SchemaExamples.schemaexamples import Example, SchemaExamples
+
+
 logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-from schemaexamples import SchemaExamples, Example
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", "--output", required=True, help="output file")

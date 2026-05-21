@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
+import codecs
+import glob
+import io
 import logging
 import os
-import io
-import glob
 import re
+import sys
 import threading
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Collection
-import software.util.paths as paths
+from typing import Any, Collection, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+
+import requests
+
+import software
+
+import util.paths as paths
+
 
 IDPREFIX: str = "eg-"
 DEFTEXAMPLESFILESGLOB: Tuple[str, str] = ("data/*examples.txt", "data/ext/*/*examples.txt")
@@ -393,9 +403,6 @@ class ExampleFileParser:
         )
 
     def parse(self, filen: str) -> List[Example]:
-        import codecs
-        import requests
-
         self.file = filen
         self.filepos = 0
         examples: List[Example] = []

@@ -1,4 +1,4 @@
-TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
+TYPES: #eg-0001 Person, PostalAddress, addressRegion, postalCode, address, streetAddress, telephone, email, url, addressLocality
 
 PRE-MARKUP:
 
@@ -7,8 +7,8 @@ Jane Doe
 
 Professor
 20341 Whitworth Institute
-Suite 123
 405 Whitworth
+Suite 123
 Seattle WA 98052
 (425) 123-4567
 <a href="mailto:jane-doe@xyz.edu">jane-doe@illinois.edu</a>
@@ -30,12 +30,13 @@ MICRODATA:
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
     <span itemprop="streetAddress">
       20341 Whitworth Institute
-      Suite 123
       405 N. Whitworth
+      Suite 123
     </span>
-    <span itemprop="addressLocality">Seattle</span>,
+    <span itemprop="addressLocality">Seattle</span>
     <span itemprop="addressRegion">WA</span>
     <span itemprop="postalCode">98052</span>
+    <span itemprop="extendedAddress">Suite 123</span>
   </div>
   <span itemprop="telephone">(425) 123-4567</span>
   <a href="mailto:jane-doe@xyz.edu" itemprop="email">
@@ -81,7 +82,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg2 Place,LocalBusiness,address,streetAddress,addressLocality,PostalAddress,telephone
+TYPES: #eg2 Place, LocalBusiness, address, streetAddress, addressLocality, PostalAddress, telephone
 
 PRE-MARKUP:
 
@@ -137,7 +138,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-3 Painting,genre
+TYPES: #eg-0003 Painting, genre
 
 PRE-MARKUP:
 
@@ -171,7 +172,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-4 Restaurant,AggregateRating,FoodEstablishment,LocalBusiness,aggregateRating,ratingValue,reviewCount
+TYPES: #eg-0004 Restaurant, AggregateRating, FoodEstablishment, LocalBusiness, aggregateRating, ratingValue, reviewCount
 
 PRE-MARKUP:
 
@@ -295,7 +296,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-5 Place,GeoCoordinates,latitude,longitude,geo
+TYPES: #eg-0005 Place, GeoCoordinates, latitude, longitude, geo
 
 PRE-MARKUP:
 
@@ -345,7 +346,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-6 MediaObject,AudioObject,encodingFormat,contentUrl,description,duration
+TYPES: #eg-0006 MediaObject, AudioObject, encodingFormat, contentUrl, description, duration
 
 PRE-MARKUP:
 
@@ -409,7 +410,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-7 Organization,PostalAddress,address,streetAddress,postalCode,addressLocality,faxNumber,telephone
+TYPES: #eg-0007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone
 
 PRE-MARKUP:
 
@@ -525,7 +526,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-8 NGO
+TYPES: #eg-0008 NGO
 
 PRE-MARKUP:
 
@@ -630,7 +631,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-9 Event,Place,PostalAddress,AggregateOffer,location,startDate,address,offers,offerCount
+TYPES: #eg-0009 Event, Place, PostalAddress, AggregateOffer, location, startDate, address, offers, offerCount
 
 PRE-MARKUP:
 
@@ -732,7 +733,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-10 Product,AggregateRating,Offer,Review,Rating,price,aggregateRating,ratingValue,reviewCount,availability,InStock
+TYPES: #eg-0010 Product, AggregateRating, Offer, Review, Rating, price, aggregateRating, ratingValue, reviewCount, availability, InStock
 
 PRE-MARKUP:
 
@@ -921,7 +922,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-11 Product,AggregateRating,AggregateOffer,Offer,aggregateRating,image,offers
+TYPES: #eg-0011 Product, AggregateRating, AggregateOffer, Offer, aggregateRating, image, offers
 
 PRE-MARKUP:
 
@@ -1026,7 +1027,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-12 WebPage,Book,AggregateRating,Offer,Review,CreativeWork,mainEntity
+TYPES: #eg-0012 WebPage, Book, AggregateRating, Offer, Review, CreativeWork, mainEntity
 
 PRE-MARKUP:
 
@@ -1232,7 +1233,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-13 Recipe,NutritionInformation,image,datePublished,prepTime,cookTime,recipeYield,recipeIngredient,calories,fatContent,suitableForDiet,LowFatDiet,RestrictedDiet
+TYPES: #eg-0013 Recipe, NutritionInformation, image, datePublished, prepTime, cookTime, recipeYield, recipeIngredient, calories, fatContent, suitableForDiet, LowFatDiet, RestrictedDiet
 
 PRE-MARKUP:
 
@@ -1390,7 +1391,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-14 VideoObject,MusicGroup,MusicRecording,Event,video,interactionStatistic,InteractionCounter,duration,interactionStatistic,interactionType
+TYPES: #eg-0014 VideoObject, MusicGroup, MusicRecording, Event, video, interactionStatistic, InteractionCounter, duration, interactionStatistic, interactionType
 
 PRE-MARKUP:
 
@@ -1931,7 +1932,7 @@ JSON:
 }
 </script>
 
-TYPES:  CreativeWork,ContentRating
+TYPES:  CreativeWork, ContentRating
 
 PRE-MARKUP:
 
@@ -2198,7 +2199,7 @@ JSON:
 }
 </script>
 
-TYPES:  InteractionCounter,Article
+TYPES:  InteractionCounter, Article
 
 PRE-MARKUP:
 
@@ -2273,7 +2274,7 @@ JSON:
 }
 </script>
 
-TYPES:  CivicStructure,Place
+TYPES:  CivicStructure, Place
 
 PRE-MARKUP:
 
@@ -2392,7 +2393,7 @@ JSON:
 }
 </script>
 
-TYPES:  TVSeries,TVSeason,TVEpisode
+TYPES:  TVSeries, TVSeason, TVEpisode
 
 PRE-MARKUP:
 
@@ -4932,7 +4933,7 @@ JSON:
 }
 </script>
 
-TYPES:  AskAction,Question
+TYPES:  AskAction, Question
 
 PRE-MARKUP:
 
@@ -5299,7 +5300,7 @@ JSON:
 }
 </script>
 
-TYPES:  ReplyAction,Question,Answer
+TYPES:  ReplyAction, Question, Answer
 
 PRE-MARKUP:
 
@@ -7635,7 +7636,7 @@ JSON:
 }
 </script>
 
-TYPES:  TVSeries,TVSeason,TVEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
+TYPES:  TVSeries, TVSeason, TVEpisode, OnDemandEvent, BroadcastEvent, BroadcastService
 
 PRE-MARKUP:
 
@@ -7750,7 +7751,7 @@ JSON:
 }
 </script>
 
-TYPES:  RadioSeries,RadioSeason,RadioEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
+TYPES:  RadioSeries, RadioSeason, RadioEpisode, OnDemandEvent, BroadcastEvent, BroadcastService
 
 PRE-MARKUP:
 
@@ -7837,7 +7838,7 @@ JSON:
 }
 </script>
 
-TYPES:  GovernmentPermit,GovernmentOrganization,GovernmentService,AdministrativeArea
+TYPES:  GovernmentPermit, GovernmentOrganization, GovernmentService, AdministrativeArea
 
 PRE-MARKUP:
 
@@ -7901,7 +7902,7 @@ JSON:
 }
 </script>
 
-TYPES:  GovernmentService,GovernmentOrganization,AdministrativeArea,CivicAudience,ContactPoint,Language,Hospital
+TYPES:  GovernmentService, GovernmentOrganization, AdministrativeArea, CivicAudience, ContactPoint, Language, Hospital
 
 PRE-MARKUP:
 
@@ -7961,7 +7962,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,PostalAddress,Offer
+TYPES:  Event, Place, PostalAddress, Offer
 
 PRE-MARKUP:
 
@@ -8064,7 +8065,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,PostalAddress,Offer,EventCancelled
+TYPES:  Event, Place, PostalAddress, Offer, EventCancelled
 
 PRE-MARKUP:
 
@@ -8167,7 +8168,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,PostalAddress,Offer
+TYPES:  Event, Place, PostalAddress, Offer
 
 PRE-MARKUP:
 
@@ -8269,7 +8270,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,PostalAddress,Offer,SoldOut
+TYPES:  Event, Place, PostalAddress, Offer, SoldOut
 
 PRE-MARKUP:
 
@@ -8372,7 +8373,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,PostalAddress,MusicGroup,Offer,LimitedAvailability
+TYPES:  Event, Place, PostalAddress, MusicGroup, Offer, LimitedAvailability
 
 PRE-MARKUP:
 
@@ -8421,7 +8422,7 @@ JSON:
 }
 </script>
 
-TYPES:  Book,CreativeWork,accessibilityFeature,accessibilityHazard,accessibilityControl,accessibilityAPI
+TYPES:  Book, CreativeWork, accessibilityFeature, accessibilityHazard, accessibilityControl, accessibilityAPI
 
 PRE-MARKUP:
 
@@ -8670,7 +8671,7 @@ JSON:
 }
 </script>
 
-TYPES:  accessibilityFeature,accessibilityHazard,encodingFormat
+TYPES:  accessibilityFeature, accessibilityHazard, encodingFormat
 
 PRE-MARKUP:
 
@@ -8705,7 +8706,7 @@ JSON:
 
 No Json example available
 
-TYPES:  encodingFormat,accessibilityHazard,accessibilityFeature,accessibilityControl,accessibilityAPI
+TYPES:  encodingFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
 
 PRE-MARKUP:
 
@@ -8776,7 +8777,7 @@ JSON:
         "fullVoiceControl" , "fullMouseControl" ]
 } </script>
 
-TYPES:  TrainReservation,TrainTrip
+TYPES:  TrainReservation, TrainTrip
 
 PRE-MARKUP:
 
@@ -8835,7 +8836,7 @@ JSON:
 }
 </script>
 
-TYPES:  BusReservation,BusTrip
+TYPES:  BusReservation, BusTrip
 
 PRE-MARKUP:
 
@@ -8885,7 +8886,7 @@ JSON:
 }
 </script>
 
-TYPES:  EventReservation,Ticket,Seat
+TYPES:  EventReservation, Ticket, Seat
 
 PRE-MARKUP:
 
@@ -8955,7 +8956,7 @@ JSON:
 }
 </script>
 
-TYPES:  Flight,FlightReservation
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
@@ -9266,7 +9267,7 @@ JSON:
 }
 </script>
 
-TYPES:  Question,Answer
+TYPES:  Question, Answer
 
 PRE-MARKUP:
 
@@ -9389,7 +9390,7 @@ JSON:
 }
 </script>
 
-TYPES:  WatchAction,Movie
+TYPES:  WatchAction, Movie
 
 PRE-MARKUP:
 
@@ -9432,7 +9433,7 @@ JSON:
 }
 </script>
 
-TYPES:  Restaurant,ViewAction,EntryPoint,SoftwareApplication
+TYPES:  Restaurant, ViewAction, EntryPoint, SoftwareApplication
 
 PRE-MARKUP:
 
@@ -9493,7 +9494,7 @@ JSON:
 }
 </script>
 
-TYPES:  MusicEvent,Event,CreativeWork,MusicGroup,Person
+TYPES:  MusicEvent, Event, CreativeWork, MusicGroup, Person
 
 PRE-MARKUP:
 
@@ -9726,7 +9727,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,TheaterEvent,PerformingArtsTheater,CreativeWork
+TYPES:  Event, TheaterEvent, PerformingArtsTheater, CreativeWork
 
 PRE-MARKUP:
 
@@ -9888,7 +9889,7 @@ JSON:
 }
 </script>
 
-TYPES:  Store,OpeningHoursSpecification
+TYPES:  Store, OpeningHoursSpecification
 
 PRE-MARKUP:
 
@@ -9977,7 +9978,7 @@ JSON:
 }
 </script>
 
-TYPES:  Pharmacy,openingHours,telephone
+TYPES:  Pharmacy, openingHours, telephone
 
 PRE-MARKUP:
 
@@ -10022,7 +10023,7 @@ JSON:
 }
 </script>
 
-TYPES:  Store,Pharmacy
+TYPES:  Store, Pharmacy
 
 PRE-MARKUP:
 
@@ -10107,7 +10108,7 @@ JSON:
 }
 </script>
 
-TYPES:  Store,DryCleaningOrLaundry,Corporation,Pharmacy
+TYPES:  Store, DryCleaningOrLaundry, Corporation, Pharmacy
 
 PRE-MARKUP:
 
@@ -10236,7 +10237,7 @@ JSON:
 }
 </script>
 
-TYPES:  Store,PostalAddress,Pharmacy
+TYPES:  Store, PostalAddress, Pharmacy
 
 PRE-MARKUP:
 
@@ -10343,7 +10344,7 @@ JSON:
 }
 </script>
 
-TYPES:  PostalAddress,Pharmacy,Store
+TYPES:  PostalAddress, Pharmacy, Store
 
 PRE-MARKUP:
 
@@ -10473,7 +10474,7 @@ JSON:
 }
 </script>
 
-TYPES:  Organization,ContactPoint
+TYPES:  Organization, ContactPoint
 
 PRE-MARKUP:
 
@@ -10500,7 +10501,7 @@ JSON:
     } ] }
 </script>
 
-TYPES:  HearingImpairedSupported,TollFree,ContactPoint,Organization
+TYPES:  HearingImpairedSupported, TollFree, ContactPoint, Organization
 
 PRE-MARKUP:
 
@@ -10553,7 +10554,7 @@ JSON:
     } ] }
 </script>
 
-TYPES:  MusicEvent,Place,Offer
+TYPES:  MusicEvent, Place, Offer
 
 PRE-MARKUP:
 
@@ -10602,7 +10603,7 @@ JSON:
 }]
 </script>
 
-TYPES:  MusicEvent,Place,PostalAddress,Offer,MusicGroup,EventRescheduled
+TYPES:  MusicEvent, Place, PostalAddress, Offer, MusicGroup, EventRescheduled
 
 PRE-MARKUP:
 
@@ -10671,7 +10672,7 @@ JSON:
 }]
 </script>
 
-TYPES:  Role,OrganizationRole
+TYPES:  Role, OrganizationRole
 
 PRE-MARKUP:
 
@@ -10723,7 +10724,7 @@ JSON:
 }
 </script>
 
-TYPES:  Role,OrganizationRole,CollegeOrUniversity,EducationalOrganization
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
 
 PRE-MARKUP:
 
@@ -10781,7 +10782,7 @@ JSON:
 }
 </script>
 
-TYPES:  Role,PerformanceRole
+TYPES:  Role, PerformanceRole
 
 PRE-MARKUP:
 
@@ -10838,7 +10839,7 @@ JSON:
 }
 </script>
 
-TYPES:  Role,OrganizationRole,Person,SportsTeam,Organization
+TYPES:  Role, OrganizationRole, Person, SportsTeam, Organization
 
 PRE-MARKUP:
 
@@ -10898,7 +10899,7 @@ JSON:
 }
 </script>
 
-TYPES:  WebPage,CollegeOrUniversity
+TYPES:  WebPage, CollegeOrUniversity
 
 PRE-MARKUP:
 
@@ -10960,7 +10961,7 @@ JSON:
 }
 </script>
 
-TYPES:  ItemList,Product,Offer
+TYPES:  ItemList, Product, Offer
 
 PRE-MARKUP:
 
@@ -11040,7 +11041,7 @@ JSON:
 }
 </script>
 
-TYPES:  ItemList,CreativeWork
+TYPES:  ItemList, CreativeWork
 
 PRE-MARKUP:
 
@@ -11395,7 +11396,7 @@ JSON:
 }
 </script>
 
-TYPES:  ItemList,MusicAlbum
+TYPES:  ItemList, MusicAlbum
 
 PRE-MARKUP:
 
@@ -11504,7 +11505,7 @@ JSON:
 }
 </script>
 
-TYPES:  Person,disambiguatingDescription
+TYPES:  Person, disambiguatingDescription
 
 PRE-MARKUP:
 

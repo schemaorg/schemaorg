@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 
 # Import standard python libraries
+
 import logging
+import os
 import sys
-from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
 import jinja2
 
-# Import schema.org libraries
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
+import software
 
-import software.util.schemaversion as schemaversion
+import util.schemaversion as schemaversion
+
 
 SITENAME = "Schema.org"
 TEMPLATESDIR = "templates"

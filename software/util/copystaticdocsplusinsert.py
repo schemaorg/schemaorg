@@ -4,22 +4,23 @@
 """Tool that handles includes in static html files."""
 
 import logging
+import os
+from pathlib import Path
 import re
 import sys
-from pathlib import Path
-from typing import Dict, Generator, Tuple, Optional, List, Iterable, Union
+from typing import Dict, Generator, Iterable, List, Optional, Tuple, Union
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
+import software
 
-import software.util.schemaversion as schemaversion
-import software.util.fileutils as fileutils
-import software.util.convertmd2htmldocs as convertmd2htmldocs
+import util.convertmd2htmldocs as convertmd2htmldocs
+import util.fileutils as fileutils
+import util.paths as paths
+import util.schemaversion as schemaversion
+
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
-import software.util.paths as paths
 
 def _getInserts() -> Generator[Tuple[str, str], None, None]:
     template_dir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.STATIC_DOC_INSERTS)

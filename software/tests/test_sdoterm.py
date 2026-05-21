@@ -2,18 +2,16 @@
 # -*- coding: UTF-8 -*-
 
 # Import standard python libraries
-import sys
-import os
-import unittest
-import logging
 
-# Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
+import logging
+import os
+import sys
+import unittest
 
 import software
 
-import software.SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdoterm as sdoterm
+
 
 class SdoTermOrIdTest(unittest.TestCase):
 

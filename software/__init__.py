@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 import os
 import sys
+
 
 LIB_PATHS = ()
 DATA_PATHS = ("docs", "software/gcloud", "data")
@@ -16,6 +16,10 @@ def Setup():
     global _INITIALIZED
     if _INITIALIZED:
         return
+
+    software_dir = os.path.dirname(os.path.abspath(__file__))
+    if software_dir not in sys.path:
+        sys.path.insert(1, software_dir)
 
     if sys.version_info < REQUIRED_VERSION:
         sys.stderr.write(

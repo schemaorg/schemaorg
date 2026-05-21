@@ -10,16 +10,21 @@ import argparse
 import itertools
 import logging
 import os
-import rdflib
 import sys
 import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+
+import rdflib
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+import util.schema_graph as graph
+
 
 # Import schema.org libraries
-if not os.getcwd() in sys.path:
-    sys.path.insert(1, os.getcwd())
 
-import software.util.schema_graph as graph
 
 
 def Lint(args: argparse.Namespace) -> None:

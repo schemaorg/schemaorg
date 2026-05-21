@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import colorama
 import logging
 import os
 import sys
 import time
-from typing import Any, Dict, Optional, List, Type
+from typing import Any, Dict, List, Optional, Type
+
+import colorama
+
+import software
 
 
 class PrettyLogFormatter(logging.Formatter):

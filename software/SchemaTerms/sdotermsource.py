@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import collections
 import copy
 import glob
 import json
 import logging
-import rdflib
+import os
+from pathlib import Path
 import re
 import sys
 import threading
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Type, cast
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union, cast
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
+import rdflib
 
 import software
-import software.SchemaTerms.sdoterm as sdoterm
-import software.SchemaTerms.sdocollaborators as sdocollaborators
-import software.SchemaTerms.localmarkdown as localmarkdown
-import software.util.paths as paths
 
-import software.util.pretty_logger as pretty_logger
-from software.util.sort_dict import sort_dict
+import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdocollaborators as sdocollaborators
+import SchemaTerms.sdoterm as sdoterm
+import util.paths as paths
+import util.pretty_logger as pretty_logger
+from util.sort_dict import sort_dict
+
 
 log: logging.Logger = logging.getLogger(__name__)
 

@@ -1,7 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
+
+import glob
 import os
+import re
+import sys
+from typing import Any, Dict, FrozenSet, List, Optional, Set, Tuple, Union
+from xml.dom import minidom
+from xml.etree import ElementTree
+
+import rdflib
+from rdflib import Graph
+from rdflib.compare import graph_diff
+from rdflib.namespace import RDF, RDFS
+from rdflib.parser import Parser
+from rdflib.plugins.sparql import prepareQuery
+from rdflib.serializer import Serializer
+from rdflib.term import Literal, Node, URIRef
+
+import software
+
+from SchemaTerms.localmarkdown import Markdown, MarkdownTool
+from SchemaTerms.sdoterm import *
+from SchemaTerms.sdotermsource import SdoTermSource
+import util.schemaversion as schemaversion
+
 
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print(
@@ -9,36 +32,12 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     )
     sys.exit(os.EX_CONFIG)
 
-import glob
-import re
-from typing import Any, Dict, List, Optional, Tuple, Union, Set, FrozenSet
-
-for path in [
-    os.getcwd(),
-    "software/util",
-    "software/SchemaTerms",
-    "software/SchemaExamples",
-]:
-    sys.path.insert(1, path)  # Pickup libs from local  directories
 
 
-import rdflib
-from rdflib import Graph
-from rdflib.term import URIRef, Literal, Node
-from rdflib.parser import Parser
-from rdflib.serializer import Serializer
-from rdflib.plugins.sparql import prepareQuery
-from rdflib.compare import graph_diff
-from rdflib.namespace import RDFS, RDF
 
-from xml.etree import ElementTree
-from xml.dom import minidom
 
-from software.SchemaTerms.sdotermsource import SdoTermSource
-from software.SchemaTerms.sdoterm import *
-from software.SchemaTerms.localmarkdown import Markdown
 
-import software.util.schemaversion as schemaversion
+
 
 VOCABURI: str = SdoTermSource.vocabUri()
 
@@ -82,7 +81,6 @@ def _MakePrettyComment(text: str) -> ElementTree.Comment:
 
 class OwlBuild:
     def __init__(self) -> None:
-        from software.SchemaTerms.localmarkdown import MarkdownTool
         self.typesCount: int = 0
         self.propsCount: int = 0
         self.namedCount: int = 0

@@ -3,34 +3,34 @@
 
 # Import standard python libraries
 
+from collections import defaultdict
 import json
 import logging
-import sys
+import os
 from pathlib import Path
-from collections import defaultdict
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Set, Callable, Sequence
+import sys
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-if Path.cwd() not in [Path(p).resolve() for p in sys.path]:
-    sys.path.insert(1, str(Path.cwd()))
+import software
 
-import software.scripts.buildtermlist as buildtermlist
-import software.util.fileutils as fileutils
-import software.util.jinga_render as jinga_render
-import software.util.pretty_logger as pretty_logger
-import software.util.schemaglobals as schemaglobals
-import software.util.schemaversion as schemaversion
-import software.util.textutils as textutils
-from software.util.sort_dict import sort_dict
+import SchemaTerms.sdocollaborators as sdocollaborators
+import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
+import scripts.buildtermlist as buildtermlist
+import util.fileutils as fileutils
+import util.jinga_render as jinga_render
+import util.paths as paths
+import util.pretty_logger as pretty_logger
+import util.schemaglobals as schemaglobals
+import util.schemaversion as schemaversion
+from util.sort_dict import sort_dict
+import util.textutils as textutils
 
-import software.SchemaTerms.sdotermsource as sdotermsource
-import software.SchemaTerms.sdocollaborators as sdocollaborators
-import software.SchemaTerms.sdoterm as sdoterm
 
 log: logging.Logger = logging.getLogger(__name__)
 
 STRCLASSVAL: Optional[str] = None
 
-import software.util.paths as paths
 
 def docsTemplateRender(template: str, extra_vars: Optional[Dict[str, Any]] = None) -> str:
     tvars: Dict[str, Any] = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}

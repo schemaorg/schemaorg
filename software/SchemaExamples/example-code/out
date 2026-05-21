@@ -1,4 +1,4 @@
-TYPES: #eg-313 DefinedTerm, termCode
+TYPES: #eg-0314 DefinedTerm, termCode
 
 PRE-MARKUP:
 
@@ -32,7 +32,7 @@ JSON:
  "inDefinedTermSet": "http://id.loc.gov/vocabulary/resourceTypes"
 }
 
-TYPES: #eg-314 DefinedTerm, DefinedTermSet, inDefinedTermSet
+TYPES: #eg-0315 DefinedTerm, DefinedTermSet, inDefinedTermSet
 
 PRE-MARKUP:
 
@@ -58,7 +58,7 @@ MICRODATA:
 
 <div>
 	<div itemscope itemtype="https://schema.org/DefinedTermSet">
-	<meta itemprop="additionalType" content="https://schema.org/Book">
+	<link itemprop="additionalType" href="https://schema.org/Book">
 	 <h1><a itemprop="url" href="http://openjurist.org/dictionary/Ballentine"><span itemprop="name">Ballentine&apos;s Law Dictionary</span></a></h1>
 	</div>
 	<div itemscope itemtype="https://schema.org/DefinedTerm">
@@ -95,7 +95,7 @@ RDFA:
 	</div>
 	<div typeof="DefinedTerm">
 		<h2>Dictionary term</h2>
-		<link property="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
+		<link propery="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
 		Name: <span property="name">schema</span><br/>
 		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
 		In Dictionary: Ballentine&apos;s Law Dictionary
@@ -130,7 +130,7 @@ JSON:
 	}
 ]
 
-TYPES: #eg-315 DefinedTerm, inDefinedTermSet, termCode
+TYPES: #eg-0316 DefinedTerm, inDefinedTermSet, termCode
 
 PRE-MARKUP:
 
@@ -167,7 +167,7 @@ JSON:
  "inDefinedTermSet": "http://onetonline.org"
 }
 
-TYPES: #eg-316 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
+TYPES: #eg-0317 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
 
 PRE-MARKUP:
 
@@ -217,7 +217,7 @@ JSON:
 	}
 }
 
-TYPES: #eg-317 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
+TYPES: #eg-0318 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
 
 PRE-MARKUP:
 
@@ -270,7 +270,7 @@ RDFA:
 		<li>...</li>
 	</ul>
 </div>
-<div vocab="https://schema.org/" typeof="CategoryCode" resource=="http://id.loc.gov/vocabulary/iso639-2/cze">
+<div vocab="https://schema.org/" typeof="CategoryCode" resource="http://id.loc.gov/vocabulary/iso639-2/cze">
 	<meta property="codeValue" content="cze">
 	<h2>Czech; tchèque; Tschechisch</h2>
 	<link property="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
@@ -289,7 +289,7 @@ JSON:
 	{
 		"@type": "CategoryCodeSet",
 		"@id": "http://id.loc.gov/vocabulary/iso639-2",
-		"name": "ISO 639-2: Codes for the Representation of Names of Languages"
+		"name": "ISO 639-2: Codes for the Representation of Names of Languages",
 		"hasCategoryCode": "http://id.loc.gov/vocabulary/iso639-2/cze"
 	},
 	{
@@ -303,4 +303,5 @@ JSON:
 		},
 		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"
 	}
+]
 

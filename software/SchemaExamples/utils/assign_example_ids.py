@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import logging
 import os
 import sys
-import logging
 
-for path in [os.getcwd(), './SchemaExamples', './software/SchemaExamples']:
-    sys.path.insert(1, path)  # Pickup libs from shipped lib directory
+import software
 
-import schemaexamples
+from SchemaExamples import schemaexamples
+
 
 def AssignExampleIds():
     """Check if all examples are assigned an identity, if not, assign one and rewrite the file."""

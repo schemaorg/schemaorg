@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 from pathlib import Path
+import sys
 from typing import List
+
+import software
+
 
 SITENAME: str = "Schema.org"
 BUILDOPTS: List[str] = []

@@ -1,27 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-import os
-for path in [os.getcwd(), "SchemaExamples"]:
-    sys.path.insert(1, path)  # Pickup libs from shipped lib directory
-
+import glob
 import logging
+import os
+import sys
+
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
+
+from SchemaExamples.schemaexamples import Example, SchemaExamples
+
+
 logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-from schemaexamples import Example, SchemaExamples
 
 """
 Load examples from file
 """
-import glob
-globpatterns = ["data/*examples.txt", "data/ext/*/*examples.txt"]
+root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
+globpatterns = [os.path.join(root, "data/*examples.txt"), os.path.join(root, "data/ext/*/*examples.txt")]
 
 files = []
 for g in globpatterns:
     files.extend(glob.glob(g))
 
+os.chdir(root)
 print("Loading %d files" % len(files))
 SchemaExamples.loadExamplesFiles(files)
 

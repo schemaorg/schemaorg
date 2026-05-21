@@ -51,7 +51,7 @@ There are two common causes. Either your Python environment is not correctly set
 **Initial Build**
 Once a local version of the repository has been cloned, in to an appropriate python environment, initially run the following command:
 
-    ./software/util/buildsite.py -a
+    ./software/scripts/buildsite.py -a
 
 This will create a local working copy of the schema.org website in the local `site` directory. Dependent on the configuration of your system, this will take between 5-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
 
@@ -66,7 +66,7 @@ Running Locally
 
 To locally serve as a website, run:
 
-    ./software/devserv.py
+    ./software/scripts/devserv.py
 
 This will serve the site from the `localhost:8080` address. Use options `--host` and `--port` to change this.
 
@@ -78,7 +78,7 @@ Testing Locally
 
 Locally one can run tests that assert that the schema is self-consistent, and that examples actually satisfy the schema defined in RDF:
 
-    software/util/buildsite.py -a -r --shacltests
+    software/scripts/buildsite.py -a -r --shacltests
 
 This will auto-build the entire site (`-a`), run the tests (`-r`) as well as
 validate the examples (`--shacltests`).
@@ -109,7 +109,7 @@ The build scripts use a single configuration file `versions.json` to control the
 
 If the version number or date has been changed, a full build of the site is required, to reflect that change:
 
-    ./software/util/buildsite.py -a
+    ./software/scripts/buildsite.py -a
 
 Vocabulary Definition and Examples Files
 ========================================
@@ -122,22 +122,22 @@ Building Individual Files Documents and Term Pages
 ==================================================
 
 During development, it is possible to select individual term pages, dynamic docs pages, static docs pages, or output files (vocabulary definition RDF files, sitemap, jsonldcontext, etc.) for rebuilding in the local `site` directory.
-For details see the output of the command `./software/util/buildsite.py -h`.  Examples include:
+For details see the output of the command `./software/scripts/buildsite.py -h`.  Examples include:
 
-* `./software/util/buildsite.py -t Book sameAs`  Would rebuild the *Book* and *sameAs* term pages.
-* `./software/util/buildsite.py -t All`  Would rebuild all term pages.
-* `./software/util/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
-* `./software/util/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
-* `./software/util/buildsite.py -f All` Would rebuild all output and definition files.
-* `./software/util/buildsite.py -s` Would copy any static docs pages, css files etc. into the `site`.
-* `./software/util/buildsite.py -d PendingHome` Would rebuild the home page for the pending section (`docs/pending.home.html`).
-* `./software/util/buildsite.py -d All` Would rebuild all dynamically created docs files.
+* `./software/scripts/buildsite.py -t Book sameAs`  Would rebuild the *Book* and *sameAs* term pages.
+* `./software/scripts/buildsite.py -t All`  Would rebuild all term pages.
+* `./software/scripts/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
+* `./software/scripts/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
+* `./software/scripts/buildsite.py -f All` Would rebuild all output and definition files.
+* `./software/scripts/buildsite.py -s` Would copy any static docs pages, css files etc. into the `site`.
+* `./software/scripts/buildsite.py -d PendingHome` Would rebuild the home page for the pending section (`docs/pending.home.html`).
+* `./software/scripts/buildsite.py -d All` Would rebuild all dynamically created docs files.
 
-Changes to created pages are immediately reflected in the output of the local `./software/devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
+Changes to created pages are immediately reflected in the output of the local `./software/scripts/devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
 
 Whenever any changes or additions are made to .ttl files, examples files, documents or other files in the docs directory, these will need to be reflected into the `site` directory using `buildsite.py`.
 
-In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./software/devserv.py`.
+In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./software/scripts/devserv.py`.
 
 _Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes (including those pulled from the repository) in the local system into the `site` website image.
 
@@ -181,10 +181,10 @@ Command line commands:
  * `git clone https://github.com/schemaorg/schemaorg.git`
  * `cd schemaorg`
  * `pip3 install -r software/requirements.txt`
- * `./software/util/buildsite.py -a`
+ * `./software/scripts/buildsite.py -a`
 
  To serve local version of Schema.org site for web access:
- * `./software/devserv.py --port 8080 --host 0.0.0.0`
+ * `./software/scripts/devserv.py --port 8080 --host 0.0.0.0`
 
 Site should be accessible via:
 

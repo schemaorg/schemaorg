@@ -7,33 +7,34 @@ import argparse
 import contextlib
 import datetime
 import glob
+import logging
 import os
+from pathlib import Path
 import shutil
 import subprocess
 import sys
-import logging
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Generator, Type
+from typing import Any, Dict, Generator, Iterable, List, Optional, Sequence, Tuple, Type, Union
 
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
-
 import software
-import software.util.buildfiles as buildfiles
-import software.util.paths as paths
-import software.util.buildocspages as buildocspages
-import software.util.buildtermpages as buildtermpages
-import software.util.copystaticdocsplusinsert as copystaticdocsplusinsert
-import software.util.fileutils as fileutils
-import software.util.runtests as runtests_lib
-import software.util.schemaglobals as schemaglobals
-import software.util.schemaversion as schemaversion
-import software.util.pretty_logger as pretty_logger
-import software.SchemaExamples.schemaexamples as schemaexamples
-import software.SchemaExamples.utils.assign_example_ids
-import software.SchemaTerms.localmarkdown
-import software.SchemaTerms.sdocollaborators as sdocollaborators
-import software.SchemaTerms.sdotermsource as sdotermsource
+
+import SchemaExamples.schemaexamples as schemaexamples
+import SchemaExamples.utils.assign_example_ids
+import SchemaTerms.localmarkdown
+import SchemaTerms.sdocollaborators as sdocollaborators
+import SchemaTerms.sdotermsource as sdotermsource
+import scripts.buildfiles as buildfiles
+import scripts.runtests as runtests_lib
+import util.buildocspages as buildocspages
+import util.buildtermpages as buildtermpages
+import util.copystaticdocsplusinsert as copystaticdocsplusinsert
+import util.fileutils as fileutils
+import util.paths as paths
+import util.pretty_logger as pretty_logger
+import util.schemaglobals as schemaglobals
+import util.schemaversion as schemaversion
+
 
 log: logging.Logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -153,9 +154,9 @@ def initialize() -> argparse.Namespace:
         schemaglobals.PAGES = ["ALL"]
         schemaglobals.FILES = ["ALL"]
 
-    software.SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
-    software.SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
-    software.SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath("")
+    SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
+    SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
+    SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath("")
 
     pretty_logger.MakeRootLogPretty()
 
@@ -308,7 +309,7 @@ if __name__ == "__main__":
         with pretty_logger.BlockLog(
             message="Checking Examples for assigned identifiers", logger=log
         ):
-            software.SchemaExamples.utils.assign_example_ids.AssignExampleIds()
+            SchemaExamples.utils.assign_example_ids.AssignExampleIds()
     initdir(output_dir_str=schemaglobals.OUTPUTDIR, handler_path=schemaglobals.HANDLER_FILE)
     runtests()
     processTerms(terms=schemaglobals.TERMS)

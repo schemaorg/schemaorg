@@ -2,28 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import csv
 import io
 import os
 import sys
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print(
-        "Python version %s.%s not supported version 3.6 or above required - exiting"
-        % (sys.version_info.major, sys.version_info.minor)
-    )
-    sys.exit(1)
+if os.getcwd() not in sys.path:
+    sys.path.insert(1, os.getcwd())
+import software
 
-
-for path in [
-    os.getcwd(),
-    "software/Util",
-    "software/SchemaTerms",
-    "software/SchemaExamples",
-]:
-    sys.path.insert(1, path)  # Pickup libs from local  directories
-
-from sdotermsource import SdoTermSource
-from schemaexamples import SchemaExamples
+from SchemaExamples.schemaexamples import SchemaExamples
+from SchemaTerms.sdotermsource import SdoTermSource
 
 
 if not SdoTermSource.SOURCEGRAPH:
@@ -89,8 +78,6 @@ def buildoutput(workingex, fname):
 
 
 def buildcsvoutput(workingex, fname):
-    import csv
-
     if not fname.endswith(".csv"):
         fname = fname + ".csv"
 
