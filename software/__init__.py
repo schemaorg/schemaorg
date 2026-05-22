@@ -39,7 +39,7 @@ def Setup():
 
 def CheckWorkingDirectory():
     """Check that the working directory is correct and contains the right directories."""
-    if os.path.basename(os.getcwd()) != "schemaorg":
+    if os.path.basename(os.getcwd()) not in ("schemaorg", "schemaorg_git"):
         sys.stderr.write(
             'Script should be run from within the "schemaorg" '
             'directory! - Exiting\n'

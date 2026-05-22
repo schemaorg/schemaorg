@@ -762,3 +762,36 @@ a.ext.ext-attic:hover {
     display: none;
   }
 }
+
+/* Minimalist Header Badge */
+.public-stats-badge {
+    display: inline-flex;
+    align-items: center;
+    
+    /* The Fix: External vertical alignment */
+    vertical-align: middle; 
+    transform: translateY(-0.1em); /* Optical nudge to match H1 cap-height */
+    
+    margin-left: 0.75rem; 
+    padding: 0.25rem 0.625rem; 
+    
+    font-size: 0.45em; 
+    font-weight: 500; 
+    line-height: 1.2;
+    color: var(--shark); 
+    
+    background-color: var(--table-background); 
+    border: 1px solid #DDE3EA; 
+    border-radius: 1rem;
+    
+    cursor: help; 
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Subtle hover effect integrated with existing color palette */
+.public-stats-badge:hover,
+.public-stats-badge:focus-visible {
+    background-color: #E9EAEB; 
+    border-color: #ccc; 
+    outline: none;
+}

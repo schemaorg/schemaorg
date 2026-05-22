@@ -3,8 +3,20 @@
 <div id="infoblock" class="jumptarget" title="Details">
   <!-- Label /  termType  / canonical URI -->
     <div id="infohead">
-        <h1>{{ term.label }}</h1>
+        <h1 class="page-title">
+          {{ term.label }}
+        </h1>
         <div class="infotype">A Schema.org {{ TERMTYPE }}</div>
+        {% if term.uri in google_public_stats %}
+          <div style="margin-top: 0.5rem; font-size: 0.875rem;">
+            Usage: 
+            <span class="public-stats-badge hover-tooltip" style="margin-left: 0.25rem; transform: none; font-size: inherit;" aria-label="Based on monthly aggregations from Google's web index.">
+              {{ google_public_stats[term.uri] }} Domains
+              <span class="tooltiptext">Based on monthly aggregations from Google's web index.</span>
+            </span>
+            (Google - {{ google_public_stats_date }})
+          </div>
+        {% endif %}
         <!-- Pending/retired/term in section -->
         {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been <a href="#supersededby">superseded</a>.</em>{% endif %}
         {% if term.pending %}<br/><em>This term is in the "new" area - implementation feedback and adoption from applications and websites can help improve our definitions.</em>

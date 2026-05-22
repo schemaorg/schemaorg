@@ -192,3 +192,38 @@ a.core, a.ext, .localLink {
 .jumptarget {
   margin-bottom: 2em;
 }
+
+/* Hover Tooltip */
+.hover-tooltip {
+  position: relative;
+  display: inline-block;
+}
+.hover-tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+.hover-tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.hover-tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}

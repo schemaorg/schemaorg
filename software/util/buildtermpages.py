@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import collections
 import datetime
+import functools
+import json
 import logging
 import multiprocessing
 import re
@@ -47,6 +49,40 @@ def termFileName(termid: str) -> str:
 TEMPLATE: jinja2.Template = jinga_render.GetJinga().get_template("terms/TermPage.j2")
 
 
+@functools.lru_cache(maxsize=1)
+def load_public_stats() -> Tuple[Dict[str, str], str]:
+    """Load public stats O(1) lookup map mapping term URI/URL to domain bucket."""
+    stats_files = sorted([f for f in Path("data/public_stats/google").glob("20*.json") if not f.name.startswith("summary_")])
+    if not stats_files:
+        return {}, ""
+    latest_file = stats_files[-1]
+    filename = latest_file.stem  # e.g., "2026_05"
+    date_str = ""
+    try:
+        date_obj = datetime.datetime.strptime(filename, "%Y_%m")
+        date_str = date_obj.strftime("%B %Y")
+    except ValueError:
+        pass
+
+    try:
+        with open(latest_file, "r", encoding="utf-8") as f:
+            raw_data = json.load(f)
+        res: Dict[str, str] = {}
+        for item in raw_data:
+            name = item.get("Name")
+            bucket = item.get("Domain Bucket")
+            if name and bucket:
+                res[name] = bucket
+                if name.startswith("http://"):
+                    res["https://" + name[7:]] = bucket
+                elif name.startswith("https://"):
+                    res["http://" + name[8:]] = bucket
+        return res, date_str
+    except Exception as e:
+        log.error(f"Failed to load public stats: {e}")
+        return {}, date_str
+
+
 def termtemplateRender(term: sdoterm.SdoTerm, examples: List[schemaexamples.Example], json: str) -> str:
     """Render the term with examples and associated JSON."""
     assert isinstance(term, sdoterm.SdoTerm)
@@ -63,6 +99,7 @@ def termtemplateRender(term: sdoterm.SdoTerm, examples: List[schemaexamples.Exam
             exselect[3] = "selected"
         ex.exselect = exselect  # type: ignore
 
+    stats, stats_date = load_public_stats()
     extra_vars: Dict[str, Any] = {
         "title": term.label,
         "menu_sel": "Schemas",
@@ -72,6 +109,8 @@ def termtemplateRender(term: sdoterm.SdoTerm, examples: List[schemaexamples.Exam
         "term": term,
         "jsonldPayload": json,
         "examples": examples,
+        "google_public_stats": stats,
+        "google_public_stats_date": stats_date,
     }
     return jinga_render.templateRender(
         template_path=None, extra_vars=extra_vars, template_instance=TEMPLATE
