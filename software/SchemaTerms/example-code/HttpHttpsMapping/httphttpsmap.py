@@ -17,11 +17,6 @@ from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import *
 
 
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major, sys.version_info.minor))
-    sys.exit(1)
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", "--output", required=True, help="output file")
 args = parser.parse_args()

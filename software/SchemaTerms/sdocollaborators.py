@@ -21,7 +21,7 @@ import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.paths as paths
-import util.schemaglobals as schemaglobals
+import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ class collaborator(object):
     def __init__(self, ref: str, desc: Optional[str] = None) -> None:
         self.ref: str = ref
         self.urirel: str = os.path.join("/docs", "collab", ref)
-        self.uri: str = schemaglobals.HOMEPAGE + self.urirel
+        self.uri: str = schema.constants.HOMEPAGE + self.urirel
         self.docurl: str = self.urirel
         self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
         self.contributor: bool = False

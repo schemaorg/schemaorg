@@ -15,7 +15,7 @@ import software
 import util.convertmd2htmldocs as convertmd2htmldocs
 import util.fileutils as fileutils
 import util.paths as paths
-import util.schemaversion as schemaversion
+import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -31,8 +31,8 @@ def _getInserts() -> Generator[Tuple[str, str], None, None]:
             fn = fn[4:]
 
         indata: str = f_path.read_text()
-        indata = indata.replace("{{version}}", schemaversion.getVersion())
-        indata = indata.replace("{{versiondate}}", str(schemaversion.getCurrentVersionDate()))
+        indata = indata.replace("{{version}}", schema.getVersion())
+        indata = indata.replace("{{versiondate}}", str(schema.getCurrentVersionDate()))
         indata = indata.replace("{{docsdir}}", "/docs")
         yield (fn, indata)
 

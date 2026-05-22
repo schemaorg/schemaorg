@@ -12,7 +12,7 @@ import jinja2
 
 import software
 
-import util.schemaversion as schemaversion
+import util.schema as schema
 
 
 SITENAME = "Schema.org"
@@ -59,8 +59,8 @@ def templateRender(
     # Basic variables configuring UI
     tvars = {
         "local_vars": local_vars,
-        "version": schemaversion.getVersion(),
-        "versiondate": schemaversion.getCurrentVersionDate(),
+        "version": schema.getVersion(),
+        "versiondate": schema.getCurrentVersionDate(),
         "sitename": SITENAME,
         "TERMHREFPREFIX": TERMHREFPREFIX,
         "TERMHREFSUFFIX": TERMHREFSUFFIX,

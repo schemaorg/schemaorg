@@ -66,7 +66,7 @@ The objective of the software is to create a static copy of the Schema.org site,
 
 Full instructions are available in [SOFTWARE_README.md](software/SOFTWARE_README.md) explaining how to create the initial local copy to work with, then evolve to test out any changes.
 
-Essentially you will need to have a Linux-like (inc Mac) environment loaded with Python version 3.6 or above. You can then make test builds of Schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
+Essentially you will need to have a Linux-like (inc Mac) environment loaded with Python version 3.11 or above. You can then make test builds of Schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
 
 If you work primarily on Windows, use the Windows Subsystem for Linux (WSL2) or another POSIX-like environment to follow these commands. WSL2 provides the required tooling (Python, make, git) and matches the paths referenced in [SOFTWARE_README.md](software/SOFTWARE_README.md), avoiding discrepancies between Windows native shells and the scripts in this repository.
 

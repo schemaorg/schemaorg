@@ -23,20 +23,7 @@ import software
 from SchemaTerms.localmarkdown import Markdown, MarkdownTool
 from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import SdoTermSource
-import util.schemaversion as schemaversion
-
-
-if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
-    print(
-        f"Python version {sys.version_info.major}.{sys.version_info.minor} not supported version 3.6 or above required - exiting"
-    )
-    sys.exit(os.EX_CONFIG)
-
-
-
-
-
-
+import util.schema as schema
 
 
 VOCABURI: str = SdoTermSource.vocabUri()
@@ -97,8 +84,8 @@ class OwlBuild:
         for k, v in sorted(NAMESPACES.items()):
             self.dom.set(k, v)
 
-        version: str = schemaversion.getVersion()
-        version_date: Optional[str] = schemaversion.getCurrentVersionDate()
+        version: str = schema.getVersion()
+        version_date: Optional[str] = schema.getCurrentVersionDate()
         comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")

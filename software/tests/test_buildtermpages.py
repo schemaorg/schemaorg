@@ -10,7 +10,7 @@ import software
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
 import util.buildtermpages as buildtermpages
-import util.schemaglobals as schemaglobals
+import util.schema as schema
 
 
 class TestTermFileName(unittest.TestCase):
@@ -28,14 +28,14 @@ class TestTermFileName(unittest.TestCase):
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
             os.path.abspath(os.path.join(
-                schemaglobals.OUTPUTDIR,
+                schema.constants.OUTPUTDIR,
                 "terms/types/T/Thingamabob.html")))
 
     def testLower(self):
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
             os.path.abspath(os.path.join(
-                schemaglobals.OUTPUTDIR,
+                schema.constants.OUTPUTDIR,
                 "terms/properties/t/thingamabob.html"))
         )
 
@@ -43,7 +43,7 @@ class TestTermFileName(unittest.TestCase):
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
             os.path.abspath(os.path.join(
-                schemaglobals.OUTPUTDIR,
+                schema.constants.OUTPUTDIR,
                 "terms/types/4/4DStatue.html"))
         )
 

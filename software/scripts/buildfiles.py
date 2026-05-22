@@ -10,14 +10,13 @@ from pathlib import Path
 import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-import rdflib
-from rdflib.compare import to_canonical_graph
-import rdflib.namespace
-
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 import software
 
+import rdflib
+from rdflib.compare import to_canonical_graph
+import rdflib.namespace
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -26,13 +25,11 @@ import scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
 import util.fileutils as fileutils
 import util.paths as paths
 import util.pretty_logger as pretty_logger
-import util.schemaglobals as schemaglobals
-import util.schemaversion as schemaversion
+import util.schema as schema
 import util.sdojsonldcontext as sdojsonldcontext
 from util.sdoowl import OwlBuild
 from util.sort_dict import sort_dict, sort_xml
 import util.textutils as textutils
-
 
 VOCABURI: str = sdotermsource.SdoTermSource.vocabUri()
 log: logging.Logger = logging.getLogger(__name__)
@@ -117,7 +114,7 @@ def owl(page: str) -> str:
 
 
 def sitemap(page: str) -> str:
-    version_date: str = str(schemaversion.getCurrentVersionDate() or "")
+    version_date: str = str(schema.getCurrentVersionDate() or "")
     def node(t: str) -> str:
         return f""" <url>
    <loc>https://schema.org/{t}</loc>
@@ -236,7 +233,7 @@ def get_release_file_path(selector: Union["fileutils.FileSelector", str], protoc
         parts.append(suffix)
     merged: str = "-".join(parts)
     filename: str = f"schemaorg-{merged}.{extension}"
-    
+
     if subdirectory_path is not None:
         path: Path = paths.DefaultOutputLayout().get_output_dir() / subdirectory_path / filename
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -248,7 +245,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
     protocol: str
     altprotocol: str
     protocol, altprotocol = protocols()
-    version: str = schemaversion.getVersion()
+    version: str = schema.getVersion()
 
     selector: str
     for selector in fileutils.FILESET_SELECTORS:
@@ -298,10 +295,6 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
                 Path(fn).write_text(content)
 
 
-def array2str(values: List[str]) -> str:
-    return ", ".join(values) if values else ""
-
-
 def uriwrap(thing: Any) -> str:
     """Convert various types into uris. Sorts items if they are a list."""
     if not thing:
@@ -311,7 +304,7 @@ def uriwrap(thing: Any) -> str:
     if isinstance(thing, (sdoterm.SdoTermSequence, sdoterm.SdoTermOrId, sdoterm.SdoTerm)):
         return uriwrap(getattr(thing, "ids", getattr(thing, "id", None)))
     try:
-        return array2str(sorted(map(uriwrap, thing)))
+        return textutils.Array2String(sorted(map(uriwrap, thing)))
     except (TypeError, ValueError) as e:
         log.fatal(f"Cannot uriwrap {thing}:{e}")
         return ""
@@ -368,7 +361,7 @@ def exportcsv(page: str) -> None:
 
 
 def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selector: Union[fileutils.FileSelector, str], protocol: str, altprotocol: str) -> None:
-    version: str = schemaversion.getVersion()
+    version: str = schema.getVersion()
     paths_list: List[str] = [str(get_release_file_path(selector=selector, protocol=p, suffix=ftype, output_format="csv")) for p in (protocol, altprotocol)]
 
     with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {paths_list[0]} and {paths_list[1]}.", logger=log):
@@ -385,7 +378,7 @@ def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selec
 
 def jsoncounts(page: str) -> str:
     counts: Dict[str, Any] = sdotermsource.SdoTermSource.termCounts()
-    counts["schemaorgversion"] = schemaversion.getVersion()
+    counts["schemaorgversion"] = schema.getVersion()
     return json.dumps(sort_dict(counts))
 
 
@@ -394,7 +387,7 @@ def jsonpcounts(page: str) -> str:
 
 
 def exportshex_shacl(page: str) -> None:
-    version: str = schemaversion.getVersion()
+    version: str = schema.getVersion()
     nt_path: Path = get_release_file_path(
         selector=fileutils.FileSelector.ALL,
         protocol="http",

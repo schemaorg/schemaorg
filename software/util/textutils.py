@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from typing import Iterable, Match, Optional, Sequence
 import os
 import re
 import sys
-from typing import Iterable, Match, Optional
 
 import software
 
@@ -29,3 +29,8 @@ def ShortenOnSentence(source: str, lengthHint: int = 250) -> str:
             return source[:end_pos] + ".."
 
     return source[:lengthHint] + ".."
+
+
+def Array2String(values: Optional[Sequence[str]]) -> str:
+    """Convert a sequence of strings into a single comma-separated string."""
+    return ", ".join(values) if values else ""

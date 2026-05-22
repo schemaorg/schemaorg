@@ -23,7 +23,7 @@ import util.fileutils as fileutils
 import util.jinga_render as jinga_render
 import util.paths as paths
 import util.pretty_logger as pretty_logger
-import util.schemaglobals as schemaglobals
+import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -69,8 +69,8 @@ def termtemplateRender(term: sdoterm.SdoTerm, examples: List[schemaexamples.Exam
         "title": term.label,
         "menu_sel": "Schemas",
         "home_page": "False",
-        "BUILDOPTS": schemaglobals.BUILDOPTS,
-        "docsdir": schemaglobals.TERMDOCSDIR,
+        "BUILDOPTS": schema.constants.BUILDOPTS,
+        "docsdir": schema.constants.TERMDOCSDIR,
         "term": term,
         "jsonldPayload": json,
         "examples": examples,

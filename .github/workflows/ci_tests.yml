@@ -44,7 +44,7 @@ jobs:
         run: |
           software/scripts/buildsite.py -e -f RDFExport.nquads Context Examples
           mkdir software/site/releases/LATEST
-          (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
+          (cd software/site/releases/`software/scripts/schemaversion.py`; cp -r * ../LATEST)
       
       # Run local tests
       - name: Run local tests

@@ -1,19 +1,17 @@
 #!/usr/bin/env python2.7
 
 import argparse
-import os
 from os import getenv
 from os.path import expanduser
-import sys
-
-import rdflib
+import os
 from rdflib.parser import Parser
 from rdflib.term import URIRef
+import rdflib
+import sys
 
 if os.getcwd() not in sys.path:
     sys.path.insert(1, os.getcwd())
 import software
-
 
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.

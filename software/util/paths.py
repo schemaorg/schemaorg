@@ -12,8 +12,7 @@ from typing import List, Optional, Sequence, Union
 
 import software
 
-import util.schemaglobals as schemaglobals
-import util.schemaversion as schemaversion
+import util.schema as schema
 
 
 # Globally enforce UTF-8 as the default encoding for file reads/writes
@@ -60,7 +59,7 @@ class InputLayout:
         elif domain == Domain.STATIC_DOC_INSERTS:
             return self.root_dir / "templates" / "static-doc-inserts"
         elif domain == Domain.RELEASE_DATA:
-            return self.root_dir / "data" / "releases" / schemaversion.getVersion()
+            return self.root_dir / "data" / "releases" / schema.getVersion()
         elif domain == Domain.ROOT:
             return self.root_dir
         else:
@@ -99,7 +98,7 @@ class OutputLayout:
 
     def domain_dir(self, domain: Domain) -> Path:
         if domain == Domain.RELEASE:
-            path = self.output_dir / "releases" / schemaversion.getVersion()
+            path = self.output_dir / "releases" / schema.getVersion()
         elif domain == Domain.LATEST_RELEASE:
             path = self.output_dir / "releases" / "LATEST"
         else:
@@ -123,5 +122,5 @@ def DefaultInputLayout() -> InputLayout:
 
 
 def DefaultOutputLayout() -> OutputLayout:
-    """Returns the default OutputLayout instance relative to the schemaglobals.OUTPUTDIR."""
-    return OutputLayout(Path(schemaglobals.OUTPUTDIR))
+    """Returns the default OutputLayout instance relative to the schema.constants.OUTPUTDIR."""
+    return OutputLayout(Path(schema.constants.OUTPUTDIR))

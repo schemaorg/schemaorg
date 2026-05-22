@@ -21,8 +21,7 @@ import util.fileutils as fileutils
 import util.jinga_render as jinga_render
 import util.paths as paths
 import util.pretty_logger as pretty_logger
-import util.schemaglobals as schemaglobals
-import util.schemaversion as schemaversion
+import util.schema as schema
 from util.sort_dict import sort_dict
 import util.textutils as textutils
 
@@ -33,7 +32,7 @@ STRCLASSVAL: Optional[str] = None
 
 
 def docsTemplateRender(template: str, extra_vars: Optional[Dict[str, Any]] = None) -> str:
-    tvars: Dict[str, Any] = {"BUILDOPTS": schemaglobals.BUILDOPTS, "docsdir": schemaglobals.DOCSDOCSDIR}
+    tvars: Dict[str, Any] = {"BUILDOPTS": schema.constants.BUILDOPTS, "docsdir": schema.constants.DOCSDOCSDIR}
     if extra_vars:
         tvars.update(extra_vars)
     return jinga_render.templateRender(template, tvars)
@@ -59,7 +58,7 @@ PAGE_CONFIGS: Dict[str, Tuple[str, str, str, str]] = {
 
 def homePage(page: str) -> str:
     global STRCLASSVAL
-    title: str = schemaglobals.SITENAME
+    title: str = schema.constants.SITENAME
     template: str = "docs/Home.j2"
     filt: Optional[str] = None
     overrideclassval: Optional[str] = None
@@ -236,8 +235,8 @@ def fullReleasePage(page: str) -> str:
     extra_vars: Dict[str, Any] = {
         "home_page": "False",
         "title": "Full Release Summary",
-        "version": schemaversion.getVersion(),
-        "date": schemaversion.getCurrentVersionDate(),
+        "version": schema.getVersion(),
+        "date": schema.getCurrentVersionDate(),
         "listings": node_listings,
         "types": types,
         "properties": sorted(properties, key=lambda t: t.id),
@@ -277,7 +276,7 @@ def createCollab(coll: sdocollaborators.collaborator) -> None:
 
 
 def termfind(file: str) -> str:
-    if not schemaglobals.hasOpt("notermfinder"):
+    if not schema.hasOpt("notermfinder"):
         log.info("Building term list")
         return "".join(buildtermlist.generateTerms(tags=True))
     return ""

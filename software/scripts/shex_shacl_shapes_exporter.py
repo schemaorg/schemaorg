@@ -21,7 +21,7 @@ if os.getcwd() not in sys.path:
 import software
 
 import util.paths as paths
-import util.schemaversion as schemaversion
+import util.schema as schema
 from util.sort_dict import sort_dict
 
 
@@ -384,6 +384,6 @@ if __name__ == "__main__":
 
     generate_files(
         term_defs_path=term_defs_path,
-        version=schemaversion.getVersion(),
+        version=schema.getVersion(),
         input_format=args.format,
     )
