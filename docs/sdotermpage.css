@@ -192,3 +192,97 @@ a.core, a.ext, .localLink {
 .jumptarget {
   margin-bottom: 2em;
 }
+
+/* Hover Tooltip */
+.hover-tooltip {
+  position: relative;
+  display: inline-block;
+}
+.hover-tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+.hover-tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.hover-tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Minimalist Header Badge */
+.public-stats-badge {
+    display: inline-flex;
+    align-items: center;
+    
+    /* The Fix: External vertical alignment */
+    vertical-align: middle; 
+    transform: translateY(-0.1em); /* Optical nudge to match H1 cap-height */
+    
+    margin-left: 0.75rem; 
+    padding: 0.25rem 0.625rem; 
+    
+    font-size: 0.45em; 
+    font-weight: 500; 
+    line-height: 1.2;
+    color: var(--shark); 
+    
+    background-color: var(--table-background); 
+    border: 1px solid #DDE3EA; 
+    border-radius: 1rem;
+    
+    cursor: help; 
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.public-stats-badge:hover,
+.public-stats-badge:focus-visible {
+    background-color: #E9EAEB; 
+    border-color: #ccc; 
+    outline: none;
+}
+
+/* Metadata Stats Row Container */
+.public-stats-row {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Decoupled Metadata Stats Pill Badge */
+.public-stats-pill {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.25rem;
+    padding: 0.20rem 0.625rem;
+    color: var(--shark);
+    background-color: var(--table-background);
+    border: 1px solid #DDE3EA;
+    border-radius: 1rem;
+    cursor: help;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.public-stats-pill:hover,
+.public-stats-pill:focus-visible {
+    background-color: #E9EAEB;
+    border-color: #ccc;
+    outline: none;
+}

@@ -42,6 +42,8 @@ class Domain(str, Enum):
     ROOT = "root"
     DOCS_COLLAB = "docs/collab"
     DOCS_TERMFIND = "docs/termfind"
+    PUBLIC_STATS = "public_stats"
+    PUBLIC_STATS_GOOGLE = "public_stats_google"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -60,10 +62,21 @@ class InputLayout:
             return self.root_dir / "templates" / "static-doc-inserts"
         elif domain == Domain.RELEASE_DATA:
             return self.root_dir / "data" / "releases" / schema.getVersion()
+        elif domain == Domain.PUBLIC_STATS:
+            return self.root_dir / "data" / "public_stats"
+        elif domain == Domain.PUBLIC_STATS_GOOGLE:
+            return self.root_dir / "data" / "public_stats" / "google"
         elif domain == Domain.ROOT:
             return self.root_dir
         else:
             return self.root_dir / domain
+
+    @property
+    def version(self) -> str:
+        return schema.getVersion()
+
+    def release_file(self, protocol: str) -> Path:
+        return self.domain_dir(Domain.RELEASE_DATA) / f"schemaorg-all-{protocol}.ttl"
 
     def domain_file(self, domain: Domain, filename: str) -> Path:
         return self.domain_dir(domain) / filename
@@ -117,10 +130,11 @@ class OutputLayout:
 
 
 def DefaultInputLayout() -> InputLayout:
-    """Returns the default InputLayout instance relative to the current working directory."""
-    return InputLayout(Path.cwd())
+    """Returns the default InputLayout instance relative to the repository root."""
+    root_dir = Path(__file__).resolve().parent.parent.parent
+    return InputLayout(root_dir)
 
 
 def DefaultOutputLayout() -> OutputLayout:
-    """Returns the default OutputLayout instance relative to the schema.constants.OUTPUTDIR."""
-    return OutputLayout(Path(schema.constants.OUTPUTDIR))
+    """Returns the default OutputLayout instance relative to the schema.config.OUTPUTDIR."""
+    return OutputLayout(Path(schema.config.OUTPUTDIR))

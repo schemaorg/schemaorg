@@ -21,10 +21,10 @@ log: logging.Logger = logging.getLogger(__name__)
 def snapshot_ttl(output_dir: str = "software/tests/snapshot") -> None:
     # Take some copies of globals we need to manipulate.
     # TODO: these globals should be arguments or similar
-    outputdir_copy: str = schema.constants.OUTPUTDIR
+    outputdir_copy: str = schema.config.OUTPUTDIR
     selectors_copy: Set[str] = fileutils.FILESET_SELECTORS
     protocols_copy: Set[str] = fileutils.FILESET_PROTOCOLS
-    schema.constants.OUTPUTDIR = ""
+    schema.config.OUTPUTDIR = ""
     fileutils.FILESET_SELECTORS = {"all"}
     fileutils.FILESET_PROTOCOLS = {"https"}
 
@@ -34,7 +34,7 @@ def snapshot_ttl(output_dir: str = "software/tests/snapshot") -> None:
     log.info(f"Snapshot file created in {output_dir}")
 
     # Put back the original values.
-    schema.constants.OUTPUTDIR = outputdir_copy
+    schema.config.OUTPUTDIR = outputdir_copy
     fileutils.FILESET_SELECTORS = selectors_copy
     fileutils.FILESET_PROTOCOLS = protocols_copy
 
