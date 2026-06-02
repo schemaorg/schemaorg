@@ -43,7 +43,7 @@ class Domain(str, Enum):
     DOCS_COLLAB = "docs/collab"
     DOCS_TERMFIND = "docs/termfind"
     PUBLIC_STATS = "public_stats"
-    PUBLIC_STATS_GOOGLE = "public_stats_google"
+    PUBLIC_STATS_GOOGLE = "public_stats/google"
 
     def __str__(self) -> str:
         return str(self.value)
