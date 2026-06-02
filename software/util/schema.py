@@ -4,12 +4,8 @@
 """Module that handles the schema.org version information and global constants."""
 
 import json
-import os
-import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-import software
+from typing import Any, Dict, List, Optional
 
 import util.paths as paths
 from util.sort_dict import sort_dict
@@ -17,11 +13,6 @@ from util.sort_dict import sort_dict
 
 class constants:
     SITENAME: str = "Schema.org"
-    BUILDOPTS: List[str] = []
-    TERMS: List[str] = []
-    PAGES: List[str] = []
-    FILES: List[str] = []
-    OUTPUTDIR: str = "software/site"
     DOCSDOCSDIR: str = "/docs"
     TERMDOCSDIR: str = "/docs"
     HANDLER_TEMPLATE: str = "handlers-template.yaml"
@@ -30,17 +21,25 @@ class constants:
     HOMEPAGE: str = "https://schema.org"
 
 
+class config:
+    BUILDOPTS: List[str] = []
+    TERMS: List[str] = []
+    PAGES: List[str] = []
+    FILES: List[str] = []
+    OUTPUTDIR: str = "software/site"
+
+
 def hasOpt(opt: str) -> bool:
     """Return true if `opt` is among the build options"""
-    return opt in constants.BUILDOPTS
+    return opt in config.BUILDOPTS
 
 
 def getOutputDir() -> str:
-    return constants.OUTPUTDIR
+    return config.OUTPUTDIR
 
 
 def getDocsOutputDir() -> str:
-    return str(Path(constants.OUTPUTDIR) / "docs")
+    return str(Path(config.OUTPUTDIR) / "docs")
 
 
 VERSION_DATA: Optional[Dict[str, Any]] = None
@@ -84,3 +83,6 @@ def setVersion(ver: str, date: str) -> None:
     paths.DefaultInputLayout().domain_file(
         paths.Domain.ROOT, "versions.json"
     ).write_text(json.dumps(sort_dict(versiondata), indent=4))
+
+
+

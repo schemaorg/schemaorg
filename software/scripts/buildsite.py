@@ -7,6 +7,7 @@ import argparse
 import contextlib
 import datetime
 import glob
+import json
 import logging
 import os
 from pathlib import Path
@@ -33,6 +34,7 @@ import util.fileutils as fileutils
 import util.paths as paths
 import util.pretty_logger as pretty_logger
 import util.schema as schema
+import util.stats as stats
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -126,32 +128,44 @@ def initialize() -> argparse.Namespace:
         action="store_true",
         help="create page for term (repeatable) - ALL = all terms",
     )
+    parser.add_argument(
+        "--buildrelease",
+        default=False,
+        action="store_true",
+        help="Build the release files and save them into the releases data directory",
+    )
+    parser.add_argument(
+        "--buildsite",
+        default=False,
+        action="store_true",
+        help="Build the website from the releases directory + static content + stats",
+    )
 
     args: argparse.Namespace = parser.parse_args()
 
     op: List[str]
     for op in args.buildoption:
-        schema.constants.BUILDOPTS.extend(op)
+        schema.config.BUILDOPTS.extend(op)
 
     ter: List[str]
     for ter in args.terms:
-        schema.constants.TERMS.extend(ter)
+        schema.config.TERMS.extend(ter)
 
     pgs: List[str]
     for pgs in args.docspages:
-        schema.constants.PAGES.extend(pgs)
+        schema.config.PAGES.extend(pgs)
 
     fls: List[str]
     for fls in args.files:
-        schema.constants.FILES.extend(fls)
+        schema.config.FILES.extend(fls)
 
     if args.output:
-        schema.constants.OUTPUTDIR = args.output
+        schema.config.OUTPUTDIR = args.output
 
-    if args.autobuild or args.release or args.shacltests:
-        schema.constants.TERMS = ["ALL"]
-        schema.constants.PAGES = ["ALL"]
-        schema.constants.FILES = ["ALL"]
+    if args.autobuild or args.release or args.shacltests or args.buildrelease:
+        schema.config.TERMS = ["ALL"]
+        schema.config.PAGES = ["ALL"]
+        schema.config.FILES = ["ALL"]
 
     SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
     SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
@@ -164,7 +178,7 @@ def initialize() -> argparse.Namespace:
 
 def clear() -> None:
     if args.clearfirst or args.autobuild:
-        output_dir: Path = Path(schema.constants.OUTPUTDIR)
+        output_dir: Path = Path(schema.config.OUTPUTDIR)
         log.info(f"Clearing {output_dir} directory")
         if output_dir.is_dir():
             item: Path
@@ -220,18 +234,49 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
         paths.DefaultOutputLayout().domain_file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
 
 
-LOADEDTERMS: bool = False
+LOADEDTERMS: Optional[str] = None
 
 
-def loadTerms() -> None:
+def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
     global LOADEDTERMS
-    if LOADEDTERMS:
+    
+    # If no source is requested, and we already loaded something, we're done.
+    if source is None:
+        if LOADEDTERMS is not None:
+            return
+        # Default fallback for lazy calls that happen before explicit stage loading
+        source = "release"
+        
+    # If the requested source is already loaded, and we don't force, we're done.
+    if LOADEDTERMS == source and not force:
         return
-    LOADEDTERMS = True
-    if not sdotermsource.SdoTermSource.SOURCEGRAPH:
-        with pretty_logger.BlockLog(logger=log, message="Loading triples files"):
-            sdotermsource.SdoTermSource.loadSourceGraph("default")
-
+        
+    init_graph: bool = (LOADEDTERMS is not None) or force
+    LOADEDTERMS = source
+    
+    if not sdotermsource.SdoTermSource.SOURCEGRAPH or init_graph:
+        if source == "default":
+            with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
+                sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
+        elif source == "release":
+            protocol: str = "https" if sdotermsource.SdoTermSource.vocabUri().startswith("https") else "http"
+            release_file: Path = paths.DefaultInputLayout().release_file(protocol)
+            
+            if not release_file.exists():
+                raise FileNotFoundError(
+                    f"Release file not found: {release_file}. "
+                    "Please run --buildrelease first."
+                )
+                
+            with pretty_logger.BlockLog(logger=log, message=f"Loading triples from release file {release_file}"):
+                sdotermsource.SdoTermSource.loadSourceGraph(str(release_file), init=init_graph)
+        else:
+            raise ValueError(f"Invalid term source: {source}")
+        
+        if init_graph:
+            sdocollaborators.collaborator.COLLABORATORS.clear()
+            sdocollaborators.collaborator.CONTRIBUTORS.clear()
+            
         with pretty_logger.BlockLog(logger=log, message="Loading contributors"):
             sdocollaborators.collaborator.loadContributors()
 
@@ -243,7 +288,12 @@ def processTerms(terms: Iterable[str]) -> None:
         ):
             loadTerms()
             schemaexamples.SchemaExamples.loaded()
-            buildtermpages.buildTerms(terms)
+            config = {
+                "stats_providers": stats.get_stats_providers(),
+                "build_opts": schema.config.BUILDOPTS,
+                "term_docs_dir": schema.constants.TERMDOCSDIR,
+            }
+            buildtermpages.buildTerms(terms, config=config)
 
 
 def processDocs(pages: Iterable[str]) -> None:
@@ -283,12 +333,15 @@ def copyReleaseFiles(release_dir: str) -> None:
     version: str = schema.getVersion()
     srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
     destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
+    if not srcdir.is_dir():
+        log.warning(f"Release data directory {srcdir} not found. Skipping copying release files.")
+        return
     with pretty_logger.BlockLog(
         message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
         fileutils.mycopytree(str(srcdir), str(destdir))
-        cmd: List[str] = ["git", "add", str(destdir)]
+        cmd: List[str] = ["git", "add", "-f", str(destdir)]
         subprocess.check_call(cmd)
 
 
@@ -299,23 +352,69 @@ if __name__ == "__main__":
     log.info(
         f"Version: {schema.getVersion()} Released: {schema.getCurrentVersionDate()}"
     )
-    if args.shacltests:
-        args.autobuild = True
-    if args.release:
-        args.autobuild = True
-        log.info("BUILDING RELEASE VERSION")
-    if args.examplesnum or args.release or args.autobuild:
+
+    # STAGE 1: Build Release
+    if args.buildrelease or args.release:
+        log.info("=== STAGE 1: BUILDING RELEASE VERSION ===")
+        loadTerms(source="default")
+
         with pretty_logger.BlockLog(
             message="Checking Examples for assigned identifiers", logger=log
         ):
             SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-    initdir(output_dir_str=schema.constants.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
-    runtests()
-    processTerms(terms=schema.constants.TERMS)
-    processDocs(pages=schema.constants.PAGES)
-    processFiles(files=schema.constants.FILES)
 
-    if args.release:
-        copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
-    if args.shacltests:
+        schema.config.OUTPUTDIR = "data"
+
+        # Run tests first
+        runtests()
+
+        # Generate all vocabulary/schema release files
+        release_files = ["Context", "Owl", "Httpequivs", "Examples", "RDFExports", "CSVExports", "Shex_Shacl"]
+        processFiles(files=release_files)
+
+        # Generate schema-all.html (the FullRelease documentation page)
+        processDocs(pages=["FullRelease"])
+
+        # Validate the generated release files against shapes
         runShaclTests()
+
+        temp_docs_dir = Path("data/docs")
+        if temp_docs_dir.is_dir():
+            log.info("Cleaning up temporary files in data/docs")
+            shutil.rmtree(temp_docs_dir)
+
+        log.info("=== STAGE 1: RELEASE BUILD COMPLETED SUCCESSFULLY ===")
+
+    # STAGE 2: Build Site
+    if args.buildsite or args.autobuild or any(args.files) or any(args.docspages) or any(args.terms):
+        log.info("=== STAGE 2: BUILDING SITE ===")
+        loadTerms(source="release")
+        schema.config.OUTPUTDIR = "software/site"
+
+        if args.examplesnum or args.autobuild:
+            with pretty_logger.BlockLog(
+                message="Checking Examples for assigned identifiers", logger=log
+            ):
+                SchemaExamples.utils.assign_example_ids.AssignExampleIds()
+
+        initdir(output_dir_str=schema.config.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
+        runtests()
+        processTerms(terms=schema.config.TERMS)
+        processDocs(pages=schema.config.PAGES)
+        processFiles(files=schema.config.FILES)
+
+
+        if args.buildsite or args.autobuild:
+            copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
+
+        if args.shacltests:
+            runShaclTests()
+
+        log.info("=== STAGE 2: SITE BUILD COMPLETED SUCCESSFULLY ===")
+
+    # Global Testing Trigger
+    if (args.runtests or args.shacltests) and not (args.buildsite or args.autobuild or args.buildrelease or args.release or any(args.files) or any(args.docspages) or any(args.terms)):
+        log.info("=== RUNNING SCRIBED TEST SUITES ===")
+        runtests()
+        if args.shacltests:
+            runShaclTests()

@@ -32,7 +32,7 @@ STRCLASSVAL: Optional[str] = None
 
 
 def docsTemplateRender(template: str, extra_vars: Optional[Dict[str, Any]] = None) -> str:
-    tvars: Dict[str, Any] = {"BUILDOPTS": schema.constants.BUILDOPTS, "docsdir": schema.constants.DOCSDOCSDIR}
+    tvars: Dict[str, Any] = {"BUILDOPTS": schema.config.BUILDOPTS, "docsdir": schema.constants.DOCSDOCSDIR}
     if extra_vars:
         tvars.update(extra_vars)
     return jinga_render.templateRender(template, tvars)

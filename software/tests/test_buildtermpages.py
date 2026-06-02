@@ -28,14 +28,14 @@ class TestTermFileName(unittest.TestCase):
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
             os.path.abspath(os.path.join(
-                schema.constants.OUTPUTDIR,
+                schema.config.OUTPUTDIR,
                 "terms/types/T/Thingamabob.html")))
 
     def testLower(self):
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
             os.path.abspath(os.path.join(
-                schema.constants.OUTPUTDIR,
+                schema.config.OUTPUTDIR,
                 "terms/properties/t/thingamabob.html"))
         )
 
@@ -43,7 +43,7 @@ class TestTermFileName(unittest.TestCase):
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
             os.path.abspath(os.path.join(
-                schema.constants.OUTPUTDIR,
+                schema.config.OUTPUTDIR,
                 "terms/types/4/4DStatue.html"))
         )
 
@@ -51,15 +51,23 @@ class TestTermFileName(unittest.TestCase):
 class TestBuildTermPages(unittest.TestCase):
     """Test the term page rendering logic."""
 
+    def setUp(self):
+        self.renderer = buildtermpages.TermPageRenderer(
+            stats_providers=[],
+            build_opts=[],
+            term_docs_dir="/docs"
+        )
+
     def testTemplateRenderNoExample(self):
         term = sdoterm.SdoType(
             term_id="42",
             uri="http://example.com/whatchicallit",
             label="whatchicallit",
         )
-        output = buildtermpages.termtemplateRender(term=term, examples=[], json="")
+        output = self.renderer.termtemplateRender(term=term, examples=[], json="")
         self.assertRegex(output, r".*whatchicallit.*")
         self.assertRegex(output, r".*http://example\.com/whatchicallit.*")
+        self.assertNotIn('class="google-public-stats-badge-container"', output)
 
     def testTemplateRenderOneExample(self):
         """Test rendering of one term page."""
@@ -79,12 +87,13 @@ class TestBuildTermPages(unittest.TestCase):
             uri="http://example.com/thingamabob",
             label="Thingamabob",
         )
-        output = buildtermpages.termtemplateRender(
+        output = self.renderer.termtemplateRender(
             term=term, examples=examples, json=json
         )
         self.assertRegex(output, r".*Thingamabob.*")
         self.assertRegex(output, r".*http://example\.com/thingamabob.*")
-        self.assertRegex(output, ".Awesome &amp; Thingamabob.*")
+        self.assertRegex(output, ".*Awesome &amp; Thingamabob.*")
+        self.assertNotIn('class="google-public-stats-badge-container"', output)
 
 
 if __name__ == "__main__":
