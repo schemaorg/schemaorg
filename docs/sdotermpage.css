@@ -267,6 +267,17 @@ a.core, a.ext, .localLink {
 }
 
 /* Decoupled Metadata Stats Pill Badge */
+.public-stats-pill-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.public-stats-pill-link:hover,
+.public-stats-pill-link:focus {
+    text-decoration: none;
+    border-bottom: none !important;
+}
+
 .public-stats-pill {
     display: inline-flex;
     align-items: center;
@@ -276,7 +287,7 @@ a.core, a.ext, .localLink {
     background-color: var(--table-background);
     border: 1px solid #DDE3EA;
     border-radius: 1rem;
-    cursor: help;
+    cursor: pointer;
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
