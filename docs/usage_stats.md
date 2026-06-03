@@ -31,7 +31,7 @@ Google uses an internal pipeline to gather, clean, and share this data:
    not by individual pages. This means if you use the same term on 100 pages of your site,
    it still only counts as one domain using it.
 2. **Group**: Instead of showing exact, raw numbers (which change daily and can be noisy),
-   websites are grouped into range "buckets" (like "10K to 100K" websites). This keeps the
+   websites are grouped into range "buckets" (like "10K - 100K" domains). This keeps the
    data more stable and protects website privacy.
 3. **Publish**: An updated file is pushed to GitHub every month.
 
@@ -45,11 +45,11 @@ To make it easy for anyone (including independent developers and startups) to us
 data, the files are very simple. The dataset has three main fields:
 
 * **Term Type**: The type of term. This is either a Type (like "Person" or
-  "Event") or a Property (like "price" or "telephone" number).
+  "Event") or a Property (like "price" or "telephone").
 * **URI**: The official URI of the term (for example:
   `http://schema.org/Person`).
-* **Domain Count Bucket**: The range of domains using the term. This shows the
-  range of unique websites using the term (for example: 100K - 1M websites).
+* **Domain Count Bucket**: The range of unique domains using the term (for example:
+  "100K - 1M" domains).
 
 ## Frequently Asked Questions (FAQs)
 
@@ -74,7 +74,7 @@ terms.
 meaningful shifts. Furthermore, each release requires manual validation and approval to
 ensure data quality and filter out anomalies before publication.
 
-### Q: A term I want to use is in the "Under 1K" bucket. Does that mean search engines ignore it?
+### Q: A term I want to use is in the "< 1K" bucket. Does that mean search engines ignore it?
 
 **A**: Not necessarily. The "Under 1K" bucket includes both brand-new terms and highly
 specialized terms (like medical or government terms). Because the total number of medical
