@@ -30,36 +30,36 @@ import util.schema_graph as graph
 def Lint(args: argparse.Namespace) -> None:
     """Reformats the file(s) properly."""
 
-    def LintOne(filename: str, output_filename: str, format: str) -> None:
+    def LintOne(filename: str, output_filename: str) -> None:
         logging.info(" - reading file ...")
-        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(filename, format=format)
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(filename))
         logging.info(
             f" - writing back {output_filename if output_filename != filename else ''} ..."
         )
-        g.serialize(output_filename, format=format)
-        if not g.IdenticalTo(graph.SchemaOrgGraph(output_filename, format=format)):
+        g.serialize(output_filename, format="turtle")
+        if not g.IdenticalTo(graph.SchemaOrgGraph(Path(output_filename))):
             logging.fatal(f"Linting file {filename} lost some information.")
 
     if args.output is not None and len(args.files) > 1:
         logging.fatal(f"Cannot use --output with multiple files!")
     for index, filename in enumerate(args.files):
         logging.info(f"Handling file {index} of {len(args.files)} ({filename})")
-        LintOne(filename, args.output or filename, format="turtle")
+        LintOne(filename, args.output or filename)
         logging.info(" - validated.")
 
 
 def MergeFiles(args: argparse.Namespace) -> None:
     """Merges a set of files into one."""
     logging.info(f"Merging files {len(args.files)} into {args.output}")
-    merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph()
-    for filename in args.files:
+    merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(args.files[0]))
+    for filename in args.files[1:]:
         logging.info(f" - reading {filename} ...")
         merged.parse(filename, format="turtle")
     logging.info(f"Writing {args.output} ...")
     merged.serialize(args.output, format="turtle")
 
     for filename in args.files:
-        if not merged.FullyContains(graph.SchemaOrgGraph(filename, format="turtle")):
+        if not merged.FullyContains(graph.SchemaOrgGraph(Path(filename))):
             logging.fatal(f"Merging files into {args.output} lost some information.")
 
 
@@ -77,7 +77,7 @@ def Annotate(args: argparse.Namespace) -> None:
 
     for filename in args.files:
         logging.info(f"Annotating {filename} ...")
-        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(filename, format="turtle")
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(filename))
         # Clean the existing parts
         g.remove((None, graph.SCHEMAORG.isPartOf, None))
         # GA is special as it is the unannotated state.
