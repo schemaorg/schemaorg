@@ -196,10 +196,11 @@ def runtests() -> None:
         with pretty_logger.BlockLog(
             logger=log, message="Running test scripts before proceeding…"
         ):
-            errorcount: int = runtests_lib.main("./software/tests/")
-            if errorcount:
-                log.error(f"Errors returned: {errorcount}")
-                sys.exit(errorcount)
+            cmd = [sys.executable, "software/scripts/runtests.py"]
+            status = subprocess.call(cmd)
+            if status:
+                log.error(f"Errors returned: {status}")
+                sys.exit(status)
 
 
 def initdir(output_dir_str: str, handler_path: str) -> None:
@@ -322,7 +323,12 @@ def runShaclTests() -> None:
             log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
             return
 
-        cmd: List[str] = [sys.executable, "software/scripts/validate_examples_shacl.py"]
+        cmd: List[str] = [
+            sys.executable,
+            "software/scripts/validate_examples_shacl.py",
+            "-o",
+            schema.config.OUTPUTDIR,
+        ]
         status: int = subprocess.call(cmd)
         if status:
             log.error(f"SHACL validation reported errors (exit code {status}). Failing build.")
@@ -399,13 +405,12 @@ if __name__ == "__main__":
 
         initdir(output_dir_str=schema.config.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
         runtests()
+        if args.buildsite or args.autobuild:
+            copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
+
         processTerms(terms=schema.config.TERMS)
         processDocs(pages=schema.config.PAGES)
         processFiles(files=schema.config.FILES)
-
-
-        if args.buildsite or args.autobuild:
-            copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
 
         if args.shacltests:
             runShaclTests()
