@@ -63,6 +63,65 @@ alongside other vocabulary that shares our basic datamodel and our use of underl
 and RDFa.
 </p>
 
+<h2>Multiple Values and Collections</h2>
+<p>
+  By default, any property in Schema.org can have multiple values. In Microdata and RDFa,
+  this is typically represented by repeating the property tag. In JSON-LD, it is
+  represented as an array of values.
+</p>
+<p>
+  Because of how the underlying RDF model works (representing data as independent triples),
+  these multiple values are technically treated as an unordered set by default. However, there are cases
+  where the order of values is important (e.g., the authors of a book, the steps in a recipe,
+  or items in a list). While practically most parsers assume source order, it is not explicit and there are
+  cases where that can be incorrect. To better support these cases, publishers may use
+  <a href="https://www.w3.org/TR/rdf-schema/">standard RDF collection and container semantics:
+</p>
+<ul>
+  <li><strong>RDF Lists (rdf:List)</strong>: An ordered list of elements, represented using
+    <code>rdf:first</code> and <code>rdf:rest</code>. In JSON-LD, this is easily expressed
+    using the <code>@list</code> keyword.
+  </li>
+  <li><strong>RDF Containers</strong>:
+    <ul>
+      <li><code>rdf:Seq</code>: An ordered sequence of elements.</li>
+      <li><code>rdf:Bag</code>: An unordered group of elements (allowing duplicates).</li>
+      <li><code>rdf:Alt</code>: A group of alternative values (where typically only one is chosen).</li>
+    </ul>
+  </li>
+</ul>
+<p>
+  Schema.org does not require all parsers to support RDF containers/collections. However, for parsers
+  that do support these collection semantics, the declared <strong>range</strong> of the property applies
+  to the <strong>individual elements within the collection</strong>, rather than the collection container
+  itself. For example, if a property's range includes <code>HowToStep</code>, and the property value is
+  an RDF List of steps, each element in that list is expected to conform to <code>HowToStep</code>.
+</p>
+<p>
+  In the <a href="https://validator.schema.org">schema.org Markup Validator</a>, these collections are
+  identified and displayed with appropriate markers (e.g., "List", "Bag", "Seq", "Alt") adjacent to the
+  property names to help verify the structure.
+</p>
+    
+<h3>Example: Ordered List in JSON-LD</h3>
+<p>
+  In JSON-LD, you can use the <code>@list</code> keyword to explicitly define an ordered list of values:
+</p>
+<pre class="prettyprint lang-json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Simple Cake",
+  "recipeInstructions": {
+    "@list": [
+      "Mix ingredients",
+      "Bake for 30 minutes",
+      "Let it cool"
+    ]
+  }
+}
+</pre>
+    
 </section>
 <section>
 
