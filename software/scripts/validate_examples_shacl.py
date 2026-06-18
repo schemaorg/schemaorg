@@ -101,7 +101,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-i", "--invalidonly", default=False, action="store_true", help="Only report invalid examples")
     parser.add_argument("-s", "--sourceoutput", default=False, action="store_true", help="Output invalid example source")
+    parser.add_argument("-o", "--output", help="Output site directory")
     args = parser.parse_args()
+
+    if args.output:
+        schema.config.OUTPUTDIR = args.output
 
     examples = load_examples()
     validate_examples(examples=examples, invalid_only=args.invalidonly, source_output=args.sourceoutput)
