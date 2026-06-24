@@ -30,7 +30,7 @@ MICRODATA:
   <h2><span itemprop="mainContentOfPage">Treatment</span></h2>
   There are many common treatments for high blood pressure,
   including
-  <span itemscope itemtype="https://schema.org/DrugClass">
+  <span itemprop="mentions" itemscope itemtype="https://schema.org/DrugClass">
     <span itemprop="name">beta-blocker</span> drugs such as
     <span itemprop="drug" itemscope itemtype="https://schema.org/Drug">
       <span itemprop="nonProprietaryName">propanaolol</span>
@@ -62,7 +62,7 @@ RDFA:
   <h2><span property="mainContentOfPage">Treatment</span></h2>
   There are many common treatments for high blood pressure,
   including
-  <span  typeof="DrugClass">
+  <span property="mentions" typeof="DrugClass">
     <span property="name">beta-blocker</span> drugs such as
     <span property="drug"  typeof="Drug">
       <span property="nonProprietaryName">propanaolol</span>
@@ -95,20 +95,23 @@ JSON:
     "Treatment"
   ],
   "audience": "https://schema.org/Patient",
-  "about": [
-    {
-      "@type": "Drug",
-      "nonProprietaryName": "propanaolol",
-      "alternateName": "Innopran"
-    },
-    {
-      "@type": "Drug",
-      "nonProprietaryName": "atenolol",
-      "alternateName": "Tenormin"
-    }
-  ],
+  "mentions": {
+    "@type": "DrugClass",
+    "name": "beta-blocker",
+    "drug": [
+      {
+        "@type": "Drug",
+        "nonProprietaryName": "propanaolol",
+        "alternateName": "Innopran"
+      },
+      {
+        "@type": "Drug",
+        "nonProprietaryName": "atenolol",
+        "alternateName": "Tenormin"
+      }
+    ]
+  },
   "lastReviewed": "2011-09-14",
-  "name": "beta-blocker",
   "specialty": "https://schema.org/Cardiovascular"
 }
 </script>
