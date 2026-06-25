@@ -36,14 +36,14 @@ MICRODATA:
 </div>
 <div itemscope itemtype="https://schema.org/Book" itemid="http://www.worldcat.org/oclc/68043906">
   <h1 itemprop="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
-  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>Author: <span itemprop="author" itemscope itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
   <div>ISBN: <span itemprop="isbn">9781405699532</span></div>
-  <div>Format: <span itemprop="bookFormat" itemid="https://schema.org/AudioBook">AudioBook</span></div>
+  <div>Format: <span itemprop="bookFormat" itemscope itemid="https://schema.org/AudiobookFormat">AudioBook</span></div>
   <link itemprop="isPartOf" itemscope itemtype="https://schema.org/Collection" itemid="http://example.org/colls/68" />
 </div>
 <div itemscope itemtype="https://schema.org/Book" itemid="http://www.worldcat.org/oclc/17105155">
   <h1 itemprop="name">A brief history of time : from the big bang to black holes</h1>
-  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/102304634">Stephen Hawking</span></div>
+  <div>Author: <span itemprop="author" itemscope itemid="http://viaf.org/viaf/102304634">Stephen Hawking</span></div>
   <link itemprop="isPartOf" itemscope itemtype="https://schema.org/Collection" itemid="http://example.org/colls/68" />
   <div>ISBN: <span itemprop="isbn">055305340X</span></div>
 </div>
@@ -68,9 +68,9 @@ RDFA:
 </div>
 <div typeof="Book" resource="http://www.worldcat.org/oclc/68043906">
   <h1 property="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
-  <div>Author: <span property="author" itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>Author: <span property="author" resource="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
   <div>ISBN: <span property="isbn">9781405699532</span></div>
-  <div>Format: <span property="bookFormat" itemid="https://schema.org/AudioBook">AudioBook</span></div>
+  <div>Format: <span property="bookFormat" resource="https://schema.org/AudiobookFormat">AudioBook</span></div>
   <link property="isPartOf" resource="http://example.org/colls/68" />
 </div>
 <div typeof="Book" resource="http://www.worldcat.org/oclc/17105155">
@@ -93,11 +93,7 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": {
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfa": "http://www.w3.org/ns/rdfa#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "https://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
+    "schema": "https://schema.org/"
   },
   "@graph": [
     {
@@ -133,18 +129,12 @@ JSON:
       "@id": "http://www.worldcat.org/oclc/68043906",
       "@type": "schema:Book",
       "schema:author": "Douglas Adams",
-      "schema:bookFormat": "AudioBook",
+      "schema:bookFormat": "AudiobookFormat",
       "schema:isPartOf": {
         "@id": "http://example.org/colls/68"
       },
       "schema:isbn": "9781405699532",
       "schema:name": "The Hitchhiker's guide to the galaxy. The quandry phase"
-    },
-    {
-      "@id": "",
-      "rdfa:usesVocabulary": {
-        "@id": "schema:"
-      }
     },
     {
       "@id": "http://www.worldcat.org/oclc/297618476",
