@@ -29,20 +29,6 @@ def getContext() -> str:
         CONTEXT = createcontext()
     return CONTEXT
 
-
-def _convertTypes(type_range: typing.Collection[str]) -> typing.Set[str]:
-    types: Set[str] = set()
-    if "Text" in type_range:
-        return types
-    if "URL" in type_range:
-        types.add("@id")
-    if "Date" in type_range:
-        types.add("Date")
-    if "Datetime" in type_range:
-        types.add("DateTime")
-    return types
-
-
 def createcontext() -> str:
     """Generates a basic JSON-LD context file for schema.org."""
     with pretty_logger.BlockLog(message="Creating JSON-LD context", logger=log):
@@ -72,13 +58,6 @@ def createcontext() -> str:
                 continue
             if term.termType == sdoterm.SdoTermType.REFERENCE:
                 continue
-            term_json: Dict[str, Any] = {"@id": sdotermsource.prefixedIdFromUri(term.uri)}
-            if term.termType == sdoterm.SdoTermType.PROPERTY:
-                types: Set[str] = _convertTypes(term.rangeIncludes.ids)
-                if len(types) == 1:
-                    term_json["@type"] = types.pop()
-                elif len(types) > 1:
-                    term_json["@type"] = sorted(list(types))
-            json_context[term.id] = term_json
+            json_context[term.id] = {"@id": sdotermsource.prefixedIdFromUri(term.uri)}
         json_object: Dict[str, Any] = {"@context": json_context}
         return json.dumps(sort_dict(json_object), indent=2)
