@@ -1,6 +1,6 @@
 # Welcome to Schema.org
 
-[![CI Tests Shield](https://github.com/schemaorg/schemaorg/actions/workflows/ci_tests.yml/badge.svg)](https://github.com/schemaorg/schemaorg/actions)
+[![CI Tests go Shield](https://github.com/schemaorg/schemaorg/actions/workflows/ci_tests.yml/badge.svg)](https://github.com/schemaorg/schemaorg/actions)
 
 # Important Links and Official Channels
 
