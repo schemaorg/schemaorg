@@ -83,6 +83,3 @@ def setVersion(ver: str, date: str) -> None:
     paths.DefaultInputLayout().domain_file(
         paths.Domain.ROOT, "versions.json"
     ).write_text(json.dumps(sort_dict(versiondata), indent=4))
-
-
-
