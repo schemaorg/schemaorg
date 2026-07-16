@@ -14,8 +14,8 @@ import software
 import util.schema as schema
 from util.issues import Issues, ALL_ISSUES
 
-
-SCHEMAORG: rdflib.Namespace = rdflib.Namespace(schema.constants.HOMEPAGE)
+URI_BASE = schema.constants.HOMEPAGE
+SCHEMAORG: rdflib.Namespace = rdflib.Namespace(URI_BASE if URI_BASE.endswith('/') else URI_BASE + '/')
 
 
 class SchemaOrgGraph(object):
