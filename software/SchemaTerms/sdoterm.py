@@ -51,6 +51,18 @@ class SdoTermOrId:
         return self._term_id
 
     @property
+    def pending(self) -> bool:
+        return self._term.pending if self._term else False
+
+    @property
+    def retired(self) -> bool:
+        return self._term.retired if self._term else False
+
+    @property
+    def extLayer(self) -> str:
+        return self._term.extLayer if self._term else ""
+
+    @property
     def term(self) -> "SdoTerm":
         if not self._term:
             raise UnexpandedTermError()
