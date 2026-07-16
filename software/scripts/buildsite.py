@@ -240,21 +240,21 @@ LOADEDTERMS: Optional[str] = None
 
 def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
     global LOADEDTERMS
-    
+
     # If no source is requested, and we already loaded something, we're done.
     if source is None:
         if LOADEDTERMS is not None:
             return
         # Default fallback for lazy calls that happen before explicit stage loading
         source = "release"
-        
+
     # If the requested source is already loaded, and we don't force, we're done.
     if LOADEDTERMS == source and not force:
         return
-        
+
     init_graph: bool = (LOADEDTERMS is not None) or force
     LOADEDTERMS = source
-    
+
     if not sdotermsource.SdoTermSource.SOURCEGRAPH or init_graph:
         if source == "default":
             with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
@@ -262,22 +262,22 @@ def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
         elif source == "release":
             protocol: str = "https" if sdotermsource.SdoTermSource.vocabUri().startswith("https") else "http"
             release_file: Path = paths.DefaultInputLayout().release_file(protocol)
-            
+
             if not release_file.exists():
                 raise FileNotFoundError(
                     f"Release file not found: {release_file}. "
                     "Please run --buildrelease first."
                 )
-                
+
             with pretty_logger.BlockLog(logger=log, message=f"Loading triples from release file {release_file}"):
                 sdotermsource.SdoTermSource.loadSourceGraph(str(release_file), init=init_graph)
         else:
             raise ValueError(f"Invalid term source: {source}")
-        
+
         if init_graph:
             sdocollaborators.collaborator.COLLABORATORS.clear()
             sdocollaborators.collaborator.CONTRIBUTORS.clear()
-            
+
         with pretty_logger.BlockLog(logger=log, message="Loading contributors"):
             sdocollaborators.collaborator.loadContributors()
 
@@ -374,12 +374,12 @@ if __name__ == "__main__":
         # Run tests first
         runtests()
 
+        # Generate schema-all.html (the FullRelease documentation page)
+        processDocs(pages=["FullRelease"])
+
         # Generate all vocabulary/schema release files
         release_files = ["Context", "Owl", "Httpequivs", "Examples", "RDFExports", "CSVExports", "Shex_Shacl"]
         processFiles(files=release_files)
-
-        # Generate schema-all.html (the FullRelease documentation page)
-        processDocs(pages=["FullRelease"])
 
         # Validate the generated release files against shapes
         runShaclTests()
