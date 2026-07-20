@@ -48,8 +48,13 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("type", context)
         self.assertIn("id", context)
         self.assertIn("@vocab", context)
+
+        # Historically, @type=Date (or @type=id) was included for non-Text-related properties. Since we support multiple
+        # datatypes/things for properties, this led to inaccurate datatype results and inconsistent usage of
+        # datatypes/IRIs for property values (post-JSON-LD processing). This test helps ensure it is not unintentionally
+        # re-introduced and to document a bit more of the background.
         self.assertEqual(
-            context[mock_id], {"@id": "http://schema.org/thang", "@type": "Date"}
+            context[mock_id], {"@id": "http://schema.org/thang"}
         )
 
     @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
@@ -122,43 +127,6 @@ class SdoJsonLdContextTest(unittest.TestCase):
         self.assertIn("id", context)
         self.assertIn("@vocab", context)
         self.assertNotIn(mock_id, context)
-
-    @unittest.mock.patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
-    def test_createcontextMultiple(self, mock_getAllTerms):
-        self.maxDiff = None
-        mock_property = sdoterm.SdoProperty(
-            term_id="aa", uri="http://schema.org/a", label="a"
-        )
-        mock_property.domainIncludes.setIds(["Thing"])
-        mock_property.rangeIncludes.setIds(["Date", "URL", "Thing"])
-        mock_enumeration = sdoterm.SdoEnumeration(
-            term_id="bb", uri="http://schema.org/b", label="b"
-        )
-        mock_enumeration_value = sdoterm.SdoEnumerationvalue(
-            term_id="cc", uri="http://schema.org/c", label="c"
-        )
-        mock_getAllTerms.return_value = [
-            mock_property,
-            mock_enumeration,
-            mock_enumeration_value,
-        ]
-        json_data = sdojsonldcontext.createcontext()
-        parsed = json.loads(json_data)
-        self.assertIn("@context", parsed)
-        self.assertEqual(
-            dict(
-                [
-                    (k, v)
-                    for k, v in parsed["@context"].items()
-                    if k in ["aa", "bb", "cc"]
-                ]
-            ),
-            {
-                "aa": {"@id": "http://schema.org/a", "@type": ["@id", "Date"]},
-                "bb": {"@id": "http://schema.org/b"},
-                "cc": {"@id": "http://schema.org/c"},
-            },
-        )
 
 
 if __name__ == "__main__":
