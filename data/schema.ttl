@@ -2492,6 +2492,16 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
         fibo-fnd-pas-pas:Product ;
     :contributor <https://schema.org/docs/collab/GoodRelationsTerms> .
 
+:ProductGroup a rdfs:Class ;
+    rdfs:label "ProductGroup" ;
+    rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
+
+While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ ;
+    rdfs:subClassOf :Product,
+        cmns-cls:Classifier,
+        cmns-col:Collection ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :ProductModel a rdfs:Class ;
     rdfs:label "ProductModel" ;
     rdfs:comment "A datasheet or vendor specification of a product (in the sense of a prototypical description)." ;
@@ -6414,6 +6424,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :hasMerchantReturnPolicy .
 
+:hasVariant a rdf:Property ;
+    rdfs:label "hasVariant" ;
+    rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." ;
+    :domainIncludes :ProductGroup ;
+    :inverseOf :isVariantOf ;
+    :rangeIncludes :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :headline a rdf:Property ;
     rdfs:label "headline" ;
     rdfs:comment "Headline of the article." ;
@@ -6560,6 +6578,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "The playlist to which this recording belongs." ;
     :domainIncludes :MusicRecording ;
     :rangeIncludes :MusicPlaylist .
+
+:inProductGroupWithID a rdf:Property ;
+    rdfs:label "inProductGroupWithID" ;
+    rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " ;
+    owl:equivalentProperty unece:variantId ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
 
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
@@ -6789,8 +6815,11 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." ;
     rdfs:subPropertyOf skos:broader,
         cmns-cls:exemplifies ;
-    :domainIncludes :ProductModel ;
-    :rangeIncludes :ProductModel .
+    :domainIncludes :Product,
+        :ProductModel ;
+    :inverseOf :hasVariant ;
+    :rangeIncludes :ProductGroup,
+        :ProductModel .
 
 :isbn a rdf:Property ;
     rdfs:label "isbn" ;
@@ -8013,6 +8042,16 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :FlightReservation ;
     :rangeIncludes :Text .
 
+:pattern a rdf:Property ;
+    rdfs:label "pattern" ;
+    rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." ;
+    owl:equivalentProperty unece:printDesignDescription ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :paymentAccepted a rdf:Property ;
     rdfs:label "paymentAccepted" ;
     rdfs:comment "Cash, Credit Card, Cryptocurrency, Local Exchange Tradings System, etc." ;
@@ -8425,6 +8464,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :Service ;
     :rangeIncludes :Thing ;
     :supersededBy :serviceOutput .
+
+:productGroupID a rdf:Property ;
+    rdfs:label "productGroupID" ;
+    rdfs:comment "Indicates a textual identifier for a ProductGroup." ;
+    :domainIncludes :ProductGroup ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
 
 :productID a rdf:Property ;
     rdfs:label "productID" ;
@@ -9388,6 +9434,17 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :URL ;
     :supersededBy :significantLink .
 
+:size a rdf:Property ;
+    rdfs:label "size" ;
+    rdfs:comment "A standardized size of a product or creative work, specified either through a simple textual string (for example 'XL', '32Wx34L'), a  QuantitativeValue with a unitCode, or a comprehensive and structured [[SizeSpecification]]; in other cases, the [[width]], [[height]], [[depth]] and [[weight]] properties may be more applicable. " ;
+    owl:equivalentProperty unece:sizeDescription ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :rangeIncludes :DefinedTerm,
+        :QuantitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :skills a rdf:Property ;
     rdfs:label "skills" ;
     rdfs:comment "A statement of knowledge, skill, ability, task or any other assertion expressing a competency that is either claimed by a person, an organization or desired or required to fulfill a role or to work in an occupation." ;
@@ -10265,6 +10322,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Whether the property must be filled in to complete the action.  Default is false." ;
     :domainIncludes :PropertyValueSpecification ;
     :rangeIncludes :Boolean .
+
+:variesBy a rdf:Property ;
+    rdfs:label "variesBy" ;
+    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs." ;
+    :domainIncludes :ProductGroup ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
 
 :vatID a rdf:Property ;
     rdfs:label "vatID" ;
