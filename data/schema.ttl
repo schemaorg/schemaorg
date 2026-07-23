@@ -982,7 +982,8 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:label "DeliveryTimeSettings" ;
     rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
     rdfs:subClassOf :StructuredValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
+    :supersededBy :ShippingConditions .
 
 :Demand a rdfs:Class ;
     rdfs:label "Demand" ;
@@ -1347,6 +1348,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "A food service, like breakfast, lunch, or dinner." ;
     rdfs:subClassOf :Service ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> .
+
+:FulfillmentTypeEnumeration a rdfs:Class ;
+    rdfs:label "FulfillmentTypeEnumeration" ;
+    rdfs:comment "A type of product fulfillment." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :FurnitureStore a rdfs:Class ;
     rdfs:label "FurnitureStore" ;
@@ -1890,6 +1897,18 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Room ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> .
 
+:MemberProgram a rdfs:Class ;
+    rdfs:label "MemberProgram" ;
+    rdfs:comment "A MemberProgram defines a loyalty (or membership) program that provides its members with certain benefits, for example better pricing, free shipping or returns, or the ability to earn loyalty points. Member programs may have multiple tiers, for example silver and gold members, each with different benefits." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:MemberProgramTier a rdfs:Class ;
+    rdfs:label "MemberProgramTier" ;
+    rdfs:comment "A MemberProgramTier specifies a tier under a loyalty (member) program, for example \"gold\"." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
 :MensClothingStore a rdfs:Class ;
     rdfs:label "MensClothingStore" ;
     rdfs:comment "A men's clothing store." ;
@@ -1909,6 +1928,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "MenuSection" ;
     rdfs:comment "A sub-grouping of food or drink items in a menu. E.g. courses (such as 'Dinner', 'Breakfast', etc.), specific type of dishes (such as 'Meat', 'Vegan', 'Drinks', etc.), or some other classification made by the menu provider." ;
     rdfs:subClassOf :CreativeWork .
+
+:MerchantReturnEnumeration a rdfs:Class ;
+    rdfs:label "MerchantReturnEnumeration" ;
+    rdfs:comment "Enumerates several kinds of product return policies." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnPolicy a rdfs:Class ;
+    rdfs:label "MerchantReturnPolicy" ;
+    rdfs:comment "A MerchantReturnPolicy provides information about product return policies associated with an [[Organization]], [[Product]], or [[Offer]]." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnPolicySeasonalOverride a rdfs:Class ;
+    rdfs:label "MerchantReturnPolicySeasonalOverride" ;
+    rdfs:comment "A seasonal override of a return policy, for example used for holidays." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :Message a rdfs:Class ;
     rdfs:label "Message" ;
@@ -2183,6 +2220,24 @@ or Fast and expensive: $15 in 1-2 days.""" ;
     rdfs:comment "A publication event, e.g. catch-up TV or radio podcast, during which a program is available on-demand." ;
     rdfs:subClassOf :PublicationEvent .
 
+:OnlineBusiness a rdfs:Class ;
+    rdfs:label "OnlineBusiness" ;
+    rdfs:comment "A particular online business, either standalone or the online part of a broader organization. Examples include an eCommerce site, an online travel booking site, an online learning site, an online logistics and shipping provider, an online (virtual) doctor, etc." ;
+    rdfs:subClassOf :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> .
+
+:OnlineMarketplace a rdfs:Class ;
+    rdfs:label "OnlineMarketplace" ;
+    rdfs:comment "An eCommerce marketplace." ;
+    rdfs:subClassOf :OnlineStore ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:OnlineStore a rdfs:Class ;
+    rdfs:label "OnlineStore" ;
+    rdfs:comment "An eCommerce site." ;
+    rdfs:subClassOf :OnlineBusiness ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> .
+
 :OpeningHoursSpecification a rdfs:Class ;
     rdfs:label "OpeningHoursSpecification" ;
     rdfs:comment """A structured value providing information about the opening hours of a place or a certain service inside a place.\\n\\n
@@ -2303,6 +2358,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     owl:equivalentClass unece:PaymentMeans,
         fibo-fbc-pas-fpas:PaymentMechanism ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> .
+
+:PaymentMethodType a rdfs:Class ;
+    rdfs:label "PaymentMethodType" ;
+    rdfs:comment "The type of payment method, only for generic payment types, specific forms of payments, like card payment should be expressed using subclasses of PaymentMethod." ;
+    rdfs:subClassOf :Enumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
 :PaymentService a rdfs:Class ;
@@ -2484,6 +2545,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     owl:equivalentClass fibo-fnd-pas-pas:Price ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:PriceTypeEnumeration a rdfs:Class ;
+    rdfs:label "PriceTypeEnumeration" ;
+    rdfs:comment "Enumerates different price types, for example list price, invoice price, and sale price." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :Product a rdfs:Class ;
     rdfs:label "Product" ;
     rdfs:comment "Any offered product or service. For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online." ;
@@ -2492,11 +2559,35 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
         fibo-fnd-pas-pas:Product ;
     :contributor <https://schema.org/docs/collab/GoodRelationsTerms> .
 
+:ProductGroup a rdfs:Class ;
+    rdfs:label "ProductGroup" ;
+    rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
+
+While a ProductGroup itself is not directly offered for sale, the various varying products that it represents can be. The ProductGroup serves as a prototype or template, standing in for all of the products who have an [[isVariantOf]] relationship to it. As such, properties (including additional types) can be applied to the ProductGroup to represent characteristics shared by each of the (possibly very many) variants. Properties that reference a ProductGroup are not included in this mechanism; neither are the following specific properties [[variesBy]], [[hasVariant]], [[url]]. """ ;
+    rdfs:subClassOf :Product,
+        cmns-cls:Classifier,
+        cmns-col:Collection ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :ProductModel a rdfs:Class ;
     rdfs:label "ProductModel" ;
     rdfs:comment "A datasheet or vendor specification of a product (in the sense of a prototypical description)." ;
     rdfs:subClassOf :Product ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
+
+:ProductReturnEnumeration a rdfs:Class ;
+    rdfs:label "ProductReturnEnumeration" ;
+    rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnEnumeration .
+
+:ProductReturnPolicy a rdfs:Class ;
+    rdfs:label "ProductReturnPolicy" ;
+    rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]]." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnPolicy .
 
 :ProfessionalService a rdfs:Class ;
     rdfs:label "ProfessionalService" ;
@@ -2660,6 +2751,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "A recycling center." ;
     rdfs:subClassOf :LocalBusiness .
 
+:RefundTypeEnumeration a rdfs:Class ;
+    rdfs:label "RefundTypeEnumeration" ;
+    rdfs:comment "Enumerates several kinds of product return refund types." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :RegisterAction a rdfs:Class ;
     rdfs:label "RegisterAction" ;
     rdfs:comment "The act of registering to be a user of a service, product or web page.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, *not* a group/team of people.\\n* [[FollowAction]]: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.\\n* [[SubscribeAction]]: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object." ;
@@ -2758,6 +2855,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "ReturnAction" ;
     rdfs:comment "The act of returning to the origin that which was previously received (concrete objects) or taken (ownership)." ;
     rdfs:subClassOf :TransferAction .
+
+:ReturnFeesEnumeration a rdfs:Class ;
+    rdfs:label "ReturnFeesEnumeration" ;
+    rdfs:comment "Enumerates several kinds of policies for product return fees." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:ReturnLabelSourceEnumeration a rdfs:Class ;
+    rdfs:label "ReturnLabelSourceEnumeration" ;
+    rdfs:comment "Enumerates several types of return labels for product returns." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnMethodEnumeration a rdfs:Class ;
+    rdfs:label "ReturnMethodEnumeration" ;
+    rdfs:comment "Enumerates several types of product return methods." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :Review a rdfs:Class ;
     rdfs:label "Review" ;
@@ -2889,10 +3004,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A means for accessing a service, e.g. a government office location, web site, or phone number." ;
     rdfs:subClassOf :Intangible .
 
+:ServicePeriod a rdfs:Class ;
+    rdfs:label "ServicePeriod" ;
+    rdfs:comment "ServicePeriod represents a duration with some constraints about cutoff time and business days. This is used e.g. in shipping for handling times or transit time." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :ShareAction a rdfs:Class ;
     rdfs:label "ShareAction" ;
     rdfs:comment "The act of distributing content to people for their amusement or edification." ;
     rdfs:subClassOf :CommunicateAction .
+
+:ShippingConditions a rdfs:Class ;
+    rdfs:label "ShippingConditions" ;
+    rdfs:comment "ShippingConditions represent a set of constraints and information about the conditions of shipping a product. Such conditions may apply to only a subset of the products being shipped, depending on aspects of the product like weight, size, price, destination, and others. All the specified conditions must be met for this ShippingConditions to apply." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :ShippingDeliveryTime a rdfs:Class ;
     rdfs:label "ShippingDeliveryTime" ;
@@ -2905,6 +3032,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A ShippingRateSettings represents re-usable pieces of shipping information. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished and matched (i.e. identified/referenced) by their different values for [[shippingLabel]]." ;
     rdfs:subClassOf :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:ShippingService a rdfs:Class ;
+    rdfs:label "ShippingService" ;
+    rdfs:comment "ShippingService represents the criteria used to determine if and how an offer could be shipped to a customer." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :ShoeStore a rdfs:Class ;
     rdfs:label "ShoeStore" ;
@@ -3183,6 +3316,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TieAction" ;
     rdfs:comment "The act of reaching a draw in a competitive activity." ;
     rdfs:subClassOf :AchieveAction .
+
+:TierBenefitEnumeration a rdfs:Class ;
+    rdfs:label "TierBenefitEnumeration" ;
+    rdfs:comment "An enumeration of possible benefits as part of a loyalty (members) program." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :Time a rdfs:Class,
         :DataType ;
@@ -3951,6 +4090,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Question ;
     :rangeIncludes :Integer .
 
+:applicableCountry a rdf:Property ;
+    rdfs:label "applicableCountry" ;
+    rdfs:comment "A country where a particular merchant return policy applies to, for example the two-letter ISO 3166-1 alpha-2 country code." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :Country,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3001> .
+
 :application a rdf:Property ;
     rdfs:label "application" ;
     rdfs:comment "An application that can complete the request." ;
@@ -4568,9 +4715,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :businessDays a rdf:Property ;
     rdfs:label "businessDays" ;
     rdfs:comment "Days of the week when the merchant typically operates, indicated via opening hours markup." ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :OpeningHoursSpecification ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ServicePeriod,
+        :ShippingDeliveryTime ;
+    :rangeIncludes :DayOfWeek,
+        :OpeningHoursSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :businessFunction a rdf:Property ;
     rdfs:label "businessFunction" ;
@@ -5022,6 +5172,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text .
 
+:countryOfAssembly a rdf:Property ;
+    rdfs:label "countryOfAssembly" ;
+    rdfs:comment "The place where the product was assembled." ;
+    owl:equivalentProperty unece:finalAssemblyCountry ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> .
+
+:countryOfLastProcessing a rdf:Property ;
+    rdfs:label "countryOfLastProcessing" ;
+    rdfs:comment "The place where the item (typically [[Product]]) was last processed and tested before importation." ;
+    owl:equivalentProperty unece:ProcessingCountry ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> .
+
 :countryOfOrigin a rdf:Property ;
     rdfs:label "countryOfOrigin" ;
     rdfs:comment """The country of origin of something, including products as well as creative  works such as movie and TV content.
@@ -5127,12 +5293,35 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :Organization,
         :Person .
 
+:customerRemorseReturnFees a rdf:Property ;
+    rdfs:label "customerRemorseReturnFees" ;
+    rdfs:comment "The type of return fees if the product is returned due to customer remorse." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:customerRemorseReturnLabelSource a rdf:Property ;
+    rdfs:label "customerRemorseReturnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned due to customer remorse." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:customerRemorseReturnShippingFeesAmount a rdf:Property ;
+    rdfs:label "customerRemorseReturnShippingFeesAmount" ;
+    rdfs:comment "The amount of shipping costs if a product is returned due to customer remorse. Applicable when property [[customerRemorseReturnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :cutoffTime a rdf:Property ;
     rdfs:label "cutoffTime" ;
     rdfs:comment "Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. \"23:30:00-05:00\" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC)." ;
-    :domainIncludes :ShippingDeliveryTime ;
+    :domainIncludes :ServicePeriod,
+        :ShippingDeliveryTime ;
     :rangeIncludes :Time ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :dataFeedElement a rdf:Property ;
     rdfs:label "dataFeedElement" ;
@@ -5361,9 +5550,11 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:comment "The depth of the item." ;
     :domainIncludes :OfferShippingDetails,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :description a rdf:Property ;
     rdfs:label "description" ;
@@ -5475,9 +5666,11 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "doesNotShip" ;
     rdfs:comment "Indicates when shipping to a particular [[shippingDestination]] is not available." ;
     :domainIncludes :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
     :rangeIncludes :Boolean ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
@@ -5536,9 +5729,12 @@ Dateline summaries are oriented more towards human readers than towards automate
         :Movie,
         :MusicRecording,
         :MusicRelease,
-        :QuantitativeValueDistribution ;
-    :rangeIncludes :Duration ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+        :QuantitativeValueDistribution,
+        :ServicePeriod ;
+    :rangeIncludes :Duration,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1698>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :durationOfWarranty a rdf:Property ;
     rdfs:label "durationOfWarranty" ;
@@ -6113,6 +6309,13 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Text,
         :URL .
 
+:fulfillmentType a rdf:Property ;
+    rdfs:label "fulfillmentType" ;
+    rdfs:comment "Type of fulfillment applicable to the [[ShippingService]]." ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :FulfillmentTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :funder a rdf:Property ;
     rdfs:label "funder" ;
     rdfs:comment "A person or organization that supports (sponsors) something through some kind of financial contribution." ;
@@ -6301,9 +6504,12 @@ In the context of [[ShippingDeliveryTime]], Typical properties: minValue, maxVal
 
 In the context of [[ShippingService]], use the [[ServicePeriod]] format, that contains the same information in a structured form, with cut-off time, business days and duration.""" ;
     rdfs:subPropertyOf :duration ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :QuantitativeValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ShippingDeliveryTime,
+        :ShippingService ;
+    :rangeIncludes :QuantitativeValue,
+        :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :hasBroadcastChannel a rdf:Property ;
     rdfs:label "hasBroadcastChannel" ;
@@ -6332,12 +6538,30 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :DigitalDocument ;
     :rangeIncludes :DigitalDocumentPermission .
 
+:hasGS1DigitalLink a rdf:Property ;
+    rdfs:label "hasGS1DigitalLink" ;
+    rdfs:comment "The <a href=\"https://www.gs1.org/standards/gs1-digital-link\">GS1 digital link</a> associated with the object. This URL should conform to the particular requirements of digital links. The link should only contain the Application Identifiers (AIs) that are relevant for the entity being annotated, for instance a [[Product]] or an [[Organization]], and for the correct granularity. In particular, for products:<ul><li>A Digital Link that contains a serial number (AI <code>21</code>) should only be present on instances of [[IndividualProduct]]</li><li>A Digital Link that contains a lot number (AI <code>10</code>) should be annotated as [[SomeProducts]] if only products from that lot are sold, or [[IndividualProduct]] if there is only a specific product.</li><li>A Digital Link that contains a global model number (AI <code>8013</code>) should be attached to a [[Product]] or a [[ProductModel]].</li></ul> Other item types should be adapted similarly." ;
+    rdfs:subPropertyOf :identifier ;
+    :domainIncludes :Offer,
+        :Organization,
+        :Place,
+        :Product ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3475> .
+
 :hasMap a rdf:Property ;
     rdfs:label "hasMap" ;
     rdfs:comment "A URL to a map of the place." ;
     :domainIncludes :Place ;
     :rangeIncludes :Map,
         :URL .
+
+:hasMemberProgram a rdf:Property ;
+    rdfs:label "hasMemberProgram" ;
+    rdfs:comment "MemberProgram offered by an Organization, for example an eCommerce merchant or an airline." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :hasMenu a rdf:Property ;
     rdfs:label "hasMenu" ;
@@ -6360,6 +6584,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Menu,
         :MenuSection ;
     :rangeIncludes :MenuSection .
+
+:hasMerchantReturnPolicy a rdf:Property ;
+    rdfs:label "hasMerchantReturnPolicy" ;
+    rdfs:comment "Specifies a MerchantReturnPolicy that may be applicable." ;
+    :domainIncludes :Offer,
+        :Organization,
+        :Product ;
+    :rangeIncludes :MerchantReturnPolicy ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :hasOccupation a rdf:Property ;
     rdfs:label "hasOccupation" ;
@@ -6391,6 +6624,63 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :inverseOf :isPartOf ;
     :rangeIncludes :CreativeWork .
 
+:hasProductReturnPolicy a rdf:Property ;
+    rdfs:label "hasProductReturnPolicy" ;
+    rdfs:comment "Indicates a ProductReturnPolicy that may be applicable." ;
+    :domainIncludes :Organization,
+        :Product ;
+    :rangeIncludes :ProductReturnPolicy ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :hasMerchantReturnPolicy .
+
+:hasShippingService a rdf:Property ;
+    rdfs:label "hasShippingService" ;
+    rdfs:comment "Specification of a shipping service offered by the organization." ;
+    :domainIncludes :OfferShippingDetails,
+        :Organization ;
+    :rangeIncludes :ShippingService ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:hasStore a rdf:Property ;
+    rdfs:label "hasStore" ;
+    rdfs:comment "An eCommerce store part of an online marketplace." ;
+    :domainIncludes :OnlineMarketplace ;
+    :rangeIncludes :OnlineStore ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:hasTierBenefit a rdf:Property ;
+    rdfs:label "hasTierBenefit" ;
+    rdfs:comment "A member benefit for a particular tier of a loyalty program." ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :TierBenefitEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:hasTierRequirement a rdf:Property ;
+    rdfs:label "hasTierRequirement" ;
+    rdfs:comment "A requirement for a user to join a membership tier, for example: a CreditCard if the tier requires sign up for a credit card, A UnitPriceSpecification if the user is required to pay a (periodic) fee, or a MonetaryAmount if the user needs to spend a minimum amount to join the tier. If a tier is free to join then this property does not need to be specified." ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :CreditCard,
+        :MonetaryAmount,
+        :Text,
+        :UnitPriceSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:hasTiers a rdf:Property ;
+    rdfs:label "hasTiers" ;
+    rdfs:comment "The tiers of a member program." ;
+    :domainIncludes :MemberProgram ;
+    :inverseOf :isTierOf ;
+    :rangeIncludes :MemberProgramTier ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:hasVariant a rdf:Property ;
+    rdfs:label "hasVariant" ;
+    rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." ;
+    :domainIncludes :ProductGroup ;
+    :inverseOf :isVariantOf ;
+    :rangeIncludes :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :headline a rdf:Property ;
     rdfs:label "headline" ;
     rdfs:comment "Headline of the article." ;
@@ -6404,9 +6694,11 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :OfferShippingDetails,
         :Person,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :highPrice a rdf:Property ;
     rdfs:label "highPrice" ;
@@ -6537,6 +6829,21 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "The playlist to which this recording belongs." ;
     :domainIncludes :MusicRecording ;
     :rangeIncludes :MusicPlaylist .
+
+:inProductGroupWithID a rdf:Property ;
+    rdfs:label "inProductGroupWithID" ;
+    rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " ;
+    owl:equivalentProperty unece:variantId ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
+:inStoreReturnsOffered a rdf:Property ;
+    rdfs:label "inStoreReturnsOffered" ;
+    rdfs:comment "Are in-store returns offered? (For more advanced return methods use the [[returnMethod]] property.)" ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
@@ -6753,6 +7060,21 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Product,
         :Service .
 
+:isStoreOn a rdf:Property ;
+    rdfs:label "isStoreOn" ;
+    rdfs:comment "The eCommerce marketplace this online store is on." ;
+    :domainIncludes :OnlineStore ;
+    :rangeIncludes :OnlineMarketplace ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:isTierOf a rdf:Property ;
+    rdfs:label "isTierOf" ;
+    rdfs:comment "The member program this tier is a part of." ;
+    :domainIncludes :MemberProgramTier ;
+    :inverseOf :hasTiers ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
 :isUnlabelledFallback a rdf:Property ;
     rdfs:label "isUnlabelledFallback" ;
     rdfs:comment "This can be marked 'true' to indicate that some published [[DeliveryTimeSettings]] or [[ShippingRateSettings]] are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a transitTimeLabel (for [[DeliveryTimeSettings]]) or shippingLabel (for [[ShippingRateSettings]]), since this property is for use with unlabelled settings." ;
@@ -6766,8 +7088,11 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." ;
     rdfs:subPropertyOf skos:broader,
         cmns-cls:exemplifies ;
-    :domainIncludes :ProductModel ;
-    :rangeIncludes :ProductModel .
+    :domainIncludes :Product,
+        :ProductModel ;
+    :inverseOf :hasVariant ;
+    :rangeIncludes :ProductGroup,
+        :ProductModel .
 
 :isbn a rdf:Property ;
     rdfs:label "isbn" ;
@@ -6784,6 +7109,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Person,
         :Place ;
     :rangeIncludes :Text .
+
+:iso6523Code a rdf:Property ;
+    rdfs:label "iso6523Code" ;
+    rdfs:comment "An organization identifier as defined in [ISO 6523(-1)](https://en.wikipedia.org/wiki/ISO/IEC_6523). The identifier should be in the `XXXX:YYYYYY:ZZZ` or `XXXX:YYYYYY`format. Where `XXXX` is a 4 digit _ICD_ (International Code Designator), `YYYYYY` is an _OID_ (Organization Identifier) with all formatting characters (dots, dashes, spaces) removed with a maximal length of 35 characters, and `ZZZ` is an optional OPI (Organization Part Identifier) with a maximum length of 35 characters. The various components (ICD, OID, OPI) are joined with a colon character (ASCII `0x3a`). Note that many existing organization identifiers defined as attributes like [leiCode](https://schema.org/leiCode) (`0199`), [duns](https://schema.org/duns) (`0060`) or [GLN](https://schema.org/globalLocationNumber) (`0088`) can be expressed using ISO-6523. If possible, ISO-6523 codes should be preferred to populating [vatID](https://schema.org/vatID) or [taxID](https://schema.org/taxID), as ISO identifiers are less ambiguous." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2915> .
 
 :isrcCode a rdf:Property ;
     rdfs:label "isrcCode" ;
@@ -6850,6 +7182,27 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Offer,
         :Product ;
     :rangeIncludes :OfferItemCondition .
+
+:itemDefectReturnFees a rdf:Property ;
+    rdfs:label "itemDefectReturnFees" ;
+    rdfs:comment "The type of return fees for returns of defect products." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:itemDefectReturnLabelSource a rdf:Property ;
+    rdfs:label "itemDefectReturnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a defect product." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:itemDefectReturnShippingFeesAmount a rdf:Property ;
+    rdfs:label "itemDefectReturnShippingFeesAmount" ;
+    rdfs:comment "Amount of shipping costs for defect product returns. Applicable when property [[itemDefectReturnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :itemListElement a rdf:Property ;
     rdfs:label "itemListElement" ;
@@ -7267,7 +7620,8 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Organization,
         :Person ;
     :inverseOf :member ;
-    :rangeIncludes :Organization,
+    :rangeIncludes :MemberProgramTier,
+        :Organization,
         :ProgramMembership .
 
 :members a rdf:Property ;
@@ -7284,6 +7638,10 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "A unique identifier for the membership." ;
     :domainIncludes :ProgramMembership ;
     :rangeIncludes :Text .
+
+:membershipPointsEarned a rdf:Property ;
+    :domainIncludes :MemberProgramTier,
+        :PriceSpecification .
 
 :memoryRequirements a rdf:Property ;
     rdfs:label "memoryRequirements" ;
@@ -7322,6 +7680,23 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Organization,
         :Person ;
     :supersededBy :seller .
+
+:merchantReturnDays a rdf:Property ;
+    rdfs:label "merchantReturnDays" ;
+    rdfs:comment "Specifies either a fixed return date or the number of days (from the delivery date) that a product can be returned. Used when the [[returnPolicyCategory]] property is specified as [[MerchantReturnFiniteReturnWindow]]." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :Date,
+        :DateTime,
+        :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:merchantReturnLink a rdf:Property ;
+    rdfs:label "merchantReturnLink" ;
+    rdfs:comment "Specifies a Web page or service by URL, for product returns." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :messageAttachment a rdf:Property ;
     rdfs:label "messageAttachment" ;
@@ -7507,6 +7882,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :LodgingReservation ;
     :rangeIncludes :Integer,
         :QuantitativeValue .
+
+:numItems a rdf:Property ;
+    rdfs:label "numItems" ;
+    rdfs:comment "Limits the number of items being shipped for which these conditions apply." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :numTracks a rdf:Property ;
     rdfs:label "numTracks" ;
@@ -7775,6 +8157,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :Order ;
     :rangeIncludes :Text .
 
+:orderPercentage a rdf:Property ;
+    rdfs:label "orderPercentage" ;
+    rdfs:comment "Value representing the fraction of the value of the order that is charged as shipping cost. Example: 0.10 would mean shipping rate is 10% of the total order value." ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." ;
@@ -7789,6 +8178,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "The current status of the order." ;
     :domainIncludes :Order ;
     :rangeIncludes :OrderStatus .
+
+:orderValue a rdf:Property ;
+    rdfs:label "orderValue" ;
+    rdfs:comment "Minimum and maximum order value for which these shipping conditions are valid." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :orderedItem a rdf:Property ;
     rdfs:label "orderedItem" ;
@@ -7990,6 +8386,16 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :FlightReservation ;
     :rangeIncludes :Text .
 
+:pattern a rdf:Property ;
+    rdfs:label "pattern" ;
+    rdfs:comment "A pattern that something has, for example 'polka dot', 'striped', 'Canadian flag'. Values are typically expressed as text, although links to controlled value schemes are also supported." ;
+    owl:equivalentProperty unece:printDesignDescription ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :paymentAccepted a rdf:Property ;
     rdfs:label "paymentAccepted" ;
     rdfs:comment "Cash, Credit Card, Cryptocurrency, Local Exchange Tradings System, etc." ;
@@ -8032,6 +8438,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :Invoice,
         :Order ;
     :rangeIncludes :Text .
+
+:paymentMethodType a rdf:Property ;
+    rdfs:label "paymentMethodType" ;
+    rdfs:comment "The type of a payment method." ;
+    :domainIncludes :PaymentMethod ;
+    :rangeIncludes :PaymentMethodType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
 :paymentStatus a rdf:Property ;
     rdfs:label "paymentStatus" ;
@@ -8336,8 +8749,10 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Defines the type of a price specified for an offered product, for example a list price, a (temporary) sale price or a manufacturer suggested retail price. If multiple prices are specified for an offer the [[priceType]] property can be used to identify the type of each such specified price. The value of priceType can be specified as a value from enumeration PriceTypeEnumeration or, a UN/EDIFACT 5387 code, or as a free form text string for price types that are not already predefined in PriceTypeEnumeration." ;
     rdfs:subPropertyOf cmns-cls:isClassifiedBy ;
     owl:equivalentProperty unece:PriceTypeCode ;
-    :domainIncludes :UnitPriceSpecification ;
-    :rangeIncludes :Text .
+    :domainIncludes :CompoundPriceSpecification,
+        :UnitPriceSpecification ;
+    :rangeIncludes :PriceTypeEnumeration,
+        :Text .
 
 :priceValidUntil a rdf:Property ;
     rdfs:label "priceValidUntil" ;
@@ -8403,12 +8818,35 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :rangeIncludes :Thing ;
     :supersededBy :serviceOutput .
 
+:productGroupID a rdf:Property ;
+    rdfs:label "productGroupID" ;
+    rdfs:comment "Indicates a textual identifier for a ProductGroup." ;
+    :domainIncludes :ProductGroup ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
 :productID a rdf:Property ;
     rdfs:label "productID" ;
     rdfs:comment "The product identifier, such as ISBN. For example: ``` meta itemprop=\"productID\" content=\"isbn:123-456-789\" ```." ;
     rdfs:subPropertyOf :identifier ;
     :domainIncludes :Product ;
     :rangeIncludes :Text .
+
+:productReturnDays a rdf:Property ;
+    rdfs:label "productReturnDays" ;
+    rdfs:comment "The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable." ;
+    :domainIncludes :ProductReturnPolicy ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnDays .
+
+:productReturnLink a rdf:Property ;
+    rdfs:label "productReturnLink" ;
+    rdfs:comment "Indicates a Web page or service by URL, for product return." ;
+    :domainIncludes :ProductReturnPolicy ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnLink .
 
 :productSupported a rdf:Property ;
     rdfs:label "productSupported" ;
@@ -8444,6 +8882,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Proficiency needed for this content; expected values: 'Beginner', 'Expert'." ;
     :domainIncludes :TechArticle ;
     :rangeIncludes :Text .
+
+:program a rdf:Property ;
+    rdfs:label "program" ;
+    rdfs:comment "The [MemberProgram](https://schema.org/MemberProgram) associated with a [ProgramMembership](https://schema.org/ProgramMembership)." ;
+    :domainIncludes :ProgramMembership ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :programMembershipUsed a rdf:Property ;
     rdfs:label "programMembershipUsed" ;
@@ -8740,6 +9185,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :Invoice ;
     :rangeIncludes :Order .
 
+:refundType a rdf:Property ;
+    rdfs:label "refundType" ;
+    rdfs:comment "A refund type, from an enumerated list." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :RefundTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :regionsAllowed a rdf:Property ;
     rdfs:label "regionsAllowed" ;
     rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in [ISO 3166 format](http://en.wikipedia.org/wiki/ISO_3166)." ;
@@ -8914,6 +9367,15 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
 
+:restockingFee a rdf:Property ;
+    rdfs:label "restockingFee" ;
+    rdfs:comment "Use [[MonetaryAmount]] to specify a fixed restocking fee for product returns, or use [[Number]] to specify a percentage of the product price paid by the customer." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MonetaryAmount,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :result a rdf:Property ;
     rdfs:label "result" ;
     rdfs:comment "The result produced in the action. E.g. John wrote *a book*." ;
@@ -8934,6 +9396,60 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:subPropertyOf :result ;
     :domainIncludes :ReviewAction ;
     :rangeIncludes :Review .
+
+:returnFees a rdf:Property ;
+    rdfs:label "returnFees" ;
+    rdfs:comment "The type of return fees for purchased products (for any return reason)." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:returnLabelSource a rdf:Property ;
+    rdfs:label "returnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned for any reason." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnMethod a rdf:Property ;
+    rdfs:label "returnMethod" ;
+    rdfs:comment "The type of return method offered, specified from an enumeration." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :ReturnMethodEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnPolicyCategory a rdf:Property ;
+    rdfs:label "returnPolicyCategory" ;
+    rdfs:comment "Specifies an applicable return policy (from an enumeration)." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MerchantReturnEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:returnPolicyCountry a rdf:Property ;
+    rdfs:label "returnPolicyCountry" ;
+    rdfs:comment "The country where the product has to be sent to for returns, for example \"Ireland\" using the [[name]] property of [[Country]]. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1). Note that this can be different from the country where the product was originally shipped from or sent to." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :Country,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnPolicySeasonalOverride a rdf:Property ;
+    rdfs:label "returnPolicySeasonalOverride" ;
+    rdfs:comment "Seasonal override of a return policy." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MerchantReturnPolicySeasonalOverride ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnShippingFeesAmount a rdf:Property ;
+    rdfs:label "returnShippingFeesAmount" ;
+    rdfs:comment "Amount of shipping costs for product returns (for any reason). Applicable when property [[returnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :review a rdf:Property ;
     rdfs:label "review" ;
@@ -9099,6 +9615,13 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :CreativeWorkSeason ;
     :rangeIncludes :Integer,
         :Text .
+
+:seasonalOverride a rdf:Property ;
+    rdfs:label "seasonalOverride" ;
+    rdfs:comment "Limited period during which these shipping conditions apply." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :OpeningHoursSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :seasons a rdf:Property ;
     rdfs:label "seasons" ;
@@ -9275,14 +9798,23 @@ While such policies are most typically expressed in natural language, sometimes 
         :SocialMediaPosting ;
     :rangeIncludes :CreativeWork .
 
+:shippingConditions a rdf:Property ;
+    rdfs:label "shippingConditions" ;
+    rdfs:comment "The conditions (constraints, price) applicable to the [[ShippingService]]." ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :ShippingConditions ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :shippingDestination a rdf:Property ;
     rdfs:label "shippingDestination" ;
     rdfs:comment "indicates (possibly multiple) shipping destinations. These can be defined in several ways, e.g. postalCode ranges." ;
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
     :rangeIncludes :DefinedRegion ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingDetails a rdf:Property ;
     rdfs:label "shippingDetails" ;
@@ -9304,17 +9836,22 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:comment "Indicates the origin of a shipment, i.e. where it should be coming from." ;
     rdfs:subPropertyOf cmns-loc:hasLocation ;
     owl:equivalentProperty unece:DespatchLocation ;
-    :domainIncludes :OfferShippingDetails ;
+    :domainIncludes :OfferShippingDetails,
+        :ShippingConditions ;
     :rangeIncludes :DefinedRegion ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3122> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3122>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingRate a rdf:Property ;
     rdfs:label "shippingRate" ;
     rdfs:comment "The shipping rate is the cost of shipping to the specified destination. Typically, the maxValue and currency values (of the [[MonetaryAmount]]) are most appropriate." ;
     :domainIncludes :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
-    :rangeIncludes :MonetaryAmount ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :rangeIncludes :MonetaryAmount,
+        :ShippingRateSettings ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingSettingsLink a rdf:Property ;
     rdfs:label "shippingSettingsLink" ;
@@ -9348,6 +9885,17 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :WebPage ;
     :rangeIncludes :URL ;
     :supersededBy :significantLink .
+
+:size a rdf:Property ;
+    rdfs:label "size" ;
+    rdfs:comment "A standardized size of a product or creative work, specified either through a simple textual string (for example 'XL', '32Wx34L'), a  QuantitativeValue with a unitCode, or a comprehensive and structured [[SizeSpecification]]; in other cases, the [[width]], [[height]], [[depth]] and [[weight]] properties may be more applicable. " ;
+    owl:equivalentProperty unece:sizeDescription ;
+    :domainIncludes :CreativeWork,
+        :Product ;
+    :rangeIncludes :DefinedTerm,
+        :QuantitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
 
 :skills a rdf:Property ;
     rdfs:label "skills" ;
@@ -10005,9 +10553,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 
   In the context of [[ShippingConditions]], use the [[ServicePeriod]]. It has a duration (as a [[QuantitativeValue]]) and also business days and a cut-off time.
 """ ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :QuantitativeValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ShippingConditions,
+        :ShippingDeliveryTime ;
+    :rangeIncludes :QuantitativeValue,
+        :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :transitTimeLabel a rdf:Property ;
     rdfs:label "transitTimeLabel" ;
@@ -10126,6 +10677,18 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :Permit ;
     :rangeIncludes :Duration .
 
+:validForMemberTier a rdf:Property ;
+    rdfs:label "validForMemberTier" ;
+    rdfs:comment "The membership program tier(s) an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :Offer,
+        :OfferShippingDetails,
+        :PriceSpecification,
+        :ShippingService ;
+    :rangeIncludes :MemberProgramTier ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :validFrom a rdf:Property ;
     rdfs:label "validFrom" ;
     rdfs:comment "The date when the item becomes valid." ;
@@ -10226,6 +10789,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Whether the property must be filled in to complete the action.  Default is false." ;
     :domainIncludes :PropertyValueSpecification ;
     :rangeIncludes :Boolean .
+
+:variesBy a rdf:Property ;
+    rdfs:label "variesBy" ;
+    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs." ;
+    :domainIncludes :ProductGroup ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
 
 :vatID a rdf:Property ;
     rdfs:label "vatID" ;
@@ -10387,8 +10958,18 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :OfferShippingDetails,
         :Person,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
-    :rangeIncludes :QuantitativeValue .
+    :rangeIncludes :Mass,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:weightPercentage a rdf:Property ;
+    rdfs:label "weightPercentage" ;
+    rdfs:comment "Value representing the fraction of the weight that is used to compute the shipping price. Example: 0.10 and a shipping weight of 15kg would add $1.5 to the order price, where the $ is the currency of the order." ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :width a rdf:Property ;
     rdfs:label "width" ;
@@ -10396,9 +10977,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :MediaObject,
         :OfferShippingDetails,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :winner a rdf:Property ;
     rdfs:label "winner" ;
@@ -10524,15 +11107,35 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "BroadcastRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:ByBankTransferInAdvance a :PaymentMethodType ;
+    rdfs:label "ByBankTransferInAdvance" ;
+    rdfs:comment "Payment in advance by bank transfer, equivalent to <code>http://purl.org/goodrelations/v1#ByBankTransferInAdvance</code>." .
+
+:ByInvoice a :PaymentMethodType ;
+    rdfs:label "ByInvoice" ;
+    rdfs:comment "Payment by invoice, typically after the goods were delivered, equivalent to <code>http://purl.org/goodrelations/v1#ByInvoice</code>." .
+
 :CDFormat a :MusicReleaseFormatType ;
     rdfs:label "CDFormat" ;
     rdfs:comment "CDFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:COD a :PaymentMethodType ;
+    rdfs:label "COD" ;
+    rdfs:comment "Cash on Delivery (COD) payment, equivalent to <code>http://purl.org/goodrelations/v1#COD</code>." .
+
+:Cash a :PaymentMethodType ;
+    rdfs:label "Cash" ;
+    rdfs:comment "Payment using cash, on premises, equivalent to <code>http://purl.org/goodrelations/v1#Cash</code>." .
+
 :CassetteFormat a :MusicReleaseFormatType ;
     rdfs:label "CassetteFormat" ;
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:CheckInAdvance a :PaymentMethodType ;
+    rdfs:label "CheckInAdvance" ;
+    rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
 
 :CoOp a :GamePlayMode ;
     rdfs:label "CoOp" ;
@@ -10584,6 +11187,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "DigitalFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:DirectDebit a :PaymentMethodType ;
+    rdfs:label "DirectDebit" ;
+    rdfs:comment "Payment in advance by direct debit from the bank, equivalent to <code>http://purl.org/goodrelations/v1#DirectDebit</code>." .
+
 :Discontinued a :ItemAvailability ;
     rdfs:label "Discontinued" ;
     rdfs:comment "Indicates that the item has been discontinued." .
@@ -10617,6 +11224,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "EventScheduled" ;
     rdfs:comment "The event is taking place or has taken place on the startDate as scheduled. Use of this value is optional, as it is assumed by default." .
 
+:ExchangeRefund a :RefundTypeEnumeration ;
+    rdfs:label "ExchangeRefund" ;
+    rdfs:comment "Specifies that a refund can be done as an exchange for the same product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :FailedActionStatus a :ActionStatusType ;
     rdfs:label "FailedActionStatus" ;
     rdfs:comment "An action that failed to complete. The action's error property and the HTTP return code contain more information about the failure." .
@@ -10634,6 +11246,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
 
+:FreeReturn a :ReturnFeesEnumeration ;
+    rdfs:label "FreeReturn" ;
+    rdfs:comment "Specifies that product returns are free of charge for the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :Friday a :DayOfWeek ;
     rdfs:label "Friday" ;
     rdfs:comment "The day of the week between Thursday and Saturday." ;
@@ -10643,6 +11260,36 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "FrontWheelDriveConfiguration" ;
     rdfs:comment "Front-wheel drive is a transmission layout where the engine drives the front wheels." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
+
+:FulfillmentTypeCollectionPoint a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeCollectionPoint" ;
+    rdfs:comment "Fulfillment to a collection point location." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypeDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeDelivery" ;
+    rdfs:comment "Fulfillment to a customer selected address." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypePickupDropoff a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupDropoff" ;
+    rdfs:comment "Fulfillment through pick-up drop-off locations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypePickupInStore a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupInStore" ;
+    rdfs:comment "Fulfillment through pick-up in a store." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypeScheduledDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeScheduledDelivery" ;
+    rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FullRefund a :RefundTypeEnumeration ;
+    rdfs:label "FullRefund" ;
+    rdfs:comment "Specifies that a refund can be done in the full amount the customer paid for the product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :GlutenFreeDiet a :RestrictedDiet ;
     rdfs:label "GlutenFreeDiet" ;
@@ -10676,6 +11323,15 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "InStoreOnly" ;
     rdfs:comment "Indicates that the item is available only at physical locations." .
 
+:InStorePrepay a :PaymentMethodType ;
+    rdfs:label "InStorePrepay" ;
+    rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
+
+:InvoicePrice a :PriceTypeEnumeration ;
+    rdfs:label "InvoicePrice" ;
+    rdfs:comment "Represents the invoice price of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :ItemListOrderAscending a :ItemListOrderType ;
     rdfs:label "ItemListOrderAscending" ;
     rdfs:comment "An ItemList ordered with lower values listed first." .
@@ -10687,6 +11343,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :ItemListUnordered a :ItemListOrderType ;
     rdfs:label "ItemListUnordered" ;
     rdfs:comment "An ItemList ordered with no explicit order." .
+
+:KeepProduct a :ReturnMethodEnumeration ;
+    rdfs:label "KeepProduct" ;
+    rdfs:comment "Specifies that the consumer can keep the product, even when receiving a refund or store credit." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :KosherDiet a :RestrictedDiet ;
     rdfs:label "KosherDiet" ;
@@ -10705,6 +11366,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :LimitedAvailability a :ItemAvailability ;
     rdfs:label "LimitedAvailability" ;
     rdfs:comment "Indicates that the item has limited availability." .
+
+:ListPrice a :PriceTypeEnumeration ;
+    rdfs:label "ListPrice" ;
+    rdfs:comment "Represents the list price of an offered product. Typically the same as the [MSRP](https://schema.org/MSRP)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
 :LiveAlbum a :MusicAlbumProductionType ;
     rdfs:label "LiveAlbum" ;
@@ -10731,6 +11397,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "LowSaltDiet" ;
     rdfs:comment "A diet focused on reduced sodium intake." .
 
+:MSRP a :PriceTypeEnumeration ;
+    rdfs:label "MSRP" ;
+    rdfs:comment "Represents the manufacturer suggested retail price (\"MSRP\") of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :MadeToOrder a :ItemAvailability ;
     rdfs:label "MadeToOrder" ;
     rdfs:comment "Indicates that the item is made to order (custom made)." .
@@ -10738,6 +11409,31 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :Male a :GenderType ;
     rdfs:label "Male" ;
     rdfs:comment "The male gender." .
+
+:MerchantReturnFiniteReturnWindow a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnFiniteReturnWindow" ;
+    rdfs:comment "Specifies that there is a finite window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnNotPermitted a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnNotPermitted" ;
+    rdfs:comment "Specifies that product returns are not permitted." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnUnlimitedWindow a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnUnlimitedWindow" ;
+    rdfs:comment "Specifies that there is an unlimited window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnUnspecified a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnUnspecified" ;
+    rdfs:comment "Specifies that a product return policy is not provided." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MinimumAdvertisedPrice a :PriceTypeEnumeration ;
+    rdfs:label "MinimumAdvertisedPrice" ;
+    rdfs:comment "Represents the minimum advertised price (\"MAP\") (as dictated by the manufacturer) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
 :MixtapeAlbum a :MusicAlbumProductionType ;
     rdfs:label "MixtapeAlbum" ;
@@ -10813,6 +11509,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "OrderReturned" ;
     rdfs:comment "OrderStatus representing that an order has been returned." .
 
+:OriginalShippingFees a :ReturnFeesEnumeration ;
+    rdfs:label "OriginalShippingFees" ;
+    rdfs:comment "Specifies that the customer must pay the original shipping costs when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :OutOfStock a :ItemAvailability ;
     rdfs:label "OutOfStock" ;
     rdfs:comment "Indicates that the item is out of stock." .
@@ -10851,6 +11552,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "PaymentPastDue" ;
     rdfs:comment "The payment is due and considered late." .
 
+:PhoneCarrierPayment a :PaymentMethodType ;
+    rdfs:label "PhoneCarrierPayment" ;
+    rdfs:comment "Payment by billing via the phone carrier." .
+
 :PotentialActionStatus a :ActionStatusType ;
     rdfs:label "PotentialActionStatus" ;
     rdfs:comment "A description of an action that is supported." .
@@ -10862,6 +11567,30 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :PreSale a :ItemAvailability ;
     rdfs:label "PreSale" ;
     rdfs:comment "Indicates that the item is available for ordering and delivery before general availability." .
+
+:ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnFiniteReturnWindow" ;
+    rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnFiniteReturnWindow .
+
+:ProductReturnNotPermitted a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnNotPermitted" ;
+    rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnNotPermitted .
+
+:ProductReturnUnlimitedWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnlimitedWindow" ;
+    rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnlimitedWindow .
+
+:ProductReturnUnspecified a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnspecified" ;
+    rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnspecified .
 
 :PublicHolidays a :DayOfWeek ;
     rdfs:label "PublicHolidays" ;
@@ -10880,6 +11609,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :RefurbishedCondition a :OfferItemCondition ;
     rdfs:label "RefurbishedCondition" ;
     rdfs:comment "Indicates that the item is refurbished." .
+
+:RegularPrice a :PriceTypeEnumeration ;
+    rdfs:label "RegularPrice" ;
+    rdfs:comment "Represents the regular price of an offered product. This is usually the advertised price before a temporary sale. Once the sale period ends the advertised price will go back to the regular price." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3583> .
 
 :RemixAlbum a :MusicAlbumProductionType ;
     rdfs:label "RemixAlbum" ;
@@ -10906,6 +11640,51 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Reserved" ;
     rdfs:comment "Indicates that the item is reserved and therefore not available." .
 
+:RestockingFees a :ReturnFeesEnumeration ;
+    rdfs:label "RestockingFees" ;
+    rdfs:comment "Specifies that the customer must pay a restocking fee when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:ReturnAtKiosk a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnAtKiosk" ;
+    rdfs:comment "Specifies that product returns must be made at a kiosk." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnByMail a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnByMail" ;
+    rdfs:comment "Specifies that product returns must be done by mail." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnFeesCustomerResponsibility a :ReturnFeesEnumeration ;
+    rdfs:label "ReturnFeesCustomerResponsibility" ;
+    rdfs:comment "Specifies that product returns must be paid for, and are the responsibility of, the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnInStore a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnInStore" ;
+    rdfs:comment "Specifies that product returns must be made in a store." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelCustomerResponsibility a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelCustomerResponsibility" ;
+    rdfs:comment "Indicated that creating a return label is the responsibility of the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelDownloadAndPrint a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelDownloadAndPrint" ;
+    rdfs:comment "Indicated that a return label must be downloaded and printed by the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelInBox a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelInBox" ;
+    rdfs:comment "Specifies that a return label will be provided by the seller in the shipping box." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnShippingFees a :ReturnFeesEnumeration ;
+    rdfs:label "ReturnShippingFees" ;
+    rdfs:comment "Specifies that the customer must pay the return shipping costs when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :RightHandDriving a :SteeringPositionValue ;
     rdfs:label "RightHandDriving" ;
     rdfs:comment "The steering position is on the right side of the vehicle (viewed from the main direction of driving)." ;
@@ -10922,6 +11701,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :RsvpResponseYes a :RsvpResponseType ;
     rdfs:label "RsvpResponseYes" ;
     rdfs:comment "The invitee will attend." .
+
+:SRP a :PriceTypeEnumeration ;
+    rdfs:label "SRP" ;
+    rdfs:comment "Represents the suggested retail price (\"SRP\") of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
+:SalePrice a :PriceTypeEnumeration ;
+    rdfs:label "SalePrice" ;
+    rdfs:comment "Represents a sale price (usually active for a limited period) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
 :Saturday a :DayOfWeek ;
     rdfs:label "Saturday" ;
@@ -10955,6 +11744,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "SpokenWordAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:StoreCreditRefund a :RefundTypeEnumeration ;
+    rdfs:label "StoreCreditRefund" ;
+    rdfs:comment "Specifies that the customer receives a store credit as refund when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:StrikethroughPrice a :PriceTypeEnumeration ;
+    rdfs:label "StrikethroughPrice" ;
+    rdfs:comment "Represents the strikethrough price (the previous advertised price) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3583> .
+
 :StudioAlbum a :MusicAlbumProductionType ;
     rdfs:label "StudioAlbum" ;
     rdfs:comment "StudioAlbum." ;
@@ -10969,6 +11768,26 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Thursday" ;
     rdfs:comment "The day of the week between Wednesday and Friday." ;
     :sameAs <http://www.wikidata.org/entity/Q129> .
+
+:TierBenefitLoyaltyPoints a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPoints" ;
+    rdfs:comment "Benefit of the tier is earning of loyalty points." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyPrice a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPrice" ;
+    rdfs:comment "Benefit of the tier is a members-only price." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyReturns a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyReturns" ;
+    rdfs:comment "Benefit of the tier is members-only returns, for example free unlimited returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyShipping a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyShipping" ;
+    rdfs:comment "Benefit of the tier is a members-only shipping price or speed (for example free shipping or 1-day shipping)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :TollFree a :ContactPointOption ;
     rdfs:label "TollFree" ;
