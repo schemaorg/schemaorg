@@ -1789,10 +1789,48 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "An agent leaves an event / group with participants/friends at a location.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: The antonym of LeaveAction.\\n* [[UnRegisterAction]]: Unlike UnRegisterAction, LeaveAction implies leaving a group/team of people rather than a service." ;
     rdfs:subClassOf :InteractAction .
 
+:LegalForceStatus a rdfs:Class ;
+    rdfs:label "LegalForceStatus" ;
+    rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
+    rdfs:subClassOf :StatusEnumeration ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :LegalService a rdfs:Class ;
     rdfs:label "LegalService" ;
     rdfs:comment "A LegalService is a business that provides legally-oriented services, advice and representation, e.g. law firms.\\n\\nAs a [[LocalBusiness]] it can be described as a [[provider]] of one or more [[Service]]\\(s)." ;
     rdfs:subClassOf :LocalBusiness .
+
+:LegalValueLevel a rdfs:Class ;
+    rdfs:label "LegalValueLevel" ;
+    rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
+    rdfs:subClassOf :Enumeration ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:Legislation a rdfs:Class ;
+    rdfs:label "Legislation" ;
+    rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
+    rdfs:subClassOf :CreativeWork ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalExpression>,
+        <http://data.europa.eu/eli/ontology#LegalRecontributor> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:LegislationObject a rdfs:Class ;
+    rdfs:label "LegislationObject" ;
+    rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
+    rdfs:subClassOf :Legislation,
+        :MediaObject ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#Format> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :LegislativeBuilding a rdfs:Class ;
     rdfs:label "LegislativeBuilding" ;
@@ -7425,6 +7463,241 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Organization ;
     :rangeIncludes :Person .
 
+:legislationAmends a rdf:Property ;
+    rdfs:label "legislationAmends" ;
+    rdfs:comment "Another legislation that this legislation amends, introducing legal changes." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#amends> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#amends> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationApplies a rdf:Property ;
+    rdfs:label "legislationApplies" ;
+    rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#implements> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationChanges a rdf:Property ;
+    rdfs:label "legislationChanges" ;
+    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#changes> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCommences a rdf:Property ;
+    rdfs:label "legislationCommences" ;
+    rdfs:comment "Another legislation that this one sets into force." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#commences> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#commences> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationConsolidates a rdf:Property ;
+    rdfs:label "legislationConsolidates" ;
+    rdfs:comment "Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#consolidates> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#consolidates> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCorrects a rdf:Property ;
+    rdfs:label "legislationCorrects" ;
+    rdfs:comment "Another legislation in which this one introduces textual changes, like correction of spelling mistakes, with no legal impact (for modifications that have legal impact, use <a href=\"/legislationAmends\">legislationAmends</a>)." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#corrects> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#corrects> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCountersignedBy a rdf:Property ;
+    rdfs:label "legislationCountersignedBy" ;
+    rdfs:comment "The person or organization that countersigned the legislation. Depending on the legal context, a countersignature can indicate that the signed authority undertakes to assume responsibility for texts emanating from a person who is inviolable and irresponsible, (for example a King, Grand Duc or President), or that the authority is in charge of the implementation of the text." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDate a rdf:Property ;
+    rdfs:label "legislationDate" ;
+    rdfs:comment "The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force." ;
+    rdfs:subPropertyOf :dateCreated ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_document> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#date_document> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDateOfApplicability a rdf:Property ;
+    rdfs:label "legislationDateOfApplicability" ;
+    rdfs:comment "The date at which the Legislation becomes applicable. This can sometimes be distinct from the date of entry into force : a text may come in force today, and state it will become applicable in 3 months." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_applicability> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#date_applicability> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDateVersion a rdf:Property ;
+    rdfs:label "legislationDateVersion" ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationEnsuresImplementationOf a rdf:Property ;
+    rdfs:label "legislationEnsuresImplementationOf" ;
+    rdfs:comment "Indicates that this Legislation ensures the implementation of another Legislation, for example by modifying national legislations so that they do not contradict to an EU regulation or decision. This implies a legal meaning. Transpositions of EU Directive should be captured with <a href=\"/legislationTransposes\">legislationTransposes</a>." ;
+    rdfs:subPropertyOf :legislationApplies ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationIdentifier a rdf:Property ;
+    rdfs:label "legislationIdentifier" ;
+    rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
+    rdfs:subPropertyOf :identifier ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#id_local> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationJurisdiction a rdf:Property ;
+    rdfs:label "legislationJurisdiction" ;
+    rdfs:comment "The jurisdiction from which the legislation originates." ;
+    rdfs:subPropertyOf :spatialCoverage ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#jurisdiction> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#jurisdiction> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :AdministrativeArea,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationLegalForce a rdf:Property ;
+    rdfs:label "legislationLegalForce" ;
+    rdfs:comment "Whether the legislation is currently in force, not in force, or partially in force." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#in_force> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#in_force> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :LegalForceStatus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationLegalValue a rdf:Property ;
+    rdfs:label "legislationLegalValue" ;
+    rdfs:comment "The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a \"stronger\" legal value than the HTML file of the same act." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#legal_value> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#legal_value> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :LegislationObject ;
+    :rangeIncludes :LegalValueLevel ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationPassedBy a rdf:Property ;
+    rdfs:label "legislationPassedBy" ;
+    rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    rdfs:subPropertyOf :creator ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationRepeals a rdf:Property ;
+    rdfs:label "legislationRepeals" ;
+    rdfs:comment "Another legislation that this legislation repeals (cancels, abrogates)." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#repeals> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#repeals> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationResponsible a rdf:Property ;
+    rdfs:label "legislationResponsible" ;
+    rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#responsibility_of> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#responsibility_of> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationTransposes a rdf:Property ;
+    rdfs:label "legislationTransposes" ;
+    rdfs:comment "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations." ;
+    rdfs:subPropertyOf :legislationApplies ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#transposes> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#transposes> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationType a rdf:Property ;
+    rdfs:label "legislationType" ;
+    rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
+    rdfs:subPropertyOf :genre ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#type_document> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#type_document> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :CategoryCode,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :leiCode a rdf:Property ;
     rdfs:label "leiCode" ;
     rdfs:comment "An organization identifier that uniquely identifies a legal entity as defined in ISO 17442." ;
@@ -11166,6 +11439,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :QuantitativeValue,
         :Text .
 
+<https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> a :Organization ;
+    rdfs:label "ELI" ;
+    rdfs:comment "This entry is derived from the [ELI ontology](https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." ;
+    :contributor <https://schema.org/docs/collab/ELI> .
+
 :ActiveActionStatus a :ActionStatusType ;
     rdfs:label "ActiveActionStatus" ;
     rdfs:comment "An in-progress action (e.g., while watching the movie, or driving to a location)." .
@@ -11183,6 +11461,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :AudiobookFormat a :BookFormatType ;
     rdfs:label "AudiobookFormat" ;
     rdfs:comment "Book format: Audiobook. This is an enumerated value for use with the bookFormat property. There is also a type 'Audiobook' in the bib extension which includes Audiobook specific properties." .
+
+:AuthoritativeLegalValue a :LegalValueLevel ;
+    rdfs:label "AuthoritativeLegalValue" ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :BackOrder a :ItemAvailability ;
     rdfs:label "BackOrder" ;
@@ -11253,6 +11539,15 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :DamagedCondition a :OfferItemCondition ;
     rdfs:label "DamagedCondition" ;
     rdfs:comment "Indicates that the item is damaged." .
+
+:DefinitiveLegalValue a :LegalValueLevel ;
+    rdfs:label "DefinitiveLegalValue" ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :DemoAlbum a :MusicAlbumProductionType ;
     rdfs:label "DemoAlbum" ;
@@ -11456,6 +11751,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "HinduDiet" ;
     rdfs:comment "A diet conforming to Hindu dietary practices, in particular, beef-free." .
 
+:InForce a :LegalForceStatus ;
+    rdfs:label "InForce" ;
+    rdfs:comment "Indicates that a legislation is in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :InStock a :ItemAvailability ;
     rdfs:label "InStock" ;
     rdfs:comment "Indicates that the item is in stock." .
@@ -11599,6 +11902,22 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "NewCondition" ;
     rdfs:comment "Indicates that the item is new." .
 
+:NotInForce a :LegalForceStatus ;
+    rdfs:label "NotInForce" ;
+    rdfs:comment "Indicates that a legislation is currently not in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:OfficialLegalValue a :LegalValueLevel ;
+    rdfs:label "OfficialLegalValue" ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :OfflineEventAttendanceMode a :EventAttendanceModeEnumeration ;
     rdfs:label "OfflineEventAttendanceMode" ;
     rdfs:comment "OfflineEventAttendanceMode - an event that is primarily conducted offline. " ;
@@ -11687,6 +12006,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :ParkingMap a :MapCategoryType ;
     rdfs:label "ParkingMap" ;
     rdfs:comment "A parking map." .
+
+:PartiallyInForce a :LegalForceStatus ;
+    rdfs:label "PartiallyInForce" ;
+    rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :PaymentAutomaticallyApplied a :PaymentStatusType ;
     rdfs:label "PaymentAutomaticallyApplied" ;
@@ -11961,6 +12288,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Tuesday" ;
     rdfs:comment "The day of the week between Monday and Wednesday." ;
     :sameAs <http://www.wikidata.org/entity/Q127> .
+
+:UnofficialLegalValue a :LegalValueLevel ;
+    rdfs:label "UnofficialLegalValue" ;
+    rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :UsedCondition a :OfferItemCondition ;
     rdfs:label "UsedCondition" ;
