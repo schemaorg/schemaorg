@@ -14,6 +14,12 @@ import software
 import util.schema as schema
 from util.issues import Issues, ALL_ISSUES
 
+# For custom sorting serializer
+from rdflib.plugins.serializers.turtle import TurtleSerializer
+from rdflib import RDFS, RDF, BNode
+from rdflib.plugin import register, Serializer
+
+
 URI_BASE = schema.constants.HOMEPAGE
 SCHEMAORG: rdflib.Namespace = rdflib.Namespace(URI_BASE if URI_BASE.endswith('/') else URI_BASE + '/')
 
@@ -64,3 +70,34 @@ class SchemaOrgGraph(object):
 
     def Properties(self) -> Set[rdflib.term.Node]:
         return self.ListSubjects(rdflib.RDF.Property)
+
+
+class CustomTurtleSerializer(TurtleSerializer):
+    topClasses = [RDFS.Class, RDF.Property]
+
+    def orderSubjects(self) -> List[rdflib.term.Node]:
+        seen = {}
+        subjects = []
+
+        # 1. Process topClasses (Classes and Properties)
+        for classURI in self.topClasses:
+            members = list(self.store.subjects(RDF.type, classURI))
+            members.sort() # Sort lexicographically
+            subjects.extend(members)
+            for member in members:
+                self._topLevels[member] = True
+                seen[member] = True
+
+        # 2. Process everything else (ignoring reference count for sorting)
+        recursable = [
+            (isinstance(subject, BNode), subject)
+            for subject in self._subjects
+            if subject not in seen
+        ]
+        recursable.sort() # Sort by isbnode, then subject
+        subjects.extend([subject for (isbnode, subject) in recursable])
+
+        return subjects
+
+# Register the custom serializer to override the default "turtle" serializer
+register("turtle", Serializer, "util.schema_graph", "CustomTurtleSerializer")
