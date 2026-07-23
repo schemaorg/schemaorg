@@ -1929,6 +1929,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A sub-grouping of food or drink items in a menu. E.g. courses (such as 'Dinner', 'Breakfast', etc.), specific type of dishes (such as 'Meat', 'Vegan', 'Drinks', etc.), or some other classification made by the menu provider." ;
     rdfs:subClassOf :CreativeWork .
 
+:MerchantReturnEnumeration a rdfs:Class ;
+    rdfs:label "MerchantReturnEnumeration" ;
+    rdfs:comment "Enumerates several kinds of product return policies." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnPolicy a rdfs:Class ;
+    rdfs:label "MerchantReturnPolicy" ;
+    rdfs:comment "A MerchantReturnPolicy provides information about product return policies associated with an [[Organization]], [[Product]], or [[Offer]]." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnPolicySeasonalOverride a rdfs:Class ;
+    rdfs:label "MerchantReturnPolicySeasonalOverride" ;
+    rdfs:comment "A seasonal override of a return policy, for example used for holidays." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :Message a rdfs:Class ;
     rdfs:label "Message" ;
     rdfs:comment "A single message from a sender to one or more organizations or people." ;
@@ -2733,6 +2751,12 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:comment "A recycling center." ;
     rdfs:subClassOf :LocalBusiness .
 
+:RefundTypeEnumeration a rdfs:Class ;
+    rdfs:label "RefundTypeEnumeration" ;
+    rdfs:comment "Enumerates several kinds of product return refund types." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :RegisterAction a rdfs:Class ;
     rdfs:label "RegisterAction" ;
     rdfs:comment "The act of registering to be a user of a service, product or web page.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, *not* a group/team of people.\\n* [[FollowAction]]: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.\\n* [[SubscribeAction]]: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object." ;
@@ -2831,6 +2855,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "ReturnAction" ;
     rdfs:comment "The act of returning to the origin that which was previously received (concrete objects) or taken (ownership)." ;
     rdfs:subClassOf :TransferAction .
+
+:ReturnFeesEnumeration a rdfs:Class ;
+    rdfs:label "ReturnFeesEnumeration" ;
+    rdfs:comment "Enumerates several kinds of policies for product return fees." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:ReturnLabelSourceEnumeration a rdfs:Class ;
+    rdfs:label "ReturnLabelSourceEnumeration" ;
+    rdfs:comment "Enumerates several types of return labels for product returns." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnMethodEnumeration a rdfs:Class ;
+    rdfs:label "ReturnMethodEnumeration" ;
+    rdfs:comment "Enumerates several types of product return methods." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :Review a rdfs:Class ;
     rdfs:label "Review" ;
@@ -5251,6 +5293,27 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :Organization,
         :Person .
 
+:customerRemorseReturnFees a rdf:Property ;
+    rdfs:label "customerRemorseReturnFees" ;
+    rdfs:comment "The type of return fees if the product is returned due to customer remorse." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:customerRemorseReturnLabelSource a rdf:Property ;
+    rdfs:label "customerRemorseReturnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned due to customer remorse." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:customerRemorseReturnShippingFeesAmount a rdf:Property ;
+    rdfs:label "customerRemorseReturnShippingFeesAmount" ;
+    rdfs:comment "The amount of shipping costs if a product is returned due to customer remorse. Applicable when property [[customerRemorseReturnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :cutoffTime a rdf:Property ;
     rdfs:label "cutoffTime" ;
     rdfs:comment "Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. \"23:30:00-05:00\" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC)." ;
@@ -6522,6 +6585,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :MenuSection ;
     :rangeIncludes :MenuSection .
 
+:hasMerchantReturnPolicy a rdf:Property ;
+    rdfs:label "hasMerchantReturnPolicy" ;
+    rdfs:comment "Specifies a MerchantReturnPolicy that may be applicable." ;
+    :domainIncludes :Offer,
+        :Organization,
+        :Product ;
+    :rangeIncludes :MerchantReturnPolicy ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :hasOccupation a rdf:Property ;
     rdfs:label "hasOccupation" ;
     rdfs:comment "The Person's occupation. For past professions, use Role for expressing dates." ;
@@ -6765,6 +6837,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Product ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
+:inStoreReturnsOffered a rdf:Property ;
+    rdfs:label "inStoreReturnsOffered" ;
+    rdfs:comment "Are in-store returns offered? (For more advanced return methods use the [[returnMethod]] property.)" ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
@@ -7103,6 +7182,27 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Offer,
         :Product ;
     :rangeIncludes :OfferItemCondition .
+
+:itemDefectReturnFees a rdf:Property ;
+    rdfs:label "itemDefectReturnFees" ;
+    rdfs:comment "The type of return fees for returns of defect products." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:itemDefectReturnLabelSource a rdf:Property ;
+    rdfs:label "itemDefectReturnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a defect product." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:itemDefectReturnShippingFeesAmount a rdf:Property ;
+    rdfs:label "itemDefectReturnShippingFeesAmount" ;
+    rdfs:comment "Amount of shipping costs for defect product returns. Applicable when property [[itemDefectReturnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :itemListElement a rdf:Property ;
     rdfs:label "itemListElement" ;
@@ -7580,6 +7680,23 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Organization,
         :Person ;
     :supersededBy :seller .
+
+:merchantReturnDays a rdf:Property ;
+    rdfs:label "merchantReturnDays" ;
+    rdfs:comment "Specifies either a fixed return date or the number of days (from the delivery date) that a product can be returned. Used when the [[returnPolicyCategory]] property is specified as [[MerchantReturnFiniteReturnWindow]]." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :Date,
+        :DateTime,
+        :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:merchantReturnLink a rdf:Property ;
+    rdfs:label "merchantReturnLink" ;
+    rdfs:comment "Specifies a Web page or service by URL, for product returns." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :messageAttachment a rdf:Property ;
     rdfs:label "messageAttachment" ;
@@ -9068,6 +9185,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :Invoice ;
     :rangeIncludes :Order .
 
+:refundType a rdf:Property ;
+    rdfs:label "refundType" ;
+    rdfs:comment "A refund type, from an enumerated list." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :RefundTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :regionsAllowed a rdf:Property ;
     rdfs:label "regionsAllowed" ;
     rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in [ISO 3166 format](http://en.wikipedia.org/wiki/ISO_3166)." ;
@@ -9242,6 +9367,15 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
 
+:restockingFee a rdf:Property ;
+    rdfs:label "restockingFee" ;
+    rdfs:comment "Use [[MonetaryAmount]] to specify a fixed restocking fee for product returns, or use [[Number]] to specify a percentage of the product price paid by the customer." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MonetaryAmount,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
 :result a rdf:Property ;
     rdfs:label "result" ;
     rdfs:comment "The result produced in the action. E.g. John wrote *a book*." ;
@@ -9262,6 +9396,60 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:subPropertyOf :result ;
     :domainIncludes :ReviewAction ;
     :rangeIncludes :Review .
+
+:returnFees a rdf:Property ;
+    rdfs:label "returnFees" ;
+    rdfs:comment "The type of return fees for purchased products (for any return reason)." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :ReturnFeesEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:returnLabelSource a rdf:Property ;
+    rdfs:label "returnLabelSource" ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned for any reason." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnMethod a rdf:Property ;
+    rdfs:label "returnMethod" ;
+    rdfs:comment "The type of return method offered, specified from an enumeration." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :ReturnMethodEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnPolicyCategory a rdf:Property ;
+    rdfs:label "returnPolicyCategory" ;
+    rdfs:comment "Specifies an applicable return policy (from an enumeration)." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MerchantReturnEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:returnPolicyCountry a rdf:Property ;
+    rdfs:label "returnPolicyCountry" ;
+    rdfs:comment "The country where the product has to be sent to for returns, for example \"Ireland\" using the [[name]] property of [[Country]]. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1). Note that this can be different from the country where the product was originally shipped from or sent to." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :Country,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnPolicySeasonalOverride a rdf:Property ;
+    rdfs:label "returnPolicySeasonalOverride" ;
+    rdfs:comment "Seasonal override of a return policy." ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :rangeIncludes :MerchantReturnPolicySeasonalOverride ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:returnShippingFeesAmount a rdf:Property ;
+    rdfs:label "returnShippingFeesAmount" ;
+    rdfs:comment "Amount of shipping costs for product returns (for any reason). Applicable when property [[returnFees]] equals [[ReturnShippingFees]]." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :MerchantReturnPolicySeasonalOverride ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :review a rdf:Property ;
     rdfs:label "review" ;
@@ -11036,6 +11224,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "EventScheduled" ;
     rdfs:comment "The event is taking place or has taken place on the startDate as scheduled. Use of this value is optional, as it is assumed by default." .
 
+:ExchangeRefund a :RefundTypeEnumeration ;
+    rdfs:label "ExchangeRefund" ;
+    rdfs:comment "Specifies that a refund can be done as an exchange for the same product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :FailedActionStatus a :ActionStatusType ;
     rdfs:label "FailedActionStatus" ;
     rdfs:comment "An action that failed to complete. The action's error property and the HTTP return code contain more information about the failure." .
@@ -11052,6 +11245,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "FourWheelDriveConfiguration" ;
     rdfs:comment "Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
+
+:FreeReturn a :ReturnFeesEnumeration ;
+    rdfs:label "FreeReturn" ;
+    rdfs:comment "Specifies that product returns are free of charge for the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :Friday a :DayOfWeek ;
     rdfs:label "Friday" ;
@@ -11087,6 +11285,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "FulfillmentTypeScheduledDelivery" ;
     rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FullRefund a :RefundTypeEnumeration ;
+    rdfs:label "FullRefund" ;
+    rdfs:comment "Specifies that a refund can be done in the full amount the customer paid for the product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :GlutenFreeDiet a :RestrictedDiet ;
     rdfs:label "GlutenFreeDiet" ;
@@ -11140,6 +11343,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :ItemListUnordered a :ItemListOrderType ;
     rdfs:label "ItemListUnordered" ;
     rdfs:comment "An ItemList ordered with no explicit order." .
+
+:KeepProduct a :ReturnMethodEnumeration ;
+    rdfs:label "KeepProduct" ;
+    rdfs:comment "Specifies that the consumer can keep the product, even when receiving a refund or store credit." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
 
 :KosherDiet a :RestrictedDiet ;
     rdfs:label "KosherDiet" ;
@@ -11201,6 +11409,26 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :Male a :GenderType ;
     rdfs:label "Male" ;
     rdfs:comment "The male gender." .
+
+:MerchantReturnFiniteReturnWindow a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnFiniteReturnWindow" ;
+    rdfs:comment "Specifies that there is a finite window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnNotPermitted a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnNotPermitted" ;
+    rdfs:comment "Specifies that product returns are not permitted." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnUnlimitedWindow a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnUnlimitedWindow" ;
+    rdfs:comment "Specifies that there is an unlimited window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:MerchantReturnUnspecified a :MerchantReturnEnumeration ;
+    rdfs:label "MerchantReturnUnspecified" ;
+    rdfs:comment "Specifies that a product return policy is not provided." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :MinimumAdvertisedPrice a :PriceTypeEnumeration ;
     rdfs:label "MinimumAdvertisedPrice" ;
@@ -11280,6 +11508,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :OrderReturned a :OrderStatus ;
     rdfs:label "OrderReturned" ;
     rdfs:comment "OrderStatus representing that an order has been returned." .
+
+:OriginalShippingFees a :ReturnFeesEnumeration ;
+    rdfs:label "OriginalShippingFees" ;
+    rdfs:comment "Specifies that the customer must pay the original shipping costs when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :OutOfStock a :ItemAvailability ;
     rdfs:label "OutOfStock" ;
@@ -11407,6 +11640,51 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Reserved" ;
     rdfs:comment "Indicates that the item is reserved and therefore not available." .
 
+:RestockingFees a :ReturnFeesEnumeration ;
+    rdfs:label "RestockingFees" ;
+    rdfs:comment "Specifies that the customer must pay a restocking fee when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
+:ReturnAtKiosk a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnAtKiosk" ;
+    rdfs:comment "Specifies that product returns must be made at a kiosk." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnByMail a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnByMail" ;
+    rdfs:comment "Specifies that product returns must be done by mail." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnFeesCustomerResponsibility a :ReturnFeesEnumeration ;
+    rdfs:label "ReturnFeesCustomerResponsibility" ;
+    rdfs:comment "Specifies that product returns must be paid for, and are the responsibility of, the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnInStore a :ReturnMethodEnumeration ;
+    rdfs:label "ReturnInStore" ;
+    rdfs:comment "Specifies that product returns must be made in a store." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelCustomerResponsibility a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelCustomerResponsibility" ;
+    rdfs:comment "Indicated that creating a return label is the responsibility of the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelDownloadAndPrint a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelDownloadAndPrint" ;
+    rdfs:comment "Indicated that a return label must be downloaded and printed by the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnLabelInBox a :ReturnLabelSourceEnumeration ;
+    rdfs:label "ReturnLabelInBox" ;
+    rdfs:comment "Specifies that a return label will be provided by the seller in the shipping box." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> .
+
+:ReturnShippingFees a :ReturnFeesEnumeration ;
+    rdfs:label "ReturnShippingFees" ;
+    rdfs:comment "Specifies that the customer must pay the return shipping costs when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
+
 :RightHandDriving a :SteeringPositionValue ;
     rdfs:label "RightHandDriving" ;
     rdfs:comment "The steering position is on the right side of the vehicle (viewed from the main direction of driving)." ;
@@ -11465,6 +11743,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "SpokenWordAlbum" ;
     rdfs:comment "SpokenWordAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:StoreCreditRefund a :RefundTypeEnumeration ;
+    rdfs:label "StoreCreditRefund" ;
+    rdfs:comment "Specifies that the customer receives a store credit as refund when returning a product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
 :StrikethroughPrice a :PriceTypeEnumeration ;
     rdfs:label "StrikethroughPrice" ;
