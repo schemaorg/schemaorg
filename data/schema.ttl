@@ -246,6 +246,12 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:subClassOf :MediaObject ;
     :contributor <https://schema.org/docs/collab/rNews> .
 
+:AudioObjectSnapshot a rdfs:Class ;
+    rdfs:label "AudioObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of an [[AudioObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :AudioObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :AuthorizeAction a rdfs:Class ;
     rdfs:label "AuthorizeAction" ;
     rdfs:comment "The act of granting permission to an object." ;
@@ -1664,6 +1670,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass dcmitype:Image .
 
+:ImageObjectSnapshot a rdfs:Class ;
+    rdfs:label "ImageObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of an [[ImageObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata (e.g. XMP, EXIF) the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :ImageObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :IndividualProduct a rdfs:Class ;
     rdfs:label "IndividualProduct" ;
     rdfs:comment "A single, identifiable product instance (e.g. a laptop with a particular serial number)." ;
@@ -1952,10 +1964,31 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Web page type: Media gallery page. A mixed-media page that can contain media such as images, videos, and other multimedia." ;
     rdfs:subClassOf :CollectionPage .
 
+:MediaManipulationRatingEnumeration a rdfs:Class ;
+    rdfs:label "MediaManipulationRatingEnumeration" ;
+    rdfs:comment " Codes for use with the [[mediaAuthenticityCategory]] property, indicating the authenticity of a media object (in the context of how it was published or shared). In general these codes are not mutually exclusive, although some combinations (such as 'original' versus 'transformed', 'edited' and 'staged') would be contradictory if applied in the same [[MediaReview]]. Note that the application of these codes is with regard to a piece of media shared or published in a particular context." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
     rdfs:comment "A media object, such as an image, video, audio, or text object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
     rdfs:subClassOf :CreativeWork .
+
+:MediaReview a rdfs:Class ;
+    rdfs:label "MediaReview" ;
+    rdfs:comment """A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
+    For more general reviews of media in the broader sense, use [[UserReview]], [[CriticReview]] or other [[Review]] types. This definition is
+    a work in progress. While the [[MediaManipulationRatingEnumeration]] list reflects significant community review amongst fact-checkers and others working
+    to combat misinformation, the specific structures for representing media objects, their versions and publication context, are still evolving. Similarly, best practices for the relationship between [[MediaReview]] and [[ClaimReview]] markup have not yet been finalized.""" ;
+    rdfs:subClassOf :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:MediaReviewItem a rdfs:Class ;
+    rdfs:label "MediaReviewItem" ;
+    rdfs:comment "Represents an item or group of closely related items treated as a unit for the sake of evaluation in a [[MediaReview]]. Authorship etc. apply to the items rather than to the curation/grouping or reviewing party." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :MediaSubscription a rdfs:Class ;
     rdfs:label "MediaSubscription" ;
@@ -3629,6 +3662,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :MediaObject ;
     :contributor <https://schema.org/docs/collab/rNews> .
 
+:VideoObjectSnapshot a rdfs:Class ;
+    rdfs:label "VideoObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of a [[VideoObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :VideoObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :ViewAction a rdfs:Class ;
     rdfs:label "ViewAction" ;
     rdfs:comment "The act of consuming static visual content." ;
@@ -4260,6 +4299,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :PaymentChargeSpecification ;
     :rangeIncludes :PaymentMethod .
 
+:archivedAt a rdf:Property ;
+    rdfs:label "archivedAt" ;
+    rdfs:comment "Indicates a page or other link involved in archival of a [[CreativeWork]]. In the case of [[MediaReview]], the items in a [[MediaReviewItem]] may often become inaccessible, but be archived by archival, journalistic, activist, or law enforcement organizations. In such cases, the referenced page may not directly publish the content." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :URL,
+        :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :area a rdf:Property ;
     rdfs:label "area" ;
     rdfs:comment "The area within which users can expect to reach the broadcast service." ;
@@ -4386,11 +4433,34 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :MediaObject ;
     :rangeIncludes :NewsArticle .
 
+:associatedClaimReview a rdf:Property ;
+    rdfs:label "associatedClaimReview" ;
+    rdfs:comment "An associated [[ClaimReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[associatedClaimReview]] would be used on [[MediaReview]]." ;
+    rdfs:subPropertyOf :associatedReview ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :associatedMedia a rdf:Property ;
     rdfs:label "associatedMedia" ;
     rdfs:comment "A media object that encodes this CreativeWork. This property is a synonym for encoding." ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :MediaObject .
+
+:associatedMediaReview a rdf:Property ;
+    rdfs:label "associatedMediaReview" ;
+    rdfs:comment "An associated [[MediaReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[associatedClaimReview]] would be used on [[MediaReview]]." ;
+    rdfs:subPropertyOf :associatedReview ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:associatedReview a rdf:Property ;
+    rdfs:label "associatedReview" ;
+    rdfs:comment "An associated [[Review]]." ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :athlete a rdf:Property ;
     rdfs:label "athlete" ;
@@ -5031,6 +5101,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :CreativeWork ;
     :rangeIncludes :CreativeWork,
         :Text .
+
+:claimInterpreter a rdf:Property ;
+    rdfs:label "claimInterpreter" ;
+    rdfs:comment "For a [[Claim]] interpreted from [[MediaObject]] content, the [[interpretedAsClaim]] property can be used to indicate a claim contained, implied or refined from the content of a [[MediaObject]]." ;
+    :domainIncludes :Claim ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :claimReviewed a rdf:Property ;
     rdfs:label "claimReviewed" ;
@@ -5979,6 +6057,16 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:comment "A URL pointing to a player for a specific video. In general, this is the information in the ```src``` element of an ```embed``` tag and should not be the same as the content of the ```loc``` tag." ;
     :domainIncludes :MediaObject ;
     :rangeIncludes :URL .
+
+:embeddedTextCaption a rdf:Property ;
+    rdfs:label "embeddedTextCaption" ;
+    rdfs:comment "Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'." ;
+    rdfs:subPropertyOf :caption ;
+    :domainIncludes :AudioObject,
+        :ImageObject,
+        :VideoObject ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :employee a rdf:Property ;
     rdfs:label "employee" ;
@@ -7136,6 +7224,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Number,
         :QuantitativeValue .
 
+:interpretedAsClaim a rdf:Property ;
+    rdfs:label "interpretedAsClaim" ;
+    rdfs:comment "Used to indicate a specific claim contained, implied, translated or refined from the content of a [[MediaObject]] or other [[CreativeWork]]. The interpreting party can be indicated using [[claimInterpreter]]." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :CreativeWork,
+        :MediaObject ;
+    :rangeIncludes :Claim ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :inventoryLevel a rdf:Property ;
     rdfs:label "inventoryLevel" ;
     rdfs:comment "The current approximate inventory level for the item or items." ;
@@ -8014,6 +8111,20 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Flight ;
     :rangeIncludes :Text .
 
+:mediaAuthenticityCategory a rdf:Property ;
+    rdfs:label "mediaAuthenticityCategory" ;
+    rdfs:comment "Indicates a MediaManipulationRatingEnumeration classification of a media object (in the context of how it was published or shared)." ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :MediaManipulationRatingEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:mediaItemAppearance a rdf:Property ;
+    rdfs:label "mediaItemAppearance" ;
+    rdfs:comment "In the context of a [[MediaReview]], indicates specific media item(s) that are grouped using a [[MediaReviewItem]]." ;
+    :domainIncludes :MediaReviewItem ;
+    :rangeIncludes :MediaObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :median a rdf:Property ;
     rdfs:label "median" ;
     rdfs:comment "The median value." ;
@@ -8625,6 +8736,23 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Shipper's address." ;
     :domainIncludes :ParcelDelivery ;
     :rangeIncludes :PostalAddress .
+
+:originalMediaContextDescription a rdf:Property ;
+    rdfs:label "originalMediaContextDescription" ;
+    rdfs:comment "Describes, in a [[MediaReview]] when dealing with [[DecontextualizedContent]], background information that can contribute to better interpretation of the [[MediaObject]]." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:originalMediaLink a rdf:Property ;
+    rdfs:label "originalMediaLink" ;
+    rdfs:comment "Link to the page containing an original version of the content, or directly to an online copy of the original [[MediaObject]] content, e.g. video file." ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :MediaObject,
+        :URL,
+        :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :ownedFrom a rdf:Property ;
     rdfs:label "ownedFrom" ;
@@ -10208,6 +10336,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :NutritionInformation ;
     :rangeIncludes :Text .
 
+:sha256 a rdf:Property ;
+    rdfs:label "sha256" ;
+    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :MediaObject ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :sharedContent a rdf:Property ;
     rdfs:label "sharedContent" ;
     rdfs:comment "A CreativeWork such as an image, video, or audio clip shared as part of this posting." ;
@@ -11700,6 +11836,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "DamagedCondition" ;
     rdfs:comment "Indicates that the item is damaged." .
 
+:DecontextualizedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "DecontextualizedContent" ;
+    rdfs:comment """Content coded 'missing context' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'missing context': Presenting unaltered video in an inaccurate manner that misrepresents the footage. For example, using incorrect dates or locations, altering the transcript or sharing brief clips from a longer video to mislead viewers. (A video rated 'original' can also be missing context.)
+
+For an [[ImageObject]] to be 'missing context': Presenting unaltered images in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An image rated 'original' can also be missing context.)
+
+For an [[ImageObject]] with embedded text to be 'missing context': An unaltered image presented in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An 'original' image with inaccurate text would generally fall in this category.)
+
+For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an inaccurate manner that misrepresents it. For example, using incorrect dates or locations, or sharing brief clips from a longer recording to mislead viewers. (Audio rated “original” can also be missing context.)
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
     rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
@@ -11794,6 +11944,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "EUEnergyEfficiencyCategoryG" ;
     rdfs:comment "Represents EU Energy Efficiency Class G as defined in EU energy labeling regulations." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EditedOrCroppedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "EditedOrCroppedContent" ;
+    rdfs:comment """Content coded 'edited or cropped content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'edited or cropped content': The video has been edited or rearranged. This category applies to time edits, including editing multiple videos together to alter the story being told or editing out large portions from a video.
+
+For an [[ImageObject]] to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[ImageObject]] with embedded text to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[AudioObject]] to be 'edited or cropped content': The audio has been edited or rearranged. This category applies to time edits, including editing multiple audio clips together to alter the story being told or editing out large portions from the recording.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :EnergyStarCertified a :EnergyStarEnergyEfficiencyEnumeration ;
     rdfs:label "EnergyStarCertified" ;
@@ -12144,6 +12308,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "OrderReturned" ;
     rdfs:comment "OrderStatus representing that an order has been returned." .
 
+:OriginalMediaContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "OriginalMediaContent" ;
+    rdfs:comment """Content coded 'as original media content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'original': No evidence the footage has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+
+For an [[ImageObject]] to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[ImageObject]] with embedded text to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[AudioObject]] to be 'original': No evidence the audio has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :OriginalShippingFees a :ReturnFeesEnumeration ;
     rdfs:label "OriginalShippingFees" ;
     rdfs:comment "Specifies that the customer must pay the original shipping costs when returning a product." ;
@@ -12355,6 +12533,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Represents a sale price (usually active for a limited period) of an offered product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
+:SatireOrParodyContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "SatireOrParodyContent" ;
+    rdfs:comment """Content coded 'satire or parody content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'satire or parody content': A video that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] with embedded text to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[AudioObject]] to be 'satire or parody content': Audio that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :Saturday a :DayOfWeek ;
     rdfs:label "Saturday" ;
     rdfs:comment "The day of the week between Friday and Sunday." ;
@@ -12396,6 +12588,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "SpokenWordAlbum" ;
     rdfs:comment "SpokenWordAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:StagedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "StagedContent" ;
+    rdfs:comment """Content coded 'staged content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'staged content': A video that has been created using actors or similarly contrived.
+
+For an [[ImageObject]] to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[ImageObject]] with embedded text to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[AudioObject]] to be 'staged content': Audio that has been created using actors or similarly contrived.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :StoreCreditRefund a :RefundTypeEnumeration ;
     rdfs:label "StoreCreditRefund" ;
@@ -12445,6 +12651,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :TollFree a :ContactPointOption ;
     rdfs:label "TollFree" ;
     rdfs:comment "The associated telephone number is toll free." .
+
+:TransformedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "TransformedContent" ;
+    rdfs:comment """Content coded 'transformed content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'transformed content':  or all of the video has been manipulated to transform the footage itself. This category includes using tools like the Adobe Suite to change the speed of the video, add or remove visual elements or dub audio. Deepfakes are also a subset of transformation.
+
+For an [[ImageObject]] to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[ImageObject]] with embedded text to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[AudioObject]] to be 'transformed content': Part or all of the audio has been manipulated to alter the words or sounds, or the audio has been synthetically generated, such as to create a sound-alike voice.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :TransitMap a :MapCategoryType ;
     rdfs:label "TransitMap" ;
