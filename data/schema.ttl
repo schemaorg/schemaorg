@@ -2183,6 +2183,24 @@ or Fast and expensive: $15 in 1-2 days.""" ;
     rdfs:comment "A publication event, e.g. catch-up TV or radio podcast, during which a program is available on-demand." ;
     rdfs:subClassOf :PublicationEvent .
 
+:OnlineBusiness a rdfs:Class ;
+    rdfs:label "OnlineBusiness" ;
+    rdfs:comment "A particular online business, either standalone or the online part of a broader organization. Examples include an eCommerce site, an online travel booking site, an online learning site, an online logistics and shipping provider, an online (virtual) doctor, etc." ;
+    rdfs:subClassOf :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> .
+
+:OnlineMarketplace a rdfs:Class ;
+    rdfs:label "OnlineMarketplace" ;
+    rdfs:comment "An eCommerce marketplace." ;
+    rdfs:subClassOf :OnlineStore ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:OnlineStore a rdfs:Class ;
+    rdfs:label "OnlineStore" ;
+    rdfs:comment "An eCommerce site." ;
+    rdfs:subClassOf :OnlineBusiness ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> .
+
 :OpeningHoursSpecification a rdfs:Class ;
     rdfs:label "OpeningHoursSpecification" ;
     rdfs:comment """A structured value providing information about the opening hours of a place or a certain service inside a place.\\n\\n
@@ -6424,6 +6442,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :hasMerchantReturnPolicy .
 
+:hasStore a rdf:Property ;
+    rdfs:label "hasStore" ;
+    rdfs:comment "An eCommerce store part of an online marketplace." ;
+    :domainIncludes :OnlineMarketplace ;
+    :rangeIncludes :OnlineStore ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
 :hasVariant a rdf:Property ;
     rdfs:label "hasVariant" ;
     rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." ;
@@ -6801,6 +6826,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Service ;
     :rangeIncludes :Product,
         :Service .
+
+:isStoreOn a rdf:Property ;
+    rdfs:label "isStoreOn" ;
+    rdfs:comment "The eCommerce marketplace this online store is on." ;
+    :domainIncludes :OnlineStore ;
+    :rangeIncludes :OnlineMarketplace ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4470> .
 
 :isUnlabelledFallback a rdf:Property ;
     rdfs:label "isUnlabelledFallback" ;
