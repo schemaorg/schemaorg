@@ -2527,6 +2527,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     owl:equivalentClass fibo-fnd-pas-pas:Price ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:PriceTypeEnumeration a rdfs:Class ;
+    rdfs:label "PriceTypeEnumeration" ;
+    rdfs:comment "Enumerates different price types, for example list price, invoice price, and sale price." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :Product a rdfs:Class ;
     rdfs:label "Product" ;
     rdfs:comment "Any offered product or service. For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online." ;
@@ -8615,8 +8621,10 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Defines the type of a price specified for an offered product, for example a list price, a (temporary) sale price or a manufacturer suggested retail price. If multiple prices are specified for an offer the [[priceType]] property can be used to identify the type of each such specified price. The value of priceType can be specified as a value from enumeration PriceTypeEnumeration or, a UN/EDIFACT 5387 code, or as a free form text string for price types that are not already predefined in PriceTypeEnumeration." ;
     rdfs:subPropertyOf cmns-cls:isClassifiedBy ;
     owl:equivalentProperty unece:PriceTypeCode ;
-    :domainIncludes :UnitPriceSpecification ;
-    :rangeIncludes :Text .
+    :domainIncludes :CompoundPriceSpecification,
+        :UnitPriceSpecification ;
+    :rangeIncludes :PriceTypeEnumeration,
+        :Text .
 
 :priceValidUntil a rdf:Property ;
     rdfs:label "priceValidUntil" ;
@@ -11105,6 +11113,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "InStorePrepay" ;
     rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
 
+:InvoicePrice a :PriceTypeEnumeration ;
+    rdfs:label "InvoicePrice" ;
+    rdfs:comment "Represents the invoice price of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :ItemListOrderAscending a :ItemListOrderType ;
     rdfs:label "ItemListOrderAscending" ;
     rdfs:comment "An ItemList ordered with lower values listed first." .
@@ -11135,6 +11148,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "LimitedAvailability" ;
     rdfs:comment "Indicates that the item has limited availability." .
 
+:ListPrice a :PriceTypeEnumeration ;
+    rdfs:label "ListPrice" ;
+    rdfs:comment "Represents the list price of an offered product. Typically the same as the [MSRP](https://schema.org/MSRP)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :LiveAlbum a :MusicAlbumProductionType ;
     rdfs:label "LiveAlbum" ;
     rdfs:comment "LiveAlbum." ;
@@ -11160,6 +11178,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "LowSaltDiet" ;
     rdfs:comment "A diet focused on reduced sodium intake." .
 
+:MSRP a :PriceTypeEnumeration ;
+    rdfs:label "MSRP" ;
+    rdfs:comment "Represents the manufacturer suggested retail price (\"MSRP\") of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :MadeToOrder a :ItemAvailability ;
     rdfs:label "MadeToOrder" ;
     rdfs:comment "Indicates that the item is made to order (custom made)." .
@@ -11167,6 +11190,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :Male a :GenderType ;
     rdfs:label "Male" ;
     rdfs:comment "The male gender." .
+
+:MinimumAdvertisedPrice a :PriceTypeEnumeration ;
+    rdfs:label "MinimumAdvertisedPrice" ;
+    rdfs:comment "Represents the minimum advertised price (\"MAP\") (as dictated by the manufacturer) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
 :MixtapeAlbum a :MusicAlbumProductionType ;
     rdfs:label "MixtapeAlbum" ;
@@ -11338,6 +11366,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "RefurbishedCondition" ;
     rdfs:comment "Indicates that the item is refurbished." .
 
+:RegularPrice a :PriceTypeEnumeration ;
+    rdfs:label "RegularPrice" ;
+    rdfs:comment "Represents the regular price of an offered product. This is usually the advertised price before a temporary sale. Once the sale period ends the advertised price will go back to the regular price." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3583> .
+
 :RemixAlbum a :MusicAlbumProductionType ;
     rdfs:label "RemixAlbum" ;
     rdfs:comment "RemixAlbum." ;
@@ -11380,6 +11413,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "RsvpResponseYes" ;
     rdfs:comment "The invitee will attend." .
 
+:SRP a :PriceTypeEnumeration ;
+    rdfs:label "SRP" ;
+    rdfs:comment "Represents the suggested retail price (\"SRP\") of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
+:SalePrice a :PriceTypeEnumeration ;
+    rdfs:label "SalePrice" ;
+    rdfs:comment "Represents a sale price (usually active for a limited period) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
 :Saturday a :DayOfWeek ;
     rdfs:label "Saturday" ;
     rdfs:comment "The day of the week between Friday and Sunday." ;
@@ -11411,6 +11454,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "SpokenWordAlbum" ;
     rdfs:comment "SpokenWordAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:StrikethroughPrice a :PriceTypeEnumeration ;
+    rdfs:label "StrikethroughPrice" ;
+    rdfs:comment "Represents the strikethrough price (the previous advertised price) of an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3583> .
 
 :StudioAlbum a :MusicAlbumProductionType ;
     rdfs:label "StudioAlbum" ;
