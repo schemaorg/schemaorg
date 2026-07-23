@@ -743,6 +743,13 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "The act of notifying someone that a future event/action is going to happen as expected.\\n\\nRelated actions:\\n\\n* [[CancelAction]]: The antonym of ConfirmAction." ;
     rdfs:subClassOf :InformAction .
 
+:ConstraintNode a rdfs:Class ;
+    rdfs:label "ConstraintNode" ;
+    rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a
+    variety of purposes, and their values may sometimes be understood to indicate sets of possible values rather than single, exact and specific values.""" ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
 :ConsumeAction a rdfs:Class ;
     rdfs:label "ConsumeAction" ;
     rdfs:comment "The act of ingesting information/resources/food." ;
@@ -1998,6 +2005,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Properties that take Mass as values are of the form '&lt;Number&gt; &lt;Mass unit of measure&gt;'. E.g., '7 kg'." ;
     rdfs:subClassOf :Quantity .
 
+:MeasurementMethodEnum a rdfs:Class ;
+    rdfs:label "MeasurementMethodEnum" ;
+    rdfs:comment "Enumeration(s) for use with [[measurementMethod]]." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
 :MeasurementTypeEnumeration a rdfs:Class ;
     rdfs:label "MeasurementTypeEnumeration" ;
     rdfs:comment "Enumeration of common measurement types (or dimensions), for example \"chest\" for a person, \"inseam\" for pants, \"gauge\" for screws, or \"wheel\" for bicycles." ;
@@ -2333,6 +2346,18 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     rdfs:label "NutritionInformation" ;
     rdfs:comment "Nutritional information about the recipe." ;
     rdfs:subClassOf :StructuredValue .
+
+:Observation a rdfs:Class ;
+    rdfs:label "Observation" ;
+    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time.
+
+Observations can also encode a subset of simple RDF-like statements (its observationAbout, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
+
+In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observationAbout]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementMethod]].
+    """ ;
+    rdfs:subClassOf :Intangible,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :Occupation a rdfs:Class ;
     rdfs:label "Occupation" ;
@@ -3341,6 +3366,20 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "State" ;
     rdfs:comment "A state or province of a country." ;
     rdfs:subClassOf :AdministrativeArea .
+
+:StatisticalPopulation a rdfs:Class ;
+    rdfs:label "StatisticalPopulation" ;
+    rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
+The properties [[numConstraints]] and [[constraintProperty]] are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a [[populationType]] of [[Event]] or [[NewsArticle]] could be used. See also [[Observation]], where a [[populationType]] such as [[Person]] or [[Event]] can be indicated directly. In most cases it may be better to use [[StatisticalVariable]] instead of [[StatisticalPopulation]].""" ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:StatisticalVariable a rdfs:Class ;
+    rdfs:label "StatisticalVariable" ;
+    rdfs:comment "[[StatisticalVariable]] represents any type of statistical metric that can be measured at a place and time. The usage pattern for [[StatisticalVariable]] is typically expressed using [[Observation]] with an explicit [[populationType]], which is a type, typically drawn from Schema.org. Each [[StatisticalVariable]] is marked as a [[ConstraintNode]], meaning that some properties (those listed using [[constraintProperty]]) serve in this setting solely to define the statistical variable rather than literally describe a specific person, place or thing. For example, a [[StatisticalVariable]] Median_Height_Person_Female representing the median height of women, could be written as follows: the population type is [[Person]]; the measuredProperty [[height]]; the [[statType]] [[median]]; the [[gender]] [[Female]]. It is important to note that there are many kinds of scientific quantitative observation which are not fully, perfectly or unambiguously described following this pattern, or with solely Schema.org terminology. The approach taken here is designed to allow partial, incremental or minimal description of [[StatisticalVariable]]s, and the use of detailed sets of entity and property IDs from external repositories. The [[measurementMethod]], [[unitCode]] and [[unitText]] properties can also be used to clarify the specific nature and notation of an observed measurement. " ;
+    rdfs:subClassOf :ConstraintNode ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :StatusEnumeration a rdfs:Class ;
     rdfs:label "StatusEnumeration" ;
@@ -5342,6 +5381,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Invoice,
         :Order ;
     :rangeIncludes :Text .
+
+:constraintProperty a rdf:Property ;
+    rdfs:label "constraintProperty" ;
+    rdfs:comment "Indicates a property used as a constraint. For example, in the definition of a [[StatisticalVariable]]. The value is a property, either from within Schema.org or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. " ;
+    :domainIncludes :ConstraintNode ;
+    :rangeIncludes :Property,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :contactOption a rdf:Property ;
     rdfs:label "contactOption" ;
@@ -8311,6 +8358,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :URL ;
     :supersededBy :hasMap .
 
+:marginOfError a rdf:Property ;
+    rdfs:label "marginOfError" ;
+    rdfs:comment "A [[marginOfError]] for an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
 :material a rdf:Property ;
     rdfs:label "material" ;
     rdfs:comment "A material that something is made from, e.g. leather, wool, cotton, paper." ;
@@ -8366,6 +8420,22 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :Flight ;
     :rangeIncludes :Text .
 
+:measuredProperty a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    rdfs:comment "The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties)." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :Property ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:measurementDenominator a rdf:Property ;
+    rdfs:label "measurementDenominator" ;
+    rdfs:comment "Identifies the denominator variable when an observation represents a ratio or percentage." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :StatisticalVariable ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
 :measurementMethod a rdf:Property ;
     rdfs:label "measurementMethod" ;
     rdfs:comment "A subproperty of [[measurementTechnique]] that can be used for specifying specific methods, in particular via [[MeasurementMethodEnum]]." ;
@@ -8381,6 +8451,14 @@ Use Text for incentives that are limited based on other criteria, for example if
         :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1425> .
+
+:measurementQualifier a rdf:Property ;
+    rdfs:label "measurementQualifier" ;
+    rdfs:comment "Provides additional qualification to an observation. For example, a GDP observation measures the Nominal value." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :measurementTechnique a rdf:Property ;
     rdfs:label "measurementTechnique" ;
@@ -8710,6 +8788,13 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :rangeIncludes :Integer,
         :QuantitativeValue .
 
+:numConstraints a rdf:Property ;
+    rdfs:label "numConstraints" ;
+    rdfs:comment "Indicates the number of constraints property values defined for a particular [[ConstraintNode]] such as [[StatisticalVariable]]. This helps applications understand if they have access to a sufficiently complete description of a [[StatisticalVariable]] or other construct that is defined using properties on template-style nodes." ;
+    :domainIncludes :ConstraintNode ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
 :numItems a rdf:Property ;
     rdfs:label "numItems" ;
     rdfs:comment "Limits the number of items being shipped for which these conditions apply." ;
@@ -8845,6 +8930,29 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). E.g. John read *a book*." ;
     :domainIncludes :Action ;
     :rangeIncludes :Thing .
+
+:observationAbout a rdf:Property ;
+    rdfs:label "observationAbout" ;
+    rdfs:comment "The [[observationAbout]] property identifies an entity, often a [[Place]], associated with an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Place,
+        :Thing ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:observationDate a rdf:Property ;
+    rdfs:label "observationDate" ;
+    rdfs:comment "The observationDate of an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Date,
+        :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:observationPeriod a rdf:Property ;
+    rdfs:label "observationPeriod" ;
+    rdfs:comment "The length of time an Observation took place over. The format follows `P[0-9]*[Y|M|D|h|m|s]`. For example, P1Y is Period 1 Year, P3M is Period 3 Months, P3h is Period 3 hours." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :occupancy a rdf:Property ;
     rdfs:label "occupancy" ;
@@ -9448,6 +9556,14 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "A polygon is the area enclosed by a point-to-point path for which the starting and ending points are the same. A polygon is expressed as a series of four or more space delimited points where the first and final points are identical." ;
     :domainIncludes :GeoShape ;
     :rangeIncludes :Text .
+
+:populationType a rdf:Property ;
+    rdfs:label "populationType" ;
+    rdfs:comment "Indicates the populationType common to all members of a [[StatisticalPopulation]] or all cases within the scope of a [[StatisticalVariable]]." ;
+    :domainIncludes :StatisticalPopulation,
+        :StatisticalVariable ;
+    :rangeIncludes :Class ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :position a rdf:Property ;
     rdfs:label "position" ;
@@ -11000,6 +11116,15 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :DateTime,
         :Time .
 
+:statType a rdf:Property ;
+    rdfs:label "statType" ;
+    rdfs:comment "Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org (e.g. [[median]], [[marginOfError]], [[maxValue]], [[minValue]]) or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. " ;
+    :domainIncludes :StatisticalVariable ;
+    :rangeIncludes :Property,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
 :steeringPosition a rdf:Property ;
     rdfs:label "steeringPosition" ;
     rdfs:comment "The position of the steering wheel or similar device (mostly for cars)." ;
@@ -12321,6 +12446,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :EventScheduled a :EventStatusType ;
     rdfs:label "EventScheduled" ;
     rdfs:comment "The event is taking place or has taken place on the startDate as scheduled. Use of this value is optional, as it is assumed by default." .
+
+:ExampleMeasurementMethodEnum a :MeasurementMethodEnum ;
+    rdfs:label "ExampleMeasurementMethodEnum" ;
+    rdfs:comment "An example [[MeasurementMethodEnum]] (to remove when real enums are added)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :ExchangeRefund a :RefundTypeEnumeration ;
     rdfs:label "ExchangeRefund" ;
