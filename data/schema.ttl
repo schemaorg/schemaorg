@@ -1441,6 +1441,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "The Game type represents things which are games. These are typically rule-governed recreational activities, e.g. role-playing games in which players assume the role of characters in a fictional setting." ;
     rdfs:subClassOf :CreativeWork .
 
+:GameAvailabilityEnumeration a rdfs:Class ;
+    rdfs:label "GameAvailabilityEnumeration" ;
+    rdfs:comment "For a [[VideoGame]], such as used with a [[PlayGameAction]], an enumeration of the kind of game availability offered. " ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :GamePlayMode a rdfs:Class ;
     rdfs:label "GamePlayMode" ;
     rdfs:comment "Indicates whether this game is multi-player, co-op or single-player." ;
@@ -2670,6 +2676,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "PlayAction" ;
     rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, competition or exercise.\\n\\nRelated actions:\\n\\n* [[ListenAction]]: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.\\n* [[WatchAction]]: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content." ;
     rdfs:subClassOf :Action .
+
+:PlayGameAction a rdfs:Class ;
+    rdfs:label "PlayGameAction" ;
+    rdfs:comment "The act of playing a video game." ;
+    rdfs:subClassOf :ConsumeAction ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
 
 :Playground a rdfs:Class ;
     rdfs:label "Playground" ;
@@ -6733,6 +6745,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :GameServer ;
     :inverseOf :gameServer ;
     :rangeIncludes :VideoGame .
+
+:gameAvailabilityType a rdf:Property ;
+    rdfs:label "gameAvailabilityType" ;
+    rdfs:comment "Indicates the availability type of the game content associated with this action, such as whether it is a full version or a demo." ;
+    :domainIncludes :PlayGameAction ;
+    :rangeIncludes :GameAvailabilityEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
 
 :gameEdition a rdf:Property ;
     rdfs:label "gameEdition" ;
@@ -12361,6 +12381,11 @@ For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an 
     rdfs:comment "DemoAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:DemoGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "DemoGameAvailability" ;
+    rdfs:comment "Indicates demo game availability, i.e. a somehow limited demonstration of the full game." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :DiabeticDiet a :RestrictedDiet ;
     rdfs:label "DiabeticDiet" ;
     rdfs:comment "A diet appropriate for people with diabetes." .
@@ -12552,6 +12577,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "FulfillmentTypeScheduledDelivery" ;
     rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FullGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "FullGameAvailability" ;
+    rdfs:comment "Indicates full game availability." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
 
 :FullRefund a :RefundTypeEnumeration ;
     rdfs:label "FullRefund" ;
