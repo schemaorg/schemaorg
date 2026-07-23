@@ -982,7 +982,8 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:label "DeliveryTimeSettings" ;
     rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
     rdfs:subClassOf :StructuredValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
+    :supersededBy :ShippingConditions .
 
 :Demand a rdfs:Class ;
     rdfs:label "Demand" ;
@@ -1347,6 +1348,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "A food service, like breakfast, lunch, or dinner." ;
     rdfs:subClassOf :Service ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> .
+
+:FulfillmentTypeEnumeration a rdfs:Class ;
+    rdfs:label "FulfillmentTypeEnumeration" ;
+    rdfs:comment "A type of product fulfillment." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :FurnitureStore a rdfs:Class ;
     rdfs:label "FurnitureStore" ;
@@ -2931,10 +2938,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A means for accessing a service, e.g. a government office location, web site, or phone number." ;
     rdfs:subClassOf :Intangible .
 
+:ServicePeriod a rdfs:Class ;
+    rdfs:label "ServicePeriod" ;
+    rdfs:comment "ServicePeriod represents a duration with some constraints about cutoff time and business days. This is used e.g. in shipping for handling times or transit time." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :ShareAction a rdfs:Class ;
     rdfs:label "ShareAction" ;
     rdfs:comment "The act of distributing content to people for their amusement or edification." ;
     rdfs:subClassOf :CommunicateAction .
+
+:ShippingConditions a rdfs:Class ;
+    rdfs:label "ShippingConditions" ;
+    rdfs:comment "ShippingConditions represent a set of constraints and information about the conditions of shipping a product. Such conditions may apply to only a subset of the products being shipped, depending on aspects of the product like weight, size, price, destination, and others. All the specified conditions must be met for this ShippingConditions to apply." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :ShippingDeliveryTime a rdfs:Class ;
     rdfs:label "ShippingDeliveryTime" ;
@@ -2947,6 +2966,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A ShippingRateSettings represents re-usable pieces of shipping information. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished and matched (i.e. identified/referenced) by their different values for [[shippingLabel]]." ;
     rdfs:subClassOf :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:ShippingService a rdfs:Class ;
+    rdfs:label "ShippingService" ;
+    rdfs:comment "ShippingService represents the criteria used to determine if and how an offer could be shipped to a customer." ;
+    rdfs:subClassOf :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :ShoeStore a rdfs:Class ;
     rdfs:label "ShoeStore" ;
@@ -4618,9 +4643,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :businessDays a rdf:Property ;
     rdfs:label "businessDays" ;
     rdfs:comment "Days of the week when the merchant typically operates, indicated via opening hours markup." ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :OpeningHoursSpecification ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ServicePeriod,
+        :ShippingDeliveryTime ;
+    :rangeIncludes :DayOfWeek,
+        :OpeningHoursSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :businessFunction a rdf:Property ;
     rdfs:label "businessFunction" ;
@@ -5180,9 +5208,11 @@ In the case of products, the country of origin of the product. The exact interpr
 :cutoffTime a rdf:Property ;
     rdfs:label "cutoffTime" ;
     rdfs:comment "Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. \"23:30:00-05:00\" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC)." ;
-    :domainIncludes :ShippingDeliveryTime ;
+    :domainIncludes :ServicePeriod,
+        :ShippingDeliveryTime ;
     :rangeIncludes :Time ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :dataFeedElement a rdf:Property ;
     rdfs:label "dataFeedElement" ;
@@ -5411,9 +5441,11 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:comment "The depth of the item." ;
     :domainIncludes :OfferShippingDetails,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :description a rdf:Property ;
     rdfs:label "description" ;
@@ -5525,9 +5557,11 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "doesNotShip" ;
     rdfs:comment "Indicates when shipping to a particular [[shippingDestination]] is not available." ;
     :domainIncludes :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
     :rangeIncludes :Boolean ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
@@ -5586,9 +5620,12 @@ Dateline summaries are oriented more towards human readers than towards automate
         :Movie,
         :MusicRecording,
         :MusicRelease,
-        :QuantitativeValueDistribution ;
-    :rangeIncludes :Duration ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+        :QuantitativeValueDistribution,
+        :ServicePeriod ;
+    :rangeIncludes :Duration,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1698>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :durationOfWarranty a rdf:Property ;
     rdfs:label "durationOfWarranty" ;
@@ -6163,6 +6200,13 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Text,
         :URL .
 
+:fulfillmentType a rdf:Property ;
+    rdfs:label "fulfillmentType" ;
+    rdfs:comment "Type of fulfillment applicable to the [[ShippingService]]." ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :FulfillmentTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :funder a rdf:Property ;
     rdfs:label "funder" ;
     rdfs:comment "A person or organization that supports (sponsors) something through some kind of financial contribution." ;
@@ -6351,9 +6395,12 @@ In the context of [[ShippingDeliveryTime]], Typical properties: minValue, maxVal
 
 In the context of [[ShippingService]], use the [[ServicePeriod]] format, that contains the same information in a structured form, with cut-off time, business days and duration.""" ;
     rdfs:subPropertyOf :duration ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :QuantitativeValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ShippingDeliveryTime,
+        :ShippingService ;
+    :rangeIncludes :QuantitativeValue,
+        :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :hasBroadcastChannel a rdf:Property ;
     rdfs:label "hasBroadcastChannel" ;
@@ -6450,6 +6497,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :hasMerchantReturnPolicy .
 
+:hasShippingService a rdf:Property ;
+    rdfs:label "hasShippingService" ;
+    rdfs:comment "Specification of a shipping service offered by the organization." ;
+    :domainIncludes :OfferShippingDetails,
+        :Organization ;
+    :rangeIncludes :ShippingService ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :hasStore a rdf:Property ;
     rdfs:label "hasStore" ;
     rdfs:comment "An eCommerce store part of an online marketplace." ;
@@ -6478,9 +6533,11 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :OfferShippingDetails,
         :Person,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :highPrice a rdf:Property ;
     rdfs:label "highPrice" ;
@@ -7600,6 +7657,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Integer,
         :QuantitativeValue .
 
+:numItems a rdf:Property ;
+    rdfs:label "numItems" ;
+    rdfs:comment "Limits the number of items being shipped for which these conditions apply." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :numTracks a rdf:Property ;
     rdfs:label "numTracks" ;
     rdfs:comment "The number of tracks in this album or playlist." ;
@@ -7867,6 +7931,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :Order ;
     :rangeIncludes :Text .
 
+:orderPercentage a rdf:Property ;
+    rdfs:label "orderPercentage" ;
+    rdfs:comment "Value representing the fraction of the value of the order that is charged as shipping cost. Example: 0.10 would mean shipping rate is 10% of the total order value." ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
     rdfs:comment "The number of the item ordered. If the property is not set, assume the quantity is one." ;
@@ -7881,6 +7952,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "The current status of the order." ;
     :domainIncludes :Order ;
     :rangeIncludes :OrderStatus .
+
+:orderValue a rdf:Property ;
+    rdfs:label "orderValue" ;
+    rdfs:comment "Minimum and maximum order value for which these shipping conditions are valid." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :orderedItem a rdf:Property ;
     rdfs:label "orderedItem" ;
@@ -9225,6 +9303,13 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :Integer,
         :Text .
 
+:seasonalOverride a rdf:Property ;
+    rdfs:label "seasonalOverride" ;
+    rdfs:comment "Limited period during which these shipping conditions apply." ;
+    :domainIncludes :ShippingConditions ;
+    :rangeIncludes :OpeningHoursSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :seasons a rdf:Property ;
     rdfs:label "seasons" ;
     rdfs:comment "A season in a media series." ;
@@ -9400,14 +9485,23 @@ While such policies are most typically expressed in natural language, sometimes 
         :SocialMediaPosting ;
     :rangeIncludes :CreativeWork .
 
+:shippingConditions a rdf:Property ;
+    rdfs:label "shippingConditions" ;
+    rdfs:comment "The conditions (constraints, price) applicable to the [[ShippingService]]." ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :ShippingConditions ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
 :shippingDestination a rdf:Property ;
     rdfs:label "shippingDestination" ;
     rdfs:comment "indicates (possibly multiple) shipping destinations. These can be defined in several ways, e.g. postalCode ranges." ;
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
     :rangeIncludes :DefinedRegion ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingDetails a rdf:Property ;
     rdfs:label "shippingDetails" ;
@@ -9429,17 +9523,22 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:comment "Indicates the origin of a shipment, i.e. where it should be coming from." ;
     rdfs:subPropertyOf cmns-loc:hasLocation ;
     owl:equivalentProperty unece:DespatchLocation ;
-    :domainIncludes :OfferShippingDetails ;
+    :domainIncludes :OfferShippingDetails,
+        :ShippingConditions ;
     :rangeIncludes :DefinedRegion ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3122> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3122>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingRate a rdf:Property ;
     rdfs:label "shippingRate" ;
     rdfs:comment "The shipping rate is the cost of shipping to the specified destination. Typically, the maxValue and currency values (of the [[MonetaryAmount]]) are most appropriate." ;
     :domainIncludes :OfferShippingDetails,
+        :ShippingConditions,
         :ShippingRateSettings ;
-    :rangeIncludes :MonetaryAmount ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :rangeIncludes :MonetaryAmount,
+        :ShippingRateSettings ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :shippingSettingsLink a rdf:Property ;
     rdfs:label "shippingSettingsLink" ;
@@ -10141,9 +10240,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 
   In the context of [[ShippingConditions]], use the [[ServicePeriod]]. It has a duration (as a [[QuantitativeValue]]) and also business days and a cut-off time.
 """ ;
-    :domainIncludes :ShippingDeliveryTime ;
-    :rangeIncludes :QuantitativeValue ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+    :domainIncludes :ShippingConditions,
+        :ShippingDeliveryTime ;
+    :rangeIncludes :QuantitativeValue,
+        :ServicePeriod ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2506>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :transitTimeLabel a rdf:Property ;
     rdfs:label "transitTimeLabel" ;
@@ -10261,6 +10363,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The duration of validity of a permit or similar thing." ;
     :domainIncludes :Permit ;
     :rangeIncludes :Duration .
+
+:validForMemberTier a rdf:Property ;
+    rdfs:label "validForMemberTier" ;
+    :domainIncludes :ShippingService ;
+    :rangeIncludes :MemberProgramTier ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :validFrom a rdf:Property ;
     rdfs:label "validFrom" ;
@@ -10531,8 +10639,18 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :OfferShippingDetails,
         :Person,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
-    :rangeIncludes :QuantitativeValue .
+    :rangeIncludes :Mass,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:weightPercentage a rdf:Property ;
+    rdfs:label "weightPercentage" ;
+    rdfs:comment "Value representing the fraction of the weight that is used to compute the shipping price. Example: 0.10 and a shipping weight of 15kg would add $1.5 to the order price, where the $ is the currency of the order." ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :width a rdf:Property ;
     rdfs:label "width" ;
@@ -10540,9 +10658,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :MediaObject,
         :OfferShippingDetails,
         :Product,
+        :ShippingConditions,
         :VisualArtwork ;
     :rangeIncludes :Distance,
-        :QuantitativeValue .
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :winner a rdf:Property ;
     rdfs:label "winner" ;
@@ -10787,6 +10907,31 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "FrontWheelDriveConfiguration" ;
     rdfs:comment "Front-wheel drive is a transmission layout where the engine drives the front wheels." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
+
+:FulfillmentTypeCollectionPoint a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeCollectionPoint" ;
+    rdfs:comment "Fulfillment to a collection point location." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypeDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeDelivery" ;
+    rdfs:comment "Fulfillment to a customer selected address." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypePickupDropoff a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupDropoff" ;
+    rdfs:comment "Fulfillment through pick-up drop-off locations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypePickupInStore a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypePickupInStore" ;
+    rdfs:comment "Fulfillment through pick-up in a store." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+
+:FulfillmentTypeScheduledDelivery a :FulfillmentTypeEnumeration ;
+    rdfs:label "FulfillmentTypeScheduledDelivery" ;
+    rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :GlutenFreeDiet a :RestrictedDiet ;
     rdfs:label "GlutenFreeDiet" ;
