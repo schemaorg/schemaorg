@@ -375,6 +375,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A type of boarding policy used by an airline." ;
     rdfs:subClassOf :Enumeration .
 
+:BodyMeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "BodyMeasurementTypeEnumeration" ;
+    rdfs:comment "Enumerates types (or dimensions) of a person's body measurements, for example for fitting of clothes." ;
+    rdfs:subClassOf :MeasurementTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :BodyOfWater a rdfs:Class ;
     rdfs:label "BodyOfWater" ;
     rdfs:comment "A body of water, such as a sea, ocean, or lake." ;
@@ -1935,6 +1941,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Properties that take Mass as values are of the form '&lt;Number&gt; &lt;Mass unit of measure&gt;'. E.g., '7 kg'." ;
     rdfs:subClassOf :Quantity .
 
+:MeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "MeasurementTypeEnumeration" ;
+    rdfs:comment "Enumeration of common measurement types (or dimensions), for example \"chest\" for a person, \"inseam\" for pants, \"gauge\" for screws, or \"wheel\" for bicycles." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :MediaGallery a rdfs:Class ;
     rdfs:label "MediaGallery" ;
     rdfs:comment "Web page type: Media gallery page. A mixed-media page that can contain media such as images, videos, and other multimedia." ;
@@ -3127,6 +3139,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A navigation element of the page." ;
     rdfs:subClassOf :WebPageElement .
 
+:SizeGroupEnumeration a rdfs:Class ;
+    rdfs:label "SizeGroupEnumeration" ;
+    rdfs:comment "Enumerates common size groups for various product categories." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSpecification a rdfs:Class ;
+    rdfs:label "SizeSpecification" ;
+    rdfs:comment "Size related properties of a product, typically a size code ([[name]]) and optionally a [[sizeSystem]], [[sizeGroup]], and product measurements ([[hasMeasurement]]). In addition, the intended audience can be defined through [[suggestedAge]], [[suggestedGender]], and suggested body measurements ([[suggestedMeasurement]])." ;
+    rdfs:subClassOf :QualitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSystemEnumeration a rdfs:Class ;
+    rdfs:label "SizeSystemEnumeration" ;
+    rdfs:comment "Enumerates common size systems for different categories of products, for example \"EN-13402\" or \"UK\" for wearables or \"Imperial\" for screws." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :SkiResort a rdfs:Class ;
     rdfs:label "SkiResort" ;
     rdfs:comment "A ski resort." ;
@@ -3683,6 +3713,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "WearAction" ;
     rdfs:comment "The act of dressing oneself in clothing." ;
     rdfs:subClassOf :UseAction .
+
+:WearableMeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "WearableMeasurementTypeEnumeration" ;
+    rdfs:comment "Enumerates common types of measurement for wearables products." ;
+    rdfs:subClassOf :MeasurementTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupEnumeration a rdfs:Class ;
+    rdfs:label "WearableSizeGroupEnumeration" ;
+    rdfs:comment "Enumerates common size groups (also known as \"size types\") for wearable products." ;
+    rdfs:subClassOf :SizeGroupEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEnumeration a rdfs:Class ;
+    rdfs:label "WearableSizeSystemEnumeration" ;
+    rdfs:comment "Enumerates common size systems specific for wearable products." ;
+    rdfs:subClassOf :SizeSystemEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :WebApplication a rdfs:Class ;
     rdfs:label "WebApplication" ;
@@ -6664,6 +6712,16 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Place ;
     :rangeIncludes :Map,
         :URL .
+
+:hasMeasurement a rdf:Property ;
+    rdfs:label "hasMeasurement" ;
+    rdfs:comment "A measurement of an item, For example, the inseam of pants, the wheel size of a bicycle, the gauge of a screw, or the carbon footprint measured for certification by an authority. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings." ;
+    :domainIncludes :Certification,
+        :Offer,
+        :Product,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :hasMemberProgram a rdf:Property ;
     rdfs:label "hasMemberProgram" ;
@@ -10253,8 +10311,25 @@ While such policies are most typically expressed in natural language, sometimes 
         :Product ;
     :rangeIncludes :DefinedTerm,
         :QuantitativeValue,
+        :SizeSpecification,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
+:sizeGroup a rdf:Property ;
+    rdfs:label "sizeGroup" ;
+    rdfs:comment "The size group (also known as \"size type\") for a product's size. Size groups are common in the fashion industry to define size segments and suggested audiences for wearable products. Multiple values can be combined, for example \"men's big and tall\", \"petite maternity\" or \"regular\"." ;
+    :domainIncludes :SizeSpecification ;
+    :rangeIncludes :SizeGroupEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:sizeSystem a rdf:Property ;
+    rdfs:label "sizeSystem" ;
+    rdfs:comment "The size system used to identify a product's size. Typically either a standard (for example, \"GS1\" or \"ISO-EN13402\"), country code (for example \"US\" or \"JP\"), or a measuring system (for example \"Metric\" or \"Imperial\")." ;
+    :domainIncludes :SizeSpecification ;
+    :rangeIncludes :SizeSystemEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :skills a rdf:Property ;
     rdfs:label "skills" ;
@@ -10573,6 +10648,14 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :NutritionInformation ;
     :rangeIncludes :Mass .
 
+:suggestedAge a rdf:Property ;
+    rdfs:label "suggestedAge" ;
+    rdfs:comment "The age or age range for the intended audience or person, for example 3-12 months for infants, 1-5 years for toddlers." ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :suggestedAnswer a rdf:Property ;
     rdfs:label "suggestedAnswer" ;
     rdfs:comment "An answer (possibly one of several, possibly incorrect) to a Question, e.g. on a Question/Answer site." ;
@@ -10583,7 +10666,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :suggestedGender a rdf:Property ;
     rdfs:label "suggestedGender" ;
     rdfs:comment "The suggested gender of the intended person or audience, for example \"male\", \"female\", or \"unisex\"." ;
-    :domainIncludes :PeopleAudience ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
     :rangeIncludes :GenderType,
         :Text .
 
@@ -10592,6 +10676,14 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:comment "Maximum recommended age in years for the audience or user." ;
     :domainIncludes :PeopleAudience ;
     :rangeIncludes :Number .
+
+:suggestedMeasurement a rdf:Property ;
+    rdfs:label "suggestedMeasurement" ;
+    rdfs:comment "A suggested range of body measurements for the intended audience or person, for example inseam between 32 and 34 inches or height between 170 and 190 cm. Typically found on a size chart for wearable products." ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :suggestedMinAge a rdf:Property ;
     rdfs:label "suggestedMinAge" ;
@@ -11137,11 +11229,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :PropertyValue,
         :QualitativeValue,
         :QuantitativeValue ;
-    :rangeIncludes :Enumeration,
+    :rangeIncludes :DefinedTerm,
+        :Enumeration,
+        :MeasurementTypeEnumeration,
         :PropertyValue,
         :QualitativeValue,
         :QuantitativeValue,
-        :StructuredValue .
+        :StructuredValue,
+        :Text .
 
 :valueRequired a rdf:Property ;
     rdfs:label "valueRequired" ;
@@ -11473,6 +11568,71 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :BackOrder a :ItemAvailability ;
     rdfs:label "BackOrder" ;
     rdfs:comment "Indicates that the item is available on back order." .
+
+:BodyMeasurementArm a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementArm" ;
+    rdfs:comment "Arm length (measured between arms/shoulder line intersection and the prominent wrist bone). Used, for example, to fit shirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementBust a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementBust" ;
+    rdfs:comment "Maximum girth of bust. Used, for example, to fit women's suits." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementChest a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementChest" ;
+    rdfs:comment "Maximum girth of chest. Used, for example, to fit men's suits." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementFoot a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementFoot" ;
+    rdfs:comment "Foot length (measured between end of the most prominent toe and the most prominent part of the heel). Used, for example, to measure socks." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHand a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHand" ;
+    rdfs:comment "Maximum hand girth (measured over the knuckles of the open right hand excluding thumb, fingers together). Used, for example, to fit gloves." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHead a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHead" ;
+    rdfs:comment "Maximum girth of head above the ears. Used, for example, to fit hats." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHeight a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHeight" ;
+    rdfs:comment "Body height (measured between crown of head and soles of feet). Used, for example, to fit jackets." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHips a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHips" ;
+    rdfs:comment "Girth of hips (measured around the buttocks). Used, for example, to fit skirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementInsideLeg a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementInsideLeg" ;
+    rdfs:comment "Inside leg (measured between crotch and soles of feet). Used, for example, to fit pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementNeck a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementNeck" ;
+    rdfs:comment "Girth of neck. Used, for example, to fit shirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementUnderbust a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementUnderbust" ;
+    rdfs:comment "Girth of body just below the bust. Used, for example, to fit women's swimwear." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementWaist a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementWaist" ;
+    rdfs:comment "Girth of natural waistline (between hip bones and lower ribs). Used, for example, to fit pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementWeight a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementWeight" ;
+    rdfs:comment "Body weight. Used, for example, to measure pantyhose." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :BroadcastRelease a :MusicAlbumReleaseType ;
     rdfs:label "BroadcastRelease" ;
@@ -12213,6 +12373,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "SingleRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:SizeSystemImperial a :SizeSystemEnumeration ;
+    rdfs:label "SizeSystemImperial" ;
+    rdfs:comment "Imperial size system." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSystemMetric a :SizeSystemEnumeration ;
+    rdfs:label "SizeSystemMetric" ;
+    rdfs:comment "Metric size system." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :SoldOut a :ItemAvailability ;
     rdfs:label "SoldOut" ;
     rdfs:comment "Indicates that the item has sold out." .
@@ -12317,6 +12487,221 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "VinylFormat" ;
     rdfs:comment "VinylFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:WearableMeasurementBack a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementBack" ;
+    rdfs:comment "Measurement of the back section, for example of a jacket." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementChestOrBust a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementChestOrBust" ;
+    rdfs:comment "Measurement of the chest/bust section, for example of a suit." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementCollar a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementCollar" ;
+    rdfs:comment "Measurement of the collar, for example of a shirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementCup a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementCup" ;
+    rdfs:comment "Measurement of the cup, for example of a bra." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementHeight a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementHeight" ;
+    rdfs:comment "Measurement of the height, for example the heel height of a shoe." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementHips a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementHips" ;
+    rdfs:comment "Measurement of the hip section, for example of a skirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementInseam a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementInseam" ;
+    rdfs:comment "Measurement of the inseam, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementLength a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementLength" ;
+    rdfs:comment "Represents the length, for example of a dress." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementOutsideLeg a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementOutsideLeg" ;
+    rdfs:comment "Measurement of the outside leg, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementSleeve a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementSleeve" ;
+    rdfs:comment "Measurement of the sleeve length, for example of a shirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementWaist a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementWaist" ;
+    rdfs:comment "Measurement of the waist section, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementWidth a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementWidth" ;
+    rdfs:comment "Measurement of the width, for example of shoes." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupBig a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupBig" ;
+    rdfs:comment "Size group \"Big\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupBoys a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupBoys" ;
+    rdfs:comment "Size group \"Boys\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupExtraShort a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupExtraShort" ;
+    rdfs:comment "Size group \"Extra Short\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupExtraTall a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupExtraTall" ;
+    rdfs:comment "Size group \"Extra Tall\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupGirls a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupGirls" ;
+    rdfs:comment "Size group \"Girls\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupHusky a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupHusky" ;
+    rdfs:comment "Size group \"Husky\" (or \"Stocky\") for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupInfants a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupInfants" ;
+    rdfs:comment "Size group \"Infants\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupJuniors a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupJuniors" ;
+    rdfs:comment "Size group \"Juniors\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMaternity a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMaternity" ;
+    rdfs:comment "Size group \"Maternity\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMens a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMens" ;
+    rdfs:comment "Size group \"Mens\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMisses a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMisses" ;
+    rdfs:comment "Size group \"Misses\" (also known as \"Missy\") for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupPetite a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupPetite" ;
+    rdfs:comment "Size group \"Petite\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupPlus a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupPlus" ;
+    rdfs:comment "Size group \"Plus\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupRegular a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupRegular" ;
+    rdfs:comment "Size group \"Regular\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupShort a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupShort" ;
+    rdfs:comment "Size group \"Short\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupTall a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupTall" ;
+    rdfs:comment "Size group \"Tall\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupWomens a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupWomens" ;
+    rdfs:comment "Size group \"Womens\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemAU a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemAU" ;
+    rdfs:comment "Australian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemBR a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemBR" ;
+    rdfs:comment "Brazilian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemCN a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemCN" ;
+    rdfs:comment "Chinese size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemContinental a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemContinental" ;
+    rdfs:comment "Continental size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemDE a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemDE" ;
+    rdfs:comment "German size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEN13402 a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemEN13402" ;
+    rdfs:comment "EN 13402 (joint European standard for size labelling of clothes)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEurope a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemEurope" ;
+    rdfs:comment "European size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemFR a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemFR" ;
+    rdfs:comment "French size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemGS1 a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemGS1" ;
+    rdfs:comment "GS1 (formerly NRF) size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemIT a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemIT" ;
+    rdfs:comment "Italian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemJP a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemJP" ;
+    rdfs:comment "Japanese size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemMX a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemMX" ;
+    rdfs:comment "Mexican size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemUK a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemUK" ;
+    rdfs:comment "United Kingdom size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemUS a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemUS" ;
+    rdfs:comment "United States size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :Wednesday a :DayOfWeek ;
     rdfs:label "Wednesday" ;
