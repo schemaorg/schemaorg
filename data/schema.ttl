@@ -20,6 +20,7 @@
 @prefix fibo-fnd-acc-cur: <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/> .
 @prefix fibo-fnd-agr-ctr: <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/> .
 @prefix fibo-fnd-arr-doc: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/> .
+@prefix fibo-fnd-arr-reg: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/> .
 @prefix fibo-fnd-dt-oc: <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/> .
 @prefix fibo-fnd-org-org: <https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/> .
 @prefix fibo-fnd-pas-pas: <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/> .
@@ -592,6 +593,21 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:label "Cemetery" ;
     rdfs:comment "A graveyard." ;
     rdfs:subClassOf :CivicStructure .
+
+:Certification a rdfs:Class ;
+    rdfs:label "Certification" ;
+    rdfs:comment "A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a Person can be a certified professional, a Place can be certified for food processing. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Mapped from the [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary." ;
+    rdfs:subClassOf :CreativeWork,
+        fibo-fnd-arr-doc:Certificate ;
+    owl:equivalentClass unece:SpecifiedCertificate,
+        gs1:CertificationDetails ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:CertificationStatusEnumeration a rdfs:Class ;
+    rdfs:label "CertificationStatusEnumeration" ;
+    rdfs:comment "Enumerates the different statuses of a Certification (Active and Inactive)." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
 :CheckAction a rdfs:Class ;
     rdfs:label "CheckAction" ;
@@ -4508,6 +4524,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :AudioObject,
         :Clip .
 
+:auditDate a rdf:Property ;
+    rdfs:label "auditDate" ;
+    rdfs:comment "Date when a certification was last audited. See also  [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." ;
+    owl:equivalentProperty unece:InspectionDateTime ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :Date,
+        :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
 :authenticator a rdf:Property ;
     rdfs:label "authenticator" ;
     rdfs:comment "The Organization responsible for authenticating the user's subscription. For example, many media apps require a cable/satellite provider to authenticate your subscription before playing media." ;
@@ -5022,6 +5047,30 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :ContactPoint,
         :Organization,
         :Person .
+
+:certificationIdentification a rdf:Property ;
+    rdfs:label "certificationIdentification" ;
+    rdfs:comment "Identifier of a certification instance (as registered with an independent certification body). Typically this identifier can be used to consult and verify the certification instance. See also [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." ;
+    rdfs:subPropertyOf fibo-fnd-arr-reg:hasRegistrationIdentifier ;
+    owl:equivalentProperty unece:CertificateIdentifier ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:certificationRating a rdf:Property ;
+    rdfs:label "certificationRating" ;
+    rdfs:comment "Rating of a certification instance (as defined by an independent certification body). Typically this rating can be used to rate the level to which the requirements of the certification instance are fulfilled. See also [gs1:certificationValue](https://www.gs1.org/voc/certificationValue)." ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :Rating ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:certificationStatus a rdf:Property ;
+    rdfs:label "certificationStatus" ;
+    rdfs:comment "Indicates the current status of a certification: active or inactive. See also  [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus)." ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :CertificationStatusEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
 :character a rdf:Property ;
     rdfs:label "character" ;
@@ -6749,6 +6798,20 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :inverseOf :providesBroadcastService ;
     :rangeIncludes :BroadcastChannel ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> .
+
+:hasCertification a rdf:Property ;
+    rdfs:label "hasCertification" ;
+    rdfs:comment "Certification information about a product, organization, service, place, or person." ;
+    rdfs:subPropertyOf fibo-fnd-arr-doc:isReferencedIn,
+        cmns-cls:isClassifiedBy ;
+    owl:equivalentProperty unece:ApplicableCertificate ;
+    :domainIncludes :Organization,
+        :Person,
+        :Place,
+        :Product,
+        :Service ;
+    :rangeIncludes :Certification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
 :hasCourseInstance a rdf:Property ;
     rdfs:label "hasCourseInstance" ;
@@ -11800,6 +11863,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "CassetteFormat" ;
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:CertificationActive a :CertificationStatusEnumeration ;
+    rdfs:label "CertificationActive" ;
+    rdfs:comment "Specifies that a certification is active." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:CertificationInactive a :CertificationStatusEnumeration ;
+    rdfs:label "CertificationInactive" ;
+    rdfs:comment "Specifies that a certification is inactive (no longer in effect)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
 :CheckInAdvance a :PaymentMethodType ;
     rdfs:label "CheckInAdvance" ;
