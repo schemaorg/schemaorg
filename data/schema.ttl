@@ -1897,6 +1897,18 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Room ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> .
 
+:MemberProgram a rdfs:Class ;
+    rdfs:label "MemberProgram" ;
+    rdfs:comment "A MemberProgram defines a loyalty (or membership) program that provides its members with certain benefits, for example better pricing, free shipping or returns, or the ability to earn loyalty points. Member programs may have multiple tiers, for example silver and gold members, each with different benefits." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:MemberProgramTier a rdfs:Class ;
+    rdfs:label "MemberProgramTier" ;
+    rdfs:comment "A MemberProgramTier specifies a tier under a loyalty (member) program, for example \"gold\"." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
 :MensClothingStore a rdfs:Class ;
     rdfs:label "MensClothingStore" ;
     rdfs:comment "A men's clothing store." ;
@@ -3250,6 +3262,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TieAction" ;
     rdfs:comment "The act of reaching a draw in a competitive activity." ;
     rdfs:subClassOf :AchieveAction .
+
+:TierBenefitEnumeration a rdfs:Class ;
+    rdfs:label "TierBenefitEnumeration" ;
+    rdfs:comment "An enumeration of possible benefits as part of a loyalty (members) program." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :Time a rdfs:Class,
         :DataType ;
@@ -6436,6 +6454,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Map,
         :URL .
 
+:hasMemberProgram a rdf:Property ;
+    rdfs:label "hasMemberProgram" ;
+    rdfs:comment "MemberProgram offered by an Organization, for example an eCommerce merchant or an airline." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
 :hasMenu a rdf:Property ;
     rdfs:label "hasMenu" ;
     rdfs:comment "Either the actual menu as a structured representation, as text, or a URL of the menu." ;
@@ -6511,6 +6536,31 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :OnlineMarketplace ;
     :rangeIncludes :OnlineStore ;
     :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:hasTierBenefit a rdf:Property ;
+    rdfs:label "hasTierBenefit" ;
+    rdfs:comment "A member benefit for a particular tier of a loyalty program." ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :TierBenefitEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:hasTierRequirement a rdf:Property ;
+    rdfs:label "hasTierRequirement" ;
+    rdfs:comment "A requirement for a user to join a membership tier, for example: a CreditCard if the tier requires sign up for a credit card, A UnitPriceSpecification if the user is required to pay a (periodic) fee, or a MonetaryAmount if the user needs to spend a minimum amount to join the tier. If a tier is free to join then this property does not need to be specified." ;
+    :domainIncludes :MemberProgramTier ;
+    :rangeIncludes :CreditCard,
+        :MonetaryAmount,
+        :Text,
+        :UnitPriceSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:hasTiers a rdf:Property ;
+    rdfs:label "hasTiers" ;
+    rdfs:comment "The tiers of a member program." ;
+    :domainIncludes :MemberProgram ;
+    :inverseOf :isTierOf ;
+    :rangeIncludes :MemberProgramTier ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :hasVariant a rdf:Property ;
     rdfs:label "hasVariant" ;
@@ -6898,6 +6948,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :OnlineStore ;
     :rangeIncludes :OnlineMarketplace ;
     :source <https://github.com/schemaorg/schemaorg/issues/4470> .
+
+:isTierOf a rdf:Property ;
+    rdfs:label "isTierOf" ;
+    rdfs:comment "The member program this tier is a part of." ;
+    :domainIncludes :MemberProgramTier ;
+    :inverseOf :hasTiers ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :isUnlabelledFallback a rdf:Property ;
     rdfs:label "isUnlabelledFallback" ;
@@ -7416,7 +7474,8 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Organization,
         :Person ;
     :inverseOf :member ;
-    :rangeIncludes :Organization,
+    :rangeIncludes :MemberProgramTier,
+        :Organization,
         :ProgramMembership .
 
 :members a rdf:Property ;
@@ -7433,6 +7492,10 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "A unique identifier for the membership." ;
     :domainIncludes :ProgramMembership ;
     :rangeIncludes :Text .
+
+:membershipPointsEarned a rdf:Property ;
+    :domainIncludes :MemberProgramTier,
+        :PriceSpecification .
 
 :memoryRequirements a rdf:Property ;
     rdfs:label "memoryRequirements" ;
@@ -8647,6 +8710,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Proficiency needed for this content; expected values: 'Beginner', 'Expert'." ;
     :domainIncludes :TechArticle ;
     :rangeIncludes :Text .
+
+:program a rdf:Property ;
+    rdfs:label "program" ;
+    rdfs:comment "The [MemberProgram](https://schema.org/MemberProgram) associated with a [ProgramMembership](https://schema.org/ProgramMembership)." ;
+    :domainIncludes :ProgramMembership ;
+    :rangeIncludes :MemberProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :programMembershipUsed a rdf:Property ;
     rdfs:label "programMembershipUsed" ;
@@ -10366,9 +10436,15 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 
 :validForMemberTier a rdf:Property ;
     rdfs:label "validForMemberTier" ;
-    :domainIncludes :ShippingService ;
+    rdfs:comment "The membership program tier(s) an Offer (or a PriceSpecification, OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid for." ;
+    :domainIncludes :MerchantReturnPolicy,
+        :Offer,
+        :OfferShippingDetails,
+        :PriceSpecification,
+        :ShippingService ;
     :rangeIncludes :MemberProgramTier ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3617> .
+    :source <https://github.com/schemaorg/schemaorg/issues/3563>,
+        <https://github.com/schemaorg/schemaorg/issues/3617> .
 
 :validFrom a rdf:Property ;
     rdfs:label "validFrom" ;
@@ -11282,6 +11358,26 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Thursday" ;
     rdfs:comment "The day of the week between Wednesday and Friday." ;
     :sameAs <http://www.wikidata.org/entity/Q129> .
+
+:TierBenefitLoyaltyPoints a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPoints" ;
+    rdfs:comment "Benefit of the tier is earning of loyalty points." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyPrice a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyPrice" ;
+    rdfs:comment "Benefit of the tier is a members-only price." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyReturns a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyReturns" ;
+    rdfs:comment "Benefit of the tier is members-only returns, for example free unlimited returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
+
+:TierBenefitLoyaltyShipping a :TierBenefitEnumeration ;
+    rdfs:label "TierBenefitLoyaltyShipping" ;
+    rdfs:comment "Benefit of the tier is a members-only shipping price or speed (for example free shipping or 1-day shipping)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3563> .
 
 :TollFree a :ContactPointOption ;
     rdfs:label "TollFree" ;
