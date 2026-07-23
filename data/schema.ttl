@@ -2498,6 +2498,20 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:subClassOf :Product ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:ProductReturnEnumeration a rdfs:Class ;
+    rdfs:label "ProductReturnEnumeration" ;
+    rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnEnumeration .
+
+:ProductReturnPolicy a rdfs:Class ;
+    rdfs:label "ProductReturnPolicy" ;
+    rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]]." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnPolicy .
+
 :ProfessionalService a rdfs:Class ;
     rdfs:label "ProfessionalService" ;
     rdfs:comment """Original definition: "provider of professional services."\\n\\nThe general [[ProfessionalService]] type for local businesses was deprecated due to confusion with [[Service]]. For reference, the types that it included were: [[Dentist]],
@@ -6391,6 +6405,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :inverseOf :isPartOf ;
     :rangeIncludes :CreativeWork .
 
+:hasProductReturnPolicy a rdf:Property ;
+    rdfs:label "hasProductReturnPolicy" ;
+    rdfs:comment "Indicates a ProductReturnPolicy that may be applicable." ;
+    :domainIncludes :Organization,
+        :Product ;
+    :rangeIncludes :ProductReturnPolicy ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :hasMerchantReturnPolicy .
+
 :headline a rdf:Property ;
     rdfs:label "headline" ;
     rdfs:comment "Headline of the article." ;
@@ -8409,6 +8432,22 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:subPropertyOf :identifier ;
     :domainIncludes :Product ;
     :rangeIncludes :Text .
+
+:productReturnDays a rdf:Property ;
+    rdfs:label "productReturnDays" ;
+    rdfs:comment "The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable." ;
+    :domainIncludes :ProductReturnPolicy ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnDays .
+
+:productReturnLink a rdf:Property ;
+    rdfs:label "productReturnLink" ;
+    rdfs:comment "Indicates a Web page or service by URL, for product return." ;
+    :domainIncludes :ProductReturnPolicy ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :merchantReturnLink .
 
 :productSupported a rdf:Property ;
     rdfs:label "productSupported" ;
@@ -10862,6 +10901,30 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :PreSale a :ItemAvailability ;
     rdfs:label "PreSale" ;
     rdfs:comment "Indicates that the item is available for ordering and delivery before general availability." .
+
+:ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnFiniteReturnWindow" ;
+    rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnFiniteReturnWindow .
+
+:ProductReturnNotPermitted a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnNotPermitted" ;
+    rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnNotPermitted .
+
+:ProductReturnUnlimitedWindow a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnlimitedWindow" ;
+    rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnlimitedWindow .
+
+:ProductReturnUnspecified a :ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnspecified" ;
+    rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    :supersededBy :MerchantReturnUnspecified .
 
 :PublicHolidays a :DayOfWeek ;
     rdfs:label "PublicHolidays" ;
