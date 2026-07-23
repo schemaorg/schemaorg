@@ -1512,6 +1512,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "A golf course." ;
     rdfs:subClassOf :SportsActivityLocation .
 
+:GovernmentBenefitsType a rdfs:Class ;
+    rdfs:label "GovernmentBenefitsType" ;
+    rdfs:comment "GovernmentBenefitsType enumerates several kinds of government benefits to support the COVID-19 situation. Note that this structure may not capture all benefits offered." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :GovernmentBuilding a rdfs:Class ;
     rdfs:label "GovernmentBuilding" ;
     rdfs:comment "A government building." ;
@@ -6833,6 +6839,13 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Place ;
     :rangeIncludes :Text .
 
+:governmentBenefitsInfo a rdf:Property ;
+    rdfs:label "governmentBenefitsInfo" ;
+    rdfs:comment "governmentBenefitsInfo provides information about government benefits associated with a SpecialAnnouncement." ;
+    :domainIncludes :SpecialAnnouncement ;
+    :rangeIncludes :GovernmentService ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :grantee a rdf:Property ;
     rdfs:label "grantee" ;
     rdfs:comment "The person, organization, contact point, or audience that has been granted this permission." ;
@@ -7832,6 +7845,15 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :Person ;
     :rangeIncludes :Text .
 
+:jurisdiction a rdf:Property ;
+    rdfs:label "jurisdiction" ;
+    rdfs:comment "Indicates a legal jurisdiction, e.g. of some legislation, or where some government service is based." ;
+    :domainIncludes :GovernmentService,
+        :Legislation ;
+    :rangeIncludes :AdministrativeArea,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :keywords a rdf:Property ;
     rdfs:label "keywords" ;
     rdfs:comment "Keywords or tags used to describe some item. Multiple textual entries in a keywords list are typically delimited by commas, or by repeating the property." ;
@@ -8061,7 +8083,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationJurisdiction a rdf:Property ;
     rdfs:label "legislationJurisdiction" ;
     rdfs:comment "The jurisdiction from which the legislation originates." ;
-    rdfs:subPropertyOf :spatialCoverage ;
+    rdfs:subPropertyOf :jurisdiction,
+        :spatialCoverage ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#jurisdiction> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#jurisdiction> ;
     :contributor <https://schema.org/docs/collab/ELI> ;
@@ -10759,7 +10782,8 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "serviceType" ;
     rdfs:comment "The type of service being offered, e.g. veterans' benefits, emergency relief, etc." ;
     :domainIncludes :Service ;
-    :rangeIncludes :Text .
+    :rangeIncludes :GovernmentBenefitsType,
+        :Text .
 
 :serviceUrl a rdf:Property ;
     rdfs:label "serviceUrl" ;
@@ -12153,6 +12177,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "BackOrder" ;
     rdfs:comment "Indicates that the item is available on back order." .
 
+:BasicIncome a :GovernmentBenefitsType ;
+    rdfs:label "BasicIncome" ;
+    rdfs:comment "BasicIncome: this is a benefit for basic income." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :BodyMeasurementArm a :BodyMeasurementTypeEnumeration ;
     rdfs:label "BodyMeasurementArm" ;
     rdfs:comment "Arm length (measured between arms/shoulder line intersection and the prominent wrist bone). Used, for example, to fit shirts." ;
@@ -12222,6 +12251,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "BroadcastRelease" ;
     rdfs:comment "BroadcastRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:BusinessSupport a :GovernmentBenefitsType ;
+    rdfs:label "BusinessSupport" ;
+    rdfs:comment "BusinessSupport: this is a benefit for supporting businesses." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :ByBankTransferInAdvance a :PaymentMethodType ;
     rdfs:label "ByBankTransferInAdvance" ;
@@ -12344,6 +12378,11 @@ For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an 
 :DirectDebit a :PaymentMethodType ;
     rdfs:label "DirectDebit" ;
     rdfs:comment "Payment in advance by direct debit from the bank, equivalent to <code>http://purl.org/goodrelations/v1#DirectDebit</code>." .
+
+:DisabilitySupport a :GovernmentBenefitsType ;
+    rdfs:label "DisabilitySupport" ;
+    rdfs:comment "DisabilitySupport: this is a benefit for disability support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :Discontinued a :ItemAvailability ;
     rdfs:label "Discontinued" ;
@@ -12534,6 +12573,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :Hardcover a :BookFormatType ;
     rdfs:label "Hardcover" ;
     rdfs:comment "A durable, archival-quality book featuring a rigid protective shell made of heavy board wrapped in cloth or paper, designed to withstand heavy use and preservation on a shelf." .
+
+:HealthCare a :GovernmentBenefitsType ;
+    rdfs:label "HealthCare" ;
+    rdfs:comment "HealthCare: this is a benefit for health care." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :HearingImpairedSupported a :ContactPointOption ;
     rdfs:label "HearingImpairedSupported" ;
@@ -12987,6 +13031,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "OnSitePickup" ;
     rdfs:comment "A DeliveryMethod in which an item is collected on site, e.g. in a store or at a box office." .
 
+:OneTimePayments a :GovernmentBenefitsType ;
+    rdfs:label "OneTimePayments" ;
+    rdfs:comment "OneTimePayments: this is a benefit for one-time payments for individuals." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :Online a :GameServerStatus ;
     rdfs:label "Online" ;
     rdfs:comment "Game server status: Online. Server is available." .
@@ -13059,6 +13108,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "OutOfStock" ;
     rdfs:comment "Indicates that the item is out of stock." .
 
+:PaidLeave a :GovernmentBenefitsType ;
+    rdfs:label "PaidLeave" ;
+    rdfs:comment "PaidLeave: this is a benefit for paid leave." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :Paperback a :BookFormatType ;
     rdfs:label "Paperback" ;
     rdfs:comment "A flexible, lightweight book bound with a thick paper or cardstock cover and glued spine, prioritizing portability and affordability over long-term durability." .
@@ -13068,6 +13122,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:comment """A private parcel service as the delivery mode available for a certain offer.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
       """ ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
+
+:ParentalSupport a :GovernmentBenefitsType ;
+    rdfs:label "ParentalSupport" ;
+    rdfs:comment "ParentalSupport: this is a benefit for parental support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :ParkingMap a :MapCategoryType ;
     rdfs:label "ParkingMap" ;
@@ -13431,6 +13490,11 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
     rdfs:label "UKTrust" ;
     rdfs:comment "UKTrust: Non-profit type referring to a UK trust." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:UnemploymentSupport a :GovernmentBenefitsType ;
+    rdfs:label "UnemploymentSupport" ;
+    rdfs:comment "UnemploymentSupport: this is a benefit for unemployment support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :UnincorporatedAssociationCharity a :UKNonprofitType ;
     rdfs:label "UnincorporatedAssociationCharity" ;
