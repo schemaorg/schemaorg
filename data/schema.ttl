@@ -5118,6 +5118,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text .
 
+:countryOfAssembly a rdf:Property ;
+    rdfs:label "countryOfAssembly" ;
+    rdfs:comment "The place where the product was assembled." ;
+    owl:equivalentProperty unece:finalAssemblyCountry ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> .
+
+:countryOfLastProcessing a rdf:Property ;
+    rdfs:label "countryOfLastProcessing" ;
+    rdfs:comment "The place where the item (typically [[Product]]) was last processed and tested before importation." ;
+    owl:equivalentProperty unece:ProcessingCountry ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/991> .
+
 :countryOfOrigin a rdf:Property ;
     rdfs:label "countryOfOrigin" ;
     rdfs:comment """The country of origin of something, including products as well as creative  works such as movie and TV content.
