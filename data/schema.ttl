@@ -1339,6 +1339,17 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "The act of capturing sound and moving images on film, video, or digitally." ;
     rdfs:subClassOf :CreateAction .
 
+:FinancialIncentive a rdfs:Class ;
+    rdfs:label "FinancialIncentive" ;
+    rdfs:comment """<p>Represents financial incentives for goods/services offered by an organization (or individual).</p>
+
+<p>Typically contains the [[name]] of the incentive, the [[incentivizedItem]], the [[incentiveAmount]], the [[incentiveStatus]], [[incentiveType]], the [[provider]] of the incentive, and [[eligibleWithSupplier]].</p>
+
+<p>Optionally contains criteria on whether the incentive is limited based on [[purchaseType]], [[purchasePriceLimit]], [[incomeLimit]], and the [[qualifiedExpense]].
+    """ ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :FinancialProduct a rdfs:Class ;
     rdfs:label "FinancialProduct" ;
     rdfs:comment "A product provided to consumers and businesses by financial institutions such as banks, insurance companies, brokerage firms, consumer finance companies, and investment companies which comprise the financial services industry." ;
@@ -1691,6 +1702,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A specific and exact (byte-for-byte) version of an [[ImageObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata (e.g. XMP, EXIF) the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
     rdfs:subClassOf :ImageObject ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:IncentiveQualifiedExpenseType a rdfs:Class ;
+    rdfs:label "IncentiveQualifiedExpenseType" ;
+    rdfs:comment "The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatus a rdfs:Class ;
+    rdfs:label "IncentiveStatus" ;
+    rdfs:comment "Enumerates a status for an incentive, such as whether it is active." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveType a rdfs:Class ;
+    rdfs:label "IncentiveType" ;
+    rdfs:comment "Enumerates common financial incentives for products, including tax credits, tax deductions, rebates and subsidies, etc." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :IndividualProduct a rdfs:Class ;
     rdfs:label "IndividualProduct" ;
@@ -2782,6 +2811,12 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:comment "A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.\\n\\nSee also [blog post](https://blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/)." ;
     rdfs:subClassOf :CreativeWork ;
     :contributor <https://schema.org/docs/collab/bibex> .
+
+:PurchaseType a rdfs:Class ;
+    rdfs:label "PurchaseType" ;
+    rdfs:comment "Enumerates a purchase type for an item." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :QAPage a rdfs:Class ;
     rdfs:label "QAPage" ;
@@ -4361,6 +4396,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :ContactPoint,
         :DeliveryChargeSpecification,
         :Demand,
+        :FinancialIncentive,
         :Offer,
         :Organization,
         :Service ;
@@ -6116,6 +6152,13 @@ This property should not be used where the nature of the alignment can be descri
         :PriceSpecification ;
     :rangeIncludes :PriceSpecification .
 
+:eligibleWithSupplier a rdf:Property ;
+    rdfs:label "eligibleWithSupplier" ;
+    rdfs:comment "The supplier of the incentivized item/service for which the incentive is valid for such as a utility company, merchant, or contractor." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :email a rdf:Property ;
     rdfs:label "email" ;
     rdfs:comment "Email address." ;
@@ -7187,11 +7230,97 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
+:incentiveAmount a rdf:Property ;
+    rdfs:label "incentiveAmount" ;
+    rdfs:comment """Describes the amount that can be redeemed from this incentive.
+    
+<p>[[QuantitativeValue]]: Use this for incentives based on price (either raw amount or percentage-based). For a raw amount example, "You can claim $2,500 - $7,500 from the total cost of installation" would be represented as the following:</p>
+    {
+        "@type": "QuantitativeValue",
+        “minValue”: 2500,
+        “maxValue”: 7500,
+        "unitCode": "USD"
+    }
+<p>[[QuantitativeValue]] can also be used for percentage amounts. In such cases, value is used to represent the incentive’s percentage, while maxValue represents a limit (if one exists) to that incentive. The unitCode should be 'P1' and the unitText should be '%', while valueReference should be used for holding the currency type. For example, "You can claim up to 30% of the total cost of installation, up to a maximum of $7,500" would be:</p>
+    {
+        "@type": "QuantitativeValue",
+        "value": 30,
+        "unitCode": "P1",
+        "unitText": "%",
+        “maxValue”: 7500,
+        “valueReference”: “USD”
+    }
+<p>[[UnitPriceSpecification]]: Use this for incentives that are based on amounts rather than price. For example, a net metering rebate that pays $10/kWh, up to $1,000:</p>
+    {
+        "@type": "UnitPriceSpecification",
+        "price": 10,
+        "priceCurrency": "USD",
+        "referenceQuantity": 1,
+        "unitCode": "DO3",
+        "unitText": "kw/h",
+        "maxPrice": 1000,
+        "description": "$10 / kwh up to $1000"
+    }
+<p>[[LoanOrCredit]]: Use for incentives that are loan based. For example, a loan of $4,000 - $50,000 with a repayment term of 10 years, interest free would look like:</p>
+    {
+        "@type": "LoanOrCredit",
+        "loanTerm": {
+                "@type":"QuantitativeValue",
+                "value":"10",
+                "unitCode": "ANN"
+            },
+        "amount":[
+            {
+                "@type": "QuantitativeValue",
+                "Name":"fixed interest rate",
+                "value":"0",
+            },
+        ],
+        "amount":[
+            {
+                "@type": "MonetaryAmount",
+                "Name":"min loan amount",
+                "value":"4000",
+                "currency":"CAD"
+            },
+            {
+                "@type": "MonetaryAmount",
+                "Name":"max loan amount",
+                "value":"50000",
+                "currency":"CAD"
+            }
+        ],
+    }
+
+In summary: <ul><li>Use [[QuantitativeValue]] for absolute/percentage-based incentives applied on the price of a good/service.</li>
+<li>Use [[UnitPriceSpecification]] for incentives based on a per-unit basis (e.g. net metering).</li>
+<li>Use [[LoanOrCredit]] for loans/credits.</li>
+</ul>.""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :LoanOrCredit,
+        :QuantitativeValue,
+        :UnitPriceSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
     rdfs:comment "Description of bonus and commission compensation aspects of the job." ;
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text .
+
+:incentiveStatus a rdf:Property ;
+    rdfs:label "incentiveStatus" ;
+    rdfs:comment "The status of the incentive (active, on hold, retired, etc.)." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveStatus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:incentiveType a rdf:Property ;
+    rdfs:label "incentiveType" ;
+    rdfs:comment "The type of incentive offered (tax credit/rebate, tax deduction, tax waiver, subsidies, etc.)." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :incentives a rdf:Property ;
     rdfs:label "incentives" ;
@@ -7199,6 +7328,28 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text ;
     :supersededBy :incentiveCompensation .
+
+:incentivizedItem a rdf:Property ;
+    rdfs:label "incentivizedItem" ;
+    rdfs:comment """The type or specific product(s) and/or service(s) being incentivized.
+<p>DefinedTermSets are used for product and service categories such as the United Nations Standard Products and Services Code:</p>
+    {
+        "@type": "DefinedTerm",
+        "inDefinedTermSet": "https://www.unspsc.org/",
+        "termCode": "261315XX",
+        "name": "Photovoltaic module"
+    }
+
+<p>For a specific product or service, use the Product type:</p>
+    {
+        "@type": "Product",
+        "name": "Kenmore White 17" Microwave",
+    }
+For multiple different incentivized items, use multiple [[DefinedTerm]] or [[Product]].""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :DefinedTerm,
+        :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :includedComposition a rdf:Property ;
     rdfs:label "includedComposition" ;
@@ -7227,6 +7378,23 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Demand,
         :Offer ;
     :rangeIncludes :TypeAndQuantityNode .
+
+:incomeLimit a rdf:Property ;
+    rdfs:label "incomeLimit" ;
+    rdfs:comment """Optional. Income limit for which the incentive is applicable for.
+    
+<p>If MonetaryAmount is specified, this should be based on annualized income (e.g. if an incentive is limited to those making <$114,000 annually):</p>
+    {
+        "@type": "MonetaryAmount",
+        "maxValue": 114000,
+        "currency": "USD",
+    }
+
+Use Text for incentives that are limited based on other criteria, for example if an incentive is only available to recipients making 120% of the median poverty income in their area.""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :industry a rdf:Property ;
     rdfs:label "industry" ;
@@ -9575,6 +9743,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." ;
     owl:equivalentProperty unece:ServiceProvider ;
     :domainIncludes :CreativeWork,
+        :FinancialIncentive,
         :Invoice,
         :ParcelDelivery,
         :Reservation,
@@ -9649,6 +9818,20 @@ While such policies are most typically expressed in natural language, sometimes 
         :Vehicle ;
     :rangeIncludes :Date .
 
+:purchasePriceLimit a rdf:Property ;
+    rdfs:label "purchasePriceLimit" ;
+    rdfs:comment "Optional. The maximum price the item can have and still qualify for this offer." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:purchaseType a rdf:Property ;
+    rdfs:label "purchaseType" ;
+    rdfs:comment "Optional. The type of purchase the consumer must make in order to qualify for this incentive." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :PurchaseType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :qualifications a rdf:Property ;
     rdfs:label "qualifications" ;
     rdfs:comment "Specific qualifications required for this role or Occupation." ;
@@ -9656,6 +9839,13 @@ While such policies are most typically expressed in natural language, sometimes 
         :Occupation ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+
+:qualifiedExpense a rdf:Property ;
+    rdfs:label "qualifiedExpense" ;
+    rdfs:comment "Optional. The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveQualifiedExpenseType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :query a rdf:Property ;
     rdfs:label "query" ;
@@ -11376,6 +11566,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     owl:equivalentProperty cmns-dt:hasStartDate ;
     :domainIncludes :Certification,
         :Demand,
+        :FinancialIncentive,
         :LocationFeatureSpecification,
         :MonetaryAmount,
         :Offer,
@@ -11397,6 +11588,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours." ;
     owl:equivalentProperty cmns-dt:hasEndDate ;
     :domainIncludes :Demand,
+        :FinancialIncentive,
         :JobPosting,
         :LocationFeatureSpecification,
         :MonetaryAmount,
@@ -12204,6 +12396,71 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "InStorePrepay" ;
     rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
 
+:IncentiveQualifiedExpenseTypeGoodsOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOnly" ;
+    rdfs:comment "This incentive applies to goods only." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeGoodsOrServices a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOrServices" ;
+    rdfs:comment "This incentive can apply to either goods or services (or both)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeServicesOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeServicesOnly" ;
+    rdfs:comment "This incentive applies to services only." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeUtilityBill a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeUtilityBill" ;
+    rdfs:comment "This incentive applies to utility bills." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusActive a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusActive" ;
+    rdfs:comment "This incentive is currently active." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusInDevelopment a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusInDevelopment" ;
+    rdfs:comment "This incentive is currently being developed, and may become active/retired in the future." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusOnHold a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusOnHold" ;
+    rdfs:comment "This incentive is currently active, but may not be accepting new applicants (e.g. max number of redemptions reached for a year)" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusRetired a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusRetired" ;
+    rdfs:comment "This incentive is not longer available." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeLoan a :IncentiveType ;
+    rdfs:label "IncentiveTypeLoan" ;
+    rdfs:comment "An incentive where the recipient can receive additional funding for the purchase/lease of the good/service, which must be paid back." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeRebateOrSubsidy a :IncentiveType ;
+    rdfs:label "IncentiveTypeRebateOrSubsidy" ;
+    rdfs:comment "An incentive that reduces the purchase/lease cost of the good/service in question." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxCredit a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxCredit" ;
+    rdfs:comment "An incentive that directly reduces the amount of tax owed by the recipient." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxDeduction a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxDeduction" ;
+    rdfs:comment "An incentive that reduces the recipient's amount of taxable income." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxWaiver a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxWaiver" ;
+    rdfs:comment "An incentive that reduces/exempts the recipient from taxation applicable to the incentivized good/service (e.g. luxury taxes, registration taxes, circulation tax)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :InvoicePrice a :PriceTypeEnumeration ;
     rdfs:label "InvoicePrice" ;
     rdfs:comment "Represents the invoice price of an offered product." ;
@@ -12721,6 +12978,26 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "PublicHolidays" ;
     rdfs:comment "This stands for any day that is a public holiday; it is a placeholder for all official public holidays in some particular location. While not technically a \"day of the week\", it can be used with [[OpeningHoursSpecification]]. In the context of an opening hours specification it can be used to indicate opening hours on public holidays, overriding general opening hours for the day of the week on which a public holiday occurs." ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
+
+:PurchaseTypeLease a :PurchaseType ;
+    rdfs:label "PurchaseTypeLease" ;
+    rdfs:comment "This is a lease of an item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeNewPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeNewPurchase" ;
+    rdfs:comment "This is a purchase of a new item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeTradeIn a :PurchaseType ;
+    rdfs:label "PurchaseTypeTradeIn" ;
+    rdfs:comment "This is a trade-in for an item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeUsedPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeUsedPurchase" ;
+    rdfs:comment "This is a purchase of a used item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :ReadPermission a :DigitalDocumentPermissionType ;
     rdfs:label "ReadPermission" ;
