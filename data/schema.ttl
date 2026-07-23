@@ -2253,6 +2253,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Organization ;
     owl:equivalentClass fibo-be-nfp-nfp:NonGovernmentalOrganization .
 
+:NLNonprofitType a rdfs:Class ;
+    rdfs:label "NLNonprofitType" ;
+    rdfs:comment "NLNonprofitType: Non-profit organization type originating from the Netherlands." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :NailSalon a rdfs:Class ;
     rdfs:label "NailSalon" ;
     rdfs:comment "A nail salon." ;
@@ -2272,6 +2278,12 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     rdfs:label "NightClub" ;
     rdfs:comment "A nightclub or discotheque." ;
     rdfs:subClassOf :EntertainmentBusiness .
+
+:NonprofitType a rdfs:Class ;
+    rdfs:label "NonprofitType" ;
+    rdfs:comment "NonprofitType enumerates several kinds of official non-profit types of which a non-profit organization can be." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :Notary a rdfs:Class ;
     rdfs:label "Notary" ;
@@ -3554,10 +3566,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :StructuredValue ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:UKNonprofitType a rdfs:Class ;
+    rdfs:label "UKNonprofitType" ;
+    rdfs:comment "UKNonprofitType: Non-profit organization type originating from the United Kingdom." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :URL a rdfs:Class ;
     rdfs:label "URL" ;
     rdfs:comment "Data type: URL." ;
     rdfs:subClassOf :Text .
+
+:USNonprofitType a rdfs:Class ;
+    rdfs:label "USNonprofitType" ;
+    rdfs:comment "USNonprofitType: Non-profit organization type originating from the United States." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :UnRegisterAction a rdfs:Class ;
     rdfs:label "UnRegisterAction" ;
@@ -8460,6 +8484,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :QualitativeValue ;
     :rangeIncludes :QualitativeValue .
 
+:nonprofitStatus a rdf:Property ;
+    rdfs:label "nonprofitStatus" ;
+    rdfs:comment "nonprofitStatus indicates the legal status of a non-profit organization in its primary place of business." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :numAdults a rdf:Property ;
     rdfs:label "numAdults" ;
     rdfs:comment "The number of adults staying in the unit." ;
@@ -11874,6 +11905,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Specifies that a certification is inactive (no longer in effect)." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
+:CharitableIncorporatedOrganization a :UKNonprofitType ;
+    rdfs:label "CharitableIncorporatedOrganization" ;
+    rdfs:comment "CharitableIncorporatedOrganization: Non-profit type referring to a Charitable Incorporated Organization (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :CheckInAdvance a :PaymentMethodType ;
     rdfs:label "CheckInAdvance" ;
     rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
@@ -12208,6 +12244,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "LimitedAvailability" ;
     rdfs:comment "Indicates that the item has limited availability." .
 
+:LimitedByGuaranteeCharity a :UKNonprofitType ;
+    rdfs:label "LimitedByGuaranteeCharity" ;
+    rdfs:comment "LimitedByGuaranteeCharity: Non-profit type referring to a charitable company that is limited by guarantee (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :ListPrice a :PriceTypeEnumeration ;
     rdfs:label "ListPrice" ;
     rdfs:comment "Represents the list price of an offered product. Typically the same as the [MSRP](https://schema.org/MSRP)." ;
@@ -12298,6 +12339,196 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :NewCondition a :OfferItemCondition ;
     rdfs:label "NewCondition" ;
     rdfs:comment "Indicates that the item is new." .
+
+:Nonprofit501a a :USNonprofitType ;
+    rdfs:label "Nonprofit501a" ;
+    rdfs:comment "Nonprofit501a: Non-profit type referring to Farmers’ Cooperative Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c1 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c1" ;
+    rdfs:comment "Nonprofit501c1: Non-profit type referring to Corporations Organized Under Act of Congress, including Federal Credit Unions and National Farm Loan Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c10 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c10" ;
+    rdfs:comment "Nonprofit501c10: Non-profit type referring to Domestic Fraternal Societies and Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c11 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c11" ;
+    rdfs:comment "Nonprofit501c11: Non-profit type referring to Teachers' Retirement Fund Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c12 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c12" ;
+    rdfs:comment "Nonprofit501c12: Non-profit type referring to Benevolent Life Insurance Associations, Mutual Ditch or Irrigation Companies, Mutual or Cooperative Telephone Companies." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c13 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c13" ;
+    rdfs:comment "Nonprofit501c13: Non-profit type referring to Cemetery Companies." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c14 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c14" ;
+    rdfs:comment "Nonprofit501c14: Non-profit type referring to State-Chartered Credit Unions, Mutual Reserve Funds." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c15 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c15" ;
+    rdfs:comment "Nonprofit501c15: Non-profit type referring to Mutual Insurance Companies or Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c16 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c16" ;
+    rdfs:comment "Nonprofit501c16: Non-profit type referring to Cooperative Organizations to Finance Crop Operations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c17 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c17" ;
+    rdfs:comment "Nonprofit501c17: Non-profit type referring to Supplemental Unemployment Benefit Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c18 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c18" ;
+    rdfs:comment "Nonprofit501c18: Non-profit type referring to Employee Funded Pension Trust (created before 25 June 1959)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c19 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c19" ;
+    rdfs:comment "Nonprofit501c19: Non-profit type referring to Post or Organization of Past or Present Members of the Armed Forces." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c2 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c2" ;
+    rdfs:comment "Nonprofit501c2: Non-profit type referring to Title-holding Corporations for Exempt Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c20 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c20" ;
+    rdfs:comment "Nonprofit501c20: Non-profit type referring to Group Legal Services Plan Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c21 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c21" ;
+    rdfs:comment "Nonprofit501c21: Non-profit type referring to Black Lung Benefit Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c22 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c22" ;
+    rdfs:comment "Nonprofit501c22: Non-profit type referring to Withdrawal Liability Payment Funds." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c23 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c23" ;
+    rdfs:comment "Nonprofit501c23: Non-profit type referring to Veterans Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c24 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c24" ;
+    rdfs:comment "Nonprofit501c24: Non-profit type referring to Section 4049 ERISA Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c25 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c25" ;
+    rdfs:comment "Nonprofit501c25: Non-profit type referring to Real Property Title-Holding Corporations or Trusts with Multiple Parents." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c26 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c26" ;
+    rdfs:comment "Nonprofit501c26: Non-profit type referring to State-Sponsored Organizations Providing Health Coverage for High-Risk Individuals." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c27 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c27" ;
+    rdfs:comment "Nonprofit501c27: Non-profit type referring to State-Sponsored Workers' Compensation Reinsurance Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c28 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c28" ;
+    rdfs:comment "Nonprofit501c28: Non-profit type referring to National Railroad Retirement Investment Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c3 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c3" ;
+    rdfs:comment "Nonprofit501c3: Non-profit type referring to Religious, Educational, Charitable, Scientific, Literary, Testing for Public Safety, Fostering National or International Amateur Sports Competition, or Prevention of Cruelty to Children or Animals Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c4 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c4" ;
+    rdfs:comment "Nonprofit501c4: Non-profit type referring to Civic Leagues, Social Welfare Organizations, and Local Associations of Employees." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c5 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c5" ;
+    rdfs:comment "Nonprofit501c5: Non-profit type referring to Labor, Agricultural and Horticultural Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c6 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c6" ;
+    rdfs:comment "Nonprofit501c6: Non-profit type referring to Business Leagues, Chambers of Commerce, Real Estate Boards." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c7 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c7" ;
+    rdfs:comment "Nonprofit501c7: Non-profit type referring to Social and Recreational Clubs." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c8 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c8" ;
+    rdfs:comment "Nonprofit501c8: Non-profit type referring to Fraternal Beneficiary Societies and Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c9 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c9" ;
+    rdfs:comment "Nonprofit501c9: Non-profit type referring to Voluntary Employee Beneficiary Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501d a :USNonprofitType ;
+    rdfs:label "Nonprofit501d" ;
+    rdfs:comment "Nonprofit501d: Non-profit type referring to Religious and Apostolic Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501e a :USNonprofitType ;
+    rdfs:label "Nonprofit501e" ;
+    rdfs:comment "Nonprofit501e: Non-profit type referring to Cooperative Hospital Service Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501f a :USNonprofitType ;
+    rdfs:label "Nonprofit501f" ;
+    rdfs:comment "Nonprofit501f: Non-profit type referring to Cooperative Service Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501k a :USNonprofitType ;
+    rdfs:label "Nonprofit501k" ;
+    rdfs:comment "Nonprofit501k: Non-profit type referring to Child Care Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501n a :USNonprofitType ;
+    rdfs:label "Nonprofit501n" ;
+    rdfs:comment "Nonprofit501n: Non-profit type referring to Charitable Risk Pools." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501q a :USNonprofitType ;
+    rdfs:label "Nonprofit501q" ;
+    rdfs:comment "Nonprofit501q: Non-profit type referring to Credit Counseling Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit527 a :USNonprofitType ;
+    rdfs:label "Nonprofit527" ;
+    rdfs:comment "Nonprofit527: Non-profit type referring to political organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:NonprofitANBI a :NLNonprofitType ;
+    rdfs:label "NonprofitANBI" ;
+    rdfs:comment "NonprofitANBI: Non-profit type referring to a Public Benefit Organization (NL)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:NonprofitSBBI a :NLNonprofitType ;
+    rdfs:label "NonprofitSBBI" ;
+    rdfs:comment "NonprofitSBBI: Non-profit type referring to a Social Interest Promoting Institution (NL)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
@@ -12751,6 +12982,16 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
     rdfs:label "Tuesday" ;
     rdfs:comment "The day of the week between Monday and Wednesday." ;
     :sameAs <http://www.wikidata.org/entity/Q127> .
+
+:UKTrust a :UKNonprofitType ;
+    rdfs:label "UKTrust" ;
+    rdfs:comment "UKTrust: Non-profit type referring to a UK trust." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:UnincorporatedAssociationCharity a :UKNonprofitType ;
+    rdfs:label "UnincorporatedAssociationCharity" ;
+    rdfs:comment "UnincorporatedAssociationCharity: Non-profit type referring to a charitable company that is not incorporated (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
