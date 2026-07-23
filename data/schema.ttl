@@ -2342,6 +2342,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3537> .
 
+:PaymentMethodType a rdfs:Class ;
+    rdfs:label "PaymentMethodType" ;
+    rdfs:comment "The type of payment method, only for generic payment types, specific forms of payments, like card payment should be expressed using subclasses of PaymentMethod." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> .
+
 :PaymentService a rdfs:Class ;
     rdfs:label "PaymentService" ;
     rdfs:comment "A Service to transfer funds from a person or organization to a beneficiary person or organization." ;
@@ -8292,6 +8298,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Order ;
     :rangeIncludes :Text .
 
+:paymentMethodType a rdf:Property ;
+    rdfs:label "paymentMethodType" ;
+    rdfs:comment "The type of a payment method." ;
+    :domainIncludes :PaymentMethod ;
+    :rangeIncludes :PaymentMethodType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3537> .
+
 :paymentStatus a rdf:Property ;
     rdfs:label "paymentStatus" ;
     rdfs:comment "The status of payment; whether the invoice has been paid or not." ;
@@ -10880,15 +10893,35 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "BroadcastRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:ByBankTransferInAdvance a :PaymentMethodType ;
+    rdfs:label "ByBankTransferInAdvance" ;
+    rdfs:comment "Payment in advance by bank transfer, equivalent to <code>http://purl.org/goodrelations/v1#ByBankTransferInAdvance</code>." .
+
+:ByInvoice a :PaymentMethodType ;
+    rdfs:label "ByInvoice" ;
+    rdfs:comment "Payment by invoice, typically after the goods were delivered, equivalent to <code>http://purl.org/goodrelations/v1#ByInvoice</code>." .
+
 :CDFormat a :MusicReleaseFormatType ;
     rdfs:label "CDFormat" ;
     rdfs:comment "CDFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:COD a :PaymentMethodType ;
+    rdfs:label "COD" ;
+    rdfs:comment "Cash on Delivery (COD) payment, equivalent to <code>http://purl.org/goodrelations/v1#COD</code>." .
+
+:Cash a :PaymentMethodType ;
+    rdfs:label "Cash" ;
+    rdfs:comment "Payment using cash, on premises, equivalent to <code>http://purl.org/goodrelations/v1#Cash</code>." .
+
 :CassetteFormat a :MusicReleaseFormatType ;
     rdfs:label "CassetteFormat" ;
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:CheckInAdvance a :PaymentMethodType ;
+    rdfs:label "CheckInAdvance" ;
+    rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
 
 :CoOp a :GamePlayMode ;
     rdfs:label "CoOp" ;
@@ -10939,6 +10972,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "DigitalFormat" ;
     rdfs:comment "DigitalFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:DirectDebit a :PaymentMethodType ;
+    rdfs:label "DirectDebit" ;
+    rdfs:comment "Payment in advance by direct debit from the bank, equivalent to <code>http://purl.org/goodrelations/v1#DirectDebit</code>." .
 
 :Discontinued a :ItemAvailability ;
     rdfs:label "Discontinued" ;
@@ -11056,6 +11093,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :InStoreOnly a :ItemAvailability ;
     rdfs:label "InStoreOnly" ;
     rdfs:comment "Indicates that the item is available only at physical locations." .
+
+:InStorePrepay a :PaymentMethodType ;
+    rdfs:label "InStorePrepay" ;
+    rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
 
 :ItemListOrderAscending a :ItemListOrderType ;
     rdfs:label "ItemListOrderAscending" ;
@@ -11231,6 +11272,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :PaymentPastDue a :PaymentStatusType ;
     rdfs:label "PaymentPastDue" ;
     rdfs:comment "The payment is due and considered late." .
+
+:PhoneCarrierPayment a :PaymentMethodType ;
+    rdfs:label "PhoneCarrierPayment" ;
+    rdfs:comment "Payment by billing via the phone carrier." .
 
 :PotentialActionStatus a :ActionStatusType ;
     rdfs:label "PotentialActionStatus" ;
