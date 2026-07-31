@@ -1,0 +1,66 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DigitalProductPassport a rdfs:Class ;
+    rdfs:label "DigitalProductPassport" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "A digital product passport (DPP), a record containing information about a product's lifecycle, sustainability, and compliance." ;
+    rdfs:subClassOf :CreativeWork .
+
+:hasDigitalProductPassport a rdf:Property ;
+    rdfs:label "hasDigitalProductPassport" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "A link to a Digital Product Passport (DPP) or a digital record detailing the lifecycle, sustainability, and compliance data for this product. This may be a direct URL, a resolver URL (such as a GS1 Digital Link), or a nested DigitalProductPassport object." ;
+    :domainIncludes :Product ;
+    :rangeIncludes :URL, :DigitalProductPassport .
+
+:importer a rdf:Property ;
+    rdfs:label "importer" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "An organization or person who imports the product into a specific market or region." ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Organization, :Person .
+
+:authorizedRepresentative a rdf:Property ;
+    rdfs:label "authorizedRepresentative" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "An organization or person officially appointed to act on behalf of the manufacturer in a specific region or context." ;
+    :domainIncludes :Product, :Organization ;
+    :rangeIncludes :Organization, :Person .
+
+:EnvironmentalProductDeclaration a rdfs:Class ;
+    rdfs:label "EnvironmentalProductDeclaration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "An Environmental Product Declaration (EPD) that quantifies environmental information on the life cycle of a product." ;
+    rdfs:subClassOf :Certification .
+
+:DeclarationOfConformity a rdfs:Class ;
+    rdfs:label "DeclarationOfConformity" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "A Declaration of Conformity (DoC), a formal document issued by a manufacturer declaring that a product meets specific regulatory requirements." ;
+    rdfs:subClassOf :Certification .
+
+:recycledContentPercentage a rdf:Property ;
+    rdfs:label "recycledContentPercentage" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "The percentage of recycled material in the product." ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Number .
+
+:substanceOfConcern a rdf:Property ;
+    rdfs:label "substanceOfConcern" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
+    rdfs:comment "A substance of concern (SoC) contained within the product, typically based on regulatory lists like REACH or RoHS." ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Boolean, :Text, :URL, :ChemicalSubstance .
