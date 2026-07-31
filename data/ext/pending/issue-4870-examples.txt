@@ -1,7 +1,7 @@
-TYPES: Product, DigitalProductPassport, EnvironmentalProductDeclaration, DeclarationOfConformity
+TYPES: Product, DigitalProductPassport, EnvironmentalProductDeclaration, DeclarationOfConformity, Offer
 
 PRE-MARKUP:
-Example of a Product linking to a Digital Product Passport (via a GS1 Digital Link), an importer, authorized representative, recycled content, substances of concern, and compliance declarations.
+Example 1 (Merchant Site): A standard e-commerce product page that simply links out to the product's Digital Product Passport using a GS1 Digital Link resolver.
 
 MICRODATA:
 <!-- Microdata example omitted for brevity -->
@@ -15,13 +15,38 @@ JSON-LD:
   "@type": "Product",
   "name": "Eco-Friendly Widget",
   "gtin14": "01234567890128",
+  "offers": {
+    "@type": "Offer",
+    "price": "19.99",
+    "priceCurrency": "EUR"
+  },
+  "hasDigitalProductPassport": "https://id.gs1.org/01/01234567890128?linkType=dpp"
+}
+
+---
+
+PRE-MARKUP:
+Example 2 (DPP Page): The actual Digital Product Passport page itself, which provides the full compliance data, importer information, substances of concern, and compliance declarations.
+
+MICRODATA:
+<!-- Microdata example omitted for brevity -->
+
+RDFa:
+<!-- RDFa example omitted for brevity -->
+
+JSON-LD:
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Eco-Friendly Widget",
+  "gtin14": "01234567890128",
+  "hasDigitalProductPassport": "https://id.gs1.org/01/01234567890128?linkType=dpp",
   "recycledContentPercentage": 45.5,
   "substanceOfConcern": {
     "@type": "ChemicalSubstance",
     "name": "Lead",
     "identifier": "https://echa.europa.eu/substance-information/-/substanceinfo/100.028.273"
   },
-  "hasDigitalProductPassport": "https://id.gs1.org/01/01234567890128?linkType=dpp",
   "importer": {
     "@type": "Organization",
     "name": "Widget Imports EU"
