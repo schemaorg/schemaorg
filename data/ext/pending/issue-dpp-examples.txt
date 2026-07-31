@@ -1,0 +1,45 @@
+TYPES: Product, DigitalProductPassport, EnvironmentalProductDeclaration, DeclarationOfConformity
+
+PRE-MARKUP:
+Example of a Product linking to a Digital Product Passport (via a GS1 Digital Link), an importer, authorized representative, recycled content, substances of concern, and compliance declarations.
+
+MICRODATA:
+<!-- Microdata example omitted for brevity -->
+
+RDFa:
+<!-- RDFa example omitted for brevity -->
+
+JSON-LD:
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Eco-Friendly Widget",
+  "gtin14": "01234567890128",
+  "recycledContentPercentage": 45.5,
+  "substanceOfConcern": {
+    "@type": "ChemicalSubstance",
+    "name": "Lead",
+    "identifier": "https://echa.europa.eu/substance-information/-/substanceinfo/100.028.273"
+  },
+  "hasDigitalProductPassport": "https://id.gs1.org/01/01234567890128?linkType=dpp",
+  "importer": {
+    "@type": "Organization",
+    "name": "Widget Imports EU"
+  },
+  "authorizedRepresentative": {
+    "@type": "Organization",
+    "name": "EU Compliance Partners"
+  },
+  "subjectOf": [
+    {
+      "@type": "EnvironmentalProductDeclaration",
+      "name": "EPD for Eco-Friendly Widget",
+      "url": "https://example.com/epd.pdf"
+    },
+    {
+      "@type": "DeclarationOfConformity",
+      "name": "CE Declaration of Conformity",
+      "url": "https://example.com/doc.pdf"
+    }
+  ]
+}
