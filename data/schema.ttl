@@ -10,6 +10,7 @@
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix dst: <http://cv.iptc.org/newscodes/digitalsourcetype/> .
 @prefix fibo-be-corp-corp: <https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/> .
 @prefix fibo-be-le-cb: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/> .
 @prefix fibo-be-le-lp: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
@@ -20,6 +21,7 @@
 @prefix fibo-fnd-acc-cur: <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/> .
 @prefix fibo-fnd-agr-ctr: <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/> .
 @prefix fibo-fnd-arr-doc: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/> .
+@prefix fibo-fnd-arr-reg: <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/> .
 @prefix fibo-fnd-dt-oc: <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/> .
 @prefix fibo-fnd-org-org: <https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/> .
 @prefix fibo-fnd-pas-pas: <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/> .
@@ -246,6 +248,12 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:subClassOf :MediaObject ;
     :contributor <https://schema.org/docs/collab/rNews> .
 
+:AudioObjectSnapshot a rdfs:Class ;
+    rdfs:label "AudioObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of an [[AudioObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :AudioObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :AuthorizeAction a rdfs:Class ;
     rdfs:label "AuthorizeAction" ;
     rdfs:comment "The act of granting permission to an object." ;
@@ -374,6 +382,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "BoardingPolicyType" ;
     rdfs:comment "A type of boarding policy used by an airline." ;
     rdfs:subClassOf :Enumeration .
+
+:BodyMeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "BodyMeasurementTypeEnumeration" ;
+    rdfs:comment "Enumerates types (or dimensions) of a person's body measurements, for example for fitting of clothes." ;
+    rdfs:subClassOf :MeasurementTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :BodyOfWater a rdfs:Class ;
     rdfs:label "BodyOfWater" ;
@@ -581,6 +595,21 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "A graveyard." ;
     rdfs:subClassOf :CivicStructure .
 
+:Certification a rdfs:Class ;
+    rdfs:label "Certification" ;
+    rdfs:comment "A Certification is an official and authoritative statement about a subject, for example a product, service, person, or organization. A certification is typically issued by an indendent certification body, for example a professional organization or government. It formally attests certain characteristics about the subject, for example Organizations can be ISO certified, Food products can be certified Organic or Vegan, a Person can be a certified professional, a Place can be certified for food processing. There are certifications for many domains: regulatory, organizational, recycling, food, efficiency, educational, ecological, etc. A certification is a form of credential, as are accreditations and licenses. Mapped from the [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary." ;
+    rdfs:subClassOf :CreativeWork,
+        fibo-fnd-arr-doc:Certificate ;
+    owl:equivalentClass unece:SpecifiedCertificate,
+        gs1:CertificationDetails ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:CertificationStatusEnumeration a rdfs:Class ;
+    rdfs:label "CertificationStatusEnumeration" ;
+    rdfs:comment "Enumerates the different statuses of a Certification (Active and Inactive)." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
 :CheckAction a rdfs:Class ;
     rdfs:label "CheckAction" ;
     rdfs:comment "An agent inspects, determines, investigates, inquires, or examines an object's accuracy, quality, condition, or state." ;
@@ -714,6 +743,13 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:label "ConfirmAction" ;
     rdfs:comment "The act of notifying someone that a future event/action is going to happen as expected.\\n\\nRelated actions:\\n\\n* [[CancelAction]]: The antonym of ConfirmAction." ;
     rdfs:subClassOf :InformAction .
+
+:ConstraintNode a rdfs:Class ;
+    rdfs:label "ConstraintNode" ;
+    rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a
+    variety of purposes, and their values may sometimes be understood to indicate sets of possible values rather than single, exact and specific values.""" ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :ConsumeAction a rdfs:Class ;
     rdfs:label "ConsumeAction" ;
@@ -1100,6 +1136,12 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:subClassOf :Quantity ;
     owl:equivalentClass cmns-dt:Duration .
 
+:EUEnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EUEnergyEfficiencyEnumeration" ;
+    rdfs:comment "Enumerates the EU energy efficiency classes A-G as well as A+, A++, and A+++ as defined in EU directive 2017/1369." ;
+    rdfs:subClassOf :EnergyEfficiencyEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
 :EatAction a rdfs:Class ;
     rdfs:label "EatAction" ;
     rdfs:comment "The act of swallowing solid objects." ;
@@ -1190,6 +1232,24 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "Properties that take Energy as values are of the form '&lt;Number&gt; &lt;Energy unit of measure&gt;'." ;
     rdfs:subClassOf :Quantity .
 
+:EnergyConsumptionDetails a rdfs:Class ;
+    rdfs:label "EnergyConsumptionDetails" ;
+    rdfs:comment "EnergyConsumptionDetails represents information related to the energy efficiency of a product that consumes energy. The information that can be provided is based on international regulations such as for example [EU directive 2017/1369](https://eur-lex.europa.eu/eli/reg/2017/1369/oj) for energy labeling and the [Energy labeling rule](https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer) under the Energy Policy and Conservation Act (EPCA) in the US." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EnergyEfficiencyEnumeration" ;
+    rdfs:comment "Enumerates energy efficiency levels (also known as \"classes\" or \"ratings\") and certifications that are part of several international energy efficiency standards." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EnergyStarEnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EnergyStarEnergyEfficiencyEnumeration" ;
+    rdfs:comment "Used to indicate whether a product is EnergyStar certified." ;
+    rdfs:subClassOf :EnergyEfficiencyEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
 :EngineSpecification a rdfs:Class ;
     rdfs:label "EngineSpecification" ;
     rdfs:comment "Information about the engine of the vehicle. A vehicle can have multiple engines represented by multiple engine specification entities." ;
@@ -1223,6 +1283,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:subClassOf :Thing ;
     owl:equivalentClass dcmitype:Event,
         fibo-fnd-dt-oc:Occurrence .
+
+:EventAttendanceModeEnumeration a rdfs:Class ;
+    rdfs:label "EventAttendanceModeEnumeration" ;
+    rdfs:comment "An EventAttendanceModeEnumeration value is one of potentially several modes of organising an event, relating to whether it is online or offline." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
 
 :EventReservation a rdfs:Class ;
     rdfs:label "EventReservation" ;
@@ -1280,6 +1346,17 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:label "FilmAction" ;
     rdfs:comment "The act of capturing sound and moving images on film, video, or digitally." ;
     rdfs:subClassOf :CreateAction .
+
+:FinancialIncentive a rdfs:Class ;
+    rdfs:label "FinancialIncentive" ;
+    rdfs:comment """<p>Represents financial incentives for goods/services offered by an organization (or individual).</p>
+
+<p>Typically contains the [[name]] of the incentive, the [[incentivizedItem]], the [[incentiveAmount]], the [[incentiveStatus]], [[incentiveType]], the [[provider]] of the incentive, and [[eligibleWithSupplier]].</p>
+
+<p>Optionally contains criteria on whether the incentive is limited based on [[purchaseType]], [[purchasePriceLimit]], [[incomeLimit]], and the [[qualifiedExpense]].
+    """ ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :FinancialProduct a rdfs:Class ;
     rdfs:label "FinancialProduct" ;
@@ -1365,6 +1442,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "The Game type represents things which are games. These are typically rule-governed recreational activities, e.g. role-playing games in which players assume the role of characters in a fictional setting." ;
     rdfs:subClassOf :CreativeWork .
 
+:GameAvailabilityEnumeration a rdfs:Class ;
+    rdfs:label "GameAvailabilityEnumeration" ;
+    rdfs:comment "For a [[VideoGame]], such as used with a [[PlayGameAction]], an enumeration of the kind of game availability offered. " ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :GamePlayMode a rdfs:Class ;
     rdfs:label "GamePlayMode" ;
     rdfs:comment "Indicates whether this game is multi-player, co-op or single-player." ;
@@ -1435,6 +1518,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:label "GolfCourse" ;
     rdfs:comment "A golf course." ;
     rdfs:subClassOf :SportsActivityLocation .
+
+:GovernmentBenefitsType a rdfs:Class ;
+    rdfs:label "GovernmentBenefitsType" ;
+    rdfs:comment "GovernmentBenefitsType enumerates several kinds of government benefits to support the COVID-19 situation. Note that this structure may not capture all benefits offered." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :GovernmentBuilding a rdfs:Class ;
     rdfs:label "GovernmentBuilding" ;
@@ -1607,6 +1696,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A tool used (but not consumed) when performing instructions for how to achieve a result." ;
     rdfs:subClassOf :HowToItem .
 
+:IPTCDigitalSourceEnumeration a rdfs:Class ;
+    rdfs:label "IPTCDigitalSourceEnumeration" ;
+    rdfs:comment """<a href="https://www.iptc.org/">IPTC</a> "Digital Source" codes for use with the [[digitalSourceType]] property, providing information about the source for a digital media object.
+In general these codes are not declared here to be mutually exclusive, although some combinations would be contradictory if applied simultaneously, or might be considered mutually incompatible by upstream maintainers of the definitions. See the IPTC <a href="https://www.iptc.org/std/photometadata/documentation/userguide/">documentation</a>
+ for <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">detailed definitions</a> of all terms.""" ;
+    rdfs:subClassOf :MediaEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :IceCreamShop a rdfs:Class ;
     rdfs:label "IceCreamShop" ;
     rdfs:comment "An ice cream shop." ;
@@ -1627,6 +1724,30 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "An image file." ;
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass dcmitype:Image .
+
+:ImageObjectSnapshot a rdfs:Class ;
+    rdfs:label "ImageObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of an [[ImageObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata (e.g. XMP, EXIF) the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :ImageObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:IncentiveQualifiedExpenseType a rdfs:Class ;
+    rdfs:label "IncentiveQualifiedExpenseType" ;
+    rdfs:comment "The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatus a rdfs:Class ;
+    rdfs:label "IncentiveStatus" ;
+    rdfs:comment "Enumerates a status for an incentive, such as whether it is active." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveType a rdfs:Class ;
+    rdfs:label "IncentiveType" ;
+    rdfs:comment "Enumerates common financial incentives for products, including tax credits, tax deductions, rebates and subsidies, etc." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :IndividualProduct a rdfs:Class ;
     rdfs:label "IndividualProduct" ;
@@ -1759,10 +1880,48 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "An agent leaves an event / group with participants/friends at a location.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: The antonym of LeaveAction.\\n* [[UnRegisterAction]]: Unlike UnRegisterAction, LeaveAction implies leaving a group/team of people rather than a service." ;
     rdfs:subClassOf :InteractAction .
 
+:LegalForceStatus a rdfs:Class ;
+    rdfs:label "LegalForceStatus" ;
+    rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
+    rdfs:subClassOf :StatusEnumeration ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :LegalService a rdfs:Class ;
     rdfs:label "LegalService" ;
     rdfs:comment "A LegalService is a business that provides legally-oriented services, advice and representation, e.g. law firms.\\n\\nAs a [[LocalBusiness]] it can be described as a [[provider]] of one or more [[Service]]\\(s)." ;
     rdfs:subClassOf :LocalBusiness .
+
+:LegalValueLevel a rdfs:Class ;
+    rdfs:label "LegalValueLevel" ;
+    rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
+    rdfs:subClassOf :Enumeration ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:Legislation a rdfs:Class ;
+    rdfs:label "Legislation" ;
+    rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
+    rdfs:subClassOf :CreativeWork ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalExpression>,
+        <http://data.europa.eu/eli/ontology#LegalRecontributor> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:LegislationObject a rdfs:Class ;
+    rdfs:label "LegislationObject" ;
+    rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
+    rdfs:subClassOf :Legislation,
+        :MediaObject ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#Format> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :LegislativeBuilding a rdfs:Class ;
     rdfs:label "LegislativeBuilding" ;
@@ -1867,15 +2026,54 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Properties that take Mass as values are of the form '&lt;Number&gt; &lt;Mass unit of measure&gt;'. E.g., '7 kg'." ;
     rdfs:subClassOf :Quantity .
 
+:MeasurementMethodEnum a rdfs:Class ;
+    rdfs:label "MeasurementMethodEnum" ;
+    rdfs:comment "Enumeration(s) for use with [[measurementMethod]]." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
+:MeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "MeasurementTypeEnumeration" ;
+    rdfs:comment "Enumeration of common measurement types (or dimensions), for example \"chest\" for a person, \"inseam\" for pants, \"gauge\" for screws, or \"wheel\" for bicycles." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:MediaEnumeration a rdfs:Class ;
+    rdfs:label "MediaEnumeration" ;
+    rdfs:comment "MediaEnumeration enumerations are lists of codes, labels etc. useful for describing media objects. They may be reflections of externally developed lists, or created at schema.org, or a combination." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :MediaGallery a rdfs:Class ;
     rdfs:label "MediaGallery" ;
     rdfs:comment "Web page type: Media gallery page. A mixed-media page that can contain media such as images, videos, and other multimedia." ;
     rdfs:subClassOf :CollectionPage .
 
+:MediaManipulationRatingEnumeration a rdfs:Class ;
+    rdfs:label "MediaManipulationRatingEnumeration" ;
+    rdfs:comment " Codes for use with the [[mediaAuthenticityCategory]] property, indicating the authenticity of a media object (in the context of how it was published or shared). In general these codes are not mutually exclusive, although some combinations (such as 'original' versus 'transformed', 'edited' and 'staged') would be contradictory if applied in the same [[MediaReview]]. Note that the application of these codes is with regard to a piece of media shared or published in a particular context." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
     rdfs:comment "A media object, such as an image, video, audio, or text object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
     rdfs:subClassOf :CreativeWork .
+
+:MediaReview a rdfs:Class ;
+    rdfs:label "MediaReview" ;
+    rdfs:comment """A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
+    For more general reviews of media in the broader sense, use [[UserReview]], [[CriticReview]] or other [[Review]] types. This definition is
+    a work in progress. While the [[MediaManipulationRatingEnumeration]] list reflects significant community review amongst fact-checkers and others working
+    to combat misinformation, the specific structures for representing media objects, their versions and publication context, are still evolving. Similarly, best practices for the relationship between [[MediaReview]] and [[ClaimReview]] markup have not yet been finalized.""" ;
+    rdfs:subClassOf :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:MediaReviewItem a rdfs:Class ;
+    rdfs:label "MediaReviewItem" ;
+    rdfs:comment "Represents an item or group of closely related items treated as a unit for the sake of evaluation in a [[MediaReview]]. Authorship etc. apply to the items rather than to the curation/grouping or reviewing party." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :MediaSubscription a rdfs:Class ;
     rdfs:label "MediaSubscription" ;
@@ -2124,6 +2322,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Organization ;
     owl:equivalentClass fibo-be-nfp-nfp:NonGovernmentalOrganization .
 
+:NLNonprofitType a rdfs:Class ;
+    rdfs:label "NLNonprofitType" ;
+    rdfs:comment "NLNonprofitType: Non-profit organization type originating from the Netherlands." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :NailSalon a rdfs:Class ;
     rdfs:label "NailSalon" ;
     rdfs:comment "A nail salon." ;
@@ -2144,6 +2348,12 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     rdfs:comment "A nightclub or discotheque." ;
     rdfs:subClassOf :EntertainmentBusiness .
 
+:NonprofitType a rdfs:Class ;
+    rdfs:label "NonprofitType" ;
+    rdfs:comment "NonprofitType enumerates several kinds of official non-profit types of which a non-profit organization can be." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :Notary a rdfs:Class ;
     rdfs:label "Notary" ;
     rdfs:comment "A notary." ;
@@ -2163,6 +2373,18 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     rdfs:label "NutritionInformation" ;
     rdfs:comment "Nutritional information about the recipe." ;
     rdfs:subClassOf :StructuredValue .
+
+:Observation a rdfs:Class ;
+    rdfs:label "Observation" ;
+    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time.
+
+Observations can also encode a subset of simple RDF-like statements (its observationAbout, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
+
+In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observationAbout]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementMethod]].
+    """ ;
+    rdfs:subClassOf :Intangible,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :Occupation a rdfs:Class ;
     rdfs:label "Occupation" ;
@@ -2470,6 +2692,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, competition or exercise.\\n\\nRelated actions:\\n\\n* [[ListenAction]]: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.\\n* [[WatchAction]]: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content." ;
     rdfs:subClassOf :Action .
 
+:PlayGameAction a rdfs:Class ;
+    rdfs:label "PlayGameAction" ;
+    rdfs:comment "The act of playing a video game." ;
+    rdfs:subClassOf :ConsumeAction ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :Playground a rdfs:Class ;
     rdfs:label "Playground" ;
     rdfs:comment "A playground." ;
@@ -2641,6 +2869,12 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:comment "A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.\\n\\nSee also [blog post](https://blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/)." ;
     rdfs:subClassOf :CreativeWork ;
     :contributor <https://schema.org/docs/collab/bibex> .
+
+:PurchaseType a rdfs:Class ;
+    rdfs:label "PurchaseType" ;
+    rdfs:comment "Enumerates a purchase type for an item." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :QAPage a rdfs:Class ;
     rdfs:label "QAPage" ;
@@ -3059,6 +3293,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A navigation element of the page." ;
     rdfs:subClassOf :WebPageElement .
 
+:SizeGroupEnumeration a rdfs:Class ;
+    rdfs:label "SizeGroupEnumeration" ;
+    rdfs:comment "Enumerates common size groups for various product categories." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSpecification a rdfs:Class ;
+    rdfs:label "SizeSpecification" ;
+    rdfs:comment "Size related properties of a product, typically a size code ([[name]]) and optionally a [[sizeSystem]], [[sizeGroup]], and product measurements ([[hasMeasurement]]). In addition, the intended audience can be defined through [[suggestedAge]], [[suggestedGender]], and suggested body measurements ([[suggestedMeasurement]])." ;
+    rdfs:subClassOf :QualitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSystemEnumeration a rdfs:Class ;
+    rdfs:label "SizeSystemEnumeration" ;
+    rdfs:comment "Enumerates common size systems for different categories of products, for example \"EN-13402\" or \"UK\" for wearables or \"Imperial\" for screws." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :SkiResort a rdfs:Class ;
     rdfs:label "SkiResort" ;
     rdfs:comment "A ski resort." ;
@@ -3147,6 +3399,20 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "State" ;
     rdfs:comment "A state or province of a country." ;
     rdfs:subClassOf :AdministrativeArea .
+
+:StatisticalPopulation a rdfs:Class ;
+    rdfs:label "StatisticalPopulation" ;
+    rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
+The properties [[numConstraints]] and [[constraintProperty]] are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a [[populationType]] of [[Event]] or [[NewsArticle]] could be used. See also [[Observation]], where a [[populationType]] such as [[Person]] or [[Event]] can be indicated directly. In most cases it may be better to use [[StatisticalVariable]] instead of [[StatisticalPopulation]].""" ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:StatisticalVariable a rdfs:Class ;
+    rdfs:label "StatisticalVariable" ;
+    rdfs:comment "[[StatisticalVariable]] represents any type of statistical metric that can be measured at a place and time. The usage pattern for [[StatisticalVariable]] is typically expressed using [[Observation]] with an explicit [[populationType]], which is a type, typically drawn from Schema.org. Each [[StatisticalVariable]] is marked as a [[ConstraintNode]], meaning that some properties (those listed using [[constraintProperty]]) serve in this setting solely to define the statistical variable rather than literally describe a specific person, place or thing. For example, a [[StatisticalVariable]] Median_Height_Person_Female representing the median height of women, could be written as follows: the population type is [[Person]]; the measuredProperty [[height]]; the [[statType]] [[median]]; the [[gender]] [[Female]]. It is important to note that there are many kinds of scientific quantitative observation which are not fully, perfectly or unambiguously described following this pattern, or with solely Schema.org terminology. The approach taken here is designed to allow partial, incremental or minimal description of [[StatisticalVariable]]s, and the use of detailed sets of entity and property IDs from external repositories. The [[measurementMethod]], [[unitCode]] and [[unitText]] properties can also be used to clarify the specific nature and notation of an observed measurement. " ;
+    rdfs:subClassOf :ConstraintNode ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :StatusEnumeration a rdfs:Class ;
     rdfs:label "StatusEnumeration" ;
@@ -3407,10 +3673,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :StructuredValue ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:UKNonprofitType a rdfs:Class ;
+    rdfs:label "UKNonprofitType" ;
+    rdfs:comment "UKNonprofitType: Non-profit organization type originating from the United Kingdom." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :URL a rdfs:Class ;
     rdfs:label "URL" ;
     rdfs:comment "Data type: URL." ;
     rdfs:subClassOf :Text .
+
+:USNonprofitType a rdfs:Class ;
+    rdfs:label "USNonprofitType" ;
+    rdfs:comment "USNonprofitType: Non-profit organization type originating from the United States." ;
+    rdfs:subClassOf :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :UnRegisterAction a rdfs:Class ;
     rdfs:label "UnRegisterAction" ;
@@ -3531,10 +3809,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :MediaObject ;
     :contributor <https://schema.org/docs/collab/rNews> .
 
+:VideoObjectSnapshot a rdfs:Class ;
+    rdfs:label "VideoObjectSnapshot" ;
+    rdfs:comment "A specific and exact (byte-for-byte) version of a [[VideoObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity." ;
+    rdfs:subClassOf :VideoObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :ViewAction a rdfs:Class ;
     rdfs:label "ViewAction" ;
     rdfs:comment "The act of consuming static visual content." ;
     rdfs:subClassOf :ConsumeAction .
+
+:VirtualLocation a rdfs:Class ;
+    rdfs:label "VirtualLocation" ;
+    rdfs:comment "An online or virtual location for attending events. For example, one may attend an online seminar or educational event. While a virtual location may be used as the location of an event, virtual locations should not be confused with physical locations in the real world." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
 
 :VisualArtsEvent a rdfs:Class ;
     rdfs:label "VisualArtsEvent" ;
@@ -3609,6 +3899,24 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "WearAction" ;
     rdfs:comment "The act of dressing oneself in clothing." ;
     rdfs:subClassOf :UseAction .
+
+:WearableMeasurementTypeEnumeration a rdfs:Class ;
+    rdfs:label "WearableMeasurementTypeEnumeration" ;
+    rdfs:comment "Enumerates common types of measurement for wearables products." ;
+    rdfs:subClassOf :MeasurementTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupEnumeration a rdfs:Class ;
+    rdfs:label "WearableSizeGroupEnumeration" ;
+    rdfs:comment "Enumerates common size groups (also known as \"size types\") for wearable products." ;
+    rdfs:subClassOf :SizeGroupEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEnumeration a rdfs:Class ;
+    rdfs:label "WearableSizeSystemEnumeration" ;
+    rdfs:comment "Enumerates common size systems specific for wearable products." ;
+    rdfs:subClassOf :SizeSystemEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :WebApplication a rdfs:Class ;
     rdfs:label "WebApplication" ;
@@ -4138,6 +4446,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :PaymentChargeSpecification ;
     :rangeIncludes :PaymentMethod .
 
+:archivedAt a rdf:Property ;
+    rdfs:label "archivedAt" ;
+    rdfs:comment "Indicates a page or other link involved in archival of a [[CreativeWork]]. In the case of [[MediaReview]], the items in a [[MediaReviewItem]] may often become inaccessible, but be archived by archival, journalistic, activist, or law enforcement organizations. In such cases, the referenced page may not directly publish the content." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :URL,
+        :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :area a rdf:Property ;
     rdfs:label "area" ;
     rdfs:comment "The area within which users can expect to reach the broadcast service." ;
@@ -4152,6 +4468,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :ContactPoint,
         :DeliveryChargeSpecification,
         :Demand,
+        :FinancialIncentive,
         :Offer,
         :Organization,
         :Service ;
@@ -4264,11 +4581,34 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :MediaObject ;
     :rangeIncludes :NewsArticle .
 
+:associatedClaimReview a rdf:Property ;
+    rdfs:label "associatedClaimReview" ;
+    rdfs:comment "An associated [[ClaimReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[associatedClaimReview]] would be used on [[MediaReview]]." ;
+    rdfs:subPropertyOf :associatedReview ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :associatedMedia a rdf:Property ;
     rdfs:label "associatedMedia" ;
     rdfs:comment "A media object that encodes this CreativeWork. This property is a synonym for encoding." ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :MediaObject .
+
+:associatedMediaReview a rdf:Property ;
+    rdfs:label "associatedMediaReview" ;
+    rdfs:comment "An associated [[MediaReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[associatedClaimReview]] would be used on [[MediaReview]]." ;
+    rdfs:subPropertyOf :associatedReview ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:associatedReview a rdf:Property ;
+    rdfs:label "associatedReview" ;
+    rdfs:comment "An associated [[Review]]." ;
+    :domainIncludes :Review ;
+    :rangeIncludes :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :athlete a rdf:Property ;
     rdfs:label "athlete" ;
@@ -4315,6 +4655,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :CreativeWork ;
     :rangeIncludes :AudioObject,
         :Clip .
+
+:auditDate a rdf:Property ;
+    rdfs:label "auditDate" ;
+    rdfs:comment "Date when a certification was last audited. See also  [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate)." ;
+    owl:equivalentProperty unece:InspectionDateTime ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :Date,
+        :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
 
 :authenticator a rdf:Property ;
     rdfs:label "authenticator" ;
@@ -4831,6 +5180,30 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :Organization,
         :Person .
 
+:certificationIdentification a rdf:Property ;
+    rdfs:label "certificationIdentification" ;
+    rdfs:comment "Identifier of a certification instance (as registered with an independent certification body). Typically this identifier can be used to consult and verify the certification instance. See also [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification)." ;
+    rdfs:subPropertyOf fibo-fnd-arr-reg:hasRegistrationIdentifier ;
+    owl:equivalentProperty unece:CertificateIdentifier ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:certificationRating a rdf:Property ;
+    rdfs:label "certificationRating" ;
+    rdfs:comment "Rating of a certification instance (as defined by an independent certification body). Typically this rating can be used to rate the level to which the requirements of the certification instance are fulfilled. See also [gs1:certificationValue](https://www.gs1.org/voc/certificationValue)." ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :Rating ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:certificationStatus a rdf:Property ;
+    rdfs:label "certificationStatus" ;
+    rdfs:comment "Indicates the current status of a certification: active or inactive. See also  [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus)." ;
+    :domainIncludes :Certification ;
+    :rangeIncludes :CertificationStatusEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
 :character a rdf:Property ;
     rdfs:label "character" ;
     rdfs:comment "Fictional person connected with a creative work." ;
@@ -4909,6 +5282,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :CreativeWork ;
     :rangeIncludes :CreativeWork,
         :Text .
+
+:claimInterpreter a rdf:Property ;
+    rdfs:label "claimInterpreter" ;
+    rdfs:comment "For a [[Claim]] interpreted from [[MediaObject]] content, the [[interpretedAsClaim]] property can be used to indicate a claim contained, implied or refined from the content of a [[MediaObject]]." ;
+    :domainIncludes :Claim ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :claimReviewed a rdf:Property ;
     rdfs:label "claimReviewed" ;
@@ -5033,6 +5414,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Invoice,
         :Order ;
     :rangeIncludes :Text .
+
+:constraintProperty a rdf:Property ;
+    rdfs:label "constraintProperty" ;
+    rdfs:comment "Indicates a property used as a constraint. For example, in the definition of a [[StatisticalVariable]]. The value is a property, either from within Schema.org or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. " ;
+    :domainIncludes :ConstraintNode ;
+    :rangeIncludes :Property,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :contactOption a rdf:Property ;
     rdfs:label "contactOption" ;
@@ -5573,6 +5962,13 @@ Dateline summaries are oriented more towards human readers than towards automate
     :rangeIncludes :Text ;
     :supersededBy :availableOnDevice .
 
+:digitalSourceType a rdf:Property ;
+    rdfs:label "digitalSourceType" ;
+    rdfs:comment "Indicates an IPTCDigitalSourceEnumeration code indicating the nature of the digital source(s) for some [[CreativeWork]]." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :IPTCDigitalSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :director a rdf:Property ;
     rdfs:label "director" ;
     rdfs:comment "A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip." ;
@@ -5843,6 +6239,13 @@ This property should not be used where the nature of the alignment can be descri
         :PriceSpecification ;
     :rangeIncludes :PriceSpecification .
 
+:eligibleWithSupplier a rdf:Property ;
+    rdfs:label "eligibleWithSupplier" ;
+    rdfs:comment "The supplier of the incentivized item/service for which the incentive is valid for such as a utility company, merchant, or contractor." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :email a rdf:Property ;
     rdfs:label "email" ;
     rdfs:comment "Email address." ;
@@ -5857,6 +6260,16 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:comment "A URL pointing to a player for a specific video. In general, this is the information in the ```src``` element of an ```embed``` tag and should not be the same as the content of the ```loc``` tag." ;
     :domainIncludes :MediaObject ;
     :rangeIncludes :URL .
+
+:embeddedTextCaption a rdf:Property ;
+    rdfs:label "embeddedTextCaption" ;
+    rdfs:comment "Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'." ;
+    rdfs:subPropertyOf :caption ;
+    :domainIncludes :AudioObject,
+        :ImageObject,
+        :VideoObject ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :employee a rdf:Property ;
     rdfs:label "employee" ;
@@ -5947,6 +6360,20 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :rangeIncludes :Organization,
         :Person .
 
+:energyEfficiencyScaleMax a rdf:Property ;
+    rdfs:label "energyEfficiencyScaleMax" ;
+    rdfs:comment "Specifies the most energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." ;
+    :domainIncludes :EnergyConsumptionDetails ;
+    :rangeIncludes :EUEnergyEfficiencyEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:energyEfficiencyScaleMin a rdf:Property ;
+    rdfs:label "energyEfficiencyScaleMin" ;
+    rdfs:comment "Specifies the least energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." ;
+    :domainIncludes :EnergyConsumptionDetails ;
+    :rangeIncludes :EUEnergyEfficiencyEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
 :entertainmentBusiness a rdf:Property ;
     rdfs:label "entertainmentBusiness" ;
     rdfs:comment "A sub property of location. The entertainment business where the action occurred." ;
@@ -6030,6 +6457,13 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :Place,
         :PlayAction ;
     :rangeIncludes :Event .
+
+:eventAttendanceMode a rdf:Property ;
+    rdfs:label "eventAttendanceMode" ;
+    rdfs:comment "The eventAttendanceMode of an event indicates whether it occurs online, offline, or a mix." ;
+    :domainIncludes :Event ;
+    :rangeIncludes :EventAttendanceModeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
 
 :eventStatus a rdf:Property ;
     rdfs:label "eventStatus" ;
@@ -6334,6 +6768,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :inverseOf :gameServer ;
     :rangeIncludes :VideoGame .
 
+:gameAvailabilityType a rdf:Property ;
+    rdfs:label "gameAvailabilityType" ;
+    rdfs:comment "Indicates the availability type of the game content associated with this action, such as whether it is a full version or a demo." ;
+    :domainIncludes :PlayGameAction ;
+    :rangeIncludes :GameAvailabilityEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :gameEdition a rdf:Property ;
     rdfs:label "gameEdition" ;
     rdfs:comment "The edition of a video game." ;
@@ -6439,6 +6881,13 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Place ;
     :rangeIncludes :Text .
 
+:governmentBenefitsInfo a rdf:Property ;
+    rdfs:label "governmentBenefitsInfo" ;
+    rdfs:comment "governmentBenefitsInfo provides information about government benefits associated with a SpecialAnnouncement." ;
+    :domainIncludes :SpecialAnnouncement ;
+    :rangeIncludes :GovernmentService ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :grantee a rdf:Property ;
     rdfs:label "grantee" ;
     rdfs:comment "The person, organization, contact point, or audience that has been granted this permission." ;
@@ -6519,6 +6968,20 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :BroadcastChannel ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> .
 
+:hasCertification a rdf:Property ;
+    rdfs:label "hasCertification" ;
+    rdfs:comment "Certification information about a product, organization, service, place, or person." ;
+    rdfs:subPropertyOf fibo-fnd-arr-doc:isReferencedIn,
+        cmns-cls:isClassifiedBy ;
+    owl:equivalentProperty unece:ApplicableCertificate ;
+    :domainIncludes :Organization,
+        :Person,
+        :Place,
+        :Product,
+        :Service ;
+    :rangeIncludes :Certification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
 :hasCourseInstance a rdf:Property ;
     rdfs:label "hasCourseInstance" ;
     rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." ;
@@ -6538,6 +7001,20 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :DigitalDocument ;
     :rangeIncludes :DigitalDocumentPermission .
 
+:hasEnergyConsumptionDetails a rdf:Property ;
+    rdfs:label "hasEnergyConsumptionDetails" ;
+    rdfs:comment "Defines the energy efficiency Category (also known as \"class\" or \"rating\") for a product according to an international energy efficiency standard." ;
+    :domainIncludes :Product ;
+    :rangeIncludes :EnergyConsumptionDetails ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:hasEnergyEfficiencyCategory a rdf:Property ;
+    rdfs:label "hasEnergyEfficiencyCategory" ;
+    rdfs:comment "Defines the energy efficiency Category (which could be either a rating out of range of values or a yes/no certification) for a product according to an international energy efficiency standard." ;
+    :domainIncludes :EnergyConsumptionDetails ;
+    :rangeIncludes :EnergyEfficiencyEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
 :hasGS1DigitalLink a rdf:Property ;
     rdfs:label "hasGS1DigitalLink" ;
     rdfs:comment "The <a href=\"https://www.gs1.org/standards/gs1-digital-link\">GS1 digital link</a> associated with the object. This URL should conform to the particular requirements of digital links. The link should only contain the Application Identifiers (AIs) that are relevant for the entity being annotated, for instance a [[Product]] or an [[Organization]], and for the correct granularity. In particular, for products:<ul><li>A Digital Link that contains a serial number (AI <code>21</code>) should only be present on instances of [[IndividualProduct]]</li><li>A Digital Link that contains a lot number (AI <code>10</code>) should be annotated as [[SomeProducts]] if only products from that lot are sold, or [[IndividualProduct]] if there is only a specific product.</li><li>A Digital Link that contains a global model number (AI <code>8013</code>) should be attached to a [[Product]] or a [[ProductModel]].</li></ul> Other item types should be adapted similarly." ;
@@ -6555,6 +7032,16 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Place ;
     :rangeIncludes :Map,
         :URL .
+
+:hasMeasurement a rdf:Property ;
+    rdfs:label "hasMeasurement" ;
+    rdfs:comment "A measurement of an item, For example, the inseam of pants, the wheel size of a bicycle, the gauge of a screw, or the carbon footprint measured for certification by an authority. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings." ;
+    :domainIncludes :Certification,
+        :Offer,
+        :Product,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :hasMemberProgram a rdf:Property ;
     rdfs:label "hasMemberProgram" ;
@@ -6845,11 +7332,97 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
+:incentiveAmount a rdf:Property ;
+    rdfs:label "incentiveAmount" ;
+    rdfs:comment """Describes the amount that can be redeemed from this incentive.
+    
+<p>[[QuantitativeValue]]: Use this for incentives based on price (either raw amount or percentage-based). For a raw amount example, "You can claim $2,500 - $7,500 from the total cost of installation" would be represented as the following:</p>
+    {
+        "@type": "QuantitativeValue",
+        “minValue”: 2500,
+        “maxValue”: 7500,
+        "unitCode": "USD"
+    }
+<p>[[QuantitativeValue]] can also be used for percentage amounts. In such cases, value is used to represent the incentive’s percentage, while maxValue represents a limit (if one exists) to that incentive. The unitCode should be 'P1' and the unitText should be '%', while valueReference should be used for holding the currency type. For example, "You can claim up to 30% of the total cost of installation, up to a maximum of $7,500" would be:</p>
+    {
+        "@type": "QuantitativeValue",
+        "value": 30,
+        "unitCode": "P1",
+        "unitText": "%",
+        “maxValue”: 7500,
+        “valueReference”: “USD”
+    }
+<p>[[UnitPriceSpecification]]: Use this for incentives that are based on amounts rather than price. For example, a net metering rebate that pays $10/kWh, up to $1,000:</p>
+    {
+        "@type": "UnitPriceSpecification",
+        "price": 10,
+        "priceCurrency": "USD",
+        "referenceQuantity": 1,
+        "unitCode": "DO3",
+        "unitText": "kw/h",
+        "maxPrice": 1000,
+        "description": "$10 / kwh up to $1000"
+    }
+<p>[[LoanOrCredit]]: Use for incentives that are loan based. For example, a loan of $4,000 - $50,000 with a repayment term of 10 years, interest free would look like:</p>
+    {
+        "@type": "LoanOrCredit",
+        "loanTerm": {
+                "@type":"QuantitativeValue",
+                "value":"10",
+                "unitCode": "ANN"
+            },
+        "amount":[
+            {
+                "@type": "QuantitativeValue",
+                "Name":"fixed interest rate",
+                "value":"0",
+            },
+        ],
+        "amount":[
+            {
+                "@type": "MonetaryAmount",
+                "Name":"min loan amount",
+                "value":"4000",
+                "currency":"CAD"
+            },
+            {
+                "@type": "MonetaryAmount",
+                "Name":"max loan amount",
+                "value":"50000",
+                "currency":"CAD"
+            }
+        ],
+    }
+
+In summary: <ul><li>Use [[QuantitativeValue]] for absolute/percentage-based incentives applied on the price of a good/service.</li>
+<li>Use [[UnitPriceSpecification]] for incentives based on a per-unit basis (e.g. net metering).</li>
+<li>Use [[LoanOrCredit]] for loans/credits.</li>
+</ul>.""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :LoanOrCredit,
+        :QuantitativeValue,
+        :UnitPriceSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
     rdfs:comment "Description of bonus and commission compensation aspects of the job." ;
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text .
+
+:incentiveStatus a rdf:Property ;
+    rdfs:label "incentiveStatus" ;
+    rdfs:comment "The status of the incentive (active, on hold, retired, etc.)." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveStatus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:incentiveType a rdf:Property ;
+    rdfs:label "incentiveType" ;
+    rdfs:comment "The type of incentive offered (tax credit/rebate, tax deduction, tax waiver, subsidies, etc.)." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :incentives a rdf:Property ;
     rdfs:label "incentives" ;
@@ -6857,6 +7430,28 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text ;
     :supersededBy :incentiveCompensation .
+
+:incentivizedItem a rdf:Property ;
+    rdfs:label "incentivizedItem" ;
+    rdfs:comment """The type or specific product(s) and/or service(s) being incentivized.
+<p>DefinedTermSets are used for product and service categories such as the United Nations Standard Products and Services Code:</p>
+    {
+        "@type": "DefinedTerm",
+        "inDefinedTermSet": "https://www.unspsc.org/",
+        "termCode": "261315XX",
+        "name": "Photovoltaic module"
+    }
+
+<p>For a specific product or service, use the Product type:</p>
+    {
+        "@type": "Product",
+        "name": "Kenmore White 17" Microwave",
+    }
+For multiple different incentivized items, use multiple [[DefinedTerm]] or [[Product]].""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :DefinedTerm,
+        :Product ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :includedComposition a rdf:Property ;
     rdfs:label "includedComposition" ;
@@ -6885,6 +7480,23 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Demand,
         :Offer ;
     :rangeIncludes :TypeAndQuantityNode .
+
+:incomeLimit a rdf:Property ;
+    rdfs:label "incomeLimit" ;
+    rdfs:comment """Optional. Income limit for which the incentive is applicable for.
+    
+<p>If MonetaryAmount is specified, this should be based on annualized income (e.g. if an incentive is limited to those making <$114,000 annually):</p>
+    {
+        "@type": "MonetaryAmount",
+        "maxValue": 114000,
+        "currency": "USD",
+    }
+
+Use Text for incentives that are limited based on other criteria, for example if an incentive is only available to recipients making 120% of the median poverty income in their area.""" ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :industry a rdf:Property ;
     rdfs:label "industry" ;
@@ -6968,6 +7580,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :FinancialProduct ;
     :rangeIncludes :Number,
         :QuantitativeValue .
+
+:interpretedAsClaim a rdf:Property ;
+    rdfs:label "interpretedAsClaim" ;
+    rdfs:comment "Used to indicate a specific claim contained, implied, translated or refined from the content of a [[MediaObject]] or other [[CreativeWork]]. The interpreting party can be indicated using [[claimInterpreter]]." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :CreativeWork,
+        :MediaObject ;
+    :rangeIncludes :Claim ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :inventoryLevel a rdf:Property ;
     rdfs:label "inventoryLevel" ;
@@ -7266,6 +7887,15 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Person ;
     :rangeIncludes :Text .
 
+:jurisdiction a rdf:Property ;
+    rdfs:label "jurisdiction" ;
+    rdfs:comment "Indicates a legal jurisdiction, e.g. of some legislation, or where some government service is based." ;
+    :domainIncludes :GovernmentService,
+        :Legislation ;
+    :rangeIncludes :AdministrativeArea,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :keywords a rdf:Property ;
     rdfs:label "keywords" ;
     rdfs:comment "Keywords or tags used to describe some item. Multiple textual entries in a keywords list are typically delimited by commas, or by repeating the property." ;
@@ -7354,6 +7984,242 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :Organization ;
     :rangeIncludes :Person .
 
+:legislationAmends a rdf:Property ;
+    rdfs:label "legislationAmends" ;
+    rdfs:comment "Another legislation that this legislation amends, introducing legal changes." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#amends> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#amends> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationApplies a rdf:Property ;
+    rdfs:label "legislationApplies" ;
+    rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#implements> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationChanges a rdf:Property ;
+    rdfs:label "legislationChanges" ;
+    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#changes> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCommences a rdf:Property ;
+    rdfs:label "legislationCommences" ;
+    rdfs:comment "Another legislation that this one sets into force." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#commences> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#commences> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationConsolidates a rdf:Property ;
+    rdfs:label "legislationConsolidates" ;
+    rdfs:comment "Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#consolidates> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#consolidates> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCorrects a rdf:Property ;
+    rdfs:label "legislationCorrects" ;
+    rdfs:comment "Another legislation in which this one introduces textual changes, like correction of spelling mistakes, with no legal impact (for modifications that have legal impact, use <a href=\"/legislationAmends\">legislationAmends</a>)." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#corrects> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#corrects> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationCountersignedBy a rdf:Property ;
+    rdfs:label "legislationCountersignedBy" ;
+    rdfs:comment "The person or organization that countersigned the legislation. Depending on the legal context, a countersignature can indicate that the signed authority undertakes to assume responsibility for texts emanating from a person who is inviolable and irresponsible, (for example a King, Grand Duc or President), or that the authority is in charge of the implementation of the text." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDate a rdf:Property ;
+    rdfs:label "legislationDate" ;
+    rdfs:comment "The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force." ;
+    rdfs:subPropertyOf :dateCreated ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_document> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#date_document> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDateOfApplicability a rdf:Property ;
+    rdfs:label "legislationDateOfApplicability" ;
+    rdfs:comment "The date at which the Legislation becomes applicable. This can sometimes be distinct from the date of entry into force : a text may come in force today, and state it will become applicable in 3 months." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_applicability> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#date_applicability> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationDateVersion a rdf:Property ;
+    rdfs:label "legislationDateVersion" ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationEnsuresImplementationOf a rdf:Property ;
+    rdfs:label "legislationEnsuresImplementationOf" ;
+    rdfs:comment "Indicates that this Legislation ensures the implementation of another Legislation, for example by modifying national legislations so that they do not contradict to an EU regulation or decision. This implies a legal meaning. Transpositions of EU Directive should be captured with <a href=\"/legislationTransposes\">legislationTransposes</a>." ;
+    rdfs:subPropertyOf :legislationApplies ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationIdentifier a rdf:Property ;
+    rdfs:label "legislationIdentifier" ;
+    rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
+    rdfs:subPropertyOf :identifier ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#id_local> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationJurisdiction a rdf:Property ;
+    rdfs:label "legislationJurisdiction" ;
+    rdfs:comment "The jurisdiction from which the legislation originates." ;
+    rdfs:subPropertyOf :jurisdiction,
+        :spatialCoverage ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#jurisdiction> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#jurisdiction> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :AdministrativeArea,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationLegalForce a rdf:Property ;
+    rdfs:label "legislationLegalForce" ;
+    rdfs:comment "Whether the legislation is currently in force, not in force, or partially in force." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#in_force> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#in_force> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :LegalForceStatus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationLegalValue a rdf:Property ;
+    rdfs:label "legislationLegalValue" ;
+    rdfs:comment "The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a \"stronger\" legal value than the HTML file of the same act." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#legal_value> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#legal_value> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :LegislationObject ;
+    :rangeIncludes :LegalValueLevel ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationPassedBy a rdf:Property ;
+    rdfs:label "legislationPassedBy" ;
+    rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    rdfs:subPropertyOf :creator ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationRepeals a rdf:Property ;
+    rdfs:label "legislationRepeals" ;
+    rdfs:comment "Another legislation that this legislation repeals (cancels, abrogates)." ;
+    rdfs:subPropertyOf :legislationChanges ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#repeals> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#repeals> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2698>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationResponsible a rdf:Property ;
+    rdfs:label "legislationResponsible" ;
+    rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#responsibility_of> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#responsibility_of> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationTransposes a rdf:Property ;
+    rdfs:label "legislationTransposes" ;
+    rdfs:comment "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations." ;
+    rdfs:subPropertyOf :legislationApplies ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#transposes> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#transposes> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :Legislation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:legislationType a rdf:Property ;
+    rdfs:label "legislationType" ;
+    rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
+    rdfs:subPropertyOf :genre ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#type_document> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#type_document> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :domainIncludes :Legislation ;
+    :rangeIncludes :CategoryCode,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :leiCode a rdf:Property ;
     rdfs:label "leiCode" ;
     rdfs:comment "An organization identifier that uniquely identifies a legal entity as defined in ISO 17442." ;
@@ -7422,7 +8288,8 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Organization ;
     :rangeIncludes :Place,
         :PostalAddress,
-        :Text .
+        :Text,
+        :VirtualLocation .
 
 :locationCreated a rdf:Property ;
     rdfs:label "locationCreated" ;
@@ -7556,6 +8423,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :URL ;
     :supersededBy :hasMap .
 
+:marginOfError a rdf:Property ;
+    rdfs:label "marginOfError" ;
+    rdfs:comment "A [[marginOfError]] for an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
 :material a rdf:Property ;
     rdfs:label "material" ;
     rdfs:comment "A material that something is made from, e.g. leather, wool, cotton, paper." ;
@@ -7591,11 +8465,100 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :Place ;
     :rangeIncludes :Integer .
 
+:maximumPhysicalAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumPhysicalAttendeeCapacity" ;
+    rdfs:comment "The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline aspects, in the case of a [[MixedEventAttendanceMode]]). " ;
+    :domainIncludes :Event ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
+
+:maximumVirtualAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumVirtualAttendeeCapacity" ;
+    rdfs:comment "The maximum virtual attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the online aspects, in the case of a [[MixedEventAttendanceMode]]). " ;
+    :domainIncludes :Event ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
+
 :mealService a rdf:Property ;
     rdfs:label "mealService" ;
     rdfs:comment "Description of the meals that will be provided or available for purchase." ;
     :domainIncludes :Flight ;
     :rangeIncludes :Text .
+
+:measuredProperty a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    rdfs:comment "The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties)." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :Property ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:measurementDenominator a rdf:Property ;
+    rdfs:label "measurementDenominator" ;
+    rdfs:comment "Identifies the denominator variable when an observation represents a ratio or percentage." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :StatisticalVariable ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
+:measurementMethod a rdf:Property ;
+    rdfs:label "measurementMethod" ;
+    rdfs:comment "A subproperty of [[measurementTechnique]] that can be used for specifying specific methods, in particular via [[MeasurementMethodEnum]]." ;
+    rdfs:subPropertyOf :measurementTechnique ;
+    :domainIncludes :DataCatalog,
+        :DataDownload,
+        :Dataset,
+        :Observation,
+        :PropertyValue,
+        :StatisticalVariable ;
+    :rangeIncludes :DefinedTerm,
+        :MeasurementMethodEnum,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1425> .
+
+:measurementQualifier a rdf:Property ;
+    rdfs:label "measurementQualifier" ;
+    rdfs:comment "Provides additional qualification to an observation. For example, a GDP observation measures the Nominal value." ;
+    :domainIncludes :Observation,
+        :StatisticalVariable ;
+    :rangeIncludes :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
+:measurementTechnique a rdf:Property ;
+    rdfs:label "measurementTechnique" ;
+    rdfs:comment """A technique, method or technology used in an [[Observation]], [[StatisticalVariable]] or [[Dataset]] (or [[DataDownload]], [[DataCatalog]]), corresponding to the method used for measuring the corresponding variable(s) (for datasets, described using [[variableMeasured]]; for [[Observation]], a [[StatisticalVariable]]). Often but not necessarily each [[variableMeasured]] will have an explicit representation as (or mapping to) an property such as those defined in Schema.org, or other RDF vocabularies and "knowledge graphs". In that case the subproperty of [[variableMeasured]] called [[measuredProperty]] is applicable.
+    
+The [[measurementTechnique]] property helps when extra clarification is needed about how a [[measuredProperty]] was measured. This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but can often serve as a high level summary for dataset discovery. 
+
+For example, if [[variableMeasured]] is: molecule concentration, [[measurementTechnique]] could be: "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or "immunofluorescence". If the [[variableMeasured]] is "depression rating", the [[measurementTechnique]] could be "Zung Scale" or "HAM-D" or "Beck Depression Inventory". 
+
+If there are several [[variableMeasured]] properties recorded for some given data object, use a [[PropertyValue]] for each [[variableMeasured]] and attach the corresponding [[measurementTechnique]]. The value can also be from an enumeration, organized as a [[MeasurementMethodEnum]].""" ;
+    :domainIncludes :DataCatalog,
+        :DataDownload,
+        :Dataset,
+        :Observation,
+        :PropertyValue,
+        :StatisticalVariable ;
+    :rangeIncludes :DefinedTerm,
+        :MeasurementMethodEnum,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1425> .
+
+:mediaAuthenticityCategory a rdf:Property ;
+    rdfs:label "mediaAuthenticityCategory" ;
+    rdfs:comment "Indicates a MediaManipulationRatingEnumeration classification of a media object (in the context of how it was published or shared)." ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :MediaManipulationRatingEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:mediaItemAppearance a rdf:Property ;
+    rdfs:label "mediaItemAppearance" ;
+    rdfs:comment "In the context of a [[MediaReview]], indicates specific media item(s) that are grouped using a [[MediaReviewItem]]." ;
+    :domainIncludes :MediaReviewItem ;
+    :rangeIncludes :MediaObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :median a rdf:Property ;
     rdfs:label "median" ;
@@ -7869,6 +8832,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :QualitativeValue ;
     :rangeIncludes :QualitativeValue .
 
+:nonprofitStatus a rdf:Property ;
+    rdfs:label "nonprofitStatus" ;
+    rdfs:comment "nonprofitStatus indicates the legal status of a non-profit organization in its primary place of business." ;
+    :domainIncludes :Organization ;
+    :rangeIncludes :NonprofitType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :numAdults a rdf:Property ;
     rdfs:label "numAdults" ;
     rdfs:comment "The number of adults staying in the unit." ;
@@ -7882,6 +8852,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :LodgingReservation ;
     :rangeIncludes :Integer,
         :QuantitativeValue .
+
+:numConstraints a rdf:Property ;
+    rdfs:label "numConstraints" ;
+    rdfs:comment "Indicates the number of constraints property values defined for a particular [[ConstraintNode]] such as [[StatisticalVariable]]. This helps applications understand if they have access to a sufficiently complete description of a [[StatisticalVariable]] or other construct that is defined using properties on template-style nodes." ;
+    :domainIncludes :ConstraintNode ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
 :numItems a rdf:Property ;
     rdfs:label "numItems" ;
@@ -8018,6 +8995,29 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). E.g. John read *a book*." ;
     :domainIncludes :Action ;
     :rangeIncludes :Thing .
+
+:observationAbout a rdf:Property ;
+    rdfs:label "observationAbout" ;
+    rdfs:comment "The [[observationAbout]] property identifies an entity, often a [[Place]], associated with an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Place,
+        :Thing ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:observationDate a rdf:Property ;
+    rdfs:label "observationDate" ;
+    rdfs:comment "The observationDate of an [[Observation]]." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Date,
+        :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
+:observationPeriod a rdf:Property ;
+    rdfs:label "observationPeriod" ;
+    rdfs:comment "The length of time an Observation took place over. The format follows `P[0-9]*[Y|M|D|h|m|s]`. For example, P1Y is Period 1 Year, P3M is Period 3 Months, P3h is Period 3 hours." ;
+    :domainIncludes :Observation ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :occupancy a rdf:Property ;
     rdfs:label "occupancy" ;
@@ -8208,6 +9208,23 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Shipper's address." ;
     :domainIncludes :ParcelDelivery ;
     :rangeIncludes :PostalAddress .
+
+:originalMediaContextDescription a rdf:Property ;
+    rdfs:label "originalMediaContextDescription" ;
+    rdfs:comment "Describes, in a [[MediaReview]] when dealing with [[DecontextualizedContent]], background information that can contribute to better interpretation of the [[MediaObject]]." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:originalMediaLink a rdf:Property ;
+    rdfs:label "originalMediaLink" ;
+    rdfs:comment "Link to the page containing an original version of the content, or directly to an online copy of the original [[MediaObject]] content, e.g. video file." ;
+    :domainIncludes :MediaReview ;
+    :rangeIncludes :MediaObject,
+        :URL,
+        :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :ownedFrom a rdf:Property ;
     rdfs:label "ownedFrom" ;
@@ -8605,6 +9622,14 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :GeoShape ;
     :rangeIncludes :Text .
 
+:populationType a rdf:Property ;
+    rdfs:label "populationType" ;
+    rdfs:comment "Indicates the populationType common to all members of a [[StatisticalPopulation]] or all cases within the scope of a [[StatisticalVariable]]." ;
+    :domainIncludes :StatisticalPopulation,
+        :StatisticalVariable ;
+    :rangeIncludes :Class ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> .
+
 :position a rdf:Property ;
     rdfs:label "position" ;
     rdfs:comment "The position of an item in a series or sequence of items." ;
@@ -8936,6 +9961,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." ;
     owl:equivalentProperty unece:ServiceProvider ;
     :domainIncludes :CreativeWork,
+        :FinancialIncentive,
         :Invoice,
         :ParcelDelivery,
         :Reservation,
@@ -9010,6 +10036,20 @@ While such policies are most typically expressed in natural language, sometimes 
         :Vehicle ;
     :rangeIncludes :Date .
 
+:purchasePriceLimit a rdf:Property ;
+    rdfs:label "purchasePriceLimit" ;
+    rdfs:comment "Optional. The maximum price the item can have and still qualify for this offer." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:purchaseType a rdf:Property ;
+    rdfs:label "purchaseType" ;
+    rdfs:comment "Optional. The type of purchase the consumer must make in order to qualify for this incentive." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :PurchaseType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
 :qualifications a rdf:Property ;
     rdfs:label "qualifications" ;
     rdfs:comment "Specific qualifications required for this role or Occupation." ;
@@ -9017,6 +10057,13 @@ While such policies are most typically expressed in natural language, sometimes 
         :Occupation ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+
+:qualifiedExpense a rdf:Property ;
+    rdfs:label "qualifiedExpense" ;
+    rdfs:comment "Optional. The types of expenses that are covered by the incentive. For example some incentives are only for the goods (tangible items) but the services (labor) are excluded." ;
+    :domainIncludes :FinancialIncentive ;
+    :rangeIncludes :IncentiveQualifiedExpenseType ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :query a rdf:Property ;
     rdfs:label "query" ;
@@ -9777,7 +10824,8 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "serviceType" ;
     rdfs:comment "The type of service being offered, e.g. veterans' benefits, emergency relief, etc." ;
     :domainIncludes :Service ;
-    :rangeIncludes :Text .
+    :rangeIncludes :GovernmentBenefitsType,
+        :Text .
 
 :serviceUrl a rdf:Property ;
     rdfs:label "serviceUrl" ;
@@ -9790,6 +10838,14 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:comment "The serving size, in terms of the number of volume or mass." ;
     :domainIncludes :NutritionInformation ;
     :rangeIncludes :Text .
+
+:sha256 a rdf:Property ;
+    rdfs:label "sha256" ;
+    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'." ;
+    rdfs:subPropertyOf :description ;
+    :domainIncludes :MediaObject ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :sharedContent a rdf:Property ;
     rdfs:label "sharedContent" ;
@@ -9894,8 +10950,25 @@ While such policies are most typically expressed in natural language, sometimes 
         :Product ;
     :rangeIncludes :DefinedTerm,
         :QuantitativeValue,
+        :SizeSpecification,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+
+:sizeGroup a rdf:Property ;
+    rdfs:label "sizeGroup" ;
+    rdfs:comment "The size group (also known as \"size type\") for a product's size. Size groups are common in the fashion industry to define size segments and suggested audiences for wearable products. Multiple values can be combined, for example \"men's big and tall\", \"petite maternity\" or \"regular\"." ;
+    :domainIncludes :SizeSpecification ;
+    :rangeIncludes :SizeGroupEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:sizeSystem a rdf:Property ;
+    rdfs:label "sizeSystem" ;
+    rdfs:comment "The size system used to identify a product's size. Typically either a standard (for example, \"GS1\" or \"ISO-EN13402\"), country code (for example \"US\" or \"JP\"), or a measuring system (for example \"Metric\" or \"Imperial\")." ;
+    :domainIncludes :SizeSpecification ;
+    :rangeIncludes :SizeSystemEnumeration,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :skills a rdf:Property ;
     rdfs:label "skills" ;
@@ -10109,6 +11182,15 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :DateTime,
         :Time .
 
+:statType a rdf:Property ;
+    rdfs:label "statType" ;
+    rdfs:comment "Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org (e.g. [[median]], [[marginOfError]], [[maxValue]], [[minValue]]) or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. " ;
+    :domainIncludes :StatisticalVariable ;
+    :rangeIncludes :Property,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
+
 :steeringPosition a rdf:Property ;
     rdfs:label "steeringPosition" ;
     rdfs:comment "The position of the steering wheel or similar device (mostly for cars)." ;
@@ -10214,6 +11296,14 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :NutritionInformation ;
     :rangeIncludes :Mass .
 
+:suggestedAge a rdf:Property ;
+    rdfs:label "suggestedAge" ;
+    rdfs:comment "The age or age range for the intended audience or person, for example 3-12 months for infants, 1-5 years for toddlers." ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :suggestedAnswer a rdf:Property ;
     rdfs:label "suggestedAnswer" ;
     rdfs:comment "An answer (possibly one of several, possibly incorrect) to a Question, e.g. on a Question/Answer site." ;
@@ -10224,7 +11314,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :suggestedGender a rdf:Property ;
     rdfs:label "suggestedGender" ;
     rdfs:comment "The suggested gender of the intended person or audience, for example \"male\", \"female\", or \"unisex\"." ;
-    :domainIncludes :PeopleAudience ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
     :rangeIncludes :GenderType,
         :Text .
 
@@ -10233,6 +11324,14 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:comment "Maximum recommended age in years for the audience or user." ;
     :domainIncludes :PeopleAudience ;
     :rangeIncludes :Number .
+
+:suggestedMeasurement a rdf:Property ;
+    rdfs:label "suggestedMeasurement" ;
+    rdfs:comment "A suggested range of body measurements for the intended audience or person, for example inseam between 32 and 34 inches or height between 170 and 190 cm. Typically found on a size chart for wearable products." ;
+    :domainIncludes :PeopleAudience,
+        :SizeSpecification ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :suggestedMinAge a rdf:Property ;
     rdfs:label "suggestedMinAge" ;
@@ -10695,6 +11794,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     owl:equivalentProperty cmns-dt:hasStartDate ;
     :domainIncludes :Certification,
         :Demand,
+        :FinancialIncentive,
         :LocationFeatureSpecification,
         :MonetaryAmount,
         :Offer,
@@ -10716,6 +11816,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours." ;
     owl:equivalentProperty cmns-dt:hasEndDate ;
     :domainIncludes :Demand,
+        :FinancialIncentive,
         :JobPosting,
         :LocationFeatureSpecification,
         :MonetaryAmount,
@@ -10778,11 +11879,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :PropertyValue,
         :QualitativeValue,
         :QuantitativeValue ;
-    :rangeIncludes :Enumeration,
+    :rangeIncludes :DefinedTerm,
+        :Enumeration,
+        :MeasurementTypeEnumeration,
         :PropertyValue,
         :QualitativeValue,
         :QuantitativeValue,
-        :StructuredValue .
+        :StructuredValue,
+        :Text .
 
 :valueRequired a rdf:Property ;
     rdfs:label "valueRequired" ;
@@ -11080,6 +12184,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :QuantitativeValue,
         :Text .
 
+<https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> a :Organization ;
+    rdfs:label "ELI" ;
+    rdfs:comment "This entry is derived from the [ELI ontology](https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." ;
+    :contributor <https://schema.org/docs/collab/ELI> .
+
 :ActiveActionStatus a :ActionStatusType ;
     rdfs:label "ActiveActionStatus" ;
     rdfs:comment "An in-progress action (e.g., while watching the movie, or driving to a location)." .
@@ -11088,6 +12197,18 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "AlbumRelease" ;
     rdfs:comment "AlbumRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:AlgorithmicMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "AlgorithmicMediaDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia\">algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:algorithmicMedia ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:AlgorithmicallyEnhancedDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "AlgorithmicallyEnhancedDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicallyEnhanced\">algorithmically enhanced</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:algorithmicallyEnhanced ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
 :AllWheelDriveConfiguration a :DriveWheelConfigurationValue ;
     rdfs:label "AllWheelDriveConfiguration" ;
@@ -11098,14 +12219,97 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "AudiobookFormat" ;
     rdfs:comment "Book format: Audiobook. This is an enumerated value for use with the bookFormat property. There is also a type 'Audiobook' in the bib extension which includes Audiobook specific properties." .
 
+:AuthoritativeLegalValue a :LegalValueLevel ;
+    rdfs:label "AuthoritativeLegalValue" ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :BackOrder a :ItemAvailability ;
     rdfs:label "BackOrder" ;
     rdfs:comment "Indicates that the item is available on back order." .
+
+:BasicIncome a :GovernmentBenefitsType ;
+    rdfs:label "BasicIncome" ;
+    rdfs:comment "BasicIncome: this is a benefit for basic income." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
+:BodyMeasurementArm a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementArm" ;
+    rdfs:comment "Arm length (measured between arms/shoulder line intersection and the prominent wrist bone). Used, for example, to fit shirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementBust a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementBust" ;
+    rdfs:comment "Maximum girth of bust. Used, for example, to fit women's suits." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementChest a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementChest" ;
+    rdfs:comment "Maximum girth of chest. Used, for example, to fit men's suits." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementFoot a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementFoot" ;
+    rdfs:comment "Foot length (measured between end of the most prominent toe and the most prominent part of the heel). Used, for example, to measure socks." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHand a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHand" ;
+    rdfs:comment "Maximum hand girth (measured over the knuckles of the open right hand excluding thumb, fingers together). Used, for example, to fit gloves." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHead a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHead" ;
+    rdfs:comment "Maximum girth of head above the ears. Used, for example, to fit hats." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHeight a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHeight" ;
+    rdfs:comment "Body height (measured between crown of head and soles of feet). Used, for example, to fit jackets." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementHips a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementHips" ;
+    rdfs:comment "Girth of hips (measured around the buttocks). Used, for example, to fit skirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementInsideLeg a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementInsideLeg" ;
+    rdfs:comment "Inside leg (measured between crotch and soles of feet). Used, for example, to fit pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementNeck a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementNeck" ;
+    rdfs:comment "Girth of neck. Used, for example, to fit shirts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementUnderbust a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementUnderbust" ;
+    rdfs:comment "Girth of body just below the bust. Used, for example, to fit women's swimwear." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementWaist a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementWaist" ;
+    rdfs:comment "Girth of natural waistline (between hip bones and lower ribs). Used, for example, to fit pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:BodyMeasurementWeight a :BodyMeasurementTypeEnumeration ;
+    rdfs:label "BodyMeasurementWeight" ;
+    rdfs:comment "Body weight. Used, for example, to measure pantyhose." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :BroadcastRelease a :MusicAlbumReleaseType ;
     rdfs:label "BroadcastRelease" ;
     rdfs:comment "BroadcastRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:BusinessSupport a :GovernmentBenefitsType ;
+    rdfs:label "BusinessSupport" ;
+    rdfs:comment "BusinessSupport: this is a benefit for supporting businesses." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :ByBankTransferInAdvance a :PaymentMethodType ;
     rdfs:label "ByBankTransferInAdvance" ;
@@ -11133,6 +12337,21 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:CertificationActive a :CertificationStatusEnumeration ;
+    rdfs:label "CertificationActive" ;
+    rdfs:comment "Specifies that a certification is active." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:CertificationInactive a :CertificationStatusEnumeration ;
+    rdfs:label "CertificationInactive" ;
+    rdfs:comment "Specifies that a certification is inactive (no longer in effect)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3230> .
+
+:CharitableIncorporatedOrganization a :UKNonprofitType ;
+    rdfs:label "CharitableIncorporatedOrganization" ;
+    rdfs:comment "CharitableIncorporatedOrganization: Non-profit type referring to a Charitable Incorporated Organization (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
 :CheckInAdvance a :PaymentMethodType ;
     rdfs:label "CheckInAdvance" ;
     rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
@@ -11154,6 +12373,30 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "CompletedActionStatus" ;
     rdfs:comment "An action that has already taken place." .
 
+:CompositeCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "CompositeCaptureDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/compositeCapture\">composite capture</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:compositeCapture ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:CompositeDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "CompositeDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia\">algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:composite ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:CompositeSyntheticDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "CompositeSyntheticDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/compositeSynthetic\">composite synthetic</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:compositeSynthetic ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:CompositeWithTrainedAlgorithmicMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "CompositeWithTrainedAlgorithmicMediaDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia\">composite with trained algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:compositeWithTrainedAlgorithmicMedia ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :DJMixAlbum a :MusicAlbumProductionType ;
     rdfs:label "DJMixAlbum" ;
     rdfs:comment "DJMixAlbum." ;
@@ -11168,19 +12411,65 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "DamagedCondition" ;
     rdfs:comment "Indicates that the item is damaged." .
 
+:DataDrivenMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "DataDrivenMediaDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/dataDrivenMedia\">data driven media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:dataDrivenMedia ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:DecontextualizedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "DecontextualizedContent" ;
+    rdfs:comment """Content coded 'missing context' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'missing context': Presenting unaltered video in an inaccurate manner that misrepresents the footage. For example, using incorrect dates or locations, altering the transcript or sharing brief clips from a longer video to mislead viewers. (A video rated 'original' can also be missing context.)
+
+For an [[ImageObject]] to be 'missing context': Presenting unaltered images in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An image rated 'original' can also be missing context.)
+
+For an [[ImageObject]] with embedded text to be 'missing context': An unaltered image presented in an inaccurate manner to misrepresent the image and mislead the viewer. For example, a common tactic is using an unaltered image but saying it came from a different time or place. (An 'original' image with inaccurate text would generally fall in this category.)
+
+For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an inaccurate manner that misrepresents it. For example, using incorrect dates or locations, or sharing brief clips from a longer recording to mislead viewers. (Audio rated “original” can also be missing context.)
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:DefinitiveLegalValue a :LegalValueLevel ;
+    rdfs:label "DefinitiveLegalValue" ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
 :DemoAlbum a :MusicAlbumProductionType ;
     rdfs:label "DemoAlbum" ;
     rdfs:comment "DemoAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:DemoGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "DemoGameAvailability" ;
+    rdfs:comment "Indicates demo game availability, i.e. a somehow limited demonstration of the full game." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :DiabeticDiet a :RestrictedDiet ;
     rdfs:label "DiabeticDiet" ;
     rdfs:comment "A diet appropriate for people with diabetes." .
+
+:DigitalArtDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "DigitalArtDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/digitalArt\">digital art</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:digitalArt ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
 :DigitalAudioTapeFormat a :MusicReleaseFormatType ;
     rdfs:label "DigitalAudioTapeFormat" ;
     rdfs:comment "DigitalAudioTapeFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:DigitalCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "DigitalCaptureDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture\">digital capture</a></a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:digitalCapture ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
 :DigitalFormat a :MusicReleaseFormatType ;
     rdfs:label "DigitalFormat" ;
@@ -11190,6 +12479,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :DirectDebit a :PaymentMethodType ;
     rdfs:label "DirectDebit" ;
     rdfs:comment "Payment in advance by direct debit from the bank, equivalent to <code>http://purl.org/goodrelations/v1#DirectDebit</code>." .
+
+:DisabilitySupport a :GovernmentBenefitsType ;
+    rdfs:label "DisabilitySupport" ;
+    rdfs:comment "DisabilitySupport: this is a benefit for disability support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :Discontinued a :ItemAvailability ;
     rdfs:label "Discontinued" ;
@@ -11203,6 +12497,75 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "EPRelease" ;
     rdfs:comment "EPRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:EUEnergyEfficiencyCategoryA a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryA" ;
+    rdfs:comment "Represents EU Energy Efficiency Class A as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryA1Plus a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryA1Plus" ;
+    rdfs:comment "Represents EU Energy Efficiency Class A+ as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryA2Plus a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryA2Plus" ;
+    rdfs:comment "Represents EU Energy Efficiency Class A++ as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryA3Plus a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryA3Plus" ;
+    rdfs:comment "Represents EU Energy Efficiency Class A+++ as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryB a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryB" ;
+    rdfs:comment "Represents EU Energy Efficiency Class B as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryC a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryC" ;
+    rdfs:comment "Represents EU Energy Efficiency Class C as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryD a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryD" ;
+    rdfs:comment "Represents EU Energy Efficiency Class D as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryE a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryE" ;
+    rdfs:comment "Represents EU Energy Efficiency Class E as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryF a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryF" ;
+    rdfs:comment "Represents EU Energy Efficiency Class F as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EUEnergyEfficiencyCategoryG a :EUEnergyEfficiencyEnumeration ;
+    rdfs:label "EUEnergyEfficiencyCategoryG" ;
+    rdfs:comment "Represents EU Energy Efficiency Class G as defined in EU energy labeling regulations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
+
+:EditedOrCroppedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "EditedOrCroppedContent" ;
+    rdfs:comment """Content coded 'edited or cropped content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'edited or cropped content': The video has been edited or rearranged. This category applies to time edits, including editing multiple videos together to alter the story being told or editing out large portions from a video.
+
+For an [[ImageObject]] to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[ImageObject]] with embedded text to be 'edited or cropped content': Presenting a part of an image from a larger whole to mislead the viewer.
+
+For an [[AudioObject]] to be 'edited or cropped content': The audio has been edited or rearranged. This category applies to time edits, including editing multiple audio clips together to alter the story being told or editing out large portions from the recording.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
+:EnergyStarCertified a :EnergyStarEnergyEfficiencyEnumeration ;
+    rdfs:label "EnergyStarCertified" ;
+    rdfs:comment "Represents EnergyStar certification." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2670> .
 
 :EventCancelled a :EventStatusType ;
     rdfs:label "EventCancelled" ;
@@ -11223,6 +12586,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :EventScheduled a :EventStatusType ;
     rdfs:label "EventScheduled" ;
     rdfs:comment "The event is taking place or has taken place on the startDate as scheduled. Use of this value is optional, as it is assumed by default." .
+
+:ExampleMeasurementMethodEnum a :MeasurementMethodEnum ;
+    rdfs:label "ExampleMeasurementMethodEnum" ;
+    rdfs:comment "An example [[MeasurementMethodEnum]] (to remove when real enums are added)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> .
 
 :ExchangeRefund a :RefundTypeEnumeration ;
     rdfs:label "ExchangeRefund" ;
@@ -11286,6 +12654,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Fulfillment to a customer selected address after scheduling with the customer." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3617> .
 
+:FullGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "FullGameAvailability" ;
+    rdfs:comment "Indicates full game availability." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> .
+
 :FullRefund a :RefundTypeEnumeration ;
     rdfs:label "FullRefund" ;
     rdfs:comment "Specifies that a refund can be done in the full amount the customer paid for the product." ;
@@ -11307,6 +12680,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Hardcover" ;
     rdfs:comment "A durable, archival-quality book featuring a rigid protective shell made of heavy board wrapped in cloth or paper, designed to withstand heavy use and preservation on a shelf." .
 
+:HealthCare a :GovernmentBenefitsType ;
+    rdfs:label "HealthCare" ;
+    rdfs:comment "HealthCare: this is a benefit for health care." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :HearingImpairedSupported a :ContactPointOption ;
     rdfs:label "HearingImpairedSupported" ;
     rdfs:comment "Uses devices to support users with hearing impairments." .
@@ -11314,6 +12692,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :HinduDiet a :RestrictedDiet ;
     rdfs:label "HinduDiet" ;
     rdfs:comment "A diet conforming to Hindu dietary practices, in particular, beef-free." .
+
+:InForce a :LegalForceStatus ;
+    rdfs:label "InForce" ;
+    rdfs:comment "Indicates that a legislation is in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :InStock a :ItemAvailability ;
     rdfs:label "InStock" ;
@@ -11326,6 +12712,71 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :InStorePrepay a :PaymentMethodType ;
     rdfs:label "InStorePrepay" ;
     rdfs:comment "Payment in advance in some form of shop or kiosk for goods purchased online." .
+
+:IncentiveQualifiedExpenseTypeGoodsOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOnly" ;
+    rdfs:comment "This incentive applies to goods only." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeGoodsOrServices a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeGoodsOrServices" ;
+    rdfs:comment "This incentive can apply to either goods or services (or both)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeServicesOnly a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeServicesOnly" ;
+    rdfs:comment "This incentive applies to services only." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveQualifiedExpenseTypeUtilityBill a :IncentiveQualifiedExpenseType ;
+    rdfs:label "IncentiveQualifiedExpenseTypeUtilityBill" ;
+    rdfs:comment "This incentive applies to utility bills." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusActive a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusActive" ;
+    rdfs:comment "This incentive is currently active." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusInDevelopment a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusInDevelopment" ;
+    rdfs:comment "This incentive is currently being developed, and may become active/retired in the future." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusOnHold a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusOnHold" ;
+    rdfs:comment "This incentive is currently active, but may not be accepting new applicants (e.g. max number of redemptions reached for a year)" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveStatusRetired a :IncentiveStatus ;
+    rdfs:label "IncentiveStatusRetired" ;
+    rdfs:comment "This incentive is not longer available." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeLoan a :IncentiveType ;
+    rdfs:label "IncentiveTypeLoan" ;
+    rdfs:comment "An incentive where the recipient can receive additional funding for the purchase/lease of the good/service, which must be paid back." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeRebateOrSubsidy a :IncentiveType ;
+    rdfs:label "IncentiveTypeRebateOrSubsidy" ;
+    rdfs:comment "An incentive that reduces the purchase/lease cost of the good/service in question." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxCredit a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxCredit" ;
+    rdfs:comment "An incentive that directly reduces the amount of tax owed by the recipient." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxDeduction a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxDeduction" ;
+    rdfs:comment "An incentive that reduces the recipient's amount of taxable income." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:IncentiveTypeTaxWaiver a :IncentiveType ;
+    rdfs:label "IncentiveTypeTaxWaiver" ;
+    rdfs:comment "An incentive that reduces/exempts the recipient from taxation applicable to the incentivized good/service (e.g. luxury taxes, registration taxes, circulation tax)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :InvoicePrice a :PriceTypeEnumeration ;
     rdfs:label "InvoicePrice" ;
@@ -11366,6 +12817,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :LimitedAvailability a :ItemAvailability ;
     rdfs:label "LimitedAvailability" ;
     rdfs:comment "Indicates that the item has limited availability." .
+
+:LimitedByGuaranteeCharity a :UKNonprofitType ;
+    rdfs:label "LimitedByGuaranteeCharity" ;
+    rdfs:comment "LimitedByGuaranteeCharity: Non-profit type referring to a charitable company that is limited by guarantee (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
 
 :ListPrice a :PriceTypeEnumeration ;
     rdfs:label "ListPrice" ;
@@ -11435,6 +12891,17 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Represents the minimum advertised price (\"MAP\") (as dictated by the manufacturer) of an offered product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
+:MinorHumanEditsDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "MinorHumanEditsDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/minorHumanEdits\">minor human edits</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:minorHumanEdits ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:MixedEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "MixedEventAttendanceMode" ;
+    rdfs:comment "MixedEventAttendanceMode - an event that is conducted as a combination of both offline and online modes." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
+
 :MixtapeAlbum a :MusicAlbumProductionType ;
     rdfs:label "MixtapeAlbum" ;
     rdfs:comment "MixtapeAlbum." ;
@@ -11445,13 +12912,236 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The day of the week between Sunday and Tuesday." ;
     :sameAs <http://www.wikidata.org/entity/Q105> .
 
+:MultiFrameComputationalCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "MultiFrameComputationalCaptureDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia\">algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:computationalCapture ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :MultiPlayer a :GamePlayMode ;
     rdfs:label "MultiPlayer" ;
     rdfs:comment "Play mode: MultiPlayer. Requiring or allowing multiple human players to play simultaneously." .
 
+:NegativeFilmDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "NegativeFilmDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/negativeFilm\">negative film</a></a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:negativeFilm ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :NewCondition a :OfferItemCondition ;
     rdfs:label "NewCondition" ;
     rdfs:comment "Indicates that the item is new." .
+
+:Nonprofit501a a :USNonprofitType ;
+    rdfs:label "Nonprofit501a" ;
+    rdfs:comment "Nonprofit501a: Non-profit type referring to Farmers’ Cooperative Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c1 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c1" ;
+    rdfs:comment "Nonprofit501c1: Non-profit type referring to Corporations Organized Under Act of Congress, including Federal Credit Unions and National Farm Loan Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c10 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c10" ;
+    rdfs:comment "Nonprofit501c10: Non-profit type referring to Domestic Fraternal Societies and Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c11 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c11" ;
+    rdfs:comment "Nonprofit501c11: Non-profit type referring to Teachers' Retirement Fund Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c12 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c12" ;
+    rdfs:comment "Nonprofit501c12: Non-profit type referring to Benevolent Life Insurance Associations, Mutual Ditch or Irrigation Companies, Mutual or Cooperative Telephone Companies." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c13 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c13" ;
+    rdfs:comment "Nonprofit501c13: Non-profit type referring to Cemetery Companies." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c14 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c14" ;
+    rdfs:comment "Nonprofit501c14: Non-profit type referring to State-Chartered Credit Unions, Mutual Reserve Funds." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c15 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c15" ;
+    rdfs:comment "Nonprofit501c15: Non-profit type referring to Mutual Insurance Companies or Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c16 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c16" ;
+    rdfs:comment "Nonprofit501c16: Non-profit type referring to Cooperative Organizations to Finance Crop Operations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c17 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c17" ;
+    rdfs:comment "Nonprofit501c17: Non-profit type referring to Supplemental Unemployment Benefit Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c18 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c18" ;
+    rdfs:comment "Nonprofit501c18: Non-profit type referring to Employee Funded Pension Trust (created before 25 June 1959)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c19 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c19" ;
+    rdfs:comment "Nonprofit501c19: Non-profit type referring to Post or Organization of Past or Present Members of the Armed Forces." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c2 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c2" ;
+    rdfs:comment "Nonprofit501c2: Non-profit type referring to Title-holding Corporations for Exempt Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c20 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c20" ;
+    rdfs:comment "Nonprofit501c20: Non-profit type referring to Group Legal Services Plan Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c21 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c21" ;
+    rdfs:comment "Nonprofit501c21: Non-profit type referring to Black Lung Benefit Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c22 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c22" ;
+    rdfs:comment "Nonprofit501c22: Non-profit type referring to Withdrawal Liability Payment Funds." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c23 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c23" ;
+    rdfs:comment "Nonprofit501c23: Non-profit type referring to Veterans Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c24 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c24" ;
+    rdfs:comment "Nonprofit501c24: Non-profit type referring to Section 4049 ERISA Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c25 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c25" ;
+    rdfs:comment "Nonprofit501c25: Non-profit type referring to Real Property Title-Holding Corporations or Trusts with Multiple Parents." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c26 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c26" ;
+    rdfs:comment "Nonprofit501c26: Non-profit type referring to State-Sponsored Organizations Providing Health Coverage for High-Risk Individuals." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c27 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c27" ;
+    rdfs:comment "Nonprofit501c27: Non-profit type referring to State-Sponsored Workers' Compensation Reinsurance Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c28 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c28" ;
+    rdfs:comment "Nonprofit501c28: Non-profit type referring to National Railroad Retirement Investment Trusts." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c3 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c3" ;
+    rdfs:comment "Nonprofit501c3: Non-profit type referring to Religious, Educational, Charitable, Scientific, Literary, Testing for Public Safety, Fostering National or International Amateur Sports Competition, or Prevention of Cruelty to Children or Animals Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c4 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c4" ;
+    rdfs:comment "Nonprofit501c4: Non-profit type referring to Civic Leagues, Social Welfare Organizations, and Local Associations of Employees." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c5 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c5" ;
+    rdfs:comment "Nonprofit501c5: Non-profit type referring to Labor, Agricultural and Horticultural Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c6 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c6" ;
+    rdfs:comment "Nonprofit501c6: Non-profit type referring to Business Leagues, Chambers of Commerce, Real Estate Boards." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c7 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c7" ;
+    rdfs:comment "Nonprofit501c7: Non-profit type referring to Social and Recreational Clubs." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c8 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c8" ;
+    rdfs:comment "Nonprofit501c8: Non-profit type referring to Fraternal Beneficiary Societies and Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501c9 a :USNonprofitType ;
+    rdfs:label "Nonprofit501c9" ;
+    rdfs:comment "Nonprofit501c9: Non-profit type referring to Voluntary Employee Beneficiary Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501d a :USNonprofitType ;
+    rdfs:label "Nonprofit501d" ;
+    rdfs:comment "Nonprofit501d: Non-profit type referring to Religious and Apostolic Associations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501e a :USNonprofitType ;
+    rdfs:label "Nonprofit501e" ;
+    rdfs:comment "Nonprofit501e: Non-profit type referring to Cooperative Hospital Service Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501f a :USNonprofitType ;
+    rdfs:label "Nonprofit501f" ;
+    rdfs:comment "Nonprofit501f: Non-profit type referring to Cooperative Service Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501k a :USNonprofitType ;
+    rdfs:label "Nonprofit501k" ;
+    rdfs:comment "Nonprofit501k: Non-profit type referring to Child Care Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501n a :USNonprofitType ;
+    rdfs:label "Nonprofit501n" ;
+    rdfs:comment "Nonprofit501n: Non-profit type referring to Charitable Risk Pools." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit501q a :USNonprofitType ;
+    rdfs:label "Nonprofit501q" ;
+    rdfs:comment "Nonprofit501q: Non-profit type referring to Credit Counseling Organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:Nonprofit527 a :USNonprofitType ;
+    rdfs:label "Nonprofit527" ;
+    rdfs:comment "Nonprofit527: Non-profit type referring to political organizations." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:NonprofitANBI a :NLNonprofitType ;
+    rdfs:label "NonprofitANBI" ;
+    rdfs:comment "NonprofitANBI: Non-profit type referring to a Public Benefit Organization (NL)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:NonprofitSBBI a :NLNonprofitType ;
+    rdfs:label "NonprofitSBBI" ;
+    rdfs:comment "NonprofitSBBI: Non-profit type referring to a Social Interest Promoting Institution (NL)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:NotInForce a :LegalForceStatus ;
+    rdfs:label "NotInForce" ;
+    rdfs:comment "Indicates that a legislation is currently not in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:OfficialLegalValue a :LegalValueLevel ;
+    rdfs:label "OfficialLegalValue" ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:OfflineEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "OfflineEventAttendanceMode" ;
+    rdfs:comment "OfflineEventAttendanceMode - an event that is primarily conducted offline. " ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
 
 :OfflinePermanently a :GameServerStatus ;
     rdfs:label "OfflinePermanently" ;
@@ -11465,9 +13155,19 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "OnSitePickup" ;
     rdfs:comment "A DeliveryMethod in which an item is collected on site, e.g. in a store or at a box office." .
 
+:OneTimePayments a :GovernmentBenefitsType ;
+    rdfs:label "OneTimePayments" ;
+    rdfs:comment "OneTimePayments: this is a benefit for one-time payments for individuals." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :Online a :GameServerStatus ;
     rdfs:label "Online" ;
     rdfs:comment "Game server status: Online. Server is available." .
+
+:OnlineEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "OnlineEventAttendanceMode" ;
+    rdfs:comment "OnlineEventAttendanceMode - an event that is primarily conducted online. " ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> .
 
 :OnlineFull a :GameServerStatus ;
     rdfs:label "OnlineFull" ;
@@ -11509,6 +13209,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "OrderReturned" ;
     rdfs:comment "OrderStatus representing that an order has been returned." .
 
+:OriginalMediaContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "OriginalMediaContent" ;
+    rdfs:comment """Content coded 'as original media content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'original': No evidence the footage has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+
+For an [[ImageObject]] to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[ImageObject]] with embedded text to be 'original': No evidence the image has been misleadingly altered or manipulated, though it may still contain false or misleading claims.
+
+For an [[AudioObject]] to be 'original': No evidence the audio has been misleadingly altered or manipulated, though it may contain false or misleading claims.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :OriginalShippingFees a :ReturnFeesEnumeration ;
     rdfs:label "OriginalShippingFees" ;
     rdfs:comment "Specifies that the customer must pay the original shipping costs when returning a product." ;
@@ -11517,6 +13231,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :OutOfStock a :ItemAvailability ;
     rdfs:label "OutOfStock" ;
     rdfs:comment "Indicates that the item is out of stock." .
+
+:PaidLeave a :GovernmentBenefitsType ;
+    rdfs:label "PaidLeave" ;
+    rdfs:comment "PaidLeave: this is a benefit for paid leave." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
 
 :Paperback a :BookFormatType ;
     rdfs:label "Paperback" ;
@@ -11528,9 +13247,22 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
       """ ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
 
+:ParentalSupport a :GovernmentBenefitsType ;
+    rdfs:label "ParentalSupport" ;
+    rdfs:comment "ParentalSupport: this is a benefit for parental support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
 :ParkingMap a :MapCategoryType ;
     rdfs:label "ParkingMap" ;
     rdfs:comment "A parking map." .
+
+:PartiallyInForce a :LegalForceStatus ;
+    rdfs:label "PartiallyInForce" ;
+    rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :PaymentAutomaticallyApplied a :PaymentStatusType ;
     rdfs:label "PaymentAutomaticallyApplied" ;
@@ -11556,6 +13288,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "PhoneCarrierPayment" ;
     rdfs:comment "Payment by billing via the phone carrier." .
 
+:PositiveFilmDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "PositiveFilmDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/positiveFilm\">positive film</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:positiveFilm ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
 :PotentialActionStatus a :ActionStatusType ;
     rdfs:label "PotentialActionStatus" ;
     rdfs:comment "A description of an action that is supported." .
@@ -11567,6 +13305,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :PreSale a :ItemAvailability ;
     rdfs:label "PreSale" ;
     rdfs:comment "Indicates that the item is available for ordering and delivery before general availability." .
+
+:PrintDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "PrintDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/print\">print</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:print ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
 :ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnFiniteReturnWindow" ;
@@ -11596,6 +13340,26 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "PublicHolidays" ;
     rdfs:comment "This stands for any day that is a public holiday; it is a placeholder for all official public holidays in some particular location. While not technically a \"day of the week\", it can be used with [[OpeningHoursSpecification]]. In the context of an opening hours specification it can be used to indicate opening hours on public holidays, overriding general opening hours for the day of the week on which a public holiday occurs." ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
+
+:PurchaseTypeLease a :PurchaseType ;
+    rdfs:label "PurchaseTypeLease" ;
+    rdfs:comment "This is a lease of an item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeNewPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeNewPurchase" ;
+    rdfs:comment "This is a purchase of a new item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeTradeIn a :PurchaseType ;
+    rdfs:label "PurchaseTypeTradeIn" ;
+    rdfs:comment "This is a trade-in for an item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:PurchaseTypeUsedPurchase a :PurchaseType ;
+    rdfs:label "PurchaseTypeUsedPurchase" ;
+    rdfs:comment "This is a purchase of a used item." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
 :ReadPermission a :DigitalDocumentPermissionType ;
     rdfs:label "ReadPermission" ;
@@ -11712,10 +13476,30 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Represents a sale price (usually active for a limited period) of an offered product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2712> .
 
+:SatireOrParodyContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "SatireOrParodyContent" ;
+    rdfs:comment """Content coded 'satire or parody content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'satire or parody content': A video that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[ImageObject]] with embedded text to be 'satire or parody content': An image that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+
+For an [[AudioObject]] to be 'satire or parody content': Audio that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :Saturday a :DayOfWeek ;
     rdfs:label "Saturday" ;
     rdfs:comment "The day of the week between Friday and Sunday." ;
     :sameAs <http://www.wikidata.org/entity/Q131> .
+
+:ScreenCaptureDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "ScreenCaptureDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia\">algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:screenCapture ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
 :SeatingMap a :MapCategoryType ;
     rdfs:label "SeatingMap" ;
@@ -11730,6 +13514,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "SingleRelease." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:SizeSystemImperial a :SizeSystemEnumeration ;
+    rdfs:label "SizeSystemImperial" ;
+    rdfs:comment "Imperial size system." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:SizeSystemMetric a :SizeSystemEnumeration ;
+    rdfs:label "SizeSystemMetric" ;
+    rdfs:comment "Metric size system." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
 :SoldOut a :ItemAvailability ;
     rdfs:label "SoldOut" ;
     rdfs:comment "Indicates that the item has sold out." .
@@ -11743,6 +13537,20 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "SpokenWordAlbum" ;
     rdfs:comment "SpokenWordAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:StagedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "StagedContent" ;
+    rdfs:comment """Content coded 'staged content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'staged content': A video that has been created using actors or similarly contrived.
+
+For an [[ImageObject]] to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[ImageObject]] with embedded text to be 'staged content': An image that was created using actors or similarly contrived, such as a screenshot of a fake tweet.
+
+For an [[AudioObject]] to be 'staged content': Audio that has been created using actors or similarly contrived.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
 :StoreCreditRefund a :RefundTypeEnumeration ;
     rdfs:label "StoreCreditRefund" ;
@@ -11793,6 +13601,26 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "TollFree" ;
     rdfs:comment "The associated telephone number is toll free." .
 
+:TrainedAlgorithmicMediaDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "TrainedAlgorithmicMediaDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia\">trained algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:trainedAlgorithmicMedia ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:TransformedContent a :MediaManipulationRatingEnumeration ;
+    rdfs:label "TransformedContent" ;
+    rdfs:comment """Content coded 'transformed content' in a [[MediaReview]], considered in the context of how it was published or shared.
+
+For a [[VideoObject]] to be 'transformed content':  or all of the video has been manipulated to transform the footage itself. This category includes using tools like the Adobe Suite to change the speed of the video, add or remove visual elements or dub audio. Deepfakes are also a subset of transformation.
+
+For an [[ImageObject]] to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[ImageObject]] with embedded text to be 'transformed content': Adding or deleting visual elements to give the image a different meaning with the intention to mislead.
+
+For an [[AudioObject]] to be 'transformed content': Part or all of the audio has been manipulated to alter the words or sounds, or the audio has been synthetically generated, such as to create a sound-alike voice.
+""" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> .
+
 :TransitMap a :MapCategoryType ;
     rdfs:label "TransitMap" ;
     rdfs:comment "A transit map." .
@@ -11805,6 +13633,29 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "Tuesday" ;
     rdfs:comment "The day of the week between Monday and Wednesday." ;
     :sameAs <http://www.wikidata.org/entity/Q127> .
+
+:UKTrust a :UKNonprofitType ;
+    rdfs:label "UKTrust" ;
+    rdfs:comment "UKTrust: Non-profit type referring to a UK trust." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:UnemploymentSupport a :GovernmentBenefitsType ;
+    rdfs:label "UnemploymentSupport" ;
+    rdfs:comment "UnemploymentSupport: this is a benefit for unemployment support." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
+:UnincorporatedAssociationCharity a :UKNonprofitType ;
+    rdfs:label "UnincorporatedAssociationCharity" ;
+    rdfs:comment "UnincorporatedAssociationCharity: Non-profit type referring to a charitable company that is not incorporated (UK)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2543> .
+
+:UnofficialLegalValue a :LegalValueLevel ;
+    rdfs:label "UnofficialLegalValue" ;
+    rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> ;
+    :contributor <https://schema.org/docs/collab/ELI> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156>,
+        <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
 
 :UsedCondition a :OfferItemCondition ;
     rdfs:label "UsedCondition" ;
@@ -11826,6 +13677,227 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "VinylFormat" ;
     rdfs:comment "VinylFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:VirtualRecordingDigitalSource a :IPTCDigitalSourceEnumeration ;
+    rdfs:label "VirtualRecordingDigitalSource" ;
+    rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/virtualRecording\">virtual recording</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
+    skos:exactMatch dst:virtualRecording ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:WearableMeasurementBack a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementBack" ;
+    rdfs:comment "Measurement of the back section, for example of a jacket." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementChestOrBust a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementChestOrBust" ;
+    rdfs:comment "Measurement of the chest/bust section, for example of a suit." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementCollar a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementCollar" ;
+    rdfs:comment "Measurement of the collar, for example of a shirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementCup a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementCup" ;
+    rdfs:comment "Measurement of the cup, for example of a bra." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementHeight a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementHeight" ;
+    rdfs:comment "Measurement of the height, for example the heel height of a shoe." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementHips a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementHips" ;
+    rdfs:comment "Measurement of the hip section, for example of a skirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementInseam a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementInseam" ;
+    rdfs:comment "Measurement of the inseam, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementLength a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementLength" ;
+    rdfs:comment "Represents the length, for example of a dress." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementOutsideLeg a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementOutsideLeg" ;
+    rdfs:comment "Measurement of the outside leg, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementSleeve a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementSleeve" ;
+    rdfs:comment "Measurement of the sleeve length, for example of a shirt." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementWaist a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementWaist" ;
+    rdfs:comment "Measurement of the waist section, for example of pants." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableMeasurementWidth a :WearableMeasurementTypeEnumeration ;
+    rdfs:label "WearableMeasurementWidth" ;
+    rdfs:comment "Measurement of the width, for example of shoes." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupBig a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupBig" ;
+    rdfs:comment "Size group \"Big\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupBoys a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupBoys" ;
+    rdfs:comment "Size group \"Boys\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupExtraShort a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupExtraShort" ;
+    rdfs:comment "Size group \"Extra Short\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupExtraTall a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupExtraTall" ;
+    rdfs:comment "Size group \"Extra Tall\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupGirls a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupGirls" ;
+    rdfs:comment "Size group \"Girls\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupHusky a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupHusky" ;
+    rdfs:comment "Size group \"Husky\" (or \"Stocky\") for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupInfants a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupInfants" ;
+    rdfs:comment "Size group \"Infants\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupJuniors a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupJuniors" ;
+    rdfs:comment "Size group \"Juniors\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMaternity a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMaternity" ;
+    rdfs:comment "Size group \"Maternity\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMens a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMens" ;
+    rdfs:comment "Size group \"Mens\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupMisses a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupMisses" ;
+    rdfs:comment "Size group \"Misses\" (also known as \"Missy\") for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupPetite a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupPetite" ;
+    rdfs:comment "Size group \"Petite\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupPlus a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupPlus" ;
+    rdfs:comment "Size group \"Plus\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupRegular a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupRegular" ;
+    rdfs:comment "Size group \"Regular\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupShort a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupShort" ;
+    rdfs:comment "Size group \"Short\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupTall a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupTall" ;
+    rdfs:comment "Size group \"Tall\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeGroupWomens a :WearableSizeGroupEnumeration ;
+    rdfs:label "WearableSizeGroupWomens" ;
+    rdfs:comment "Size group \"Womens\" for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemAU a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemAU" ;
+    rdfs:comment "Australian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemBR a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemBR" ;
+    rdfs:comment "Brazilian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemCN a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemCN" ;
+    rdfs:comment "Chinese size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemContinental a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemContinental" ;
+    rdfs:comment "Continental size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemDE a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemDE" ;
+    rdfs:comment "German size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEN13402 a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemEN13402" ;
+    rdfs:comment "EN 13402 (joint European standard for size labelling of clothes)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemEurope a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemEurope" ;
+    rdfs:comment "European size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemFR a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemFR" ;
+    rdfs:comment "French size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemGS1 a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemGS1" ;
+    rdfs:comment "GS1 (formerly NRF) size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemIT a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemIT" ;
+    rdfs:comment "Italian size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemJP a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemJP" ;
+    rdfs:comment "Japanese size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemMX a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemMX" ;
+    rdfs:comment "Mexican size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemUK a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemUK" ;
+    rdfs:comment "United Kingdom size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
+
+:WearableSizeSystemUS a :WearableSizeSystemEnumeration ;
+    rdfs:label "WearableSizeSystemUS" ;
+    rdfs:comment "United States size system for wearables." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
 :Wednesday a :DayOfWeek ;
     rdfs:label "Wednesday" ;
