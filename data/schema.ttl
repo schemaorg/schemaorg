@@ -9144,8 +9144,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :rangeIncludes :Text .
 
 :membershipPointsEarned a rdf:Property ;
+    rdfs:label "membershipPointsEarned" ;
+    rdfs:comment "The number of membership points earned by the member. If necessary, the unitText can be used to express the units the points are issued in. (E.g. stars, miles, etc.)" ;
     :domainIncludes :MemberProgramTier,
-        :PriceSpecification .
+        :PriceSpecification,
+        :ProgramMembership ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2085> .
 
 :memoryRequirements a rdf:Property ;
     rdfs:label "memoryRequirements" ;
