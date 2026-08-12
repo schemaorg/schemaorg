@@ -823,6 +823,12 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "The act of notifying someone that a future event/action is going to happen as expected.\\n\\nRelated actions:\\n\\n* [[CancelAction]]: The antonym of ConfirmAction." ;
     rdfs:subClassOf :InformAction .
 
+:Consortium a rdfs:Class ;
+    rdfs:label "Consortium" ;
+    rdfs:comment "A Consortium is a membership [[Organization]] whose members are typically Organizations." ;
+    rdfs:subClassOf :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1559> .
+
 :ConstraintNode a rdfs:Class ;
     rdfs:label "ConstraintNode" ;
     rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a
