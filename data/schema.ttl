@@ -7169,6 +7169,20 @@ Dateline summaries are oriented more towards human readers than towards automate
     :rangeIncludes :MonetaryAmount ;
     :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
+:editEIDR a rdf:Property ;
+    rdfs:label "editEIDR" ;
+    rdfs:comment """An [EIDR](https://eidr.org/) (Entertainment Identifier Registry) [[identifier]] representing a specific edit / edition for a work of film or television.
+
+For example, the motion picture known as "Ghostbusters" whose [[titleEIDR]] is "10.5240/7EC7-228A-510A-053E-CBB8-J" has several edits, e.g. "10.5240/1F2A-E1C5-680A-14C6-E76B-I" and "10.5240/8A35-3BEE-6497-5D12-9E4F-3".
+
+Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for both works and their multiple expressions, it is possible to use [[titleEIDR]] alone (for a general description), or alongside [[editEIDR]] for a more edit-specific description.
+""" ;
+    rdfs:subPropertyOf :identifier ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2469> .
+
 :editor a rdf:Property ;
     rdfs:label "editor" ;
     rdfs:comment "Specifies the Person who edited the CreativeWork." ;
@@ -13395,6 +13409,23 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The title of the job." ;
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text .
+
+:titleEIDR a rdf:Property ;
+    rdfs:label "titleEIDR" ;
+    rdfs:comment """An [EIDR](https://eidr.org/) (Entertainment Identifier Registry) [[identifier]] representing at the most general/abstract level, a work of film or television.
+
+For example, the motion picture known as "Ghostbusters" has a titleEIDR of  "10.5240/7EC7-228A-510A-053E-CBB8-J". This title (or work) may have several variants, which EIDR calls "edits". See [[editEIDR]].
+
+Since schema.org types like [[Movie]], [[TVEpisode]], [[TVSeason]], and [[TVSeries]] can be used for both works and their multiple expressions, it is possible to use [[titleEIDR]] alone (for a general description), or alongside [[editEIDR]] for a more edit-specific description.
+""" ;
+    rdfs:subPropertyOf :identifier ;
+    :domainIncludes :Movie,
+        :TVEpisode,
+        :TVSeason,
+        :TVSeries ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2469> .
 
 :toLocation a rdf:Property ;
     rdfs:label "toLocation" ;
