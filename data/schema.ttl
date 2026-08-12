@@ -3076,6 +3076,12 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:comment "A place offering space for \"Recreational Vehicles\", Caravans, mobile homes and the like." ;
     rdfs:subClassOf :CivicStructure .
 
+:RadioBroadcastService a rdfs:Class ;
+    rdfs:label "RadioBroadcastService" ;
+    rdfs:comment "A delivery service through which radio content is provided via broadcast over the air or online." ;
+    rdfs:subClassOf :BroadcastService ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2109> .
+
 :RadioChannel a rdfs:Class ;
     rdfs:label "RadioChannel" ;
     rdfs:comment "A unique instance of a radio BroadcastService on a CableOrSatelliteService lineup." ;
@@ -5376,6 +5382,16 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Schedule ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> .
+
+:callSign a rdf:Property ;
+    rdfs:label "callSign" ;
+    rdfs:comment "A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio communications to identify people, radio and TV stations, or vehicles." ;
+    rdfs:subPropertyOf :identifier ;
+    :domainIncludes :BroadcastService,
+        :Person,
+        :Vehicle ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2109> .
 
 :calories a rdf:Property ;
     rdfs:label "calories" ;
