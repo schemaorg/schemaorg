@@ -1483,6 +1483,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:comment "Data type: Floating number." ;
     rdfs:subClassOf :Number .
 
+:FloorPlan a rdfs:Class ;
+    rdfs:label "FloorPlan" ;
+    rdfs:comment "A FloorPlan is an explicit representation of a collection of similar accommodations, allowing the provision of common information (room counts, sizes, layout diagrams) and offers for rental or sale. In typical use, some [[ApartmentComplex]] has an [[accommodationFloorPlan]] which is a [[FloorPlan]].  A FloorPlan is always in the context of a particular place, either a larger [[ApartmentComplex]] or a single [[Apartment]]. The visual/spatial aspects of a floor plan (i.e. room layout, [see wikipedia](https://en.wikipedia.org/wiki/Floor_plan)) can be indicated using [[image]]. " ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :Florist a rdfs:Class ;
     rdfs:label "Florist" ;
     rdfs:comment "A florist." ;
@@ -4319,6 +4325,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1100> .
 
+:accommodationCategory a rdf:Property ;
+    rdfs:label "accommodationCategory" ;
+    rdfs:comment "Category of an [[Accommodation]], following real estate conventions, e.g. RESO (see [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field), and [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field) fields  for suggested values)." ;
+    rdfs:subPropertyOf :category ;
+    :domainIncludes :Accommodation ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
+:accommodationFloorPlan a rdf:Property ;
+    rdfs:label "accommodationFloorPlan" ;
+    rdfs:comment "A floorplan of some [[Accommodation]]." ;
+    :domainIncludes :Accommodation,
+        :Residence ;
+    :rangeIncludes :FloorPlan ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :accountId a rdf:Property ;
     rdfs:label "accountId" ;
     rdfs:comment "The identifier for the account the payment will be applied to." ;
@@ -4626,6 +4648,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs." ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     :domainIncludes :Accommodation,
+        :FloorPlan,
         :LodgingBusiness,
         :Place ;
     :rangeIncludes :LocationFeatureSpecification .
@@ -6176,7 +6199,8 @@ In the case of products, the country of origin of the product. The exact interpr
 :datePosted a rdf:Property ;
     rdfs:label "datePosted" ;
     rdfs:comment "Publication date of an online listing." ;
-    :domainIncludes :JobPosting ;
+    :domainIncludes :JobPosting,
+        :RealEstateListing ;
     :rangeIncludes :Date .
 
 :datePublished a rdf:Property ;
@@ -7153,12 +7177,24 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :Flight ;
     :rangeIncludes :Text .
 
+:floorLevel a rdf:Property ;
+    rdfs:label "floorLevel" ;
+    rdfs:comment """The floor level for an [[Accommodation]] in a multi-storey building. Since counting
+  systems [vary internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations), the local system should be used where possible.""" ;
+    :domainIncludes :Accommodation,
+        :LocalBusiness,
+        :Residence ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373>,
+        <https://github.com/schemaorg/schemaorg/issues/4469> .
+
 :floorSize a rdf:Property ;
     rdfs:label "floorSize" ;
     rdfs:comment """The size of the accommodation, e.g. in square meter or squarefoot.
 Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard.""" ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
-    :domainIncludes :Accommodation ;
+    :domainIncludes :Accommodation,
+        :FloorPlan ;
     :rangeIncludes :QuantitativeValue .
 
 :followee a rdf:Property ;
@@ -8273,6 +8309,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :CreativeWork,
         :URL .
 
+:isPlanForApartment a rdf:Property ;
+    rdfs:label "isPlanForApartment" ;
+    rdfs:comment "Indicates some accommodation that this floor plan describes." ;
+    :domainIncludes :FloorPlan ;
+    :rangeIncludes :Accommodation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :isRelatedTo a rdf:Property ;
     rdfs:label "isRelatedTo" ;
     rdfs:comment "A pointer to another, somehow related product (or multiple products)." ;
@@ -8625,6 +8668,15 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :Number,
         :Text .
 
+:layoutImage a rdf:Property ;
+    rdfs:label "layoutImage" ;
+    rdfs:comment "A schematic image showing the floorplan layout." ;
+    rdfs:subPropertyOf :image ;
+    :domainIncludes :FloorPlan ;
+    :rangeIncludes :ImageObject,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2690> .
+
 :learningResourceType a rdf:Property ;
     rdfs:label "learningResourceType" ;
     rdfs:comment "The predominant type or kind characterizing the learning resource. For example, 'presentation', 'handout'." ;
@@ -8632,6 +8684,16 @@ Use Text for incentives that are limited based on other criteria, for example if
         :LearningResource ;
     :rangeIncludes :DefinedTerm,
         :Text .
+
+:leaseLength a rdf:Property ;
+    rdfs:label "leaseLength" ;
+    rdfs:comment "Length of the lease for some [[Accommodation]], either particular to some [[Offer]] or in some cases intrinsic to the property." ;
+    :domainIncludes :Accommodation,
+        :Offer,
+        :RealEstateListing ;
+    :rangeIncludes :Duration,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
 
 :legalAddress a rdf:Property ;
     rdfs:label "legalAddress" ;
@@ -9603,6 +9665,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :domainIncludes :MusicPlaylist ;
     :rangeIncludes :Integer .
 
+:numberOfAccommodationUnits a rdf:Property ;
+    rdfs:label "numberOfAccommodationUnits" ;
+    rdfs:comment "Indicates the total (available plus unavailable) number of accommodation units in an [[ApartmentComplex]], or the number of accommodation units for a specific [[FloorPlan]] (within its specific [[ApartmentComplex]]). See also [[numberOfAvailableAccommodationUnits]]." ;
+    :domainIncludes :ApartmentComplex,
+        :FloorPlan ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :numberOfAirbags a rdf:Property ;
     rdfs:label "numberOfAirbags" ;
     rdfs:comment "The number or type of airbags in the vehicle." ;
@@ -9611,6 +9681,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :rangeIncludes :Number,
         :Text .
 
+:numberOfAvailableAccommodationUnits a rdf:Property ;
+    rdfs:label "numberOfAvailableAccommodationUnits" ;
+    rdfs:comment "Indicates the number of available accommodation units in an [[ApartmentComplex]], or the number of accommodation units for a specific [[FloorPlan]] (within its specific [[ApartmentComplex]]). See also [[numberOfAccommodationUnits]]." ;
+    :domainIncludes :ApartmentComplex,
+        :FloorPlan ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :numberOfAxles a rdf:Property ;
     rdfs:label "numberOfAxles" ;
     rdfs:comment "The number of axles.\\n\\nTypical unit code(s): C62." ;
@@ -9618,6 +9696,24 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue .
+
+:numberOfBathroomsTotal a rdf:Property ;
+    rdfs:label "numberOfBathroomsTotal" ;
+    rdfs:comment "The total integer number of bathrooms in some [[Accommodation]], following real estate conventions as [documented in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field): \"The simple sum of the number of bathrooms. For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.\". See also [[numberOfRooms]]." ;
+    :domainIncludes :Accommodation,
+        :FloorPlan ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
+:numberOfBedrooms a rdf:Property ;
+    rdfs:label "numberOfBedrooms" ;
+    rdfs:comment "The total integer number of bedrooms in a some [[Accommodation]], [[ApartmentComplex]] or [[FloorPlan]]." ;
+    :domainIncludes :Accommodation,
+        :ApartmentComplex,
+        :FloorPlan ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
 
 :numberOfBeds a rdf:Property ;
     rdfs:label "numberOfBeds" ;
@@ -9667,6 +9763,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :rangeIncludes :Number,
         :QuantitativeValue .
 
+:numberOfFullBathrooms a rdf:Property ;
+    rdfs:label "numberOfFullBathrooms" ;
+    rdfs:comment "Number of full bathrooms - The total number of full and ¾ bathrooms in an [[Accommodation]]. This corresponds to the [BathroomsFull field in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsFull+Field)." ;
+    :domainIncludes :Accommodation,
+        :FloorPlan ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :numberOfItems a rdf:Property ;
     rdfs:label "numberOfItems" ;
     rdfs:comment "The number of items in an ItemList. Note that some descriptions might not fully describe all items in a list (e.g., multi-page pagination); in such cases, the numberOfItems would be for the entire list." ;
@@ -9678,6 +9782,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     rdfs:comment "The number of pages in the book." ;
     :domainIncludes :Book ;
     :rangeIncludes :Integer .
+
+:numberOfPartialBathrooms a rdf:Property ;
+    rdfs:label "numberOfPartialBathrooms" ;
+    rdfs:comment "Number of partial bathrooms - The total number of half and ¼ bathrooms in an [[Accommodation]]. This corresponds to the [BathroomsPartial field in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsPartial+Field). " ;
+    :domainIncludes :Accommodation,
+        :FloorPlan ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
 
 :numberOfPlayers a rdf:Property ;
     rdfs:label "numberOfPlayers" ;
@@ -9701,6 +9813,7 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     :domainIncludes :Accommodation,
         :Apartment,
+        :FloorPlan,
         :House,
         :LodgingBusiness,
         :SingleFamilyResidence,
@@ -10331,6 +10444,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:comment "Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value." ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     :domainIncludes :Accommodation,
+        :ApartmentComplex,
+        :FloorPlan,
         :LodgingBusiness ;
     :rangeIncludes :Boolean,
         :Text .
@@ -12489,6 +12604,15 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :HowToDirection ;
     :rangeIncludes :Duration .
 
+:tourBookingPage a rdf:Property ;
+    rdfs:label "tourBookingPage" ;
+    rdfs:comment "A page providing information on how to book a tour of some [[Place]], such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate setting, as well as other kinds of tours as appropriate." ;
+    :domainIncludes :Accommodation,
+        :ApartmentComplex,
+        :Place ;
+    :rangeIncludes :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :touristType a rdf:Property ;
     rdfs:label "touristType" ;
     rdfs:comment "Attraction suitable for type(s) of tourist. E.g. children, visitors from a particular country, etc. " ;
@@ -13132,6 +13256,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :WebPageElement ;
     :rangeIncludes :XPathType ;
     :source <https://github.com/schemaorg/schemaorg/issues/1389> .
+
+:yearBuilt a rdf:Property ;
+    rdfs:label "yearBuilt" ;
+    rdfs:comment "The year an [[Accommodation]] was constructed. This corresponds to the [YearBuilt field in RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field). " ;
+    :domainIncludes :Accommodation ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
 
 :yearlyRevenue a rdf:Property ;
     rdfs:label "yearlyRevenue" ;
