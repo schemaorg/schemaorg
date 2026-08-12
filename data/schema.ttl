@@ -5188,6 +5188,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :APIReference ;
     :rangeIncludes :Text .
 
+:assesses a rdf:Property ;
+    rdfs:label "assesses" ;
+    rdfs:comment "The item being described is intended to assess the competency or learning outcome defined by the referenced term." ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2427> .
+
 :associatedArticle a rdf:Property ;
     rdfs:label "associatedArticle" ;
     rdfs:comment "A NewsArticle associated with the Media Object." ;
@@ -13241,6 +13250,15 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :Organization,
         :Person ;
     :rangeIncludes :Text .
+
+:teaches a rdf:Property ;
+    rdfs:label "teaches" ;
+    rdfs:comment "The item being described is intended to help a person learn the competency or learning outcome defined by the referenced term." ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2427> .
 
 :telephone a rdf:Property ;
     rdfs:label "telephone" ;
