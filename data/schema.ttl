@@ -215,6 +215,18 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:comment "Aquarium." ;
     rdfs:subClassOf :CivicStructure .
 
+:ArchiveComponent a rdfs:Class ;
+    rdfs:label "ArchiveComponent"@en ;
+    rdfs:comment "An intangible type to be applied to any archive content, carrying with it a set of properties required to describe archival items and collections."@en ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> .
+
+:ArchiveOrganization a rdfs:Class ;
+    rdfs:label "ArchiveOrganization"@en ;
+    rdfs:comment "An organization with archival holdings. An organization which keeps and preserves archival material and typically makes it accessible to the public."@en ;
+    rdfs:subClassOf :LocalBusiness ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> .
+
 :ArriveAction a rdfs:Class ;
     rdfs:label "ArriveAction" ;
     rdfs:comment "The act of arriving at a place. An agent arrives at a destination from a fromLocation, optionally with participants." ;
@@ -4661,6 +4673,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :PaymentChargeSpecification ;
     :rangeIncludes :PaymentMethod .
 
+:archiveHeld a rdf:Property ;
+    rdfs:label "archiveHeld"@en ;
+    rdfs:comment "Collection, [fonds](https://en.wikipedia.org/wiki/Fonds), or item held, kept or maintained by an [[ArchiveOrganization]]."@en ;
+    :domainIncludes :ArchiveOrganization ;
+    :inverseOf :holdingArchive ;
+    :rangeIncludes :ArchiveComponent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> .
+
 :archivedAt a rdf:Property ;
     rdfs:label "archivedAt" ;
     rdfs:comment "Indicates a page or other link involved in archival of a [[CreativeWork]]. In the case of [[MediaReview]], the items in a [[MediaReviewItem]] may often become inaccessible, but be archived by archival, journalistic, activist, or law enforcement organizations. In such cases, the referenced page may not directly publish the content." ;
@@ -7609,6 +7629,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :Organization,
         :Person .
 
+:holdingArchive a rdf:Property ;
+    rdfs:label "holdingArchive"@en ;
+    rdfs:comment "[[ArchiveOrganization]] that holds, keeps or maintains the [[ArchiveComponent]]."@en ;
+    :domainIncludes :ArchiveComponent ;
+    :inverseOf :archiveHeld ;
+    :rangeIncludes :ArchiveOrganization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> .
+
 :homeLocation a rdf:Property ;
     rdfs:label "homeLocation" ;
     rdfs:comment "A contact location for a person's residence." ;
@@ -8266,6 +8294,16 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :ItemList ;
     :rangeIncludes :ItemListOrderType,
         :Text .
+
+:itemLocation a rdf:Property ;
+    rdfs:label "itemLocation"@en ;
+    rdfs:comment "Current location of the item."@en ;
+    rdfs:subPropertyOf :location ;
+    :domainIncludes :ArchiveComponent ;
+    :rangeIncludes :Place,
+        :PostalAddress,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> .
 
 :itemOffered a rdf:Property ;
     rdfs:label "itemOffered" ;
