@@ -892,6 +892,12 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     owl:equivalentClass fibo-be-corp-corp:Corporation ;
     :contributor <https://schema.org/docs/collab/rNews> .
 
+:CorrectionComment a rdfs:Class ;
+    rdfs:label "CorrectionComment" ;
+    rdfs:comment "A [[comment]] that corrects [[CreativeWork]]." ;
+    rdfs:subClassOf :Comment ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1950> .
+
 :Country a rdfs:Class ;
     rdfs:label "Country" ;
     rdfs:comment "A country." ;
@@ -6038,6 +6044,16 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "The year during which the claimed copyright for the CreativeWork was first asserted." ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Number .
+
+:correction a rdf:Property ;
+    rdfs:label "correction" ;
+    rdfs:comment "Indicates a correction to a [[CreativeWork]], either via a [[CorrectionComment]], textually or in another document." ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :CorrectionComment,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1950> .
 
 :correctionsPolicy a rdf:Property ;
     rdfs:label "correctionsPolicy" ;
