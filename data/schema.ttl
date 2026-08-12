@@ -706,6 +706,17 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "A public structure, such as a town hall or concert hall." ;
     rdfs:subClassOf :Place .
 
+:Claim a rdfs:Class ;
+    rdfs:label "Claim" ;
+    rdfs:comment """A [[Claim]] in Schema.org represents a specific, factually-oriented claim that could be the [[itemReviewed]] in a [[ClaimReview]]. The content of a claim can be summarized with the [[text]] property. Variations on well known claims can have their common identity indicated via [[sameAs]] links, and summarized with a [[name]]. Ideally, a [[Claim]] description includes enough contextual information to minimize the risk of ambiguity or inclarity. In practice, many claims are better understood in the context in which they appear or the interpretations provided by claim reviews.
+
+  Beyond [[ClaimReview]], the Claim type can be associated with related creative works - for example a [[ScholarlyArticle]] or [[Question]] might be [[about]] some [[Claim]].
+
+  At this time, Schema.org does not define any types of relationship between claims. This is a natural area for future exploration.
+  """ ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1828> .
+
 :ClaimReview a rdfs:Class ;
     rdfs:label "ClaimReview" ;
     rdfs:comment "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed)." ;
@@ -4531,6 +4542,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Question ;
     :rangeIncludes :Integer .
 
+:appearance a rdf:Property ;
+    rdfs:label "appearance" ;
+    rdfs:comment "Indicates an occurrence of a [[Claim]] in some [[CreativeWork]]." ;
+    rdfs:subPropertyOf :workExample ;
+    :domainIncludes :Claim ;
+    :rangeIncludes :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1828> .
+
 :applicableCountry a rdf:Property ;
     rdfs:label "applicableCountry" ;
     rdfs:comment "A country where a particular merchant return policy applies to, for example the two-letter ISO 3166-1 alpha-2 country code." ;
@@ -6872,6 +6891,14 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:comment "Size of the application / package (e.g. 18MB). In the absence of a unit (MB, KB etc.), KB will be assumed." ;
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text .
+
+:firstAppearance a rdf:Property ;
+    rdfs:label "firstAppearance" ;
+    rdfs:comment "Indicates the first known occurrence of a [[Claim]] in some [[CreativeWork]]." ;
+    rdfs:subPropertyOf :workExample ;
+    :domainIncludes :Claim ;
+    :rangeIncludes :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1828> .
 
 :firstPerformance a rdf:Property ;
     rdfs:label "firstPerformance" ;
