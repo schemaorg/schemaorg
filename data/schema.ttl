@@ -8274,6 +8274,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :Product,
         :Service .
 
+:isResizable a rdf:Property ;
+    rdfs:label "isResizable" ;
+    rdfs:comment "Whether the 3DModel allows resizing. For example, room layout applications often do not allow 3DModel elements to be resized to reflect reality." ;
+    :domainIncludes :3DModel ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2394> .
+
 :isSimilarTo a rdf:Property ;
     rdfs:label "isSimilarTo" ;
     rdfs:comment "A pointer to another, functionally similar product (or multiple products)." ;
