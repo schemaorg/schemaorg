@@ -6594,6 +6594,13 @@ This property should not be used where the nature of the alignment can be descri
     :rangeIncludes :Number,
         :Text .
 
+:eligibilityToWorkRequirement a rdf:Property ;
+    rdfs:label "eligibilityToWorkRequirement" ;
+    rdfs:comment "The legal requirements such as citizenship, visa and other documentation required for an applicant to this job." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> .
+
 :eligibleCustomerType a rdf:Property ;
     rdfs:label "eligibleCustomerType" ;
     rdfs:comment "The type(s) of customers for which the given offer is valid." ;
@@ -10251,6 +10258,15 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Photograph ;
     :supersededBy :photo .
 
+:physicalRequirement a rdf:Property ;
+    rdfs:label "physicalRequirement" ;
+    rdfs:comment "A description of the types of physical activity associated with the job. Defined terms such as those in O*net may be used, but note that there is no way to specify the level of ability as well as its nature when using a defined term." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :DefinedTerm,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> .
+
 :pickupLocation a rdf:Property ;
     rdfs:label "pickupLocation" ;
     rdfs:comment "Where a taxi will pick up a passenger or a rental car can be picked up." ;
@@ -11422,6 +11438,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :QualitativeValue,
         :Text .
 
+:securityClearanceRequirement a rdf:Property ;
+    rdfs:label "securityClearanceRequirement" ;
+    rdfs:comment "A description of any security clearance requirements of the job." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> .
+
 :securityScreening a rdf:Property ;
     rdfs:label "securityScreening" ;
     rdfs:comment "The type of security screening the passenger is subject to." ;
@@ -11458,6 +11482,15 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :Audience,
         :Organization,
         :Person .
+
+:sensoryRequirement a rdf:Property ;
+    rdfs:label "sensoryRequirement" ;
+    rdfs:comment "A description of any sensory requirements and levels necessary to function on the job, including hearing and vision. Defined terms such as those in O*net may be used, but note that there is no way to specify the level of ability as well as its nature when using a defined term." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :DefinedTerm,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2384> .
 
 :serialNumber a rdf:Property ;
     rdfs:label "serialNumber" ;
