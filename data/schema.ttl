@@ -2045,6 +2045,12 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:comment "The act of expressing a positive sentiment about the object. An agent likes an object (a proposition, topic or theme) with participants." ;
     rdfs:subClassOf :ReactAction .
 
+:LinkRole a rdfs:Class ;
+    rdfs:label "LinkRole" ;
+    rdfs:comment "A Role that represents a Web link, e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types, e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds." ;
+    rdfs:subClassOf :Role ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1045> .
+
 :LiquorStore a rdfs:Class ;
     rdfs:label "LiquorStore" ;
     rdfs:comment "A shop that sells alcoholic drinks such as wine, beer, whisky and other spirits." ;
@@ -7727,6 +7733,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event,
+        :LinkRole,
         :WriteAction ;
     :rangeIncludes :Language,
         :Text .
@@ -8704,6 +8711,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:comment "A line is a point-to-point path consisting of two or more points. A line is expressed as a series of two or more point objects separated by space." ;
     :domainIncludes :GeoShape ;
     :rangeIncludes :Text .
+
+:linkRelationship a rdf:Property ;
+    rdfs:label "linkRelationship" ;
+    rdfs:comment "Indicates the relationship type of a Web link. " ;
+    :domainIncludes :LinkRole ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1045> .
 
 :liveBlogUpdate a rdf:Property ;
     rdfs:label "liveBlogUpdate" ;
