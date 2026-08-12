@@ -526,6 +526,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A delivery service through which content is provided via broadcast over the air or online." ;
     rdfs:subClassOf :Service .
 
+:BrokerageAccount a rdfs:Class ;
+    rdfs:label "BrokerageAccount" ;
+    rdfs:comment "An account that allows an investor to deposit funds and place investment orders with a licensed broker or brokerage firm." ;
+    rdfs:subClassOf :InvestmentOrDeposit ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :BuddhistTemple a rdfs:Class ;
     rdfs:label "BuddhistTemple" ;
     rdfs:comment "A Buddhist temple." ;
@@ -1452,6 +1459,13 @@ it may also sometimes prove useful to describe a longer-term series as an Event.
     rdfs:comment "An event venue." ;
     rdfs:subClassOf :CivicStructure .
 
+:ExchangeRateSpecification a rdfs:Class ;
+    rdfs:label "ExchangeRateSpecification" ;
+    rdfs:comment "A structured value representing exchange rate." ;
+    rdfs:subClassOf :StructuredValue ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :ExerciseAction a rdfs:Class ;
     rdfs:label "ExerciseAction" ;
     rdfs:comment "The act of participating in exertive activity for the purposes of improving health and fitness." ;
@@ -2007,6 +2021,13 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:comment "An internet cafe." ;
     rdfs:subClassOf :LocalBusiness .
 
+:InvestmentFund a rdfs:Class ;
+    rdfs:label "InvestmentFund" ;
+    rdfs:comment "A company or fund that gathers capital from a number of investors to create a pool of money that is then re-invested into stocks, bonds and other assets." ;
+    rdfs:subClassOf :InvestmentOrDeposit ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :InvestmentOrDeposit a rdfs:Class ;
     rdfs:label "InvestmentOrDeposit" ;
     rdfs:comment "A type of financial product that typically requires the client to transfer funds to a financial service in return for potential beneficial financial return." ;
@@ -2400,6 +2421,20 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Grant ;
     :source <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://schema.org/docs/collab/FundInfoCollab> .
+
+:MoneyTransfer a rdfs:Class ;
+    rdfs:label "MoneyTransfer" ;
+    rdfs:comment "The act of transferring money from one place to another place. This may occur electronically or physically." ;
+    rdfs:subClassOf :TransferAction ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:MortgageLoan a rdfs:Class ;
+    rdfs:label "MortgageLoan" ;
+    rdfs:comment "A loan in which property or real estate is used as collateral. (A loan securitized against some real estate.)" ;
+    rdfs:subClassOf :LoanOrCredit ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :Mosque a rdfs:Class ;
     rdfs:label "Mosque" ;
@@ -3281,6 +3316,13 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:label "RentalCarReservation" ;
     rdfs:comment "A reservation for a rental car.\\n\\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations." ;
     rdfs:subClassOf :Reservation .
+
+:RepaymentSpecification a rdfs:Class ;
+    rdfs:label "RepaymentSpecification" ;
+    rdfs:comment "A structured value representing repayment." ;
+    rdfs:subClassOf :StructuredValue ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :ReplaceAction a rdfs:Class ;
     rdfs:label "ReplaceAction" ;
@@ -4467,6 +4509,22 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Invoice ;
     :rangeIncludes :Text .
 
+:accountMinimumInflow a rdf:Property ;
+    rdfs:label "accountMinimumInflow" ;
+    rdfs:comment "A minimum amount that has to be paid in every month." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :BankAccount ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:accountOverdraftLimit a rdf:Property ;
+    rdfs:label "accountOverdraftLimit" ;
+    rdfs:comment "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :BankAccount ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :accountablePerson a rdf:Property ;
     rdfs:label "accountablePerson" ;
     rdfs:comment "Specifies the Person that is legally accountable for the CreativeWork." ;
@@ -4778,10 +4836,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :DatedMoneySpecification,
         :InvestmentOrDeposit,
         :LoanOrCredit,
-        :MonetaryGrant ;
+        :MonetaryGrant,
+        :MoneyTransfer ;
     :rangeIncludes :MonetaryAmount,
         :Number ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+    :source <https://github.com/schemaorg/schemaorg/issues/1253>,
+        <https://github.com/schemaorg/schemaorg/issues/1698> .
 
 :amountOfThisGood a rdf:Property ;
     rdfs:label "amountOfThisGood" ;
@@ -5241,6 +5301,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1688> .
 
+:bankAccountType a rdf:Property ;
+    rdfs:label "bankAccountType" ;
+    rdfs:comment "The type of a bank account." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :BankAccount ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :baseSalary a rdf:Property ;
     rdfs:label "baseSalary" ;
     rdfs:comment "The base salary of the job or of an employee in an EmployeeRole." ;
@@ -5277,6 +5346,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :HowToDirection ;
     :rangeIncludes :MediaObject,
         :URL .
+
+:beneficiaryBank a rdf:Property ;
+    rdfs:label "beneficiaryBank" ;
+    rdfs:comment "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :MoneyTransfer ;
+    :rangeIncludes :BankOrCreditUnion,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :benefits a rdf:Property ;
     rdfs:label "benefits" ;
@@ -5661,6 +5739,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :MobileApplication ;
     :rangeIncludes :Text .
 
+:cashBack a rdf:Property ;
+    rdfs:label "cashBack" ;
+    rdfs:comment "A cardholder benefit that pays the cardholder a small percentage of their net expenditures." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :PaymentCard ;
+    :rangeIncludes :Boolean,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :catalog a rdf:Property ;
     rdfs:label "catalog" ;
     rdfs:comment "A data catalog which contains this dataset." ;
@@ -5989,6 +6076,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :ContactPoint ;
     :rangeIncludes :Text .
 
+:contactlessPayment a rdf:Property ;
+    rdfs:label "contactlessPayment" ;
+    rdfs:comment "A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :PaymentCard ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :containedIn a rdf:Property ;
     rdfs:label "containedIn" ;
     rdfs:comment "The basic containment relation between a place and one that contains it." ;
@@ -6241,9 +6336,20 @@ In the case of products, the country of origin of the product. The exact interpr
     rdfs:comment "The currency in which the monetary amount is expressed.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." ;
     owl:equivalentProperty fibo-fnd-acc-cur:hasCurrency ;
     :domainIncludes :DatedMoneySpecification,
+        :ExchangeRateSpecification,
+        :LoanOrCredit,
         :MonetaryAmount,
         :MonetaryAmountDistribution ;
-    :rangeIncludes :Text .
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:currentExchangeRate a rdf:Property ;
+    rdfs:label "currentExchangeRate" ;
+    rdfs:comment "The current price of a currency." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :ExchangeRateSpecification ;
+    :rangeIncludes :UnitPriceSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :customer a rdf:Property ;
     rdfs:label "customer" ;
@@ -6805,12 +6911,29 @@ Dateline summaries are oriented more towards human readers than towards automate
     :source <https://github.com/schemaorg/schemaorg/issues/2506>,
         <https://github.com/schemaorg/schemaorg/issues/3617> .
 
+:domiciledMortgage a rdf:Property ;
+    rdfs:label "domiciledMortgage" ;
+    rdfs:comment "Whether borrower is a resident of the jurisdiction where the property is located." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :MortgageLoan ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
     rdfs:comment "The time admission will commence." ;
     :domainIncludes :Event ;
     :rangeIncludes :DateTime,
         :Time .
+
+:downPayment a rdf:Property ;
+    rdfs:label "downPayment" ;
+    rdfs:comment "a type of payment made in cash during the onset of the purchase of an expensive good/service. The payment typically represents only a percentage of the full purchase price." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :RepaymentSpecification ;
+    :rangeIncludes :MonetaryAmount,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :downloadUrl a rdf:Property ;
     rdfs:label "downloadUrl" ;
@@ -6884,6 +7007,14 @@ Dateline summaries are oriented more towards human readers than towards automate
     :domainIncludes :HowToDirection ;
     :rangeIncludes :MediaObject,
         :URL .
+
+:earlyPrepaymentPenalty a rdf:Property ;
+    rdfs:label "earlyPrepaymentPenalty" ;
+    rdfs:comment "The amount to be paid as a penalty in the event of early payment of the loan." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :RepaymentSpecification ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :editor a rdf:Property ;
     rdfs:label "editor" ;
@@ -7291,6 +7422,15 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> .
 
+:exchangeRateSpread a rdf:Property ;
+    rdfs:label "exchangeRateSpread" ;
+    rdfs:comment "The difference between the price at which a broker or other intermediary buys and sells foreign currency." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :ExchangeRateSpecification ;
+    :rangeIncludes :MonetaryAmount,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :executableLibraryName a rdf:Property ;
     rdfs:label "executableLibraryName" ;
     rdfs:comment "Library file name, e.g., mscorlib.dll, system.web.dll." ;
@@ -7461,6 +7601,14 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2373>,
         <https://github.com/schemaorg/schemaorg/issues/4469> .
+
+:floorLimit a rdf:Property ;
+    rdfs:label "floorLimit" ;
+    rdfs:comment "A floor limit is the amount of money above which credit card transactions must be authorized." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :PaymentCard ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :floorSize a rdf:Property ;
     rdfs:label "floorSize" ;
@@ -7762,6 +7910,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :SpecialAnnouncement ;
     :rangeIncludes :GovernmentService ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
+:gracePeriod a rdf:Property ;
+    rdfs:label "gracePeriod" ;
+    rdfs:comment "The period of time after any due date that the borrower has to fulfil its obligations before a default (failure to pay) is deemed to have occurred." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :LoanOrCredit ;
+    :rangeIncludes :Duration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :grantee a rdf:Property ;
     rdfs:label "grantee" ;
@@ -9322,6 +9478,38 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :LiveBlogPosting ;
     :rangeIncludes :BlogPosting .
 
+:loanMortgageMandateAmount a rdf:Property ;
+    rdfs:label "loanMortgageMandateAmount" ;
+    rdfs:comment "Amount of mortgage mandate that can be converted into a proper mortgage at a later stage." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :MortgageLoan ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:loanPaymentAmount a rdf:Property ;
+    rdfs:label "loanPaymentAmount" ;
+    rdfs:comment "The amount of money to pay in a single payment." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :RepaymentSpecification ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:loanPaymentFrequency a rdf:Property ;
+    rdfs:label "loanPaymentFrequency" ;
+    rdfs:comment "Frequency of payments due, i.e. number of months between payments. This is defined as a frequency, i.e. the reciprocal of a period of time." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :RepaymentSpecification ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
+:loanRepaymentForm a rdf:Property ;
+    rdfs:label "loanRepaymentForm" ;
+    rdfs:comment "A form of paying back money previously borrowed from a lender. Repayment usually takes the form of periodic payments that normally include part principal plus interest in each payment." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :LoanOrCredit ;
+    :rangeIncludes :RepaymentSpecification ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :loanTerm a rdf:Property ;
     rdfs:label "loanTerm" ;
     rdfs:comment "The duration of the loan or credit agreement." ;
@@ -9329,6 +9517,15 @@ Use Text for incentives that are limited based on other criteria, for example if
     :contributor <https://schema.org/docs/collab/FIBO> ;
     :domainIncludes :LoanOrCredit ;
     :rangeIncludes :QuantitativeValue .
+
+:loanType a rdf:Property ;
+    rdfs:label "loanType" ;
+    rdfs:comment "The type of a loan or credit." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :LoanOrCredit ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :location a rdf:Property ;
     rdfs:label "location" ;
@@ -9818,6 +10015,15 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :domainIncludes :Reservation ;
     :rangeIncludes :DateTime .
 
+:monthlyMinimumRepaymentAmount a rdf:Property ;
+    rdfs:label "monthlyMinimumRepaymentAmount" ;
+    rdfs:comment "The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :PaymentCard ;
+    :rangeIncludes :MonetaryAmount,
+        :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :mpn a rdf:Property ;
     rdfs:label "mpn" ;
     rdfs:comment "The Manufacturer Part Number (MPN) of the product, or the product to which the offer refers." ;
@@ -10104,6 +10310,14 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     rdfs:comment "The number of items in an ItemList. Note that some descriptions might not fully describe all items in a list (e.g., multi-page pagination); in such cases, the numberOfItems would be for the entire list." ;
     :domainIncludes :ItemList ;
     :rangeIncludes :Integer .
+
+:numberOfLoanPayments a rdf:Property ;
+    rdfs:label "numberOfLoanPayments" ;
+    rdfs:comment "The number of payments contractually required at origination to repay the loan. For monthly paying loans this is the number of months from the contractual first payment date to the maturity date." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :RepaymentSpecification ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :numberOfPages a rdf:Property ;
     rdfs:label "numberOfPages" ;
@@ -11492,6 +11706,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :inverseOf :recordedAs ;
     :rangeIncludes :MusicComposition .
 
+:recourseLoan a rdf:Property ;
+    rdfs:label "recourseLoan" ;
+    rdfs:comment "The only way you get the money back in the event of default is the security. Recourse is where you still have the opportunity to go back to the borrower for the rest of the money." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :LoanOrCredit ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
+
 :referee a rdf:Property ;
     rdfs:label "referee" ;
     rdfs:comment "An official who watches a game or match closely to enforce the rules and arbitrate on matters arising from the play such as referees, umpires or judges. The name of the effective function can vary according to the sport." ;
@@ -11577,6 +11799,14 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:comment "The number of attendee places for an event that remain unallocated." ;
     :domainIncludes :Event ;
     :rangeIncludes :Integer .
+
+:renegotiableLoan a rdf:Property ;
+    rdfs:label "renegotiableLoan" ;
+    rdfs:comment "Whether the terms for payment of interest can be renegotiated during the life of the loan." ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
+    :domainIncludes :LoanOrCredit ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :repeatCount a rdf:Property ;
     rdfs:label "repeatCount" ;
