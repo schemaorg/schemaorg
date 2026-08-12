@@ -3924,6 +3924,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :SizeSystemEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2811> .
 
+:WebAPI a rdfs:Class ;
+    rdfs:label "WebAPI" ;
+    rdfs:comment "An application programming interface accessible over Web/Internet technologies." ;
+    rdfs:subClassOf :Service ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> .
+
 :WebApplication a rdfs:Class ;
     rdfs:label "WebApplication" ;
     rdfs:comment "Web applications." ;
@@ -6079,6 +6085,14 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available. There is no expectation that different downloadable distributions must contain exactly equivalent information (see also [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this point). Different distributions might include or exclude different subsets of the entire dataset, for example." ;
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload .
+
+:documentation a rdf:Property ;
+    rdfs:label "documentation" ;
+    rdfs:comment "Further documentation describing the Web API in more detail." ;
+    :domainIncludes :WebAPI ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> .
 
 :doesNotShip a rdf:Property ;
     rdfs:label "doesNotShip" ;
@@ -11489,6 +11503,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :DateTime,
         :Text,
         :URL .
+
+:termsOfService a rdf:Property ;
+    rdfs:label "termsOfService" ;
+    rdfs:comment "Human-readable terms of service documentation." ;
+    :domainIncludes :Service ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1423> .
 
 :text a rdf:Property ;
     rdfs:label "text" ;
