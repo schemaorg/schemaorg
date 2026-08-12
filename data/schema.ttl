@@ -613,6 +613,18 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:comment "A casino." ;
     rdfs:subClassOf :EntertainmentBusiness .
 
+:CategoryCode a rdfs:Class ;
+    rdfs:label "CategoryCode" ;
+    rdfs:comment "A Category Code." ;
+    rdfs:subClassOf :DefinedTerm ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
+
+:CategoryCodeSet a rdfs:Class ;
+    rdfs:label "CategoryCodeSet" ;
+    rdfs:comment "A set of Category Code values." ;
+    rdfs:subClassOf :DefinedTermSet ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
+
 :CatholicChurch a rdfs:Class ;
     rdfs:label "CatholicChurch" ;
     rdfs:comment "A Catholic church." ;
@@ -1017,6 +1029,18 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:subClassOf :Place,
         :StructuredValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> .
+
+:DefinedTerm a rdfs:Class ;
+    rdfs:label "DefinedTerm" ;
+    rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term. Use the about property to specify what the term is about." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
+
+:DefinedTermSet a rdfs:Class ;
+    rdfs:label "DefinedTermSet" ;
+    rdfs:comment "A set of defined terms, for example a set of categories or a classification scheme, a glossary, dictionary or enumeration. Use the about property to specify what the term set is about." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
 :DeleteAction a rdfs:Class ;
     rdfs:label "DeleteAction" ;
@@ -5314,7 +5338,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :Offer,
         :Product,
         :Service ;
-    :rangeIncludes :Text,
+    :rangeIncludes :CategoryCode,
+        :Text,
         :Thing ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> .
 
@@ -5476,6 +5501,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template." ;
     :domainIncludes :SoftwareSourceCode ;
     :rangeIncludes :Text .
+
+:codeValue a rdf:Property ;
+    rdfs:label "codeValue" ;
+    rdfs:comment "A short textual code that uniquely identifies the value." ;
+    rdfs:subPropertyOf :termCode ;
+    :domainIncludes :CategoryCode ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
 :colleague a rdf:Property ;
     rdfs:label "colleague" ;
@@ -7189,6 +7222,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :BroadcastChannel ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> .
 
+:hasCategoryCode a rdf:Property ;
+    rdfs:label "hasCategoryCode" ;
+    rdfs:comment "A Category code contained in this code set." ;
+    rdfs:subPropertyOf :hasDefinedTerm ;
+    :domainIncludes :CategoryCodeSet ;
+    :rangeIncludes :CategoryCode ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
+
 :hasCertification a rdf:Property ;
     rdfs:label "hasCertification" ;
     rdfs:comment "Certification information about a product, organization, service, place, or person." ;
@@ -7208,6 +7249,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." ;
     :domainIncludes :Course ;
     :rangeIncludes :CourseInstance .
+
+:hasDefinedTerm a rdf:Property ;
+    rdfs:label "hasDefinedTerm" ;
+    rdfs:comment "A Defined Term contained in this term set." ;
+    :domainIncludes :DefinedTermSet ;
+    :rangeIncludes :DefinedTerm ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
 :hasDeliveryMethod a rdf:Property ;
     rdfs:label "hasDeliveryMethod" ;
@@ -7520,6 +7568,24 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "The CableOrSatelliteService offering the channel." ;
     :domainIncludes :BroadcastChannel ;
     :rangeIncludes :CableOrSatelliteService .
+
+:inCodeSet a rdf:Property ;
+    rdfs:label "inCodeSet" ;
+    rdfs:comment "A [[CategoryCodeSet]] that contains this category code." ;
+    rdfs:subPropertyOf :inDefinedTermSet ;
+    :domainIncludes :CategoryCode ;
+    :rangeIncludes :CategoryCodeSet,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
+
+:inDefinedTermSet a rdf:Property ;
+    rdfs:label "inDefinedTermSet" ;
+    rdfs:comment "A [[DefinedTermSet]] that contains this term." ;
+    rdfs:subPropertyOf :isPartOf ;
+    :domainIncludes :DefinedTerm ;
+    :rangeIncludes :DefinedTermSet,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
 :inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
@@ -11745,6 +11811,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :DateTime,
         :Text,
         :URL .
+
+:termCode a rdf:Property ;
+    rdfs:label "termCode" ;
+    rdfs:comment "A code that identifies this [[DefinedTerm]] within a [[DefinedTermSet]]." ;
+    :domainIncludes :DefinedTerm ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
 :termsOfService a rdf:Property ;
     rdfs:label "termsOfService" ;
