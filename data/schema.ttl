@@ -8040,13 +8040,15 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "ineligibleRegion" ;
     rdfs:comment """The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is not valid, e.g. a region where the transaction is not allowed.\\n\\nSee also [[eligibleRegion]].
       """ ;
-    :domainIncludes :DeliveryChargeSpecification,
+    :domainIncludes :ActionAccessSpecification,
+        :DeliveryChargeSpecification,
         :Demand,
         :MediaObject,
         :Offer ;
     :rangeIncludes :GeoShape,
         :Place,
-        :Text .
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2242> .
 
 :ingredients a rdf:Property ;
     rdfs:label "ingredients" ;
