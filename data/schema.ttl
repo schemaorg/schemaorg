@@ -3009,6 +3009,12 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     :source <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://schema.org/docs/collab/FundInfoCollab> .
 
+:PronounceableText a rdfs:Class ;
+    rdfs:label "PronounceableText" ;
+    rdfs:comment "Data type: PronounceableText." ;
+    rdfs:subClassOf :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2108> .
+
 :PropertyValue a rdfs:Class ;
     rdfs:label "PropertyValue" ;
     rdfs:comment """A property-value pair, e.g. representing a feature of a product or place. Use the 'name' property for the name of the property. If there is an additional human-readable version of the value, put that into the 'description' property.\\n\\n Always use specific schema.org properties when a) they exist and b) you can populate them. Using PropertyValue as a substitute will typically not trigger the same effect as using the original, specific property.
@@ -7885,6 +7891,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
         :CreativeWork,
         :Event,
         :LinkRole,
+        :PronounceableText,
         :WriteAction ;
     :rangeIncludes :Language,
         :Text .
@@ -10298,6 +10305,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :rangeIncludes :Boolean,
         :Text .
 
+:phoneticText a rdf:Property ;
+    rdfs:label "phoneticText" ;
+    rdfs:comment "Representation of a text [[textValue]] using the specified [[speechToTextMarkup]]. For example the city name of Houston in IPA: /ˈhjuːstən/." ;
+    :domainIncludes :PronounceableText ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2108> .
+
 :photo a rdf:Property ;
     rdfs:label "photo" ;
     rdfs:comment "A photograph of this place." ;
@@ -11914,6 +11928,13 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :WebPage ;
     :rangeIncludes :Specialty .
 
+:speechToTextMarkup a rdf:Property ;
+    rdfs:label "speechToTextMarkup" ;
+    rdfs:comment "Form of markup used. eg. [SSML](https://www.w3.org/TR/speech-synthesis11) or [IPA](https://www.wikidata.org/wiki/Property:P898)." ;
+    :domainIncludes :PronounceableText ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2108> .
+
 :sponsor a rdf:Property ;
     rdfs:label "sponsor" ;
     rdfs:comment "A person or organization that supports a thing through a pledge, promise, or financial contribution. E.g. a sponsor of a Medical Study or a corporate sponsor of an event." ;
@@ -12308,6 +12329,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The textual content of this CreativeWork." ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Text .
+
+:textValue a rdf:Property ;
+    rdfs:label "textValue" ;
+    rdfs:comment "Text value being annotated." ;
+    :domainIncludes :PronounceableText ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2108> .
 
 :thumbnail a rdf:Property ;
     rdfs:label "thumbnail" ;
