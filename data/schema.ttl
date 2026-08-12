@@ -3945,6 +3945,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "The act of momentarily pausing a device or application (e.g. pause music playback or pause a timer)." ;
     rdfs:subClassOf :ControlAction .
 
+:Syllabus a rdfs:Class ;
+    rdfs:label "Syllabus" ;
+    rdfs:comment "A syllabus that describes the material covered in a course, often with several such sections per [[Course]] so that a distinct [[timeRequired]] can be provided for that section of the [[Course]]." ;
+    rdfs:subClassOf :LearningResource ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> .
+
 :Synagogue a rdfs:Class ;
     rdfs:label "Synagogue" ;
     rdfs:comment "A synagogue." ;
@@ -5370,6 +5376,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]." ;
     owl:equivalentProperty gs1:availableLanguage ;
     :domainIncludes :ContactPoint,
+        :Course,
         :LodgingBusiness,
         :ServiceChannel,
         :TouristAttraction ;
@@ -6426,6 +6433,13 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :AlignmentObject,
         :Course,
         :Text .
+
+:courseSchedule a rdf:Property ;
+    rdfs:label "courseSchedule" ;
+    rdfs:comment "Represents the length and pace of a course, expressed as a [[Schedule]]." ;
+    :domainIncludes :CourseInstance ;
+    :rangeIncludes :Schedule ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> .
 
 :courseWorkload a rdf:Property ;
     rdfs:label "courseWorkload" ;
@@ -7753,7 +7767,8 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 :financialAidEligible a rdf:Property ;
     rdfs:label "financialAidEligible" ;
     rdfs:comment "A financial aid type or program which students may use to pay for tuition or fees associated with the program." ;
-    :domainIncludes :EducationalOccupationalProgram ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2418> .
@@ -13226,6 +13241,13 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :URL ;
     :supersededBy :artworkSurface .
 
+:syllabusSections a rdf:Property ;
+    rdfs:label "syllabusSections" ;
+    rdfs:comment "Indicates (typically several) Syllabus entities that lay out what each section of the overall course will cover." ;
+    :domainIncludes :Course ;
+    :rangeIncludes :Syllabus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> .
+
 :target a rdf:Property ;
     rdfs:label "target" ;
     rdfs:comment "Indicates a target EntryPoint, or url, for an Action." ;
@@ -13469,6 +13491,13 @@ Since schema.org types like [[Movie]], [[TVEpisode]], [[TVSeason]], and [[TVSeri
         :HowToDirection ;
     :rangeIncludes :HowToTool,
         :Text .
+
+:totalHistoricalEnrollment a rdf:Property ;
+    rdfs:label "totalHistoricalEnrollment" ;
+    rdfs:comment "The total number of students that have enrolled in the history of the course." ;
+    :domainIncludes :Course ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> .
 
 :totalJobOpenings a rdf:Property ;
     rdfs:label "totalJobOpenings" ;
