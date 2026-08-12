@@ -8370,6 +8370,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text .
 
+:jobImmediateStart a rdf:Property ;
+    rdfs:label "jobImmediateStart" ;
+    rdfs:comment "An indicator as to whether a position is available for an immediate start." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2244> .
+
 :jobLocation a rdf:Property ;
     rdfs:label "jobLocation" ;
     rdfs:comment "A (typically single) geographic location associated with the job position." ;
@@ -8382,6 +8389,14 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1591> .
+
+:jobStartDate a rdf:Property ;
+    rdfs:label "jobStartDate" ;
+    rdfs:comment "The date on which a successful applicant for this job would be expected to start work. Choose a specific date in the future or use the jobImmediateStart property to indicate the position is to be filled as soon as possible." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Date,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2244> .
 
 :jobTitle a rdf:Property ;
     rdfs:label "jobTitle" ;
