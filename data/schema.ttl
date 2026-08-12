@@ -8308,6 +8308,13 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :JobPosting ;
     :rangeIncludes :Place .
 
+:jobLocationType a rdf:Property ;
+    rdfs:label "jobLocationType" ;
+    rdfs:comment "A description of the job location (e.g. TELECOMMUTE for telecommute jobs)." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1591> .
+
 :jobTitle a rdf:Property ;
     rdfs:label "jobTitle" ;
     rdfs:comment "The job title of the person (for example, Financial Manager)." ;
