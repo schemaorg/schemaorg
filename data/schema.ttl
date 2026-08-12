@@ -5707,6 +5707,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> .
 
+:byMonthWeek a rdf:Property ;
+    rdfs:label "byMonthWeek" ;
+    rdfs:comment "Defines the week(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-5. For clarity, byMonthWeek is best used in conjunction with byDay to indicate concepts like the first and third Mondays of a month." ;
+    :domainIncludes :Schedule ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2599> .
+
 :callSign a rdf:Property ;
     rdfs:label "callSign" ;
     rdfs:comment "A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio communications to identify people, radio and TV stations, or vehicles." ;
