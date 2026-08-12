@@ -10184,6 +10184,22 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :domainIncludes :Person ;
     :rangeIncludes :Country .
 
+:negativeNotes a rdf:Property ;
+    rdfs:label "negativeNotes" ;
+    rdfs:comment """Provides negative considerations regarding something, most typically in pro/con lists for reviews (alongside [[positiveNotes]]). For symmetry 
+
+In the case of a [[Review]], the property describes the [[itemReviewed]] from the perspective of the review; in the case of a [[Product]], the product itself is being described. Since product descriptions 
+tend to emphasise positive claims, it may be relatively unusual to find [[negativeNotes]] used in this way. Nevertheless for the sake of symmetry, [[negativeNotes]] can be used on [[Product]].
+
+The property values can be expressed either as unstructured text (repeated as necessary), or if ordered, as a list (in which case the most negative is at the beginning of the list).""" ;
+    :domainIncludes :Product,
+        :Review ;
+    :rangeIncludes :ItemList,
+        :ListItem,
+        :Text,
+        :WebContent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2832> .
+
 :netWorth a rdf:Property ;
     rdfs:label "netWorth" ;
     rdfs:comment "The total financial value of the person as calculated by subtracting the total value of liabilities from the total value of assets." ;
@@ -11143,6 +11159,21 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :ListItem ;
     :rangeIncludes :Integer,
         :Text .
+
+:positiveNotes a rdf:Property ;
+    rdfs:label "positiveNotes" ;
+    rdfs:comment """Provides positive considerations regarding something, for example product highlights or (alongside [[negativeNotes]]) pro/con lists for reviews.
+
+In the case of a [[Review]], the property describes the [[itemReviewed]] from the perspective of the review; in the case of a [[Product]], the product itself is being described.
+
+The property values can be expressed either as unstructured text (repeated as necessary), or if ordered, as a list (in which case the most positive is at the beginning of the list).""" ;
+    :domainIncludes :Product,
+        :Review ;
+    :rangeIncludes :ItemList,
+        :ListItem,
+        :Text,
+        :WebContent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2832> .
 
 :postOfficeBoxNumber a rdf:Property ;
     rdfs:label "postOfficeBoxNumber" ;
