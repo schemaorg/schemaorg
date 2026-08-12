@@ -9894,14 +9894,16 @@ Typical unit code(s): C62 for person.""" ;
     rdfs:label "occupationalCategory" ;
     rdfs:comment """A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\\n
 Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC.""" ;
-    :domainIncludes :JobPosting,
+    :domainIncludes :EducationalOccupationalProgram,
+        :JobPosting,
         :Occupation,
         :WorkBasedProgram ;
     :rangeIncludes :CategoryCode,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698>,
         <https://github.com/schemaorg/schemaorg/issues/2192>,
-        <https://github.com/schemaorg/schemaorg/issues/2289> .
+        <https://github.com/schemaorg/schemaorg/issues/2289>,
+        <https://github.com/schemaorg/schemaorg/issues/2460> .
 
 :occupationalCredentialAwarded a rdf:Property ;
     rdfs:label "occupationalCredentialAwarded" ;
@@ -10842,6 +10844,14 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :EducationalOccupationalCredential,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
+:programType a rdf:Property ;
+    rdfs:label "programType" ;
+    rdfs:comment "The type of educational or occupational program. For example, classroom, internship, alternance, etc." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2460> .
 
 :programmingLanguage a rdf:Property ;
     rdfs:label "programmingLanguage" ;
@@ -12679,9 +12689,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 :trainingSalary a rdf:Property ;
     rdfs:label "trainingSalary" ;
     rdfs:comment "The estimated salary earned while in the program." ;
-    :domainIncludes :WorkBasedProgram ;
+    :domainIncludes :EducationalOccupationalProgram,
+        :WorkBasedProgram ;
     :rangeIncludes :MonetaryAmountDistribution ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2289>,
+        <https://github.com/schemaorg/schemaorg/issues/2460> .
 
 :transFatContent a rdf:Property ;
     rdfs:label "transFatContent" ;
