@@ -1240,6 +1240,12 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:subClassOf :Audience ;
     :contributor <https://schema.org/docs/collab/LRMIClass> .
 
+:EducationalOccupationalProgram a rdfs:Class ;
+    rdfs:label "EducationalOccupationalProgram" ;
+    rdfs:comment "A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree)." ;
+    rdfs:subClassOf :Intangible ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
 :EducationalOrganization a rdfs:Class ;
     rdfs:label "EducationalOrganization" ;
     rdfs:comment "An educational organization." ;
@@ -4173,6 +4179,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A winery." ;
     rdfs:subClassOf :FoodEstablishment .
 
+:WorkBasedProgram a rdfs:Class ;
+    rdfs:label "WorkBasedProgram" ;
+    rdfs:comment "A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs." ;
+    rdfs:subClassOf :EducationalOccupationalProgram ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
 :WorkersUnion a rdfs:Class ;
     rdfs:label "WorkersUnion" ;
     rdfs:comment "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying." ;
@@ -6545,6 +6557,16 @@ This property should not be used where the nature of the alignment can be descri
     :domainIncludes :CreativeWork ;
     :rangeIncludes :AlignmentObject .
 
+:educationalCredentialAwarded a rdf:Property ;
+    rdfs:label "educationalCredentialAwarded" ;
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program." ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
+    :rangeIncludes :EducationalOccupationalCredential,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
 :educationalFramework a rdf:Property ;
     rdfs:label "educationalFramework" ;
     rdfs:comment "The framework to which the resource being described is aligned." ;
@@ -7445,6 +7467,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." ;
     :domainIncludes :Course ;
     :rangeIncludes :CourseInstance .
+
+:hasCredential a rdf:Property ;
+    rdfs:label "hasCredential" ;
+    rdfs:comment "A credential awarded to the Person or Organization." ;
+    :domainIncludes :Organization,
+        :Person ;
+    :rangeIncludes :Credential ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :hasDefinedTerm a rdf:Property ;
     rdfs:label "hasDefinedTerm" ;
@@ -9641,11 +9671,23 @@ Typical unit code(s): C62 for person.""" ;
     rdfs:comment """A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\\n
 Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC.""" ;
     :domainIncludes :JobPosting,
-        :Occupation ;
+        :Occupation,
+        :WorkBasedProgram ;
     :rangeIncludes :CategoryCode,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698>,
-        <https://github.com/schemaorg/schemaorg/issues/2192> .
+        <https://github.com/schemaorg/schemaorg/issues/2192>,
+        <https://github.com/schemaorg/schemaorg/issues/2289> .
+
+:occupationalCredentialAwarded a rdf:Property ;
+    rdfs:label "occupationalCredentialAwarded" ;
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program." ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
+    :rangeIncludes :EducationalOccupationalCredential,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :offerCount a rdf:Property ;
     rdfs:label "offerCount" ;
@@ -9669,6 +9711,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     owl:equivalentProperty fibo-fnd-pas-pas:isProductOf ;
     :domainIncludes :AggregateOffer,
         :CreativeWork,
+        :EducationalOccupationalProgram,
         :Event,
         :MenuItem,
         :Product,
@@ -9676,7 +9719,8 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Trip ;
     :inverseOf :itemOffered ;
     :rangeIncludes :Demand,
-        :Offer .
+        :Offer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :openingHours a rdf:Property ;
     rdfs:label "openingHours" ;
@@ -10547,6 +10591,16 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :ProgramMembership ;
     :rangeIncludes :Text .
 
+:programPrerequisites a rdf:Property ;
+    rdfs:label "programPrerequisites" ;
+    rdfs:comment "Prerequisites for enrolling in the program." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :AlignmentObject,
+        :Course,
+        :EducationalOccupationalCredential,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
 :programmingLanguage a rdf:Property ;
     rdfs:label "programmingLanguage" ;
     rdfs:comment "The computer programming language." ;
@@ -10581,6 +10635,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." ;
     owl:equivalentProperty unece:ServiceProvider ;
     :domainIncludes :CreativeWork,
+        :EducationalOccupationalProgram,
         :FinancialIncentive,
         :Invoice,
         :ParcelDelivery,
@@ -10588,7 +10643,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
         :Service,
         :Trip ;
     :rangeIncludes :Organization,
-        :Person .
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :providerMobility a rdf:Property ;
     rdfs:label "providerMobility" ;
@@ -11227,6 +11283,13 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :EmployeeRole,
         :JobPosting ;
     :rangeIncludes :Text .
+
+:salaryUponCompletion a rdf:Property ;
+    rdfs:label "salaryUponCompletion" ;
+    rdfs:comment "The expected salary upon completing the training." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :MonetaryAmountDistribution ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :sameAs a rdf:Property ;
     rdfs:label "sameAs" ;
@@ -12170,6 +12233,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Duration .
 
+:timeToComplete a rdf:Property ;
+    rdfs:label "timeToComplete" ;
+    rdfs:comment "The expected length of time to complete the program if attending full-time." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Duration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
 :title a rdf:Property ;
     rdfs:label "title" ;
     rdfs:comment "The title of the job." ;
@@ -12297,6 +12367,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The unique identifier for the train." ;
     :domainIncludes :TrainTrip ;
     :rangeIncludes :Text .
+
+:trainingSalary a rdf:Property ;
+    rdfs:label "trainingSalary" ;
+    rdfs:comment "The estimated salary earned while in the program." ;
+    :domainIncludes :WorkBasedProgram ;
+    :rangeIncludes :MonetaryAmountDistribution ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
 
 :transFatContent a rdf:Property ;
     rdfs:label "transFatContent" ;
