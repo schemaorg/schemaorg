@@ -3,6 +3,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
 
 :DigitalProductPassport a rdfs:Class ;
     rdfs:label "DigitalProductPassport" ;
@@ -15,7 +17,8 @@
     rdfs:label "hasDigitalProductPassport" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/DPP> ;
-    rdfs:comment "A link to a Digital Product Passport (DPP) or a digital record detailing the lifecycle, sustainability, and compliance data for this product. This may be a direct URL, a resolver URL (such as a GS1 Digital Link), or a nested DigitalProductPassport object." ;
+    owl:equivalentProperty gs1:dpp ;
+    rdfs:comment "A link to a Digital Product Passport (DPP) or a digital record detailing the lifecycle, sustainability, and compliance data for this product. This may be a direct URL, a resolver URL (such as a GS1 Digital Link), or a nested DigitalProductPassport object. Note: This property is aligned with the IANA 'dpp' link relation and the GS1 Web Vocabulary 'dpp' link type." ;
     :domainIncludes :Product ;
     :rangeIncludes :URL, :DigitalProductPassport .
 
