@@ -11887,9 +11887,11 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :sport a rdf:Property ;
     rdfs:label "sport" ;
     rdfs:comment "A type of sport (e.g. Baseball)." ;
-    :domainIncludes :SportsOrganization ;
+    :domainIncludes :SportsEvent,
+        :SportsOrganization ;
     :rangeIncludes :Text,
-        :URL .
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1951> .
 
 :sportsActivityLocation a rdf:Property ;
     rdfs:label "sportsActivityLocation" ;
