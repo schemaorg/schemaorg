@@ -4920,6 +4920,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Person,
         :SportsTeam .
 
+:backstory a rdf:Property ;
+    rdfs:label "backstory" ;
+    rdfs:comment "For an [[Article]], typically a [[NewsArticle]], the backstory property provides a textual summary giving a brief explanation of why and how an article was created. In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc." ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :Article ;
+    :rangeIncludes :CreativeWork,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688> .
+
 :baseSalary a rdf:Property ;
     rdfs:label "baseSalary" ;
     rdfs:comment "The base salary of the job or of an employee in an EmployeeRole." ;
@@ -8208,6 +8217,27 @@ Use Text for incentives that are limited based on other criteria, for example if
     :domainIncludes :Person ;
     :rangeIncludes :Person .
 
+:knowsAbout a rdf:Property ;
+    rdfs:label "knowsAbout" ;
+    rdfs:comment "Of a [[Person]], and less typically of an [[Organization]], to indicate a topic that is known about - suggesting possible expertise but not implying it. We do not distinguish skill levels here, or relate this to educational content, events, objectives or [[JobPosting]] descriptions." ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :Organization,
+        :Person ;
+    :rangeIncludes :Text,
+        :Thing,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688> .
+
+:knowsLanguage a rdf:Property ;
+    rdfs:label "knowsLanguage" ;
+    rdfs:comment "Of a [[Person]], and less typically of an [[Organization]], to indicate a known language. We do not distinguish skill levels or reading/writing/speaking/signing here. Use language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47)." ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :Organization,
+        :Person ;
+    :rangeIncludes :Language,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688> .
+
 :landlord a rdf:Property ;
     rdfs:label "landlord" ;
     rdfs:comment "A sub property of participant. The owner of the real estate property." ;
@@ -9132,6 +9162,16 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     rdfs:comment "A link to the ListItem that follows the current one." ;
     :domainIncludes :ListItem ;
     :rangeIncludes :ListItem .
+
+:noBylinesPolicy a rdf:Property ;
+    rdfs:label "noBylinesPolicy" ;
+    rdfs:comment "For a [[NewsMediaOrganization]] or other news-related [[Organization]], a statement explaining when authors of articles are not named in bylines." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1688> .
 
 :nonEqual a rdf:Property ;
     rdfs:label "nonEqual" ;
