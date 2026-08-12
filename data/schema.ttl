@@ -5003,6 +5003,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Text,
         :URL .
 
+:applicationContact a rdf:Property ;
+    rdfs:label "applicationContact" ;
+    rdfs:comment "Contact details for further information relevant to this job posting." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :ContactPoint ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2396> .
+
 :applicationDeadline a rdf:Property ;
     rdfs:label "applicationDeadline" ;
     rdfs:comment "The date on which the program stops collecting applications for the next enrollment cycle. Flexible application deadlines (for example, a program with rolling admissions) can be described in a textual string, rather than as a DateTime." ;
@@ -7353,6 +7360,13 @@ This property should not be used where the nature of the alignment can be descri
     :domainIncludes :Organization ;
     :rangeIncludes :Person ;
     :supersededBy :employee .
+
+:employerOverview a rdf:Property ;
+    rdfs:label "employerOverview" ;
+    rdfs:comment "A description of the employer, career opportunities and work environment for this position." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2396> .
 
 :employmentType a rdf:Property ;
     rdfs:label "employmentType" ;
