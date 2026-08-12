@@ -1010,6 +1010,12 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
     rdfs:comment "A crematorium." ;
     rdfs:subClassOf :CivicStructure .
 
+:CriticReview a rdfs:Class ;
+    rdfs:label "CriticReview" ;
+    rdfs:comment "A [[CriticReview]] is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. [[CriticReview]]s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the [[UserReview]] type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources." ;
+    rdfs:subClassOf :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1589> .
+
 :CurrencyConversionService a rdfs:Class ;
     rdfs:label "CurrencyConversionService" ;
     rdfs:comment "A service to convert funds from one currency to another currency." ;
@@ -4226,6 +4232,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use [[Action]]-based vocabulary, alongside types such as [[Comment]]." ;
     rdfs:subClassOf :UserInteraction ;
     :supersededBy :InteractionCounter .
+
+:UserReview a rdfs:Class ;
+    rdfs:label "UserReview" ;
+    rdfs:comment "A review created by an end-user (e.g. consumer, purchaser, attendee etc.), in contrast with [[CriticReview]]." ;
+    rdfs:subClassOf :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1589> .
 
 :UserTweets a rdfs:Class ;
     rdfs:label "UserTweets" ;
