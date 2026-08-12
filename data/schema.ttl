@@ -4635,6 +4635,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :TypeAndQuantityNode ;
     :rangeIncludes :Number .
 
+:announcementLocation a rdf:Property ;
+    rdfs:label "announcementLocation" ;
+    rdfs:comment "Indicates a specific [[CivicStructure]] or [[LocalBusiness]] associated with the SpecialAnnouncement. For example, a specific testing facility or business with special opening hours. For a larger geographic region like a quarantine of an entire region, use [[spatialCoverage]]." ;
+    rdfs:subPropertyOf :spatialCoverage ;
+    :domainIncludes :SpecialAnnouncement ;
+    :rangeIncludes :CivicStructure,
+        :LocalBusiness ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2514> .
+
 :annualPercentageRate a rdf:Property ;
     rdfs:label "annualPercentageRate" ;
     rdfs:comment "The annual rate that is charged for borrowing (or made by investing), expressed as a single percentage number that represents the actual yearly cost of funds over the term of a loan. This includes any fees or additional costs associated with the transaction." ;
