@@ -430,6 +430,26 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A type of boarding policy used by an airline." ;
     rdfs:subClassOf :Enumeration .
 
+:BoatReservation a rdfs:Class ;
+    rdfs:label "BoatReservation" ;
+    rdfs:comment """A reservation for boat travel.
+
+Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use [[Offer]].""" ;
+    rdfs:subClassOf :Reservation ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> .
+
+:BoatTerminal a rdfs:Class ;
+    rdfs:label "BoatTerminal" ;
+    rdfs:comment "A terminal for boats, ships, and other water vessels." ;
+    rdfs:subClassOf :CivicStructure ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> .
+
+:BoatTrip a rdfs:Class ;
+    rdfs:label "BoatTrip" ;
+    rdfs:comment "A trip on a commercial ferry line." ;
+    rdfs:subClassOf :Trip ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> .
+
 :BodyMeasurementTypeEnumeration a rdfs:Class ;
     rdfs:label "BodyMeasurementTypeEnumeration" ;
     rdfs:comment "Enumerates types (or dimensions) of a person's body measurements, for example for fitting of clothes." ;
@@ -4988,6 +5008,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Flight ;
     :rangeIncludes :Airport .
 
+:arrivalBoatTerminal a rdf:Property ;
+    rdfs:label "arrivalBoatTerminal" ;
+    rdfs:comment "The terminal or port from which the boat arrives." ;
+    :domainIncludes :BoatTrip ;
+    :rangeIncludes :BoatTerminal ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> .
+
 :arrivalBusStop a rdf:Property ;
     rdfs:label "arrivalBusStop" ;
     rdfs:comment "The stop or station from which the bus arrives." ;
@@ -6683,6 +6710,13 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:comment "The airport where the flight originates." ;
     :domainIncludes :Flight ;
     :rangeIncludes :Airport .
+
+:departureBoatTerminal a rdf:Property ;
+    rdfs:label "departureBoatTerminal" ;
+    rdfs:comment "The terminal or port from which the boat departs." ;
+    :domainIncludes :BoatTrip ;
+    :rangeIncludes :BoatTerminal ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> .
 
 :departureBusStop a rdf:Property ;
     rdfs:label "departureBusStop" ;
