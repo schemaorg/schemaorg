@@ -1793,6 +1793,12 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
     rdfs:comment "A grocery store." ;
     rdfs:subClassOf :Store .
 
+:Guide a rdfs:Class ;
+    rdfs:label "Guide" ;
+    rdfs:comment "[[Guide]] is a page or article that recommends specific products or services, or aspects of a thing for a user to consider. A [[Guide]] may represent a Buying Guide and detail aspects of products or services for a user to consider. A [[Guide]] may represent a Product Guide and recommend specific products or services. A [[Guide]] may represent a Ranked List and recommend specific products or services with ranking." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2405> .
+
 :HVACBusiness a rdfs:Class ;
     rdfs:label "HVACBusiness" ;
     rdfs:comment "A business that provides Heating, Ventilation and Air Conditioning services." ;
@@ -3341,6 +3347,12 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:label "Recipe" ;
     rdfs:comment "A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via [[suitableForDiet]]. The [[keywords]] property can also be used to add more detail." ;
     rdfs:subClassOf :HowTo .
+
+:Recommendation a rdfs:Class ;
+    rdfs:label "Recommendation" ;
+    rdfs:comment "[[Recommendation]] is a type of [[Review]] that suggests or proposes something as the best option or best course of action. Recommendations may be for products or services, or other concrete things, as in the case of a ranked list or product guide. A [[Guide]] may list multiple recommendations for different categories. For example, in a [[Guide]] about which TVs to buy, the author may have several [[Recommendation]]s." ;
+    rdfs:subClassOf :Review ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2405> .
 
 :RecyclingCenter a rdfs:Class ;
     rdfs:label "RecyclingCenter" ;
@@ -5873,6 +5885,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :Invoice,
         :Offer,
         :Product,
+        :Recommendation,
         :Service,
         :SpecialAnnouncement ;
     :rangeIncludes :CategoryCode,
@@ -12229,7 +12242,8 @@ While such policies are most typically expressed in natural language, sometimes 
 :reviewAspect a rdf:Property ;
     rdfs:label "reviewAspect" ;
     rdfs:comment "This Review or Rating is relevant to this part or facet of the itemReviewed." ;
-    :domainIncludes :Rating,
+    :domainIncludes :Guide,
+        :Rating,
         :Review ;
     :rangeIncludes :StructuredValue,
         :Text ;
