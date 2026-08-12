@@ -5643,6 +5643,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Thing ;
     :supersededBy :targetCollection .
 
+:collectionSize a rdf:Property ;
+    rdfs:label "collectionSize"@en ;
+    rdfs:comment "The number of items in the [[Collection]]."@en ;
+    :domainIncludes :Collection ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1759> .
+
 :color a rdf:Property ;
     rdfs:label "color" ;
     rdfs:comment "The color of the product." ;
@@ -8948,6 +8955,14 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :Product,
         :Text,
         :URL .
+
+:materialExtent a rdf:Property ;
+    rdfs:label "materialExtent"@en ;
+    rdfs:comment "The quantity of the materials being described or an expression of the physical space they occupy."@en ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :QuantitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1759> .
 
 :maxPrice a rdf:Property ;
     rdfs:label "maxPrice" ;
