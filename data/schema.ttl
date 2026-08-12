@@ -4694,6 +4694,21 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Text,
         :URL .
 
+:applicationDeadline a rdf:Property ;
+    rdfs:label "applicationDeadline" ;
+    rdfs:comment "The date on which the program stops collecting applications for the next enrollment cycle. Flexible application deadlines (for example, a program with rolling admissions) can be described in a textual string, rather than as a DateTime." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Date,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
+
+:applicationStartDate a rdf:Property ;
+    rdfs:label "applicationStartDate" ;
+    rdfs:comment "The date at which the program begins collecting applications for the next enrollment cycle." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
+
 :applicationSubCategory a rdf:Property ;
     rdfs:label "applicationSubCategory" ;
     rdfs:comment "Subcategory of the application, e.g. 'Arcade Game'." ;
@@ -6191,7 +6206,8 @@ Dateline summaries are oriented more towards human readers than towards automate
 :dayOfWeek a rdf:Property ;
     rdfs:label "dayOfWeek" ;
     rdfs:comment "The day of the week for which these opening hours are valid." ;
-    :domainIncludes :OpeningHoursSpecification ;
+    :domainIncludes :EducationalOccupationalProgram,
+        :OpeningHoursSpecification ;
     :rangeIncludes :DayOfWeek .
 
 :deathDate a rdf:Property ;
@@ -6588,6 +6604,14 @@ This property should not be used where the nature of the alignment can be descri
     :domainIncludes :AlignmentObject ;
     :rangeIncludes :Text .
 
+:educationalProgramMode a rdf:Property ;
+    rdfs:label "educationalProgramMode" ;
+    rdfs:comment "Similar to courseMode, the medium or means of delivery of the program as a whole. The value may either be a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
+
 :educationalRole a rdf:Property ;
     rdfs:label "educationalRole" ;
     rdfs:comment "An educationalRole of an EducationalAudience." ;
@@ -6764,6 +6788,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :CreativeWorkSeason,
         :CreativeWorkSeries,
         :DatedMoneySpecification,
+        :EducationalOccupationalProgram,
         :Event,
         :MerchantReturnPolicySeasonalOverride,
         :Role ;
@@ -9100,6 +9125,13 @@ Use Text for incentives that are limited based on other criteria, for example if
         :Place ;
     :rangeIncludes :Integer .
 
+:maximumEnrollment a rdf:Property ;
+    rdfs:label "maximumEnrollment" ;
+    rdfs:comment "The maximum number of students who may be enrolled in the program." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
+
 :maximumPhysicalAttendeeCapacity a rdf:Property ;
     rdfs:label "maximumPhysicalAttendeeCapacity" ;
     rdfs:comment "The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline aspects, in the case of a [[MixedEventAttendanceMode]]). " ;
@@ -9556,6 +9588,15 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     :domainIncludes :BedDetails ;
     :rangeIncludes :Number .
+
+:numberOfCredits a rdf:Property ;
+    rdfs:label "numberOfCredits" ;
+    rdfs:comment "The number of credits or units awarded by a Course or required to complete an EducationalOccupationalProgram." ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
+    :rangeIncludes :Integer,
+        :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
 
 :numberOfDoors a rdf:Property ;
     rdfs:label "numberOfDoors" ;
@@ -11935,6 +11976,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :CreativeWorkSeason,
         :CreativeWorkSeries,
         :DatedMoneySpecification,
+        :EducationalOccupationalProgram,
         :Event,
         :MerchantReturnPolicySeasonalOverride,
         :Role ;
@@ -12239,6 +12281,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> .
 
+:termDuration a rdf:Property ;
+    rdfs:label "termDuration" ;
+    rdfs:comment "The amount of time in a term as defined by the institution. A term is a length of time where students take one or more classes. Semesters and quarters are common units for term." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Duration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
+
 :termsOfService a rdf:Property ;
     rdfs:label "termsOfService" ;
     rdfs:comment "Human-readable terms of service documentation." ;
@@ -12246,6 +12295,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> .
+
+:termsPerYear a rdf:Property ;
+    rdfs:label "termsPerYear" ;
+    rdfs:comment "The number of times terms of study are offered per year. Semesters and quarters are common units for term. For example, if the student can only take 2 semesters for the program in one year, then termsPerYear should be 2." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
 
 :text a rdf:Property ;
     rdfs:label "text" ;
@@ -12289,6 +12345,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "The seat associated with the ticket." ;
     :domainIncludes :Ticket ;
     :rangeIncludes :Seat .
+
+:timeOfDay a rdf:Property ;
+    rdfs:label "timeOfDay" ;
+    rdfs:comment "The time of day the program normally runs. For example, \"evenings\"." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
 
 :timeRequired a rdf:Property ;
     rdfs:label "timeRequired" ;
@@ -12510,6 +12573,14 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :CreativeWork,
         :Event ;
     :rangeIncludes :Text .
+
+:typicalCreditsPerTerm a rdf:Property ;
+    rdfs:label "typicalCreditsPerTerm" ;
+    rdfs:comment "The number of credits or units a full-time student would be expected to take in 1 term however 'term' is defined by the institution." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Integer,
+        :StructuredValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> .
 
 :underName a rdf:Property ;
     rdfs:label "underName" ;
