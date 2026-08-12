@@ -11543,7 +11543,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     rdfs:label "provider" ;
     rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." ;
     owl:equivalentProperty unece:ServiceProvider ;
-    :domainIncludes :CreativeWork,
+    :domainIncludes :Action,
+        :CreativeWork,
         :EducationalOccupationalProgram,
         :FinancialIncentive,
         :Invoice,
@@ -11553,7 +11554,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
         :Trip ;
     :rangeIncludes :Organization,
         :Person ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2289>,
+        <https://github.com/schemaorg/schemaorg/issues/2927> .
 
 :providerMobility a rdf:Property ;
     rdfs:label "providerMobility" ;
