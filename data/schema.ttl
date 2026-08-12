@@ -4839,6 +4839,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Organization,
         :Person .
 
+:agentInteractionStatistic a rdf:Property ;
+    rdfs:label "agentInteractionStatistic" ;
+    rdfs:comment "The number of completed interactions for this entity, in a particular role (the 'agent'), in a particular action (indicated in the statistic), and in a particular context (i.e. interactionService)." ;
+    :domainIncludes :Organization,
+        :Person ;
+    :rangeIncludes :InteractionCounter ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2858> .
+
 :aggregateRating a rdf:Property ;
     rdfs:label "aggregateRating" ;
     rdfs:comment "The overall rating, based on a collection of reviews or ratings, of the item." ;
