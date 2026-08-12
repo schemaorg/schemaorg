@@ -6689,6 +6689,13 @@ This property should not be used where the nature of the alignment can be descri
     :domainIncludes :JobPosting ;
     :rangeIncludes :Text .
 
+:employmentUnit a rdf:Property ;
+    rdfs:label "employmentUnit" ;
+    rdfs:comment "Indicates the department, unit and/or facility where the employee reports and/or in which the job is to be performed." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2296> .
+
 :encodesCreativeWork a rdf:Property ;
     rdfs:label "encodesCreativeWork" ;
     rdfs:comment "The CreativeWork encoded by this media object." ;
