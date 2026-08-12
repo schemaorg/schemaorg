@@ -2766,6 +2766,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "A file containing slides or used for a presentation." ;
     rdfs:subClassOf :DigitalDocument .
 
+:PriceComponentTypeEnumeration a rdfs:Class ;
+    rdfs:label "PriceComponentTypeEnumeration" ;
+    rdfs:comment "Enumerates different price components that together make up the total price for an offered product." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
 :PriceSpecification a rdfs:Class ;
     rdfs:label "PriceSpecification" ;
     rdfs:comment "A structured value representing a price or price range. Typically, only the subclasses of this type are used for markup. It is recommended to use [[MonetaryAmount]] to describe independent amounts of money such as a salary, credit card limits, etc." ;
@@ -4845,6 +4851,15 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Order ;
     :rangeIncludes :PostalAddress .
 
+:billingDuration a rdf:Property ;
+    rdfs:label "billingDuration" ;
+    rdfs:comment "Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property)." ;
+    :domainIncludes :UnitPriceSpecification ;
+    :rangeIncludes :Duration,
+        :Number,
+        :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
 :billingIncrement a rdf:Property ;
     rdfs:label "billingIncrement" ;
     rdfs:comment "This property specifies the minimal quantity and rounding increment that will be the basis for the billing. The unit of measurement is specified by the unitCode property." ;
@@ -4857,6 +4872,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     owl:equivalentProperty unece:billingPeriod ;
     :domainIncludes :Invoice ;
     :rangeIncludes :Duration .
+
+:billingStart a rdf:Property ;
+    rdfs:label "billingStart" ;
+    rdfs:comment "Specifies after how much time this price (or price component) becomes valid and billing starts. Can be used, for example, to model a price increase after the first year of a subscription. The unit of measurement is specified by the unitCode property." ;
+    :domainIncludes :UnitPriceSpecification ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
 
 :birthDate a rdf:Property ;
     rdfs:label "birthDate" ;
@@ -9741,6 +9763,13 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :CompoundPriceSpecification ;
     :rangeIncludes :PriceSpecification .
 
+:priceComponentType a rdf:Property ;
+    rdfs:label "priceComponentType" ;
+    rdfs:comment "Identifies a price component (for example, a line item on an invoice), part of the total price for an offer." ;
+    :domainIncludes :UnitPriceSpecification ;
+    :rangeIncludes :PriceComponentTypeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
 :priceCurrency a rdf:Property ;
     rdfs:label "priceCurrency" ;
     rdfs:comment "The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." ;
@@ -12189,6 +12218,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "This entry is derived from the [ELI ontology](https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." ;
     :contributor <https://schema.org/docs/collab/ELI> .
 
+:ActivationFee a :PriceComponentTypeEnumeration ;
+    rdfs:label "ActivationFee" ;
+    rdfs:comment "Represents the activation fee part of the total price for an offered product, for example a cellphone contract." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
 :ActiveActionStatus a :ActionStatusType ;
     rdfs:label "ActiveActionStatus" ;
     rdfs:comment "An in-progress action (e.g., while watching the movie, or driving to a location)." .
@@ -12356,6 +12390,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "CheckInAdvance" ;
     rdfs:comment "Payment in advance by sending a check, equivalent to <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>." .
 
+:CleaningFee a :PriceComponentTypeEnumeration ;
+    rdfs:label "CleaningFee" ;
+    rdfs:comment "Represents the cleaning fee part of the total price for an offered product, for example a vacation rental." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
 :CoOp a :GamePlayMode ;
     rdfs:label "CoOp" ;
     rdfs:comment "Play mode: CoOp. Co-operative games, where you play on the same team with friends." .
@@ -12488,6 +12527,16 @@ For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an 
 :Discontinued a :ItemAvailability ;
     rdfs:label "Discontinued" ;
     rdfs:comment "Indicates that the item has been discontinued." .
+
+:DistanceFee a :PriceComponentTypeEnumeration ;
+    rdfs:label "DistanceFee" ;
+    rdfs:comment "Represents the distance fee (e.g., price per km or mile) part of the total price for an offered product, for example a car rental." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
+
+:Downpayment a :PriceComponentTypeEnumeration ;
+    rdfs:label "Downpayment" ;
+    rdfs:comment "Represents the downpayment (up-front payment) price component of the total price for an offered product that has additional installment payments." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
 
 :EBook a :BookFormatType ;
     rdfs:label "EBook" ;
@@ -12777,6 +12826,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "IncentiveTypeTaxWaiver" ;
     rdfs:comment "An incentive that reduces/exempts the recipient from taxation applicable to the incentivized good/service (e.g. luxury taxes, registration taxes, circulation tax)." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3572> .
+
+:Installment a :PriceComponentTypeEnumeration ;
+    rdfs:label "Installment" ;
+    rdfs:comment "Represents the installment pricing component of the total price for an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
 
 :InvoicePrice a :PriceTypeEnumeration ;
     rdfs:label "InvoicePrice" ;
@@ -13566,6 +13620,11 @@ For an [[AudioObject]] to be 'staged content': Audio that has been created using
     rdfs:label "StudioAlbum" ;
     rdfs:comment "StudioAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:Subscription a :PriceComponentTypeEnumeration ;
+    rdfs:label "Subscription" ;
+    rdfs:comment "Represents the subscription pricing component of the total price for an offered product." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2689> .
 
 :Sunday a :DayOfWeek ;
     rdfs:label "Sunday" ;
