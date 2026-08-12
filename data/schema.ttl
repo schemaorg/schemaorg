@@ -122,6 +122,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "An adult entertainment establishment." ;
     rdfs:subClassOf :EntertainmentBusiness .
 
+:AdvertiserContentArticle a rdfs:Class ;
+    rdfs:label "AdvertiserContentArticle" ;
+    rdfs:comment "An [[Article]] that an external entity has paid to place or to produce to its specifications. Includes [advertorials](https://en.wikipedia.org/wiki/Advertorial), sponsored content, native advertising and other paid content." ;
+    rdfs:subClassOf :Article ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :AggregateOffer a rdfs:Class ;
     rdfs:label "AggregateOffer" ;
     rdfs:comment "When a single product is associated with multiple offers (for example, the same pair of shoes is offered by different merchants), then AggregateOffer can be used.\\n\\nNote: AggregateOffers are normally expected to associate multiple offers that all share the same defined [[businessFunction]] value, or default to http://purl.org/goodrelations/v1#Sell if businessFunction is not explicitly defined." ;
@@ -163,6 +170,13 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:label "AmusementPark" ;
     rdfs:comment "An amusement park." ;
     rdfs:subClassOf :EntertainmentBusiness .
+
+:AnalysisNewsArticle a rdfs:Class ;
+    rdfs:label "AnalysisNewsArticle" ;
+    rdfs:comment "An AnalysisNewsArticle is a [[NewsArticle]] that, while based on factual reporting, incorporates the expertise of the author/producer, offering interpretations and conclusions." ;
+    rdfs:subClassOf :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :AnimalShelter a rdfs:Class ;
     rdfs:label "AnimalShelter" ;
@@ -221,6 +235,13 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:label "AskAction" ;
     rdfs:comment "The act of posing a question / favor to someone.\\n\\nRelated actions:\\n\\n* [[ReplyAction]]: Appears generally as a response to AskAction." ;
     rdfs:subClassOf :CommunicateAction .
+
+:AskPublicNewsArticle a rdfs:Class ;
+    rdfs:label "AskPublicNewsArticle" ;
+    rdfs:comment "A [[NewsArticle]] expressing an open call by a [[NewsMediaOrganization]] asking the public for input, insights, clarifications, anecdotes, documentation, etc., on an issue, for reporting purposes." ;
+    rdfs:subClassOf :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :AssessAction a rdfs:Class ;
     rdfs:label "AssessAction" ;
@@ -299,6 +320,13 @@ Should not be used where the nature of the alignment can be described using a si
     rdfs:label "AutomotiveBusiness" ;
     rdfs:comment "Car repair, sales, or parts." ;
     rdfs:subClassOf :LocalBusiness .
+
+:BackgroundNewsArticle a rdfs:Class ;
+    rdfs:label "BackgroundNewsArticle" ;
+    rdfs:comment "A [[NewsArticle]] providing historical context, definition and detail on a specific topic (aka \"explainer\" or \"backgrounder\"). For example, an in-depth article or frequently-asked-questions ([FAQ](https://en.wikipedia.org/wiki/FAQ)) document on topics such as Climate Change or the European Union. Other kinds of background material from a non-news setting are often described using [[Book]] or [[Article]], in particular [[ScholarlyArticle]]. See also [[NewsArticle]] for related vocabulary from a learning/education perspective." ;
+    rdfs:subClassOf :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :Bakery a rdfs:Class ;
     rdfs:label "Bakery" ;
@@ -2349,6 +2377,13 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     :contributor <https://schema.org/docs/collab/TP>,
         <https://schema.org/docs/collab/rNews> .
 
+:NewsMediaOrganization a rdfs:Class ;
+    rdfs:label "NewsMediaOrganization" ;
+    rdfs:comment "A News/Media organization such as a newspaper or TV station." ;
+    rdfs:subClassOf :Organization ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :NightClub a rdfs:Class ;
     rdfs:label "NightClub" ;
     rdfs:comment "A nightclub or discotheque." ;
@@ -2473,6 +2508,13 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       """ ;
     rdfs:subClassOf :StructuredValue ;
     :contributor <https://blog.schema.org/2012/11/08/good-relations-and-schema-org/> .
+
+:OpinionNewsArticle a rdfs:Class ;
+    rdfs:label "OpinionNewsArticle" ;
+    rdfs:comment "An [[OpinionNewsArticle]] is a [[NewsArticle]] that primarily expresses opinions rather than journalistic reporting of news and events. For example, a [[NewsArticle]] consisting of a column or [[Blog]]/[[BlogPosting]] entry in the Opinions section of a news publication. " ;
+    rdfs:subClassOf :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :Order a rdfs:Class ;
     rdfs:label "Order" ;
@@ -3038,6 +3080,21 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:comment "A Report generated by governmental or non-governmental organization." ;
     rdfs:subClassOf :Article .
 
+:ReportageNewsArticle a rdfs:Class ;
+    rdfs:label "ReportageNewsArticle" ;
+    rdfs:comment """The [[ReportageNewsArticle]] type is a subtype of [[NewsArticle]] representing
+ news articles which are the result of journalistic news reporting conventions.
+
+In practice many news publishers produce a wide variety of article types, many of which might be considered a [[NewsArticle]] but not a [[ReportageNewsArticle]]. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.
+
+The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[ReportageNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+
+A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked with an additional type of [[AnalysisNewsArticle]].
+""" ;
+    rdfs:subClassOf :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :Researcher a rdfs:Class ;
     rdfs:label "Researcher" ;
     rdfs:comment "Researchers." ;
@@ -3130,6 +3187,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "The act of producing a balanced opinion about the object for an audience. An agent reviews an object with participants resulting in a review." ;
     rdfs:subClassOf :AssessAction .
 
+:ReviewNewsArticle a rdfs:Class ;
+    rdfs:label "ReviewNewsArticle" ;
+    rdfs:comment "A [[NewsArticle]] and [[CriticReview]] providing a professional critic's assessment of a service, product, performance, or artistic or literary work." ;
+    rdfs:subClassOf :CriticReview,
+        :NewsArticle ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :RiverBodyOfWater a rdfs:Class ;
     rdfs:label "RiverBodyOfWater" ;
     rdfs:comment "A river (for example, the broad majestic Shannon)." ;
@@ -3168,6 +3233,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "SaleEvent" ;
     rdfs:comment "Event type: Sales event." ;
     rdfs:subClassOf :Event .
+
+:SatiricalArticle a rdfs:Class ;
+    rdfs:label "SatiricalArticle" ;
+    rdfs:comment "An [[Article]] whose content is primarily [[satirical]](https://en.wikipedia.org/wiki/Satire) in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a [[NewsArticle]]. [[ScholarlyArticle]]s are also sometimes satirized." ;
+    rdfs:subClassOf :Article ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :Schedule a rdfs:Class ;
     rdfs:label "Schedule" ;
@@ -4154,6 +4226,17 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Indicates the current disposition of the Action." ;
     :domainIncludes :Action ;
     :rangeIncludes :ActionStatusType .
+
+:actionableFeedbackPolicy a rdf:Property ;
+    rdfs:label "actionableFeedbackPolicy" ;
+    rdfs:comment "For a [[NewsMediaOrganization]] or other news-related [[Organization]], a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :actor a rdf:Property ;
     rdfs:label "actor" ;
@@ -5613,6 +5696,17 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Number .
 
+:correctionsPolicy a rdf:Property ;
+    rdfs:label "correctionsPolicy" ;
+    rdfs:comment "For an [[Organization]] (e.g. [[NewsMediaOrganization]]), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :countriesNotSupported a rdf:Property ;
     rdfs:label "countriesNotSupported" ;
     rdfs:comment "Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code." ;
@@ -6122,6 +6216,27 @@ Dateline summaries are oriented more towards human readers than towards automate
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload .
 
+:diversityPolicy a rdf:Property ;
+    rdfs:label "diversityPolicy" ;
+    rdfs:comment "Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]]. For a [[NewsMediaOrganization]], a statement describing the newsroom’s diversity policy on both staffing and sources, typically providing staffing data." ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
+:diversityStaffingReport a rdf:Property ;
+    rdfs:label "diversityStaffingReport" ;
+    rdfs:comment "For an [[Organization]] (often but not necessarily a [[NewsMediaOrganization]]), a report on staffing diversity issues. In a news context this might be for example ASNE or RTDNA (US) reports, or self-reported." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :Article,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :documentation a rdf:Property ;
     rdfs:label "documentation" ;
     rdfs:comment "Further documentation describing the Web API in more detail." ;
@@ -6519,6 +6634,15 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :MonetaryAmountDistribution,
         :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+
+:ethicsPolicy a rdf:Property ;
+    rdfs:label "ethicsPolicy" ;
+    rdfs:comment "Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices, or of a [[Restaurant]], a page describing food source policies. In the case of a [[NewsMediaOrganization]], an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization." ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :event a rdf:Property ;
     rdfs:label "event" ;
@@ -8527,6 +8651,16 @@ Use Text for incentives that are limited based on other criteria, for example if
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> .
 
+:masthead a rdf:Property ;
+    rdfs:label "masthead" ;
+    rdfs:comment "For a [[NewsMediaOrganization]], a link to the masthead page or a page listing top editorial management." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :material a rdf:Property ;
     rdfs:label "material" ;
     rdfs:comment "A material that something is made from, e.g. leather, wool, cotton, paper." ;
@@ -8797,6 +8931,16 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     :domainIncludes :Invoice ;
     :rangeIncludes :MonetaryAmount,
         :PriceSpecification .
+
+:missionCoveragePrioritiesPolicy a rdf:Property ;
+    rdfs:label "missionCoveragePrioritiesPolicy" ;
+    rdfs:comment "For a [[NewsMediaOrganization]], a statement on coverage priorities, including any public agenda or stance on issues." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :model a rdf:Property ;
     rdfs:label "model" ;
@@ -9343,6 +9487,19 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :rangeIncludes :Organization,
         :Person ;
     :source <https://github.com/schemaorg/schemaorg/issues/4603> .
+
+:ownershipFundingInfo a rdf:Property ;
+    rdfs:label "ownershipFundingInfo" ;
+    rdfs:comment "For an [[Organization]] (often but not necessarily a [[NewsMediaOrganization]]), a description of organizational ownership structure; funding and grants. In a news/media setting, this is with particular reference to editorial independence.   Note that the [[funder]] is also available and can be used to make basic funder information machine-readable." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :AboutPage,
+        :CreativeWork,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :owns a rdf:Property ;
     rdfs:label "owns" ;
@@ -11868,6 +12025,17 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :UnitPriceSpecification ;
     :rangeIncludes :Text .
 
+:unnamedSourcesPolicy a rdf:Property ;
+    rdfs:label "unnamedSourcesPolicy" ;
+    rdfs:comment "For an [[Organization]] (typically a [[NewsMediaOrganization]]), a statement about policy on use of unnamed sources and the decision process required." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization,
+        :Organization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
+
 :unsaturatedFatContent a rdf:Property ;
     rdfs:label "unsaturatedFatContent" ;
     rdfs:comment "The number of grams of unsaturated fat." ;
@@ -12119,6 +12287,16 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :Organization,
         :Person ;
     :supersededBy :seller .
+
+:verificationFactCheckingPolicy a rdf:Property ;
+    rdfs:label "verificationFactCheckingPolicy" ;
+    rdfs:comment "Disclosure about verification and fact-checking processes for a [[NewsMediaOrganization]] or other fact-checking [[Organization]]." ;
+    rdfs:subPropertyOf :publishingPrinciples ;
+    :contributor <https://schema.org/docs/collab/TP> ;
+    :domainIncludes :NewsMediaOrganization ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1525> .
 
 :version a rdf:Property ;
     rdfs:label "version" ;
