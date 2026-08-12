@@ -2980,6 +2980,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "The act of planning the execution of an event/task/action/reservation/plan to a future date." ;
     rdfs:subClassOf :OrganizeAction .
 
+:Play a rdfs:Class ;
+    rdfs:label "Play" ;
+    rdfs:comment "A play is a form of literature, usually consisting of dialogue between characters, intended for theatrical performance rather than just reading. Note: A performance of a Play would be a [[TheaterEvent]] or [[BroadcastEvent]] - the *Play* being the [[workPerformed]]." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1816> .
+
 :PlayAction a rdfs:Class ;
     rdfs:label "PlayAction" ;
     rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, competition or exercise.\\n\\nRelated actions:\\n\\n* [[ListenAction]]: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.\\n* [[WatchAction]]: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content." ;
