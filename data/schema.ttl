@@ -8402,7 +8402,9 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "jobTitle" ;
     rdfs:comment "The job title of the person (for example, Financial Manager)." ;
     :domainIncludes :Person ;
-    :rangeIncludes :Text .
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2192> .
 
 :jurisdiction a rdf:Property ;
     rdfs:label "jurisdiction" ;
@@ -9633,8 +9635,10 @@ Typical unit code(s): C62 for person.""" ;
 Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC.""" ;
     :domainIncludes :JobPosting,
         :Occupation ;
-    :rangeIncludes :Text ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1698> .
+    :rangeIncludes :CategoryCode,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1698>,
+        <https://github.com/schemaorg/schemaorg/issues/2192> .
 
 :offerCount a rdf:Property ;
     rdfs:label "offerCount" ;
