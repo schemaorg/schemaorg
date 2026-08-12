@@ -6215,6 +6215,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Organization,
         :Person .
 
+:copyrightNotice a rdf:Property ;
+    rdfs:label "copyrightNotice" ;
+    rdfs:comment "Text of a notice appropriate for describing the copyright aspects of this Creative Work, ideally indicating the owner of the copyright for the Work." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2659> .
+
 :copyrightYear a rdf:Property ;
     rdfs:label "copyrightYear" ;
     rdfs:comment "The year during which the claimed copyright for the CreativeWork was first asserted." ;
@@ -6342,6 +6349,13 @@ In the case of products, the country of origin of the product. The exact interpr
         :UserComments ;
     :rangeIncludes :Organization,
         :Person .
+
+:creditText a rdf:Property ;
+    rdfs:label "creditText" ;
+    rdfs:comment "Text that can be used to credit person(s) and/or organization(s) associated with a published Creative Work." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2659> .
 
 :creditedTo a rdf:Property ;
     rdfs:label "creditedTo" ;
