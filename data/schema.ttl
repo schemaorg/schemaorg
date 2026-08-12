@@ -1216,6 +1216,12 @@ Region = state, canton, prefecture, autonomous community...
     rdfs:comment "A type of permission which can be granted for accessing a digital document." ;
     rdfs:subClassOf :Enumeration .
 
+:DigitalPlatformEnumeration a rdfs:Class ;
+    rdfs:label "DigitalPlatformEnumeration" ;
+    rdfs:comment "Enumerates some common technology platforms, for use with properties such as [[actionPlatform]]. It is not supposed to be comprehensive - when a suitable code is not enumerated here, textual or URL values can be used instead. These codes are at a fairly high level and do not deal with versioning and other nuance. Additional codes can be suggested [in github](https://github.com/schemaorg/schemaorg/issues/3057). " ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
+
 :DisagreeAction a rdfs:Class ;
     rdfs:label "DisagreeAction" ;
     rdfs:comment "The act of expressing a difference of opinion with the object. An agent disagrees to/about an object (a proposition, topic or theme) with participants." ;
@@ -14094,6 +14100,11 @@ This property can be used alongside the license property which indicates license
     rdfs:comment "Content about the allergy-related aspects of a health topic." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2799> .
 
+:AndroidPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "AndroidPlatform" ;
+    rdfs:comment "Represents the broad notion of Android-based operating systems." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
+
 :AudiobookFormat a :BookFormatType ;
     rdfs:label "AudiobookFormat" ;
     rdfs:comment "Book format: Audiobook. This is an enumerated value for use with the bookFormat property. There is also a type 'Audiobook' in the bib extension which includes Audiobook specific properties." .
@@ -14349,6 +14360,11 @@ For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an 
     rdfs:comment "Indicates demo game availability, i.e. a somehow limited demonstration of the full game." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3058> .
 
+:DesktopWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "DesktopWebPlatform" ;
+    rdfs:comment "Represents the broad notion of 'desktop' browsers as a Web Platform." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
+
 :DiabeticDiet a :RestrictedDiet ;
     rdfs:label "DiabeticDiet" ;
     rdfs:comment "A diet appropriate for people with diabetes." .
@@ -14578,6 +14594,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:comment "Specifies that a refund can be done in the full amount the customer paid for the product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
+:GenericWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "GenericWebPlatform" ;
+    rdfs:comment "Represents the generic notion of the Web Platform. More specific codes include [[MobileWebPlatform]] and [[DesktopWebPlatform]], as an incomplete list. " ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
+
 :GettingAccessHealthAspect a :HealthAspectEnumeration ;
     rdfs:label "GettingAccessHealthAspect" ;
     rdfs:comment "Content that discusses practical and policy aspects for getting access to specific kinds of healthcare (e.g. distribution mechanisms for vaccines)." ;
@@ -14621,6 +14642,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "HowOrWhereHealthAspect" ;
     rdfs:comment "Information about how or where to find a topic. Also may contain location data that can be used for where to look for help if the topic is observed." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
+:IOSPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "IOSPlatform" ;
+    rdfs:comment "Represents the broad notion of iOS-based operating systems." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
@@ -14860,6 +14886,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "MixtapeAlbum" ;
     rdfs:comment "MixtapeAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
+
+:MobileWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "MobileWebPlatform" ;
+    rdfs:comment "Represents the broad notion of 'mobile' browsers as a Web Platform." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> .
 
 :Monday a :DayOfWeek ;
     rdfs:label "Monday" ;
