@@ -5349,6 +5349,21 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :BroadcastChannel ;
     :rangeIncludes :Text .
 
+:broadcastSignalModulation a rdf:Property ;
+    rdfs:label "broadcastSignalModulation" ;
+    rdfs:comment "The modulation (e.g. FM, AM, etc) used by a particular broadcast service." ;
+    :domainIncludes :BroadcastFrequencySpecification ;
+    :rangeIncludes :QualitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2111> .
+
+:broadcastSubChannel a rdf:Property ;
+    rdfs:label "broadcastSubChannel" ;
+    rdfs:comment "The subchannel used for the broadcast." ;
+    :domainIncludes :BroadcastFrequencySpecification ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2111> .
+
 :broadcastTimezone a rdf:Property ;
     rdfs:label "broadcastTimezone" ;
     rdfs:comment "The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601) for which the service bases its broadcasts." ;
