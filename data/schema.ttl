@@ -3825,6 +3825,12 @@ media type information, e.g. "application/rss+xml" or "application/atom+xml".
     rdfs:comment "A state or province of a country." ;
     rdfs:subClassOf :AdministrativeArea .
 
+:Statement a rdfs:Class ;
+    rdfs:label "Statement" ;
+    rdfs:comment "A statement about something, for example a fun or interesting fact. If known, the main entity this statement is about can be indicated using mainEntity. For more formal claims (e.g. in Fact Checking), consider using [[Claim]] instead. Use the [[text]] property to capture the text of the statement." ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2912> .
+
 :StatisticalPopulation a rdfs:Class ;
     rdfs:label "StatisticalPopulation" ;
     rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
