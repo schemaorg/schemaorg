@@ -7116,6 +7116,14 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text .
 
+:financialAidEligible a rdf:Property ;
+    rdfs:label "financialAidEligible" ;
+    rdfs:comment "A financial aid type or program which students may use to pay for tuition or fees associated with the program." ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2418> .
+
 :firstAppearance a rdf:Property ;
     rdfs:label "firstAppearance" ;
     rdfs:comment "Indicates the first known occurrence of a [[Claim]] in some [[CreativeWork]]." ;
