@@ -12381,6 +12381,30 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :ImageObject,
         :URL .
 
+:sdDatePublished a rdf:Property ;
+    rdfs:label "sdDatePublished" ;
+    rdfs:comment "Indicates the date on which the current structured data was generated / published. Typically used alongside [[sdPublisher]]." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Date ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> .
+
+:sdLicense a rdf:Property ;
+    rdfs:label "sdLicense" ;
+    rdfs:comment "A license document that applies to this structured data, typically indicated by URL." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :CreativeWork,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> .
+
+:sdPublisher a rdf:Property ;
+    rdfs:label "sdPublisher" ;
+    rdfs:comment """Indicates the party responsible for generating and publishing the current structured data markup, typically in cases where the structured data is derived automatically from existing published content but published on a different site. For example, student projects and open data initiatives often re-publish existing content with more explicitly structured metadata. The
+[[sdPublisher]] property helps make such practices more explicit.""" ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1886> .
+
 :season a rdf:Property ;
     rdfs:label "season" ;
     rdfs:comment "A season in a media series." ;
