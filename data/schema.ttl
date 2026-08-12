@@ -1733,11 +1733,24 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
     rdfs:comment "Health and beauty." ;
     rdfs:subClassOf :LocalBusiness .
 
+:HealthAspectEnumeration a rdfs:Class ;
+    rdfs:label "HealthAspectEnumeration" ;
+    rdfs:comment "HealthAspectEnumeration enumerates several aspects of health content online, each of which might be described using [[hasHealthAspect]] and [[HealthTopicContent]]." ;
+    rdfs:subClassOf :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :HealthClub a rdfs:Class ;
     rdfs:label "HealthClub" ;
     rdfs:comment "A health club." ;
     rdfs:subClassOf :HealthAndBeautyBusiness,
         :SportsActivityLocation .
+
+:HealthTopicContent a rdfs:Class ;
+    rdfs:label "HealthTopicContent" ;
+    rdfs:comment """[[HealthTopicContent]] is [[WebContent]] that is about some aspect of a health topic, e.g. a condition, its symptoms or treatments. Such content may be comprised of several parts or sections and use different types of media. Multiple instances of [[WebContent]] (and hence [[HealthTopicContent]]) can be related using [[hasPart]] / [[isPartOf]] where there is some kind of content hierarchy, and their content described with [[about]] and [[mentions]] e.g. building upon the existing [[MedicalCondition]] vocabulary.
+  """ ;
+    rdfs:subClassOf :WebContent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :HighSchool a rdfs:Class ;
     rdfs:label "HighSchool" ;
@@ -7884,6 +7897,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/3475> .
 
+:hasHealthAspect a rdf:Property ;
+    rdfs:label "hasHealthAspect" ;
+    rdfs:comment "Indicates the aspect or aspects specifically addressed in some [[HealthTopicContent]]. For example, that the content is an overview, or that it talks about treatment, self-care, treatments or their side-effects." ;
+    :domainIncludes :HealthTopicContent ;
+    :rangeIncludes :HealthAspectEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2373> .
+
 :hasMap a rdf:Property ;
     rdfs:label "hasMap" ;
     rdfs:comment "A URL to a map of the place." ;
@@ -13637,6 +13657,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "All-wheel Drive is a transmission layout where the engine drives all four wheels." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
 
+:AllergiesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "AllergiesHealthAspect" ;
+    rdfs:comment "Content about the allergy-related aspects of a health topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
 :AudiobookFormat a :BookFormatType ;
     rdfs:label "AudiobookFormat" ;
     rdfs:comment "Book format: Audiobook. This is an enumerated value for use with the bookFormat property. There is also a type 'Audiobook' in the bib extension which includes Audiobook specific properties." .
@@ -13657,6 +13682,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "BasicIncome" ;
     rdfs:comment "BasicIncome: this is a benefit for basic income." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> .
+
+:BenefitsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "BenefitsHealthAspect" ;
+    rdfs:comment "Content about the benefits and advantages of usage or utilization of topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :BodyMeasurementArm a :BodyMeasurementTypeEnumeration ;
     rdfs:label "BodyMeasurementArm" ;
@@ -13759,6 +13789,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "CassetteFormat." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:CausesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "CausesHealthAspect" ;
+    rdfs:comment "Information about the causes and main actions that gave rise to the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :CertificationActive a :CertificationStatusEnumeration ;
     rdfs:label "CertificationActive" ;
     rdfs:comment "Specifies that a certification is active." ;
@@ -13823,6 +13858,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia\">composite with trained algorithmic media</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
     skos:exactMatch dst:compositeWithTrainedAlgorithmicMedia ;
     :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:ContagiousnessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "ContagiousnessHealthAspect" ;
+    rdfs:comment "Content about contagion mechanisms and contagiousness information over the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :DJMixAlbum a :MusicAlbumProductionType ;
     rdfs:label "DJMixAlbum" ;
@@ -13999,6 +14039,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 """ ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
+:EffectivenessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "EffectivenessHealthAspect" ;
+    rdfs:comment "Content about the effectiveness-related aspects of a health topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
 :EnergyStarCertified a :EnergyStarEnergyEfficiencyEnumeration ;
     rdfs:label "EnergyStarCertified" ;
     rdfs:comment "Represents EnergyStar certification." ;
@@ -14101,6 +14146,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:comment "Specifies that a refund can be done in the full amount the customer paid for the product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> .
 
+:GettingAccessHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "GettingAccessHealthAspect" ;
+    rdfs:comment "Content that discusses practical and policy aspects for getting access to specific kinds of healthcare (e.g. distribution mechanisms for vaccines)." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
 :GlutenFreeDiet a :RestrictedDiet ;
     rdfs:label "GlutenFreeDiet" ;
     rdfs:comment "A diet exclusive of gluten." .
@@ -14129,6 +14179,16 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :HinduDiet a :RestrictedDiet ;
     rdfs:label "HinduDiet" ;
     rdfs:comment "A diet conforming to Hindu dietary practices, in particular, beef-free." .
+
+:HowItWorksHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "HowItWorksHealthAspect" ;
+    rdfs:comment "Content that discusses and explains how a particular health-related topic works, e.g. in terms of mechanisms and underlying science." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
+:HowOrWhereHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "HowOrWhereHealthAspect" ;
+    rdfs:comment "Information about how or where to find a topic. Also may contain location data that can be used for where to look for help if the topic is observed." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
@@ -14215,6 +14275,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:comment "An incentive that reduces/exempts the recipient from taxation applicable to the incentivized good/service (e.g. luxury taxes, registration taxes, circulation tax)." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3572> .
 
+:IngredientsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "IngredientsHealthAspect" ;
+    rdfs:comment "Content discussing ingredients-related aspects of a health topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
 :Installment a :PriceComponentTypeEnumeration ;
     rdfs:label "Installment" ;
     rdfs:comment "Represents the installment pricing component of the total price for an offered product." ;
@@ -14275,6 +14340,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:comment "LiveAlbum." ;
     :contributor <https://schema.org/docs/collab/MBZ> .
 
+:LivingWithHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "LivingWithHealthAspect" ;
+    rdfs:comment "Information about coping or life related to the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :LockerDelivery a :DeliveryMethod ;
     rdfs:label "LockerDelivery" ;
     rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
@@ -14308,6 +14378,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:label "Male" ;
     rdfs:comment "The male gender." .
 
+:MayTreatHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "MayTreatHealthAspect" ;
+    rdfs:comment "Related topics may be treated by a Topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :MerchantReturnFiniteReturnWindow a :MerchantReturnEnumeration ;
     rdfs:label "MerchantReturnFiniteReturnWindow" ;
     rdfs:comment "Specifies that there is a finite window for product returns." ;
@@ -14338,6 +14413,11 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
     rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/minorHumanEdits\">minor human edits</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
     skos:exactMatch dst:minorHumanEdits ;
     :source <https://github.com/schemaorg/schemaorg/issues/3392> .
+
+:MisconceptionsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "MisconceptionsHealthAspect" ;
+    rdfs:comment "Content about common misconceptions and myths that are related to a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :MixedEventAttendanceMode a :EventAttendanceModeEnumeration ;
     rdfs:label "MixedEventAttendanceMode" ;
@@ -14674,6 +14754,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "OutOfStock" ;
     rdfs:comment "Indicates that the item is out of stock." .
 
+:OverviewHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "OverviewHealthAspect" ;
+    rdfs:comment "Overview of the content. Contains a summarized view of the topic with the most relevant information for an introduction." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :PaidLeave a :GovernmentBenefitsType ;
     rdfs:label "PaidLeave" ;
     rdfs:comment "PaidLeave: this is a benefit for paid leave." ;
@@ -14705,6 +14790,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:PatientExperienceHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PatientExperienceHealthAspect" ;
+    rdfs:comment "Content about the real life experience of patients or people that have lived a similar experience about the topic. May be forums, topics, Q-and-A and related material." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :PaymentAutomaticallyApplied a :PaymentStatusType ;
     rdfs:label "PaymentAutomaticallyApplied" ;
@@ -14748,6 +14838,16 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "PreSale" ;
     rdfs:comment "Indicates that the item is available for ordering and delivery before general availability." .
 
+:PregnancyHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PregnancyHealthAspect" ;
+    rdfs:comment "Content discussing pregnancy-related aspects of a health topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
+
+:PreventionHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PreventionHealthAspect" ;
+    rdfs:comment "Information about actions or measures that can be taken to avoid getting the topic or reaching a critical situation related to the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :PrintDigitalSource a :IPTCDigitalSourceEnumeration ;
     rdfs:label "PrintDigitalSource" ;
     rdfs:comment "Content coded as '<a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/print\">print</a>' using the IPTC <a href=\"https://cv.iptc.org/newscodes/digitalsourcetype/\">digital source type</a> vocabulary." ;
@@ -14777,6 +14877,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnUnspecified .
+
+:PrognosisHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "PrognosisHealthAspect" ;
+    rdfs:comment "Typical progression and happenings of life course of the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :PublicHolidays a :DayOfWeek ;
     rdfs:label "PublicHolidays" ;
@@ -14820,6 +14925,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "RegularPrice" ;
     rdfs:comment "Represents the regular price of an offered product. This is usually the advertised price before a temporary sale. Once the sale period ends the advertised price will go back to the regular price." ;
     :source <https://github.com/schemaorg/schemaorg/issues/3583> .
+
+:RelatedTopicsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "RelatedTopicsHealthAspect" ;
+    rdfs:comment "Other prominent or relevant topics tied to the main topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :RemixAlbum a :MusicAlbumProductionType ;
     rdfs:label "RemixAlbum" ;
@@ -14896,6 +15006,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:comment "The steering position is on the right side of the vehicle (viewed from the main direction of driving)." ;
     :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> .
 
+:RisksOrComplicationsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "RisksOrComplicationsHealthAspect" ;
+    rdfs:comment "Information about the risk factors and possible complications that may follow a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :RsvpResponseMaybe a :RsvpResponseType ;
     rdfs:label "RsvpResponseMaybe" ;
     rdfs:comment "The invitee may or may not attend." .
@@ -14912,6 +15027,11 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
     rdfs:label "SRP" ;
     rdfs:comment "Represents the suggested retail price (\"SRP\") of an offered product." ;
     :source <https://github.com/schemaorg/schemaorg/issues/2712> .
+
+:SafetyHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SafetyHealthAspect" ;
+    rdfs:comment "Content about the safety-related aspects of a health topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2799> .
 
 :SalePrice a :PriceTypeEnumeration ;
     rdfs:label "SalePrice" ;
@@ -14943,9 +15063,29 @@ For an [[AudioObject]] to be 'satire or parody content': Audio that was created 
     skos:exactMatch dst:screenCapture ;
     :source <https://github.com/schemaorg/schemaorg/issues/3392> .
 
+:ScreeningHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "ScreeningHealthAspect" ;
+    rdfs:comment "Content about how to screen or further filter a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :SeatingMap a :MapCategoryType ;
     rdfs:label "SeatingMap" ;
     rdfs:comment "A seating map." .
+
+:SeeDoctorHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SeeDoctorHealthAspect" ;
+    rdfs:comment "Information about questions that may be asked, when to see a professional, measures before seeing a doctor or content about the first consultation." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
+:SelfCareHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SelfCareHealthAspect" ;
+    rdfs:comment "Self care actions or measures that can be taken to sooth, health or avoid a topic. This may be carried at home and can be carried/managed by the person itself." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
+:SideEffectsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SideEffectsHealthAspect" ;
+    rdfs:comment "Side effects that can be observed from the usage of the topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :SinglePlayer a :GamePlayMode ;
     rdfs:label "SinglePlayer" ;
@@ -14994,6 +15134,11 @@ For an [[AudioObject]] to be 'staged content': Audio that has been created using
 """ ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> .
 
+:StagesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "StagesHealthAspect" ;
+    rdfs:comment "Stages that can be observed from a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :StoreCreditRefund a :RefundTypeEnumeration ;
     rdfs:label "StoreCreditRefund" ;
     rdfs:comment "Specifies that the customer receives a store credit as refund when returning a product." ;
@@ -15018,6 +15163,11 @@ For an [[AudioObject]] to be 'staged content': Audio that has been created using
     rdfs:label "Sunday" ;
     rdfs:comment "The day of the week between Saturday and Monday." ;
     :sameAs <http://www.wikidata.org/entity/Q132> .
+
+:SymptomsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "SymptomsHealthAspect" ;
+    rdfs:comment "Symptoms or related symptoms of a Topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :Thursday a :DayOfWeek ;
     rdfs:label "Thursday" ;
@@ -15072,6 +15222,11 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
     rdfs:label "TransitMap" ;
     rdfs:comment "A transit map." .
 
+:TreatmentsHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "TreatmentsHealthAspect" ;
+    rdfs:comment "Treatments or related therapies for a Topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
+
 :True a :Boolean ;
     rdfs:label "True" ;
     rdfs:comment "The boolean value true." .
@@ -15080,6 +15235,11 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
     rdfs:label "Tuesday" ;
     rdfs:comment "The day of the week between Monday and Wednesday." ;
     :sameAs <http://www.wikidata.org/entity/Q127> .
+
+:TypesHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "TypesHealthAspect" ;
+    rdfs:comment "Categorization and other types related to a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :UKTrust a :UKNonprofitType ;
     rdfs:label "UKTrust" ;
@@ -15103,6 +15263,11 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
+
+:UsageOrScheduleHealthAspect a :HealthAspectEnumeration ;
+    rdfs:label "UsageOrScheduleHealthAspect" ;
+    rdfs:comment "Content about how, when, frequency and dosage of a topic." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2374> .
 
 :UsedCondition a :OfferItemCondition ;
     rdfs:label "UsedCondition" ;
