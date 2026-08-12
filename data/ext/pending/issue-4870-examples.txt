@@ -43,9 +43,13 @@ JSON-LD:
   "hasDigitalProductPassport": "https://id.gs1.org/01/01234567890128?linkType=dpp",
   "recycledContentPercentage": 45.5,
   "substanceOfConcern": {
-    "@type": "ChemicalSubstance",
+    "@type": "DefinedTerm",
     "name": "Lead",
-    "identifier": "https://echa.europa.eu/substance-information/-/substanceinfo/100.028.273"
+    "termCode": "231-100-4",
+    "inDefinedTermSet": {
+      "@type": "DefinedTermSet",
+      "name": "Candidate List of substances of very high concern for Authorisation (REACH)"
+    }
   },
   "importer": {
     "@type": "Organization",
