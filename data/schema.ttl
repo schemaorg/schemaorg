@@ -5964,6 +5964,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :Rating,
         :Text .
 
+:contentReferenceTime a rdf:Property ;
+    rdfs:label "contentReferenceTime" ;
+    rdfs:comment "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1050> .
+
 :contentSize a rdf:Property ;
     rdfs:label "contentSize" ;
     rdfs:comment "File size in (mega/kilo)bytes." ;
