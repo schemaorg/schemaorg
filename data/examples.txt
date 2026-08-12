@@ -399,7 +399,7 @@ MICRODATA:
  <meta itemprop="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
-      <meta itemprop="duration" content="T0M15S" />
+      <meta itemprop="duration" content="PT0M15S" />
       <span itemprop="description">Recorded on a terrace of Girona a sunday morning</span>
 </span>
 </div>
@@ -418,7 +418,7 @@ RDFA:
  <meta property="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
-      <meta property="duration" content="T0M15S" />
+      <meta property="duration" content="PT0M15S" />
       <span property="description">Recorded on a terrace of Girona a sunday morning</span>
 </span>
 </div>
@@ -431,7 +431,7 @@ JSON:
   "@type": "AudioObject",
   "contentUrl": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
   "description": "Recorded on a terrace of Girona a sunday morning",
-  "duration": "T0M15S",
+  "duration": "PT0M15S",
   "encodingFormat": "audio/mpeg",
   "name": "12oclock_girona.mp3"
 }
@@ -2888,7 +2888,7 @@ RDFA:
 We use the IndividualProduct type when we are concerned with the specific item,
 rather than a set of indistinguishably similar items.
 
-<div  typeof="IndividualProduct" resource="#product">
+<div vocab="https://schema.org/" typeof="IndividualProduct" resource="#product">
  <link property="additionalType" href="http://www.productontology.org/id/Racing_bicycle" />
  <span property="name">ACME Racing Bike in black (2008)</span>
  <span property="description">ACME Racing Bike, bought 8/2008, almost new, with a signature of
@@ -2938,7 +2938,7 @@ RDFA:
 The SomeProducts type is used when the product is an item drawn from a
 collection of interchangeably similar items.
 
-<div  typeof="SomeProducts" resource="#product">
+<div vocab="https://schema.org/" typeof="SomeProducts" resource="#product">
  We have the Brother HL-2230 on sale!
  <span property="name">Brother HL-2230 Compact Laser Printer</span>
  <link property="additionalType"
@@ -3003,7 +3003,7 @@ product, e.g. if you are the manufacturer of the product and want to
 mark up your product specification pages. For example: The ACME
 Colorvision 123 specifiation on the ACME Corp. site for that model.
 
-<div  typeof="ProductModel" resource="#model">
+<div vocab="https://schema.org/" typeof="ProductModel" resource="#model">
  <link property="additionalType"
        href="http://www.productontology.org/id/Television_set" />
  <span property="name">ACME Colorvision 123</span>
@@ -9826,9 +9826,11 @@ JSON:
   "workPerformed": {
     "@type": "CreativeWork",
     "name": "Julius Caesar",
-    "sameAs": "http://en.wikipedia.org/wiki/Julius_Caesar_(play)",
-    "sameAs": "http://worldcat.org/entity/work/id/1807288036",
-        "creator": {
+    "sameAs": [
+      "http://en.wikipedia.org/wiki/Julius_Caesar_(play)",
+      "http://worldcat.org/entity/work/id/1807288036"
+    ],
+    "creator": {
       "@type": "Person",
       "name": "William Shakespeare",
       "sameAs": "http://en.wikipedia.org/wiki/William_Shakespeare"
@@ -11014,7 +11016,7 @@ MICRODATA:
             <span itemprop="price" content="4399.00">4399 р.</span>
         </div>...
     </div>
-    <div itemprop="itemListElement" itemtype="https://schema.org/Product">
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
         ...
     </div>
 </div>

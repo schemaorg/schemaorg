@@ -24,23 +24,23 @@ JSON:
     "@type": "Country",
     "name": "United States"
   },
-  "validFrom": "2023-01-01", 
-  "validThrough": "2032-12-31", 
-  "incentiveType": "TaxCredit",
-  "purchaseType": "NewPurchase",
+  "validFrom": "2023-01-01",
+  "validThrough": "2032-12-31",
+  "incentiveType": "IncentiveTypeTaxCredit",
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "QuantitativeValue",
     "minValue": "2500",
     "maxValue": "7500",
     "unitCode": "USD"
   },
-  "incentiveStatus": "Active",
+  "incentiveStatus": "IncentiveStatusActive",
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
     "termCode": "25101509",
     "name": "Electrically powered vehicle"
-  }, 
+  },
   "incomeLimit": {
     "@type": "MonetaryAmount",
     "maxValue": "114000",
@@ -62,10 +62,10 @@ JSON:
   "@context": "https://schema.org/",
   "@type": "FinancialIncentive",
   "name": "ACT Sustainable Household Scheme",
-  "url": "https://www.climatechoices.act.gov.au/policy-programs/sustainable-household-scheme", 
+  "url": "https://www.climatechoices.act.gov.au/policy-programs/sustainable-household-scheme",
   "publisher": {
     "@type": "Organization",
-    "name": "ACT Government" 
+    "name": "ACT Government"
   },
   "provider": {
     "@type": "Organization",
@@ -75,16 +75,16 @@ JSON:
     "@type": "State",
     "name": "Australian Capital Territory"
   },
-  "validFrom": "2021-05-01", 
-  "validThrough": "2026-06-30", 
-  "incentiveType": "Loan", 
-  "purchaseType": "NewPurchase",
+  "validFrom": "2021-05-01",
+  "validThrough": "2026-06-30",
+  "incentiveType": "IncentiveTypeLoan",
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "LoanOrCredit",
     "loanTerm": {
       "@type": "QuantitativeValue",
       "value": "10",
-      "unitCode": "ANN" 
+      "unitCode": "ANN"
     },
     "annualPercentageRate": [
       {
@@ -104,31 +104,33 @@ JSON:
       }
     ]
   },
-  "incentiveStatus": "Active",
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "30141500",
-    "name": "Thermal insulation"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "40101806",
-    "name": "Heat Pumps"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "261315XX",
-    "name": "Photovoltaic module"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "251018XX",
-    "name": "Electric two-wheel vehicle"
-  }
+  "incentiveStatus": "IncentiveStatusActive",
+  "incentivizedItem": [
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "30141500",
+      "name": "Thermal insulation"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "40101806",
+      "name": "Heat Pumps"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "261315XX",
+      "name": "Photovoltaic module"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "251018XX",
+      "name": "Electric two-wheel vehicle"
+    }
+  ]
 }
 </script>
 
@@ -145,24 +147,24 @@ JSON:
   "@context": "https://schema.org/",
   "@type": "FinancialIncentive",
   "name": "Electric Vehicle Chargepoint Grant",
-  "url": "https://www.gov.uk/electric-vehicle-chargepoint-grant-household", 
+  "url": "https://www.gov.uk/electric-vehicle-chargepoint-grant-household",
   "publisher": {
     "@type": "Organization",
-    "name": "UK Government" 
+    "name": "UK Government"
   },
   "provider": {
     "@type": "Organization",
-    "name": "Office for Zero Emission Vehicles (OZEV)" 
+    "name": "Office for Zero Emission Vehicles (OZEV)"
   },
   "areaServed": {
     "@type": "Country",
     "name": "United Kingdom"
   },
-  "validFrom": "2020-04-01", 
-  "validThrough": "2025-03-31", 
-  "incentiveType": "RebateOrSubsidy",
-  "purchaseType": "NewPurchase",
-  "incentiveStatus": "Active", 
+  "validFrom": "2020-04-01",
+  "validThrough": "2025-03-31",
+  "incentiveType": "IncentiveTypeRebateOrSubsidy",
+  "purchaseType": "PurchaseTypeNewPurchase",
+  "incentiveStatus": "IncentiveStatusActive",
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
@@ -208,20 +210,20 @@ JSON:
     "@type": "City",
     "name": "Banff"
   },
-  "validFrom": "2018-01-01", 
-  "validThrough": "2024-12-31", 
-  "incentiveType": "RebateOrSubsidy",
-  "purchaseType": "NewPurchase",
+  "validFrom": "2018-01-01",
+  "validThrough": "2024-12-31",
+  "incentiveType": "IncentiveTypeRebateOrSubsidy",
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "UnitPriceSpecification",
     "price": "750",
     "priceCurrency": "USD",
     "referenceQuantity": "1",
-    "unitCode": "KWT", 
+    "unitCode": "KWT",
     "unitText": "kW",
-    "maxPrice": "15000" 
+    "maxPrice": "15000"
   },
-  "incentiveStatus": "Active", 
+  "incentiveStatus": "IncentiveStatusActive",
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
