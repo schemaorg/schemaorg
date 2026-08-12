@@ -12205,6 +12205,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :HowToTool,
         :Text .
 
+:totalJobOpenings a rdf:Property ;
+    rdfs:label "totalJobOpenings" ;
+    rdfs:comment "The number of positions open for this job posting. Use a positive integer. Do not use if the number of positions is unclear or not known." ;
+    :domainIncludes :JobPosting ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2329> .
+
 :totalPaymentDue a rdf:Property ;
     rdfs:label "totalPaymentDue" ;
     rdfs:comment "The total amount due." ;
