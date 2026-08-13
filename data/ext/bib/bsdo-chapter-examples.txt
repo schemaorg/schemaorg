@@ -20,7 +20,7 @@ MICRODATA:
 <div>
 <div itemscope itemtype="https://schema.org/Book" itemid="http://www.worldcat.org/oclc/751835184">
   <h1 itemprop="name">Steve Jobs</h1>
-  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/46911882">Walter Isaacson</span></div>
+  <div>Author: <span itemprop="author" itemscope itemid="http://viaf.org/viaf/46911882">Walter Isaacson</span></div>
   <div>ISBN: <span itemprop="isbn">9781408703748</span></div>
 </div>
 <div itemscope itemtype="https://schema.org/Chapter" >
@@ -52,16 +52,9 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": {
-    "rdfa": "http://www.w3.org/ns/rdfa#",
     "schema": "https://schema.org/"
   },
   "@graph": [
-    {
-      "@id": "",
-      "rdfa:usesVocabulary": {
-        "@id": "schema:"
-      }
-    },
     {
       "@id": "http://www.worldcat.org/oclc/751835184",
       "@type": "schema:Book",
