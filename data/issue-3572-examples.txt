@@ -26,15 +26,15 @@ JSON:
   },
   "validFrom": "2023-01-01", 
   "validThrough": "2032-12-31", 
-  "incentiveType": "TaxCredit",
-  "purchaseType": "NewPurchase",
+  "incentiveType": "IncentiveTypeTaxCredit",
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "QuantitativeValue",
     "minValue": "2500",
     "maxValue": "7500",
     "unitCode": "USD"
   },
-  "incentiveStatus": "Active",
+  "incentiveStatus": "IncentiveStatusActive",
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
@@ -77,8 +77,8 @@ JSON:
   },
   "validFrom": "2021-05-01", 
   "validThrough": "2026-06-30", 
-  "incentiveType": "Loan", 
-  "purchaseType": "NewPurchase",
+  "incentiveType": "IncentiveTypeLoan", 
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "LoanOrCredit",
     "loanTerm": {
@@ -104,31 +104,33 @@ JSON:
       }
     ]
   },
-  "incentiveStatus": "Active",
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "30141500",
-    "name": "Thermal insulation"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "40101806",
-    "name": "Heat Pumps"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "261315XX",
-    "name": "Photovoltaic module"
-  },
-  "incentivizedItem": {
-    "@type": "DefinedTerm",
-    "inDefinedTermSet": "https://www.unspsc.org/",
-    "termCode": "251018XX",
-    "name": "Electric two-wheel vehicle"
-  }
+  "incentiveStatus": "IncentiveStatusActive",
+  "incentivizedItem": [
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "30141500",
+      "name": "Thermal insulation"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "40101806",
+      "name": "Heat Pumps"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "261315XX",
+      "name": "Photovoltaic module"
+    },
+    {
+      "@type": "DefinedTerm",
+      "inDefinedTermSet": "https://www.unspsc.org/",
+      "termCode": "251018XX",
+      "name": "Electric two-wheel vehicle"
+    }
+  ]
 }
 </script>
 
@@ -160,9 +162,9 @@ JSON:
   },
   "validFrom": "2020-04-01", 
   "validThrough": "2025-03-31", 
-  "incentiveType": "RebateOrSubsidy",
-  "purchaseType": "NewPurchase",
-  "incentiveStatus": "Active", 
+  "incentiveType": "IncentiveTypeRebateOrSubsidy",
+  "purchaseType": "PurchaseTypeNewPurchase",
+  "incentiveStatus": "IncentiveStatusActive", 
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
@@ -210,8 +212,8 @@ JSON:
   },
   "validFrom": "2018-01-01", 
   "validThrough": "2024-12-31", 
-  "incentiveType": "RebateOrSubsidy",
-  "purchaseType": "NewPurchase",
+  "incentiveType": "IncentiveTypeRebateOrSubsidy",
+  "purchaseType": "PurchaseTypeNewPurchase",
   "incentiveAmount": {
     "@type": "UnitPriceSpecification",
     "price": "750",
@@ -221,7 +223,7 @@ JSON:
     "unitText": "kW",
     "maxPrice": "15000" 
   },
-  "incentiveStatus": "Active", 
+  "incentiveStatus": "IncentiveStatusActive", 
   "incentivizedItem": {
     "@type": "DefinedTerm",
     "inDefinedTermSet": "https://www.unspsc.org/",
