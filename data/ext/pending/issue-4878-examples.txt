@@ -1,0 +1,117 @@
+TYPES: Product, PropertyValue, Offer, OfferShippingDetails, ShippingRateSettings, WebContent, PriceSpecification, PriceTypeEnumeration
+
+PRE-MARKUP:
+
+This example demonstrates a comprehensive electronics product (a fictional smart drone) using the new properties introduced in Issue 4878. It showcases how to group technical specifications using `valueGroup` on `PropertyValue`, display safety information using `consumerNotice`, link related accessories using `isOftenBoughtWith`, and model pricing and shipping constraints using `MaximumRetailPrice`, `itemPopularity`, and `minimumOrderValue`.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "AeroQuad Pro Smart Drone",
+  "description": "A high-performance quadcopter drone with 4K camera and obstacle avoidance.",
+  "brand": {
+    "@type": "Brand",
+    "name": "AeroTech"
+  },
+  "image": "https://example.com/images/aeroquad-pro.jpg",
+  "consumerNotice": {
+    "@type": "ConsumerNotice",
+    "name": "CHOKING_HAZARD",
+    "text": "WARNING: Choking Hazard - Small parts. Not for children under 3 years. This product must be registered with the FAA before flight."
+  },
+  "isOftenBoughtWith": [
+    {
+      "@type": "Product",
+      "name": "AeroQuad Replacement Propellers (4-Pack)",
+      "sku": "AQ-PROP-4PK"
+    },
+    {
+      "@type": "Product",
+      "name": "AeroQuad High-Capacity Battery",
+      "sku": "AQ-BATT-HC"
+    }
+  ],
+  "specification": [
+    {
+      "@type": "PropertyValue",
+      "valueGroup": "Camera Specs",
+      "name": "Video Resolution",
+      "value": "4K at 60fps"
+    },
+    {
+      "@type": "PropertyValue",
+      "valueGroup": "Camera Specs",
+      "name": "Sensor Type",
+      "value": "1-inch CMOS"
+    },
+    {
+      "@type": "PropertyValue",
+      "valueGroup": "Flight Performance",
+      "name": "Max Flight Time",
+      "value": "35 minutes"
+    },
+    {
+      "@type": "PropertyValue",
+      "valueGroup": "Flight Performance",
+      "name": "Max Speed",
+      "value": "45 mph"
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "799.00",
+    "priceCurrency": "USD",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "itemPopularity": 1,
+    "priceSpecification": [
+      {
+        "@type": "UnitPriceSpecification",
+        "priceType": "https://schema.org/MaximumRetailPrice",
+        "price": "899.00",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "UnitPriceSpecification",
+        "price": "799.00",
+        "priceCurrency": "USD"
+      }
+    ],
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "provider": {
+        "@type": "Organization",
+        "name": "Acme Fast Freight"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US"
+      },
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0.00",
+        "currency": "USD"
+      },
+      "shippingSettingsLink": {
+        "@type": "ShippingRateSettings",
+        "minimumOrderValue": {
+          "@type": "PriceSpecification",
+          "price": "50.00",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+  }
+}
+</script>

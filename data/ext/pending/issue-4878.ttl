@@ -1,0 +1,78 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:specification a rdf:Property ;
+    rdfs:label "specification" ;
+    :domainIncludes :Product ;
+    :rangeIncludes :PropertyValue ;
+    rdfs:comment "A specification of the product, often grouped by a section header/name. This is a cleaner alternative to additionalProperty for strict retail product specifications." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:valueGroup a rdf:Property ;
+    rdfs:label "valueGroup" ;
+    :domainIncludes :PropertyValue ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A header or section name for grouping related property values." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:MaximumRetailPrice a :PriceTypeEnumeration ;
+    rdfs:label "MaximumRetailPrice" ;
+    rdfs:comment "The maximum retail price (MRP) of a product sold in India." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:provider :domainIncludes :OfferShippingDetails .
+
+:itemPopularity a rdf:Property ;
+    rdfs:label "itemPopularity" ;
+    :domainIncludes :Offer ;
+    :rangeIncludes :Number,
+        :QuantitativeValue ;
+    rdfs:comment "A measure of the popularity of the item, e.g. a popularity rank or sales rank." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:ConsumerNotice a rdfs:Class ;
+    rdfs:label "ConsumerNotice" ;
+    rdfs:subClassOf :StructuredValue ;
+    rdfs:comment "A consumer notice, such as a safety warning or mandatory information, related to a product." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:consumerNotice a rdf:Property ;
+    rdfs:label "consumerNotice" ;
+    :domainIncludes :Product ;
+    :rangeIncludes :ConsumerNotice,
+        :Text,
+        :URL,
+        :WebContent ;
+    rdfs:comment "A consumer notice, such as a safety warning or mandatory information, related to the product." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:text :domainIncludes :ConsumerNotice ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:isOftenBoughtWith a rdf:Property ;
+    rdfs:label "isOftenBoughtWith" ;
+    rdfs:subPropertyOf :isRelatedTo ;
+    :domainIncludes :Product ;
+    :rangeIncludes :Product ;
+    rdfs:comment "Indicates a product that is often bought with the described product." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
+
+:minimumOrderValue a rdf:Property ;
+    rdfs:label "minimumOrderValue" ;
+    :domainIncludes :ShippingRateSettings ;
+    :rangeIncludes :PriceSpecification,
+        :MonetaryAmount,
+        :Number ;
+    rdfs:comment "The minimum order value required for this shipping rate to apply." ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
