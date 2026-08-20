@@ -16,7 +16,7 @@
     rdfs:label "valueGroup" ;
     :domainIncludes :PropertyValue ;
     :rangeIncludes :Text ;
-    rdfs:comment "A header or section name for grouping related specifications or property values." ;
+    rdfs:comment "A header or section name for grouping related property values." ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/4878> .
 
@@ -39,7 +39,7 @@
 
 :ConsumerNotice a rdfs:Class ;
     rdfs:label "ConsumerNotice" ;
-    rdfs:subClassOf :Intangible ;
+    rdfs:subClassOf :StructuredValue ;
     rdfs:comment "A consumer notice, such as a safety warning or mandatory information, related to a product." ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/4878> .
@@ -68,6 +68,7 @@
     rdfs:label "minimumOrderValue" ;
     :domainIncludes :ShippingRateSettings ;
     :rangeIncludes :PriceSpecification,
+        :MonetaryAmount,
         :Number ;
     rdfs:comment "The minimum order value required for this shipping rate to apply." ;
     :isPartOf <https://pending.schema.org> ;
