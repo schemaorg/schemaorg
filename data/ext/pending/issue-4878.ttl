@@ -37,25 +37,15 @@
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/4878> .
 
-:ConsumerNotice a rdfs:Class ;
-    rdfs:label "ConsumerNotice" ;
-    rdfs:subClassOf :StructuredValue ;
-    rdfs:comment "A consumer notice, such as a safety warning or mandatory information, related to a product." ;
-    :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
-
 :consumerNotice a rdf:Property ;
     rdfs:label "consumerNotice" ;
     :domainIncludes :Product ;
-    :rangeIncludes :ConsumerNotice,
-        :Text,
+    :rangeIncludes :Text,
+        :TextObject,
         :URL,
         :WebContent ;
     rdfs:comment "A consumer notice, such as a safety warning or mandatory information, related to the product." ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/4878> .
-
-:text :domainIncludes :ConsumerNotice ;
     :source <https://github.com/schemaorg/schemaorg/issues/4878> .
 
 :isOftenBoughtWith a rdf:Property ;

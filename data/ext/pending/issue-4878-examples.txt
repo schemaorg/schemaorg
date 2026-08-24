@@ -1,4 +1,4 @@
-TYPES: Product, PropertyValue, Offer, OfferShippingDetails, ShippingRateSettings, WebContent, PriceSpecification, PriceTypeEnumeration
+TYPES: #eg-4878 Product, PropertyValue, Offer, OfferShippingDetails, ShippingRateSettings, TextObject, WebContent, PriceSpecification, PriceTypeEnumeration
 
 PRE-MARKUP:
 
@@ -26,7 +26,7 @@ JSON:
   },
   "image": "https://example.com/images/aeroquad-pro.jpg",
   "consumerNotice": {
-    "@type": "ConsumerNotice",
+    "@type": "TextObject",
     "name": "CHOKING_HAZARD",
     "text": "WARNING: Choking Hazard - Small parts. Not for children under 3 years. This product must be registered with the FAA before flight."
   },
@@ -99,12 +99,12 @@ JSON:
         "addressCountry": "US"
       },
       "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0.00",
-        "currency": "USD"
-      },
-      "shippingSettingsLink": {
         "@type": "ShippingRateSettings",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0.00",
+          "currency": "USD"
+        },
         "minimumOrderValue": {
           "@type": "PriceSpecification",
           "price": "50.00",
