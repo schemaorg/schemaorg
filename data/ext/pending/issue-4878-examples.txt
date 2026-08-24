@@ -1,4 +1,4 @@
-TYPES: #eg-4878 Product, PropertyValue, Offer, OfferShippingDetails, ShippingRateSettings, TextObject, WebContent, PriceSpecification, PriceTypeEnumeration
+TYPES: #eg-4878 Product, PropertyValue, Offer, OfferShippingDetails, ShippingRateSettings, TextObject, WebContent, PriceSpecification, PriceTypeEnumeration, QuantitativeValue
 
 PRE-MARKUP:
 
@@ -74,7 +74,13 @@ JSON:
     "priceCurrency": "USD",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
-    "itemPopularity": 1,
+    "itemPopularity": {
+      "@type": "QuantitativeValue",
+      "value": 54,
+      "minValue": 1,
+      "maxValue": 347,
+      "name": "Category Popularity Rank"
+    },
     "priceSpecification": [
       {
         "@type": "UnitPriceSpecification",
