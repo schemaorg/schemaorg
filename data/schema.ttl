@@ -13865,13 +13865,14 @@ This property can be used alongside the license property which indicates license
 
 :value a rdf:Property ;
     rdfs:label "value" ;
-    rdfs:comment "The value of a [[QuantitativeValue]] (including [[Observation]]) or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', or 'StructuredValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." ;
+    rdfs:comment "The value of a [[QuantitativeValue]] (including [[Observation]]) or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', 'StructuredValue' or 'QualitativeValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." ;
     :domainIncludes :MonetaryAmount,
         :PropertyValue,
         :QuantitativeValue ;
     :rangeIncludes :Boolean,
         :Number,
         :StructuredValue,
+        :QualitativeValue,
         :Text .
 
 :valueAddedTaxIncluded a rdf:Property ;
@@ -13938,11 +13939,13 @@ This property can be used alongside the license property which indicates license
 
 :variesBy a rdf:Property ;
     rdfs:label "variesBy" ;
-    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs." ;
+    rdfs:comment "Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. \"color\"; terms defined elsewhere can be referenced with their URIs. Variant properties can be provided using [[PropertyValue]] instead of plain [[Text]], to allow specification of the values available for a variant property." ;
     :domainIncludes :ProductGroup ;
     :rangeIncludes :DefinedTerm,
+        :PropertyValue,
         :Text ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1797> .
+    :source <https://github.com/schemaorg/schemaorg/issues/1797>,
+        <https://github.com/schemaorg/schemaorg/issues/4885> .
 
 :vatID a rdf:Property ;
     rdfs:label "vatID" ;

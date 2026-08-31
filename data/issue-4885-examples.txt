@@ -1,0 +1,77 @@
+TYPES: #eg-4885 variesBy
+
+PRE-MARKUP:
+Markup snippet illustrating how to provide various variant dimensions (both native and non-native Schema.org properties) using PropertyValue to specify ranges of available values.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA: 
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org/",
+  "@type": "ProductGroup",
+  "variesBy": [
+    {
+      "@type": "PropertyValue",
+      "name": "color",
+      "value": ["black", "silver"]
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "material",
+      "value": ["plastic", "aluminum"]
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Memory size",
+      "value": [16, 32, 64],
+      "unitCode": "E34",
+      "unitText": "GB"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "CPU",
+      "value": ["low_8core", "high_16core"]
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "size",
+      "value": [
+        {
+          "@type": "SizeSpecification",
+          "name": ["XS", "S"],
+          "sizeSystem": "https://schema.org/WearableSizeSystemUS",
+          "sizeGroup": "https://schema.org/WearableSizeGroupPetite"
+        },
+        {
+          "@type": "SizeSpecification",
+          "name": ["M", "L"],
+          "sizeSystem": "https://schema.org/WearableSizeSystemUS",
+          "sizeGroup": "https://schema.org/WearableSizeGroupRegular"
+        },
+        {
+          "@type": "SizeSpecification",
+          "name": "XL",
+          "sizeSystem": "https://schema.org/WearableSizeSystemUS",
+          "sizeGroup": "https://schema.org/WearableSizeGroupPlus"
+        },
+        {
+          "@type": "SizeSpecification",
+          "name": ["XXL", "XXXL"],
+          "sizeSystem": "https://schema.org/WearableSizeSystemUS",
+          "sizeGroup": "https://schema.org/WearableSizeGroupBig"
+        }
+      ]
+    }
+  ]
+}
+
+ </script>
