@@ -1,0 +1,47 @@
+TYPES: #eg-0304 episode, movie
+
+PRE-MARKUP:
+
+Example of tv pilot.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json"> {
+"@context": "https://schema.org",
+"@type": "TVEpisode",
+"name": "tv-pilot-name",
+"alternateName": "Other name",
+"description": "a nice pilot.",
+"image": [
+"https://example.com/image-1.jpg",
+"https://example.com/image-2.jpg"
+],
+"datePublished": "2026-08-30",
+"genre": "Documentary",
+"productionCompany": {
+"@type": "Organization",
+"name": "ComfortSeat",
+},
+"countryOfOrigin": {
+"@type": "Country",
+"name": "Brazil"
+},
+"partOfSeries": {
+"@type": "TVSeries",
+"name": "thing"
+},
+"trailer": {
+"@type": "VideoObject",
+"duration": "PT1M33S",
+"name": "Trailer",
+"contentUrl": "https://example.com/trailer.mp4"
+}
+}
