@@ -111,6 +111,26 @@ class TestConversionFunctions(unittest.TestCase):
             "GoodRelations Vocabulary for E-Commerce", collaborator.acknowledgement
         )
 
+    def testParentPathsNoExternalDuplicates(self):
+        seller_paths = sdotermsource.SdoTermSource.getParentPathTo("seller")
+        self.assertEqual(seller_paths, [["Thing", "Property", "participant", "seller"]])
+
+        min_price_paths = sdotermsource.SdoTermSource.getParentPathTo("minPrice")
+        self.assertEqual(min_price_paths, [["Thing", "Property", "minPrice"]])
+
+    def testLazyResolution(self):
+        lazy_pending = sdoterm.SdoTermOrId(term_id="subTrip")
+        self.assertFalse(lazy_pending.expanded)
+        self.assertTrue(lazy_pending.pending)
+        self.assertFalse(lazy_pending.retired)
+        self.assertEqual(lazy_pending.extLayer, "pending")
+
+        lazy_attic = sdoterm.SdoTermOrId(term_id="variablesMeasured")
+        self.assertFalse(lazy_attic.expanded)
+        self.assertFalse(lazy_attic.pending)
+        self.assertTrue(lazy_attic.retired)
+        self.assertEqual(lazy_attic.extLayer, "attic")
+
 
 if __name__ == "__main__":
     unittest.main()
