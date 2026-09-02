@@ -239,21 +239,32 @@ class ShaclParser:
                         (
                             node,
                             SHACL.property,
-                            ShaclParser.parse_property(source, prop, dest),
+                            ShaclParser.parse_property(source, prop, dest, shape=shape),
                         )
                     )
 
     @staticmethod
-    def parse_property(source: Graph, prop: URIRef, dest: Graph) -> BNode:
+    def create_bnode(prefix: str, shape: URIRef, prop: URIRef, range: Optional[URIRef] = None) -> BNode:
+        """
+        Creates a deterministic BNode with a given shape, prop, and possibly range.
+        """
+        def sid(term: Optional[Node]) -> str:
+            return str(term).rsplit("#", 1)[-1].rsplit("/", 1)[-1] if term else "shape"
+
+        return BNode("_".join([prefix, sid(shape), sid(prop), sid(range)]))
+
+    @staticmethod
+    def parse_property(source: Graph, prop: URIRef, dest: Graph, shape: Optional[URIRef] = None) -> BNode:
         """
         Creates property constraints
 
         :param source: source rdflib graph
         :param prop: property IRI
         :param dest: output SHACL constraints graph
+        :param shape: parent shape IRI
         :return: property blank node
         """
-        node: BNode = BNode()
+        node: BNode = ShaclParser.create_bnode("prop", shape, prop)
         dest.add((node, SHACL.path, prop))
         property_range: List[URIRef] = sorted([
             replace_prefix(URIRef(x)) for x in ShExJParser._range_includes.get(prop, [])
@@ -266,12 +277,12 @@ class ShaclParser:
             property_range = sorted(property_range, key=str)
 
         if len(property_range) > 1:
-            or_node: BNode = BNode()
+            or_node: BNode = ShaclParser.create_bnode("or", shape, prop)
             or_collection: Collection = Collection(dest, or_node)
             dest.add((node, SHACL["or"], or_node))
-            for shape in property_range:
-                t: BNode = BNode()
-                dest.add((t, SHACL.node, shape))
+            for range_shape in property_range:
+                t: BNode = ShaclParser.create_bnode("t", shape, prop, range=range_shape)
+                dest.add((t, SHACL.node, range_shape))
                 or_collection.append(t)
         elif property_range:
             dest.add((node, SHACL.node, property_range[0]))

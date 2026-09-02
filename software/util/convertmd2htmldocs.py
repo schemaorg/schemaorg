@@ -5,6 +5,7 @@
 
 import glob
 import os
+import random
 import sys
 import typing
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
@@ -41,6 +42,7 @@ def convert2html(input_path: str, destdir: str) -> None:
     name, extension = os.path.splitext(filename)
     with open(input_path, "r") as in_handle:
         text: str = in_handle.read()
+        random.seed(42)  # To obfuscate the email in a cross-release predictable way.
         md_html: str = markdown.markdown(text)
 
     output_path: str = os.path.join(destdir, name + ".html")
