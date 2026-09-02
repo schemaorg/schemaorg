@@ -64,7 +64,6 @@ def get_stats_providers() -> List[StatsProvider]:
                                     entry_name = entry_name.strip()
                                     bucket = bucket.strip()
                                     normalized_name = unicodedata.normalize("NFC", entry_name)
-                                    stats_map[normalized_name.replace("https://", "http://")] = bucket
                                     stats_map[normalized_name.replace("http://", "https://")] = bucket
                     except Exception:
                         continue

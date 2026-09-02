@@ -17,8 +17,8 @@ Markdown.setWikilinkPrePath("/")
 
 
 DATADIR = os.path.join(os.path.dirname(__file__), "../data")
-triplesfile = os.path.join(DATADIR, "schemaorg-all-http.nt")
-SdoTermSource.VOCABURI = "https://schema.org/" #Force to https as loaded https file
+triplesfile = os.path.join(DATADIR, "schemaorg-all-https.nt")
+SdoTermSource.VOCABURI = "https://schema.org/"
 SdoTermSource.loadSourceGraph(triplesfile)
 print ("loaded %s triples" % len(SdoTermSource.sourceGraph()))
 

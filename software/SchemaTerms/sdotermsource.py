@@ -506,7 +506,7 @@ class SdoTermSource:
         wpre: Optional[str] = None
         assert self.termdesc is not None
         name: str = self.termdesc.id
-        if name.startswith("http:"):
+        if name.startswith("https:"):
             val: str = Path(name).name
             wpre = name[: -len(val)]
 
@@ -1219,7 +1219,7 @@ ProtoAndRoot = collections.namedtuple("ProtoAndRoot", ["proto", "root"])
 
 
 def getProtoAndRoot(uri: str) -> ProtoAndRoot:
-    m: Optional[re.Match] = re.search(r"^(http[s]?:\/\/)(.*)", uri)
+    m: Optional[re.Match] = re.search(r"^(https:\/\/)(.*)", uri)
     if m:
         return ProtoAndRoot(m.group(1), m.group(2))
     return ProtoAndRoot(None, None)
