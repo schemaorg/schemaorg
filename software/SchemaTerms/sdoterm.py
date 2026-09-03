@@ -42,6 +42,12 @@ class SdoTermOrId:
         self._term_id = term.id if term else term_id
         self._term = term
 
+    def _resolve(self) -> Optional["SdoTerm"]:
+        if not self._term and self._term_id:
+            from SchemaTerms.sdotermsource import SdoTermSource
+            self._term = SdoTermSource.getTerm(self._term_id)
+        return self._term
+
     @property
     def expanded(self) -> bool:
         return not self._term_id or bool(self._term)
@@ -52,15 +58,18 @@ class SdoTermOrId:
 
     @property
     def pending(self) -> bool:
-        return self._term.pending if self._term else False
+        term = self._resolve()
+        return term.pending if term else False
 
     @property
     def retired(self) -> bool:
-        return self._term.retired if self._term else False
+        term = self._resolve()
+        return term.retired if term else False
 
     @property
     def extLayer(self) -> str:
-        return self._term.extLayer if self._term else ""
+        term = self._resolve()
+        return term.extLayer if term else ""
 
     @property
     def term(self) -> "SdoTerm":

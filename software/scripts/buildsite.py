@@ -397,7 +397,7 @@ if __name__ == "__main__":
         loadTerms(source="release")
         schema.config.OUTPUTDIR = "software/site"
 
-        if args.examplesnum or args.autobuild:
+        if args.examplesnum or args.autobuild or args.buildsite or any(args.terms) or any(args.files):
             with pretty_logger.BlockLog(
                 message="Checking Examples for assigned identifiers", logger=log
             ):

@@ -254,6 +254,22 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
         g_can: rdflib.Graph = to_canonical_graph(g)
         g_can.namespace_manager = ns_mgr
 
+        if output_format == "rdf":
+            g_out = rdflib.Graph()
+            g_out.namespace_manager = ns_mgr
+
+            def type_sort_key(trip: Tuple[Any, Any, Any]) -> Tuple[int, str, str]:
+                s, p, o = trip
+                if p == rdflib.RDF.type:
+                    if o == rdflib.RDFS.Class:
+                        return (0, str(s), str(o))
+                    return (1, str(s), str(o))
+                return (2, str(s), str(p))
+
+            for t in sorted(g_can, key=type_sort_key):
+                g_out.add(t)
+            g_can = g_out
+
         p: str
         for p in fileutils.FILESET_PROTOCOLS:
             final_g: Union[rdflib.Graph, rdflib.Dataset] = g_can
