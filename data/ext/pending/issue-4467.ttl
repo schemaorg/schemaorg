@@ -1,0 +1,24 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lrmoo: <http://iflastandards.info/ns/lrm/lrmoo/> .
+
+:PerformanceWork a rdfs:Class ;
+    rdfs:label "PerformanceWork" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/4467> ;
+    rdfs:comment """Work of the performing arts, consisting of all creative elements, including design elements, intended to be performed live in front of an audience.<br/><br/>Note: PerformanceWork may be used regardless of whether or not the work has premiered onstage. It may also be used alongside <a class="localLink" href="https://schema.org/PerformingArtsEvent">PerformingArtsEvent</a> objects to describe performing arts productions or tours. For more information on performing arts forms, please consult <a class="localLink" href="https://schema.org/PerformingArtsEvent">PerformingArtsEvent</a>.""" ;
+    rdfs:subClassOf :CreativeWork ;
+    rdfs:subClassOf lrmoo:F1_Work ;
+    rdfs:seeAlso <https://cidoc-crm.org/extensions/lrmoo/html/LRMoo_v1.1.1.html#F1> ;
+    rdfs:seeAlso <https://www.iflastandards.info/fr/frbr/frbroo#F20>.
+
+:isPerformedIn a rdf:Property ;
+    rdfs:label "isPerformedIn" ;
+    rdfs:comment "An event during which some work is performed in front of an audience, for example a PerformanceWork performed during a PerformingArtsEvent." ;
+    :domainIncludes :CreativeWork ;
+    :rangeIncludes :Event ;
+    :inverseOf :workPerformed .
+    
+:duration a rdf:Property ;
+    :domainIncludes :PerformanceWork .
