@@ -79,14 +79,14 @@ class StatsLayout:
             for entry in self._read_json(json_file):
                 entry_name = entry.get("Name").strip()
                 bucket = entry.get("Domain Bucket").strip()
-                normalized_name = unicodedata.normalize("NFC", entry_name).replace("http://", "https://")
+                normalized_name = unicodedata.normalize("NFC", entry_name)
                 stats_map[normalized_name] = bucket
 
             result.append(
                 StatsProvider(
                     provider_id=provider,
                     name=provider.capitalize(),
-                    description=f"Based on monthly aggregations from {provider}'s web index.",
+                    description=f"Based on monthly aggregations from {provider.capitalize()}'s web index.",
                     date=latest_epoch.strftime("%B %Y"),
                     stats_map=stats_map,
                 )
