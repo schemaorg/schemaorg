@@ -486,7 +486,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
           SELECT DISTINCT ?term WHERE {
             ?term ?p ?o .
 
-            FILTER STRSTARTS(STR(?term), "http://schema.org")
+            FILTER STRSTARTS(STR(?term), "http://")
+            FILTER STRENDS(STR(?term), "schema.org")
           }
           ORDER BY ?term
         """,
@@ -504,7 +505,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                   rdfs:subPropertyOf |
                   schema:supersededBy |
                   schema:inverseOf          ?target .
-            FILTER STRSTARTS(STR(?target), "http://schema.org")
+            FILTER STRSTARTS(STR(?target), "http://")
+            FILTER STRENDS(STR(?target), "schema.org")
           }
           ORDER BY ?term
         """,

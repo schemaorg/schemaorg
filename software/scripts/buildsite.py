@@ -260,8 +260,7 @@ def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
             with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
                 sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
         elif source == "release":
-            protocol: str = "https" if sdotermsource.SdoTermSource.vocabUri().startswith("https") else "http"
-            release_file: Path = paths.DefaultInputLayout().release_file(protocol)
+            release_file: Path = paths.DefaultInputLayout().release_file("https")
 
             if not release_file.exists():
                 raise FileNotFoundError(

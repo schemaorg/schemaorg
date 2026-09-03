@@ -19,10 +19,7 @@ Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("/")
 
 DATADIR = os.path.join(os.path.dirname(__file__), "../data")
-if SdoTermSource.vocabUri().startswith("https://"):
-    triplesfile = os.path.join(DATADIR, "schemaorg-all-https.nt")
-else:
-    triplesfile = os.path.join(DATADIR, "schemaorg-all-http.nt")
+triplesfile = os.path.join(DATADIR, "schemaorg-all-https.nt")
 
 
 termgraph = rdflib.Graph()
