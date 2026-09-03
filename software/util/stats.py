@@ -48,8 +48,9 @@ class StatsLayout:
             m = re.search(r"(\d{4}_\d{2})", filename.name)
             return datetime.datetime.strptime(m.group(1), "%Y_%m") if m else None
 
-        return dict([(extract_epoch(f), f) for f in self._list_files(provider, ext)
-                     if "summary" not in f.name])
+        epochs = [(extract_epoch(f), f) for f in self._list_files(provider, ext)
+                  if "summary" not in f.name]
+        return dict([e for e in epochs if not e[0] is None])
 
     def _read_json(self, file_path: Union[Path, str]) -> Any:
         """Private method to read and parse a JSON file."""
@@ -72,6 +73,7 @@ class StatsLayout:
         result: List[StatsProvider] = []
         for provider in providers:
             epochs = self.epochs(provider)
+            if not epochs: continue
             latest_epoch = sorted(epochs.keys())[-1]
             json_file = epochs[latest_epoch]
 

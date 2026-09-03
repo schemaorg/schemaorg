@@ -486,9 +486,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
           SELECT DISTINCT ?term WHERE {
             ?term ?p ?o .
 
-            FILTER STRSTARTS(STR(?term), "http://")
-            FILTER STRENDS(STR(?term), "schema.org")
-          }
+            FILTER REGEX(STR(?term), "^http://([a-z0-9-]+\\\\.)?schema\\\\.org\\b")
+        }
           ORDER BY ?term
         """,
         error_message="Term defined as http instead of https")
@@ -505,8 +504,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
                   rdfs:subPropertyOf |
                   schema:supersededBy |
                   schema:inverseOf          ?target .
-            FILTER STRSTARTS(STR(?target), "http://")
-            FILTER STRENDS(STR(?target), "schema.org")
+
+            FILTER REGEX(STR(?target), "^http://([a-z0-9-]+\\\\.)?schema\\\\.org\\b")
           }
           ORDER BY ?term
         """,
