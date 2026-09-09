@@ -11,6 +11,7 @@ from pathlib import Path
 import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
+from schemaorg import version
 import rdflib
 from rdflib.compare import to_canonical_graph
 import rdflib.namespace
