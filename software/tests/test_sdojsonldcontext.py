@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import json
-import logging
-import os
-import sys
 import unittest
 import unittest.mock
 

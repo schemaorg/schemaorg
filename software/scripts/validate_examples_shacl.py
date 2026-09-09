@@ -12,7 +12,7 @@ import logging
 import os
 from pathlib import Path
 import sys
-from typing import FrozenSet, List, NamedTuple, Optional
+from typing import FrozenSet, NamedTuple, Optional
 
 import owlrl
 import pyshacl

@@ -3,9 +3,6 @@
 
 # Import standard python libraries
 
-import logging
-import os
-import sys
 import unittest
 
 import SchemaTerms.sdoterm as sdoterm

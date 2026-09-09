@@ -36,11 +36,9 @@ class StatsLayout:
         if not self.base_dir.is_dir():
             return []
         return sorted(
-            [
-                subdir.name
-                for subdir in self.base_dir.iterdir()
-                if subdir.is_dir() and not subdir.name.startswith(".")
-            ]
+            subdir.name
+            for subdir in self.base_dir.iterdir()
+            if subdir.is_dir() and not subdir.name.startswith(".")
         )
 
     def _list_files(
@@ -51,11 +49,9 @@ class StatsLayout:
         if not provider_dir.is_dir():
             return []
         return sorted(
-            [
-                p
-                for p in provider_dir.iterdir()
-                if p.is_file() and (not ext or p.suffix == f".{ext}")
-            ]
+            p
+            for p in provider_dir.iterdir()
+            if p.is_file() and (not ext or p.suffix == f".{ext}")
         )
 
     def epochs(
@@ -71,28 +67,23 @@ class StatsLayout:
                 else None
             )
 
-        epochs = [
-            (extract_epoch(f), f)
+        return {
+            epoch: f
             for f in self._list_files(provider, ext)
-            if "summary" not in f.name
-        ]
-        return dict([e for e in epochs if e[0] is not None])
+            if "summary" not in f.name and (epoch := extract_epoch(f)) is not None
+        }
 
     def _read_json(self, file_path: Union[Path, str]) -> Any:
         """Private method to read and parse a JSON file."""
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        return json.loads(Path(file_path).read_text(encoding="utf-8"))
 
     def _read_csv(self, file_path: Union[Path, str]) -> Any:
         """Private method to read and parse a CSV file."""
-        records = []
         with open(file_path, "r", encoding="utf-8", newline="") as f:
-            for row in csv.DictReader(f):
-                record = dict(
-                    [(field.strip(), row[field]) for field in row.keys()]
-                )
-                records.append(record)
-        return records
+            return [
+                {field.strip(): val for field, val in row.items()}
+                for row in csv.DictReader(f)
+            ]
 
     def get_stats(
         self, providers: Optional[Sequence[str]] = None
@@ -107,7 +98,7 @@ class StatsLayout:
             epochs = self.epochs(provider)
             if not epochs:
                 continue
-            latest_epoch = sorted(epochs.keys())[-1]
+            latest_epoch = max(epochs)
             json_file = epochs[latest_epoch]
 
             stats_map: Dict[str, str] = {}

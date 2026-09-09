@@ -3,12 +3,9 @@
 
 # Import standard python libraries
 
-import glob
-import os
+from pathlib import Path
 import random
-import sys
-import typing
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from typing import Union
 
 import markdown2 as markdown
 
@@ -26,29 +23,20 @@ begin: str = """<!DOCTYPE html>
 end: str = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
 
 
-def mddocs(sourceDir: str, destDir: str) -> None:
-    docs: List[str] = glob.glob(sourceDir + "/*.md")
-    for d in docs:
+def mddocs(sourceDir: Union[str, Path], destDir: Union[str, Path]) -> None:
+    for d in Path(sourceDir).glob("*.md"):
         convert2html(d, destDir)
 
 
-def convert2html(input_path: str, destdir: str) -> None:
-    filename: str = os.path.basename(input_path)
-    name: str
-    extension: str
-    name, extension = os.path.splitext(filename)
-    with open(input_path, "r") as in_handle:
-        text: str = in_handle.read()
-        random.seed(42)  # To obfuscate the email in a cross-release predictable way.
-        md_html: str = markdown.markdown(text)
+def convert2html(input_path: Union[str, Path], destdir: Union[str, Path]) -> None:
+    in_file = Path(input_path)
+    text: str = in_file.read_text()
+    random.seed(42)  # To obfuscate the email in a cross-release predictable way.
+    md_html: str = markdown.markdown(text)
 
-    output_path: str = os.path.join(destdir, name + ".html")
-    with open(output_path, "w") as output_handle:
-        output_handle.write(begin.format(title=name.title()))
-        output_handle.write(md_html)
-        output_handle.write(end)
-
-    os.remove(input_path)
+    output_path = Path(destdir) / f"{in_file.stem}.html"
+    output_path.write_text(f"{begin.format(title=in_file.stem.title())}{md_html}{end}")
+    in_file.unlink()
 
 
 if __name__ == "__main__":

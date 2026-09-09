@@ -3,11 +3,7 @@
 
 """Tests to verify that public statistics data files use https:// URLs."""
 
-import datetime
-import os
-from pathlib import Path
-import sys
-from typing import List, Tuple
+from typing import List
 import unittest
 
 import util.paths as paths

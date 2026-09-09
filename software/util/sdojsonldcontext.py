@@ -3,9 +3,6 @@
 
 import json
 import logging
-import os
-import sys
-import typing
 from typing import Any, Dict, List, Optional, Set
 
 import SchemaTerms.sdoterm as sdoterm

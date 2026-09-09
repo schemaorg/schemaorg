@@ -4,16 +4,12 @@
 from __future__ import annotations
 
 import collections
-import copy
-import glob
 import json
 import logging
-import os
 from pathlib import Path
 import re
-import sys
 import threading
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union, cast
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
 
 import rdflib
 
@@ -35,8 +31,6 @@ ENUMERATIONURI: Optional[rdflib.URIRef] = None
 THINGURI: Optional[rdflib.URIRef] = None
 
 CORE: str = "core"
-DEFTRIPLESFILESGLOB: Tuple[str, str] = ("data/*.ttl", "data/ext/*/*.ttl")
-LOADEDDEFAULT: bool = False
 
 
 def bindNameSpaces(graph: rdflib.Graph) -> None:
@@ -143,7 +137,6 @@ def _loadOneSourceGraph(file_path: Union[str, Path]) -> rdflib.Graph:
 class SdoTermSource:
     """This class acts as the source of information for terms."""
 
-    TYPE: str = "Class"
     TERMCOUNTS: Optional[Dict[Union[sdoterm.SdoTermType, str], int]] = None
 
     SOURCEGRAPH: Optional[rdflib.Graph] = None
@@ -161,7 +154,6 @@ class SdoTermSource:
         self.termdesc: Any = None
 
         self.parent: Optional[sdoterm.SdoTerm] = None
-        self.checkedDataTypeParents: bool = False
         self.supersededBy: Optional[str] = None
         self.supersedes: Optional[List[str]] = None
         self.supers: Optional[List[str]] = None
@@ -169,7 +161,6 @@ class SdoTermSource:
         self.subs: Optional[List[str]] = None
         self.members: Optional[List[str]] = None
         self.props: Optional[List[str]] = None
-        self.propUsedOn: Optional[List[str]] = None
         self.ranges: Optional[List[str]] = None
         self.domains: Optional[List[str]] = None
         self.targetOf: Optional[List[str]] = None
@@ -178,10 +169,8 @@ class SdoTermSource:
         self.inverseOf: Optional[str] = None
         self.comments: Optional[Sequence[str]] = None
         self.comment: Optional[str] = None
-        self.srcacks: Optional[List[Any]] = None
         self.sources: Optional[List[str]] = None
         self.acks: Optional[Sequence[sdocollaborators.collaborator]] = None
-        self.examples: Optional[List[Any]] = None
         global DATATYPEURI, ENUMERATIONURI
         cls: Type[SdoTermSource] = self.__class__
         self.ttype: sdoterm.SdoTermType
@@ -272,28 +261,6 @@ class SdoTermSource:
         assert self.termdesc is not None
         return self.termdesc
 
-    def getType(self) -> sdoterm.SdoTermType:
-        return self.ttype
-
-    def isClass(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.TYPE
-
-    def isProperty(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.PROPERTY
-
-    def isDataType(self) -> bool:
-        if self.ttype == sdoterm.SdoTermType.DATATYPE:
-            return True
-        if self.isClass() and not self.checkedDataTypeParents:
-            self.checkedDataTypeParents = True
-            sup_id: str
-            for sup_id in self.getSupers():
-                sup: Optional[sdoterm.SdoTerm] = self.__class__.getTerm(sup_id)
-                if sup and sup.termType == sdoterm.SdoTermType.DATATYPE:
-                    self.ttype = sdoterm.SdoTermType.DATATYPE
-                    return True
-        return False
-
     @classmethod
     def _isEnumeration(cls, term_id: str) -> bool:
         global ENUMERATIONURI
@@ -304,18 +271,6 @@ class SdoTermSource:
 
         result: Sequence[rdflib.query.ResultRow] = cls.query(query)
         return bool(result[-1])
-
-    def _isEnumerationValue(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE
-
-    def isReference(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.REFERENCE
-
-    def getParent(self) -> Optional[sdoterm.SdoTerm]:
-        return self.parent
-
-    def getPrefixedId(self) -> str:
-        return prefixedIdFromUri(self.uri)
 
     def getComments(self) -> Sequence[str]:
         if not self.comments:
@@ -367,9 +322,6 @@ class SdoTermSource:
                         acks.append(cont)
             self.acks = sorted(acks, key=lambda t: t.title or "")
         return self.acks
-
-    def getLayer(self) -> str:
-        return self.layer
 
     def getInverseOf(self) -> Optional[str]:
         if not self.gotinverseOf:
@@ -433,9 +385,6 @@ class SdoTermSource:
                         allprop_ids.update(term.properties.ids)
             ret = sorted(allprop_ids)
         return ret
-
-    def getPropUsedOn(self) -> List[str]:
-        raise NotImplementedError("Not implemented yet")
 
     def getRanges(self) -> List[str]:
         if not self.ranges:
@@ -639,16 +588,6 @@ class SdoTermSource:
         if not start_term:
             return []
         return [list(path) for path in start_term.superPaths if end_term_id in path]
-
-    def checkForEnumVal(self) -> bool:
-        if self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            return True
-
-        sup_id: str
-        return any(
-            (sup_term := self.__class__.getTerm(sup_id)) and sup_term.checkForEnumVal()
-            for sup_id in self.getSupers()
-        )
 
     @classmethod
     def expandTerms(cls, terms: Iterable[sdoterm.SdoTerm], depth: int = 2) -> List[sdoterm.SdoTerm]:
@@ -866,12 +805,6 @@ class SdoTermSource:
         )
 
     @classmethod
-    def getAllEnumerations(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
-        return cls.getAllTerms(
-            ttype=sdoterm.SdoTermType.ENUMERATION, layer=layer, expanded=expanded
-        )
-
-    @classmethod
     def getAllEnumerationvalues(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
         return cls.getAllTerms(
             ttype=sdoterm.SdoTermType.ENUMERATIONVALUE, layer=layer, expanded=expanded
@@ -957,27 +890,6 @@ class SdoTermSource:
             return terms
 
     @classmethod
-    def getAcknowledgedTerms(cls, ack: str) -> Sequence[sdoterm.SdoTerm]:
-        query: str = f"""SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {{
-             ?term a ?type;
-                schema:contributor <{ack}>;
-                rdfs:label ?label.
-                OPTIONAL {{
-                    ?term schema:isPartOf ?layer.
-                }}
-                OPTIONAL {{
-                    ?term rdfs:subClassOf ?sup.
-                }}
-                OPTIONAL {{
-                    ?term rdfs:subPropertyOf ?sup.
-                }}
-            }}
-            ORDER BY ?term
-            """
-        res: Sequence[rdflib.query.ResultRow] = cls.query(query)
-        return cls.termsFromResults(res)
-
-    @classmethod
     def setSourceGraph(cls, g: rdflib.graph.Graph) -> None:
         global VOCABURI
         cls.SOURCEGRAPH = g
@@ -992,7 +904,7 @@ class SdoTermSource:
     def loadSourceGraph(
         cls, files: Optional[Union[str, Iterable[str]]] = None, init: bool = False, vocaburi: Optional[str] = None
     ) -> None:
-        global VOCABURI, DEFTRIPLESFILESGLOB
+        global VOCABURI
         if init:
             cls.SOURCEGRAPH = None
         if not VOCABURI and not vocaburi:
@@ -1019,8 +931,8 @@ class SdoTermSource:
             load_files = [files]
         else:
             cls.LOADEDDEFAULT = False
-            log.info(f"SdoTermSource.loadSourceGraph() loading from {len(list(files))} files")
             load_files = list(files)
+            log.info(f"SdoTermSource.loadSourceGraph() loading from {len(load_files)} files")
 
         if not load_files:
             raise Exception("No triples file(s) to load")
@@ -1072,7 +984,6 @@ class SdoTermSource:
                 res: Sequence[rdflib.query.ResultRow] = cls.query(q)
                 return int(res[0][0])
 
-            allterms: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
             classes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdfs:Class . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
             properties: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdf:Property . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
             enums: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
@@ -1092,14 +1003,6 @@ class SdoTermSource:
                 "All": types + properties + datatypes + enums + enumvals
             }
         return cls.TERMCOUNTS
-
-    @classmethod
-    def setMarkdownProcess(cls, process: bool) -> None:
-        cls.MARKDOWNPROCESS = process
-
-    @classmethod
-    def termCache(cls) -> Dict[str, sdoterm.SdoTerm]:
-        return cls.TERMS
 
     @classmethod
     def getTerm(

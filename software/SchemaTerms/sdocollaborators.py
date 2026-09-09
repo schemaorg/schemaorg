@@ -6,17 +6,13 @@ from __future__ import annotations
 # Import standard python libraries
 
 import collections
-import glob
 import logging
 import os
+from pathlib import Path
 import re
-import sys
-import traceback
-import typing
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Dict, List, Optional
 
 import SchemaTerms.localmarkdown as localmarkdown
-import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.paths as paths
 import util.schema as schema
@@ -28,7 +24,7 @@ INCLUDE_RE: re.Pattern = re.compile(R"---\s+([^.]+)\.md")
 SECTION_SEPARATOR: str = "---"
 
 
-class collaborator(object):
+class collaborator:
     """Wrapper for the collaboration meta-data."""
 
     COLLABORATORS: Dict[str, "collaborator"] = {}
@@ -39,7 +35,6 @@ class collaborator(object):
         self.urirel: str = os.path.join("/docs", "collab", ref)
         self.uri: str = schema.constants.HOMEPAGE + self.urirel
         self.docurl: str = self.urirel
-        self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
         self.contributor: bool = False
         self.img: Optional[str] = None
         self.code: Optional[str] = None
@@ -110,16 +105,6 @@ class collaborator(object):
         self.description = localmarkdown.Markdown.parseLines(description_lines)
         self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
 
-    def isContributor(self) -> bool:
-        return self.contributor
-
-    def getTerms(self) -> Sequence[sdoterm.SdoTerm]:
-        if not self.contributor:
-            return []
-        if not self.terms:
-            self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
-        return self.terms
-
     @classmethod
     def getCollaborator(cls, ref: str) -> Optional["collaborator"]:
         cls.loadCollaborators()
@@ -140,11 +125,10 @@ class collaborator(object):
 
     @classmethod
     def createCollaborator(cls, file_path: str) -> Optional["collaborator"]:
-        code: str = os.path.basename(file_path)
-        ref, _ = os.path.splitext(code)
+        path = Path(file_path)
+        ref = path.stem
         try:
-            with open(file_path, "r") as file_handle:
-                desc = file_handle.read()
+            desc = path.read_text(encoding="utf-8")
             return cls(ref, desc=desc)
         except OSError as e:
             log.error(f"Error loading colaborator source: {e}")
@@ -152,7 +136,7 @@ class collaborator(object):
 
     @classmethod
     def loadCollaborators(cls) -> None:
-        if not len(cls.COLLABORATORS):
+        if not cls.COLLABORATORS:
             for file_path in paths.DefaultInputLayout().files(paths.Domain.DATA, "collab/*.md"):
                 cls.createCollaborator(str(file_path))
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
@@ -167,7 +151,7 @@ class collaborator(object):
 
     @classmethod
     def loadContributors(cls) -> None:
-        if not len(cls.CONTRIBUTORS):
+        if not cls.CONTRIBUTORS:
             cls.loadCollaborators()
             query: str = """
             SELECT distinct ?val WHERE {
@@ -177,13 +161,3 @@ class collaborator(object):
             for row in res:
                 cls.createContributor(str(row.val))
             log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
-
-    @classmethod
-    def collaborators(cls) -> List["collaborator"]:
-        cls.loadCollaborators()
-        return list(cls.COLLABORATORS.values())
-
-    @classmethod
-    def contributors(cls) -> List["collaborator"]:
-        cls.loadContributors()
-        return list(cls.CONTRIBUTORS.values())

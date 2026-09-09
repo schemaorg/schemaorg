@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
 from pathlib import Path
-import sys
 import tempfile
 import unittest
 import unittest.mock

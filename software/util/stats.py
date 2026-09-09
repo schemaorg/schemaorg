@@ -15,4 +15,3 @@ def get_stats_providers() -> List[StatsProvider]:
     """Lazily loads and parses all public stats providers from the filesystem."""
     stats_layout = StatsLayout(paths.DefaultInputLayout())
     return stats_layout.get_stats()
-

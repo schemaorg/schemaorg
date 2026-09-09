@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
 import sys
 import time
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, Optional, Type
 
 import colorama
 
