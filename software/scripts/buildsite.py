@@ -331,7 +331,7 @@ def runShaclTests() -> None:
             sys.exit(status)
 
 
-def copyReleaseFiles() -> None:
+def copyReleaseFiles(release_dir: str) -> None:
     """Copy the built release files into the site tree for deployment.
 
     The destination is *disposable build output*. Its only consumers are the
