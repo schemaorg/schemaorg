@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, 
 
 
 import util.schema as schema
-from util.issues import Issues, ALL_ISSUES
+from schemaorg.layout import ALL_ISSUES, Issues
 
 # For custom sorting serializer
 from rdflib.plugins.serializers.turtle import TurtleSerializer
