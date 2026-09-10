@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from pathlib import Path
 import sys
 import tempfile
 import unittest
@@ -37,7 +38,7 @@ class TestExampleFileParser(unittest.TestCase):
         self.temp_file = tempfile.NamedTemporaryFile()
         patcher = patch('SchemaExamples.schemaexamples.paths.DefaultInputLayout')
         mock_input_layout = patcher.start()
-        mock_input_layout.return_value = InputLayout(os.path.dirname(self.temp_file.name))
+        mock_input_layout.return_value = InputLayout(Path(os.path.dirname(self.temp_file.name)))
         self.addCleanup(patcher.stop)
 
     def test_empty_example(self):

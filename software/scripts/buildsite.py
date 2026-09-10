@@ -16,7 +16,8 @@ import subprocess
 import sys
 from typing import Any, Dict, Generator, Iterable, List, Optional, Sequence, Tuple, Type, Union
 
-from schemaorg import constants, input_layout
+from schemaorg import constants
+from schemaorg.layout import checkDataDirectories
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaExamples.utils.assign_example_ids
 import SchemaTerms.localmarkdown
@@ -364,7 +365,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     global args
     args = initialize(argv)
 
-    input_layout.checkDataDirectories()
+    checkDataDirectories()
 
     log.info(
         f"Version: {schema.VERSION.current().number()} Released: {schema.VERSION.current().date()}"
