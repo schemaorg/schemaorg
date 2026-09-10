@@ -236,7 +236,7 @@ def get_release_file_path(selector: Union["fileutils.FileSelector", str], protoc
         path.parent.mkdir(parents=True, exist_ok=True)
         return path
     else:
-        return paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, filename)
+        return paths.DefaultOutputLayout().file(paths.Domain.RELEASE, filename)
 
 def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdflib.Graph, subdirectory_path: Optional[str] = None) -> None:
     protocol: str
@@ -423,13 +423,13 @@ def examples(page: str) -> str:
 
 
 FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
-    "Context": (jsonldcontext, [("domain_file", paths.Domain.DOCS, "jsonldcontext.jsonld"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json.txt"), ("domain_file", paths.Domain.RELEASE, "schemaorgcontext.jsonld")]),
-    "Tree": (jsonldtree, [("domain_file", paths.Domain.DOCS, "tree.jsonld")]),
-    "jsoncounts": (jsoncounts, [("domain_file", paths.Domain.DOCS, "jsoncounts.json")]),
-    "jsonpcounts": (jsonpcounts, [("domain_file", paths.Domain.DOCS, "jsonpcounts.js")]),
-    "Owl": (owl, [("domain_file", paths.Domain.DOCS, "schemaorg.owl"), ("domain_file", paths.Domain.RELEASE, "schemaorg.owl")]),
-    "Httpequivs": (httpequivs, [("domain_file", paths.Domain.RELEASE, "httpequivs.ttl")]),
-    "Sitemap": (sitemap, [("domain_file", paths.Domain.DOCS, "sitemap.xml")]),
+    "Context": (jsonldcontext, [("file", paths.Domain.DOCS, "jsonldcontext.jsonld"), ("file", paths.Domain.DOCS, "jsonldcontext.json"), ("file", paths.Domain.DOCS, "jsonldcontext.json.txt"), ("file", paths.Domain.RELEASE, "schemaorgcontext.jsonld")]),
+    "Tree": (jsonldtree, [("file", paths.Domain.DOCS, "tree.jsonld")]),
+    "jsoncounts": (jsoncounts, [("file", paths.Domain.DOCS, "jsoncounts.json")]),
+    "jsonpcounts": (jsonpcounts, [("file", paths.Domain.DOCS, "jsonpcounts.js")]),
+    "Owl": (owl, [("file", paths.Domain.DOCS, "schemaorg.owl"), ("file", paths.Domain.RELEASE, "schemaorg.owl")]),
+    "Httpequivs": (httpequivs, [("file", paths.Domain.RELEASE, "httpequivs.ttl")]),
+    "Sitemap": (sitemap, [("file", paths.Domain.DOCS, "sitemap.xml")]),
     "RDFExports": (exportrdf, []),
     "RDFExport.turtle": (exportrdf, []),
     "RDFExport.rdf": (exportrdf, []),
@@ -438,7 +438,7 @@ FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
     "RDFExport.json-ld": (exportrdf, []),
     "Shex_Shacl": (exportshex_shacl, []),
     "CSVExports": (exportcsv, []),
-    "Examples": (examples, [("domain_file", paths.Domain.RELEASE, "schemaorg-all-examples.txt")]),
+    "Examples": (examples, [("file", paths.Domain.RELEASE, "schemaorg-all-examples.txt")]),
 }
 
 

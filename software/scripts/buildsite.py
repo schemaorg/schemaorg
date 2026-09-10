@@ -215,10 +215,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     gdir.mkdir(parents=True, exist_ok=True)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
-        copystaticdocsplusinsert.copyFiles(str(paths.DefaultInputLayout().domain_dir(paths.Domain.DOCS)), str(paths.DefaultOutputLayout().domain_dir(paths.Domain.DOCS)))
+        copystaticdocsplusinsert.copyFiles(str(paths.DefaultInputLayout().dir(paths.Domain.DOCS)), str(paths.DefaultOutputLayout().dir(paths.Domain.DOCS)))
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files: List[Path] = paths.DefaultInputLayout().domain_files(paths.Domain.GCLOUD, "*.yaml")
+        gcloud_files: List[Path] = paths.DefaultInputLayout().files(paths.Domain.GCLOUD, "*.yaml")
         path: Path
         for path in gcloud_files:
             shutil.copy(path, gdir)
@@ -227,10 +227,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     version: str = schema.VERSION.current().number()
     message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
-        template_file: Path = paths.DefaultInputLayout().domain_file(paths.Domain.GCLOUD, "handlers-template.yaml")
+        template_file: Path = paths.DefaultInputLayout().file(paths.Domain.GCLOUD, "handlers-template.yaml")
         template_data: str = template_file.read_text()
         handler_data: str = template_data.replace("{{ver}}", version)
-        paths.DefaultOutputLayout().domain_file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
+        paths.DefaultOutputLayout().file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
 
 
 LOADEDTERMS: Optional[str] = None
@@ -349,8 +349,8 @@ def copyReleaseFiles(release_dir: str) -> None:
     Do not re-add it. A build script has no business touching the index.
     """
     version: str = schema.VERSION.current().number()
-    srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
-    destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
+    srcdir: Path = paths.DefaultInputLayout().dir(paths.Domain.RELEASE_DATA)
+    destdir: Path = paths.DefaultOutputLayout().dir(paths.Domain.RELEASE)
     if not srcdir.is_dir():
         log.warning(f"Release data directory {srcdir} not found. Skipping copying release files.")
         return

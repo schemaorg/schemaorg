@@ -268,7 +268,7 @@ def createCollab(coll: sdocollaborators.collaborator) -> None:
     }
 
     content: str = docsTemplateRender("docs/Collab.j2", extra_vars)
-    filename: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.DOCS_COLLAB, f"{coll.ref}.html")
+    filename: Path = paths.DefaultOutputLayout().file(paths.Domain.DOCS_COLLAB, f"{coll.ref}.html")
     filename.write_text(content)
     log.info(f"Created {filename}")
 
@@ -281,25 +281,25 @@ def termfind(file: str) -> str:
 
 
 PAGELIST: Dict[str, Tuple[Callable[[str], str], List[Tuple[Any, ...]]]] = {
-    "Home": (homePage, [("domain_file", paths.Domain.DOCS, "home.html")]),
-    "PendingHome": (homePage, [("domain_file", paths.Domain.DOCS, "pending.home.html")]),
-    "AtticHome": (homePage, [("domain_file", paths.Domain.DOCS, "attic.home.html")]),
-    "AutoHome": (homePage, [("domain_file", paths.Domain.DOCS, "auto.home.html")]),
-    "BibHome": (homePage, [("domain_file", paths.Domain.DOCS, "bib.home.html")]),
-    "Health-lifesciHome": (homePage, [("domain_file", paths.Domain.DOCS, "health-lifesci.home.html")]),
-    "MetaHome": (homePage, [("domain_file", paths.Domain.DOCS, "meta.home.html")]),
-    "Schemas": (schemasPage, [("domain_file", paths.Domain.DOCS, "schemas.html")]),
-    "Full": (fullPage, [("domain_file", paths.Domain.DOCS, "full.html")]),
-    "FullOrig": (fullPage, [("domain_file", paths.Domain.DOCS, "full.orig.html")]),
+    "Home": (homePage, [("file", paths.Domain.DOCS, "home.html")]),
+    "PendingHome": (homePage, [("file", paths.Domain.DOCS, "pending.home.html")]),
+    "AtticHome": (homePage, [("file", paths.Domain.DOCS, "attic.home.html")]),
+    "AutoHome": (homePage, [("file", paths.Domain.DOCS, "auto.home.html")]),
+    "BibHome": (homePage, [("file", paths.Domain.DOCS, "bib.home.html")]),
+    "Health-lifesciHome": (homePage, [("file", paths.Domain.DOCS, "health-lifesci.home.html")]),
+    "MetaHome": (homePage, [("file", paths.Domain.DOCS, "meta.home.html")]),
+    "Schemas": (schemasPage, [("file", paths.Domain.DOCS, "schemas.html")]),
+    "Full": (fullPage, [("file", paths.Domain.DOCS, "full.html")]),
+    "FullOrig": (fullPage, [("file", paths.Domain.DOCS, "full.orig.html")]),
     "FullRelease": (
         fullReleasePage,
         [
-            ("domain_file", paths.Domain.DOCS, "fullrelease.html"),
-            ("domain_file", paths.Domain.RELEASE, "schema-all.html"),
+            ("file", paths.Domain.DOCS, "fullrelease.html"),
+            ("file", paths.Domain.RELEASE, "schema-all.html"),
         ],
     ),
-    "TermFind": (termfind, [("domain_file", paths.Domain.DOCS_TERMFIND, "termlist.txt")]),
-    "Tree": (jsonldtree, [("domain_file", paths.Domain.DOCS, "tree.jsonld")]),
+    "TermFind": (termfind, [("file", paths.Domain.DOCS_TERMFIND, "termlist.txt")]),
+    "Tree": (jsonldtree, [("file", paths.Domain.DOCS, "tree.jsonld")]),
 }
 
 

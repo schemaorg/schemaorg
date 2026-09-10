@@ -1012,7 +1012,7 @@ class SdoTermSource:
             log.info(
                 "SdoTermSource.loadSourceGraph() loading from default files",
             )
-            load_files = [str(p) for p in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, ["*.ttl", "ext/*/*.ttl"])]
+            load_files = [str(p) for p in paths.DefaultInputLayout().files(paths.Domain.DATA, ["*.ttl", "ext/*/*.ttl"])]
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
             log.info(f"SdoTermSource.loadSourceGraph() loading from file: {files}")

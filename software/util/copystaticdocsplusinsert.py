@@ -21,7 +21,7 @@ log: logging.Logger = logging.getLogger(__name__)
 
 
 def _getInserts() -> Generator[Tuple[str, str], None, None]:
-    template_dir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.STATIC_DOC_INSERTS)
+    template_dir: Path = paths.DefaultInputLayout().dir(paths.Domain.STATIC_DOC_INSERTS)
     f_path: Path
     for f_path in template_dir.glob("*.html"):
         fn: str = f_path.stem.lower()

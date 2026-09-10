@@ -43,7 +43,7 @@ def termFileName(termid: str) -> str:
     else:
         raise ValueError(f"Invalid term_id: '{termid}'")
 
-    return str(paths.DefaultOutputLayout().domain_file(paths.Domain.TERMS, f"{sub_dir}/{c}/{termid}.html"))
+    return str(paths.DefaultOutputLayout().file(paths.Domain.TERMS, f"{sub_dir}/{c}/{termid}.html"))
 
 
 class TermPageRenderer:

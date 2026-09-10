@@ -21,7 +21,7 @@ class Issues:
 
     def get_issue_numbers(self) -> List[str]:
         """Returns a sorted list of all existing issue numbers found in the data."""
-        issue_files = self.input_layout.domain_files(Domain.DATA, ["ext/*/issue-*"])
+        issue_files = self.input_layout.files(Domain.DATA, ["ext/*/issue-*"])
         issue_numbers: Set[str] = set()
         for f in issue_files:
             match = re.match(r"^issue-([^-.]+)", f.name)
@@ -39,10 +39,10 @@ class Issues:
 
     def _get_files(self, extension_glob: str, issues: List[str]) -> List[Path]:
         # Always include core data files from the root of the data domain
-        root_files = self.input_layout.domain_files(Domain.DATA, [extension_glob])
+        root_files = self.input_layout.files(Domain.DATA, [extension_glob])
 
         # Always include extension "base" files (those that are NOT issue-specific)
-        all_ext_files = self.input_layout.domain_files(Domain.DATA, [f"ext/*/{extension_glob}"])
+        all_ext_files = self.input_layout.files(Domain.DATA, [f"ext/*/{extension_glob}"])
         base_ext_files = [f for f in all_ext_files if not f.name.startswith("issue-")]
 
         # Use items in the 'issues' list as placeholders for targeted file search
@@ -55,7 +55,7 @@ class Issues:
             pattern = f"ext/*/issue-{issue}{suffix}"
             issue_patterns.append(pattern)
 
-        issue_files = self.input_layout.domain_files(Domain.DATA, issue_patterns)
+        issue_files = self.input_layout.files(Domain.DATA, issue_patterns)
 
         # Combine all parts and ensure uniqueness
         combined = root_files + base_ext_files + issue_files

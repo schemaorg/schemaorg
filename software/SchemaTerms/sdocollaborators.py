@@ -153,7 +153,7 @@ class collaborator(object):
     @classmethod
     def loadCollaborators(cls) -> None:
         if not len(cls.COLLABORATORS):
-            for file_path in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, "collab/*.md"):
+            for file_path in paths.DefaultInputLayout().files(paths.Domain.DATA, "collab/*.md"):
                 cls.createCollaborator(str(file_path))
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 

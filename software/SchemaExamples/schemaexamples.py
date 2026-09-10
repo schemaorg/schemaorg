@@ -239,7 +239,7 @@ class SchemaExamples:
             log.info(
                 "SchemaExamples.loadExamplesFiles() loading from default files"
             )
-            load_files = [str(p) for p in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, ["*examples.txt", "ext/*/*examples.txt"])]
+            load_files = [str(p) for p in paths.DefaultInputLayout().files(paths.Domain.DATA, ["*examples.txt", "ext/*/*examples.txt"])]
 
         elif isinstance(exfiles, str):
             log.info(
@@ -436,7 +436,7 @@ class ExampleFileParser:
                         examples.append(self.makeExample())
                     boilerplate = False
                     self.initFields()
-                self.exmeta["file"] = str(paths.DefaultInputLayout().relative(self.file))
+                self.exmeta["file"] = str(paths.DefaultInputLayout().relative_file(self.file))
                 self.exmeta["filepos"] = self.filepos
                 typelist: List[str] = re.split(":", line)
                 tdata: str = egid.sub(
@@ -465,7 +465,7 @@ class ExampleFileParser:
         self.nextPart("TYPES:")  # should flush on each block of examples
         self.filepos += 1
         if not boilerplate:
-            self.exmeta["file"] = str(paths.DefaultInputLayout().relative(self.file))
+            self.exmeta["file"] = str(paths.DefaultInputLayout().relative_file(self.file))
             self.exmeta["filepos"] = self.filepos
             examples.append(self.makeExample())  # should flush last one
         self.initFields()

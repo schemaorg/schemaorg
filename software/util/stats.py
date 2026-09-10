@@ -27,7 +27,7 @@ class StatsLayout:
     """Handles layout and file discovery for public statistics."""
 
     def __init__(self, layout: paths.InputLayout) -> None:
-        self.base_dir: Path = layout.domain_dir(paths.Domain.PUBLIC_STATS)
+        self.base_dir: Path = layout.dir(paths.Domain.PUBLIC_STATS)
 
     def providers(self) -> List[str]:
         """Lists the providers (subdirs) present in the stats dir."""

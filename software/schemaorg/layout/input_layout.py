@@ -72,12 +72,6 @@ class InputLayout:
             )
         return True
 
-    # Backward-compatibility aliases
-    # Remove them once all code is ported.
-    domain_dir = dir
-    domain_file = file
-    domain_files = files
-    relative = relative_file
 
 
 def checkDataDirectories() -> bool:

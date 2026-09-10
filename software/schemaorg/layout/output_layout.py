@@ -45,6 +45,3 @@ class OutputLayout:
         self._ensure_dir(path.parent)
         return path
 
-    # Backward-compatibility aliases
-    domain_dir = dir
-    domain_file = file
