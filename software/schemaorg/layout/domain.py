@@ -16,7 +16,6 @@ class Domain(str, Enum):
     TEMPLATES = "templates"
     STATIC_DOC_INSERTS = "templates/static-doc-inserts"
     PUBLIC_STATS = "data/public_stats"
-    PUBLIC_STATS_GOOGLE = "data/public_stats/google"
     RELEASE_DATA = "data/releases"
     ROOT = ""
 
