@@ -29,8 +29,8 @@ def _getInserts() -> Generator[Tuple[str, str], None, None]:
             fn = fn[4:]
 
         indata: str = f_path.read_text()
-        indata = indata.replace("{{version}}", schema.getVersion())
-        indata = indata.replace("{{versiondate}}", str(schema.getCurrentVersionDate()))
+        indata = indata.replace("{{version}}", schema.VERSION.current().number())
+        indata = indata.replace("{{versiondate}}", str(schema.VERSION.current().date() or ""))
         indata = indata.replace("{{docsdir}}", "/docs")
         yield (fn, indata)
 

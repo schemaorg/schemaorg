@@ -59,7 +59,7 @@ class InputLayout:
         elif domain == Domain.STATIC_DOC_INSERTS:
             return self.root_dir / "templates" / "static-doc-inserts"
         elif domain == Domain.RELEASE_DATA:
-            return self.root_dir / "data" / "releases" / schema.getVersion()
+            return self.root_dir / "data" / "releases" / schema.VERSION.current().number()
         elif domain == Domain.PUBLIC_STATS:
             return self.root_dir / "data" / "public_stats"
         elif domain == Domain.PUBLIC_STATS_GOOGLE:
@@ -71,7 +71,7 @@ class InputLayout:
 
     @property
     def version(self) -> str:
-        return schema.getVersion()
+        return schema.VERSION.current().number()
 
     def release_file(self, protocol: str) -> Path:
         return self.domain_dir(Domain.RELEASE_DATA) / f"schemaorg-all-{protocol}.ttl"
@@ -109,7 +109,7 @@ class OutputLayout:
 
     def domain_dir(self, domain: Domain) -> Path:
         if domain == Domain.RELEASE:
-            path = self.output_dir / "releases" / schema.getVersion()
+            path = self.output_dir / "releases" / schema.VERSION.current().number()
         elif domain == Domain.LATEST_RELEASE:
             path = self.output_dir / "releases" / "LATEST"
         else:

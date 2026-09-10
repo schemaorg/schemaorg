@@ -11,7 +11,7 @@ from colorama import Fore, Style
 from flask import Flask, Response, after_this_request
 
 from schemaorg import constants
-from util.schema import config, getVersion, constants as schema_constants
+from util.schema import config, VERSION, constants as schema_constants
 
 _docs: Path = Path(schema_constants.DOCSDOCSDIR.lstrip('/'))
 
@@ -95,7 +95,7 @@ def serve_terms(path: str) -> Response:
 @app.route("/version/<ver>/<path:path>")
 def serve_downloads(ver: str, path: str = "") -> Response:
     if ver == "latest":
-        ver = getVersion()
+        ver = VERSION.current().number()
     if not path:
         path = "schema-all.html"
 
@@ -118,7 +118,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     app.config["PRODUCTION"] = args_parsed.production
 
-    print(f"Local dev server for Schema.org version: {getVersion()}")
+    print(f"Local dev server for Schema.org version: {VERSION.current().number()}")
     print(f"Serving files from {constants.PROJECT_ROOT}")
     if args_parsed.production:
         print(Fore.RED + "Running with Production settings" + Style.RESET_ALL)

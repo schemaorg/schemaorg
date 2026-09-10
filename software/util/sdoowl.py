@@ -82,8 +82,8 @@ class OwlBuild:
         for k, v in sorted(NAMESPACES.items()):
             self.dom.set(k, v)
 
-        version: str = schema.getVersion()
-        version_date: Optional[str] = schema.getCurrentVersionDate()
+        version: str = schema.VERSION.current().number()
+        version_date: Optional[str] = schema.VERSION.current().date()
         comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")

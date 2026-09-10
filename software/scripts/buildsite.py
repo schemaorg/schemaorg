@@ -208,7 +208,7 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
 
     (output_dir / "docs" / "contributors").mkdir(parents=True, exist_ok=True)
     (output_dir / "empty").mkdir(parents=True, exist_ok=True)
-    (output_dir / "releases" / schema.getVersion()).mkdir(parents=True, exist_ok=True)
+    (output_dir / "releases" / schema.VERSION.current().number()).mkdir(parents=True, exist_ok=True)
 
     gdir: Path = output_dir / "gcloud"
     gdir.mkdir(parents=True, exist_ok=True)
@@ -223,7 +223,7 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    version: str = schema.getVersion()
+    version: str = schema.VERSION.current().number()
     message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
         template_file: Path = paths.DefaultInputLayout().domain_file(paths.Domain.GCLOUD, "handlers-template.yaml")
@@ -313,7 +313,7 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        version: str = schema.getVersion()
+        version: str = schema.VERSION.current().number()
         shacl_file: Path = constants.PROJECT_ROOT / schema.constants.RELEASE_DIR / version / "schemaorg-shapes.shacl"
         if not shacl_file.exists():
             log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
@@ -347,6 +347,7 @@ def copyReleaseFiles() -> None:
 
     Do not re-add it. A build script has no business touching the index.
     """
+    version: str = schema.VERSION.current().number()
     srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
     destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
     if not srcdir.is_dir():
@@ -366,7 +367,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     input_layout.checkDataDirectories()
 
     log.info(
-        f"Version: {schema.getVersion()} Released: {schema.getCurrentVersionDate()}"
+        f"Version: {schema.VERSION.current().number()} Released: {schema.VERSION.current().date()}"
     )
 
     # STAGE 1: Build Release

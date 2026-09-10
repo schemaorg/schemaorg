@@ -407,6 +407,6 @@ if __name__ == "__main__":
 
     generate_files(
         term_defs_path=term_defs_path,
-        version=schema.getVersion(),
+        version=schema.VERSION.current().number(),
         input_format=args.format,
     )

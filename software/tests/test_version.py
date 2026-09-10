@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 import json
 from pathlib import Path
 import tempfile
@@ -13,13 +14,18 @@ from schemaorg.version import Version
 class TestVersion(unittest.TestCase):
     """Unit tests for the Version class in schemaorg.version."""
 
-    def test_init_default_path(self):
-        """Test default initialization pointing to root versions.json."""
-        v = Version()
+    def test_init_explicit_path(self):
+        """The shipped versions.json parses into a non-empty Version."""
+        v = Version(constants.PROJECT_ROOT / "versions.json")
         self.assertEqual(v.versions_path, constants.PROJECT_ROOT / "versions.json")
         self.assertTrue(v.versions_path.exists())
-        self.assertEqual(v.current().number(), "30.0")
-        self.assertTrue(len(v.versions()) > 0)
+        self.assertTrue(v.versions())
+        self.assertTrue(v.current().number())
+
+    def test_init_missing_path_raises(self):
+        """Test initialization without path raises TypeError."""
+        with self.assertRaises(TypeError):
+            Version()  # type: ignore
 
     def test_init_custom_path(self):
         """Test initialization with custom versions.json path."""
@@ -34,26 +40,28 @@ class TestVersion(unittest.TestCase):
             v = Version(tmp_file)
             self.assertEqual(v.versions_path, tmp_file)
             self.assertEqual(v.current().number(), "1.0")
+            self.assertEqual(v.current().date(), "2020-01-01")
+            self.assertEqual(str(v.current()), "1.0")
 
     def test_current(self):
-        """Test current() returns a VersionItem with number() and date()."""
-        v = Version()
+        """current() is one of versions(), with a parseable date."""
+        v = Version(constants.PROJECT_ROOT / "versions.json")
         curr = v.current()
-        self.assertEqual(curr.number(), "30.0")
-        self.assertEqual(curr.date(), "2026-03-19")
-        self.assertEqual(str(curr), "30.0")
+        self.assertIn(curr, v.versions())
+        self.assertTrue(curr.number())
+        self.assertEqual(str(curr), curr.number())
+        datetime.strptime(curr.date(), "%Y-%m-%d")
 
     def test_versions(self):
-        """Test versions() returns a list of VersionItem objects."""
-        v = Version()
+        """Every entry in the shipped versions.json parses."""
+        v = Version(constants.PROJECT_ROOT / "versions.json")
         all_vers = v.versions()
         self.assertIsInstance(all_vers, list)
-        numbers = [item.number() for item in all_vers]
-        self.assertIn("30.0", numbers)
-        self.assertIn("2.0", numbers)
+        self.assertTrue(all_vers)
         for item in all_vers:
             self.assertIsInstance(item.number(), str)
-            self.assertTrue(item.date() is None or isinstance(item.date(), str))
+            self.assertTrue(item.number())
+            datetime.strptime(item.date(), "%Y-%m-%d")
 
     def test_version_item(self):
         """Test VersionItem properties and methods."""

@@ -3,12 +3,11 @@
 
 """Module that handles the schema.org version information and global constants."""
 
-import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import List
 
-import util.paths as paths
-from util.sort_dict import sort_dict
+from schemaorg.constants import PROJECT_ROOT
+from schemaorg.version import Version
 
 
 class constants:
@@ -42,44 +41,4 @@ def getDocsOutputDir() -> str:
     return str(Path(config.OUTPUTDIR) / "docs")
 
 
-VERSION_DATA: Optional[Dict[str, Any]] = None
-
-
-def getVersionData() -> Dict[str, Any]:
-    global VERSION_DATA
-    if VERSION_DATA is None:
-        VERSION_DATA = json.loads(
-            paths.DefaultInputLayout()
-            .domain_file(paths.Domain.ROOT, "versions.json")
-            .read_text()
-        )
-    assert VERSION_DATA is not None
-    return VERSION_DATA
-
-
-def getVersion() -> str:
-    return str(getVersionData()["schemaversion"])
-
-
-def getVersionDate(ver: str) -> Optional[str]:
-    ret: Optional[str] = getVersionData()["releaseLog"].get(ver)
-    return ret
-
-
-def getCurrentVersionDate() -> Optional[str]:
-    return getVersionDate(getVersion())
-
-
-def setVersion(ver: str, date: str) -> None:
-    versiondata: Dict[str, Any] = getVersionData()
-    versiondata["schemaversion"] = ver
-    versiondata["releaseLog"][ver] = date
-
-    logs: Dict[str, str] = versiondata["releaseLog"]
-    versiondata["releaseLog"] = dict(
-        sorted(logs.items(), key=lambda x: float(x[0]), reverse=True)
-    )
-
-    paths.DefaultInputLayout().domain_file(
-        paths.Domain.ROOT, "versions.json"
-    ).write_text(json.dumps(sort_dict(versiondata), indent=4))
+VERSION = Version(PROJECT_ROOT / "versions.json")
