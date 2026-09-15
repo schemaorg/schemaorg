@@ -233,7 +233,11 @@ class TestReleases(unittest.TestCase):
 
 
 class TestReleasesRealData(unittest.TestCase):
-    """Checks Releases against the repository's declared releases."""
+    """Checks Releases against the repository's committed release archive.
+
+    The output root follows wherever the build is currently writing, which is
+    ``data/`` mid-release and ``software/site/`` otherwise.
+    """
 
     def setUp(self):
         self.output_layout = OutputLayout(
