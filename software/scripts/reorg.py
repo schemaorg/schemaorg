@@ -17,6 +17,7 @@ import rdflib
 
 
 
+from schemaorg.publish import turtle
 import util.schema_graph as graph
 
 
@@ -92,6 +93,12 @@ def main() -> None:
     command.
     """
     logging.basicConfig(level=logging.INFO)
+
+    # Every subcommand rewrites .ttl files that humans review in diffs, so
+    # opt into the deterministic subject ordering. This is a global rdflib
+    # mutation, which is why it lives in the entry point and not in a
+    # library import.
+    turtle.register_as_turtle()
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Re-organize Turtle files")
     subparsers = parser.add_subparsers(dest="command")
