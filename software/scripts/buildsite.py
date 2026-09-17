@@ -334,8 +334,22 @@ def runShaclTests() -> None:
             sys.exit(status)
 
 
-def copyReleaseFiles(release_dir: str) -> None:
-    version: str = schema.getVersion()
+def copyReleaseFiles() -> None:
+    """Copy the built release files into the site tree for deployment.
+
+    The destination is *disposable build output*. Its only consumers are the
+    deploy scripts, which `cd software/site` and upload whatever is there.
+
+    This function used to end with `git add -f <destdir>`, which is why 36
+    files / 54 MB of scratch output landed in the repository in the 30.1
+    release commit. The `-f` was specifically overriding the
+    `software/site/*` .gitignore rule. It was never right: the only caller is
+    STAGE 2, where OUTPUTDIR is `software/site`, so it could only ever stage
+    the throwaway copy -- never the real archive in `data/releases/`, which
+    STAGE 1 produces and which a human commits deliberately.
+
+    Do not re-add it. A build script has no business touching the index.
+    """
     srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
     destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
     if not srcdir.is_dir():
@@ -346,8 +360,6 @@ def copyReleaseFiles(release_dir: str) -> None:
         logger=log,
     ):
         fileutils.mycopytree(str(srcdir), str(destdir))
-        cmd: List[str] = ["git", "add", "-f", str(destdir)]
-        subprocess.check_call(cmd)
 
 
 if __name__ == "__main__":
@@ -405,7 +417,7 @@ if __name__ == "__main__":
         initdir(output_dir_str=schema.config.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
         runtests()
         if args.buildsite or args.autobuild:
-            copyReleaseFiles(release_dir=schema.constants.RELEASE_DIR)
+            copyReleaseFiles()
 
         processTerms(terms=schema.config.TERMS)
         processDocs(pages=schema.config.PAGES)
