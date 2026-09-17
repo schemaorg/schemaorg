@@ -258,7 +258,9 @@ def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
             with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
                 sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
         elif source == "release":
-            release_file: Path = paths.DefaultInputLayout().release_file("https")
+            release_file: Path = paths.DefaultInputLayout().release_file(
+                "https", schema.VERSION.current()
+            )
 
             if not release_file.exists():
                 raise FileNotFoundError(
@@ -332,7 +334,7 @@ def runShaclTests() -> None:
             sys.exit(status)
 
 
-def copyReleaseFiles(release_dir: str) -> None:
+def copyReleaseFiles() -> None:
     """Copy the built release files into the site tree for deployment.
 
     The destination is *disposable build output*. Its only consumers are the
@@ -349,7 +351,9 @@ def copyReleaseFiles(release_dir: str) -> None:
     Do not re-add it. A build script has no business touching the index.
     """
     version: str = schema.VERSION.current().number()
-    srcdir: Path = paths.DefaultInputLayout().dir(paths.Domain.RELEASE_DATA)
+    srcdir: Path = (
+        paths.DefaultInputLayout().dir(paths.Domain.RELEASE_DATA) / version
+    )
     destdir: Path = paths.DefaultOutputLayout().dir(paths.Domain.RELEASE)
     if not srcdir.is_dir():
         log.warning(f"Release data directory {srcdir} not found. Skipping copying release files.")

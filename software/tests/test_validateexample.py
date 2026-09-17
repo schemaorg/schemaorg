@@ -162,9 +162,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     @classmethod
     def _load(cls, filename):
-        path = paths.DefaultInputLayout().domain_file(
-            paths.Domain.RELEASE_DATA, filename
-        )
+        path = paths.DefaultInputLayout().file(paths.Domain.RELEASE_DATA, filename)
         if not path.is_file():
             return None
         graph = rdflib.Graph()

@@ -45,9 +45,7 @@ class ContextShapesNamespaceTests(unittest.TestCase):
 
     @classmethod
     def _release_file(cls, filename):
-        return paths.DefaultInputLayout().domain_file(
-            paths.Domain.RELEASE_DATA, filename
-        )
+        return paths.DefaultInputLayout().file(paths.Domain.RELEASE_DATA, filename)
 
     def _load_vocab(self):
         path = self._release_file(self.CONTEXT_FILENAME)

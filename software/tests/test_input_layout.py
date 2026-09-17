@@ -48,10 +48,10 @@ class TestInputLayout(unittest.TestCase):
             self.root
         )
 
-    def test_dir_release_data(self):
+    def test_dir_release_data_is_the_unversioned_archive(self):
         self.assertEqual(
             self.layout.dir(Domain.RELEASE_DATA),
-            self.root / "data" / "releases" / "42.0"
+            self.root / "data" / "releases"
         )
 
     def test_file(self):
@@ -62,7 +62,7 @@ class TestInputLayout(unittest.TestCase):
 
     def test_release_file(self):
         self.assertEqual(
-            self.layout.release_file("https"),
+            self.layout.release_file("https", self.version_item),
             self.root / "data" / "releases" / "42.0" / "schemaorg-all-https.ttl"
         )
 

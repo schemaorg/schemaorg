@@ -4,20 +4,19 @@
 """Output layout management for generated schema.org website files."""
 
 from pathlib import Path
-from typing import Optional, Union
 
 from schemaorg.layout.domain import Domain
-from schemaorg.version import VersionItem
 
 
 class OutputLayout:
-    """Floating layout resolving output paths and ensuring directory creation."""
+    """Floating layout resolving output paths and ensuring directory creation.
 
-    def __init__(
-        self, output_dir: Path, version: Optional[VersionItem] = None
-    ) -> None:
+    The layout is version-agnostic: ``Domain.RELEASE`` is the directory
+    holding *all* releases. Picking a version inside it is ``Releases``' job.
+    """
+
+    def __init__(self, output_dir: Path) -> None:
         self.output_dir: Path = output_dir.resolve()
-        self._version: Optional[VersionItem] = version
 
     @staticmethod
     def _ensure_dir(path: Path) -> Path:
@@ -31,9 +30,7 @@ class OutputLayout:
 
     def dir(self, domain: Domain) -> Path:
         """Return directory for the given Domain, ensuring it exists."""
-        if domain == Domain.RELEASE:
-            path = self.output_dir / domain.value / str(self._version)
-        elif domain == Domain.GCLOUD:
+        if domain == Domain.GCLOUD:
             path = self.output_dir / Domain.GCLOUD_SITE.value
         else:
             path = self.output_dir / domain.value

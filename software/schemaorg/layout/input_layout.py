@@ -23,8 +23,6 @@ class InputLayout:
 
     def dir(self, domain: Domain) -> Path:
         """Return the directory path corresponding to the given Domain."""
-        if domain == Domain.RELEASE_DATA:
-            return self.root_dir / domain.value / str(self._version)
         return self.root_dir / domain.value
 
     def file(self, domain: Domain, filename: str) -> Path:
@@ -40,11 +38,14 @@ class InputLayout:
         base = self.dir(domain)
         return sorted([f for pattern in patterns for f in base.glob(pattern)])
 
-    # NOTE: This should be implemented as another construct over the input
-    # layout rather than a method directly on InputLayout.
-    def release_file(self, protocol: str) -> Path:
+    # Shim for callers not yet ported to Releases. To be deleted.
+    def release_file(self, protocol: str, version: VersionItem) -> Path:
         """Return canonical release turtle file path ('http' or 'https')."""
-        return self.dir(Domain.RELEASE_DATA) / f"schemaorg-all-{protocol}.ttl"
+        return (
+            self.dir(Domain.RELEASE_DATA)
+            / str(version)
+            / f"schemaorg-all-{protocol}.ttl"
+        )
 
     def relative_file(self, path: Union[Path, str]) -> Path:
         """Return a path relative to the root directory."""

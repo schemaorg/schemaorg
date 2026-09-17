@@ -9,7 +9,6 @@ import unittest
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.output_layout import OutputLayout
-from schemaorg.version import VersionItem
 
 
 class TestOutputLayout(unittest.TestCase):
@@ -18,8 +17,7 @@ class TestOutputLayout(unittest.TestCase):
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
         self.output_root = Path(self.temp_dir.name) / "site"
-        self.version_item = VersionItem("42.0", "2026-01-01")
-        self.layout = OutputLayout(self.output_root, version=self.version_item)
+        self.layout = OutputLayout(self.output_root)
 
     def tearDown(self):
         self.temp_dir.cleanup()
@@ -40,10 +38,10 @@ class TestOutputLayout(unittest.TestCase):
         self.assertTrue(gcloud_dir.is_dir())
         self.assertEqual(gcloud_dir, self.output_root / "gcloud")
 
-    def test_dir_release(self):
+    def test_dir_release_is_version_agnostic(self):
         release_dir = self.layout.dir(Domain.RELEASE)
         self.assertTrue(release_dir.is_dir())
-        self.assertEqual(release_dir, self.output_root / "releases" / "42.0")
+        self.assertEqual(release_dir, self.output_root / "releases")
 
     def test_dir_latest_release(self):
         latest_dir = self.layout.dir(Domain.LATEST_RELEASE)
