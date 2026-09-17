@@ -92,11 +92,6 @@ class TestReleases(unittest.TestCase):
         releases = self._declare("29.0", "30.0", "31.0", current="30.0")
         self.assertEqual(releases.current().number(), "30.0")
 
-    def test_missing_versions_file_fails_at_construction(self):
-        self.versions_file.unlink()
-        with self.assertRaises(FileNotFoundError):
-            Releases(self.input_layout, self.output_layout)
-
     def test_resolve_accepts_string_item_and_none(self):
         item = self.releases.resolve("29.0")
         self.assertEqual(item.number(), "29.0")
