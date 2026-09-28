@@ -51,9 +51,11 @@ The release and stale workflows are GitHub-only automation. The release job runs
 - Rebuild all generated output files: `./software/scripts/buildsite.py -f All`
 - Rebuild all dynamic documentation: `./software/scripts/buildsite.py -d All`
 - Rebuild selected term pages: `./software/scripts/buildsite.py -t Book sameAs`
-- Serve the generated site: `./software/scripts/devserv.py --host 0.0.0.0 --port 8080`
+- Serve the generated site over the forwarded port 8080:
+  `./software/scripts/devserv.py --host 0.0.0.0 --port 8080`
+  Then open `http://localhost:8080` in a browser. The devcontainer forwards port 8080 and is configured to open it automatically.
 
-The complete build can take several minutes. Use targeted `-t`, `-d`, `-f`, or `-s` builds while iterating, and run `-a` before release or deployment. The devcontainer forwards port 8080.
+The complete build can take several minutes. Use targeted `-t`, `-d`, `-f`, or `-s` builds while iterating, and run `-a` before release or deployment.
 
 ## Source and generated files
 
