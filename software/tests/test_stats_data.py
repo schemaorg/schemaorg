@@ -33,11 +33,13 @@ class PublicStatsDataTests(unittest.TestCase):
                 for row in self.layout._read_csv(file_path):
                     name = row.get("Name", "")
                     if not name.startswith("https://"):
-                        failures.append(f" - Provider: {provider}, Epoch: {epoch.strftime("%Y_%m")}")
+                        epoch_label = epoch.strftime("%Y_%m")
+                        failures.append(f" - Provider: {provider}, Epoch: {epoch_label}")
                         break
 
         if failures:
-            self.fail(f"Statistics CSV data contains non-https URLs in:\n{'\n'.join(failures)}")
+            failure_details = "\n".join(failures)
+            self.fail(f"Statistics CSV data contains non-https URLs in:\n{failure_details}")
 
     def test_stats_json_use_https(self) -> None:
         """Verify that statistics JSON files use https:// for all terms."""
@@ -47,11 +49,13 @@ class PublicStatsDataTests(unittest.TestCase):
                 for entry in self.layout._read_json(file_path):
                     name = entry.get("Name", "")
                     if not name.startswith("https://"):
-                        failures.append(f" - Provider: {provider}, Epoch: {epoch.strftime("%Y_%m")}")
+                        epoch_label = epoch.strftime("%Y_%m")
+                        failures.append(f" - Provider: {provider}, Epoch: {epoch_label}")
                         break
 
         if failures:
-            self.fail(f"Statistics JSON data contains non-https URLs in:\n{'\n'.join(failures)}")
+            failure_details = "\n".join(failures)
+            self.fail(f"Statistics JSON data contains non-https URLs in:\n{failure_details}")
 
 
 if __name__ == "__main__":
