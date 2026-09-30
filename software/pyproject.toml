@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "schemaorg"
-version = "30.0"
+version = "30.1"
 description = "Schema.org software stack"
 readme = "SOFTWARE_README.md"
 requires-python = ">=3.11"
@@ -16,9 +16,6 @@ dependencies = [
     "Flask>=3.1.3",
     "Jinja2>=3.1.6",
     "markdown2>=2.5.5",
-    "ordereddict>=1.1",
-    "pydantic>=2.13.4",
-    "pydantic-rdf>=0.2.0",
     "Pygments>=2.19.2",
     "pyprojroot>=0.3.0",
     "pyshacl>=0.31.0",
@@ -37,10 +34,8 @@ dev = [
 build_site = "scripts.buildsite:main"
 build_schema = "scripts.buildfiles:main"
 build_term_list = "scripts.buildtermlist:main"
-compare_terms = "scripts.compareterms:main"
 reorg = "scripts.reorg:main"
 run_tests = "scripts.runtests:main"
-scan_site = "scripts.scansite:main"
 dev_server = "scripts.devserv:main"
 
 [tool.setuptools]

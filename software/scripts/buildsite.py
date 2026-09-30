@@ -405,7 +405,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     if args.buildsite or args.autobuild or args.static or any(args.files) or any(args.docspages) or any(args.terms):
         log.info("=== STAGE 2: BUILDING SITE ===")
         loadTerms(source="release")
-        schema.config.OUTPUTDIR = "software/site"
+        schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "software/site")
 
         if args.examplesnum or args.autobuild or args.buildsite or any(args.terms) or any(args.files):
             with pretty_logger.BlockLog(
