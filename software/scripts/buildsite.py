@@ -16,10 +16,7 @@ import subprocess
 import sys
 from typing import Any, Dict, Generator, Iterable, List, Optional, Sequence, Tuple, Type, Union
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
+from schemaorg import constants, input_layout
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaExamples.utils.assign_example_ids
 import SchemaTerms.localmarkdown
@@ -42,7 +39,7 @@ logging.basicConfig(level=logging.INFO)
 
 args: argparse.Namespace
 
-def initialize() -> argparse.Namespace:
+def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
     """Initialize various systems, returns the args object"""
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -141,7 +138,7 @@ def initialize() -> argparse.Namespace:
         help="Build the website from the releases directory + static content + stats",
     )
 
-    args: argparse.Namespace = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args(args_list)
 
     op: List[str]
     for op in args.buildoption:
@@ -196,7 +193,7 @@ def runtests() -> None:
         with pretty_logger.BlockLog(
             logger=log, message="Running test scripts before proceeding…"
         ):
-            cmd = [sys.executable, "software/scripts/runtests.py"]
+            cmd = [sys.executable, str(constants.PROJECT_ROOT / "software/scripts/runtests.py")]
             status = subprocess.call(cmd)
             if status:
                 log.error(f"Errors returned: {status}")
@@ -317,14 +314,14 @@ def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
         version: str = schema.getVersion()
-        shacl_file: Path = Path.cwd() / schema.constants.RELEASE_DIR / version / "schemaorg-shapes.shacl"
+        shacl_file: Path = constants.PROJECT_ROOT / schema.constants.RELEASE_DIR / version / "schemaorg-shapes.shacl"
         if not shacl_file.exists():
             log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
             return
 
         cmd: List[str] = [
             sys.executable,
-            "software/scripts/validate_examples_shacl.py",
+            str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
             "-o",
             schema.config.OUTPUTDIR,
         ]
@@ -362,10 +359,12 @@ def copyReleaseFiles() -> None:
         fileutils.mycopytree(str(srcdir), str(destdir))
 
 
-if __name__ == "__main__":
-    args = initialize()
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    global args
+    args = initialize(argv)
 
-    software.CheckWorkingDirectory()
+    input_layout.checkDataDirectories()
+
     log.info(
         f"Version: {schema.getVersion()} Released: {schema.getCurrentVersionDate()}"
     )
@@ -380,7 +379,7 @@ if __name__ == "__main__":
         ):
             SchemaExamples.utils.assign_example_ids.AssignExampleIds()
 
-        schema.config.OUTPUTDIR = "data"
+        schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "data")
 
         # Run tests first
         runtests()
@@ -395,7 +394,7 @@ if __name__ == "__main__":
         # Validate the generated release files against shapes
         runShaclTests()
 
-        temp_docs_dir = Path("data/docs")
+        temp_docs_dir = constants.PROJECT_ROOT / "data/docs"
         if temp_docs_dir.is_dir():
             log.info("Cleaning up temporary files in data/docs")
             shutil.rmtree(temp_docs_dir)
@@ -403,10 +402,10 @@ if __name__ == "__main__":
         log.info("=== STAGE 1: RELEASE BUILD COMPLETED SUCCESSFULLY ===")
 
     # STAGE 2: Build Site
-    if args.buildsite or args.autobuild or any(args.files) or any(args.docspages) or any(args.terms):
+    if args.buildsite or args.autobuild or args.static or any(args.files) or any(args.docspages) or any(args.terms):
         log.info("=== STAGE 2: BUILDING SITE ===")
         loadTerms(source="release")
-        schema.config.OUTPUTDIR = "software/site"
+        schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "software/site")
 
         if args.examplesnum or args.autobuild or args.buildsite or any(args.terms) or any(args.files):
             with pretty_logger.BlockLog(
@@ -429,8 +428,12 @@ if __name__ == "__main__":
         log.info("=== STAGE 2: SITE BUILD COMPLETED SUCCESSFULLY ===")
 
     # Global Testing Trigger
-    if (args.runtests or args.shacltests) and not (args.buildsite or args.autobuild or args.buildrelease or args.release or any(args.files) or any(args.docspages) or any(args.terms)):
+    if (args.runtests or args.shacltests) and not (args.buildsite or args.autobuild or args.buildrelease or args.release or args.static or any(args.files) or any(args.docspages) or any(args.terms)):
         log.info("=== RUNNING SCRIBED TEST SUITES ===")
         runtests()
         if args.shacltests:
             runShaclTests()
+
+
+if __name__ == "__main__":
+    main()

@@ -8,8 +8,6 @@ import os
 import sys
 import unittest
 
-import software
-
 import SchemaTerms.sdoterm as sdoterm
 
 

@@ -8,8 +8,6 @@ import sys
 import tempfile
 import unittest
 
-import software
-
 import scripts.snapshot_schema as snapshot_schema
 
 

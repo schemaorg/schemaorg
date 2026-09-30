@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import List, Union, Set
 
-from software.util.paths import InputLayout, Domain
+from util.paths import InputLayout, Domain
 
 ALL_ISSUES = ["*"]
 

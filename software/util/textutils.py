@@ -6,9 +6,6 @@ import os
 import re
 import sys
 
-import software
-
-
 def StripHtmlTags(source: str) -> str:
     """Strip all HTML tags from source."""
     return re.sub(r"<[^<]+?>", "", source) if source else ""

@@ -19,10 +19,6 @@ import pyshacl
 import rdflib
 from rdflib.namespace import RDF, SH
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
 import util.schema as schema

@@ -8,8 +8,6 @@ import tempfile
 import unittest
 import unittest.mock
 
-import software
-
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.schema as schema

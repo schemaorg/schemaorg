@@ -29,8 +29,6 @@ without anybody noticing.
 import json
 import unittest
 
-import software
-
 import rdflib
 from rdflib.namespace import SH
 

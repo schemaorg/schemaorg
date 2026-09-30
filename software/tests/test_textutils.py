@@ -7,8 +7,6 @@ import sys
 import tempfile
 import unittest
 
-import software
-
 import util.textutils as textutils
 
 

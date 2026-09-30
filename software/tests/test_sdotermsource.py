@@ -8,8 +8,6 @@ import unittest
 
 import rdflib
 
-import software
-
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 

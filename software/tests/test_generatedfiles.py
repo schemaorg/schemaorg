@@ -4,8 +4,6 @@
 from typing import List
 import unittest
 
-import software
-
 import util.paths as paths
 
 

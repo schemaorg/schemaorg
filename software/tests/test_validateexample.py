@@ -16,8 +16,6 @@ happened here.
 import textwrap
 import unittest
 
-import software
-
 import rdflib
 from rdflib.namespace import SH
 

@@ -4,10 +4,6 @@
 
 import os
 import sys
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 from SchemaTerms.sdoterm import SdoTerm
 import schematerms_pb2
 

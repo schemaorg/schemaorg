@@ -10,13 +10,12 @@ from typing import Any, Dict, Optional, Union
 
 import jinja2
 
-import software
-
+from schemaorg import constants
 import util.schema as schema
 
 
 SITENAME = "Schema.org"
-TEMPLATESDIR = "templates"
+TEMPLATESDIR = str(constants.PROJECT_ROOT / "templates")
 DOCSHREFSUFFIX = ""
 DOCSHREFPREFIX = "/"
 TERMHREFSUFFIX = ""

@@ -60,10 +60,7 @@ import unittest
 
 import colorama
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
+from schemaorg import constants
 
 SITEDIR: str = "software/site"
 STANDALONE: bool = False
@@ -165,7 +162,22 @@ def GetSuite(test_path: str, args: Optional[argparse.Namespace]) -> unittest.Tes
 # TODO:
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
-def main(test_path: str, args: Optional[argparse.Namespace] = None) -> int:
+def main(
+    test_path: Optional[str] = None,
+    args: Optional[argparse.Namespace] = None,
+    argv: Optional[Sequence[str]] = None,
+) -> int:
+    if test_path is None:
+        test_path = str(constants.PROJECT_ROOT / "software/tests")
+    if args is None:
+        colorama.init()
+        parser: argparse.ArgumentParser = argparse.ArgumentParser(
+            description="Configurable testing of schema.org."
+        )
+        parser.add_argument(
+            "--skipbasics", action="store_true", help="Skip basic tests."
+        )
+        args = parser.parse_args(argv)
     runner: unittest.TextTestRunner = unittest.TextTestRunner(
         verbosity=2, descriptions=True, resultclass=ColoredTestResult
     )
@@ -176,11 +188,7 @@ def main(test_path: str, args: Optional[argparse.Namespace] = None) -> int:
 
 
 if __name__ == "__main__":
-    colorama.init()
-    parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Configurable testing of schema.org.")
-    parser.add_argument("--skipbasics", action="store_true", help="Skip basic tests.")
-    args_parsed: argparse.Namespace = parser.parse_args()
-    sys.exit(main("./software/tests/", args_parsed))
+    sys.exit(main())
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

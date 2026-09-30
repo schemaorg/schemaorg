@@ -16,10 +16,6 @@ from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
 from rdflib.term import Node
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 import util.paths as paths
 import util.schema as schema
 from util.sort_dict import sort_dict

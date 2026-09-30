@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import argparse
 import csv
 import io
 import json
@@ -9,10 +10,6 @@ import os
 from pathlib import Path
 import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
-
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
 
 import rdflib
 from rdflib.compare import to_canonical_graph
@@ -491,6 +488,23 @@ def buildFiles(files: Iterable[str]) -> None:
             log.warning(f"Unknown files name: {p}")
 
 
-if __name__ == "__main__":
+def main(argv: Optional[Sequence[str]] = None) -> None:
     logging.basicConfig(level=logging.INFO)
-    buildFiles(sys.argv[1:])
+    parser = argparse.ArgumentParser(
+        description="Generate vocabulary/schema release files."
+    )
+    parser.add_argument(
+        "files",
+        nargs="*",
+        default=["ALL"],
+        help=(
+            "Files to generate (default: ALL). Valid options: "
+            f"{', '.join(sorted(FILELIST.keys()))}"
+        ),
+    )
+    args = parser.parse_args(argv)
+    buildFiles(args.files)
+
+
+if __name__ == "__main__":
+    main()

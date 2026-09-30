@@ -17,9 +17,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set,
 
 import rdflib
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
+
 
 import util.schema_graph as graph
 

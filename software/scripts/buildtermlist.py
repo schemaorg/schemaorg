@@ -10,10 +10,6 @@ import sys
 import typing
 from typing import Any, Callable, Dict, Generator, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.pretty_logger as pretty_logger
@@ -46,8 +42,8 @@ def generateTerms(tags: bool = False) -> Generator[str, None, None]:
         yield term.id + label + "\n"
 
 
-if __name__ == "__main__":
-    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    parser = argparse.ArgumentParser(description="Build list of schema.org terms.")
     parser.add_argument(
         "-t",
         "--tagtype",
@@ -56,7 +52,7 @@ if __name__ == "__main__":
         help="Add a termtype to name",
     )
     parser.add_argument("-o", "--output", required=True, help="output file")
-    args_parsed: argparse.Namespace = parser.parse_args()
+    args_parsed = parser.parse_args(argv)
     filename: str = args_parsed.output
     with pretty_logger.BlockLog(
         logger=log, message=f"Writing term list to file {filename}"
@@ -64,3 +60,7 @@ if __name__ == "__main__":
         with open(filename, "w") as handle:
             for term_line in generateTerms(tags=args_parsed.tagtype):
                 handle.write(term_line)
+
+
+if __name__ == "__main__":
+    main()

@@ -9,10 +9,6 @@ import sys
 import rdflib
 from rdflib.namespace import OWL
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import *
 

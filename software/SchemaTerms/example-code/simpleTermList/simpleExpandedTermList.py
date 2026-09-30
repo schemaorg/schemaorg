@@ -6,10 +6,6 @@ import sys
 
 import rdflib
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 from SchemaTerms.localmarkdown import Markdown
 from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import *

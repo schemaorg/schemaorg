@@ -12,9 +12,6 @@ import os
 import sys
 from typing import Any, Dict, FrozenSet, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
 
-import software
-
-
 log: logging.Logger = logging.getLogger(__name__)
 
 class SdoTermType(str, enum.Enum):

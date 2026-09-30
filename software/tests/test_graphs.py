@@ -11,8 +11,6 @@ import unittest
 
 import rdflib
 
-import software
-
 import SchemaTerms.sdotermsource as sdotermsource
 
 

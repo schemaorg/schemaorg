@@ -7,8 +7,6 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import software
-
 import SchemaExamples.schemaexamples as schemaexamples
 from util.paths import InputLayout
 

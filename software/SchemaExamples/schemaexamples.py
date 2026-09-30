@@ -16,8 +16,6 @@ from typing import Any, Collection, Dict, Iterable, List, Optional, Sequence, Se
 
 import requests
 
-import software
-
 import util.paths as paths
 
 

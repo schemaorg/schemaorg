@@ -10,10 +10,6 @@ import sys
 from typing import List, Tuple
 import unittest
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 import util.paths as paths
 import util.stats as stats
 

@@ -5,30 +5,17 @@ import argparse
 import os
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Sequence
 
 from colorama import Fore, Style
 from flask import Flask, Response, after_this_request
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
+from schemaorg import constants
+from util.schema import config, getVersion, constants as schema_constants
 
-from util.schema import getVersion, constants, config
+_docs: Path = Path(schema_constants.DOCSDOCSDIR.lstrip('/'))
 
-
-parser: argparse.ArgumentParser = argparse.ArgumentParser()
-parser.add_argument("--host", default="localhost", help="Host (default: localhost)")
-parser.add_argument("--port", type=int, default=8080, help="Port (default: 8080)")
-parser.add_argument("--production", default=False, action="store_true", help="Production settings")
-args_parsed: argparse.Namespace = parser.parse_args()
-
-# Resolve absolute paths relative to this script's location
-_script_dir = Path(__file__).resolve().parent
-_root_dir = _script_dir.parent.parent
-_docs: Path = Path(constants.DOCSDOCSDIR.lstrip('/'))
-
-app: Flask = Flask(__name__, static_folder=str(_root_dir / config.OUTPUTDIR), static_url_path="")
+app: Flask = Flask(__name__, static_folder=str(constants.PROJECT_ROOT / config.OUTPUTDIR), static_url_path="")
 
 
 @app.route("/")
@@ -64,7 +51,7 @@ def serve_robots() -> Response:
 
 @app.route("/docs/devnote.css")
 def serve_devnote() -> Response:
-    filename = "devnotehide.css" if args_parsed.production else "devnoteshow.css"
+    filename = "devnotehide.css" if app.config.get("PRODUCTION", False) else "devnoteshow.css"
     path = _docs / filename
     print(f"Serving file: {path}")
     return app.send_static_file(str(path))
@@ -73,7 +60,7 @@ def serve_devnote() -> Response:
 @app.route("/sitemap.xml")
 @app.route("/docs/sitemap.xml")
 def serve_sitemap() -> Response:
-    filename = "sitemap.xml" if args_parsed.production else "sitemap.xml_no_serve"
+    filename = "sitemap.xml" if app.config.get("PRODUCTION", False) else "sitemap.xml_no_serve"
     path = _docs / filename
     print(f"Serving file: {path}")
     return app.send_static_file(str(path))
@@ -117,12 +104,29 @@ def serve_downloads(ver: str, path: str = "") -> Response:
     return app.send_static_file(str(full_path))
 
 
-if __name__ == "__main__":
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    parser = argparse.ArgumentParser(description="Local dev server for Schema.org.")
+    parser.add_argument("--host", default="localhost", help="Host (default: localhost)")
+    parser.add_argument("--port", type=int, default=8080, help="Port (default: 8080)")
+    parser.add_argument(
+        "--production",
+        default=False,
+        action="store_true",
+        help="Production settings",
+    )
+    args_parsed = parser.parse_args(argv)
+
+    app.config["PRODUCTION"] = args_parsed.production
+
     print(f"Local dev server for Schema.org version: {getVersion()}")
-    print(f"Serving files from {_root_dir}")
+    print(f"Serving files from {constants.PROJECT_ROOT}")
     if args_parsed.production:
         print(Fore.RED + "Running with Production settings" + Style.RESET_ALL)
     else:
         print(Fore.GREEN + "Running with Development settings" + Style.RESET_ALL)
 
     app.run(host=args_parsed.host, port=args_parsed.port, debug=True)
+
+
+if __name__ == "__main__":
+    main()

@@ -15,8 +15,6 @@ import sys
 
 import rdflib
 
-import software
-
 import SchemaExamples.schemaexamples as schemaexamples
 
 

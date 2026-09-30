@@ -14,10 +14,6 @@ import rdflib
 import sdoapp
 import sys
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 dev_appserver.fix_sys_path()

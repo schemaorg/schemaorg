@@ -6,10 +6,6 @@ import os
 import sys
 from typing import Dict, Optional, Union
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 DEBUG = False
 
 # see readme.md

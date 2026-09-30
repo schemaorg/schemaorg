@@ -18,8 +18,6 @@ from rdflib.plugins.sparql import prepareQuery
 from rdflib.serializer import Serializer
 from rdflib.term import Literal, Node, URIRef
 
-import software
-
 from SchemaTerms.localmarkdown import Markdown, MarkdownTool
 from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import SdoTermSource

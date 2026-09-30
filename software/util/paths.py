@@ -10,8 +10,6 @@ import string
 import sys
 from typing import List, Optional, Sequence, Union
 
-import software
-
 import util.schema as schema
 
 

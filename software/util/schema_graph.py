@@ -9,7 +9,6 @@ from pathlib import Path
 import typing
 from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
 
-import software
 
 import util.schema as schema
 from util.issues import Issues, ALL_ISSUES

@@ -9,9 +9,6 @@ from typing import Any, Dict, List, Optional, Type
 
 import colorama
 
-import software
-
-
 class PrettyLogFormatter(logging.Formatter):
     """Helper class to format the log messages from the various parts of the project."""
 

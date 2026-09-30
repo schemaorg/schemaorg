@@ -8,9 +8,6 @@ import shutil
 import sys
 from typing import Any, Callable, Dict, FrozenSet, Iterable, List, Optional, Set, Union
 
-import software
-
-
 EXTENSIONS_FOR_FORMAT: Dict[str, str] = {
     "xml": "xml",
     "rdf": "rdf",

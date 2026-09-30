@@ -5,8 +5,6 @@ import os
 import sys
 import unittest
 
-import software
-
 import SchemaTerms.sdocollaborators as sdocollaborators
 
 

@@ -12,9 +12,6 @@ from typing import Iterable, Optional
 
 import markdown2
 
-import software
-
-
 WIKILINKPATTERN: str = r"\[\[([\w0-9_ -]+)\]\]"
 
 log: logging.Logger = logging.getLogger(__name__)

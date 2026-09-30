@@ -15,8 +15,6 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Type
 
 import jinja2
 
-import software
-
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource

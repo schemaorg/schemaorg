@@ -17,11 +17,6 @@ from urllib.parse import urldefrag, urljoin, urlparse
 import bs4
 import requests
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
-
 class BadLink:
     def __init__(self, bad_link, source, error):
         self.bad_link = bad_link

@@ -12,9 +12,6 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set,
 
 import markdown2 as markdown
 
-import software
-
-
 begin: str = """<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>

@@ -8,11 +8,6 @@ import sys
 
 import urllib2
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
-
 # Work in progress attempt to fetch all term URLs
 # from our data dumps (and sanity check them), then
 # fetch pages via WWW e.g. for

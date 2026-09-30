@@ -15,8 +15,6 @@ import traceback
 import typing
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
 
-import software
-
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource

@@ -6,8 +6,6 @@ import sys
 import tempfile
 import unittest
 
-import software
-
 import util.fileutils as fileutils
 
 

@@ -8,8 +8,6 @@ import sys
 import typing
 from typing import Any, Dict, List, Optional, Set
 
-import software
-
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.pretty_logger as pretty_logger

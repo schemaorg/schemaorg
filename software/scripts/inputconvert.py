@@ -9,10 +9,6 @@ from rdflib.term import URIRef
 import rdflib
 import sys
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 

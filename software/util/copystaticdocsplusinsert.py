@@ -10,8 +10,6 @@ import re
 import sys
 from typing import Dict, Generator, Iterable, List, Optional, Tuple, Union
 
-import software
-
 import util.convertmd2htmldocs as convertmd2htmldocs
 import util.fileutils as fileutils
 import util.paths as paths

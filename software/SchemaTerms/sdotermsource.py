@@ -17,7 +17,6 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Ty
 
 import rdflib
 
-import software
 
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators

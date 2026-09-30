@@ -6,8 +6,6 @@ import logging
 import os
 import sys
 
-import software
-
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 
 

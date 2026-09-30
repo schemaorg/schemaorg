@@ -5,8 +5,6 @@ import os
 import sys
 import unittest
 
-import software
-
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
