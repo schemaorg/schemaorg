@@ -16,7 +16,6 @@ class Domain(str, Enum):
     TEMPLATES = "templates"
     STATIC_DOC_INSERTS = "templates/static-doc-inserts"
     PUBLIC_STATS = "data/public_stats"
-    RELEASE_DATA = "data/releases"
     ROOT = ""
 
     # GCloud deployment configurations
@@ -28,7 +27,6 @@ class Domain(str, Enum):
     DOCS_TERMFIND = "docs/termfind"
     TERMS = "terms"
     RELEASE = "releases"
-    LATEST_RELEASE = "releases/LATEST"
     EMPTY = "empty"
 
     def __str__(self) -> str:

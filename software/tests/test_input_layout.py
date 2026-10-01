@@ -15,7 +15,6 @@ from schemaorg.layout.input_layout import (
     InputLayout,
     checkDataDirectories,
 )
-from schemaorg.version import VersionItem
 
 
 class TestInputLayout(unittest.TestCase):
@@ -24,8 +23,7 @@ class TestInputLayout(unittest.TestCase):
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
         self.root = Path(self.temp_dir.name)
-        self.version_item = VersionItem("42.0", "2026-01-01")
-        self.layout = InputLayout(self.root, version=self.version_item)
+        self.layout = InputLayout(self.root)
 
     def tearDown(self):
         self.temp_dir.cleanup()
@@ -48,9 +46,9 @@ class TestInputLayout(unittest.TestCase):
             self.root
         )
 
-    def test_dir_release_data_is_the_unversioned_archive(self):
+    def test_dir_release_is_the_unversioned_archive(self):
         self.assertEqual(
-            self.layout.dir(Domain.RELEASE_DATA),
+            self.layout.dir(Domain.RELEASE),
             self.root / "data" / "releases"
         )
 
@@ -58,12 +56,6 @@ class TestInputLayout(unittest.TestCase):
         self.assertEqual(
             self.layout.file(Domain.DOCS, "index.html"),
             self.root / "docs" / "index.html"
-        )
-
-    def test_release_file(self):
-        self.assertEqual(
-            self.layout.release_file("https", self.version_item),
-            self.root / "data" / "releases" / "42.0" / "schemaorg-all-https.ttl"
         )
 
     def test_relative_file(self):
@@ -76,15 +68,20 @@ class TestInputLayout(unittest.TestCase):
         f1 = data_dir / "a.ttl"
         f2 = data_dir / "b.ttl"
         f3 = data_dir / "c.txt"
+        hidden = data_dir / ".hidden.ttl"
         f1.touch()
         f2.touch()
         f3.touch()
+        hidden.touch()
 
         found = self.layout.files(Domain.DATA, "*.ttl")
         self.assertEqual(found, [f1, f2])
 
         found_multi = self.layout.files(Domain.DATA, ["*.ttl", "*.txt"])
         self.assertEqual(found_multi, [f1, f2, f3])
+
+        found_reversed = self.layout.files(Domain.DATA, ["*.txt", "*.ttl"])
+        self.assertEqual(found_reversed, [f3, f1, f2])
 
     def test_is_complete(self):
         with self.assertRaises(FileNotFoundError) as ctx:

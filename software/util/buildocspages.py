@@ -11,6 +11,7 @@ from pathlib import Path
 import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
+from schemaorg.layout import Releases
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
@@ -314,11 +315,13 @@ def buildDocs(pages: Iterable[str]) -> None:
             func, filenames = entry
             with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
                 content: str = func(page)
-                for item in filenames:
-                    key = item[0]
-                    args = item[1:]
-                    layout_func = getattr(paths.DefaultOutputLayout(), key)
-                    out_path: Path = layout_func(*args)
+                output_layout = paths.DefaultOutputLayout()
+                releases = Releases(output_layout, schema.VERSION)
+                for _, domain, filename in filenames:
+                    if domain == paths.Domain.RELEASE:
+                        out_path: Path = releases.file(filename=filename)
+                    else:
+                        out_path = output_layout.file(domain, filename)
                     out_path.write_text(content)
         else:
             log.warning(f"Unknown or missing page name: {page}")

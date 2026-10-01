@@ -22,12 +22,6 @@ class TestOutputLayout(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
-    def test_get_output_dir(self):
-        self.assertFalse(self.output_root.exists())
-        out = self.layout.get_output_dir()
-        self.assertTrue(out.is_dir())
-        self.assertEqual(out, self.output_root)
-
     def test_dir_standard(self):
         docs_dir = self.layout.dir(Domain.DOCS)
         self.assertTrue(docs_dir.is_dir())
@@ -42,11 +36,6 @@ class TestOutputLayout(unittest.TestCase):
         release_dir = self.layout.dir(Domain.RELEASE)
         self.assertTrue(release_dir.is_dir())
         self.assertEqual(release_dir, self.output_root / "releases")
-
-    def test_dir_latest_release(self):
-        latest_dir = self.layout.dir(Domain.LATEST_RELEASE)
-        self.assertTrue(latest_dir.is_dir())
-        self.assertEqual(latest_dir, self.output_root / "releases" / "LATEST")
 
     def test_file(self):
         f = self.layout.file(Domain.DOCS_COLLAB, "w3c.html")

@@ -17,6 +17,7 @@ from schemaorg.layout import (
     Releases,
     Scope,
 )
+from schemaorg.version import Version
 import util.schema as schema
 
 MODERN_FILES = (
@@ -51,7 +52,7 @@ class TestReleases(unittest.TestCase):
         self.versions_file = self.input_layout.file(
             Domain.ROOT, Releases.VERSIONS_FILE
         )
-        self.archive = self.input_layout.dir(Domain.RELEASE_DATA)
+        self.archive = self.input_layout.dir(Domain.RELEASE)
         self.built = self.output_layout.dir(Domain.RELEASE)
 
         self.releases = self._declare("29.0", "30.0", current="30.0")
@@ -71,7 +72,8 @@ class TestReleases(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        self.releases = Releases(self.input_layout, self.output_layout)
+        self.version = Version(self.versions_file)
+        self.releases = Releases(self.output_layout, self.version)
         return self.releases
 
     # -- versions come from versions.json, not from the filesystem -------
@@ -90,11 +92,6 @@ class TestReleases(unittest.TestCase):
         releases = self._declare("29.0", "30.0", "31.0", current="30.0")
         self.assertEqual(releases.current().number(), "30.0")
 
-    def test_missing_versions_file_fails_at_construction(self):
-        self.versions_file.unlink()
-        with self.assertRaises(FileNotFoundError):
-            Releases(self.input_layout, self.output_layout)
-
     def test_resolve_accepts_string_item_and_none(self):
         item = self.releases.resolve("29.0")
         self.assertEqual(item.number(), "29.0")
@@ -108,8 +105,12 @@ class TestReleases(unittest.TestCase):
 
     # -- locations: computed, never searched for -------------------------
 
-    def test_dir_is_the_version_under_the_output_layouts_release_dir(self):
+    def test_dir_is_the_version_under_the_layouts_release_dir(self):
         self.assertEqual(self.releases.dir("29.0"), self.built / "29.0")
+        self.assertEqual(
+            Releases(self.input_layout, self.version).dir("29.0"),
+            self.archive / "29.0",
+        )
 
     def test_dir_defaults_to_current(self):
         self.assertEqual(self.releases.dir(), self.built / "30.0")
@@ -118,7 +119,7 @@ class TestReleases(unittest.TestCase):
         path = self.releases.dir("29.0")
         self.assertFalse(path.exists())
 
-    def test_dir_ignores_the_source_tree(self):
+    def test_dir_ignores_the_other_tree(self):
         _make_release(self.archive, "30.0")
         self.assertNotEqual(self.releases.dir("30.0"), self.archive / "30.0")
 
@@ -162,25 +163,38 @@ class TestReleases(unittest.TestCase):
             self.releases.get_ttl_files("29.0")
         self.assertIn("schemaorg-all-https.ttl", str(context.exception))
 
-    # -- writing: publish_file is the only thing that creates anything ---
+    # -- file: directory creation belongs to the layout ------------------
 
-    def test_publish_file_creates_the_release_directory(self):
+    def test_file_creates_the_release_directory_for_output_layout(self):
         target = self.releases.dir("30.0")
         self.assertFalse(target.exists())
-        path = self.releases.publish_file("30.0")
+        path = self.releases.file("30.0")
         self.assertEqual(path, target / "schemaorg-all-https.ttl")
         self.assertTrue(target.is_dir())
 
-    def test_publish_file_defaults_to_the_current_https_ttl(self):
-        path = self.releases.publish_file()
+    def test_file_does_not_create_the_release_directory_for_input_layout(self):
+        releases = Releases(self.input_layout, self.version)
+        target = releases.dir("30.0")
+        self.assertFalse(target.exists())
+        path = releases.file("30.0")
+        self.assertEqual(path, target / "schemaorg-all-https.ttl")
+        self.assertFalse(target.exists())
+
+    def test_file_honours_filename_override(self):
+        target = self.releases.dir("30.0")
+        path = self.releases.file("30.0", filename="schemaorg.owl")
+        self.assertEqual(path, target / "schemaorg.owl")
+
+    def test_file_defaults_to_the_current_https_ttl(self):
+        path = self.releases.file()
         self.assertEqual(path, self.built / "30.0" / "schemaorg-all-https.ttl")
 
-    def test_publish_file_honours_the_extension(self):
-        path = self.releases.publish_file("30.0", extension=".nt")
+    def test_file_honours_the_extension(self):
+        path = self.releases.file("30.0", extension=".nt")
         self.assertEqual(path.name, "schemaorg-all-https.nt")
 
-    def test_publish_file_honours_protocol_and_scope(self):
-        path = self.releases.publish_file(
+    def test_file_honours_protocol_and_scope(self):
+        path = self.releases.file(
             "30.0",
             protocol=Protocol.HTTP,
             scope=Scope.CURRENT,
@@ -188,35 +202,33 @@ class TestReleases(unittest.TestCase):
         )
         self.assertEqual(path.name, "schemaorg-current-http.jsonld")
 
-    def test_publish_file_never_writes_a_none_directory(self):
-        self.releases.publish_file()
+    def test_file_never_writes_a_none_directory(self):
+        self.releases.file()
         self.assertFalse((self.built / "None").exists())
 
-    def test_published_ttl_is_what_get_ttl_files_reads_back(self):
+    def test_file_is_what_get_ttl_files_reads_back(self):
         version, protocol, scope = "30.0", Protocol.HTTP, Scope.CURRENT
         _make_release(self.built, version)
-        written = self.releases.publish_file(
-            version, protocol=protocol, scope=scope
-        )
+        written = self.releases.file(version, protocol=protocol, scope=scope)
         read = self.releases.get_ttl_files(
             version, protocol=protocol, scope=scope
         )
         self.assertEqual([written], read)
 
-    def test_publish_file_drops_the_separator_for_empty_parts(self):
-        path = self.releases.publish_file(
+    def test_file_drops_the_separator_for_empty_parts(self):
+        path = self.releases.file(
             "30.0", protocol="", scope="shapes", extension=".shacl"
         )
         self.assertEqual(path.name, "schemaorg-shapes.shacl")
 
-    def test_publish_rejects_undeclared_version(self):
+    def test_file_rejects_undeclared_version(self):
         with self.assertRaises(ValueError):
-            self.releases.publish_file("99.0")
+            self.releases.file("99.0")
 
-    def test_publish_does_not_declare_new_versions(self):
+    def test_file_does_not_declare_new_versions(self):
         with self.assertRaises(ValueError):
-            self.releases.publish_file("31.0")
-        reread = Releases(self.input_layout, self.output_layout)
+            self.releases.file("31.0")
+        reread = Releases(self.input_layout, Version(self.versions_file))
         self.assertNotIn("31.0", [str(v) for v in reread.versions()])
 
 
@@ -224,11 +236,8 @@ class TestReleasesRealData(unittest.TestCase):
     """Checks Releases against the repository's declared releases."""
 
     def setUp(self):
-        input_layout = InputLayout(PROJECT_ROOT)
-        # The one root a caller is allowed to name, taken from the project's
-        # own declaration rather than retyped here.
         self.output_layout = OutputLayout(PROJECT_ROOT / schema.config.OUTPUTDIR)
-        self.releases = Releases(input_layout, self.output_layout)
+        self.releases = Releases(self.output_layout, schema.VERSION)
 
     def test_versions_file_is_richly_populated(self):
         self.assertGreater(len(self.releases.versions()), 40)

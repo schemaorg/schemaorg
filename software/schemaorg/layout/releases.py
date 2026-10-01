@@ -3,14 +3,9 @@
 
 """Release discovery and destinations for schema.org published artefacts.
 
-Two sources, one each:
-
-* the **source tree** supplies ``versions.json``, the authority on which
-  versions exist, read through ``Version`` (``InputLayout``);
-* the **output tree** supplies every path: releases are both read from and
-  published to ``<output>/releases/<version>`` (``OutputLayout``).
-
-A release's location is computed from its version, never searched for.
+A release's location is computed from its version, never searched for, and
+delegated to the given layout (``InputLayout`` or ``OutputLayout``) through
+``Domain.RELEASE``.
 
 ``Releases`` is the counterpart of ``Issues``: it answers *which files* make
 up a release, and nothing else.
@@ -18,7 +13,7 @@ up a release, and nothing else.
 
 from enum import Enum, unique
 from pathlib import Path
-from typing import ClassVar, List, Union
+from typing import ClassVar, List, Optional, Union
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
@@ -57,8 +52,8 @@ class Releases:
     """Locates the files belonging to a published release.
 
     Args:
-        input_layout: Source tree, holding ``versions.json``.
-        output_layout: Output tree, holding the releases.
+        layout: Input or output layout holding the releases.
+        version: Version authority for declared releases.
     """
 
     # Name of the file declaring every version, at the source tree root.
@@ -76,14 +71,11 @@ class Releases:
 
     def __init__(
         self,
-        input_layout: InputLayout,
-        output_layout: OutputLayout,
+        layout: Union[InputLayout, OutputLayout],
+        version: Version,
     ) -> None:
-        self.input_layout = input_layout
-        self.output_layout = output_layout
-        self.version = Version(
-            input_layout.file(Domain.ROOT, self.VERSIONS_FILE)
-        )
+        self.layout = layout
+        self.version = version
 
     # -- versions, per versions.json -------------------------------------
 
@@ -110,7 +102,7 @@ class Releases:
 
     def dir(self, version: VersionRef = CURRENT_VERSION) -> Path:
         v = self.resolve(version)
-        return self.output_layout.dir(Domain.RELEASE) / str(v)
+        return self.layout.dir(Domain.RELEASE) / str(v)
 
     def get_ttl_files(
         self,
@@ -132,15 +124,14 @@ class Releases:
             f"Release {release_dir.name} has no '{name}' file."
         )
 
-    # -- writing: the only thing that creates anything -------------------
-
-    def publish_file(
+    def file(
         self,
         version: VersionRef = CURRENT_VERSION,
-        protocol: Protocol = Protocol.HTTPS,
-        scope: Scope = Scope.ALL,
+        protocol: Union[Protocol, str] = Protocol.HTTPS,
+        scope: Union[Scope, str] = Scope.ALL,
         extension: str = ".ttl",
+        filename: Optional[str] = None,
     ) -> Path:
-        target = self.dir(version)
-        target.mkdir(parents=True, exist_ok=True)
-        return target / self._schema_file(scope, protocol, extension)
+        v = self.resolve(version)
+        name = filename or self._schema_file(scope, protocol, extension)
+        return self.layout.file(Domain.RELEASE, f"{v}/{name}")

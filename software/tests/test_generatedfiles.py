@@ -35,7 +35,7 @@ class BasicFileTests(unittest.TestCase):
             for number, line in enumerate(lines, start=1):
                 if self.HTTP_SCHEMA_ORG in line:
                     offenders.append(
-                        f"  {layout.relative(path)}:{number}: {line.strip()}"
+                        f"  {layout.relative_file(path)}:{number}: {line.strip()}"
                     )
 
         if offenders:

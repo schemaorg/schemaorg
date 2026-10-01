@@ -14,6 +14,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set,
 import rdflib
 from rdflib.compare import to_canonical_graph
 import rdflib.namespace
+from schemaorg.layout import Releases
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -231,12 +232,13 @@ def get_release_file_path(selector: Union["fileutils.FileSelector", str], protoc
     merged: str = "-".join(parts)
     filename: str = f"schemaorg-{merged}.{extension}"
 
+    output_layout = paths.DefaultOutputLayout()
     if subdirectory_path is not None:
-        path: Path = paths.DefaultOutputLayout().get_output_dir() / subdirectory_path / filename
-        path.parent.mkdir(parents=True, exist_ok=True)
-        return path
+        return output_layout.file(
+            paths.Domain.ROOT, f"{subdirectory_path}/{filename}"
+        )
     else:
-        return paths.DefaultOutputLayout().file(paths.Domain.RELEASE, filename)
+        return Releases(output_layout, schema.VERSION).file(filename=filename)
 
 def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdflib.Graph, subdirectory_path: Optional[str] = None) -> None:
     protocol: str
@@ -478,11 +480,13 @@ def buildFiles(files: Iterable[str]) -> None:
             with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
                 content: Any = func(p)
                 if content:
-                    for item in filenames:
-                        key = item[0]
-                        args = item[1:]
-                        layout_func = getattr(paths.DefaultOutputLayout(), key)
-                        out_path: Path = layout_func(*args)
+                    output_layout = paths.DefaultOutputLayout()
+                    releases = Releases(output_layout, schema.VERSION)
+                    for _, domain, filename in filenames:
+                        if domain == paths.Domain.RELEASE:
+                            out_path: Path = releases.file(filename=filename)
+                        else:
+                            out_path = output_layout.file(domain, filename)
                         out_path.write_text(str(content))
         else:
             log.warning(f"Unknown files name: {p}")

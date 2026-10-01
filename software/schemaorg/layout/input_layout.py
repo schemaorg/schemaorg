@@ -6,23 +6,21 @@
 import os
 from pathlib import Path
 import sys
-from typing import List, Optional, Sequence, Union
+from typing import List, Sequence, Union
 
 from schemaorg.layout.domain import Domain
-from schemaorg.version import VersionItem
 
 
 class InputLayout:
     """Floating layout resolving paths in the schema.org source tree."""
 
-    def __init__(
-        self, root_dir: Path, version: Optional[VersionItem] = None
-    ) -> None:
+    def __init__(self, root_dir: Path) -> None:
         self.root_dir: Path = root_dir.resolve()
-        self._version: Optional[VersionItem] = version
 
     def dir(self, domain: Domain) -> Path:
         """Return the directory path corresponding to the given Domain."""
+        if domain == Domain.RELEASE:
+            return self.root_dir / Domain.DATA.value / domain.value
         return self.root_dir / domain.value
 
     def file(self, domain: Domain, filename: str) -> Path:
@@ -32,20 +30,18 @@ class InputLayout:
     def files(
         self, domain: Domain, patterns: Union[str, Sequence[str]]
     ) -> List[Path]:
-        """Return a sorted list of matching files for glob patterns in Domain."""
+        """Return matching files for glob patterns in Domain, sorted per pattern."""
         if isinstance(patterns, str):
             patterns = [patterns]
         base = self.dir(domain)
-        return sorted([f for pattern in patterns for f in base.glob(pattern)])
-
-    # Shim for callers not yet ported to Releases. To be deleted.
-    def release_file(self, protocol: str, version: VersionItem) -> Path:
-        """Return canonical release turtle file path ('http' or 'https')."""
-        return (
-            self.dir(Domain.RELEASE_DATA)
-            / str(version)
-            / f"schemaorg-all-{protocol}.ttl"
-        )
+        # Sort per pattern to preserve caller pattern order (e.g. core before ext
+        # in schemaorg-all-examples.txt); global sort splices subdirs mid-list.
+        return [
+            f
+            for pattern in patterns
+            for f in sorted(base.glob(pattern))
+            if not f.name.startswith(".")
+        ]
 
     def relative_file(self, path: Union[Path, str]) -> Path:
         """Return a path relative to the root directory."""

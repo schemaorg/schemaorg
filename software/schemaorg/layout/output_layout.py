@@ -24,10 +24,6 @@ class OutputLayout:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
-    def get_output_dir(self) -> Path:
-        """Return root output directory, ensuring it exists."""
-        return self._ensure_dir(self.output_dir)
-
     def dir(self, domain: Domain) -> Path:
         """Return directory for the given Domain, ensuring it exists."""
         if domain == Domain.GCLOUD:

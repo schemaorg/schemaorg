@@ -27,11 +27,6 @@ class TestVersion(unittest.TestCase):
         with self.assertRaises(TypeError):
             Version()  # type: ignore
 
-    def test_init_missing_path_raises(self):
-        """Test initialization without path raises TypeError."""
-        with self.assertRaises(TypeError):
-            Version()  # type: ignore
-
     def test_init_custom_path(self):
         """Test initialization with custom versions.json path."""
         data = {
