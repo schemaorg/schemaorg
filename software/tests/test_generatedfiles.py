@@ -20,13 +20,13 @@ class BasicFileTests(unittest.TestCase):
     def testNoHttpExamples(self):
         """Examples must use https://schema.org, never http://schema.org."""
         layout = paths.DefaultInputLayout()
-        files = layout.domain_files(paths.Domain.DATA, self.EXAMPLE_GLOBS)
+        files = layout.files(paths.Domain.DATA, self.EXAMPLE_GLOBS)
 
         # A glob that matches nothing would make this test pass for the most
         # boring of reasons, so assert we actually looked at something.
         self.assertTrue(
             files, f"No example files matched {self.EXAMPLE_GLOBS} under "
-                   f"{layout.domain_dir(paths.Domain.DATA)}"
+                   f"{layout.dir(paths.Domain.DATA)}"
         )
 
         offenders: List[str] = []
@@ -35,7 +35,7 @@ class BasicFileTests(unittest.TestCase):
             for number, line in enumerate(lines, start=1):
                 if self.HTTP_SCHEMA_ORG in line:
                     offenders.append(
-                        f"  {layout.relative(path)}:{number}: {line.strip()}"
+                        f"  {layout.relative_file(path)}:{number}: {line.strip()}"
                     )
 
         if offenders:

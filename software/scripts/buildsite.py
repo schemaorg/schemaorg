@@ -16,7 +16,8 @@ import subprocess
 import sys
 from typing import Any, Dict, Generator, Iterable, List, Optional, Sequence, Tuple, Type, Union
 
-from schemaorg import constants, input_layout
+from schemaorg import constants
+from schemaorg.layout import Releases, checkDataDirectories
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaExamples.utils.assign_example_ids
 import SchemaTerms.localmarkdown
@@ -201,23 +202,22 @@ def runtests() -> None:
 
 
 def initdir(output_dir_str: str, handler_path: str) -> None:
-    output_dir: Path = Path(output_dir_str)
-    log.info(f'Building site in "{output_dir}" directory')
-    output_dir.mkdir(parents=True, exist_ok=True)
+    log.info(f'Building site in "{output_dir_str}" directory')
     clear()
 
-    (output_dir / "docs" / "contributors").mkdir(parents=True, exist_ok=True)
-    (output_dir / "empty").mkdir(parents=True, exist_ok=True)
-    (output_dir / "releases" / schema.VERSION.current().number()).mkdir(parents=True, exist_ok=True)
-
-    gdir: Path = output_dir / "gcloud"
-    gdir.mkdir(parents=True, exist_ok=True)
+    input_layout = paths.DefaultInputLayout()
+    output_layout = paths.DefaultOutputLayout()
+    output_layout.dir(paths.Domain.EMPTY)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
-        copystaticdocsplusinsert.copyFiles(str(paths.DefaultInputLayout().domain_dir(paths.Domain.DOCS)), str(paths.DefaultOutputLayout().domain_dir(paths.Domain.DOCS)))
+        copystaticdocsplusinsert.copyFiles(
+            str(input_layout.dir(paths.Domain.DOCS)),
+            str(output_layout.dir(paths.Domain.DOCS)),
+        )
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gcloud_files: List[Path] = paths.DefaultInputLayout().domain_files(paths.Domain.GCLOUD, "*.yaml")
+        gdir: Path = output_layout.dir(paths.Domain.GCLOUD)
+        gcloud_files: List[Path] = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
         path: Path
         for path in gcloud_files:
             shutil.copy(path, gdir)
@@ -226,10 +226,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     version: str = schema.VERSION.current().number()
     message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
-        template_file: Path = paths.DefaultInputLayout().domain_file(paths.Domain.GCLOUD, "handlers-template.yaml")
+        template_file: Path = input_layout.file(paths.Domain.GCLOUD, "handlers-template.yaml")
         template_data: str = template_file.read_text()
         handler_data: str = template_data.replace("{{ver}}", version)
-        paths.DefaultOutputLayout().domain_file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
+        output_layout.file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
 
 
 LOADEDTERMS: Optional[str] = None
@@ -257,7 +257,9 @@ def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
             with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
                 sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
         elif source == "release":
-            release_file: Path = paths.DefaultInputLayout().release_file("https")
+            release_file: Path = Releases(
+                paths.DefaultInputLayout(), schema.VERSION
+            ).file()
 
             if not release_file.exists():
                 raise FileNotFoundError(
@@ -313,8 +315,9 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        version: str = schema.VERSION.current().number()
-        shacl_file: Path = constants.PROJECT_ROOT / schema.constants.RELEASE_DIR / version / "schemaorg-shapes.shacl"
+        shacl_file: Path = Releases(
+            paths.DefaultOutputLayout(), schema.VERSION
+        ).file(protocol="", scope="shapes", extension=".shacl")
         if not shacl_file.exists():
             log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
             return
@@ -347,9 +350,8 @@ def copyReleaseFiles() -> None:
 
     Do not re-add it. A build script has no business touching the index.
     """
-    version: str = schema.VERSION.current().number()
-    srcdir: Path = paths.DefaultInputLayout().domain_dir(paths.Domain.RELEASE_DATA)
-    destdir: Path = paths.DefaultOutputLayout().domain_dir(paths.Domain.RELEASE)
+    srcdir: Path = Releases(paths.DefaultInputLayout(), schema.VERSION).dir()
+    destdir: Path = Releases(paths.DefaultOutputLayout(), schema.VERSION).dir()
     if not srcdir.is_dir():
         log.warning(f"Release data directory {srcdir} not found. Skipping copying release files.")
         return
@@ -364,7 +366,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     global args
     args = initialize(argv)
 
-    input_layout.checkDataDirectories()
+    checkDataDirectories()
 
     log.info(
         f"Version: {schema.VERSION.current().number()} Released: {schema.VERSION.current().date()}"

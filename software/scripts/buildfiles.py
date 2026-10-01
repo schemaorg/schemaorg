@@ -14,6 +14,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set,
 import rdflib
 from rdflib.compare import to_canonical_graph
 import rdflib.namespace
+from schemaorg.layout import Releases
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -231,12 +232,13 @@ def get_release_file_path(selector: Union["fileutils.FileSelector", str], protoc
     merged: str = "-".join(parts)
     filename: str = f"schemaorg-{merged}.{extension}"
 
+    output_layout = paths.DefaultOutputLayout()
     if subdirectory_path is not None:
-        path: Path = paths.DefaultOutputLayout().get_output_dir() / subdirectory_path / filename
-        path.parent.mkdir(parents=True, exist_ok=True)
-        return path
+        return output_layout.file(
+            paths.Domain.ROOT, f"{subdirectory_path}/{filename}"
+        )
     else:
-        return paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, filename)
+        return Releases(output_layout, schema.VERSION).file(filename=filename)
 
 def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdflib.Graph, subdirectory_path: Optional[str] = None) -> None:
     protocol: str
@@ -423,13 +425,13 @@ def examples(page: str) -> str:
 
 
 FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
-    "Context": (jsonldcontext, [("domain_file", paths.Domain.DOCS, "jsonldcontext.jsonld"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json"), ("domain_file", paths.Domain.DOCS, "jsonldcontext.json.txt"), ("domain_file", paths.Domain.RELEASE, "schemaorgcontext.jsonld")]),
-    "Tree": (jsonldtree, [("domain_file", paths.Domain.DOCS, "tree.jsonld")]),
-    "jsoncounts": (jsoncounts, [("domain_file", paths.Domain.DOCS, "jsoncounts.json")]),
-    "jsonpcounts": (jsonpcounts, [("domain_file", paths.Domain.DOCS, "jsonpcounts.js")]),
-    "Owl": (owl, [("domain_file", paths.Domain.DOCS, "schemaorg.owl"), ("domain_file", paths.Domain.RELEASE, "schemaorg.owl")]),
-    "Httpequivs": (httpequivs, [("domain_file", paths.Domain.RELEASE, "httpequivs.ttl")]),
-    "Sitemap": (sitemap, [("domain_file", paths.Domain.DOCS, "sitemap.xml")]),
+    "Context": (jsonldcontext, [("file", paths.Domain.DOCS, "jsonldcontext.jsonld"), ("file", paths.Domain.DOCS, "jsonldcontext.json"), ("file", paths.Domain.DOCS, "jsonldcontext.json.txt"), ("file", paths.Domain.RELEASE, "schemaorgcontext.jsonld")]),
+    "Tree": (jsonldtree, [("file", paths.Domain.DOCS, "tree.jsonld")]),
+    "jsoncounts": (jsoncounts, [("file", paths.Domain.DOCS, "jsoncounts.json")]),
+    "jsonpcounts": (jsonpcounts, [("file", paths.Domain.DOCS, "jsonpcounts.js")]),
+    "Owl": (owl, [("file", paths.Domain.DOCS, "schemaorg.owl"), ("file", paths.Domain.RELEASE, "schemaorg.owl")]),
+    "Httpequivs": (httpequivs, [("file", paths.Domain.RELEASE, "httpequivs.ttl")]),
+    "Sitemap": (sitemap, [("file", paths.Domain.DOCS, "sitemap.xml")]),
     "RDFExports": (exportrdf, []),
     "RDFExport.turtle": (exportrdf, []),
     "RDFExport.rdf": (exportrdf, []),
@@ -438,7 +440,7 @@ FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
     "RDFExport.json-ld": (exportrdf, []),
     "Shex_Shacl": (exportshex_shacl, []),
     "CSVExports": (exportcsv, []),
-    "Examples": (examples, [("domain_file", paths.Domain.RELEASE, "schemaorg-all-examples.txt")]),
+    "Examples": (examples, [("file", paths.Domain.RELEASE, "schemaorg-all-examples.txt")]),
 }
 
 
@@ -478,11 +480,13 @@ def buildFiles(files: Iterable[str]) -> None:
             with pretty_logger.BlockLog(message=f"Preparing file {p}.", logger=log):
                 content: Any = func(p)
                 if content:
-                    for item in filenames:
-                        key = item[0]
-                        args = item[1:]
-                        layout_func = getattr(paths.DefaultOutputLayout(), key)
-                        out_path: Path = layout_func(*args)
+                    output_layout = paths.DefaultOutputLayout()
+                    releases = Releases(output_layout, schema.VERSION)
+                    for _, domain, filename in filenames:
+                        if domain == paths.Domain.RELEASE:
+                            out_path: Path = releases.file(filename=filename)
+                        else:
+                            out_path = output_layout.file(domain, filename)
                         out_path.write_text(str(content))
         else:
             log.warning(f"Unknown files name: {p}")

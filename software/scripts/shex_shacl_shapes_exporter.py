@@ -16,6 +16,7 @@ from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
 from rdflib.term import Node
 
+from schemaorg.layout import Releases
 import util.paths as paths
 import util.schema as schema
 from util.sort_dict import sort_dict
@@ -378,15 +379,23 @@ def generate_files(
     graph: Graph = Graph().parse(data=term_defs, format=input_format)
     graph.bind("schema", SCHEMA)
 
-    shexj_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shexj")
+    releases = Releases(paths.DefaultOutputLayout(), schema.VERSION)
+
+    shexj_path: Path = releases.file(
+        version, protocol="", scope="shapes", extension=".shexj"
+    )
     shexj_path.write_text(ShExJParser.to_shex(graph))
     log.info(f"Created {shexj_path}")
 
-    shacl_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shacl")
+    shacl_path: Path = releases.file(
+        version, protocol="", scope="shapes", extension=".shacl"
+    )
     shacl_path.write_text(ShaclParser.to_shacl(graph))
     log.info(f"Created {shacl_path}")
 
-    subclasses_path: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-subclasses.shacl")
+    subclasses_path: Path = releases.file(
+        version, protocol="", scope="subclasses", extension=".shacl"
+    )
     subclasses_path.write_text(ShaclParser.get_subclasses(graph))
     log.info(f"Created {subclasses_path}")
 

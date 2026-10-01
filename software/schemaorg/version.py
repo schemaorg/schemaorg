@@ -63,9 +63,11 @@ class Version:
 
         self._versions.append(new_version)
         self._versions.sort(key=lambda vi: float(vi.number()), reverse=True)
+        # The newest entry is the current one, on disk and in memory alike.
+        self._current = self._versions[0]
 
         version_data = {
-            "schemaversion": self._versions[0].number(),
+            "schemaversion": self._current.number(),
             "releaseLog": {str(vi): vi.date() for vi in self._versions},
         }
         self.versions_path.write_text(

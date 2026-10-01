@@ -19,6 +19,7 @@ import unittest
 import rdflib
 from rdflib.namespace import SH
 
+from schemaorg.layout import Releases
 import util.paths as paths
 
 import scripts.validate_examples_shacl as validator
@@ -162,9 +163,9 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     @classmethod
     def _load(cls, filename):
-        path = paths.DefaultInputLayout().domain_file(
-            paths.Domain.RELEASE_DATA, filename
-        )
+        path = Releases(
+            paths.DefaultInputLayout(), validator.schema.VERSION
+        ).file(filename=filename)
         if not path.is_file():
             return None
         graph = rdflib.Graph()

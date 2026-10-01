@@ -3,6 +3,7 @@
 
 import logging
 import os
+from pathlib import Path
 import sys
 import tempfile
 import unittest
@@ -10,6 +11,7 @@ import unittest.mock
 
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
+import util.paths as paths
 import util.schema as schema
 import util.textutils as textutils
 
@@ -50,10 +52,10 @@ class TestBuildFiles(unittest.TestCase):
             "https://schema.org/Person, https://schema.org/Thing",
         )
 
-    @unittest.mock.patch("util.schema.getOutputDir")
-    def testWriteCsvOut(self, mock_output_dir):
+    @unittest.mock.patch("scripts.buildfiles.paths.DefaultOutputLayout")
+    def testWriteCsvOut(self, mock_output_layout):
         with tempfile.TemporaryDirectory() as temp_dir:
-            mock_output_dir.return_value = temp_dir
+            mock_output_layout.return_value = paths.OutputLayout(Path(temp_dir))
             buildfiles.writecsvout(
                 ftype="properties",
                 data=(
