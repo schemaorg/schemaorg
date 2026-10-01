@@ -58,8 +58,8 @@ def templateRender(
     # Basic variables configuring UI
     tvars = {
         "local_vars": local_vars,
-        "version": schema.getVersion(),
-        "versiondate": schema.getCurrentVersionDate(),
+        "version": schema.VERSION.current().number(),
+        "versiondate": schema.VERSION.current().date(),
         "sitename": SITENAME,
         "TERMHREFPREFIX": TERMHREFPREFIX,
         "TERMHREFSUFFIX": TERMHREFSUFFIX,

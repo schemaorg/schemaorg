@@ -168,8 +168,7 @@ class ValidationStats:
 
 def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
     """Validates the provided examples against the generated SHACL shapes."""
-    version: str = schema.getVersion()
-
+    version: str = schema.VERSION.current().number()
     shacl_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-shapes.shacl")
     subclass_file: Path = paths.DefaultOutputLayout().domain_file(paths.Domain.RELEASE, "schemaorg-subclasses.shacl")
 

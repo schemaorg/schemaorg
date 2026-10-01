@@ -111,7 +111,7 @@ def owl(page: str) -> str:
 
 
 def sitemap(page: str) -> str:
-    version_date: str = str(schema.getCurrentVersionDate() or "")
+    version_date: str = str(schema.VERSION.current().date() or "")
     def node(t: str) -> str:
         return f""" <url>
    <loc>https://schema.org/{t}</loc>
@@ -242,7 +242,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
     protocol: str
     altprotocol: str
     protocol, altprotocol = protocols()
-    version: str = schema.getVersion()
+    version: str = schema.VERSION.current().number()
 
     selector: str
     for selector in fileutils.FILESET_SELECTORS:
@@ -374,7 +374,7 @@ def exportcsv(page: str) -> None:
 
 
 def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selector: Union[fileutils.FileSelector, str], protocol: str, altprotocol: str) -> None:
-    version: str = schema.getVersion()
+    version: str = schema.VERSION.current().number()
     paths_list: List[str] = [str(get_release_file_path(selector=selector, protocol=p, suffix=ftype, output_format="csv")) for p in (protocol, altprotocol)]
 
     with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {paths_list[0]} and {paths_list[1]}.", logger=log):
@@ -391,7 +391,7 @@ def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selec
 
 def jsoncounts(page: str) -> str:
     counts: Dict[str, Any] = sdotermsource.SdoTermSource.termCounts()
-    counts["schemaorgversion"] = schema.getVersion()
+    counts["schemaorgversion"] = schema.VERSION.current().number()
     return json.dumps(sort_dict(counts))
 
 
@@ -400,7 +400,7 @@ def jsonpcounts(page: str) -> str:
 
 
 def exportshex_shacl(page: str) -> None:
-    version: str = schema.getVersion()
+    version: str = schema.VERSION.current().number()
     nt_path: Path = get_release_file_path(
         selector=fileutils.FileSelector.ALL,
         protocol="http",

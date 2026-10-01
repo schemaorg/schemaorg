@@ -233,8 +233,8 @@ def fullReleasePage(page: str) -> str:
     extra_vars: Dict[str, Any] = {
         "home_page": "False",
         "title": "Full Release Summary",
-        "version": schema.getVersion(),
-        "date": schema.getCurrentVersionDate(),
+        "version": schema.VERSION.current().number(),
+        "date": schema.VERSION.current().date(),
         "listings": node_listings,
         "types": types,
         "properties": sorted(properties, key=lambda t: t.id),
