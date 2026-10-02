@@ -4,8 +4,7 @@
 import argparse
 import os
 from pathlib import Path
-import sys
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Optional, Sequence
 
 from colorama import Fore, Style
 from flask import Flask, Response, after_this_request

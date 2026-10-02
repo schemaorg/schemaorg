@@ -6,10 +6,8 @@
 import argparse
 import json
 import logging
-import os
 from pathlib import Path
-import sys
-from typing import Any, Dict, Generator, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Union
 
 from rdflib import BNode, Graph, Namespace, RDF, RDFS, URIRef
 from rdflib.collection import Collection
@@ -27,7 +25,6 @@ SCHEMA: Namespace = Namespace("http://schema.org/")
 SHACL: Namespace = Namespace("http://www.w3.org/ns/shacl#")
 
 PREFIX: str = "ValidSchema"
-FILE_ENCODING: str = "utf-8"
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -371,10 +368,7 @@ def generate_files(
     version: str,
     input_format: str = "nt",
 ) -> None:
-    term_defs_path = Path(term_defs_path)
-
-    with term_defs_path.open() as f:
-        term_defs: str = f.read()
+    term_defs: str = Path(term_defs_path).read_text(encoding="utf-8")
 
     graph: Graph = Graph().parse(data=term_defs, format=input_format)
     graph.bind("schema", SCHEMA)

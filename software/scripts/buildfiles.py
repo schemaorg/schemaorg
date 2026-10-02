@@ -6,9 +6,7 @@ import csv
 import io
 import json
 import logging
-import os
 from pathlib import Path
-import sys
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 import rdflib
@@ -216,16 +214,7 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
 
 
 def get_release_file_path(selector: Union["fileutils.FileSelector", str], protocol: str, output_format: str, suffix: Optional[str] = None, subdirectory_path: Optional[str] = None) -> Path:
-    EXTENSIONS_FOR_FORMAT = {
-        "xml": "xml",
-        "rdf": "rdf",
-        "nquads": "nq",
-        "nt": "nt",
-        "json-ld": "jsonld",
-        "turtle": "ttl",
-        "csv": "csv",
-    }
-    extension: str = EXTENSIONS_FOR_FORMAT[output_format.lower()]
+    extension: str = fileutils.EXTENSIONS_FOR_FORMAT[output_format.lower()]
     parts: List[str] = [str(selector).lower(), protocol.lower()]
     if suffix:
         parts.append(suffix)
@@ -376,7 +365,6 @@ def exportcsv(page: str) -> None:
 
 
 def writecsvout(ftype: str, data: List[Dict[str, str]], fields: List[str], selector: Union[fileutils.FileSelector, str], protocol: str, altprotocol: str) -> None:
-    version: str = schema.VERSION.current().number()
     paths_list: List[str] = [str(get_release_file_path(selector=selector, protocol=p, suffix=ftype, output_format="csv")) for p in (protocol, altprotocol)]
 
     with pretty_logger.BlockLog(message=f"Preparing files {ftype}: {paths_list[0]} and {paths_list[1]}.", logger=log):
@@ -451,13 +439,8 @@ def buildFiles(files: Iterable[str]) -> None:
 
     targets: List[str] = sorted(FILELIST.keys()) if any(fileutils.isAll(f) for f in files) else list(files)
 
-    process_files: List[str] = []
-    seen: Set[str] = set()
-    t: str
-    for t in targets:
-        if t not in seen:
-            process_files.append(t)
-            seen.add(t)
+    process_files: List[str] = list(dict.fromkeys(targets))
+    seen: Set[str] = set(process_files)
 
     if "Shex_Shacl" in seen:
         if "RDFExport.nt" not in seen and "RDFExports" not in seen:

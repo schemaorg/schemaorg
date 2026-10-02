@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import sys
+from pathlib import Path
 import tempfile
 import unittest
 
@@ -10,29 +9,22 @@ import util.fileutils as fileutils
 
 
 class FileUtilsTest(unittest.TestCase):
-    def test_checkFilePath(self):
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            fileutils.checkFilePath(tmp_dir)
+    def test_isAll(self):
+        self.assertTrue(fileutils.isAll("all"))
+        self.assertTrue(fileutils.isAll("ALL"))
+        self.assertTrue(fileutils.isAll(fileutils.FileSelector.ALL))
+        self.assertFalse(fileutils.isAll("current"))
+        self.assertFalse(fileutils.isAll(fileutils.FileSelector.CURRENT))
 
-    def test_ensureAbsolutePath(self):
+    def test_mycopytree(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
-            path = fileutils.ensureAbsolutePath(
-                output_dir=tmp_dir, relative_path="fnord/fnuble"
-            )
-            self.assertEqual(os.path.basename(path), "fnuble")
-            self.assertEqual(os.path.split(os.path.dirname(path))[-1], "fnord")
+            src = Path(tmp_dir) / "src"
+            dst = Path(tmp_dir) / "dst"
+            src.mkdir()
+            (src / "hello.txt").write_text("world")
 
-    def test_releaseFilePath(self):
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            path = fileutils.releaseFilePath(
-                output_dir=tmp_dir,
-                version="42",
-                selector="all",
-                protocol="http",
-                output_format="json-ld",
-            )
-            self.assertEqual(os.path.basename(path), "schemaorg-all-http.jsonld")
-            self.assertEqual(os.path.split(os.path.dirname(path))[-1], "42")
+            fileutils.mycopytree(str(src), str(dst))
+            self.assertEqual((dst / "hello.txt").read_text(), "world")
 
 
 if __name__ == "__main__":

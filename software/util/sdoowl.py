@@ -1,25 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import glob
 import os
-import re
-import sys
-from typing import Any, Dict, FrozenSet, List, Optional, Set, Tuple, Union
+from typing import Dict, FrozenSet, List, Optional, Set
 from xml.dom import minidom
 from xml.etree import ElementTree
 
 import rdflib
-from rdflib import Graph
-from rdflib.compare import graph_diff
 from rdflib.namespace import RDF, RDFS
-from rdflib.parser import Parser
-from rdflib.plugins.sparql import prepareQuery
-from rdflib.serializer import Serializer
-from rdflib.term import Literal, Node, URIRef
+from rdflib.term import URIRef
 
 from SchemaTerms.localmarkdown import Markdown, MarkdownTool
-from SchemaTerms.sdoterm import *
 from SchemaTerms.sdotermsource import SdoTermSource
 import util.schema as schema
 
@@ -109,23 +100,22 @@ class OwlBuild:
         return doc.toprettyxml(encoding="UTF-8").decode("utf-8")
 
     def list(self, graph: rdflib.Graph) -> None:
-        types: Dict[rdflib.term.Node, rdflib.term.Node] = {}
-        props: Dict[rdflib.term.Node, rdflib.term.Node] = {}
         self.dom.append(_MakePrettyComment(text="Class Definitions"))
-
-        for s, p, o in graph.triples((None, RDF.type, RDFS.Class)):
-            if str(s).startswith("https://schema.org"):
-                types.update({s: graph.identifier})
-
-        for t in sorted(types.keys(), key=str):
+        types: Set[rdflib.term.Node] = {
+            s
+            for s, _, _ in graph.triples((None, RDF.type, RDFS.Class))
+            if str(s).startswith("https://schema.org")
+        }
+        for t in sorted(types, key=str):
             self.outputType(str(t), graph)
 
         self.dom.append(_MakePrettyComment(text="Property Definitions"))
-        for s, p, o in graph.triples((None, RDF.type, RDF.Property)):
-            if str(s).startswith("https://schema.org"):
-                props.update({s: graph.identifier})
-
-        for p in sorted(props.keys(), key=str):
+        props: Set[rdflib.term.Node] = {
+            s
+            for s, _, _ in graph.triples((None, RDF.type, RDF.Property))
+            if str(s).startswith("https://schema.org")
+        }
+        for p in sorted(props, key=str):
             self.outputProp(str(p), graph)
 
         self.dom.append(_MakePrettyComment(text="Named Individuals Definitions"))
@@ -163,7 +153,7 @@ class OwlBuild:
     def outputProp(self, uri: str, graph: rdflib.Graph) -> None:
         self.propsCount += 1
         children: List[ElementTree.Element] = []
-        domains: Dict[rdflib.term.Node, bool] = {}
+        domains: Set[rdflib.term.Node] = set()
         ranges: List[str] = []
         datatypeonly: bool = True
         ext: Optional[str] = None
@@ -197,7 +187,7 @@ class OwlBuild:
                 sub.set("rdf:resource", str(o))
                 children.append(sub)
             elif p == DOMAININC:
-                domains[o] = True
+                domains.add(o)
             elif p == RANGEINC:
                 ranges.append(str(o))
                 if str(o) not in DATATYPES:
@@ -208,21 +198,21 @@ class OwlBuild:
         children.append(self.addDefined(uri, ext))
 
         if not datatypeonly:
-            for r in sorted(list(DEFAULTRANGES)):
+            for r in sorted(DEFAULTRANGES):
                 if r not in ranges:
                     ranges.append(r)
 
-        if len(domains):
+        if domains:
             d: ElementTree.Element = ElementTree.Element("rdfs:domain")
             children.append(d)
             cl: ElementTree.Element = ElementTree.SubElement(d, "owl:Class")
             u: ElementTree.Element = ElementTree.SubElement(cl, "owl:unionOf")
             u.set("rdf:parseType", "Collection")
-            for target in sorted(domains.keys(), key=str):
+            for target in sorted(domains, key=str):
                 targ: ElementTree.Element = ElementTree.SubElement(u, "owl:Class")
                 targ.set("rdf:about", str(target))
 
-        if len(ranges):
+        if ranges:
             r_elem: ElementTree.Element = ElementTree.Element("rdfs:range")
             children.append(r_elem)
             cl_elem: ElementTree.Element = ElementTree.SubElement(r_elem, "owl:Class")
@@ -238,8 +228,7 @@ class OwlBuild:
         else:
             prop = ElementTree.SubElement(self.dom, "owl:ObjectProperty")
         prop.set("rdf:about", uri)
-        for sub_elem in children:
-            prop.append(sub_elem)
+        prop.extend(children)
 
     def addDefined(self, uri: str, ext: Optional[str] = None) -> ElementTree.Element:
         if not ext:

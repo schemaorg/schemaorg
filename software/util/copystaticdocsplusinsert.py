@@ -4,11 +4,9 @@
 """Tool that handles includes in static html files."""
 
 import logging
-import os
 from pathlib import Path
 import re
-import sys
-from typing import Dict, Generator, Iterable, List, Optional, Tuple, Union
+from typing import Dict, Generator, List, Optional, Tuple, Union
 
 import util.convertmd2htmldocs as convertmd2htmldocs
 import util.fileutils as fileutils

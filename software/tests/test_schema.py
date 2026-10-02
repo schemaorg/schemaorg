@@ -14,10 +14,6 @@ class TestSchema(unittest.TestCase):
         self.assertIsInstance(schema.VERSION, Version)
         self.assertTrue(schema.VERSION.current().number())
 
-    def test_output_dirs(self):
-        self.assertEqual(schema.getOutputDir(), "software/site")
-        self.assertEqual(schema.getDocsOutputDir(), "software/site/docs")
-
     def test_has_opt(self):
         self.assertFalse(schema.hasOpt("nonexistent_opt"))
 

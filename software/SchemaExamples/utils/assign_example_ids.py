@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
-import sys
+from pathlib import Path
 
 from SchemaExamples import schemaexamples
 
@@ -13,7 +12,7 @@ def AssignExampleIds():
     log = logging.getLogger(__name__)
 
     schemaexamples.SchemaExamples.loadExamplesFiles('default')
-    log.info('Loaded %d examples ' % (schemaexamples.SchemaExamples.count()))
+    log.info(f'Loaded {schemaexamples.SchemaExamples.count()} examples ')
 
     log.info('Processing')
 
@@ -24,20 +23,18 @@ def AssignExampleIds():
         if not example.hasValidId():
             example.setKey(schemaexamples.Example.nextId())
             filename = example.getMeta('file')
-            if filename in changedFiles.keys():
-                log.error('Two examples with the same filename %s: %s and %s' % (filename, changedFiles[filename], example))
+            if filename in changedFiles:
+                log.error(f'Two examples with the same filename {filename}: {changedFiles[filename]} and {example}')
 
     if not changedFiles:
         log.info('No new identifiers assigned')
         return
 
-    log.info('Writing %s updated examples' % len(changedFiles))
+    log.info(f'Writing {len(changedFiles)} updated examples')
 
     for filename, example in changedFiles.items():
-        log.info('Writing example file %s' % filename)
-        with open(filename, 'w') as file_handle:
-            file_handle.write(example.serialize())
-            file_handle.write('\n')
+        log.info(f'Writing example file {filename}')
+        Path(filename).write_text(f'{example.serialize()}\n', encoding='utf-8')
 
 
 if __name__ == '__main__':

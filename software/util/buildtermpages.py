@@ -5,15 +5,10 @@ import collections
 import datetime
 import logging
 import multiprocessing
-import os
 from pathlib import Path
-import re
-import sys
 import time
 import unicodedata
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Type
-
-import jinja2
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
@@ -124,9 +119,7 @@ class TermPageRenderer:
                 examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
                 json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
                 pageout: str = self.termtemplateRender(term, examples, json_str)
-                outfile: Path = Path(termFileName(term.id))
-                fileutils.checkFilePath(outfile.parent)
-                outfile.write_text(pageout)
+                Path(termFileName(term.id)).write_text(pageout)
             except Exception as e:
                 e.add_note(f"Term definition: {term}")
                 raise

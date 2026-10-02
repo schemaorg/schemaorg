@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from typing import Iterable, Match, Optional, Sequence
-import os
 import re
-import sys
+from typing import Match, Optional, Sequence
 
 def StripHtmlTags(source: str) -> str:
     """Strip all HTML tags from source."""

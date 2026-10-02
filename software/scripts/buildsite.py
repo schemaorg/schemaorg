@@ -4,17 +4,12 @@
 """Program that builds the whole schema.org website."""
 
 import argparse
-import contextlib
-import datetime
-import glob
-import json
 import logging
-import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
-from typing import Any, Dict, Generator, Iterable, List, Optional, Sequence, Tuple, Type, Union
+from typing import Iterable, List, Optional, Sequence
 
 from schemaorg import constants
 from schemaorg.layout import Releases, checkDataDirectories
@@ -24,7 +19,6 @@ import SchemaTerms.localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
-import scripts.runtests as runtests_lib
 import util.buildocspages as buildocspages
 import util.buildtermpages as buildtermpages
 import util.copystaticdocsplusinsert as copystaticdocsplusinsert
