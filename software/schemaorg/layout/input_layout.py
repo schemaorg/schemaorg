@@ -52,20 +52,23 @@ class InputLayout:
             return target.resolve().relative_to(self.root_dir)
 
     def _is_complete(self) -> bool:
-        """Check that root_dir contains all required data directories.
+        """Check that root_dir contains all required data directories and files.
 
         Raises:
-            FileNotFoundError: If any required directories are missing.
+            FileNotFoundError: If any required paths are missing.
 
         Returns:
-            True if all required directories exist.
+            True if all required paths exist.
         """
         required = (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES)
         missing = [self.dir(dom) for dom in required
                    if not self.dir(dom).is_dir()]
+        versions_file = self.file(Domain.ROOT, "versions.json")
+        if not versions_file.is_file():
+            missing.append(versions_file)
         if missing:
             raise FileNotFoundError(
-                f"Required dirs not found: {', '.join(str(d) for d in missing)}"
+                f"Required paths not found: {', '.join(str(d) for d in missing)}"
             )
         return True
 
