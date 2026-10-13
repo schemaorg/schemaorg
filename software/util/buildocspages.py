@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 from schemaorg.layout import Releases
+import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildtermlist as buildtermlist
@@ -232,6 +233,37 @@ def fullReleasePage(page: str) -> str:
         "properties": sorted(properties, key=lambda t: t.id),
     }
     return docsTemplateRender("docs/FullRelease.j2", extra_vars)
+
+
+def collabs(page: str) -> str:
+    colls: List[sdocollaborators.collaborator] = sorted(sdocollaborators.collaborator.collaborators(), key=lambda t: t.title or "")
+
+    coll: sdocollaborators.collaborator
+    for coll in colls:
+        createCollab(coll)
+
+    extra_vars: Dict[str, Any] = {"collaborators": colls, "title": "Collaborators"}
+    return docsTemplateRender("docs/Collabs.j2", extra_vars)
+
+
+def createCollab(coll: sdocollaborators.collaborator) -> None:
+    terms: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = {}
+    termcount: int = 0
+    if coll.contributor:
+        terms, termcount = buildTermCatList(coll.getTerms())
+
+    extra_vars: Dict[str, Any] = {
+        "coll": coll,
+        "title": coll.title,
+        "contributor": coll.contributor,
+        "terms": terms,
+        "termcount": termcount,
+    }
+
+    content: str = docsTemplateRender("docs/Collab.j2", extra_vars)
+    filename: Path = paths.DefaultOutputLayout().file(paths.Domain.DOCS_COLLAB, f"{coll.ref}.html")
+    filename.write_text(content)
+    log.info(f"Created {filename}")
 
 
 def termfind(file: str) -> str:

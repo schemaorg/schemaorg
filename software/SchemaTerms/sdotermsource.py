@@ -890,6 +890,27 @@ class SdoTermSource:
             return terms
 
     @classmethod
+    def getAcknowledgedTerms(cls, ack: str) -> Sequence[sdoterm.SdoTerm]:
+        query: str = f"""SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {{
+             ?term a ?type;
+                schema:contributor <{ack}>;
+                rdfs:label ?label.
+                OPTIONAL {{
+                    ?term schema:isPartOf ?layer.
+                }}
+                OPTIONAL {{
+                    ?term rdfs:subClassOf ?sup.
+                }}
+                OPTIONAL {{
+                    ?term rdfs:subPropertyOf ?sup.
+                }}
+            }}
+            ORDER BY ?term
+            """
+        res: Sequence[rdflib.query.ResultRow] = cls.query(query)
+        return cls.termsFromResults(res)
+
+    @classmethod
     def setSourceGraph(cls, g: rdflib.graph.Graph) -> None:
         global VOCABURI
         cls.SOURCEGRAPH = g

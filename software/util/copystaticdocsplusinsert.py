@@ -26,7 +26,7 @@ def _getInserts() -> Generator[Tuple[str, str], None, None]:
         if fn.startswith("sdi-"):
             fn = fn[4:]
 
-        indata: str = f_path.read_text()
+        indata: str = f_path.read_text(encoding="utf-8")
         indata = indata.replace("{{version}}", schema.VERSION.current().number())
         indata = indata.replace("{{versiondate}}", str(schema.VERSION.current().date() or ""))
         indata = indata.replace("{{docsdir}}", "/docs")
@@ -41,7 +41,7 @@ class Replacer:
     def insertcopy(self, doc: Union[str, Path], docdata: Optional[str] = None) -> None:
         """Apply all substitutions defined in self.inserts to a file."""
         doc_path: Path = Path(doc)
-        data: str = docdata if docdata is not None else doc_path.read_text()
+        data: str = docdata if docdata is not None else doc_path.read_text(encoding="utf-8")
 
         if re.search(r"<!-- #### Static Doc Insert", data, re.IGNORECASE):
             sub: str
@@ -51,7 +51,7 @@ class Replacer:
                 data = subpattern.sub(insert_content, data)
 
             targetfile: Path = self.destdir / doc_path.name
-            targetfile.write_text(data)
+            targetfile.write_text(data, encoding="utf-8")
 
 
 def htmlinserts(destdir: Union[str, Path]) -> None:

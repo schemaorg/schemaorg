@@ -10,9 +10,10 @@ import logging
 import os
 from pathlib import Path
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Sequence
 
 import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.paths as paths
 import util.schema as schema
@@ -35,6 +36,7 @@ class collaborator:
         self.urirel: str = os.path.join("/docs", "collab", ref)
         self.uri: str = schema.constants.HOMEPAGE + self.urirel
         self.docurl: str = self.urirel
+        self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
         self.contributor: bool = False
         self.img: Optional[str] = None
         self.code: Optional[str] = None
@@ -105,6 +107,13 @@ class collaborator:
         self.description = localmarkdown.Markdown.parseLines(description_lines)
         self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
 
+    def getTerms(self) -> Sequence[sdoterm.SdoTerm]:
+        if not self.contributor:
+            return []
+        if not self.terms:
+            self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
+        return self.terms
+
     @classmethod
     def getCollaborator(cls, ref: str) -> Optional["collaborator"]:
         cls.loadCollaborators()
@@ -161,3 +170,8 @@ class collaborator:
             for row in res:
                 cls.createContributor(str(row.val))
             log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
+
+    @classmethod
+    def collaborators(cls) -> List["collaborator"]:
+        cls.loadCollaborators()
+        return list(cls.COLLABORATORS.values())

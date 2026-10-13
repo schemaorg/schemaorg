@@ -30,12 +30,15 @@ def mddocs(sourceDir: Union[str, Path], destDir: Union[str, Path]) -> None:
 
 def convert2html(input_path: Union[str, Path], destdir: Union[str, Path]) -> None:
     in_file = Path(input_path)
-    text: str = in_file.read_text()
+    text: str = in_file.read_text(encoding="utf-8")
     random.seed(42)  # To obfuscate the email in a cross-release predictable way.
     md_html: str = markdown.markdown(text)
 
     output_path = Path(destdir) / f"{in_file.stem}.html"
-    output_path.write_text(f"{begin.format(title=in_file.stem.title())}{md_html}{end}")
+    output_path.write_text(
+        f"{begin.format(title=in_file.stem.title())}{md_html}{end}",
+        encoding="utf-8",
+    )
     in_file.unlink()
 
 
