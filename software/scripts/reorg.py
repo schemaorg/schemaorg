@@ -11,9 +11,7 @@ import itertools
 import logging
 import os
 from pathlib import Path
-import sys
-import typing
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from typing import List
 
 import rdflib
 

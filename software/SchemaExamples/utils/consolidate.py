@@ -3,10 +3,9 @@
 
 import argparse
 import logging
-import os
-import sys
+from pathlib import Path
 
-from SchemaExamples.schemaexamples import Example, SchemaExamples
+from SchemaExamples.schemaexamples import SchemaExamples
 
 
 logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
@@ -19,15 +18,12 @@ args = parser.parse_args()
 
 
 SchemaExamples.loadExamplesFiles("default")
-print("Loaded %d examples " % (SchemaExamples.count()))
+print(f"Loaded {SchemaExamples.count()} examples ")
 
 log.info("Consolidating..")
 
 filename = args.output
 
-log.info("Writing %s examples to file %s" % (SchemaExamples.count(),filename))
-f = open(filename,"w")
-f.write(SchemaExamples.allExamplesSerialised())
-if f:
-    f.close()
-    print("Done")
+log.info(f"Writing {SchemaExamples.count()} examples to file {filename}")
+Path(filename).write_text(SchemaExamples.allExamplesSerialised(), encoding="utf-8")
+print("Done")

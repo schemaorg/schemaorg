@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import itertools
-import os
-import sys
-import tempfile
 import unittest
 
 import util.textutils as textutils

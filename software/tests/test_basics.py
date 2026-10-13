@@ -6,7 +6,6 @@
 import json
 import logging
 import os
-import sys
 import unittest
 
 import SchemaExamples.schemaexamples as schemaexamples

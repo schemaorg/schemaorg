@@ -6,7 +6,7 @@
 from datetime import datetime
 import json
 from pathlib import Path
-from typing import Any, Dict, Optional, Set, Union, List
+from typing import Any, Dict, List, Union
 
 
 class VersionItem:
@@ -14,10 +14,11 @@ class VersionItem:
 
     def __init__(self, number: str, date: str) -> None:
         self._number: str = number
-        self._date: Optional[str] = date
+        self._date: str = date
         # Validate the values
-        if not number: raise ValueError(f"version {number} is not a number")
-        num_version = float(number)
+        if not number:
+            raise ValueError(f"version {number} is not a number")
+        float(number)
         datetime.strptime(date, "%Y-%m-%d")
 
     def number(self) -> str:
@@ -45,8 +46,9 @@ class Version:
             self.versions_path.read_text(encoding="utf-8")
         )
         self._versions = [VersionItem(v, d) for v, d in data["releaseLog"].items()]
-        self._current = [v for v in self._versions
-                         if str(v) == data["schemaversion"]][0]
+        self._current = next(
+            v for v in self._versions if str(v) == data["schemaversion"]
+        )
 
     def current(self) -> VersionItem:
         return self._current
@@ -54,11 +56,10 @@ class Version:
     def versions(self) -> List[VersionItem]:
         return self._versions
 
-
     def add_version(self, version_number: str, date: str) -> None:
         new_version: VersionItem = VersionItem(version_number, date)
 
-        if version_number in [str(v) for v in self._versions]:
+        if any(str(v) == version_number for v in self._versions):
             raise ValueError(f"Version {version_number} exists already!")
 
         self._versions.append(new_version)

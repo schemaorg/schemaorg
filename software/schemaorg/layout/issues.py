@@ -3,7 +3,7 @@
 
 import re
 from pathlib import Path
-from typing import List, Sequence, Set, Union
+from typing import List, Sequence, Set
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
@@ -28,7 +28,7 @@ class Issues:
             match = re.match(r"^issue-([^-.]+)", f.name)
             if match:
                 issue_numbers.add(match.group(1))
-        return sorted(list(issue_numbers))
+        return sorted(issue_numbers)
 
     def get_ttl_files(self, issues: List[str] = ALL_ISSUES) -> List[Path]:
         """Returns a list of TTL files needed to create the graph."""
@@ -45,11 +45,11 @@ class Issues:
         # Scan all extension files in a single filesystem pass
         ext_files = self.input_layout.files(Domain.DATA, [f"ext/*/{ext_glob}"])
 
-        def keep_for_issues(f):
+        def keep_for_issues(f: Path) -> bool:
             match = re.match(r"issue-([^-.]+)", f.name)
             return not match or match.group(1) in issues
 
         if "*" not in issues:
-            ext_files = list(filter(keep_for_issues, ext_files))
+            ext_files = [f for f in ext_files if keep_for_issues(f)]
 
-        return sorted(list(set(root_files + ext_files)))
+        return sorted(set(root_files + ext_files))

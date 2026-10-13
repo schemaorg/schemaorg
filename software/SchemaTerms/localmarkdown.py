@@ -4,9 +4,7 @@
 from __future__ import annotations
 
 import logging
-import os
 import re
-import sys
 import threading
 from typing import Iterable, Optional
 
@@ -26,13 +24,6 @@ class MarkdownTool:
         self._md: markdown2.Markdown = markdown2.Markdown()
         self._parselock: threading.Lock = threading.Lock()
         self.wpre: Optional[str] = None
-        self.wpost: Optional[str] = None
-
-    def setPre(self, pre: str = "./") -> None:
-        self.wpre = pre
-
-    def setPost(self, post: str = "") -> None:
-        self.wpost = post
 
     def parse(self, source: str, preservePara: bool = False, wpre: Optional[str] = None) -> str:
         source = source.strip()

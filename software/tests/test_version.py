@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from schemaorg import constants
-from schemaorg.version import Version
+from schemaorg.version import Version, VersionItem
 
 
 class TestVersion(unittest.TestCase):
@@ -65,16 +65,12 @@ class TestVersion(unittest.TestCase):
 
     def test_version_item(self):
         """Test VersionItem properties and methods."""
-        from schemaorg.version import VersionItem
-
         item = VersionItem("30.0", "2026-03-19")
         self.assertEqual(item.number(), "30.0")
         self.assertEqual(item.date(), "2026-03-19")
         self.assertEqual(str(item), "30.0")
 
-
     def test_add_version_success(self):
-
         """Test adding a newer version updates releaseLog and schemaversion."""
         initial_data = {
             "schemaversion": "1.0",

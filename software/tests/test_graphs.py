@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import collections
-import glob
 import logging
-import os
-import sys
 import typing
 import unittest
 

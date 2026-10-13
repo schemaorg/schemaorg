@@ -3,16 +3,11 @@
 
 from __future__ import annotations
 
-import codecs
-import glob
-import io
 import logging
-import os
+from pathlib import Path
 import re
-import sys
 import threading
-import typing
-from typing import Any, Collection, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Collection, Dict, Iterable, List, Optional, Tuple, Union
 
 import requests
 
@@ -20,7 +15,6 @@ import util.paths as paths
 
 
 IDPREFIX: str = "eg-"
-DEFTEXAMPLESFILESGLOB: Tuple[str, str] = ("data/*examples.txt", "data/ext/*/*examples.txt")
 NO_JSON_REGEXPS: Tuple[re.Pattern, ...] = (
     re.compile("No JSON-?LD", re.I),
     re.compile("This example is in microdata only", re.I),
@@ -48,7 +42,7 @@ class Example:
         self, terms: List[str], original_html: str, microdata: str, rdfa: str, jsonld: str, exmeta: Dict[str, Any], jsonld_offset: Optional[int] = None
     ) -> None:
         self.terms: List[str] = terms
-        if not len(terms):
+        if not terms:
             log.info(
                 f"No terms for ex: {exmeta.get('filepos')} in file {exmeta.get('file')}"
             )
@@ -76,7 +70,7 @@ class Example:
     def __str__(self) -> str:
         buf: List[str] = []
         buf.append("Example: \nTerms: ")
-        if not len(self.terms):
+        if not self.terms:
             buf.append("No Terms!")
         else:
             buf.append(f"{self.terms}")
@@ -102,66 +96,43 @@ class Example:
     def getHtml(self) -> str:
         return self.original_html
 
-    def setHtml(self, content: str) -> None:
-        self.original_html = content
-
     def getMicrodata(self) -> str:
         return self.microdata
 
-    def setMicrodata(self, content: str) -> None:
-        self.microdata = content
-
     def getRdfa(self) -> str:
         return self.rdfa
-
-    def setRdfa(self, content: str) -> None:
-        self.rdfa = content
 
     def getJsonld(self) -> str:
         return self.jsonld
 
     def getJsonldRaw(self) -> str:
-        jsondata: str = self.getJsonld()
-        jsondata = jsondata.strip()
-        if len(jsondata):
+        jsondata: str = self.getJsonld().strip()
+        if jsondata:
             jsonmatch = ldscript_match.match(jsondata)
             if jsonmatch:
                 # extract json from within script tag
                 jsondata = jsonmatch.group(1).strip()
         return jsondata
 
-    def setJsonld(self, content: str) -> None:
-        self.jsonld = content
-
     def hasHtml(self) -> bool:
-        return len(self.original_html.strip()) > 0
+        return bool(self.original_html.strip())
 
     def hasMicrodata(self) -> bool:
         content: str = self.microdata.strip()
-        if len(content) > 0:
-            if "itemtype" in content and "itemprop" in content:
-                return True
-        return False
+        return bool(content and "itemtype" in content and "itemprop" in content)
 
     def hasRdfa(self) -> bool:
         content: str = self.rdfa.strip()
-        if len(content) > 0:
-            if "typeof" in content and "property" in content:
-                return True
-        return False
+        return bool(content and "typeof" in content and "property" in content)
 
     def hasJsonld(self) -> bool:
         """Return True if there is real JSON, and not a placehold comment in the JSON section."""
         json_content: str = self.getJsonldRaw()
         if not json_content:
             return False
-        for reg in NO_JSON_REGEXPS:
-            if reg.match(json_content):
-                return False
-        if json_content:
-            if "@type" in json_content:
-                return True
-        return False
+        if any(reg.match(json_content) for reg in NO_JSON_REGEXPS):
+            return False
+        return "@type" in json_content
 
     def setMeta(self, name: str, val: Any) -> None:
         self.exmeta[name] = val
@@ -209,12 +180,6 @@ class Example:
     def formatId(val: int) -> str:
         return f"eg-{val:04d}"
 
-    @staticmethod
-    def nextIdReset(val: Optional[int] = None) -> None:
-        if val is None:
-            val = 0
-        Example.MaxId = val
-
 
 class SchemaExamples:
     EXAMPLESLOADED: bool = False
@@ -224,7 +189,6 @@ class SchemaExamples:
 
     @staticmethod
     def loadExamplesFiles(exfiles: Optional[Union[str, Iterable[str]]], init: bool = False) -> None:
-        global DEFTEXAMPLESFILESGLOB
         if init:
             SchemaExamples.EXAMPLESLOADED = False
             SchemaExamples.EXAMPLESMAP = {}
@@ -252,7 +216,7 @@ class SchemaExamples:
                 f"SchemaExamples.loadExamplesFiles() loading from {len(load_files)}"
             )
 
-        if not len(load_files):
+        if not load_files:
             raise Exception("No examples file(s) to load")
 
         parser: ExampleFileParser = ExampleFileParser()
@@ -266,11 +230,8 @@ class SchemaExamples:
                         SchemaExamples.EXAMPLES[keyvalue] = example
 
                     for term in example.terms:
-                        if not SchemaExamples.EXAMPLESMAP.get(term, None):
-                            SchemaExamples.EXAMPLESMAP[term] = []
-
-                        mapped_ids = SchemaExamples.EXAMPLESMAP.get(term)
-                        if mapped_ids is not None and keyvalue not in mapped_ids:
+                        mapped_ids = SchemaExamples.EXAMPLESMAP.setdefault(term, [])
+                        if keyvalue not in mapped_ids:
                             mapped_ids.append(keyvalue)
         SchemaExamples.EXAMPLESLOADED = True
 
@@ -305,11 +266,7 @@ class SchemaExamples:
     def allExamplesSerialised(sort: bool = False) -> str:
         SchemaExamples.loaded()
         examples: Collection[Example] = SchemaExamples.allExamples(sort=sort)
-        f: io.StringIO = io.StringIO()
-        for ex in examples:
-            f.write(ex.serialize())
-            f.write("\n")
-        return f.getvalue()
+        return "".join(f"{ex.serialize()}\n" for ex in examples)
 
     @staticmethod
     def count() -> int:
@@ -358,8 +315,7 @@ class ExampleFileParser:
         inwhitespace: bool = False
 
         for line in self.currentStr:
-            linelen: int = len(line.strip())
-            if not linelen:
+            if not line.strip():
                 if begin:
                     continue
                 else:
@@ -414,8 +370,7 @@ class ExampleFileParser:
             r: requests.Response = requests.get(self.file)
             content = r.text
         else:
-            with codecs.open(self.file, "r") as fd:
-                content = fd.read()
+            content = Path(self.file).read_text(encoding="utf-8")
 
         lines: List[str] = re.split("\n|\r", content)
         first: bool = True
@@ -445,7 +400,7 @@ class ExampleFileParser:
                 ttl: List[str] = tdata.split(",")
                 for ttli in ttl:
                     ttli = ttli.strip()
-                    if len(ttli):
+                    if ttli:
                         if "@@" not in ttli and "FakeEntryNeeded" not in ttli:
                             self.terms.append(ttli)
                         else:

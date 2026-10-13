@@ -2,16 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
-import shutil
-import sys
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
-import typing
+from typing import Optional, Set
 
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
-import util.pretty_logger as pretty_logger
 import util.schema as schema
 
 from schemaorg import constants

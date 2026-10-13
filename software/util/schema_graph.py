@@ -6,9 +6,7 @@
 
 import rdflib
 from pathlib import Path
-import typing
-from typing import Any, Dict, List, Optional, Tuple, Union, Iterable, Sequence, Set, Callable
-
+from typing import Any, List, Set, Union
 
 import util.schema as schema
 from schemaorg.layout import ALL_ISSUES, Issues
@@ -23,7 +21,7 @@ URI_BASE = schema.constants.HOMEPAGE
 SCHEMAORG: rdflib.Namespace = rdflib.Namespace(URI_BASE if URI_BASE.endswith('/') else URI_BASE + '/')
 
 
-class SchemaOrgGraph(object):
+class SchemaOrgGraph:
     def __init__(
         self,
         source: Union[Path, Issues],
@@ -62,7 +60,7 @@ class SchemaOrgGraph(object):
         return True
 
     def ListSubjects(self, subject_type: rdflib.term.URIRef) -> Set[rdflib.term.Node]:
-        return set([s for s, p, o in self.g.triples((None, rdflib.RDF.type, subject_type))])
+        return {s for s, _, _ in self.g.triples((None, rdflib.RDF.type, subject_type))}
 
     def Types(self) -> Set[rdflib.term.Node]:
         return self.ListSubjects(rdflib.RDFS.Class)
@@ -80,8 +78,7 @@ class CustomTurtleSerializer(TurtleSerializer):
 
         # 1. Process topClasses (Classes and Properties)
         for classURI in self.topClasses:
-            members = list(self.store.subjects(RDF.type, classURI))
-            members.sort() # Sort lexicographically
+            members = sorted(self.store.subjects(RDF.type, classURI))
             subjects.extend(members)
             for member in members:
                 self._topLevels[member] = True
@@ -93,8 +90,8 @@ class CustomTurtleSerializer(TurtleSerializer):
             for subject in self._subjects
             if subject not in seen
         ]
-        recursable.sort() # Sort by isbnode, then subject
-        subjects.extend([subject for (isbnode, subject) in recursable])
+        recursable.sort()  # Sort by isbnode, then subject
+        subjects.extend(subject for _, subject in recursable)
 
         return subjects
 

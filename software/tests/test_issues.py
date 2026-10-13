@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from schemaorg.layout import ALL_ISSUES, Domain, InputLayout, Issues
+from schemaorg.layout import InputLayout, Issues
 
 
 class TestIssues(unittest.TestCase):

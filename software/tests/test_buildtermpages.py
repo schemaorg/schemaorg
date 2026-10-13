@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import unittest
 
 import SchemaExamples.schemaexamples as schemaexamples

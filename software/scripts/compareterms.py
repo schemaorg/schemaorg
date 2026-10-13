@@ -5,8 +5,6 @@ import codecs
 import dev_appserver
 import io
 import logging
-from os import getenv
-from os.path import expanduser
 import os
 from rdflib import Graph, RDF, RDFS
 from rdflib.term import URIRef

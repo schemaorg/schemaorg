@@ -4,8 +4,6 @@
 import argparse
 import csv
 import io
-import os
-import sys
 
 from SchemaExamples.schemaexamples import SchemaExamples
 from SchemaTerms.sdotermsource import SdoTermSource

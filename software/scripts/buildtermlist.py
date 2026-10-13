@@ -5,10 +5,7 @@
 
 import argparse
 import logging
-import os
-import sys
-import typing
-from typing import Any, Callable, Dict, Generator, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from typing import Generator, Optional, Sequence
 
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource

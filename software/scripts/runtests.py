@@ -54,16 +54,12 @@
 import argparse
 import os
 import sys
-import typing
-from typing import Any, Callable, Dict, IO, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, IO, List, Optional, Sequence, Tuple
 import unittest
 
 import colorama
 
 from schemaorg import constants
-
-SITEDIR: str = "software/site"
-STANDALONE: bool = False
 
 
 class ColoredTestResult(unittest.TextTestResult):

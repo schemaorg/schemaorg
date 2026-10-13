@@ -4,7 +4,7 @@ from collections import OrderedDict
 import logging
 import os
 import sys
-from typing import Dict, Optional, Union
+from typing import Dict
 
 # Ensure data/ repo is nearby (for a basic MCF parser), for example:
 # sys.path.insert(1, '/home/danbri/working/datcom/data/')

@@ -4,9 +4,7 @@
 # Import standard python libraries
 
 import logging
-import os
-import sys
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import jinja2
 

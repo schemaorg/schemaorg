@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-import os
 from pprint import pprint
-import sys
 
 import urllib2
 

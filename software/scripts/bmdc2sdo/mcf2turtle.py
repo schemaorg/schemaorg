@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 from collections import OrderedDict
-import logging
 import os
 import sys
-from typing import Dict, Optional, Union
+from typing import Dict
 
 DEBUG = False
 

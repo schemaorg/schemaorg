@@ -6,14 +6,11 @@ from __future__ import annotations
 # Import standard python libraries
 
 import collections
-import glob
 import logging
 import os
+from pathlib import Path
 import re
-import sys
-import traceback
-import typing
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Dict, List, Optional, Sequence
 
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -28,7 +25,7 @@ INCLUDE_RE: re.Pattern = re.compile(R"---\s+([^.]+)\.md")
 SECTION_SEPARATOR: str = "---"
 
 
-class collaborator(object):
+class collaborator:
     """Wrapper for the collaboration meta-data."""
 
     COLLABORATORS: Dict[str, "collaborator"] = {}
@@ -110,9 +107,6 @@ class collaborator(object):
         self.description = localmarkdown.Markdown.parseLines(description_lines)
         self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
 
-    def isContributor(self) -> bool:
-        return self.contributor
-
     def getTerms(self) -> Sequence[sdoterm.SdoTerm]:
         if not self.contributor:
             return []
@@ -140,11 +134,10 @@ class collaborator(object):
 
     @classmethod
     def createCollaborator(cls, file_path: str) -> Optional["collaborator"]:
-        code: str = os.path.basename(file_path)
-        ref, _ = os.path.splitext(code)
+        path = Path(file_path)
+        ref = path.stem
         try:
-            with open(file_path, "r") as file_handle:
-                desc = file_handle.read()
+            desc = path.read_text(encoding="utf-8")
             return cls(ref, desc=desc)
         except OSError as e:
             log.error(f"Error loading colaborator source: {e}")
@@ -152,7 +145,7 @@ class collaborator(object):
 
     @classmethod
     def loadCollaborators(cls) -> None:
-        if not len(cls.COLLABORATORS):
+        if not cls.COLLABORATORS:
             for file_path in paths.DefaultInputLayout().files(paths.Domain.DATA, "collab/*.md"):
                 cls.createCollaborator(str(file_path))
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
@@ -167,7 +160,7 @@ class collaborator(object):
 
     @classmethod
     def loadContributors(cls) -> None:
-        if not len(cls.CONTRIBUTORS):
+        if not cls.CONTRIBUTORS:
             cls.loadCollaborators()
             query: str = """
             SELECT distinct ?val WHERE {
@@ -182,8 +175,3 @@ class collaborator(object):
     def collaborators(cls) -> List["collaborator"]:
         cls.loadCollaborators()
         return list(cls.COLLABORATORS.values())
-
-    @classmethod
-    def contributors(cls) -> List["collaborator"]:
-        cls.loadContributors()
-        return list(cls.CONTRIBUTORS.values())
