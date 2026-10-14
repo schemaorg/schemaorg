@@ -66,12 +66,10 @@ def homePage(page: str) -> str:
     if filt:
         all_terms: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllTerms(layer=filt, expanded=True)
         terms: List[sdoterm.SdoTerm] = []
-        t: Union[str, sdoterm.SdoTerm]
         for t in all_terms:
             if isinstance(t, sdoterm.SdoTerm):
                 t.cat = ""  # type: ignore
                 if filt == "pending":
-                    s: str
                     for s in t.sources:
                         if "schemaorg/issue" in s:
                             t.cat = f"issue-{Path(s).name}"  # type: ignore
@@ -92,7 +90,6 @@ def homePage(page: str) -> str:
 def buildTermCatList(terms: Iterable[sdoterm.SdoTerm], checkCat: bool = False) -> Tuple[Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]], int]:
     termcat: Dict[str, Dict[sdoterm.SdoTermType, List[sdoterm.SdoTerm]]] = defaultdict(lambda: defaultdict(list))
     termcount: int = 0
-    t: sdoterm.SdoTerm
     for t in terms:
         if t.termType == sdoterm.SdoTermType.REFERENCE:
             continue
@@ -130,7 +127,6 @@ class listingNode:
                 child_ids.extend(sorted(termdesc.enumerationMembers.ids))
             child_ids.extend(sorted(termdesc.subs.ids))
 
-            child_id: str
             for child_id in child_ids:
                 try:
                     self.subs.append(listingNode(child_id, depth=depth + 1, parent=self, visit_set=visit_set))
@@ -149,7 +145,7 @@ def jsonldtree(page: str) -> str:
         "children": {"@reverse": "rdfs:subClassOf"}
     }
     data: Dict[str, Any] = _jsonldtree("Thing", visitset=set(), term={"@context": context})
-    return json.dumps(sort_dict(data), indent=2)
+    return json.dumps(sort_dict(data), indent=3)
 
 
 def _jsonldtree(tid: str, visitset: Set[str], term: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -179,7 +175,6 @@ def _jsonldtree(tid: str, visitset: Set[str], term: Optional[Dict[str, Any]] = N
             visitset.add(tid)
             if termdesc.subs:
                 subs: List[Dict[str, Any]] = []
-                sub: str
                 for sub in termdesc.subs.ids:
                     try:
                         subs.append(_jsonldtree(tid=sub, visitset=visitset))
@@ -238,7 +233,6 @@ def fullReleasePage(page: str) -> str:
 def collabs(page: str) -> str:
     colls: List[sdocollaborators.collaborator] = sorted(sdocollaborators.collaborator.collaborators(), key=lambda t: t.title or "")
 
-    coll: sdocollaborators.collaborator
     for coll in colls:
         createCollab(coll)
 
@@ -262,7 +256,7 @@ def createCollab(coll: sdocollaborators.collaborator) -> None:
 
     content: str = docsTemplateRender("docs/Collab.j2", extra_vars)
     filename: Path = paths.DefaultOutputLayout().file(paths.Domain.DOCS_COLLAB, f"{coll.ref}.html")
-    filename.write_text(content)
+    filename.write_text(content, encoding="utf-8")
     log.info(f"Created {filename}")
 
 
@@ -299,11 +293,8 @@ PAGELIST: Dict[str, Tuple[Callable[[str], str], List[Tuple[Any, ...]]]] = {
 def buildDocs(pages: Iterable[str]) -> None:
     process_pages: List[str] = sorted(PAGELIST.keys()) if any(fileutils.isAll(p) for p in pages) else list(pages)
 
-    page: str
     for page in process_pages:
         if entry := PAGELIST.get(page):
-            func: Callable[[str], str]
-            filenames: List[Tuple[Any, ...]]
             func, filenames = entry
             with pretty_logger.BlockLog(logger=log, message=f"Generating page {page}"):
                 content: str = func(page)
@@ -314,6 +305,6 @@ def buildDocs(pages: Iterable[str]) -> None:
                         out_path: Path = releases.file(filename=filename)
                     else:
                         out_path = output_layout.file(domain, filename)
-                    out_path.write_text(content)
+                    out_path.write_text(content, encoding="utf-8")
         else:
             log.warning(f"Unknown or missing page name: {page}")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
+from pathlib import Path
 import unittest
 
 import SchemaExamples.schemaexamples as schemaexamples
@@ -24,24 +24,19 @@ class TestTermFileName(unittest.TestCase):
     def testUpper(self):
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/types/T/Thingamabob.html")))
+            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/types/T/Thingamabob.html"),
+        )
 
     def testLower(self):
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/properties/t/thingamabob.html"))
+            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/properties/t/thingamabob.html"),
         )
 
     def testDigit(self):
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/types/4/4DStatue.html"))
+            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/types/4/4DStatue.html"),
         )
 
 

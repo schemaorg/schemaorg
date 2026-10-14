@@ -23,16 +23,16 @@ class BadLink:
         self.error = error
 
     def __str__(self):
-        return "%s: link %s from %s" % (self.error, self.bad_link, self.source)
+        return f"{self.error}: link {self.bad_link} from {self.source}"
 
 
 searched_links = set()
 
 
 def getLinksFromHTML(html):
-    return map(
-        lambda el: el["href"],
-        bs4.BeautifulSoup(html, features="html.parser").select("a[href]"),
+    return (
+        el["href"]
+        for el in bs4.BeautifulSoup(html, features="html.parser").select("a[href]")
     )
 
 
@@ -44,12 +44,10 @@ def find_broken_links(
     target_url = urldefrag(target_url).url
 
     if (
-        (target_url not in searched_links)
-        and (not target_url.startswith("mailto:"))
-        and ("javascript:" not in target_url)
-        and (not target_url.endswith(".png"))
-        and (not target_url.endswith(".jpg"))
-        and (not target_url.endswith(".jpeg"))
+        target_url not in searched_links
+        and not target_url.startswith("mailto:")
+        and "javascript:" not in target_url
+        and not target_url.endswith((".png", ".jpg", ".jpeg"))
     ):
         try:
             searched_links.add(target_url)
@@ -75,14 +73,14 @@ def find_broken_links(
                             error_links.extend(e)
         except Exception as e:
             error_links.append(
-                BadLink(bad_link=target_url, source=parent_url, error="Error: %s" % e)
+                BadLink(bad_link=target_url, source=parent_url, error=f"Error: {e}")
             )
 
     return (broken_links, error_links)
 
 
 def main(target_url, targetonly):
-    print("Looking for broken links in %s" % target_url)
+    print(f"Looking for broken links in {target_url}")
     broken_links, error_links = find_broken_links(
         domainToSearch=urlparse(target_url).netloc,
         target_url=target_url,
@@ -91,15 +89,15 @@ def main(target_url, targetonly):
     print("\n--- DONE! ---\n")
     print("The following links returned errors:")
     for link in error_links:
-        print("\t%s" % link)
+        print(f"\t{link}")
 
     print("\nThe following links were broken:")
     for link in broken_links:
-        print("\t%s" % link)
+        print(f"\t{link}")
 
     print(
-        "\nLinks Checked: %d  Broken: %d  Error: %d "
-        % (len(searched_links), len(broken_links), len(error_links))
+        f"\nLinks Checked: {len(searched_links)}  "
+        f"Broken: {len(broken_links)}  Error: {len(error_links)} "
     )
     return len(error_links) + len(broken_links)
 

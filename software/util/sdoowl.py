@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
+from pathlib import Path
 from typing import Dict, FrozenSet, List, Optional, Set
 from xml.dom import minidom
 from xml.etree import ElementTree
@@ -198,9 +198,7 @@ class OwlBuild:
         children.append(self.addDefined(uri, ext))
 
         if not datatypeonly:
-            for r in sorted(DEFAULTRANGES):
-                if r not in ranges:
-                    ranges.append(r)
+            ranges.extend(r for r in sorted(DEFAULTRANGES) if r not in ranges)
 
         if domains:
             d: ElementTree.Element = ElementTree.Element("rdfs:domain")
@@ -235,7 +233,7 @@ class OwlBuild:
             ext = "https://schema.org"
         ext = ext.replace("http://", "https://")
         defn: ElementTree.Element = ElementTree.Element("rdfs:isDefinedBy")
-        path: str = os.path.join(ext, os.path.basename(uri))
+        path: str = f"{ext.rstrip('/')}/{Path(uri).name}"
         defn.set("rdf:resource", path)
         return defn
 
