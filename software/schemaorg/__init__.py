@@ -14,3 +14,9 @@ def _enforce_global_utf8() -> None:
 
 
 _enforce_global_utf8()
+
+from schemaorg.graph_loader import GraphLoader
+
+__all__ = [
+    "GraphLoader",
+]
