@@ -5,7 +5,7 @@
 
 from typing import List
 
-from schemaorg.constants import PROJECT_ROOT
+from schemaorg.constants import PROJECT_ROOT, VERSIONS_FILE
 from schemaorg.version import Version
 
 
@@ -31,4 +31,4 @@ def hasOpt(opt: str) -> bool:
     return opt in config.BUILDOPTS
 
 
-VERSION = Version(PROJECT_ROOT / "versions.json")
+VERSION = Version(PROJECT_ROOT / VERSIONS_FILE)

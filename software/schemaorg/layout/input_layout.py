@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 from typing import List, Sequence, Union
 
+from schemaorg import constants
 from schemaorg.layout.domain import Domain
 
 
@@ -63,7 +64,7 @@ class InputLayout:
         required = (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES)
         missing = [self.dir(dom) for dom in required
                    if not self.dir(dom).is_dir()]
-        versions_file = self.file(Domain.ROOT, "versions.json")
+        versions_file = self.file(Domain.ROOT, constants.VERSIONS_FILE)
         if not versions_file.is_file():
             missing.append(versions_file)
         if missing:
@@ -76,8 +77,7 @@ class InputLayout:
 
 def checkDataDirectories() -> bool:
     """Legacy helper checking that PROJECT_ROOT contains required directories."""
-    from schemaorg.constants import PROJECT_ROOT
-    layout = InputLayout(PROJECT_ROOT)
+    layout = InputLayout(constants.PROJECT_ROOT)
     try:
         return layout._is_complete()
     except FileNotFoundError as e:

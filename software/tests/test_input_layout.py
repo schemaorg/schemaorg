@@ -10,6 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from schemaorg import constants
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import (
     InputLayout,
@@ -84,7 +85,7 @@ class TestInputLayout(unittest.TestCase):
         self.assertEqual(found_reversed, [f3, f1, f2])
 
     def test_is_complete(self):
-        versions_file = self.layout.file(Domain.ROOT, "versions.json")
+        versions_file = self.layout.file(Domain.ROOT, constants.VERSIONS_FILE)
         with self.assertRaises(FileNotFoundError) as ctx:
             self.layout._is_complete()
         for dom in (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES):

@@ -8,7 +8,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from schemaorg.constants import PROJECT_ROOT
+from schemaorg import constants
 from schemaorg.layout import (
     Domain,
     InputLayout,
@@ -50,7 +50,7 @@ class TestReleases(unittest.TestCase):
         # Every expected path in this suite comes from a layout, never from
         # string surgery: the layouts are the thing under test.
         self.versions_file = self.input_layout.file(
-            Domain.ROOT, Releases.VERSIONS_FILE
+            Domain.ROOT, constants.VERSIONS_FILE
         )
         self.archive = self.input_layout.dir(Domain.RELEASE)
         self.built = self.output_layout.dir(Domain.RELEASE)
@@ -236,7 +236,9 @@ class TestReleasesRealData(unittest.TestCase):
     """Checks Releases against the repository's declared releases."""
 
     def setUp(self):
-        self.output_layout = OutputLayout(PROJECT_ROOT / schema.config.OUTPUTDIR)
+        self.output_layout = OutputLayout(
+            constants.PROJECT_ROOT / schema.config.OUTPUTDIR
+        )
         self.releases = Releases(self.output_layout, schema.VERSION)
 
     def test_versions_file_is_richly_populated(self):

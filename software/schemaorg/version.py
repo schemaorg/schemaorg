@@ -49,7 +49,7 @@ class Version:
         current = [v for v in self._versions if str(v) == data["schemaversion"]]
         if not current:
             raise ValueError(
-                f"schemaversion '{data["schemaversion"]}' not found in releaseLog"
+                f"schemaversion '{data['schemaversion']}' not found in releaseLog"
             )
         self._current = current[0]
 
