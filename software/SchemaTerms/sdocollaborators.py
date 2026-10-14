@@ -3,14 +3,11 @@
 
 from __future__ import annotations
 
-# Import standard python libraries
-
 import collections
 import logging
-import os
 from pathlib import Path
 import re
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Optional, Sequence, Union
 
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -33,7 +30,7 @@ class collaborator:
 
     def __init__(self, ref: str, desc: Optional[str] = None) -> None:
         self.ref: str = ref
-        self.urirel: str = os.path.join("/docs", "collab", ref)
+        self.urirel: str = str(Path("/docs/collab") / ref)
         self.uri: str = schema.constants.HOMEPAGE + self.urirel
         self.docurl: str = self.urirel
         self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
@@ -117,23 +114,23 @@ class collaborator:
     @classmethod
     def getCollaborator(cls, ref: str) -> Optional["collaborator"]:
         cls.loadCollaborators()
-        key: str = os.path.basename(ref)
-        coll: Optional[collaborator] = cls.COLLABORATORS.get(key, None)
+        key: str = Path(ref).name
+        coll: Optional[collaborator] = cls.COLLABORATORS.get(key)
         if not coll:
             log.warning(f"No collaborator for '{ref}'")
         return coll
 
     @classmethod
     def getContributor(cls, ref: str) -> Optional["collaborator"]:
-        key: str = os.path.basename(ref)
+        key: str = Path(ref).name
         cls.loadContributors()
-        cont: Optional[collaborator] = cls.CONTRIBUTORS.get(key, None)
+        cont: Optional[collaborator] = cls.CONTRIBUTORS.get(key)
         if not cont:
             log.warning(f"No contributor for '{ref}'")
         return cont
 
     @classmethod
-    def createCollaborator(cls, file_path: str) -> Optional["collaborator"]:
+    def createCollaborator(cls, file_path: Union[str, Path]) -> Optional["collaborator"]:
         path = Path(file_path)
         ref = path.stem
         try:
@@ -147,12 +144,12 @@ class collaborator:
     def loadCollaborators(cls) -> None:
         if not cls.COLLABORATORS:
             for file_path in paths.DefaultInputLayout().files(paths.Domain.DATA, "collab/*.md"):
-                cls.createCollaborator(str(file_path))
+                cls.createCollaborator(file_path)
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 
     @classmethod
     def createContributor(cls, ref: str) -> None:
-        key: str = os.path.basename(ref)
+        key: str = Path(ref).name
         coll: Optional[collaborator] = cls.getCollaborator(key)
         if coll:
             coll.contributor = True

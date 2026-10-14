@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import os
 from pathlib import Path
 from typing import Optional, Sequence
 

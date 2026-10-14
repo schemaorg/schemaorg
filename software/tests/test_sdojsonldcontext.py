@@ -6,7 +6,6 @@ import unittest
 import unittest.mock
 
 import SchemaTerms.sdoterm as sdoterm
-import SchemaTerms.sdotermsource as sdotermsource
 import util.sdojsonldcontext as sdojsonldcontext
 
 

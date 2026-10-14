@@ -1,42 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Import standard python libraries
-
 import argparse
 import logging
-from typing import Generator, Optional, Sequence
+from pathlib import Path
+from typing import Dict, Generator, Optional, Sequence
 
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.pretty_logger as pretty_logger
 
-
-# Import schema.org libraries
-
-
-
-
 log: logging.Logger = logging.getLogger(__name__)
+
+TERM_TAGS: Dict[sdoterm.SdoTermType, str] = {
+    sdoterm.SdoTermType.PROPERTY: " p",
+    sdoterm.SdoTermType.TYPE: " t",
+    sdoterm.SdoTermType.DATATYPE: " d",
+    sdoterm.SdoTermType.ENUMERATION: " e",
+    sdoterm.SdoTermType.ENUMERATIONVALUE: " v",
+}
 
 
 def generateTerms(tags: bool = False) -> Generator[str, None, None]:
     for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
         if not isinstance(term, sdoterm.SdoTerm):
             continue
-        label: str = ""
-        if tags:
-            if term.termType == sdoterm.SdoTermType.PROPERTY:
-                label = " p"
-            elif term.termType == sdoterm.SdoTermType.TYPE:
-                label = " t"
-            elif term.termType == sdoterm.SdoTermType.DATATYPE:
-                label = " d"
-            elif term.termType == sdoterm.SdoTermType.ENUMERATION:
-                label = " e"
-            elif term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                label = " v"
-        yield term.id + label + "\n"
+        label: str = TERM_TAGS.get(term.termType, "") if tags else ""
+        yield f"{term.id}{label}\n"
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
@@ -50,13 +40,13 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
     parser.add_argument("-o", "--output", required=True, help="output file")
     args_parsed = parser.parse_args(argv)
-    filename: str = args_parsed.output
+    filename: Path = Path(args_parsed.output)
     with pretty_logger.BlockLog(
         logger=log, message=f"Writing term list to file {filename}"
     ):
-        with open(filename, "w") as handle:
-            for term_line in generateTerms(tags=args_parsed.tagtype):
-                handle.write(term_line)
+        filename.write_text(
+            "".join(generateTerms(tags=args_parsed.tagtype)), encoding="utf-8"
+        )
 
 
 if __name__ == "__main__":

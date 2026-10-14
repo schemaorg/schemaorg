@@ -135,19 +135,15 @@ def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
 
     args: argparse.Namespace = parser.parse_args(args_list)
 
-    op: List[str]
     for op in args.buildoption:
         schema.config.BUILDOPTS.extend(op)
 
-    ter: List[str]
     for ter in args.terms:
         schema.config.TERMS.extend(ter)
 
-    pgs: List[str]
     for pgs in args.docspages:
         schema.config.PAGES.extend(pgs)
 
-    fls: List[str]
     for fls in args.files:
         schema.config.FILES.extend(fls)
 
@@ -173,7 +169,6 @@ def clear() -> None:
         output_dir: Path = Path(schema.config.OUTPUTDIR)
         log.info(f"Clearing {output_dir} directory")
         if output_dir.is_dir():
-            item: Path
             for item in output_dir.iterdir():
                 if item.name == ".gitkeep":
                     continue
@@ -212,7 +207,6 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
         gdir: Path = output_layout.dir(paths.Domain.GCLOUD)
         gcloud_files: List[Path] = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
-        path: Path
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
@@ -221,9 +215,11 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
     message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
     with pretty_logger.BlockLog(logger=log, message=message):
         template_file: Path = input_layout.file(paths.Domain.GCLOUD, "handlers-template.yaml")
-        template_data: str = template_file.read_text()
+        template_data: str = template_file.read_text(encoding="utf-8")
         handler_data: str = template_data.replace("{{ver}}", version)
-        output_layout.file(paths.Domain.GCLOUD, "handlers.yaml").write_text(handler_data)
+        output_layout.file(paths.Domain.GCLOUD, "handlers.yaml").write_text(
+            handler_data, encoding="utf-8"
+        )
 
 
 LOADEDTERMS: Optional[str] = None

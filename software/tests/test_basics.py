@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Import standard python libraries
-
 import json
 import logging
-import os
 import unittest
 
+from schemaorg import constants
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -15,17 +13,11 @@ import SchemaTerms.sdotermsource as sdotermsource
 
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
-TRIPLESFILESGLOB = ["data/*.ttl", "data/ext/*/*.ttl"]
-EXAMPLESFILESGLOB = ["data/*examples.txt", "data/ext/*/*examples.txt"]
-
-
-schema_path = "./data/schema.ttl"
-examples_path = "./data/examples.txt"
 
 TYPECOUNT_UPPERBOUND = 1500
 TYPECOUNT_LOWERBOUND = 500
-CURRENT_CONTEXT_FILE = os.path.join(
-    os.getcwd(), "software", "site", "docs", "jsonldcontext.jsonld"
+CURRENT_CONTEXT_FILE = (
+    constants.PROJECT_ROOT / "software/site/docs/jsonldcontext.jsonld"
 )
 
 log = logging.getLogger(__name__)
@@ -48,13 +40,12 @@ class BallparkCountTests(unittest.TestCase):
 class SDOBasicsTestCase(unittest.TestCase):
     def test_ExtractedPlausibleNumberOfExamples(self):
         example_count = schemaexamples.SchemaExamples.count()
-        log.info("Extracted %s examples." % example_count)
+        log.info(f"Extracted {example_count} examples.")
         example_range = range(200, 600)
         self.assertIn(
             example_count,
             example_range,
-            msg="Expected extraction of %s examples, found %d"
-            % (example_range, example_count),
+            msg=f"Expected extraction of {example_range} examples, found {example_count}",
         )
 
 
@@ -130,13 +121,12 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
     def test_ArticleSupertypeNewsArticle(self):
         tArticle = sdotermsource.SdoTermSource.getTerm("Article")
-        self.assertTrue(
-            "NewsArticle" in tArticle.subs.ids, "NewsArticle is a sub-type of Article"
+        self.assertIn(
+            "NewsArticle", tArticle.subs.ids, "NewsArticle is a sub-type of Article"
         )
 
     def test_NewsArticleSupertypeArticle(self):
         tNewsArticle = sdotermsource.SdoTermSource.getTerm("NewsArticle")
-        # tArticle = sdoterm.SdoTermSource.getTerm("Article")
         self.assertNotIn(
             "Article", tNewsArticle.subs.ids, "Article is not a sub-type of NewsArticle"
         )
@@ -182,8 +172,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
     def test_PersonNotAttribute(self):
         tPerson = sdotermsource.SdoTermSource.getTerm("Person")
-        self.assertFalse(
-            tPerson.termType == sdoterm.SdoTermType.PROPERTY,
+        self.assertNotEqual(
+            tPerson.termType,
+            sdoterm.SdoTermType.PROPERTY,
             "Not true that Person isAttribute().",
         )
 
@@ -213,8 +204,7 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
         p_actors = sdotermsource.SdoTermSource.getTerm("actors")
         self.assertTrue(
             p_actors.superseded,
-            "actors property has been superseded.%s %s"
-            % (p_actors.superseded, p_actors.supersededBy),
+            f"actors property has been superseded.{p_actors.superseded} {p_actors.supersededBy}",
         )
 
     def test_actorNotSuperseded(self):
@@ -257,13 +247,10 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     def test_acceptedAnswerSuperpropertiesArrayLen(self):
         p_acceptedAnswer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
         aa_supers = p_acceptedAnswer.supers
-        # for f in aa_supers:
-        # log.info("acceptedAnswer's subproperties(): %s" % f)
         self.assertEqual(
             len(aa_supers),
             1,
-            msg="acceptedAnswer subproperties() gives array of len 1. Actual: %s ."
-            % len(aa_supers),
+            msg=f"acceptedAnswer subproperties() gives array of len 1. Actual: {len(aa_supers)} .",
         )
 
     def test_answerSubproperty(self):
@@ -432,46 +419,39 @@ class HasMultipleBaseTypesTests(unittest.TestCase):
 
 class SimpleCommentCountTests(unittest.TestCase):
     def test_zeroCommentCount(self):
-        query = (
-            """
-    SELECT  ?term ?comment WHERE {
+        query = f"""
+    SELECT ?term ?comment WHERE {{
             ?term a ?type.
-            FILTER NOT EXISTS { ?term rdfs:comment ?comment. }
-            FILTER (strStarts(str(?term),"%s"))
-      }
+            FILTER NOT EXISTS {{ ?term rdfs:comment ?comment. }}
+            FILTER (strStarts(str(?term),"{VOCABURI}"))
+      }}
       ORDER BY ?term"""
-            % VOCABURI
-        )
 
         ndi1_results = sdotermsource.SdoTermSource.query(query)
-        if len(ndi1_results) > 0:
-            for row in ndi1_results:
-                log.warning("Term %s has no rdfs:comment value" % (row["term"]))
+        for row in ndi1_results:
+            log.warning(f"Term {row['term']} has no rdfs:comment value")
         self.assertEqual(
             len(ndi1_results),
             0,
-            "Found: %s term(s) without comment value" % len(ndi1_results),
+            f"Found: {len(ndi1_results)} term(s) without comment value",
         )
 
     def test_multiCommentCount(self):
-        query = (
-            """
-    SELECT  ?term ?comment WHERE {
+        query = f"""
+    SELECT ?term ?comment WHERE {{
             ?term a ?type;
               rdfs:comment ?comment.
-              FILTER (strStarts(str(?term),"%s"))
-    }
+              FILTER (strStarts(str(?term),"{VOCABURI}"))
+    }}
     GROUP BY ?term
     HAVING (count(DISTINCT ?comment) > 1)
     ORDER BY ?term"""
-            % VOCABURI
-        )
         ndi1_results = sdotermsource.SdoTermSource.query(query)
-        if len(ndi1_results) > 0:
-            log.warning("Query was: %s" % query)
+        if ndi1_results:
+            log.warning(f"Query was: {query}")
             for row in ndi1_results:
                 log.warning(
-                    "Term %s has rdfs:comment value %s" % (row["term"], row["comment"])
+                    f"Term {row['term']} has rdfs:comment value {row['comment']}"
                 )
         msg = "\n\t".join([f"{row['term']}: {row['comment']}" for row in ndi1_results])
         self.assertEqual(
@@ -485,35 +465,28 @@ class BasicJSONLDTests(unittest.TestCase):
     def setUp(self):
         self.ctx = None
         try:
-            with open(CURRENT_CONTEXT_FILE) as json_file:
-                self.ctx = json.load(json_file)
-        except IOError:
+            self.ctx = json.loads(CURRENT_CONTEXT_FILE.read_text(encoding="utf-8"))
+        except OSError:
             raise unittest.SkipTest(
                 "jsonldcontext.json file not loaded - bypassing tests"
             )
 
-    #    @skip("Need to think about this.")
-    #    def test_jsonld_basic_jsonld_context_available(self):
-    #      if self.ctx:
-    # self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/",
-    # "Context file should declare schema.org url.")
-
     def test_issuedBy_jsonld(self):
         if not self.ctx:
             raise unittest.SkipTest(
-                "%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE
+                f"{CURRENT_CONTEXT_FILE} file not loaded - bypassing tests"
             )
-        self.assertTrue(
-            "issuedBy" in self.ctx["@context"], "issuedBy should be defined."
+        self.assertIn(
+            "issuedBy", self.ctx["@context"], "issuedBy should be defined."
         )
 
     def test_dateModified_jsonld(self):
         if not self.ctx:
             raise unittest.SkipTest(
-                "%s file not loaded - bypassing tests" % CURRENT_CONTEXT_FILE
+                f"{CURRENT_CONTEXT_FILE} file not loaded - bypassing tests"
             )
-        self.assertTrue(
-            "dateModified" in self.ctx["@context"], "dateModified should be defined."
+        self.assertIn(
+            "dateModified", self.ctx["@context"], "dateModified should be defined."
         )
 
     def test_sameas_jsonld(self):
@@ -533,7 +506,7 @@ class JsonExampleTests(unittest.TestCase):
                     continue
                 json_source = example.getJsonldRaw()
                 try:
-                    parsed = json.loads(json_source)
+                    json.loads(json_source)
                 except json.decoder.JSONDecodeError as json_error:
                     # Display a helpful error message showing where the JSON
                     # error is.
@@ -551,19 +524,13 @@ class JsonExampleTests(unittest.TestCase):
                     # Adjust by the offset inside the example file.
                     lineno = json_error.lineno + (example.jsonld_offset or 0)
                     self.fail(
-                        "JSON parsing error: '%s' in file %s:%d:%d \n%s"
-                        % (
-                            json_error.msg,
-                            source_filename,
-                            lineno,
-                            json_error.colno,
-                            snippet,
-                        )
+                        f"JSON parsing error: '{json_error.msg}' in file "
+                        f"{source_filename}:{lineno}:{json_error.colno} \n{snippet}"
                     )
                 except Exception as exception:
                     self.fail(
-                        "Could not parse JSON '%s' error: %s file: %s"
-                        % (json_source, exception, source_filename)
+                        f"Could not parse JSON '{json_source}' error: "
+                        f"{exception} file: {source_filename}"
                     )
 
 

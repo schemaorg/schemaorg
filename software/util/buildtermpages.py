@@ -63,7 +63,6 @@ class TermPageRenderer:
     ) -> str:
         """Render the term with examples and associated JSON."""
         assert isinstance(term, sdoterm.SdoTerm)
-        ex: schemaexamples.Example
         for ex in examples:
             exselect: List[str] = [""] * 4
             if ex.hasHtml():
@@ -105,7 +104,6 @@ class TermPageRenderer:
 
     def RenderAndWriteSingleTerm(self, term_key: str) -> float:
         """Renders a single term and write the result into a file."""
-        block: pretty_logger.BlockLog
         with pretty_logger.BlockLog(
             logger=log, message=f"Generate term {term_key}", timing=True, displayStart=False
         ) as block:
@@ -119,7 +117,7 @@ class TermPageRenderer:
                 examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
                 json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
                 pageout: str = self.termtemplateRender(term, examples, json_str)
-                Path(termFileName(term.id)).write_text(pageout)
+                Path(termFileName(term.id)).write_text(pageout, encoding="utf-8")
             except Exception as e:
                 e.add_note(f"Term definition: {term}")
                 raise
@@ -131,7 +129,6 @@ def _buildTermIds(args: Tuple[Tuple[int, List[str]], Dict[str, Any]]) -> None:
     shard, term_ids = shard_pair
     pretty_logger.MakeRootLogPretty(shard=shard)
     renderer = TermPageRenderer(**config)
-    term_id: str
     for term_id in term_ids:
         try:
             renderer.RenderAndWriteSingleTerm(term_id)
@@ -164,8 +161,6 @@ def buildTerms(term_ids: Iterable[str], config: Optional[Dict[str, Any]] = None)
         message=f"Building {len(term_list)} term pages with {shard_numbers} shards.",
     ):
         sharded_terms: Dict[int, List[str]] = collections.defaultdict(list)
-        n: int
-        term_id: str
         for n, term_id in enumerate(term_list):
             sharded_terms[n % shard_numbers].append(term_id)
 

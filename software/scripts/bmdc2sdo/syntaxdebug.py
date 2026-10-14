@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
 
-from collections import OrderedDict
 import logging
-import os
-import sys
-from typing import Dict
-
-# Ensure data/ repo is nearby (for a basic MCF parser), for example:
-# sys.path.insert(1, '/home/danbri/working/datcom/data/')
+import re
 
 DEBUG = True
 
@@ -37,7 +31,7 @@ def mcf_to_dict_list(mcf_str: str) -> list:
         node = node.strip()
         # check for comments
         node_str_list = node.split('\n')
-        cur_node = OrderedDict()
+        cur_node = {}
         comment_ctr = 0
         is_first_prop = True
         # add each pv to ordered dict

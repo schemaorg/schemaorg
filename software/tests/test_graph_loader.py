@@ -9,7 +9,7 @@ import unittest
 
 import rdflib
 
-from schemaorg.constants import PROJECT_ROOT
+from schemaorg import constants
 from schemaorg.graph_loader import GraphLoader
 from schemaorg.layout import Domain, InputLayout, Issues
 
@@ -71,8 +71,8 @@ class TestGraphLoader(unittest.TestCase):
         # Verify triples from both files are in the graph
         thing_uri = rdflib.URIRef("https://schema.org/Thing")
         special_uri = rdflib.URIRef("https://schema.org/SpecialThing")
-        self.assertTrue((thing_uri, rdflib.RDF.type, rdflib.RDFS.Class) in graph)
-        self.assertTrue((special_uri, rdflib.RDF.type, rdflib.RDFS.Class) in graph)
+        self.assertIn((thing_uri, rdflib.RDF.type, rdflib.RDFS.Class), graph)
+        self.assertIn((special_uri, rdflib.RDF.type, rdflib.RDFS.Class), graph)
 
     def test_load_issue_filtering(self):
         data_dir = self.layout.dir(Domain.DATA)
@@ -109,15 +109,15 @@ class TestGraphLoader(unittest.TestCase):
         issue1_uri = rdflib.URIRef("https://schema.org/Issue1Class")
         issue2_uri = rdflib.URIRef("https://schema.org/Issue2Class")
 
-        self.assertTrue((core_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g)
-        self.assertTrue((issue1_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g)
-        self.assertFalse((issue2_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g)
+        self.assertIn((core_uri, rdflib.RDF.type, rdflib.RDFS.Class), g)
+        self.assertIn((issue1_uri, rdflib.RDF.type, rdflib.RDFS.Class), g)
+        self.assertNotIn((issue2_uri, rdflib.RDF.type, rdflib.RDFS.Class), g)
 
         # Loading with default issues (ALL_ISSUES)
         g_all = self.loader.load(self.issues.get_ttl_files())
-        self.assertTrue((core_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g_all)
-        self.assertTrue((issue1_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g_all)
-        self.assertTrue((issue2_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g_all)
+        self.assertIn((core_uri, rdflib.RDF.type, rdflib.RDFS.Class), g_all)
+        self.assertIn((issue1_uri, rdflib.RDF.type, rdflib.RDFS.Class), g_all)
+        self.assertIn((issue2_uri, rdflib.RDF.type, rdflib.RDFS.Class), g_all)
 
     def test_load_parse_error_raises(self):
         data_dir = self.layout.dir(Domain.DATA)
@@ -130,7 +130,7 @@ class TestGraphLoader(unittest.TestCase):
                 self.loader.load(self.issues.get_ttl_files())
 
     def test_load_real_data_single_issue(self):
-        real_issues = Issues(InputLayout(PROJECT_ROOT))
+        real_issues = Issues(InputLayout(constants.PROJECT_ROOT))
         g = self.loader.load(real_issues.get_ttl_files(issues=["1062"]))
 
         self.assertGreater(len(g), 1000)
@@ -142,7 +142,7 @@ class TestGraphLoader(unittest.TestCase):
 
         # 1062 term exists
         plan_uri = rdflib.URIRef("https://schema.org/HealthInsurancePlan")
-        self.assertTrue((plan_uri, rdflib.RDF.type, rdflib.RDFS.Class) in g)
+        self.assertIn((plan_uri, rdflib.RDF.type, rdflib.RDFS.Class), g)
 
 
 if __name__ == "__main__":

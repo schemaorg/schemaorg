@@ -39,8 +39,7 @@ class MarkdownTool:
                 ret = ret[3:-5]
 
             ret = ret.replace("<p>", "").replace("</p>", "<br/><br/>")
-            if ret.endswith("<br/><br/>"):
-                ret = ret[:-10]
+            ret = ret.removesuffix("<br/><br/>")
 
         return self.parseWiklinks(ret, wpre=wpre)
 

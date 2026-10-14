@@ -11,12 +11,7 @@ import rdflib
 import SchemaTerms.sdotermsource as sdotermsource
 
 
-TYPECOUNT_UPPERBOUND = 1000
-TYPECOUNT_LOWERBOUND = 500
-
 log = logging.getLogger(__name__)
-
-VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 
 # Tests to probe the health of both schemas and code using graph libraries in
@@ -34,8 +29,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         SDOGraphSetupTestCase.loadGraphs()
 
     def test_graphsLoaded(self):
-        self.assertTrue(
-            len(self.rdflib_data) > 0,
+        self.assertGreater(
+            len(self.rdflib_data),
+            0,
             "Graph rdflib_data should have some triples in it.",
         )
 
@@ -46,9 +42,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            with keys limited to the 'varname' set if provided.
         """
         results = self.rdflib_data.query(query.strip())
-        return [dict([(key, row[key])
-                      for key in varnames or row.asdict().keys()])
-                for row in results]
+        return [
+            {key: row[key] for key in (varnames or row.asdict().keys())}
+            for row in results
+        ]
 
     @staticmethod
     def formatResults(results, pattern: str = "", varnames: tuple[str] = (),
@@ -86,16 +83,21 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         CLASS = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
         DATATYPE = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#DataType')
         for a in a_maps:
-            if a["type"] not in [CLASS, DATATYPE]:
+            if a["type"] not in (CLASS, DATATYPE):
                 defined_types[a["term"]].add(a["type"])
 
-        double_bases = filter(lambda x: len(defined_types[x]) > 1, defined_types.keys())
-
         # Remove the single instance of (known) multiple inheritance.
-        double_bases = list(filter(lambda x: x != rdflib.term.URIRef('https://schema.org/Radiography'), double_bases))
+        radiography = rdflib.term.URIRef('https://schema.org/Radiography')
+        double_bases = [
+            term
+            for term, bases in defined_types.items()
+            if len(bases) > 1 and term != radiography
+        ]
 
-        message = '\n' + '\n\t'.join(["%s [%d bases: %s]" % (e, len(defined_types[e]), ", ".join(defined_types[e]))
-                                      for e in double_bases])
+        message = "\n" + "\n\t".join(
+            f"{e} [{len(defined_types[e])} bases: {', '.join(defined_types[e])}]"
+            for e in double_bases
+        )
         self.assertEqual(len(double_bases), 0, f"Types with multiple base types: {message}")
 
 
@@ -114,11 +116,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
         def findRoot(t):
             while t in defined_types:
-                t = next(iter((defined_types[t])))
+                t = next(iter(defined_types[t]))
             return t
 
-        non_datatype_derived = ["%s => %s" % (k, findRoot(k))
-                                for k in filter(lambda x: findRoot(x) != DATATYPE, defined_types.keys())]
+        non_datatype_derived = [
+            f"{k} => {root}"
+            for k in defined_types
+            if (root := findRoot(k)) != DATATYPE
+        ]
         message = '\n' + '\n\t'.join(non_datatype_derived)
         self.assertEqual(len(non_datatype_derived), 0, f"Types that have an invalid base type: {message}")
 

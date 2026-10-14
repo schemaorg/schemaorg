@@ -9,20 +9,13 @@ semantic axis.
 import argparse
 import itertools
 import logging
-import os
 from pathlib import Path
 from typing import List
 
 import rdflib
 
-
-
 from schemaorg.publish import turtle
 import util.schema_graph as graph
-
-
-# Import schema.org libraries
-
 
 
 def Lint(args: argparse.Namespace) -> None:
@@ -39,7 +32,7 @@ def Lint(args: argparse.Namespace) -> None:
             logging.fatal(f"Linting file {filename} lost some information.")
 
     if args.output is not None and len(args.files) > 1:
-        logging.fatal(f"Cannot use --output with multiple files!")
+        logging.fatal("Cannot use --output with multiple files!")
     for index, filename in enumerate(args.files):
         logging.info(f"Handling file {index} of {len(args.files)} ({filename})")
         LintOne(filename, args.output or filename)
@@ -64,7 +57,7 @@ def MergeFiles(args: argparse.Namespace) -> None:
 def Annotate(args: argparse.Namespace) -> None:
     """Adds some annotations to properties and types."""
     if args.output is not None and len(args.files) > 1:
-        logging.fatal(f"Cannot use --output with multiple files!")
+        logging.fatal("Cannot use --output with multiple files!")
 
     valid_parts: List[str] = ["pending", "attic", "meta", "GA"]
     if args.ispartof not in valid_parts:

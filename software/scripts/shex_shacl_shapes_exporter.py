@@ -33,7 +33,7 @@ def replace_prefix(data: URIRef) -> URIRef:
     """
     Replaces schema.org prefix with schema.org validation prefix
     """
-    return BASE[f"{PREFIX}{str(data).replace('http://schema.org/', '')}"]
+    return BASE[f"{PREFIX}{str(data).removeprefix('http://schema.org/')}"]
 
 
 def collect_datatypes(source: Graph) -> Set[URIRef]:
@@ -120,7 +120,7 @@ class ShExJParser:
             properties: List[URIRef] = cls._domain_includes.get(shape, [])
 
             # find all subclasses
-            ancestors: List[URIRef] = sorted(list(set(cls.find_parent_classes(source, shape))), key=str)
+            ancestors: List[URIRef] = sorted(set(cls.find_parent_classes(source, shape)), key=str)
             if properties:
                 expression: Dict[str, Any] = {
                     "type": "EachOf",
@@ -351,15 +351,6 @@ class ShaclParser:
             if isinstance(shape, URIRef):
                 ShaclParser.parse_shape(source, shape, dest, is_datatype=shape in all_datatypes)
 
-        # Use to_canonical_graph to ensure deterministic blank node naming and
-        # sorting
-        # This takes about 25 minutes to compute, so we leave it out for the
-        # moment.
-        # log.info(f"Canonicalizing ShAcl shapes graph ({len(dest)})")
-        # nsMgr = dest.namespace_manager
-        # dest = to_canonical_graph(dest)
-        # dest.namespace_manager = nsMgr
-
         return str(dest.serialize(format="turtle", sort_keys=True))
 
 
@@ -378,19 +369,19 @@ def generate_files(
     shexj_path: Path = releases.file(
         version, protocol="", scope="shapes", extension=".shexj"
     )
-    shexj_path.write_text(ShExJParser.to_shex(graph))
+    shexj_path.write_text(ShExJParser.to_shex(graph), encoding="utf-8")
     log.info(f"Created {shexj_path}")
 
     shacl_path: Path = releases.file(
         version, protocol="", scope="shapes", extension=".shacl"
     )
-    shacl_path.write_text(ShaclParser.to_shacl(graph))
+    shacl_path.write_text(ShaclParser.to_shacl(graph), encoding="utf-8")
     log.info(f"Created {shacl_path}")
 
     subclasses_path: Path = releases.file(
         version, protocol="", scope="subclasses", extension=".shacl"
     )
-    subclasses_path.write_text(ShaclParser.get_subclasses(graph))
+    subclasses_path.write_text(ShaclParser.get_subclasses(graph), encoding="utf-8")
     log.info(f"Created {subclasses_path}")
 
 
