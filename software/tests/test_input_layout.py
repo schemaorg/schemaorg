@@ -10,6 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from schemaorg import constants
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import (
     InputLayout,
@@ -84,13 +85,20 @@ class TestInputLayout(unittest.TestCase):
         self.assertEqual(found_reversed, [f3, f1, f2])
 
     def test_is_complete(self):
+        versions_file = self.layout.file(Domain.ROOT, constants.VERSIONS_FILE)
         with self.assertRaises(FileNotFoundError) as ctx:
             self.layout._is_complete()
         for dom in (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES):
             self.assertIn(str(self.layout.dir(dom)), str(ctx.exception))
+        self.assertIn(str(versions_file), str(ctx.exception))
 
         for dom in (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES):
             self.layout.dir(dom).mkdir(parents=True, exist_ok=True)
+        with self.assertRaises(FileNotFoundError) as ctx:
+            self.layout._is_complete()
+        self.assertIn(str(versions_file), str(ctx.exception))
+
+        versions_file.touch()
         self.assertTrue(self.layout._is_complete())
 
     @patch("sys.stderr", new_callable=io.StringIO)

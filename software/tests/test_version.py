@@ -16,8 +16,8 @@ class TestVersion(unittest.TestCase):
 
     def test_init_explicit_path(self):
         """The shipped versions.json parses into a non-empty Version."""
-        v = Version(constants.PROJECT_ROOT / "versions.json")
-        self.assertEqual(v.versions_path, constants.PROJECT_ROOT / "versions.json")
+        v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
+        self.assertEqual(v.versions_path, constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         self.assertTrue(v.versions_path.exists())
         self.assertTrue(v.versions())
         self.assertTrue(v.current().number())
@@ -27,6 +27,12 @@ class TestVersion(unittest.TestCase):
         with self.assertRaises(TypeError):
             Version()  # type: ignore
 
+    def test_init_missing_file_raises(self):
+        """Test initialization with a nonexistent file raises FileNotFoundError."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with self.assertRaises(FileNotFoundError):
+                Version(Path(tmp_dir) / constants.VERSIONS_FILE)
+
     def test_init_custom_path(self):
         """Test initialization with custom versions.json path."""
         data = {
@@ -34,7 +40,7 @@ class TestVersion(unittest.TestCase):
             "releaseLog": {"1.0": "2020-01-01"},
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(data), encoding="utf-8")
 
             v = Version(tmp_file)
@@ -43,9 +49,23 @@ class TestVersion(unittest.TestCase):
             self.assertEqual(v.current().date(), "2020-01-01")
             self.assertEqual(str(v.current()), "1.0")
 
+    def test_init_missing_schemaversion_in_releaselog_raises(self):
+        """Test initialization raises ValueError when schemaversion is missing from releaseLog."""
+        data = {
+            "schemaversion": "2.0",
+            "releaseLog": {"1.0": "2020-01-01"},
+        }
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
+            tmp_file.write_text(json.dumps(data), encoding="utf-8")
+
+            with self.assertRaises(ValueError) as ctx:
+                Version(tmp_file)
+            self.assertIn("2.0", str(ctx.exception))
+
     def test_current(self):
         """current() is one of versions(), with a parseable date."""
-        v = Version(constants.PROJECT_ROOT / "versions.json")
+        v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         curr = v.current()
         self.assertIn(curr, v.versions())
         self.assertTrue(curr.number())
@@ -54,7 +74,7 @@ class TestVersion(unittest.TestCase):
 
     def test_versions(self):
         """Every entry in the shipped versions.json parses."""
-        v = Version(constants.PROJECT_ROOT / "versions.json")
+        v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         all_vers = v.versions()
         self.assertIsInstance(all_vers, list)
         self.assertTrue(all_vers)
@@ -80,7 +100,7 @@ class TestVersion(unittest.TestCase):
             },
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(initial_data), encoding="utf-8")
 
             v = Version(tmp_file)
@@ -99,7 +119,7 @@ class TestVersion(unittest.TestCase):
             },
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(initial_data), encoding="utf-8")
 
             v = Version(tmp_file)
@@ -118,7 +138,7 @@ class TestVersion(unittest.TestCase):
             },
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(initial_data), encoding="utf-8")
 
             v = Version(tmp_file)
@@ -134,7 +154,7 @@ class TestVersion(unittest.TestCase):
             },
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(initial_data), encoding="utf-8")
 
             v = Version(tmp_file)
@@ -150,7 +170,7 @@ class TestVersion(unittest.TestCase):
             },
         }
         with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_file = Path(tmp_dir) / "versions.json"
+            tmp_file = Path(tmp_dir) / constants.VERSIONS_FILE
             tmp_file.write_text(json.dumps(initial_data), encoding="utf-8")
 
             v = Version(tmp_file)

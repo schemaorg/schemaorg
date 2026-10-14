@@ -46,9 +46,12 @@ class Version:
             self.versions_path.read_text(encoding="utf-8")
         )
         self._versions = [VersionItem(v, d) for v, d in data["releaseLog"].items()]
-        self._current = next(
-            v for v in self._versions if str(v) == data["schemaversion"]
-        )
+        current = [v for v in self._versions if str(v) == data["schemaversion"]]
+        if not current:
+            raise ValueError(
+                f"schemaversion '{data['schemaversion']}' not found in releaseLog"
+            )
+        self._current = current[0]
 
     def current(self) -> VersionItem:
         return self._current

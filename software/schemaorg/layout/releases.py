@@ -13,7 +13,7 @@ up a release, and nothing else.
 
 from enum import Enum, unique
 from pathlib import Path
-from typing import ClassVar, List, Optional, Union
+from typing import List, Optional, Union
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
@@ -55,9 +55,6 @@ class Releases:
         layout: Input or output layout holding the releases.
         version: Version authority for declared releases.
     """
-
-    # Name of the file declaring every version, at the source tree root.
-    VERSIONS_FILE: ClassVar[str] = "versions.json"
 
     @staticmethod
     def _schema_file(
