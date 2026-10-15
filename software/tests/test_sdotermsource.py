@@ -37,6 +37,10 @@ class TestConversionFunctions(unittest.TestCase):
             sdotermsource.layerFromUri("https://exclusive.schema.org/Thing"),
             "exclusive",
         )
+        self.assertEqual(
+            sdotermsource.layerFromUri("https://health-lifesci.schema.org/Patient"),
+            "health-lifesci",
+        )
 
     def testUriFromLayer(self):
         self.assertEqual(sdotermsource.uriFromLayer(), "https://schema.org")
