@@ -1119,7 +1119,7 @@ def layerFromUri(uri: str) -> Optional[str]:
         prto: Optional[str]
         root: Optional[str]
         prto, root = getProtoAndRoot(voc)
-        LAYERPATTERN = rf"^{prto}([\w]*)\.{root}"
+        LAYERPATTERN = rf"^{prto}([\w-]*)\.{root}"
 
     if m := re.search(LAYERPATTERN, str(uri)):
         return m.group(1)

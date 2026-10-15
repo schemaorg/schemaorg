@@ -172,7 +172,10 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
         protocol, _ = protocols()
 
         log.debug("Cleanup non schema org things.")
-        ALL_GRAPH.update(f'DELETE {{?s ?p ?o}} WHERE {{ ?s ?p ?o. FILTER (! strstarts(str(?s), "{protocol}://schema.org") ). }}')
+        ALL_GRAPH.update(
+            f'DELETE {{?s ?p ?o}} WHERE {{ ?s ?p ?o. '
+            f'FILTER (!regex(str(?s), "^{protocol}://([\\\\w-]+\\\\.)?schema\\\\.org")). }}'
+        )
 
         log.debug("Generate Foreign types – SPARQL INSERT")
         insert_foreign_types: str = f"""
