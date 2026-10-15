@@ -2,12 +2,10 @@ from __future__ import annotations
 
 from collections import defaultdict
 from collections.abc import Callable, Iterable, Iterator
-import json
 import logging
 from pathlib import Path
 from typing import Any
 
-from schemaorg.sdo_uri import SCHEMA_URL
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
@@ -16,8 +14,6 @@ import util.jinja_render as jinja_render
 import util.paths as paths
 import util.pretty_logger as pretty_logger
 import util.schema as schema
-from util.sort_dict import sort_dict
-import util.textutils as textutils
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -142,65 +138,6 @@ class listingNode:
                     log.warning("Error while building node %s for %s: %s", child_id, term, e)
         else:
             self.repeat = True
-
-
-def jsonldtree(page: str | None = None) -> str:
-    del page
-    context: dict[str, Any] = {
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        # Legacy output: no trailing slash.
-        "schema": SCHEMA_URL._replace(path="").geturl(),
-        "rdfs:subClassOf": {"@type": "@id"},
-        "description": "rdfs:comment",
-        "children": {"@reverse": "rdfs:subClassOf"},
-    }
-    data = _jsonldtree("Thing", visitset=set(), term={"@context": context})
-    return json.dumps(sort_dict(data), indent=3)
-
-
-def _jsonldtree(
-    tid: str, visitset: set[str], term: dict[str, Any] | None = None
-) -> dict[str, Any]:
-    try:
-        termdesc = sdotermsource.SdoTermSource.getTerm(tid)
-        if not termdesc:
-            raise UnknownTermError(f"No description for term {tid}")
-
-        term_dict: dict[str, Any] = term if term is not None else {}
-        term_dict.update(
-            {
-                "@type": "rdfs:Class",
-                "@id": f"schema:{termdesc.id}",
-                "name": termdesc.label,
-                "description": textutils.ShortenOnSentence(
-                    textutils.StripHtmlTags(termdesc.comment)
-                ),
-            }
-        )
-
-        if termdesc.supers:
-            sups = [f"schema:{sup}" for sup in termdesc.supers.ids]
-            term_dict["rdfs:subClassOf"] = sups[0] if len(sups) == 1 else sups
-
-        if termdesc.pending:
-            term_dict["pending"] = True
-        if termdesc.retired:
-            term_dict["attic"] = True
-
-        if tid not in visitset:
-            visitset.add(tid)
-            if termdesc.subs:
-                subs: list[dict[str, Any]] = []
-                for sub in termdesc.subs.ids:
-                    try:
-                        subs.append(_jsonldtree(tid=sub, visitset=visitset))
-                    except UnknownTermError as e:
-                        log.warning("Error while building listing node for %s: %s", sub, e)
-                term_dict["children"] = subs
-        return term_dict
-    except Exception as e:
-        e.add_note(f"while building JSON tree for id:{tid}-{term}")
-        raise
 
 
 listings: list[listingNode] | None = None

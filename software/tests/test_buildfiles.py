@@ -8,13 +8,22 @@ import unittest
 from unittest.mock import patch
 
 import rdflib
-from schemaorg.layout import (
-    Domain,
-    InputLayout,
-    OutputLayout,
-    Protocol,
-    Releases,
-    Scope,
+from schemaorg.graph_loader import split_release_graphs
+from schemaorg.layout import Domain, InputLayout, OutputLayout, Releases, Scope
+from schemaorg.model import SDO, VocabularyLoader
+from schemaorg.renderers import (
+    CountsRenderer,
+    CsvRenderer,
+    OwlRenderer,
+    RdfRenderer,
+    ShapesRenderer,
+    protocol_swap,
+    render_examples,
+    render_http_equivs,
+    render_jsonld_context,
+    render_jsonld_tree,
+    render_sitemap,
+    uriwrap,
 )
 from schemaorg.version import Version, VersionItem
 import SchemaTerms.localmarkdown as localmarkdown
@@ -22,159 +31,423 @@ import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
 import scripts.buildsite as buildsite
-import util.fileutils as fileutils
 import util.paths as paths
 import util.schema as schema
-from util.sdoowl import OwlBuild
 
-FIXTURE_TTL = """\
+FIXTURE_TTL = """
 @prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-:Thing a rdfs:Class ;
-    rdfs:label "Thing" ;
-    rdfs:comment "The most generic type; see [[Person]]." .
-
-:DataType a rdfs:Class ;
-    rdfs:subClassOf rdfs:Class ;
-    rdfs:label "DataType" ;
-    rdfs:comment "Basic data types." .
-
-:Text a :DataType, rdfs:Class ;
-    rdfs:label "Text" ;
-    rdfs:comment "Data type: Text." .
-
-:Person a rdfs:Class ;
-    rdfs:subClassOf :Thing ;
-    rdfs:label "Person" ;
-    rdfs:comment "A person." .
-
-:name a rdf:Property ;
-    rdfs:label "name" ;
-    rdfs:comment "The name of the item." ;
-    :domainIncludes :Thing ;
-    :rangeIncludes :Text .
-
-<https://example.org/foreign-dataset> a :Thing ;
-    rdfs:label "ForeignDataset" .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Thing a rdfs:Class ; rdfs:label "Thing" ; rdfs:comment "Generic item." .
+:Place a rdfs:Class ; rdfs:label "Place" ; rdfs:subClassOf :Thing ;
+    :isPartOf <https://pending.schema.org> .
+:Person a rdfs:Class ; rdfs:label "Person" ; rdfs:subClassOf :Thing ;
+    rdfs:comment "A person, a kind of [[Thing]]." ;
+    owl:equivalentClass foaf:Person .
+:Hybrid a rdfs:Class ; rdfs:label "Hybrid" ; rdfs:subClassOf :Person, :Place .
+:OldThing a rdfs:Class ; rdfs:label "OldThing" ; rdfs:subClassOf :Thing ;
+    :isPartOf <https://attic.schema.org> .
+:DataType a rdfs:Class ; rdfs:label "DataType" ; rdfs:subClassOf rdfs:Class .
+:Text a :DataType, rdfs:Class ; rdfs:label "Text" .
+:name a rdf:Property ; rdfs:label "name" ; :domainIncludes :Thing ; :rangeIncludes :Text .
 """
 
 
-class TestBuildFiles(unittest.TestCase):
-    def testProtocolSwapEmpty(self) -> None:
+def _fixture_graph() -> rdflib.Graph:
+    g = rdflib.Graph(bind_namespaces="none")
+    g.parse(data=FIXTURE_TTL, format="turtle")
+    return g
+
+
+class TestPostProcess(unittest.TestCase):
+    def testProtocolSwap(self) -> None:
+        swap = protocol_swap()
+        self.assertEqual(swap(""), "")
         self.assertEqual(
-            buildfiles.protocolSwap(content="", protocol="http", altprotocol="https"),
-            "",
+            swap("Defined in https://schema.org and https://bib.schema.org."),
+            "Defined in http://schema.org and http://bib.schema.org.",
         )
         self.assertEqual(
-            buildfiles.protocolSwap(
-                content="Defined in http://schema.org and http://bib.schema.org",
-                protocol="http",
-                altprotocol="ftp",
+            swap(
+                "https://health-lifesci.schema.org https://schema.org/Thing "
+                "https://devices.schema.org/x https://schema.organic.example/x"
             ),
-            "Defined in ftp://schema.org and ftp://bib.schema.org",
+            "http://health-lifesci.schema.org http://schema.org/Thing "
+            "http://devices.schema.org/x https://schema.organic.example/x",
         )
 
-    def testProtocols(self) -> None:
-        self.assertEqual(sorted(buildfiles.protocols()), ["http", "https"])
+    def testProtocolSwapPreservesWebsites(self) -> None:
+        text = (
+            "https://blog.schema.org/post https://dev.schema.org/ "
+            "https://myblog.schema.org/y"
+        )
+        self.assertEqual(
+            protocol_swap()(text),
+            "https://blog.schema.org/post https://dev.schema.org/ "
+            "http://myblog.schema.org/y",
+        )
+
+    def testWriteArtifactAppliesPostProcessorsInOrder(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "out.txt"
+            buildfiles.write_artifact(
+                buildfiles.Artifact(
+                    "x",
+                    path,
+                    lambda: "https://schema.org/Thing",
+                    (protocol_swap(), str.upper),
+                )
+            )
+            self.assertEqual(
+                path.read_text(encoding="utf-8"), "HTTP://SCHEMA.ORG/THING"
+            )
+
+
+class TestRenderers(unittest.TestCase):
+    def setUp(self) -> None:
+        self.graph = _fixture_graph()
+        self.all_graph, self.current_graph = split_release_graphs(self.graph)
+        self.vocab = VocabularyLoader(
+            self.all_graph, version=VersionItem("30.1", "2026-09-16")
+        ).load()
 
     def testUriWrap(self) -> None:
+        self.assertEqual(uriwrap("Credential"), "https://schema.org/Credential")
         self.assertEqual(
-            buildfiles.uriwrap("Credential"), "https://schema.org/Credential"
+            uriwrap("https://example.com/Bogus"), "https://example.com/Bogus"
         )
         self.assertEqual(
-            buildfiles.uriwrap("https://example.com/Bogus"), "https://example.com/Bogus"
-        )
-        self.assertEqual(
-            buildfiles.uriwrap(["Person", "Thing"]),
+            uriwrap(["Person", "Thing"]),
             "https://schema.org/Person, https://schema.org/Thing",
         )
+        with self.assertRaises(TypeError):
+            uriwrap(42)
 
-    @patch("scripts.buildfiles.paths.DefaultOutputLayout")
-    def testWriteCsvOut(self, mock_output_layout) -> None:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_layout = OutputLayout(Path(temp_dir))
-            mock_output_layout.return_value = output_layout
-            buildfiles.writecsvout(
-                ftype="properties",
-                data=(
-                    {"id": "123", "value": "http://schema.org/Fnuble"},
-                    {"id": "456", "value": "Blubrl"},
-                ),
-                fields=("id", "value"),
-                selector=fileutils.FileSelector.CURRENT,
-                protocol="http",
-                altprotocol="https",
-            )
+    def testSplitReleaseGraphs(self) -> None:
+        foaf_person = rdflib.URIRef("http://xmlns.com/foaf/0.1/Person")
+        self.assertIn(
+            (foaf_person, rdflib.RDF.type, rdflib.RDFS.Class), self.all_graph
+        )
+        self.assertNotIn(
+            (rdflib.RDFS.Class, rdflib.RDF.type, rdflib.RDFS.Class),
+            self.all_graph,
+        )
+        self.assertIn(
+            (SDO.OldThing, rdflib.RDFS.label, rdflib.Literal("OldThing")),
+            self.all_graph,
+        )
+        self.assertNotIn((SDO.OldThing, None, None), self.current_graph)
 
-            releases = Releases(output_layout, schema.VERSION)
-            http_csv = releases.file(
-                protocol=Protocol.HTTP,
-                scope=Scope.CURRENT,
-                extension="-properties.csv",
-            )
-            https_csv = releases.file(
-                protocol=Protocol.HTTPS,
-                scope=Scope.CURRENT,
-                extension="-properties.csv",
-            )
+        bound = {str(k) for k, _ in self.all_graph.namespaces() if str(k)}
+        self.assertEqual(bound, {"foaf", "owl", "rdf", "rdfs", "schema", "xsd"})
+
+    def testShapesRendererUsesHttpGraph(self) -> None:
+        renderer = ShapesRenderer(self.all_graph)
+        http = renderer.http_graph
+        self.assertIn(
+            (
+                rdflib.URIRef("http://schema.org/Person"),
+                rdflib.RDFS.subClassOf,
+                rdflib.URIRef("http://schema.org/Thing"),
+            ),
+            http,
+        )
+        self.assertNotIn((SDO.Person, None, None), http)
+        self.assertIn("ValidSchemaPerson", renderer.shex())
+        self.assertIn("ValidSchemaPerson", renderer.shacl())
+        self.assertIn("subClassOf", renderer.subclasses())
+
+    def testRdfRendererRequiresDatasetUriForNquads(self) -> None:
+        renderer = RdfRenderer(self.all_graph)
+        with self.assertRaises(ValueError):
+            renderer.render("nquads")
+        nq = renderer.render("nquads", dataset_uri=SDO["30.1"])
+        self.assertIn("<https://schema.org/30.1> .", nq)
+        self.assertEqual(nq, "".join(sorted(nq.splitlines(keepends=True))))
+        self.assertIs(renderer.canonical, renderer.canonical)
+
+    def testRdfRendererHandlesLangLiteralsWithoutXmlPrefix(self) -> None:
+        g = rdflib.Graph(bind_namespaces="none")
+        g.parse(
+            data=(
+                "@prefix schema: <https://schema.org/> .\n"
+                "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                'schema:Thing a rdfs:Class ; rdfs:label "Thing"@en .\n'
+            ),
+            format="turtle",
+        )
+        rdf_xml = RdfRenderer(g).render("rdf")
+        self.assertIn('xml:lang="en"', rdf_xml)
+        self.assertNotIn("xml", {str(k) for k, _ in g.namespaces()})
+
+    def testRdfRendererPropagatesSortFailures(self) -> None:
+        renderer = RdfRenderer(self.all_graph)
+        with patch(
+            "schemaorg.renderers.rdf_renderer.sort_xml",
+            side_effect=ValueError("bad xml"),
+        ):
+            with self.assertRaises(ValueError):
+                renderer.render("rdf")
+
+    def testRemovingPrefixStatementOnlyRemovesNamespaceEntry(self) -> None:
+        ttl_without_foaf_prefix = FIXTURE_TTL.replace(
+            "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n", ""
+        ).replace("foaf:Person", "<http://xmlns.com/foaf/0.1/Person>")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            outputs: dict[str, dict[str, str]] = {}
+            for label, ttl_text in (
+                ("with_prefix", FIXTURE_TTL),
+                ("without_prefix", ttl_without_foaf_prefix),
+            ):
+                in_dir = root / label
+                (in_dir / "data").mkdir(parents=True)
+                (in_dir / "versions.json").write_text(
+                    json.dumps({
+                        "schemaversion": "30.1",
+                        "releaseLog": {"30.1": "2026-09-16"},
+                    }),
+                    encoding="utf-8",
+                )
+                (in_dir / "data" / "schema.ttl").write_text(
+                    ttl_text, encoding="utf-8"
+                )
+                out_layout = OutputLayout(in_dir / "data")
+                buildfiles.export_release_files(InputLayout(in_dir), out_layout)
+                rel_dir = Releases(
+                    out_layout, Version(in_dir / "versions.json")
+                ).dir("next")
+                outputs[label] = {
+                    p.name: p.read_text(encoding="utf-8")
+                    for p in rel_dir.iterdir()
+                }
+
+        ctx_with = json.loads(
+            outputs["with_prefix"]["schemaorgcontext.jsonld"]
+        )["@context"]
+        ctx_without = json.loads(
+            outputs["without_prefix"]["schemaorgcontext.jsonld"]
+        )["@context"]
+        self.assertEqual(ctx_with.pop("foaf"), "http://xmlns.com/foaf/0.1/")
+        self.assertEqual(ctx_with, ctx_without)
+        self.assertNotIn("brick", ctx_without)
+
+        # Prefix-independent exports must not change at all.
+        for name in (
+            "schemaorg-all-https.nt",
+            "schemaorg-all-http.nt",
+            "schemaorg-all-https.nq",
+            "schemaorg-all-http.nq",
+            "schemaorg-all-https-types.csv",
+            "schemaorg-all-https-properties.csv",
+            "schemaorg.owl",
+            "httpequivs.ttl",
+            "schemaorg-shapes.shexj",
+            "schemaorg-subclasses.shacl",
+        ):
             self.assertEqual(
-                http_csv.read_text(encoding="utf-8"),
-                '"id","value"\n"123","http://schema.org/Fnuble"\n"456","Blubrl"\n',
-            )
-            self.assertEqual(
-                https_csv.read_text(encoding="utf-8"),
-                '"id","value"\n"123","https://schema.org/Fnuble"\n"456","Blubrl"\n',
+                outputs["with_prefix"][name],
+                outputs["without_prefix"][name],
+                name,
             )
 
-    def testOwlBuildHandlesNextWithoutDate(self) -> None:
-        empty_graph = rdflib.Graph()
-        dated = OwlBuild(
-            version=VersionItem("30.1", "2026-09-16"), graph=empty_graph
-        ).getContent()
+        # Prefix-compacted RDF exports must represent the exact same triples.
+        g_with = rdflib.Graph(bind_namespaces="none").parse(
+            data=outputs["with_prefix"]["schemaorg-all-https.ttl"],
+            format="turtle",
+        )
+        g_without = rdflib.Graph(bind_namespaces="none").parse(
+            data=outputs["without_prefix"]["schemaorg-all-https.ttl"],
+            format="turtle",
+        )
+        self.assertEqual(set(g_with), set(g_without))
+
+    def testJsonLdContextAndTreeRenderers(self) -> None:
+        ctx = json.loads(render_jsonld_context(self.all_graph, self.vocab))[
+            "@context"
+        ]
+        self.assertEqual(ctx["@vocab"], "http://schema.org/")
+        self.assertEqual(ctx["xsd"], "http://www.w3.org/2001/XMLSchema#")
+
+        tree = json.loads(render_jsonld_tree(self.vocab))
+        self.assertEqual(tree["@id"], "schema:Thing")
+        by_id = {c["@id"]: c for c in tree["children"]}
+        self.assertEqual(
+            by_id["schema:Person"]["description"], "A person, a kind of Thing."
+        )
+        self.assertTrue(by_id["schema:OldThing"]["attic"])
+        self.assertTrue(by_id["schema:Place"]["pending"])
+        hybrid = by_id["schema:Person"]["children"][0]
+        self.assertEqual(hybrid["@id"], "schema:Hybrid")
+        self.assertEqual(
+            hybrid["rdfs:subClassOf"], ["schema:Person", "schema:Place"]
+        )
+
+    def testHttpEquivsExcludesRetiredAndSplitsClassVsProperty(self) -> None:
+        ttl = render_http_equivs(self.vocab)
+        self.assertIn("schema_p:Person owl:equivalentClass schema_s:Person", ttl)
+        self.assertIn("schema_p:name owl:equivalentProperty schema_s:name", ttl)
+        self.assertNotIn("OldThing", ttl)
+
+    def testCsvRendererFiltersRetired(self) -> None:
+        renderer = CsvRenderer(self.vocab)
+        all_rows = renderer.types(include_retired=True)
+        current_rows = renderer.types(include_retired=False)
+        retired_row = '"https://schema.org/OldThing","OldThing"'
+        self.assertIn(retired_row, all_rows)
+        self.assertNotIn(retired_row, current_rows)
+        self.assertIn("https://attic.schema.org", all_rows)
+
+        props = renderer.properties(include_retired=True)
+        self.assertEqual(props.count("\n"), 2)
+        self.assertIn('"https://schema.org/name","name"', props)
+
+    def testCsvRendererWikilinksDefaultToAbsoluteSchemaUrls(self) -> None:
+        rows = CsvRenderer(self.vocab).types(include_retired=True)
+        self.assertIn(
+            '<a class=""localLink"" href=""https://schema.org/Thing"">Thing</a>',
+            rows,
+        )
+        relative = CsvRenderer(self.vocab, wikilink_prefix="/")
+        self.assertIn(
+            'href=""/Thing""',
+            relative.types(include_retired=True),
+        )
+
+    def testCountsRenderer(self) -> None:
+        renderer = CountsRenderer(self.vocab, VersionItem("30.1", "2026-09-16"))
+        self.assertEqual(renderer.counts["Property"], 1)
+        self.assertEqual(renderer.counts["schemaorgversion"], "30.1")
+        self.assertIn(renderer.json(), renderer.jsonp())
+
+    def testOwlRendererHandlesNextWithoutDate(self) -> None:
+        prev_wpre = localmarkdown.MarkdownTool.WPRE
+        self.addCleanup(localmarkdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
+        localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
+
+        dated = OwlRenderer(
+            self.all_graph, VersionItem("30.1", "2026-09-16")
+        ).render()
+        self.assertEqual(localmarkdown.MarkdownTool.WPRE, "https://schema.org/")
         self.assertIn("released: 2026-09-16", dated)
         self.assertIn("dcterms:modified", dated)
+        self.assertIn('href="/Thing"', dated)
 
-        unreleased = OwlBuild(
-            version=VersionItem("next"), graph=empty_graph
-        ).getContent()
+        unreleased = OwlRenderer(self.all_graph, VersionItem("next")).render()
         self.assertIn("Generated from Schema.org version: next", unreleased)
         self.assertNotIn("released:", unreleased)
         self.assertNotIn("None", unreleased)
         self.assertNotIn("dcterms:modified", unreleased)
         self.assertIn("<owl:versionInfo", unreleased)
 
-    @patch(
-        "SchemaTerms.sdotermsource.SdoTermSource.getAllTerms",
-        return_value=["Person"],
-    )
-    def testSitemapOmitsLastmodWithoutDate(self, _mock_terms) -> None:
-        dated = buildfiles.sitemap("Sitemap", version=VersionItem("30.1", "2026-09-16"))
+    def testSitemapRendererOmitsLastmodWithoutDate(self) -> None:
+        dated = render_sitemap(self.vocab, VersionItem("30.1", "2026-09-16"))
         self.assertIn("<lastmod>2026-09-16</lastmod>", dated)
 
-        unreleased = buildfiles.sitemap("Sitemap", version=VersionItem("next"))
+        unreleased = render_sitemap(self.vocab, VersionItem("next"))
         self.assertNotIn("<lastmod>", unreleased)
         self.assertIn("<loc>https://schema.org/Person</loc>", unreleased)
 
+    def testExamplesRenderer(self) -> None:
+        self.assertEqual(render_examples(()), "")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ex_file = root / "data" / "examples.txt"
+            ex_file.parent.mkdir(parents=True)
+            ex_file.write_text(
+                'TYPES: #eg-1 Person\nPRE-MARKUP:\nAda\nJSON:\n{"@type": "Person"}\n',
+                encoding="utf-8",
+            )
+            with patch(
+                "SchemaExamples.schemaexamples.paths.DefaultInputLayout",
+                return_value=InputLayout(root),
+            ):
+                rendered = render_examples((ex_file,))
+            self.assertIn("#eg-0001", rendered)
+            self.assertIn("Person", rendered)
+
+
+class TestPlan(unittest.TestCase):
+    def testReleaseAndSiteDocsPlansAreDisjointAndComplete(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            versions_path = Path(tmp) / "versions.json"
+            versions_path.write_text(
+                json.dumps({
+                    "schemaversion": "30.1",
+                    "releaseLog": {"30.1": "2026-09-16"},
+                }),
+                encoding="utf-8",
+            )
+            version = Version(versions_path)
+            next_version = version.next()
+            release_layout = OutputLayout(Path(tmp) / "data")
+            site_layout = OutputLayout(Path(tmp) / "site")
+            releases = Releases(release_layout, version)
+            all_graph, current_graph = split_release_graphs(_fixture_graph())
+            vocab = VocabularyLoader(all_graph, version=next_version).load()
+            csv = CsvRenderer(vocab)
+
+            all_scoped = buildfiles.export_scoped(
+                Scope.ALL, all_graph, csv, next_version, releases
+            )
+            current_scoped = buildfiles.export_scoped(
+                Scope.CURRENT, current_graph, csv, next_version, releases
+            )
+            release_unscoped = buildfiles.export_release_unscoped(
+                all_graph, vocab, next_version, releases, ()
+            )
+            site_docs = buildfiles.plan_site_docs(
+                vocab, next_version, releases, site_layout
+            )
+            self.assertEqual(len(all_scoped), 14)
+            self.assertEqual(len(current_scoped), 14)
+            self.assertEqual(len(release_unscoped), 7)
+            self.assertEqual(len(site_docs), 8)
+
+            release_artifacts = [
+                *all_scoped,
+                *current_scoped,
+                *release_unscoped,
+            ]
+            release_paths = [a.path for a in release_artifacts]
+            self.assertEqual(
+                len(release_paths),
+                len(set(release_paths)),
+                "duplicate artifact paths",
+            )
+            self.assertEqual(len(release_artifacts), 35)
+            self.assertTrue(
+                all(p.parent == releases.dir("next") for p in release_paths)
+            )
+            self.assertTrue(
+                all(
+                    a.path.parent == site_layout.dir(Domain.DOCS)
+                    for a in site_docs
+                )
+            )
+            http = [
+                a
+                for a in release_artifacts
+                if a.path.name.endswith(("-http.nt", "-http-types.csv"))
+            ]
+            self.assertEqual(len(http), 4)
+            self.assertTrue(all(a.post for a in http))
+
     def testExportReleaseFilesAndSiteDocsWithLayouts(self) -> None:
-        self.enterContext(patch.dict(sdocollaborators.collaborator.COLLABORATORS))
-        self.enterContext(patch.dict(sdocollaborators.collaborator.CONTRIBUTORS))
-        self.addCleanup(
-            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
-        )
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             in_dir = root / "in"
             site_dir = root / "site"
             (in_dir / "data").mkdir(parents=True)
             (in_dir / "versions.json").write_text(
-                json.dumps(
-                    {
-                        "schemaversion": "30.1",
-                        "releaseLog": {"30.1": "2026-09-16"},
-                    }
-                ),
+                json.dumps({
+                    "schemaversion": "30.1",
+                    "releaseLog": {"30.1": "2026-09-16"},
+                }),
                 encoding="utf-8",
             )
             (in_dir / "data" / "schema.ttl").write_text(
@@ -198,10 +471,34 @@ class TestBuildFiles(unittest.TestCase):
                 release_out_layout, Version(in_dir / "versions.json")
             )
             self.assertEqual(len(list(releases.dir("next").iterdir())), 35)
-            https_nq = releases.file(filename="schemaorg-all-https.nq").read_text(
+            self.assertTrue(releases.file(filename="httpequivs.ttl").is_file())
+            for name in (
+                "schemaorg-all-https-types.csv",
+                "schemaorg-all-http-types.csv",
+                "schemaorg-current-https-properties.csv",
+                "schemaorg-current-http-properties.csv",
+                "schemaorg-shapes.shexj",
+                "schemaorg-shapes.shacl",
+                "schemaorg-subclasses.shacl",
+                "schemaorgcontext.jsonld",
+                "schemaorg.owl",
+            ):
+                self.assertTrue(releases.file(filename=name).is_file(), name)
+
+            https_nq = releases.file(
+                filename="schemaorg-all-https.nq"
+            ).read_text(encoding="utf-8")
+            self.assertIn("<https://schema.org/next> .", https_nq)
+
+            https_nt = releases.file(
+                filename="schemaorg-all-https.nt"
+            ).read_text(encoding="utf-8")
+            http_nt = releases.file(filename="schemaorg-all-http.nt").read_text(
                 encoding="utf-8"
             )
-            self.assertIn("<https://schema.org/next> .", https_nq)
+            self.assertIn("<https://schema.org/Person>", https_nt)
+            self.assertNotIn("https://schema.org", http_nt)
+            self.assertEqual(protocol_swap()(https_nt), http_nt)
 
             buildfiles.export_site_docs(
                 input_layout=input_layout, output_layout=site_out_layout
@@ -220,17 +517,27 @@ class TestBuildFiles(unittest.TestCase):
                     site_out_layout.file(Domain.DOCS, name).is_file(), name
                 )
             self.assertFalse((site_dir / "releases").exists())
+            self.assertEqual(
+                releases.file(filename="schemaorgcontext.jsonld").read_text(
+                    encoding="utf-8"
+                ),
+                site_out_layout.file(
+                    Domain.DOCS, "jsonldcontext.jsonld"
+                ).read_text(encoding="utf-8"),
+            )
 
             buildfiles.export_release_files(
                 input_layout=input_layout,
                 output_layout=release_out_layout,
                 version="30.1",
             )
-            self.assertTrue(releases.file("30.1", filename="schemaorg.owl").is_file())
+            self.assertTrue(
+                releases.file("30.1", filename="schemaorg.owl").is_file()
+            )
 
-    def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(self) -> None:
-        self.enterContext(patch.dict(sdocollaborators.collaborator.COLLABORATORS))
-        self.enterContext(patch.dict(sdocollaborators.collaborator.CONTRIBUTORS))
+    def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(
+        self,
+    ) -> None:
         self.addCleanup(
             sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
         )
@@ -245,22 +552,24 @@ class TestBuildFiles(unittest.TestCase):
             in_dir = Path(tmp) / "in"
             (in_dir / "data").mkdir(parents=True)
             (in_dir / "versions.json").write_text(
-                json.dumps(
-                    {
-                        "schemaversion": "30.1",
-                        "releaseLog": {"30.1": "2026-09-16"},
-                    }
-                ),
+                json.dumps({
+                    "schemaversion": "30.1",
+                    "releaseLog": {"30.1": "2026-09-16"},
+                }),
                 encoding="utf-8",
             )
-            (in_dir / "data" / "schema.ttl").write_text(
-                FIXTURE_TTL, encoding="utf-8"
+            ttl_with_foreign = (
+                FIXTURE_TTL
+                + '\n<https://example.org/foreign-dataset> a :Thing ; rdfs:label "Foreign" .\n'
             )
+            raw_ttl = in_dir / "data" / "schema.ttl"
+            raw_ttl.write_text(ttl_with_foreign, encoding="utf-8")
             input_layout = InputLayout(in_dir)
             release_out_layout = OutputLayout(in_dir / "data")
             version_obj = Version(in_dir / "versions.json")
 
             localmarkdown.MarkdownTool.setWikilinkPrePath("/")
+            sdotermsource.SdoTermSource.loadSourceGraph([raw_ttl], init=True)
             buildsite.LOADEDTERMS = None
             schema.config.TARGET_VERSION = "next"
 
@@ -269,24 +578,12 @@ class TestBuildFiles(unittest.TestCase):
             )
 
             self.assertEqual(localmarkdown.MarkdownTool.WPRE, "/")
-            post_stage1_thing = sdotermsource.SdoTermSource.getTerm("Thing")
-            self.assertIsNotNone(post_stage1_thing)
-            assert post_stage1_thing is not None
-            self.assertIn('href="/Person"', post_stage1_thing.comment)
-            csv_text = (
-                Releases(release_out_layout, version_obj)
-                .file(
-                    protocol=Protocol.HTTPS,
-                    scope=Scope.ALL,
-                    extension="-types.csv",
-                )
-                .read_text(encoding="utf-8")
-            )
-            self.assertIn('href=""https://schema.org/Person""', csv_text)
 
             with (
                 patch.object(paths, "DefaultInputLayout", return_value=input_layout),
                 patch.object(buildsite.schema, "VERSION", version_obj),
+                patch.dict(sdocollaborators.collaborator.COLLABORATORS),
+                patch.dict(sdocollaborators.collaborator.CONTRIBUTORS),
             ):
                 buildsite.loadTerms(source="release")
 
@@ -294,10 +591,10 @@ class TestBuildFiles(unittest.TestCase):
                 "https://example.org/foreign-dataset",
                 sdotermsource.SdoTermSource.getAllTerms(),
             )
-            thing = sdotermsource.SdoTermSource.getTerm("Thing")
-            self.assertIsNotNone(thing)
-            assert thing is not None
-            self.assertIn('href="/Person"', thing.comment)
+            person = sdotermsource.SdoTermSource.getTerm("Person")
+            self.assertIsNotNone(person)
+            assert person is not None
+            self.assertIn('href="/Thing"', person.comment)
 
 
 if __name__ == "__main__":
