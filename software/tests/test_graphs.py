@@ -585,8 +585,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            VALUES (?type ?predicate) {
              (rdfs:Class    rdfs:subPropertyOf)
              (rdfs:Class    owl:equivalentProperty)
-             (rdfs:Property rdfs:subClassOf)
-             (rdfs:Property owl:equivalentClass)
+             (rdf:Property  rdfs:subClassOf)
+             (rdf:Property  owl:equivalentClass)
            }
 
            {
