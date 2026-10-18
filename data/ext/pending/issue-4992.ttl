@@ -1,0 +1,54 @@
+
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/television-block>
+    a ex:TelevisionBlock ;
+    schema:name "Nome do Bloco de TV" ;
+    schema:startDate
+        "2026-10-08T20:00:00-04:00"^^xsd:dateTime ;
+    schema:endDate
+        "2026-10-08T22:00:00-04:00"^^xsd:dateTime ;
+    schema:isLiveBroadcast true ;
+    ex:publishedOn [
+        a schema:BroadcastService ;
+        schema:name "WAAY-TV" ;
+        schema:broadcastDisplayName "ABC" ;
+        schema:broadcastAffiliateOf [
+            a schema:Organization ;
+            schema:name "ABC"
+        ] ;
+        schema:provider [
+            a schema:Organization ;
+            schema:name "Comcast"
+        ] ;
+        schema:owner [
+            a schema:Organization ;
+            schema:name "Comcast"
+        ]
+    ] ;
+    schema:workPerformed [
+        a schema:TVEpisode ;
+        schema:name "Nome do Programa" ;
+        schema:presenter [
+            a schema:Person ;
+            schema:name "Nome do Apresentador"
+        ] ;
+        schema:performer [
+            a schema:Person ;
+            schema:name "Participante 1"
+        ] ,
+        [
+            a schema:Person ;
+            schema:name "Participante 2"
+        ] ;
+        schema:partOfSeries [
+            a schema:TVSeries ;
+            schema:name "Nome da Série"
+        ] ;
+        schema:productionCompany [
+            a schema:Organization ;
+            schema:name "Nome da Produtora"
+        ]
+    ] .
