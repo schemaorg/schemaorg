@@ -1,0 +1,29 @@
+
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/a-good-screenplay>
+    a ex:Screenplay ;
+    schema:name "A Good Screenplay" ;
+    schema:genre "Example" ;
+    schema:author [
+        a schema:Person ;
+        schema:name "Joe"
+    ] ;
+    schema:datePublished "2026-12-25"^^xsd:date ;
+    schema:inLanguage "en" ;
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+    schema:copyrightHolder [
+        a schema:Person ;
+        schema:name "Joe"
+    ] ;
+    schema:encoding [
+        a schema:MediaObject ;
+        schema:contentUrl
+            <https://example.com/a-good-screenplay.pdf> ;
+        schema:encodingFormat "application/pdf"
+    ] .
