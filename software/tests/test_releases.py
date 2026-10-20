@@ -234,7 +234,6 @@ class TestReleases(unittest.TestCase):
 
 class TestReleasesRealData(unittest.TestCase):
     """Checks Releases against the repository's declared releases."""
-
     def setUp(self):
         self.output_layout = OutputLayout(
             constants.PROJECT_ROOT / schema.config.OUTPUTDIR
