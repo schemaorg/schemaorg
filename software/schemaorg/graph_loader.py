@@ -34,7 +34,7 @@ class GraphLoader:
         Returns:
             A graph holding the union of all triples.
         """
-        graph = rdflib.Graph(bind_namespaces="core")
+        graph = rdflib.Graph(bind_namespaces="none")
         for file_path in files:
             try:
                 graph.parse(str(file_path), format="turtle")

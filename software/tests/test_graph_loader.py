@@ -57,6 +57,7 @@ class TestGraphLoader(unittest.TestCase):
 
         graph = self.loader.load(self.issues.get_ttl_files(issues=["999"]))
         ns = dict(graph.namespaces())
+        self.assertEqual(set(ns), {"", "custom1", "custom2", "rdfs"})
 
         # Verify custom namespaces from files were merged
         self.assertIn("custom1", ns)
