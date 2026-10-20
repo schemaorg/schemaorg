@@ -382,7 +382,7 @@ class SdoTermSource:
                     if term.id == "ENUMERATION":
                         break
                     if term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
-                        allprop_ids.update(term.properties.ids)
+                        allprop_ids.update(term.allproperties.ids)
             ret = sorted(allprop_ids)
         return ret
 
