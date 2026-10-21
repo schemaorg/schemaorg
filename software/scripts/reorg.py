@@ -17,6 +17,7 @@ import rdflib
 
 
 
+from schemaorg.publish import turtle
 import util.schema_graph as graph
 
 
@@ -29,12 +30,12 @@ def Lint(args: argparse.Namespace) -> None:
 
     def LintOne(filename: str, output_filename: str) -> None:
         logging.info(" - reading file ...")
-        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(filename))
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph([Path(filename)])
         logging.info(
             f" - writing back {output_filename if output_filename != filename else ''} ..."
         )
         g.serialize(output_filename, format="turtle")
-        if not g.IdenticalTo(graph.SchemaOrgGraph(Path(output_filename))):
+        if not g.IdenticalTo(graph.SchemaOrgGraph([Path(output_filename)])):
             logging.fatal(f"Linting file {filename} lost some information.")
 
     if args.output is not None and len(args.files) > 1:
@@ -48,15 +49,15 @@ def Lint(args: argparse.Namespace) -> None:
 def MergeFiles(args: argparse.Namespace) -> None:
     """Merges a set of files into one."""
     logging.info(f"Merging files {len(args.files)} into {args.output}")
-    merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(args.files[0]))
-    for filename in args.files[1:]:
-        logging.info(f" - reading {filename} ...")
-        merged.parse(filename, format="turtle")
+    # The loader takes the whole list, so the merge is the load.
+    merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph(
+        [Path(f) for f in args.files]
+    )
     logging.info(f"Writing {args.output} ...")
     merged.serialize(args.output, format="turtle")
 
     for filename in args.files:
-        if not merged.FullyContains(graph.SchemaOrgGraph(Path(filename))):
+        if not merged.FullyContains(graph.SchemaOrgGraph([Path(filename)])):
             logging.fatal(f"Merging files into {args.output} lost some information.")
 
 
@@ -74,7 +75,7 @@ def Annotate(args: argparse.Namespace) -> None:
 
     for filename in args.files:
         logging.info(f"Annotating {filename} ...")
-        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph(Path(filename))
+        g: graph.SchemaOrgGraph = graph.SchemaOrgGraph([Path(filename)])
         # Clean the existing parts
         g.remove((None, graph.SCHEMAORG.isPartOf, None))
         # GA is special as it is the unannotated state.
@@ -92,6 +93,12 @@ def main() -> None:
     command.
     """
     logging.basicConfig(level=logging.INFO)
+
+    # Every subcommand rewrites .ttl files that humans review in diffs, so
+    # opt into the deterministic subject ordering. This is a global rdflib
+    # mutation, which is why it lives in the entry point and not in a
+    # library import.
+    turtle.register_as_turtle()
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Re-organize Turtle files")
     subparsers = parser.add_subparsers(dest="command")

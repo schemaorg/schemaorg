@@ -9,39 +9,25 @@ from pathlib import Path
 from typing import Any, List, Set, Union
 
 import util.schema as schema
-from schemaorg.layout import ALL_ISSUES, Issues
-
-# For custom sorting serializer
-from rdflib.plugins.serializers.turtle import TurtleSerializer
-from rdflib import RDFS, RDF, BNode
-from rdflib.plugin import register, Serializer
+from schemaorg.graph_loader import GraphLoader
 
 
 URI_BASE = schema.constants.HOMEPAGE
 SCHEMAORG: rdflib.Namespace = rdflib.Namespace(URI_BASE if URI_BASE.endswith('/') else URI_BASE + '/')
 
 
-class SchemaOrgGraph:
-    def __init__(
-        self,
-        source: Union[Path, Issues],
-        issue_list: List[str] = ALL_ISSUES,
-    ) -> None:
-        if source is None:
-            raise ValueError("SchemaOrgGraph requires a source (Path or Issues object).")
+class SchemaOrgGraph(object):
+    """Comparison helpers over a graph built from a list of TTL files.
 
-        self.g: rdflib.Graph = rdflib.Graph()
-        # Binding it here, as by default it would bind the /elements/1.1/
-        # instead
-        # of the dc terms. this way, the elements get assigned "dc1" or such
-        # as a prefix, and we do not use that.
-        self.g.bind("dc", rdflib.Namespace("http://purl.org/dc/terms/"), replace=True)
+    Which files those are is the caller's problem: ``Issues`` answers it for
+    the source tree, ``Releases`` for a published release, and a CLI can just
+    pass the paths it was given.
+    """
 
-        if isinstance(source, Issues):
-            for f in source.get_ttl_files(issue_list):
-                self.g.parse(str(f), format="turtle")
-        else:
-            self.g.parse(str(source), format="turtle")
+    def __init__(self, files: Sequence[Path]) -> None:
+        if not files:
+            raise ValueError("SchemaOrgGraph requires at least one TTL file.")
+        self.g: rdflib.Graph = GraphLoader().load(files)
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self.g, name)
@@ -67,33 +53,3 @@ class SchemaOrgGraph:
 
     def Properties(self) -> Set[rdflib.term.Node]:
         return self.ListSubjects(rdflib.RDF.Property)
-
-
-class CustomTurtleSerializer(TurtleSerializer):
-    topClasses = [RDFS.Class, RDF.Property]
-
-    def orderSubjects(self) -> List[rdflib.term.Node]:
-        seen = {}
-        subjects = []
-
-        # 1. Process topClasses (Classes and Properties)
-        for classURI in self.topClasses:
-            members = sorted(self.store.subjects(RDF.type, classURI))
-            subjects.extend(members)
-            for member in members:
-                self._topLevels[member] = True
-                seen[member] = True
-
-        # 2. Process everything else (ignoring reference count for sorting)
-        recursable = [
-            (isinstance(subject, BNode), subject)
-            for subject in self._subjects
-            if subject not in seen
-        ]
-        recursable.sort()  # Sort by isbnode, then subject
-        subjects.extend(subject for _, subject in recursable)
-
-        return subjects
-
-# Register the custom serializer to override the default "turtle" serializer
-register("turtle", Serializer, "util.schema_graph", "CustomTurtleSerializer")
