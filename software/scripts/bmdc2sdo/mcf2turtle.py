@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from collections import OrderedDict
-import os
+from pathlib import Path
+import re
 import sys
-from typing import Dict
 
 DEBUG = False
 
@@ -62,7 +61,7 @@ def my_mcf_to_dict_list(mcf_str: str) -> list:
         node = node.strip()
         # check for comments
         node_str_list = node.split('\n')
-        cur_node = OrderedDict()
+        cur_node = {}
         comment_ctr = 0
         is_first_prop = True
         # add each pv to ordered dict
@@ -203,16 +202,14 @@ def generate_property_turtle(node, terms):
         'terms': terms
     }
 
-    return sorted(list(types))
-
 def main():
     if len(sys.argv) < 2:
         print("Please provide the path to the MCF file as a command-line argument.")
         sys.exit(1)
 
-    mcf_file_path = sys.argv[1]
+    mcf_file_path = Path(sys.argv[1])
 
-    if not os.path.isfile(mcf_file_path):
+    if not mcf_file_path.is_file():
         print(f"MCF file '{mcf_file_path}' does not exist.")
         sys.exit(1)
 
@@ -223,8 +220,7 @@ def main():
     }
 
     try:
-        with open(mcf_file_path, 'r') as file:
-            mcf_data_str = file.read()
+        mcf_data_str = mcf_file_path.read_text(encoding='utf-8')
 
         mcf_data = my_mcf_to_dict_list(mcf_data_str)
         debug_print(f"# Loaded MCF data: {len(mcf_data)} entries")

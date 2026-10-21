@@ -3,99 +3,76 @@
 
 import argparse
 import csv
-import io
+from pathlib import Path
+from typing import Iterable, List, Set
 
-from SchemaExamples.schemaexamples import SchemaExamples
+from SchemaExamples.schemaexamples import Example, SchemaExamples
+from SchemaTerms.sdoterm import SdoTerm
 from SchemaTerms.sdotermsource import SdoTermSource
 import util.textutils as textutils
 
-if not SdoTermSource.SOURCEGRAPH:
-    print("Loading triples files")
-    SdoTermSource.loadSourceGraph("default")
-    print(
-        "loaded %s triples - %s terms"
-        % (len(SdoTermSource.sourceGraph()), len(SdoTermSource.getAllTerms()))
-    )
 
-workingterms = []
+def _add_subterms(term: SdoTerm, seen: Set[str], result: List[str]) -> None:
+    for sub_id in term.subs.ids:
+        if sub_id not in seen:
+            seen.add(sub_id)
+            result.append(sub_id)
+        if sub_term := SdoTermSource.getTerm(sub_id):
+            _add_subterms(sub_term, seen, result)
 
 
-def getterms(term, recursive):
-    global workingterms
+def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> List[str]:
+    result: List[str] = []
+    seen: Set[str] = set()
 
-    termlist = []
-    for ts in term:
-        termlist.extend(ts)
-
-    for t in termlist:
+    for t in (t for group in term_groups for t in group):
         term = SdoTermSource.getTerm(t)
         if not term:
-            print("No such term: %s" % t)
+            print(f"No such term: {t}")
             continue
-        addtoworking(term.id)
-
+        if term.id not in seen:
+            seen.add(term.id)
+            result.append(term.id)
         if recursive:
-            addrecursive(term)
+            _add_subterms(term, seen, result)
+
+    return result
 
 
-def addtoworking(term):
-    global workingterms
-    if term not in workingterms:
-        workingterms.append(term)
-
-
-def addrecursive(term):
-    for t in term.subs:
-        addtoworking(t)
-        addrecursive(SdoTermSource.getTerm(t))
-
-
-def getexamples(terms):
+def getexamples(terms: Iterable[str]) -> List[Example]:
+    result: List[Example] = []
     for t in terms:
-        examples = SchemaExamples.examplesForTerm(t)
-        addtoworkingex(examples)
+        for e in SchemaExamples.examplesForTerm(t):
+            if e not in result:
+                result.append(e)
+    return result
 
 
-workingex = []
+def buildoutput(examples: Iterable[Example], fname: str) -> None:
+    buildcsvoutput(sorted(examples, key=lambda x: str(x.keyvalue)), fname)
 
 
-def addtoworkingex(examples):
-    for e in examples:
-        if e not in workingex:
-            workingex.append(e)
-
-
-def buildoutput(workingex, fname):
-    workingex = sorted(workingex, key=lambda x: (x.keyvalue))
-
-    buildcsvoutput(workingex, fname)
-
-
-def buildcsvoutput(workingex, fname):
+def buildcsvoutput(examples: Iterable[Example], fname: str) -> None:
     if not fname.endswith(".csv"):
-        fname = fname + ".csv"
+        fname = f"{fname}.csv"
 
-    data = []
     fields = ["Example Id", "Source File", "Linked to Terms"]
-    for e in workingex:
-        row = {}
-        row["Example Id"] = e.keyvalue
-        row["Source File"] = e.getMeta("source")
-        row["Linked to Terms"] = textutils.Array2String(e.terms)
-        data.append(row)
+    data = [
+        {
+            "Example Id": e.keyvalue,
+            "Source File": e.getMeta("source"),
+            "Linked to Terms": textutils.Array2String(e.terms),
+        }
+        for e in examples
+    ]
 
-    csvout = io.StringIO()
-    print("examples4term: Writing to: %s" % fname)
-
-    csvfile = open(fname, "w")
-    writer = csv.DictWriter(
-        csvout, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
-    )
-    writer.writeheader()
-    for row in data:
-        writer.writerow(row)
-    csvfile.write(csvout.getvalue())
-    csvfile.close()
+    print(f"examples4term: Writing to: {fname}")
+    with Path(fname).open("w", encoding="utf-8", newline="") as csvfile:
+        writer = csv.DictWriter(
+            csvfile, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
+        )
+        writer.writeheader()
+        writer.writerows(data)
 
 
 if __name__ == "__main__":
@@ -114,12 +91,19 @@ if __name__ == "__main__":
         "--recursive",
         default=False,
         action="store_true",
-        help="Use tern=m and subtypes",
+        help="Use term and subtypes",
     )
     parser.add_argument("-o", "--output", required=True, help="csv output file")
     args = parser.parse_args()
 
-    getterms(args.term, args.recursive)
-    getexamples(workingterms)
-    fname = args.output
-    buildoutput(workingex, fname)
+    if not SdoTermSource.SOURCEGRAPH:
+        print("Loading triples files")
+        SdoTermSource.loadSourceGraph("default")
+        print(
+            f"loaded {len(SdoTermSource.sourceGraph())} triples - "
+            f"{len(SdoTermSource.getAllTerms())} terms"
+        )
+
+    terms = getterms(args.term, args.recursive)
+    examples = getexamples(terms)
+    buildoutput(examples, args.output)

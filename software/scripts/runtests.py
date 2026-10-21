@@ -1,55 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-# Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
-# to remove a 2nd clashing google/ python lib. See
-# https://github.com/coto/gae-boilerplate/issues/306
-
-# This script runs the Schema.org unit tests. The basic tests are concerned
-# with our site infrastructure; loading and accessing data.  The graph tests
-# are concerned with the shape/size of the schema graph itself.
-
-# Currently this means they require Google AppEngine to be installed,
-# because api.py and sdoapp.py both  depend upon AppEngine. This is
-# something we should minimise - eventually only
-# sdoapp.py should need AppEngine.  We use W3C SPARQL for the graph tests,
-# and therefore these tests will only run  if 'rdflib' is installed.
-#
-# We do not currently test the generated Web site with unit tests. However
-# please see /docs/qa.html for some useful links to check whenever site UI
-# code is being changed.
-#
-# There are two dependencies:
-#
-# 1. AppEngine SDK
-# Typically in ~/google_cloud_sdk and/or linked from /usr/local/google_appengine
-# This script will do its best to update your python path to point to
-# the SDK (whether you point to it directly or the broader Cloud SDK), to
-# AppEngine's tools and libs and to other bundled libraries. But to bootstrap
-# this is needs to at least find dev_appserver.
-#
-# 2. rdflib
-#
-# A normal Python package. Take care that it is installed against the version of
-# Python that is being used to run this script. easy_install or pip should work.
-# We may later bundle this, see
-# https://github.com/schemaorg/schemaorg/issues/178
-#
-# script originally based on original in google appengine dist and shared
-# under same terms,
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#        http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
+"""Runs the Schema.org unit test suite."""
 
 import argparse
 import os
@@ -94,7 +46,7 @@ class ColoredTestResult(unittest.TextTestResult):
             self.stream.flush()
 
     def addError(self, test: unittest.TestCase, err: Any) -> None:
-        super(ColoredTestResult, self).addError(test, err)  # Include the 'err' argument
+        super().addError(test, err)
         self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
 
     def startTest(self, test: unittest.TestCase) -> None:
@@ -133,7 +85,6 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
     def printErrorList(self, flavour: str, errors: List[Tuple[unittest.TestCase, str]]) -> None:
-        # super(unittest.TextTestResult, self).addSkip(flavour, errors)
         color: Optional[str] = None
         if flavour == "ERROR":
             color = colorama.Fore.YELLOW
@@ -143,21 +94,15 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint(self.separator1)
             self._colorPrint(self.getDescription(test), color=color)
             self._colorPrint(self.separator2)
-            self._colorPrint("%s" % err, color=color)
+            self._colorPrint(f"{err}", color=color)
 
 
 def GetSuite(test_path: str, args: Optional[argparse.Namespace]) -> unittest.TestSuite:
-    suite: unittest.TestSuite
-    if args and vars(args)["skipbasics"]:
-        suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
-    else:
-        suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
-    return suite
+    if args and args.skipbasics:
+        return unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
+    return unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
 
 
-# TODO:
-# Ensure that the google.appengine.* packages are available
-# in tests as well as all bundled third-party packages.
 def main(
     test_path: Optional[str] = None,
     args: Optional[argparse.Namespace] = None,
@@ -179,12 +124,8 @@ def main(
     )
     suite: unittest.TestSuite = GetSuite(test_path, args)
     res: unittest.TestResult = runner.run(suite)
-    count: int = len(res.failures) + len(res.errors)
-    return count
+    return len(res.failures) + len(res.errors)
 
 
 if __name__ == "__main__":
     sys.exit(main())
-
-# alternative, try
-# PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py

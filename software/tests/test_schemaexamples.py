@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -37,7 +36,7 @@ class TestExampleFileParser(unittest.TestCase):
         self.temp_file = tempfile.NamedTemporaryFile()
         patcher = patch('SchemaExamples.schemaexamples.paths.DefaultInputLayout')
         mock_input_layout = patcher.start()
-        mock_input_layout.return_value = InputLayout(Path(os.path.dirname(self.temp_file.name)))
+        mock_input_layout.return_value = InputLayout(Path(self.temp_file.name).parent)
         self.addCleanup(patcher.stop)
 
     def test_empty_example(self):
@@ -61,7 +60,7 @@ class TestExampleFileParser(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertTrue(result[0].hasValidId())
         self.assertEqual(result[0].getIdNum(), 999)
-        self.assertEqual(result[0].getMeta("file"), os.path.basename(self.temp_file.name))
+        self.assertEqual(result[0].getMeta("file"), Path(self.temp_file.name).name)
         self.assertCountEqual(result[0].terms, ["Thing"])
         self.assertEqual(
             result[0].getHtml().strip(), "<p>This is a thing</p>", result[0].serialize()

@@ -31,26 +31,24 @@ class CustomTurtleSerializer(TurtleSerializer):
     topClasses = [RDFS.Class, RDF.Property]
 
     def orderSubjects(self) -> List[rdflib.term.Node]:
-        seen = {}
+        seen = set()
         subjects = []
 
-        # 1. Process topClasses (Classes and Properties)
+        # Emit classes and properties first, sorted lexicographically.
         for classURI in self.topClasses:
-            members = list(self.store.subjects(RDF.type, classURI))
-            members.sort()  # Sort lexicographically
+            members = sorted(self.store.subjects(RDF.type, classURI))
             subjects.extend(members)
             for member in members:
                 self._topLevels[member] = True
-                seen[member] = True
+                seen.add(member)
 
-        # 2. Process everything else (ignoring reference count for sorting)
-        recursable = [
+        # Emit remaining subjects sorted by (is_bnode, subject).
+        recursable = sorted(
             (isinstance(subject, BNode), subject)
             for subject in self._subjects
             if subject not in seen
-        ]
-        recursable.sort()  # Sort by isbnode, then subject
-        subjects.extend([subject for (isbnode, subject) in recursable])
+        )
+        subjects.extend(subject for _, subject in recursable)
 
         return subjects
 

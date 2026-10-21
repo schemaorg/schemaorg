@@ -58,58 +58,58 @@ class TestIssues(unittest.TestCase):
 
     def test_get_ttl_files_all(self):
         files = self.issues.get_ttl_files()
-        expected = sorted([
+        expected = [
             self.core_ttl,
             self.ext_ttl,
             self.issue100_ttl,
             self.issue200_ttl,
-        ])
+        ]
         self.assertEqual(files, expected)
 
     def test_get_ttl_files_filtered(self):
         files = self.issues.get_ttl_files(["100"])
-        expected = sorted([
+        expected = [
             self.core_ttl,
             self.ext_ttl,
             self.issue100_ttl,
-        ])
+        ]
         self.assertEqual(files, expected)
 
     def test_get_example_files_all(self):
         files = self.issues.get_example_files()
-        expected = sorted([
+        expected = [
             self.core_examples,
             self.ext_examples,
             self.issue100_examples,
             self.issue200_examples,
-        ])
+        ]
         self.assertEqual(files, expected)
 
     def test_get_example_files_filtered(self):
         files = self.issues.get_example_files(["200"])
-        expected = sorted([
+        expected = [
             self.core_examples,
             self.ext_examples,
             self.issue200_examples,
-        ])
+        ]
         self.assertEqual(files, expected)
 
     def test_get_ttl_files_nonexistent_issue(self):
         files = self.issues.get_ttl_files(["9999"])
-        expected = sorted([
+        expected = [
             self.core_ttl,
             self.ext_ttl,
-        ])
+        ]
         self.assertEqual(files, expected)
 
     def test_get_ttl_files_multiple_issues(self):
         files = self.issues.get_ttl_files(["100", "200"])
-        expected = sorted([
+        expected = [
             self.core_ttl,
             self.ext_ttl,
             self.issue100_ttl,
             self.issue200_ttl,
-        ])
+        ]
         self.assertEqual(files, expected)
 
 

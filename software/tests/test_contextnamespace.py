@@ -55,8 +55,7 @@ class ContextShapesNamespaceTests(unittest.TestCase):
         path = self._release_file(self.CONTEXT_FILENAME)
         if not path.is_file():
             self.skipTest(f"{path} not built")
-        with open(path, encoding="utf-8") as handle:
-            document = json.load(handle)
+        document = json.loads(path.read_text(encoding="utf-8"))
         self.assertIn("@context", document, f"{path} has no @context")
         return document["@context"].get("@vocab"), path
 
@@ -105,9 +104,9 @@ class ContextShapesNamespaceTests(unittest.TestCase):
         )
 
         if vocab.startswith("http://"):
-            twin = "https://" + vocab[len("http://"):]
+            twin = f"https://{vocab.removeprefix('http://')}"
         else:
-            twin = "http://" + vocab[len("https://"):]
+            twin = f"http://{vocab.removeprefix('https://')}"
 
         agreeing = sorted(t for t in targets if t.startswith(vocab))
         conflicting = sorted(t for t in targets if t.startswith(twin))

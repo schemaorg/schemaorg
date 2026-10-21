@@ -4,17 +4,16 @@
 
 """Tool that validates the JSON-LD in the examples against the content of the `jsonldcontext.jsonld` file."""
 
-# Import standard python libraries
-
 import argparse
-import io
 import logging
 import os
+from pathlib import Path
 import re
 import sys
 
 import rdflib
 
+from schemaorg import constants
 import SchemaExamples.schemaexamples as schemaexamples
 
 
@@ -22,11 +21,11 @@ log = logging.getLogger(__name__)
 
 
 CONTEXT_MATCH = re.compile(
-    '([\\S\\s]*"@context"\\s*:\\s*\\[?[\\S\\s]*")https?:\\/\\/schema\\.org\\/?("[\\S\\s]*)',
+    r'([\S\s]*"@context"\s*:\s*\[?[\S\s]*")https?://schema\.org/?("[\S\s]*)',
     re.M,
 )
-CURRENT_CONTEXT_FILE = os.path.join(
-    os.getcwd(), "software", "site", "docs", "jsonldcontext.jsonld"
+CURRENT_CONTEXT_FILE = (
+    constants.PROJECT_ROOT / "software/site/docs/jsonldcontext.jsonld"
 )
 
 
@@ -44,26 +43,22 @@ def validateJsonld(example):
         return None, None
     example_json = example.getJsonldRaw()
 
-    while True:
-        cmatch = CONTEXT_MATCH.match(example_json)
-        if not cmatch:
-            break
+    while cmatch := CONTEXT_MATCH.match(example_json):
         example_json = (
-            cmatch.group(1) + "file://" + CURRENT_CONTEXT_FILE + cmatch.group(2)
+            f"{cmatch.group(1)}file://{CURRENT_CONTEXT_FILE}{cmatch.group(2)}"
         )
     exGraph = rdflib.Graph()
     exGraph.parse(
         data=example_json,
         format="json-ld",
-        base=os.path.join("http://example.com/", example.getKey()),
+        base=f"http://example.com/{example.getKey()}",
     )
 
 
 def _ExampleKey(example):
-    return "[key=%s, file=%s{%s}]" % (
-        example.getKey(),
-        example.getMeta("file"),
-        example.getMeta("filepos"),
+    return (
+        f"[key={example.getKey()}, "
+        f"file={example.getMeta('file')}{{{example.getMeta('filepos')}}}]"
     )
 
 
@@ -86,10 +81,8 @@ def validateExample(example, invalid_only, source_output):
         log.error("Invalid JSON example %s: %s", _ExampleKey(example), exception)
         if source_output:
             source = "\n".join(
-                [
-                    "{:4d}: {}".format(i, x.rstrip())
-                    for i, x in enumerate(example.getJsonldRaw().splitlines(), start=1)
-                ]
+                f"{i:4d}: {x.rstrip()}"
+                for i, x in enumerate(example.getJsonldRaw().splitlines(), start=1)
             )
             log.info("Source:\n%s", source)
         return False
@@ -107,7 +100,7 @@ def validate(example_list, invalid_only, source_output):
     errorCount = 0
 
     schemaexamples.SchemaExamples.loaded()
-    log.info("Loaded %d examples, processing" % (schemaexamples.SchemaExamples.count()))
+    log.info("Loaded %d examples, processing", schemaexamples.SchemaExamples.count())
 
     for ex in schemaexamples.SchemaExamples.allExamples(sort=True):
         if not example_list or ex.getKey() in example_list:
@@ -120,7 +113,7 @@ def validate(example_list, invalid_only, source_output):
 
 
 if __name__ == "__main__":
-    if not os.path.isfile(CURRENT_CONTEXT_FILE):
+    if not CURRENT_CONTEXT_FILE.is_file():
         log.error("%s file not found – check site build", CURRENT_CONTEXT_FILE)
         sys.exit(os.EX_CONFIG)
 
@@ -149,9 +142,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    example_list = []
-    for example in args.example:
-        example_list.extend(ex)
+    example_list = [ex for group in args.example for ex in group]
 
     validate(
         example_list=example_list,

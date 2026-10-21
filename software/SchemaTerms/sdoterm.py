@@ -105,12 +105,10 @@ class SdoTermSequence:
             sequence.setTerms(elements_list)
             return sequence
 
-        term_ids = []
-        for element in elements_list:
-            if hasattr(element, "id"):
-                term_ids.append(element.id)
-            else:
-                term_ids.append(str(element))
+        term_ids = [
+            element.id if hasattr(element, "id") else str(element)
+            for element in elements_list
+        ]
         sequence.setIds(term_ids)
         return sequence
 
