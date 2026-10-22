@@ -1,0 +1,55 @@
+
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#>
+
+<https://example.com/special-example>
+    a schema:TVSeries ;
+    schema:name "Special Example" ;
+    schema:duration "PT1H30M" ;
+    schema:genre "example" ;
+    schema:director [
+        a schema:Person ;
+        schema:name "Joe"
+    ] ;
+    schema:actor [
+        a schema:Person ;
+        schema:name "Actor 1"
+    ] ,
+    [
+        a schema:Person ;
+        schema:name "Actor 2"
+    ] ;
+    schema:trailer [
+        a schema:VideoObject ;
+        schema:name "Trailer of special" ;
+        schema:description "a nice trailer." ;
+        schema:thumbnailUrl
+            <https://example.com/trailer-thumb.jpg> ;
+        schema:uploadDate
+            "2026-11-01T08:00:00+08:00"^^xsd:dateTime ;
+        schema:contentUrl
+            <https://example.com/trailer.mp4> ;
+        schema:embedUrl
+            <https://example.com/embed/trailer>
+    ] ;
+    schema:productionCompany [
+        a schema:Organization ;
+        schema:name "example"
+    ] ;
+    schema:releasedEvent [
+        a schema:BroadcastEvent ;
+        schema:startDate
+            "2026-12-25T20:00:00-03:00"^^xsd:dateTime
+    ] ;
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+    schema:partOfTVSeries [
+        a schema:TVSeries ;
+        schema:name "original tv series"
+    ] .
