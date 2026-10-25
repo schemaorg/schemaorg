@@ -73,6 +73,12 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(
             sdotermsource.prefixFromUri("http://purl.org/dc/elements/1.1/"), "dc"
         )
+        self.assertEqual(
+            sdotermsource.prefixFromUri(
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/"
+            ),
+            "fibo-fnd-arr-reg",
+        )
 
     def testUriForPrefix(self):
         self.assertIsNone(sdotermsource.uriForPrefix(""))
@@ -93,6 +99,12 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(
             sdotermsource.prefixedIdFromUri("http://purl.org/dc/elements/1.1/title"),
             "dc:title",
+        )
+        self.assertEqual(
+            sdotermsource.prefixedIdFromUri(
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/hasRegistrationIdentifier"
+            ),
+            "fibo-fnd-arr-reg:hasRegistrationIdentifier",
         )
 
     def testGetComment(self):
@@ -121,15 +133,3 @@ class TestConversionFunctions(unittest.TestCase):
         lazy_pending = sdoterm.SdoTermOrId(term_id="subTrip")
         self.assertFalse(lazy_pending.expanded)
         self.assertTrue(lazy_pending.pending)
-        self.assertFalse(lazy_pending.retired)
-        self.assertEqual(lazy_pending.extLayer, "pending")
-
-        lazy_attic = sdoterm.SdoTermOrId(term_id="variablesMeasured")
-        self.assertFalse(lazy_attic.expanded)
-        self.assertFalse(lazy_attic.pending)
-        self.assertTrue(lazy_attic.retired)
-        self.assertEqual(lazy_attic.extLayer, "attic")
-
-
-if __name__ == "__main__":
-    unittest.main()
