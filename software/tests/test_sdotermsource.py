@@ -133,3 +133,15 @@ class TestConversionFunctions(unittest.TestCase):
         lazy_pending = sdoterm.SdoTermOrId(term_id="subTrip")
         self.assertFalse(lazy_pending.expanded)
         self.assertTrue(lazy_pending.pending)
+        self.assertFalse(lazy_pending.retired)
+        self.assertEqual(lazy_pending.extLayer, "pending")
+
+        lazy_attic = sdoterm.SdoTermOrId(term_id="variablesMeasured")
+        self.assertFalse(lazy_attic.expanded)
+        self.assertFalse(lazy_attic.pending)
+        self.assertTrue(lazy_attic.retired)
+        self.assertEqual(lazy_attic.extLayer, "attic")
+
+
+if __name__ == "__main__":
+    unittest.main()
