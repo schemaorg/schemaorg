@@ -41,17 +41,20 @@ class TestExampleFileParser(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
     def test_empty_example(self):
-        """Test parsing of an empty Example file."""
-        with self.assertLogs() as cm:
-            result = self.parser.parse(self.temp_file.name)
-        self.assertTrue(cm.output)
-        self.assertEqual(len(result), 1)
-        self.assertFalse(result[0].hasValidId())
-        self.assertFalse(result[0].terms)
-        self.assertFalse(result[0].getMicrodata())
-        self.assertFalse(result[0].getHtml())
-        self.assertFalse(result[0].getRdfa())
-        self.assertFalse(result[0].getJsonld())
+        """An empty example file holds no examples."""
+        self.assertEqual(self.parser.parse(self.temp_file.name), [])
+
+    def test_example_without_identifier_is_rejected(self):
+        self.temp_file.write(THING_EXAMPLE.replace("#eg-0999 ", "").encode("utf8"))
+        self.temp_file.seek(0)
+        with self.assertRaisesRegex(ValueError, "Example 1 in file .* has no identifier"):
+            self.parser.parse(self.temp_file.name)
+
+    def test_duplicate_identifier_is_rejected(self):
+        self.temp_file.write(THING_EXAMPLE.encode("utf8") + b"\n" + THING_EXAMPLE.encode("utf8"))
+        self.temp_file.seek(0)
+        with self.assertRaisesRegex(ValueError, "Example 2 in file .* has duplicate identifier: 'eg-0999'"):
+            self.parser.parse(self.temp_file.name)
 
     def test_single_example(self):
         """Test parsing of an Example file containing a single entry."""
@@ -59,7 +62,6 @@ class TestExampleFileParser(unittest.TestCase):
         self.temp_file.seek(0)
         result = self.parser.parse(self.temp_file.name)
         self.assertEqual(len(result), 1)
-        self.assertTrue(result[0].hasValidId())
         self.assertEqual(result[0].getIdNum(), 999)
         self.assertEqual(result[0].getMeta("file"), os.path.basename(self.temp_file.name))
         self.assertCountEqual(result[0].terms, ["Thing"])
@@ -96,7 +98,6 @@ class TestExampleFileParser(unittest.TestCase):
             jsonld="",
             exmeta={"id": "eg-777", "file": "/bogus", "filepos": -1},
         )
-        self.assertTrue(example.hasValidId())
         # Serialize it into second position.
         self.temp_file.write(example.serialize().encode("utf8"))
         self.temp_file.seek(0)
@@ -130,6 +131,28 @@ RDFA:
 JSON:
 <script>{}</script>""",
         )
+
+    def test_authored_ids_are_kept_as_is(self):
+        self.temp_file.write(
+            THING_EXAMPLE.replace("#eg-0999", "#eg-3617a").encode("utf8")
+            + b"\n"
+            + THING_EXAMPLE.replace("#eg-0999", "#3548").encode("utf8")
+            + b"\n"
+            + THING_EXAMPLE.replace("#eg-0999", "#eg-464").encode("utf8")
+        )
+        self.temp_file.seek(0)
+        result = self.parser.parse(self.temp_file.name)
+        self.assertEqual([ex.keyvalue for ex in result], ["eg-3617a", "3548", "eg-0464"])
+        self.assertEqual([ex.getIdNum() for ex in result], [-1, -1, 464])
+        self.assertEqual([ex.getMeta("filepos") for ex in result], [1, 2, 3])
+        self.assertIn("TYPES: #eg-3617a Thing", result[0].serialize())
+
+    def test_example_requires_identifier(self):
+        with self.assertRaises(ValueError):
+            schemaexamples.Example(
+                terms=["Thing"], original_html="", microdata="", rdfa="", jsonld="",
+                exmeta={"file": "/bogus", "filepos": 1},
+            )
 
 
 if __name__ == "__main__":

@@ -75,7 +75,7 @@ class TestBuildTermPages(unittest.TestCase):
                 microdata="",
                 rdfa="",
                 jsonld="",
-                exmeta={"file": __file__, "filepos": 0},
+                exmeta={"id": "eg-0042", "file": __file__, "filepos": 0},
             )
         ]
         json = "[42]"
