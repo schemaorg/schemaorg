@@ -14,7 +14,6 @@ from typing import Iterable, List, Optional, Sequence
 from schemaorg import constants
 from schemaorg.layout import Releases, checkDataDirectories
 import SchemaExamples.schemaexamples as schemaexamples
-import SchemaExamples.utils.assign_example_ids
 import SchemaTerms.localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
@@ -42,7 +41,7 @@ def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
         "--autobuild",
         default=False,
         action="store_true",
-        help="clear output directory and build all components - overrides all other settings (except -examplesnum)",
+        help="clear output directory and build all components - overrides all other settings",
     )
     parser.add_argument(
         "-c",
@@ -58,13 +57,6 @@ def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
         action="append",
         nargs="*",
         help="create docs page(repeatable) - ALL = all pages",
-    )
-    parser.add_argument(
-        "-e",
-        "--examplesnum",
-        default=False,
-        action="store_true",
-        help="Add missing example ids",
     )
     parser.add_argument(
         "-f",
@@ -371,11 +363,6 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         log.info("=== STAGE 1: BUILDING RELEASE VERSION ===")
         loadTerms(source="default")
 
-        with pretty_logger.BlockLog(
-            message="Checking Examples for assigned identifiers", logger=log
-        ):
-            SchemaExamples.utils.assign_example_ids.AssignExampleIds()
-
         schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "data")
 
         # Run tests first
@@ -403,12 +390,6 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         log.info("=== STAGE 2: BUILDING SITE ===")
         loadTerms(source="release")
         schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "software/site")
-
-        if args.examplesnum or args.autobuild or args.buildsite or any(args.terms) or any(args.files):
-            with pretty_logger.BlockLog(
-                message="Checking Examples for assigned identifiers", logger=log
-            ):
-                SchemaExamples.utils.assign_example_ids.AssignExampleIds()
 
         initdir(output_dir_str=schema.config.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
         runtests()

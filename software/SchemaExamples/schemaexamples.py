@@ -33,10 +33,11 @@ log: logging.Logger = logging.getLogger(__name__)
 
 
 class Example:
-    """Representation of an example file, with accessors for the various parts."""
+    """Representation of an example file, with accessors for the various parts.
 
-    ExamplesCount: int = 0
-    MaxId: int = 0
+    Every example carries the identifier authored in its file (``#eg-0487``,
+    ``#eg-3617a``, ...); sequential ``eg-NNNN`` ones are zero-padded.
+    """
 
     def __init__(
         self, terms: List[str], original_html: str, microdata: str, rdfa: str, jsonld: str, exmeta: Dict[str, Any], jsonld_offset: Optional[int] = None
@@ -46,25 +47,21 @@ class Example:
             log.info(
                 f"No terms for ex: {exmeta.get('filepos')} in file {exmeta.get('file')}"
             )
-            first_term: str = "Empty"
-        else:
-            first_term = terms[0]
         self.original_html: str = original_html
         self.microdata: str = microdata
         self.rdfa: str = rdfa
         self.jsonld: str = jsonld
         self.jsonld_offset: Optional[int] = jsonld_offset
         self.exmeta: Dict[str, Any] = exmeta
-        self.keyvalue: Optional[str] = self.exmeta.get("id", None)
-        if not self.keyvalue:
-            self.keyvalue = f"{first_term}-temp-{Example.ExamplesCount}"
-            self.exmeta["id"] = self.keyvalue
-        else:
-            idnum: int = self.getIdNum()
-            if idnum > -1:
-                Example.MaxId = max(Example.MaxId, idnum)
-                self.keyvalue = Example.formatId(idnum)
-        Example.ExamplesCount += 1
+        keyvalue: Optional[str] = self.exmeta.get("id", None)
+        if not keyvalue:
+            raise ValueError(
+                f"Example {exmeta.get('filepos')} in file {exmeta.get('file')} has no identifier"
+            )
+        self.keyvalue: str = keyvalue
+        idnum: int = self.getIdNum()
+        if idnum > -1:
+            self.keyvalue = Example.formatId(idnum)
         self.exselect: List[str] = []
 
     def __str__(self) -> str:
@@ -141,25 +138,19 @@ class Example:
         return self.exmeta.get(name, None)
 
     def getIdNum(self) -> int:
+        """Numeric part of a sequential ``eg-NNNN`` identifier, -1 for any other identifier."""
         idnum: int = -1
-        if self.keyvalue and self.keyvalue.startswith(IDPREFIX):
+        if self.keyvalue.startswith(IDPREFIX):
             try:
                 idnum = int(self.keyvalue[len(IDPREFIX):])
             except (ValueError, TypeError):
                 pass
         return idnum
 
-    def hasValidId(self) -> bool:
-        return self.getIdNum() > -1
-
     def serialize(self) -> str:
         termnames: str = ", ".join(self.terms)
-        idd: str = f"#{self.keyvalue}"
-        if "-temp-" in idd:
-            idd = ""
-
         sections: List[str] = [
-            f"TYPES: {idd} {termnames}\n",
+            f"TYPES: #{self.keyvalue} {termnames}\n",
             "PRE-MARKUP:",
             self.getHtml(),
             "MICRODATA:",
@@ -170,11 +161,6 @@ class Example:
             self.getJsonld(),
         ]
         return "\n".join(sections)
-
-    @staticmethod
-    def nextId() -> str:
-        Example.MaxId += 1
-        return Example.formatId(Example.MaxId)
 
     @staticmethod
     def formatId(val: int) -> str:
@@ -222,13 +208,16 @@ class SchemaExamples:
         parser: ExampleFileParser = ExampleFileParser()
         for f in load_files:
             for example in parser.parse(f):
-                # log.info("Ex: %s %s" % (example.keyvalue,example.terms))
-                keyvalue: str = str(example.keyvalue)
+                keyvalue: str = example.keyvalue
                 example.setMeta("source", f)
                 with SchemaExamples.exlock:
-                    if not SchemaExamples.EXAMPLES.get(keyvalue, None):
-                        SchemaExamples.EXAMPLES[keyvalue] = example
-
+                    previous: Optional[Example] = SchemaExamples.EXAMPLES.get(keyvalue)
+                    if previous is not None:
+                        raise ValueError(
+                            f"Duplicate example identifier '{keyvalue}' in {f}, "
+                            f"already defined in {previous.getMeta('source')}"
+                        )
+                    SchemaExamples.EXAMPLES[keyvalue] = example
                     for term in example.terms:
                         mapped_ids = SchemaExamples.EXAMPLESMAP.setdefault(term, [])
                         if keyvalue not in mapped_ids:
@@ -335,12 +324,11 @@ class ExampleFileParser:
 
     def process_example_id(self, m: re.Match) -> str:
         ident: str = m.group(1)
-        if ident not in self.idcache:
-            self.idcache.append(ident)
-        else:
-            raise Exception(
+        if ident in self.idcache:
+            raise ValueError(
                 f"Example {self.filepos} in file {self.file} has duplicate identifier: '{ident}'"
             )
+        self.idcache.append(ident)
         self.exmeta["id"] = ident
         return ""
 
@@ -405,6 +393,10 @@ class ExampleFileParser:
                             self.terms.append(ttli)
                         else:
                             boilerplate = True
+                if not boilerplate and "id" not in self.exmeta:
+                    raise ValueError(
+                        f"Example {self.filepos} in file {self.file} has no identifier"
+                    )
             else:
                 # Heuristic to find the start line that will be used by
                 # `getJsonldRaw`.
@@ -418,10 +410,7 @@ class ExampleFileParser:
                         line = line[ltk:]
                 self.currentStr.append(line)
         self.nextPart("TYPES:")  # should flush on each block of examples
-        self.filepos += 1
-        if not boilerplate:
-            self.exmeta["file"] = str(paths.DefaultInputLayout().relative_file(self.file))
-            self.exmeta["filepos"] = self.filepos
+        if not first and not boilerplate:
             examples.append(self.makeExample())  # should flush last one
         self.initFields()
         return examples
