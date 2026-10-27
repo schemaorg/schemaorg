@@ -20,11 +20,8 @@ log: logging.Logger = logging.getLogger(__name__)
 
 def _getInserts() -> Generator[Tuple[str, str], None, None]:
     template_dir: Path = paths.DefaultInputLayout().dir(paths.Domain.STATIC_DOC_INSERTS)
-    f_path: Path
     for f_path in template_dir.glob("*.html"):
-        fn: str = f_path.stem.lower()
-        if fn.startswith("sdi-"):
-            fn = fn[4:]
+        fn: str = f_path.stem.lower().removeprefix("sdi-")
 
         indata: str = f_path.read_text(encoding="utf-8")
         indata = indata.replace("{{version}}", schema.VERSION.current().number())
@@ -44,8 +41,6 @@ class Replacer:
         data: str = docdata if docdata is not None else doc_path.read_text(encoding="utf-8")
 
         if re.search(r"<!-- #### Static Doc Insert", data, re.IGNORECASE):
-            sub: str
-            insert_content: str
             for sub, insert_content in self.inserts.items():
                 subpattern: re.Pattern = re.compile(f"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE)
                 data = subpattern.sub(insert_content, data)
@@ -60,7 +55,6 @@ def htmlinserts(destdir: Union[str, Path]) -> None:
     dest_path: Path = Path(destdir)
     docs: List[Path] = sorted(dest_path.glob("*.html"))
     replacer: Replacer = Replacer(destdir=dest_path)
-    doc: Path
     for doc in docs:
         replacer.insertcopy(doc)
     log.info(f"Added to {len(docs)} files")

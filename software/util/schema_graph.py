@@ -1,22 +1,23 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8; python-indent-offset: 4 -*-
 
 """A class that holds the schema graph and presents some operations on it.
 """
 
-import rdflib
 from pathlib import Path
-from typing import Any, List, Set, Union
+from typing import Any, Sequence, Set
 
-import util.schema as schema
+import rdflib
+
 from schemaorg.graph_loader import GraphLoader
+import util.schema as schema
 
 
 URI_BASE = schema.constants.HOMEPAGE
-SCHEMAORG: rdflib.Namespace = rdflib.Namespace(URI_BASE if URI_BASE.endswith('/') else URI_BASE + '/')
+SCHEMAORG: rdflib.Namespace = rdflib.Namespace(f"{URI_BASE.rstrip('/')}/")
 
 
-class SchemaOrgGraph(object):
+class SchemaOrgGraph:
     """Comparison helpers over a graph built from a list of TTL files.
 
     Which files those are is the caller's problem: ``Issues`` answers it for

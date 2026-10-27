@@ -4,20 +4,18 @@
 import logging
 from typing import Optional, Set
 
+from schemaorg import constants
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.schema as schema
-
-from schemaorg import constants
-PROJECT_ROOT = constants.PROJECT_ROOT
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
 def snapshot_ttl(output_dir: Optional[str] = None) -> None:
     if output_dir is None:
-        output_dir = str(PROJECT_ROOT / "software/tests/snapshot")
+        output_dir = str(constants.PROJECT_ROOT / "software/tests/snapshot")
     # Take some copies of globals we need to manipulate.
     # TODO: these globals should be arguments or similar
     outputdir_copy: str = schema.config.OUTPUTDIR

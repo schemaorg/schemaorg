@@ -3,17 +3,16 @@
 
 from __future__ import annotations
 
-import collections
 import json
 import logging
 from pathlib import Path
 import re
 import threading
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Sequence, Set, Tuple, Type, Union
 
 import rdflib
 
-
+from schemaorg.layout import Issues
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
@@ -92,8 +91,6 @@ def bindNameSpaces(graph: rdflib.Graph) -> None:
         "mo": "http://purl.org/ontology/mo/",
         "og": "http://ogp.me/ns#",
     }
-    prefix: str
-    uri: str
     for prefix, uri in namespaces.items():
         graph.bind(prefix, uri)
 
@@ -264,10 +261,10 @@ class SdoTermSource:
     @classmethod
     def _isEnumeration(cls, term_id: str) -> bool:
         global ENUMERATIONURI
-        query: str = """
-          ASK  {
-                    %s rdfs:subClassOf* %s.
-            }""" % (uriWrap(toFullId(term_id)), uriWrap(str(ENUMERATIONURI)))
+        query: str = f"""
+          ASK {{
+                    {uriWrap(toFullId(term_id))} rdfs:subClassOf* {uriWrap(str(ENUMERATIONURI))}.
+            }}"""
 
         result: Sequence[rdflib.query.ResultRow] = cls.query(query)
         return bool(result[-1])
@@ -312,14 +309,11 @@ class SdoTermSource:
 
     def getAcknowledgements(self) -> Sequence[sdocollaborators.collaborator]:
         if not self.acks:
-            acks: List[sdocollaborators.collaborator] = []
-            objs: List[rdflib.term.Node] = self.loadObjects("schema:contributor")
-            obj: rdflib.term.Node
-            for obj in objs:
-                if obj:
-                    cont: Optional[sdocollaborators.collaborator] = sdocollaborators.collaborator.getContributor(str(obj))
-                    if cont:
-                        acks.append(cont)
+            acks: List[sdocollaborators.collaborator] = [
+                cont
+                for obj in self.loadObjects("schema:contributor")
+                if obj and (cont := sdocollaborators.collaborator.getContributor(str(obj)))
+            ]
             self.acks = sorted(acks, key=lambda t: t.title or "")
         return self.acks
 
@@ -340,7 +334,6 @@ class SdoTermSource:
     def getTermStack(self) -> List[sdoterm.SdoTerm]:
         if not self.termStack:
             self.termStack = []
-            sup_id: str
             for sup_id in self.getSupers():
                 try:
                     s: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(sup_id, createReference=True)
@@ -354,7 +347,6 @@ class SdoTermSource:
                     e.add_note(f"Circular references with {self.termdesc}")
                     raise
             stack: List[sdoterm.SdoTerm] = []
-            t: sdoterm.SdoTerm
             for t in reversed(self.termStack):
                 if t not in stack:
                     stack.append(t)
@@ -375,7 +367,6 @@ class SdoTermSource:
 
         if getall:
             allprop_ids: Set[str] = set(self.props)
-            t: sdoterm.SdoTerm
             for t in self.getTermStack():
                 term: sdoterm.SdoTerm = t if isinstance(t, sdoterm.SdoTerm) else self.__class__._getTerm(t, createReference=True)
                 if term.id != self.id:
@@ -404,18 +395,16 @@ class SdoTermSource:
             subs: List[rdflib.term.Node] = self.loadSubjects("schema:rangeIncludes")
             self.targetOf = sorted(uri2id(str(sub)) for sub in subs)
         ret: List[str] = self.targetOf
-        if not (self.targetOf and stopontarget):
-            if plusparents:
-                targets: Set[str] = set(self.targetOf)
-                s: str
-                for s in self.getSupers():
-                    sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(s, createReference=True)
-                    if not sup or sup.uri in (str(ENUMERATIONURI), str(THINGURI)):
-                        break
-                    targets.update(sup.expectedTypeFor.ids)
-                    if targets and stopontarget:
-                        break
-                ret = sorted(targets)
+        if not (self.targetOf and stopontarget) and plusparents:
+            targets: Set[str] = set(self.targetOf)
+            for s in self.getSupers():
+                sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(s, createReference=True)
+                if not sup or sup.uri in (str(ENUMERATIONURI), str(THINGURI)):
+                    break
+                targets.update(sup.expectedTypeFor.ids)
+                if targets and stopontarget:
+                    break
+            ret = sorted(targets)
         return ret
 
     def getEquivalents(self) -> List[str]:
@@ -472,32 +461,32 @@ class SdoTermSource:
         return ret[0] if ret else None
 
     def loadObjects(self, pred: Union[rdflib.URIRef, str]) -> List[rdflib.term.Node]:
-        query: str = """
-        SELECT ?val WHERE {
-                %s %s ?val.
-         }""" % (uriWrap(toFullId(self.id)), uriWrap(str(pred)))
+        query: str = f"""
+        SELECT ?val WHERE {{
+                {uriWrap(toFullId(self.id))} {uriWrap(str(pred))} ?val.
+         }}"""
         res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
         return [row.val for row in res]
 
     def loadSubjects(self, pred: Union[rdflib.URIRef, str]) -> List[rdflib.term.Node]:
-        query: str = """
-        SELECT ?sub WHERE {
-                ?sub %s %s.
-         }""" % (uriWrap(str(pred)), uriWrap(toFullId(self.id)))
+        query: str = f"""
+        SELECT ?sub WHERE {{
+                ?sub {uriWrap(str(pred))} {uriWrap(toFullId(self.id))}.
+         }}"""
         res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
         return [row.sub for row in res]
 
     def loadsupers(self) -> None:
-        fullId: str = toFullId(self.id)
-        query: str = """
-        SELECT ?sup WHERE {
-             {
-                 %s rdfs:subClassOf ?sup .
-             }UNION{
-                 %s rdfs:subPropertyOf ?sup .
-             }
-         }
-         ORDER BY ?sup""" % (uriWrap(fullId), uriWrap(fullId))
+        wrapped_id: str = uriWrap(toFullId(self.id))
+        query: str = f"""
+        SELECT ?sup WHERE {{
+             {{
+                 {wrapped_id} rdfs:subClassOf ?sup .
+             }} UNION {{
+                 {wrapped_id} rdfs:subPropertyOf ?sup .
+             }}
+         }}
+         ORDER BY ?sup"""
 
         res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
         self.supers = sorted(uri2id(str(row.sup)) for row in res)
@@ -505,10 +494,10 @@ class SdoTermSource:
     def loadsubs(self) -> None:
         fullId: str = toFullId(self.id)
         sel: str = "rdfs:subClassOf" if self.ttype in sdoterm.SdoTerm.TYPE_LIKE_TYPES else "rdfs:subPropertyOf"
-        query: str = """
-        SELECT ?sub WHERE {
-                ?sub %s %s.
-         }ORDER BY ?sub""" % (uriWrap(sel), uriWrap(fullId))
+        query: str = f"""
+        SELECT ?sub WHERE {{
+                ?sub {uriWrap(sel)} {uriWrap(fullId)}.
+         }} ORDER BY ?sub"""
         res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
         self.subs = [uri2id(str(row.sub)) for row in res]
 
@@ -541,8 +530,6 @@ class SdoTermSource:
             if basetype and basetype.termType == sdoterm.SdoTermType.DATATYPE:
                 inserts = ["DataType"]
 
-        ins: str
-        s: List[str]
         for ins in inserts:
             for s in self._pstacks:
                 s.insert(0, ins)
@@ -563,19 +550,16 @@ class SdoTermSource:
 
         super_ids = [
             sid for sid in super_ids
-            if not (sid.startswith("http:") or sid.startswith("https:"))
+            if not sid.startswith(("http:", "https:"))
         ]
 
         tmpStacks: List[List[str]] = [cstack]
         if super_ids:
-            i: int
-            for i in range(1, len(super_ids)):
+            for _ in range(1, len(super_ids)):
                 t: List[str] = cstack[:]
                 tmpStacks.append(t)
                 self._pstacks.append(t)
 
-            x: int
-            parent_id: str
             for x, parent_id in enumerate(super_ids):
                 sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(parent_id)
                 if sup:
@@ -668,10 +652,8 @@ class SdoTermSource:
         cls, ids: Optional[Sequence[Union[str, sdoterm.SdoTerm]]] = None
     ) -> Sequence[sdoterm.SdoTerm]:
         """Convert a sequence of term-identities into a sequence of SdoTerms."""
-        id_list: Sequence[Union[str, sdoterm.SdoTerm]] = ids or []
         ret: List[sdoterm.SdoTerm] = []
-        tid: Union[str, sdoterm.SdoTerm]
-        for tid in id_list:
+        for tid in ids or []:
             if tid:
                 if isinstance(tid, str):
                     term: Optional[sdoterm.SdoTerm] = cls._getTerm(tid, createReference=True)
@@ -687,7 +669,6 @@ class SdoTermSource:
     ) -> Optional[sdoterm.SdoTerm]:
         """Return a single term matching `termId` from res."""
         tmp: _TermAccumulator = _TermAccumulator(termId)
-        row: rdflib.query.ResultRow
         for row in res:
             tmp.appendRow(row)
 
@@ -698,14 +679,12 @@ class SdoTermSource:
         cls, res: Sequence[rdflib.query.ResultRow]
     ) -> Sequence[sdoterm.SdoTerm]:
         rows_by_term_id: Dict[str, _TermAccumulator] = {}
-        row: rdflib.query.ResultRow
         for row in res:
             key: str = str(row.term)
             if key not in rows_by_term_id:
                 rows_by_term_id[key] = _TermAccumulator(key)
             rows_by_term_id[key].appendRow(row)
 
-        acc: _TermAccumulator
         return [t for acc in rows_by_term_id.values() if (t := cls._createTerm(acc))]
 
     @classmethod
@@ -718,7 +697,7 @@ class SdoTermSource:
             tmp.type = DATATYPEURI
         elif ENUMERATIONURI in tmp.sups:
             tmp.type = ENUMERATIONURI
-        elif tmp.types and len(tmp.types) > 1:
+        elif len(tmp.types) > 1:
             tmp.type = sorted(tmp.types)[0]
 
         term: Optional[sdoterm.SdoTerm] = cls.TERMS.get(tmp.id)
@@ -933,7 +912,7 @@ class SdoTermSource:
         elif vocaburi:
             cls.setVocabUri(vocaburi)
 
-        load_files: List[str] = []
+        load_files: Sequence[Union[str, Path]] = []
         if not files or files == "default":
             if cls.SOURCEGRAPH:
                 if not cls.LOADEDDEFAULT:
@@ -945,7 +924,7 @@ class SdoTermSource:
             log.info(
                 "SdoTermSource.loadSourceGraph() loading from default files",
             )
-            load_files = [str(p) for p in paths.DefaultInputLayout().files(paths.Domain.DATA, ["*.ttl", "ext/*/*.ttl"])]
+            load_files = Issues(paths.DefaultInputLayout()).get_ttl_files()
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
             log.info(f"SdoTermSource.loadSourceGraph() loading from file: {files}")
@@ -959,7 +938,6 @@ class SdoTermSource:
             raise Exception("No triples file(s) to load")
 
         cls.setSourceGraph(rdflib.Graph())
-        file_path: str
         for file_path in load_files:
             assert cls.SOURCEGRAPH is not None
             cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
@@ -1138,12 +1116,13 @@ def uriFromLayer(layer: Optional[str] = None) -> str:
     return f"{prto}{layer}.{root}"
 
 
-ProtoAndRoot = collections.namedtuple("ProtoAndRoot", ["proto", "root"])
+class ProtoAndRoot(NamedTuple):
+    proto: Optional[str]
+    root: Optional[str]
 
 
 def getProtoAndRoot(uri: str) -> ProtoAndRoot:
-    m: Optional[re.Match] = re.search(r"^(https:\/\/)(.*)", uri)
-    if m:
+    if m := re.search(r"^(https://)(.*)", uri):
         return ProtoAndRoot(m.group(1), m.group(2))
     return ProtoAndRoot(None, None)
 
@@ -1151,16 +1130,12 @@ def getProtoAndRoot(uri: str) -> ProtoAndRoot:
 def uri2id(uri: str) -> str:
     global VOCABURI
     assert VOCABURI is not None
-    if uri.startswith(VOCABURI):
-        return uri[len(VOCABURI):]
-    return uri
+    return uri.removeprefix(VOCABURI)
 
 
 def prefixFromUri(uri: str) -> Optional[str]:
     if SdoTermSource.SOURCEGRAPH is None:
         return None
-    pref: rdflib.term.Node
-    pth: rdflib.term.Node
     for pref, pth in SdoTermSource.SOURCEGRAPH.namespaces():
         if uri.startswith(str(pth)):
             return str(pref)
@@ -1170,8 +1145,6 @@ def prefixFromUri(uri: str) -> Optional[str]:
 def uriForPrefix(pre: str) -> Optional[rdflib.term.URIRef]:
     if SdoTermSource.SOURCEGRAPH is None:
         return None
-    pref: rdflib.term.Node
-    pth: rdflib.term.URIRef
     for pref, pth in SdoTermSource.SOURCEGRAPH.namespaces():
         if pre == str(pref):
             return pth

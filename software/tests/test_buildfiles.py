@@ -10,7 +10,6 @@ import unittest.mock
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.paths as paths
-import util.schema as schema
 import util.textutils as textutils
 
 class TestBuildFiles(unittest.TestCase):

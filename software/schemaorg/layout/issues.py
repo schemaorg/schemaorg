@@ -52,4 +52,4 @@ class Issues:
         if "*" not in issues:
             ext_files = [f for f in ext_files if keep_for_issues(f)]
 
-        return sorted(set(root_files + ext_files))
+        return root_files + ext_files

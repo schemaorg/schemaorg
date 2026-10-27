@@ -11,6 +11,7 @@ from typing import Any, Collection, Dict, Iterable, List, Optional, Tuple, Union
 
 import requests
 
+from schemaorg.layout import Issues
 import util.paths as paths
 
 
@@ -104,11 +105,9 @@ class Example:
 
     def getJsonldRaw(self) -> str:
         jsondata: str = self.getJsonld().strip()
-        if jsondata:
-            jsonmatch = ldscript_match.match(jsondata)
-            if jsonmatch:
-                # extract json from within script tag
-                jsondata = jsonmatch.group(1).strip()
+        if jsondata and (jsonmatch := ldscript_match.match(jsondata)):
+            # extract json from within script tag
+            jsondata = jsonmatch.group(1).strip()
         return jsondata
 
     def hasHtml(self) -> bool:
@@ -135,14 +134,14 @@ class Example:
         self.exmeta[name] = val
 
     def getMeta(self, name: str) -> Any:
-        return self.exmeta.get(name, None)
+        return self.exmeta.get(name)
 
     def getIdNum(self) -> int:
         """Numeric part of a sequential ``eg-NNNN`` identifier, -1 for any other identifier."""
         idnum: int = -1
         if self.keyvalue.startswith(IDPREFIX):
             try:
-                idnum = int(self.keyvalue[len(IDPREFIX):])
+                idnum = int(self.keyvalue.removeprefix(IDPREFIX))
             except (ValueError, TypeError):
                 pass
         return idnum
@@ -189,7 +188,7 @@ class SchemaExamples:
             log.info(
                 "SchemaExamples.loadExamplesFiles() loading from default files"
             )
-            load_files = [str(p) for p in paths.DefaultInputLayout().files(paths.Domain.DATA, ["*examples.txt", "ext/*/*examples.txt"])]
+            load_files = [str(p) for p in Issues(paths.DefaultInputLayout()).get_example_files()]
 
         elif isinstance(exfiles, str):
             log.info(
@@ -234,13 +233,11 @@ class SchemaExamples:
     @staticmethod
     def examplesForTerm(term: str) -> List[Example]:
         SchemaExamples.loaded()
-        examples: List[Example] = []
-        examps: Optional[List[str]] = SchemaExamples.EXAMPLESMAP.get(term)
-        if examps:
-            for e in examps:
-                ex: Optional[Example] = SchemaExamples.EXAMPLES.get(e)
-                if ex:
-                    examples.append(ex)
+        examples: List[Example] = [
+            ex
+            for e in SchemaExamples.EXAMPLESMAP.get(term, [])
+            if (ex := SchemaExamples.EXAMPLES.get(e))
+        ]
         return sorted(examples, key=lambda x: str(x.keyvalue))
 
     @staticmethod
@@ -350,8 +347,7 @@ class ExampleFileParser:
         examples: List[Example] = []
         egid: re.Pattern = re.compile(r"""#(\S+)\s+""")
 
-        if self.file.startswith("file://"):
-            self.file = self.file[7:]
+        self.file = self.file.removeprefix("file://")
 
         content: str
         if "://" in self.file:
@@ -404,10 +400,9 @@ class ExampleFileParser:
                     self.jsonld_offset = lineno + 1
                 tokens: Tuple[str, ...] = ("PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:")
                 for tk in tokens:
-                    ltk: int = len(tk)
                     if line.startswith(tk):
                         self.nextPart(tk)
-                        line = line[ltk:]
+                        line = line.removeprefix(tk)
                 self.currentStr.append(line)
         self.nextPart("TYPES:")  # should flush on each block of examples
         if not first and not boilerplate:
