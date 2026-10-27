@@ -9,11 +9,9 @@ sdotermsource.py provides an interface to load and query the RDF data, plus prov
 
 sdoterm.py defines the structures used.
 
-See example-code for examples of how the code can be used.
-
-To run the examples, you can execute them either from the project root or from their own directory.
-Example from project root: `python3 software/SchemaTerms/example-code/simpleTermList/simpleTermList.py`
-Example from example directory: `cd software/SchemaTerms/example-code/simpleTermList && python3 simpleTermList.py`
+The scripts and utilities under software/scripts and software/util show how
+the library is used, and software/tests/test_sdotermsource.py exercises its
+API.
 
 Richard Wallis
 Sept 2020
