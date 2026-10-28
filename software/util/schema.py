@@ -6,6 +6,7 @@
 from typing import List
 
 from schemaorg.constants import PROJECT_ROOT, VERSIONS_FILE
+from schemaorg.sdo_uri import SCHEMA_URL
 from schemaorg.version import Version
 
 
@@ -15,7 +16,7 @@ class constants:
     TERMDOCSDIR: str = "/docs"
     HANDLER_TEMPLATE: str = "handlers-template.yaml"
     HANDLER_FILE: str = "handlers.yaml"
-    HOMEPAGE: str = "https://schema.org"
+    HOMEPAGE: str = SCHEMA_URL._replace(path="").geturl()
 
 
 class config:

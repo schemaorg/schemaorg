@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 from schemaorg.layout import Releases
+from schemaorg.sdo_uri import SCHEMA_URL
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
@@ -139,7 +140,8 @@ class listingNode:
 def jsonldtree(page: str) -> str:
     context: Dict[str, Any] = {
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "schema": "https://schema.org",
+        # Legacy output: no trailing slash.
+        "schema": SCHEMA_URL._replace(path="").geturl(),
         "rdfs:subClassOf": {"@type": "@id"},
         "description": "rdfs:comment",
         "children": {"@reverse": "rdfs:subClassOf"}

@@ -6,13 +6,14 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
-import re
 import threading
-from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union
 
 import rdflib
 
+from schemaorg import constants
 from schemaorg.layout import Issues
+from schemaorg.sdo_uri import SDO, SdoUri
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
@@ -22,12 +23,6 @@ from util.sort_dict import sort_dict
 
 
 log: logging.Logger = logging.getLogger(__name__)
-
-DEFVOCABURI: str = "https://schema.org/"
-VOCABURI: Optional[str] = None
-DATATYPEURI: Optional[rdflib.URIRef] = None
-ENUMERATIONURI: Optional[rdflib.URIRef] = None
-THINGURI: Optional[rdflib.URIRef] = None
 
 CORE: str = "core"
 
@@ -112,7 +107,7 @@ class _TermAccumulator:
         self.sups.append(row.sup)
         self.type = row.type
         self.label = str(row.label)
-        self.layer = layerFromUri(str(row.layer))
+        self.layer = layerFromUri(row.layer)
 
 
 def _loadOneSourceGraph(file_path: Union[str, Path]) -> rdflib.Graph:
@@ -169,22 +164,21 @@ class SdoTermSource:
         self.comment: Optional[str] = None
         self.sources: Optional[List[str]] = None
         self.acks: Optional[Sequence[sdocollaborators.collaborator]] = None
-        global DATATYPEURI, ENUMERATIONURI
         cls: Type[SdoTermSource] = self.__class__
         self.ttype: sdoterm.SdoTermType
         if ttype == rdflib.RDFS.Class:
             self.ttype = sdoterm.SdoTermType.TYPE
-            if uri == str(DATATYPEURI):
+            if uri == str(SDO.DataType):
                 self.ttype = sdoterm.SdoTermType.DATATYPE
-            elif uri == str(ENUMERATIONURI):
+            elif uri == str(SDO.Enumeration):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
             elif self._isEnumeration(term_id=term_id):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == rdflib.RDF.Property:
             self.ttype = sdoterm.SdoTermType.PROPERTY
-        elif ttype == ENUMERATIONURI:
+        elif ttype == SDO.Enumeration:
             self.ttype = sdoterm.SdoTermType.ENUMERATION
-        elif ttype == DATATYPEURI:
+        elif ttype == SDO.DataType:
             self.ttype = sdoterm.SdoTermType.DATATYPE
         elif not ttype:
             self.ttype = sdoterm.SdoTermType.REFERENCE
@@ -261,10 +255,9 @@ class SdoTermSource:
 
     @classmethod
     def _isEnumeration(cls, term_id: str) -> bool:
-        global ENUMERATIONURI
         query: str = f"""
           ASK {{
-                    {uriWrap(toFullId(term_id))} rdfs:subClassOf* {uriWrap(str(ENUMERATIONURI))}.
+                    {uriWrap(toFullId(term_id))} rdfs:subClassOf* {uriWrap(str(SDO.Enumeration))}.
             }}"""
 
         result: Sequence[rdflib.query.ResultRow] = cls.query(query)
@@ -391,7 +384,6 @@ class SdoTermSource:
         return self.domains
 
     def getTargetOf(self, plusparents: bool = False, stopontarget: bool = False) -> List[str]:
-        global ENUMERATIONURI, THINGURI
         if not self.targetOf:
             subs: List[rdflib.term.Node] = self.loadSubjects("schema:rangeIncludes")
             self.targetOf = sorted(uri2id(str(sub)) for sub in subs)
@@ -400,7 +392,7 @@ class SdoTermSource:
             targets: Set[str] = set(self.targetOf)
             for s in self.getSupers():
                 sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(s, createReference=True)
-                if not sup or sup.uri in (str(ENUMERATIONURI), str(THINGURI)):
+                if not sup or sup.uri in (str(SDO.Enumeration), str(SDO.Thing)):
                     break
                 targets.update(sup.expectedTypeFor.ids)
                 if targets and stopontarget:
@@ -549,10 +541,7 @@ class SdoTermSource:
             assert term.enumerationParent.id is not None
             super_ids.append(term.enumerationParent.id)
 
-        super_ids = [
-            sid for sid in super_ids
-            if not sid.startswith(("http:", "https:"))
-        ]
+        super_ids = [sid for sid in super_ids if SdoUri(sid).is_sdo()]
 
         tmpStacks: List[List[str]] = [cstack]
         if super_ids:
@@ -690,14 +679,13 @@ class SdoTermSource:
 
     @classmethod
     def _createTerm(cls, tmp: _TermAccumulator) -> Optional[sdoterm.SdoTerm]:
-        global DATATYPEURI, ENUMERATIONURI
         if not tmp or not tmp.id:
             return None
 
-        if DATATYPEURI in tmp.types:
-            tmp.type = DATATYPEURI
-        elif ENUMERATIONURI in tmp.sups:
-            tmp.type = ENUMERATIONURI
+        if SDO.DataType in tmp.types:
+            tmp.type = SDO.DataType
+        elif SDO.Enumeration in tmp.sups:
+            tmp.type = SDO.Enumeration
         elif len(tmp.types) > 1:
             tmp.type = sorted(tmp.types)[0]
 
@@ -717,13 +705,11 @@ class SdoTermSource:
 
     @classmethod
     def getTermAsRdfString(cls, termId: str, output_format: str, full: bool = False) -> str:
-        global VOCABURI
         term: Optional[sdoterm.SdoTerm] = cls.getTerm(termId)
         if not term or term.termType == sdoterm.SdoTermType.REFERENCE:
             return ""
         g: rdflib.Graph = rdflib.Graph()
-        assert VOCABURI is not None
-        g.bind("schema", VOCABURI)
+        g.bind("schema", constants.SCHEMA_URI)
 
         trip: Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]
         if not full:
@@ -797,7 +783,6 @@ class SdoTermSource:
         with pretty_logger.BlockLog(
             logger=log, message="GetAllTerms", timing=True
         ) as block:
-            global DATATYPEURI, ENUMERATIONURI
             typsel: str = ""
             extra: str = ""
             if ttype == sdoterm.SdoTermType.TYPE:
@@ -805,11 +790,11 @@ class SdoTermSource:
             elif ttype == sdoterm.SdoTermType.PROPERTY:
                 typsel = f"a <{rdflib.RDF.Property}>;"
             elif ttype == sdoterm.SdoTermType.DATATYPE:
-                typsel = f"a <{DATATYPEURI}>;"
+                typsel = f"a <{SDO.DataType}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATION:
-                typsel = f"rdfs:subClassOf* <{ENUMERATIONURI}>;"
+                typsel = f"rdfs:subClassOf* <{SDO.Enumeration}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                extra = f"?type rdfs:subClassOf*  <{ENUMERATIONURI}>."
+                extra = f"?type rdfs:subClassOf*  <{SDO.Enumeration}>."
             elif not ttype:
                 typsel = ""
             else:
@@ -819,7 +804,7 @@ class SdoTermSource:
             fil: str = ""
             suppress: str = ""
             if layer:
-                if layer == "core":
+                if layer == CORE:
                     fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
                 else:
                     laysel = f"schema:isPartOf <{uriFromLayer(layer)}>; "
@@ -892,10 +877,8 @@ class SdoTermSource:
 
     @classmethod
     def setSourceGraph(cls, g: rdflib.graph.Graph) -> None:
-        global VOCABURI
         cls.SOURCEGRAPH = g
-        if VOCABURI:
-            g.bind("schema", VOCABURI)
+        g.bind("schema", constants.SCHEMA_URI)
         bindNameSpaces(g)
 
         cls.TERMS = {}
@@ -903,15 +886,10 @@ class SdoTermSource:
 
     @classmethod
     def loadSourceGraph(
-        cls, files: Optional[Union[str, Iterable[str]]] = None, init: bool = False, vocaburi: Optional[str] = None
+        cls, files: Optional[Union[str, Iterable[str]]] = None, init: bool = False
     ) -> None:
-        global VOCABURI
         if init:
             cls.SOURCEGRAPH = None
-        if not VOCABURI and not vocaburi:
-            cls.setVocabUri(DEFVOCABURI)
-        elif vocaburi:
-            cls.setVocabUri(vocaburi)
 
         load_files: Sequence[Union[str, Path]] = []
         if not files or files == "default":
@@ -954,20 +932,8 @@ class SdoTermSource:
         return cls.SOURCEGRAPH
 
     @staticmethod
-    def setVocabUri(uri: Optional[str] = None) -> None:
-        global VOCABURI, DATATYPEURI, ENUMERATIONURI, THINGURI
-        VOCABURI = uri or DEFVOCABURI
-        DATATYPEURI = rdflib.URIRef(f"{VOCABURI}DataType")
-        ENUMERATIONURI = rdflib.URIRef(f"{VOCABURI}Enumeration")
-        THINGURI = rdflib.URIRef(f"{VOCABURI}Thing")
-
-    @classmethod
-    def vocabUri(cls) -> str:
-        global VOCABURI
-        if not VOCABURI:
-            cls.setVocabUri()
-        assert VOCABURI is not None
-        return VOCABURI
+    def vocabUri() -> str:
+        return constants.SCHEMA_URI
 
     @classmethod
     def query(cls, query_string: str) -> Sequence[rdflib.query.ResultRow]:
@@ -978,18 +944,17 @@ class SdoTermSource:
 
     @classmethod
     def termCounts(cls) -> Dict[Union[sdoterm.SdoTermType, str], int]:
-        global VOCABURI
         if not cls.TERMCOUNTS:
             def run_count_query(q: str) -> int:
                 res: Sequence[rdflib.query.ResultRow] = cls.query(q)
                 return int(res[0][0])
 
-            classes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdfs:Class . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            properties: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdf:Property . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            enums: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            enumvals: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . ?type rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            datatypes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ {{ ?s a schema:DataType . }}UNION{{ ?s rdf:type* schema:DataType . }}UNION{{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . }} FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            datatypeclasses: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
+            classes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdfs:Class . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            properties: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdf:Property . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            enums: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            enumvals: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . ?type rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            datatypes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ {{ ?s a schema:DataType . }}UNION{{ ?s rdf:type* schema:DataType . }}UNION{{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . }} FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            datatypeclasses: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
 
             types: int = classes - 1 - enums - datatypeclasses
             datatypes -= 1
@@ -1066,10 +1031,8 @@ class SdoTermSource:
 
 
 def toFullId(termId: str) -> str:
-    global VOCABURI
-    assert VOCABURI
     if ":" not in termId:
-        return f"{VOCABURI}{termId}"
+        return f"{constants.SCHEMA_URI}{termId}"
 
     if termId.startswith("http"):
         return termId
@@ -1085,53 +1048,20 @@ def uriWrap(identity_str: str) -> str:
     return identity_str
 
 
-LAYERPATTERN: Optional[str] = None
-
-
-def layerFromUri(uri: str) -> Optional[str]:
-    global VOCABURI, LAYERPATTERN
-    assert VOCABURI
+def layerFromUri(uri: Optional[str]) -> Optional[str]:
+    """Layer named by a schema.org host (``pending``, ``attic``, ...); None for core or non-URIs."""
     if not uri:
         return None
-    if not LAYERPATTERN:
-        voc: str = VOCABURI.rstrip("/#")
-        prto: Optional[str]
-        root: Optional[str]
-        prto, root = getProtoAndRoot(voc)
-        LAYERPATTERN = rf"^{prto}([\w-]*)\.{root}"
-
-    if m := re.search(LAYERPATTERN, str(uri)):
-        return m.group(1)
-    return None
+    layer: str = SdoUri(uri).layer()
+    return None if layer == CORE else layer
 
 
 def uriFromLayer(layer: Optional[str] = None) -> str:
-    global VOCABURI
-    assert VOCABURI is not None
-    voc: str = VOCABURI.rstrip("/#")
-    if not layer:
-        return voc
-    prto: Optional[str]
-    root: Optional[str]
-    prto, root = getProtoAndRoot(voc)
-    return f"{prto}{layer}.{root}"
-
-
-class ProtoAndRoot(NamedTuple):
-    proto: Optional[str]
-    root: Optional[str]
-
-
-def getProtoAndRoot(uri: str) -> ProtoAndRoot:
-    if m := re.search(r"^(https://)(.*)", uri):
-        return ProtoAndRoot(m.group(1), m.group(2))
-    return ProtoAndRoot(None, None)
+    return str(SdoUri.for_layer(layer))
 
 
 def uri2id(uri: str) -> str:
-    global VOCABURI
-    assert VOCABURI is not None
-    return uri.removeprefix(VOCABURI)
+    return SdoUri(uri).term_name()
 
 
 def prefixFromUri(uri: str) -> Optional[str]:

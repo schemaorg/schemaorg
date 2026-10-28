@@ -11,6 +11,7 @@ from rdflib.term import URIRef
 import rdflib
 import sdoapp
 import sys
+from urllib.parse import urlparse
 
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
@@ -23,9 +24,13 @@ from api import (
     read_schemas,
 )
 from apirdflib import getNss
+from schemaorg.sdo_uri import SCHEMA_URL
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
+# The app engine store names its layer graphs with the http:// namespace.
+CORE_NSS = SCHEMA_URL._replace(scheme="http").geturl()
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -65,7 +70,7 @@ def getCurrentGraph():
     for e in args.exclude:
         for s in e:
             if s == "core":
-                skiplist.append("http://schema.org/")
+                skiplist.append(CORE_NSS)
             elif s == "extensions":
                 for i in sdoapp.ENABLED_EXTENSIONS:
                     skiplist.append(getNss(i))
@@ -74,8 +79,8 @@ def getCurrentGraph():
 
     for e in args.include:
         for s in e:
-            if s == "core" and "http://schema.org/" in skiplist:
-                skiplist.remove("http://schema.org/")
+            if s == "core" and CORE_NSS in skiplist:
+                skiplist.remove(CORE_NSS)
             elif s == "extensions":
                 for i in sdoapp.ENABLED_EXTENSIONS:
                     if getNss(i) in skiplist:
@@ -91,14 +96,14 @@ def getCurrentGraph():
     gs = sorted(list(store.graphs()), key=lambda u: u.identifier)
 
     for g in gs:  # Put core first
-        if str(g.identifier) == "http://schema.org/":
+        if str(g.identifier) == CORE_NSS:
             gs.remove(g)
             gs.insert(0, g)
             break
 
     for g in gs:
         id = str(g.identifier)
-        if not id.startswith("http://"):  # skip some internal graphs
+        if urlparse(id).scheme != "http":  # skip some internal graphs
             continue
         if id in skiplist:  # Skip because we have been asked to
             continue
@@ -129,7 +134,7 @@ def termsInGraph(g):
 
 def compareCommonTerms(terms, buff):
     global currentGraph, previousGraph, showDiffs
-    currentGraph.bind("schema", "http://schema.org/")
+    currentGraph.bind("schema", CORE_NSS)
     currentGraph.bind("dc", "http://purl.org/dc/terms/")
     currentGraph.bind("rdf", RDF)
     currentGraph.bind("rdfs", RDFS)

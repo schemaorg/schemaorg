@@ -3,8 +3,11 @@
 
 import json
 from pprint import pprint
+from urllib.parse import urlparse
 
 import urllib2
+
+from schemaorg.sdo_uri import SCHEMA_URL, SdoUri
 
 # Work in progress attempt to fetch all term URLs
 # from our data dumps (and sanity check them), then
@@ -16,9 +19,15 @@ import urllib2
 v = "3.1"
 verbose = False
 SEARCH_TERM = "klzzwxh"
-host = "schema.org"
-# host = "staging.schema.org"
+host = SCHEMA_URL.hostname
+# host = f"staging.{SCHEMA_URL.hostname}"
 # host = "localhost:8080"
+
+
+# Points a schema.org URI of any layer at the host under test.
+def on_test_host(uri: str) -> str:
+    return uri.replace(SCHEMA_URL.hostname, host, 1)
+
 
 # verbose = True
 
@@ -36,16 +45,6 @@ if verbose:
     pprint(data)
 
 # Core is      "@id": "http://schema.org/#3.1"
-
-
-# TODO: Not robust. Fix w/ regex to handle versions, cases etc.
-#
-def subdomain(gurl):
-    tid = gurl.replace("http://", "")
-    tid = tid.replace("#" + str(v), "")  # this version
-    tid = tid.replace(".schema.org/", "")  # ext
-    tid = tid.replace("schema.org/", "")  # core
-    return tid
 
 
 def checkurl(url):
@@ -71,33 +70,25 @@ extensions = []
 
 for g in sorted(data["@graph"], key=lambda u: u["@id"]):
     # pprint("GRAPH: %s" % g["@id"])
+    layer = SdoUri(g["@id"]).layer()
+    if layer != "core" and layer not in extensions:
+        extensions.append(layer)
+        print("Extension: %s" % layer)
+    layer_host = urlparse(str(SdoUri.for_layer(layer))).netloc
     for t in sorted(g["@graph"], key=lambda u: u["@id"]):
         url = t["@id"]
-        targeturl = url
 
-        if "schema.org" not in str(url):
+        if not SdoUri(url).is_sdo():
             continue  # cases like file:// and wikipedia links show up.
 
-        if g["@id"] != "http://schema.org/#%s" % v:  # extension
-            ext = subdomain(g["@id"])
-            if ext not in extensions:
-                extensions.append(ext)
-                print("Extension: %s" % ext)
-            exturl = url.replace("schema.org", ext + ".schema.org")
-            targeturl = exturl
-        else:
-            exturl = ""  # core
-
-        if host != "schema.org":
-            targeturl = targeturl.replace("schema.org", host)
-
-        # print "%s, %s,\t%s" % (targeturl, url, exturl)
+        # Extension terms are served from the layer host; scheme as dumped.
+        targeturl = on_test_host(urlparse(url)._replace(netloc=layer_host).geturl())
         checkurl(targeturl)
 
 # Check extension home pages
 
 for e in extensions:
-    e = "http://%s.%s" % (e, host)
+    e = on_test_host(urlparse(str(SdoUri.for_layer(e)))._replace(scheme="http").geturl())
     # print e
     checkurl(e)
 

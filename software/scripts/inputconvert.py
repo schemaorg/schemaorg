@@ -9,6 +9,8 @@ from rdflib.term import URIRef
 import rdflib
 import sys
 
+from schemaorg.sdo_uri import SCHEMA_URL
+
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 
@@ -19,6 +21,9 @@ sys.path.insert(0, sdk_path)  # add AppEngine SDK to path
 
 
 rdflib.plugin.register("rdfa", Parser, "pyRdfa.rdflibparsers", "RDFaParser")
+
+# The rdfa sources predate https; keep the http:// namespace.
+SCHEMA_HTTP = SCHEMA_URL._replace(scheme="http").geturl()
 
 OUTTYPES = {
     "jsonld": "jsonld",
@@ -50,18 +55,18 @@ format = args.format
 combine = args.combinefile
 
 SPARQL1 = """
-PREFIX schema: <http://schema.org/>
+PREFIX schema: <%s>
 
 DELETE { ?s schema:category ?o }
 WHERE {
     ?s schema:category ?o .
 }
-"""
+""" % SCHEMA_HTTP
 
 
 def out(filename):
     graph.update(SPARQL1)
-    graph.bind("", URIRef("http://schema.org/"), override=True)
+    graph.bind("", URIRef(SCHEMA_HTTP), override=True)
     if args.outputdir:
         outfile = "%s/%s" % (args.outputdir, filename)
     else:

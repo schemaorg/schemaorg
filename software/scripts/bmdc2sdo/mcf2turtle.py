@@ -4,7 +4,12 @@ from pathlib import Path
 import re
 import sys
 
+from schemaorg import constants
+from schemaorg.sdo_uri import SdoUri
+
 DEBUG = False
+
+PENDING_URI = str(SdoUri.for_layer("pending"))
 
 # see readme.md
 
@@ -32,8 +37,8 @@ Example output:
   rdfs:comment \"\"\\"A unique ID for a Medical Subject Heading supplementary record.\"\""  .
 """
 
-TURTLE_PREFIXES = """
-@prefix : <https://schema.org/> .
+TURTLE_PREFIXES = f"""
+@prefix : <{constants.SCHEMA_URI}> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -147,7 +152,7 @@ def generate_class_turtle(node, terms):
     lines = [
         f'{node_id}',
         '  a rdfs:Class ;',
-        '  :isPartOf <https://pending.schema.org> ;'
+        f'  :isPartOf <{PENDING_URI}> ;'
     ]
 
     name_value = get_pv(node, "name")
@@ -176,7 +181,7 @@ def generate_property_turtle(node, terms):
     lines = [
         f'{node_id}',
         '  a rdf:Property ;',
-        '  :isPartOf <https://pending.schema.org> ;'
+        f'  :isPartOf <{PENDING_URI}> ;'
     ]
 
     name_value = get_pv(node, "name")

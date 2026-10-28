@@ -8,12 +8,13 @@ import logging
 from pathlib import Path
 import re
 from typing import Dict, List, Optional, Sequence, Union
+from urllib.parse import urljoin
 
+from schemaorg import constants
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.paths as paths
-import util.schema as schema
 
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -31,7 +32,7 @@ class collaborator:
     def __init__(self, ref: str, desc: Optional[str] = None) -> None:
         self.ref: str = ref
         self.urirel: str = str(Path("/docs/collab") / ref)
-        self.uri: str = schema.constants.HOMEPAGE + self.urirel
+        self.uri: str = urljoin(constants.SCHEMA_URI, self.urirel)
         self.docurl: str = self.urirel
         self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
         self.contributor: bool = False

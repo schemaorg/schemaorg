@@ -15,13 +15,15 @@ from rdflib.compare import to_canonical_graph
 from rdflib.term import Node
 
 from schemaorg.layout import Releases
+from schemaorg.sdo_uri import SCHEMA_URL
 import util.paths as paths
 import util.schema as schema
 from util.sort_dict import sort_dict
 
 
-BASE: Namespace = Namespace("http://schema.org/validation#")
-SCHEMA: Namespace = Namespace("http://schema.org/")
+# Shapes are generated from the http:// dump and keep that namespace.
+SCHEMA: Namespace = Namespace(SCHEMA_URL._replace(scheme="http").geturl())
+BASE: Namespace = Namespace(f"{SCHEMA}validation#")
 SHACL: Namespace = Namespace("http://www.w3.org/ns/shacl#")
 
 PREFIX: str = "ValidSchema"
@@ -33,7 +35,7 @@ def replace_prefix(data: URIRef) -> URIRef:
     """
     Replaces schema.org prefix with schema.org validation prefix
     """
-    return BASE[f"{PREFIX}{str(data).removeprefix('http://schema.org/')}"]
+    return BASE[f"{PREFIX}{str(data).removeprefix(SCHEMA)}"]
 
 
 def collect_datatypes(source: Graph) -> Set[URIRef]:

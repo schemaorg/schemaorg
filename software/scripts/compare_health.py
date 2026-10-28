@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from rdflib import Graph, URIRef
+from rdflib import Graph, Namespace
 from rdflib import RDF, RDFS
+
+from schemaorg.sdo_uri import SCHEMA_URL
 
 # On-off utility to help QA the migration of terms from core (v2.2)
 # into health-lifesci hosted extension (v2.3 anticipated). Specifically,
 # we want to check which terms in the extension existed previously.
+
+# The v2.2 rdfa sources predate https.
+SCHEMA_HTTP = Namespace(SCHEMA_URL._replace(scheme="http").geturl())
 
 
 def typesInGraph(g):
@@ -29,7 +34,7 @@ def propertiesInGraph(g):
 
 def enumeratedValuesInGraph(g):
     """terms that are defined as enumerated values, stringified."""
-    med_enumeration = URIRef("http://schema.org/MedicalEnumeration")
+    med_enumeration = SCHEMA_HTTP.MedicalEnumeration
     _enums = []
     _terms = []
     for s, p, o in g.triples((None, RDFS.subClassOf, med_enumeration)):

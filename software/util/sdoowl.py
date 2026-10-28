@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pathlib import Path
 from typing import Dict, FrozenSet, List, Optional, Set
 from xml.dom import minidom
 from xml.etree import ElementTree
@@ -10,17 +9,17 @@ import rdflib
 from rdflib.namespace import RDF, RDFS
 from rdflib.term import URIRef
 
+from schemaorg import constants
+from schemaorg.sdo_uri import SDO, SdoUri
 from SchemaTerms.localmarkdown import Markdown, MarkdownTool
-from SchemaTerms.sdotermsource import SdoTermSource
+from SchemaTerms.sdotermsource import SdoTermSource, layerFromUri, uriFromLayer
 import util.schema as schema
 
 
-VOCABURI: str = SdoTermSource.vocabUri()
-
 NAMESPACES: Dict[str, str] = {
-    "xml:base": VOCABURI,
-    "xmlns": VOCABURI,
-    "xmlns:schema": VOCABURI,
+    "xml:base": constants.SCHEMA_URI,
+    "xmlns": constants.SCHEMA_URI,
+    "xmlns:schema": constants.SCHEMA_URI,
     "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "xmlns:rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "xmlns:owl": "http://www.w3.org/2002/07/owl#",
@@ -29,21 +28,18 @@ NAMESPACES: Dict[str, str] = {
 }
 
 
-DOMAININC: URIRef = URIRef(f"{VOCABURI}domainIncludes")
-RANGEINC: URIRef = URIRef(f"{VOCABURI}rangeIncludes")
-INVERSEOF: URIRef = URIRef(f"{VOCABURI}inverseOf")
-SUPERSEDEDBY: URIRef = URIRef(f"{VOCABURI}supersededBy")
-DEFAULTRANGES: FrozenSet[str] = frozenset([f"{VOCABURI}Text", f"{VOCABURI}URL", f"{VOCABURI}Role"])
+DEFAULTRANGES: FrozenSet[str] = frozenset(str(t) for t in (SDO.Text, SDO.URL, SDO.Role))
 DATATYPES: FrozenSet[str] = frozenset(
-    [
-        f"{VOCABURI}Boolean",
-        f"{VOCABURI}Date",
-        f"{VOCABURI}DateTime",
-        f"{VOCABURI}Number",
-        f"{VOCABURI}Float",
-        f"{VOCABURI}Integer",
-        f"{VOCABURI}Time",
-    ]
+    str(t)
+    for t in (
+        SDO.Boolean,
+        SDO.Date,
+        SDO.DateTime,
+        SDO.Number,
+        SDO.Float,
+        SDO.Integer,
+        SDO.Time,
+    )
 )
 
 
@@ -78,7 +74,7 @@ class OwlBuild:
         comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")
-        self.ont.set("rdf:about", VOCABURI)
+        self.ont.set("rdf:about", constants.SCHEMA_URI)
         info: ElementTree.Element = ElementTree.SubElement(self.ont, "owl:versionInfo")
         info.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#string")
         info.text = version
@@ -104,7 +100,7 @@ class OwlBuild:
         types: Set[rdflib.term.Node] = {
             s
             for s, _, _ in graph.triples((None, RDF.type, RDFS.Class))
-            if str(s).startswith("https://schema.org")
+            if SdoUri(s).is_sdo()
         }
         for t in sorted(types, key=str):
             self.outputType(str(t), graph)
@@ -113,7 +109,7 @@ class OwlBuild:
         props: Set[rdflib.term.Node] = {
             s
             for s, _, _ in graph.triples((None, RDF.type, RDF.Property))
-            if str(s).startswith("https://schema.org")
+            if SdoUri(s).is_sdo()
         }
         for p in sorted(props, key=str):
             self.outputProp(str(p), graph)
@@ -121,8 +117,8 @@ class OwlBuild:
         self.dom.append(_MakePrettyComment(text="Named Individuals Definitions"))
 
         self.outputEnums(graph)
-        self.outputNamedIndividuals(f"{VOCABURI}True", graph)
-        self.outputNamedIndividuals(f"{VOCABURI}False", graph)
+        self.outputNamedIndividuals(str(SDO["True"]), graph)
+        self.outputNamedIndividuals(str(SDO["False"]), graph)
 
     def outputType(self, uri: str, graph: rdflib.Graph) -> None:
         self.typesCount += 1
@@ -142,11 +138,11 @@ class OwlBuild:
             elif p == RDFS.subClassOf:
                 s: ElementTree.Element = ElementTree.SubElement(typ, "rdfs:subClassOf")
                 s.set("rdf:resource", str(o))
-            elif p == URIRef(f"{VOCABURI}isPartOf"):  # Defined in an extension
+            elif p == SDO.isPartOf:  # Defined in an extension
                 ext = str(o)
-            elif p == RDF.type and o == URIRef(f"{VOCABURI}DataType"):  # A datatype
+            elif p == RDF.type and o == SDO.DataType:  # A datatype
                 s = ElementTree.SubElement(typ, "rdfs:subClassOf")
-                s.set("rdf:resource", f"{VOCABURI}DataType")
+                s.set("rdf:resource", str(SDO.DataType))
 
         typ.append(self.addDefined(uri, ext))
 
@@ -178,21 +174,21 @@ class OwlBuild:
 
                 sub.set("rdf:resource", subval)
                 children.append(sub)
-            elif p == INVERSEOF:
+            elif p == SDO.inverseOf:
                 sub = ElementTree.Element("owl:inverseOf")
                 sub.set("rdf:resource", str(o))
                 children.append(sub)
-            elif p == SUPERSEDEDBY:
+            elif p == SDO.supersededBy:
                 sub = ElementTree.Element("schema:supersededBy")
                 sub.set("rdf:resource", str(o))
                 children.append(sub)
-            elif p == DOMAININC:
+            elif p == SDO.domainIncludes:
                 domains.add(o)
-            elif p == RANGEINC:
+            elif p == SDO.rangeIncludes:
                 ranges.append(str(o))
                 if str(o) not in DATATYPES:
                     datatypeonly = False
-            elif p == URIRef(f"{VOCABURI}isPartOf"):
+            elif p == SDO.isPartOf:
                 ext = str(o)
 
         children.append(self.addDefined(uri, ext))
@@ -229,20 +225,17 @@ class OwlBuild:
         prop.extend(children)
 
     def addDefined(self, uri: str, ext: Optional[str] = None) -> ElementTree.Element:
-        if not ext:
-            ext = "https://schema.org"
-        ext = ext.replace("http://", "https://")
+        root: str = uriFromLayer(layerFromUri(ext))
         defn: ElementTree.Element = ElementTree.Element("rdfs:isDefinedBy")
-        path: str = f"{ext.rstrip('/')}/{Path(uri).name}"
-        defn.set("rdf:resource", path)
+        defn.set("rdf:resource", f"{root}/{SdoUri(uri).term_name()}")
         return defn
 
     def outputEnums(self, graph: rdflib.Graph) -> None:
-        q: str = """ prefix schema: <https://schema.org/>
-        select Distinct ?enum ?parent where{
+        q: str = f""" prefix schema: <{constants.SCHEMA_URI}>
+        select Distinct ?enum ?parent where{{
         ?parent rdfs:subClassOf schema:Enumeration.
             ?enum rdfs:subClassOf ?parent.
-        }
+        }}
         """
         enums: List[rdflib.query.ResultRow] = list(graph.query(q))
         for row in sorted(enums, key=lambda r: (str(r.enum), str(r.parent))):
@@ -263,7 +256,7 @@ class OwlBuild:
                 c: ElementTree.Element = ElementTree.SubElement(typ, "rdfs:comment")
                 c.set("xml:lang", "en")
                 c.text = Markdown.parse(str(o))
-            elif p == URIRef(f"{VOCABURI}isPartOf"):
+            elif p == SDO.isPartOf:
                 ext = str(o)
 
         typ.append(self.addDefined(individual, ext))
