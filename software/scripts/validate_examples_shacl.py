@@ -30,11 +30,9 @@ log: logging.Logger = logging.getLogger(__name__)
 
 def load_examples() -> list:
     """Finds and loads all examples."""
-    schemaexamples.SchemaExamples.loadExamplesFiles("default")
-    log.info(f"Loaded {schemaexamples.SchemaExamples.count()} examples, processing JSON-LD variants")
-
-    examples = [ex for ex in schemaexamples.SchemaExamples.allExamples(sort=True) if ex.hasJsonld()]
-    return examples
+    loaded = schemaexamples.SchemaExamples.from_default()
+    log.info(f"Loaded {len(loaded)} examples, processing JSON-LD variants")
+    return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
 
 
 class ExampleResult(NamedTuple):

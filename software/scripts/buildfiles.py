@@ -370,7 +370,8 @@ def exportshex_shacl(page: str) -> None:
 
 
 def examples(page: str) -> str:
-    return str(schemaexamples.SchemaExamples.allExamplesSerialised())
+    loaded = schemaexamples.SchemaExamples.from_default()
+    return "\n".join(ex.serialize() for ex in loaded.allExamples())
 
 
 FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {

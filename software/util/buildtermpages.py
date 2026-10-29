@@ -49,10 +49,12 @@ class TermPageRenderer:
         stats_providers: list,
         build_opts: List[str],
         term_docs_dir: str,
+        examples: Optional[schemaexamples.SchemaExamples] = None,
     ):
         self.stats_providers = stats_providers
         self.build_opts = build_opts
         self.term_docs_dir = term_docs_dir
+        self.examples = examples
         self.template = jinga_render.GetJinga().get_template("terms/TermPage.j2")
 
     def termtemplateRender(
@@ -114,7 +116,9 @@ class TermPageRenderer:
             if term.termType == sdoterm.SdoTermType.REFERENCE:
                 return 0.0
             try:
-                examples: List[schemaexamples.Example] = schemaexamples.SchemaExamples.examplesForTerm(term.id)
+                if self.examples is None:
+                    self.examples = schemaexamples.SchemaExamples.from_default()
+                examples: List[schemaexamples.Example] = self.examples.examplesForTerm(term.id)
                 json_str: str = sdotermsource.SdoTermSource.getTermAsRdfString(term.id, "json-ld", full=True)
                 pageout: str = self.termtemplateRender(term, examples, json_str)
                 Path(termFileName(term.id)).write_text(pageout, encoding="utf-8")
@@ -154,6 +158,8 @@ def buildTerms(term_ids: Iterable[str], config: Optional[Dict[str, Any]] = None)
             "build_opts": schema.config.BUILDOPTS,
             "term_docs_dir": schema.constants.TERMDOCSDIR,
         }
+    if "examples" not in config:
+        config = {**config, "examples": schemaexamples.SchemaExamples.from_default()}
 
     shard_numbers: int = multiprocessing.cpu_count()
     with pretty_logger.BlockLog(

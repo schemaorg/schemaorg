@@ -99,10 +99,10 @@ def validate(example_list, invalid_only, source_output):
     count = 0
     errorCount = 0
 
-    schemaexamples.SchemaExamples.loaded()
-    log.info("Loaded %d examples, processing", schemaexamples.SchemaExamples.count())
+    loaded = schemaexamples.SchemaExamples.from_default()
+    log.info("Loaded %d examples, processing", len(loaded))
 
-    for ex in schemaexamples.SchemaExamples.allExamples(sort=True):
+    for ex in loaded.allExamples():
         if not example_list or ex.getKey() in example_list:
             count += 1
             if not validateExample(ex, invalid_only, source_output):
