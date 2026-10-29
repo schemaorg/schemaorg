@@ -10,7 +10,6 @@ import unittest.mock
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.paths as paths
-import util.textutils as textutils
 
 class TestBuildFiles(unittest.TestCase):
     def testProtocolSwapEmpty(self):
@@ -29,13 +28,6 @@ class TestBuildFiles(unittest.TestCase):
 
     def testProtocols(self):
         self.assertEqual(sorted(buildfiles.protocols()), ["http", "https"])
-
-    def testArrayToStr(self):
-        self.assertEqual(textutils.Array2String([]), "")
-        self.assertEqual(textutils.Array2String(["one"]), "one")
-        self.assertEqual(
-            textutils.Array2String(["one", "two", "three"]), "one, two, three"
-        )
 
     def testUriWrap(self):
         self.assertEqual(

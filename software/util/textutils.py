@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re
-from typing import Match, Optional, Sequence
+from typing import Match
 
 def StripHtmlTags(source: str) -> str:
     """Strip all HTML tags from source."""
@@ -24,8 +24,3 @@ def ShortenOnSentence(source: str, lengthHint: int = 250) -> str:
             return source[:end_pos] + ".."
 
     return source[:lengthHint] + ".."
-
-
-def Array2String(values: Optional[Sequence[str]]) -> str:
-    """Convert a sequence of strings into a single comma-separated string."""
-    return ", ".join(values) if values else ""

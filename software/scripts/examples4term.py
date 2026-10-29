@@ -9,7 +9,6 @@ from typing import Iterable, List, Optional, Set
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 from SchemaTerms.sdoterm import SdoTerm
 from SchemaTerms.sdotermsource import SdoTermSource
-import util.textutils as textutils
 
 
 def _add_subterms(term: SdoTerm, seen: Set[str], result: List[str]) -> None:
@@ -59,7 +58,7 @@ def buildcsvoutput(examples: Iterable[Example], fname: str) -> None:
         {
             "Example Id": e.keyvalue,
             "Source File": e.getMeta("source"),
-            "Linked to Terms": textutils.Array2String(e.terms),
+            "Linked to Terms": ", ".join(e.terms),
         }
         for e in examples
     ]

@@ -29,7 +29,6 @@ import util.schema as schema
 import util.sdojsonldcontext as sdojsonldcontext
 from util.sdoowl import OwlBuild
 from util.sort_dict import sort_dict, sort_xml
-import util.textutils as textutils
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -269,7 +268,7 @@ def uriwrap(thing: Any) -> str:
     if isinstance(thing, (sdoterm.SdoTermSequence, sdoterm.SdoTermOrId, sdoterm.SdoTerm)):
         return uriwrap(getattr(thing, "ids", getattr(thing, "id", None)))
     try:
-        return textutils.Array2String(sorted(map(uriwrap, thing)))
+        return ", ".join(sorted(map(uriwrap, thing)))
     except (TypeError, ValueError) as e:
         log.fatal(f"Cannot uriwrap {thing}:{e}")
         return ""
