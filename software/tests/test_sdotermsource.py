@@ -73,6 +73,12 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(
             sdotermsource.prefixFromUri("http://purl.org/dc/elements/1.1/"), "dc"
         )
+        self.assertEqual(
+            sdotermsource.prefixFromUri(
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/"
+            ),
+            "fibo-fnd-arr-reg",
+        )
 
     def testUriForPrefix(self):
         self.assertIsNone(sdotermsource.uriForPrefix(""))
@@ -93,6 +99,12 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(
             sdotermsource.prefixedIdFromUri("http://purl.org/dc/elements/1.1/title"),
             "dc:title",
+        )
+        self.assertEqual(
+            sdotermsource.prefixedIdFromUri(
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/hasRegistrationIdentifier"
+            ),
+            "fibo-fnd-arr-reg:hasRegistrationIdentifier",
         )
 
     def testGetComment(self):
