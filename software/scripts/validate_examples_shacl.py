@@ -169,6 +169,10 @@ class ValidationStats:
 
 def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
     """Validates the provided examples against the generated SHACL shapes."""
+    if not examples:
+        log.error("No JSON-LD examples found to validate.")
+        sys.exit(os.EX_CONFIG)
+
     releases = Releases(paths.DefaultOutputLayout(), schema.VERSION)
     shacl_file: Path = releases.file(
         protocol="", scope="shapes", extension=".shacl"
@@ -213,7 +217,7 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
         log.error(f"Found {stats.error_count} invalid examples")
         sys.exit(1)
 
-    if stats.count and not stats.targeted_count:
+    if not stats.targeted_count:
         log.error(
             f"SHACL gate inspected none of the {stats.count} examples: no example "
             "declares a type that any shape targets."
