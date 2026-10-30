@@ -26,7 +26,7 @@ host = SCHEMA_URL.hostname
 
 # Points a schema.org URI of any layer at the host under test.
 def on_test_host(uri: str) -> str:
-    return uri.replace(SCHEMA_URL.hostname, host, 1)
+    return uri.replace(SCHEMA_URL.hostname or "", host, 1)
 
 
 # verbose = True

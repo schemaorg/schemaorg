@@ -7,7 +7,8 @@ import logging
 from typing import Optional, Union
 from urllib.parse import ParseResult, urlparse
 
-from rdflib import BNode, Namespace, URIRef
+from rdflib import BNode, Literal, Namespace, URIRef
+from rdflib.term import Node
 
 from schemaorg import constants
 
@@ -22,12 +23,19 @@ if not SCHEMA_URL.hostname:
 class SdoUri:
     """Wrapper around a URI or term identifier for schema.org URI operations.
 
-    Scheme-less strings are schema.org term names; BNodes are never schema.org URIs.
+    Scheme-less strings are schema.org term names; BNodes and Literals are never URIs.
     """
 
-    def __init__(self, uri: Union[URIRef, str, ParseResult]) -> None:
+    def __init__(self, uri: Union[Node, str, ParseResult]) -> None:
+        if uri is None:
+            raise TypeError("uri cannot be None")
+        self._is_non_uri = isinstance(uri, (BNode, Literal))
+        if self._is_non_uri:
+            self._parsed = ParseResult("", "", str(uri), "", "", "")
+            return
         self._parsed = uri if isinstance(uri, ParseResult) else urlparse(str(uri))
-        if not self._parsed.scheme and not isinstance(uri, BNode):
+
+        if not self._parsed.scheme:
             self._parsed = urlparse(f"{constants.SCHEMA_URI}{self._parsed.geturl()}")
         if self._parsed.scheme != SCHEMA_URL.scheme and self.is_sdo():
             log.warning(f"Upgrading {self._parsed.scheme}:// schema.org URI to {SCHEMA_URL.scheme}:// {self._parsed.geturl()}")
@@ -35,6 +43,8 @@ class SdoUri:
 
     @property
     def uri(self) -> URIRef:
+        if self._is_non_uri:
+            raise ValueError(f"Not a URI: {self._parsed.geturl()!r}")
         return URIRef(self._parsed.geturl())
 
     def is_sdo(self) -> bool:

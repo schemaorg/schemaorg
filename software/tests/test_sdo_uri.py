@@ -6,7 +6,7 @@
 import unittest
 from urllib.parse import urlparse
 
-from rdflib import BNode, URIRef
+from rdflib import BNode, Literal, URIRef
 
 from schemaorg import constants
 from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
@@ -20,16 +20,32 @@ class TestSdoUri(unittest.TestCase):
         self.assertEqual(sdo.uri, SDO.Person)
         self.assertEqual(str(sdo), "https://schema.org/Person")
 
-    def test_bnode_not_expanded(self) -> None:
+    def test_none_rejected(self) -> None:
+        with self.assertRaises(TypeError):
+            SdoUri(None)  # type: ignore[arg-type]
+
+    def test_bnode_not_a_uri(self) -> None:
         bnode = BNode()
         wrapped = SdoUri(bnode)
         self.assertFalse(wrapped.is_sdo())
         self.assertEqual(str(wrapped), str(bnode))
         self.assertEqual(wrapped.term_name(), str(bnode))
         self.assertFalse(wrapped.is_retired())
+        with self.assertRaises(ValueError):
+            _ = wrapped.uri
         # Same characters as a plain str still mean a bare term name.
         self.assertTrue(SdoUri(str(bnode)).is_sdo())
         self.assertEqual(str(SdoUri(str(bnode))), f"https://schema.org/{bnode}")
+
+    def test_literal_not_a_uri(self) -> None:
+        for raw in ("Person", "https://schema.org/Person", "https://attic.schema.org"):
+            wrapped = SdoUri(Literal(raw))
+            self.assertFalse(wrapped.is_sdo())
+            self.assertEqual(str(wrapped), raw)
+            self.assertEqual(wrapped.term_name(), raw)
+            self.assertFalse(wrapped.is_retired())
+            with self.assertRaises(ValueError):
+                _ = wrapped.uri
 
     def test_external_uri_preserved(self) -> None:
         ext = SdoUri("http://xmlns.com/foaf/0.1/Person")
