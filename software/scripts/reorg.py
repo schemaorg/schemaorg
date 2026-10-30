@@ -15,6 +15,7 @@ from typing import List
 import rdflib
 
 from schemaorg.publish import turtle
+from schemaorg.sdo_uri import SdoUri
 import util.schema_graph as graph
 
 
@@ -64,7 +65,7 @@ def Annotate(args: argparse.Namespace) -> None:
         logging.fatal(
             f"PartOf annotation '{args.ispartof}' is not valid: select one of {valid_parts}"
         )
-    new_part: rdflib.URIRef = rdflib.URIRef(f"https://{args.ispartof}.schema.org/")
+    new_part: rdflib.URIRef = SdoUri.for_layer(args.ispartof).uri
 
     for filename in args.files:
         logging.info(f"Annotating {filename} ...")

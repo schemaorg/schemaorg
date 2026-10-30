@@ -5,6 +5,7 @@ import json
 import logging
 from typing import Any, Dict, List, Optional, Set
 
+from schemaorg.sdo_uri import SCHEMA_URL
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.pretty_logger as pretty_logger
@@ -15,7 +16,8 @@ log: logging.Logger = logging.getLogger(__name__)
 
 
 CONTEXT: Optional[str] = None
-SCHEMAURI: str = "http://schema.org/"
+# The published context keeps the legacy http scheme.
+SCHEMAURI: str = SCHEMA_URL._replace(scheme="http").geturl()
 
 
 def getContext() -> str:

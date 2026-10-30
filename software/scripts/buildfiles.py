@@ -8,11 +8,14 @@ import json
 import logging
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from urllib.parse import ParseResult, urlparse
 
 import rdflib
 from rdflib.compare import to_canonical_graph
 import rdflib.namespace
+from schemaorg import constants
 from schemaorg.layout import Releases
+from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -28,28 +31,28 @@ from util.sdoowl import OwlBuild
 from util.sort_dict import sort_dict, sort_xml
 import util.textutils as textutils
 
-VOCABURI: str = sdotermsource.SdoTermSource.vocabUri()
 log: logging.Logger = logging.getLogger(__name__)
 
 
 def buildTurtleEquivs() -> str:
     """Build equivalences between http and https versions of schema.org terms."""
-    s_p: str = "http://schema.org/"
-    s_s: str = "https://schema.org/"
+    http_sdo: rdflib.Namespace = rdflib.Namespace(SCHEMA_URL._replace(scheme="http").geturl())
     outGraph: rdflib.Graph = rdflib.Graph()
-    outGraph.bind("schema_p", s_p)
-    outGraph.bind("schema_s", s_s)
+    outGraph.bind("schema_p", http_sdo)
+    outGraph.bind("schema_s", SDO)
     outGraph.bind("owl", rdflib.namespace.OWL)
 
     all_terms: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllTerms(expanded=True)
     for t in all_terms:
-        if isinstance(t, sdoterm.SdoTerm) and not t.retired:
+        # getAllTerms() also yields foreign nodes typed with a schema.org class
+        # (e.g. the ELI dataset Organization); only schema.org terms have equivalents.
+        if isinstance(t, sdoterm.SdoTerm) and not t.retired and SdoUri(t.id).is_sdo():
             eqiv: rdflib.URIRef = rdflib.namespace.OWL.equivalentClass
             if t.termType == sdoterm.SdoTermType.PROPERTY:
                 eqiv = rdflib.namespace.OWL.equivalentProperty
 
-            p_uri: rdflib.URIRef = rdflib.URIRef(f"{s_p}{t.id}")
-            s_uri: rdflib.URIRef = rdflib.URIRef(f"{s_s}{t.id}")
+            p_uri: rdflib.URIRef = http_sdo[t.id]
+            s_uri: rdflib.URIRef = SDO[t.id]
             outGraph.add((p_uri, eqiv, s_uri))
             outGraph.add((s_uri, eqiv, p_uri))
 
@@ -75,7 +78,7 @@ def sitemap(page: str) -> str:
     version_date: str = str(schema.VERSION.current().date() or "")
     def node(t: str) -> str:
         return f""" <url>
-   <loc>https://schema.org/{t}</loc>
+   <loc>{constants.SCHEMA_URI}{t}</loc>
    <lastmod>{version_date}</lastmod>
  </url>
 """
@@ -89,7 +92,7 @@ def sitemap(page: str) -> str:
     output: List[str] = ['<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n']
     terms: Sequence[Union[str, sdoterm.SdoTerm]] = sdotermsource.SdoTermSource.getAllTerms(suppressSourceLinks=True)
     for term in sorted(map(str, terms)):
-        if not term.startswith(("http://", "https://")):
+        if SdoUri(term).is_sdo():
             output.append(node(term))
     for p in STATICPAGES:
         output.append(node(p))
@@ -98,16 +101,17 @@ def sitemap(page: str) -> str:
 
 
 def protocolSwap(content: str, protocol: str, altprotocol: str) -> str:
-    ret: str = content.replace(f"{protocol}://schema.org", f"{altprotocol}://schema.org")
     extensions: List[str] = ["attic", "auto", "bib", "health-lifesci", "meta", "pending"]
-    for ext in extensions:
-        ret = ret.replace(f"{protocol}://{ext}.schema.org", f"{altprotocol}://{ext}.schema.org")
+    ret: str = content
+    for layer in ["core", *extensions]:
+        root: ParseResult = urlparse(str(SdoUri.for_layer(layer)))
+        ret = ret.replace(root._replace(scheme=protocol).geturl(), root._replace(scheme=altprotocol).geturl())
     return ret
 
 
 def protocols() -> Tuple[str, str]:
     """Return the protocols (http, https) in order of priority."""
-    return ("https", "http") if sdotermsource.SdoTermSource.vocabUri().startswith("https") else ("http", "https")
+    return ("https", "http") if SCHEMA_URL.scheme == "https" else ("http", "https")
 
 
 ALL_GRAPH: Optional[rdflib.Graph] = None
@@ -119,16 +123,17 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
 
     if not ALL_GRAPH:
         ALL_GRAPH = rdflib.Graph()
-        ALL_GRAPH.bind("schema", VOCABURI)
+        ALL_GRAPH.bind("schema", SDO)
         sdotermsource.bindNameSpaces(ALL_GRAPH)
 
         CURRENT_GRAPH = rdflib.Graph()
         sdotermsource.bindNameSpaces(CURRENT_GRAPH)
-        CURRENT_GRAPH.bind("schema", VOCABURI)
+        CURRENT_GRAPH.bind("schema", SDO)
 
         ALL_GRAPH += sdotermsource.SdoTermSource.sourceGraph()
         protocol: str
         protocol, _ = protocols()
+        sdo_origin: str = SCHEMA_URL._replace(path="").geturl()
 
         log.debug("Cleanup non schema org things.")
         ALL_GRAPH.update(
@@ -144,10 +149,10 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
         INSERT {{ ?classNode a rdfs:Class . ?propNode a rdf:Property . }}
         WHERE {{
             {{ {{ ?s rdfs:subClassOf ?classNode }} UNION {{ ?s owl:equivalentClass ?classNode }}
-                FILTER (isURI(?classNode) && ?classNode != rdfs:Class && ?classNode != owl:Class && ?classNode != rdf:Property && !strstarts(str(?classNode), "{protocol}://schema.org"))
+                FILTER (isURI(?classNode) && ?classNode != rdfs:Class && ?classNode != owl:Class && ?classNode != rdf:Property && !strstarts(str(?classNode), "{sdo_origin}"))
             }} UNION
             {{ {{ ?s rdfs:subPropertyOf ?propNode }} UNION {{ ?s owl:equivalentProperty ?propNode }}
-                FILTER (isURI(?propNode) && ?propNode != rdf:Property && ?propNode != owl:ObjectProperty && ?propNode != owl:DatatypeProperty && !strstarts(str(?propNode), "{protocol}://schema.org"))
+                FILTER (isURI(?propNode) && ?propNode != rdf:Property && ?propNode != owl:ObjectProperty && ?propNode != owl:DatatypeProperty && !strstarts(str(?propNode), "{sdo_origin}"))
             }}
         }}"""
         ALL_GRAPH.update(insert_foreign_types)
@@ -157,7 +162,7 @@ def exportrdf(exportType: str, subdirectory_path: Optional[str] = None) -> None:
         CURRENT_GRAPH += ALL_GRAPH
 
         log.debug("Delete items from the attic")
-        CURRENT_GRAPH.update(f'PREFIX schema: <{protocol}://schema.org/> DELETE {{?s ?p ?o}} WHERE{{ ?s ?p ?o; schema:isPartOf <{protocol}://attic.schema.org>. }}')
+        CURRENT_GRAPH.update(f'PREFIX schema: <{constants.SCHEMA_URI}> DELETE {{?s ?p ?o}} WHERE{{ ?s ?p ?o; schema:isPartOf <{SdoUri.for_layer("attic")}>. }}')
 
     formats: List[str] = ["json-ld", "turtle", "nt", "nquads", "rdf"]
     if exportType == "RDFExports":
@@ -220,7 +225,7 @@ def _exportrdf(output_format: str, all_graph: rdflib.Graph, current_graph: rdfli
             final_g: Union[rdflib.Graph, rdflib.Dataset] = g_can
             if output_format == "nquads":
                 ds: rdflib.Dataset = rdflib.Dataset()
-                qg: rdflib.Graph = ds.graph(rdflib.URIRef(f"{p}://schema.org/{version}"))
+                qg: rdflib.Graph = ds.graph(rdflib.URIRef(f"{SCHEMA_URL._replace(scheme=p).geturl()}{version}"))
                 for trip in g_can:
                     qg.add(trip)
                 final_g = ds
@@ -260,7 +265,7 @@ def uriwrap(thing: Any) -> str:
     if not thing:
         return ""
     if isinstance(thing, str):
-        return thing if thing.startswith(("http:", "https:")) else f"{VOCABURI}{thing}"
+        return str(SdoUri(thing))
     if isinstance(thing, (sdoterm.SdoTermSequence, sdoterm.SdoTermOrId, sdoterm.SdoTerm)):
         return uriwrap(getattr(thing, "ids", getattr(thing, "id", None)))
     try:
@@ -285,13 +290,13 @@ def exportcsv(page: str) -> None:
 
     term: Union[str, sdoterm.SdoTerm]
     for term in terms:
-        if not isinstance(term, sdoterm.SdoTerm) or term.termType == sdoterm.SdoTermType.REFERENCE or term.id.startswith(("http://", "https://")):
+        if not isinstance(term, sdoterm.SdoTerm) or term.termType == sdoterm.SdoTermType.REFERENCE or not SdoUri(term.id).is_sdo():
             continue
 
         row: Dict[str, str] = {
             "id": term.uri, "label": term.label, "comment": term.comment,
             "supersedes": uriwrap(term.supersedes), "supersededBy": uriwrap(term.supersededBy),
-            "isPartOf": f"{protocol}://{term.extLayer}.schema.org" if term.extLayer else ""
+            "isPartOf": sdotermsource.uriFromLayer(term.extLayer) if term.extLayer else ""
         }
 
         if term.termType == sdoterm.SdoTermType.PROPERTY:
@@ -390,7 +395,7 @@ FILELIST: Dict[str, Tuple[Callable[[str], Any], List[Tuple[Any, ...]]]] = {
 
 def buildFiles(files: Iterable[str]) -> None:
     localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
-    localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
+    localmarkdown.MarkdownTool.setWikilinkPrePath(constants.SCHEMA_URI)
     localmarkdown.MarkdownTool.setWikilinkPostPath("")
 
     targets: List[str] = sorted(FILELIST.keys()) if any(fileutils.isAll(f) for f in files) else list(files)

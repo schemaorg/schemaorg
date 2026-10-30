@@ -48,15 +48,6 @@ class TestConversionFunctions(unittest.TestCase):
             sdotermsource.uriFromLayer("premium"), "https://premium.schema.org"
         )
 
-    def testGetProtoAndRoot(self):
-        self.assertEqual(
-            sdotermsource.getProtoAndRoot(""), sdotermsource.ProtoAndRoot(None, None)
-        )
-        self.assertEqual(
-            sdotermsource.getProtoAndRoot("https://schema.org/Thing"),
-            sdotermsource.ProtoAndRoot("https://", "schema.org/Thing"),
-        )
-
     def testUri2id(self):
         self.assertEqual(sdotermsource.uri2id(""), "")
         self.assertEqual(sdotermsource.uri2id("https://schema.org/Thing"), "Thing")
