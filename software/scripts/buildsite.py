@@ -297,13 +297,6 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        shacl_file: Path = Releases(
-            paths.DefaultOutputLayout(), schema.VERSION
-        ).file(protocol="", scope="shapes", extension=".shacl")
-        if not shacl_file.exists():
-            log.warning(f"SHACL file {shacl_file} not found. Skipping SHACL validation.")
-            return
-
         cmd: List[str] = [
             sys.executable,
             str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
