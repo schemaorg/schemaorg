@@ -6,7 +6,6 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 import re
-import threading
 from typing import Any, Collection, Dict, Iterable, List, Optional, Tuple, Union
 
 import requests
@@ -167,104 +166,64 @@ class Example:
 
 
 class SchemaExamples:
-    EXAMPLESLOADED: bool = False
-    EXAMPLESMAP: Dict[str, List[str]] = {}
-    EXAMPLES: Dict[str, Example] = {}
-    exlock: threading.RLock = threading.RLock()
+    """Immutable-by-convention collection of examples indexed by ID and term."""
 
-    @staticmethod
-    def loadExamplesFiles(exfiles: Optional[Union[str, Iterable[str]]], init: bool = False) -> None:
-        if init:
-            SchemaExamples.EXAMPLESLOADED = False
-            SchemaExamples.EXAMPLESMAP = {}
-            SchemaExamples.EXAMPLES = {}
+    def __init__(self, examples: Iterable[Example] = ()) -> None:
+        self._examples: Dict[str, Example] = {}
+        self._by_term: Dict[str, List[str]] = {}
+        for example in examples:
+            keyvalue: str = example.keyvalue
+            previous: Optional[Example] = self._examples.get(keyvalue)
+            if previous is not None:
+                raise ValueError(
+                    f"Duplicate example identifier '{keyvalue}' in {example.getMeta('source')}, "
+                    f"already defined in {previous.getMeta('source')}"
+                )
+            self._examples[keyvalue] = example
+            for term in example.terms:
+                mapped_ids = self._by_term.setdefault(term, [])
+                if keyvalue not in mapped_ids:
+                    mapped_ids.append(keyvalue)
 
-        if SchemaExamples.EXAMPLESLOADED:
-            log.info("Examples files already loaded")
-            return
-
-        load_files: List[str] = []
-        if not exfiles or exfiles == "default":
-            log.info(
-                "SchemaExamples.loadExamplesFiles() loading from default files"
-            )
-            load_files = [str(p) for p in Issues(paths.DefaultInputLayout()).get_example_files()]
-
-        elif isinstance(exfiles, str):
-            log.info(
-                f"SchemaExamples.loadExamplesFiles() loading from file: {exfiles}"
-            )
-            load_files = [exfiles]
-        else:
-            load_files = list(exfiles)
-            log.info(
-                f"SchemaExamples.loadExamplesFiles() loading from {len(load_files)}"
-            )
-
+    @classmethod
+    def from_files(cls, files: Iterable[Union[str, Path]]) -> SchemaExamples:
+        load_files: List[str] = [str(f) for f in files]
         if not load_files:
-            raise Exception("No examples file(s) to load")
-
-        parser: ExampleFileParser = ExampleFileParser()
+            return cls()
+        log.info(f"Loading examples from {len(load_files)} files")
+        parser = ExampleFileParser()
+        parsed: List[Example] = []
         for f in load_files:
             for example in parser.parse(f):
-                keyvalue: str = example.keyvalue
                 example.setMeta("source", f)
-                with SchemaExamples.exlock:
-                    previous: Optional[Example] = SchemaExamples.EXAMPLES.get(keyvalue)
-                    if previous is not None:
-                        raise ValueError(
-                            f"Duplicate example identifier '{keyvalue}' in {f}, "
-                            f"already defined in {previous.getMeta('source')}"
-                        )
-                    SchemaExamples.EXAMPLES[keyvalue] = example
-                    for term in example.terms:
-                        mapped_ids = SchemaExamples.EXAMPLESMAP.setdefault(term, [])
-                        if keyvalue not in mapped_ids:
-                            mapped_ids.append(keyvalue)
-        SchemaExamples.EXAMPLESLOADED = True
+                parsed.append(example)
+        instance = cls(parsed)
+        log.info(f"Loaded {len(instance)} examples")
+        return instance
 
-    @staticmethod
-    def loaded() -> None:
-        if not SchemaExamples.EXAMPLESLOADED:
-            log.info("Loading examples files")
-            SchemaExamples.loadExamplesFiles("default")
-            log.info(f"Loaded {SchemaExamples.count()} examples")
+    @classmethod
+    def from_default(cls) -> SchemaExamples:
+        return cls.from_files(Issues(paths.DefaultInputLayout()).get_example_files())
 
-    @staticmethod
-    def examplesForTerm(term: str) -> List[Example]:
-        SchemaExamples.loaded()
+    def __len__(self) -> int:
+        return len(self._examples)
+
+    def examplesForTerm(self, term: str) -> List[Example]:
         examples: List[Example] = [
             ex
-            for e in SchemaExamples.EXAMPLESMAP.get(term, [])
-            if (ex := SchemaExamples.EXAMPLES.get(e))
+            for e in self._by_term.get(term, [])
+            if (ex := self._examples.get(e))
         ]
         return sorted(examples, key=lambda x: str(x.keyvalue))
 
-    @staticmethod
-    def allExamples(sort: bool = False) -> Collection[Example]:
-        SchemaExamples.loaded()
-        ret: Collection[Example] = SchemaExamples.EXAMPLES.values()
-        if sort:
-            return sorted(ret, key=lambda x: (str(x.exmeta.get("file", "")), x.exmeta.get("filepos", 0)))
-        return ret
-
-    @staticmethod
-    def allExamplesSerialised(sort: bool = False) -> str:
-        SchemaExamples.loaded()
-        examples: Collection[Example] = SchemaExamples.allExamples(sort=sort)
-        return "".join(f"{ex.serialize()}\n" for ex in examples)
-
-    @staticmethod
-    def count() -> int:
-        SchemaExamples.loaded()
-        return len(SchemaExamples.EXAMPLES)
+    def allExamples(self) -> Collection[Example]:
+        return self._examples.values()
 
 
 class ExampleFileParser:
     def __init__(self) -> None:
-        logging.basicConfig(level=logging.INFO)  # dev_appserver.py --log_level debug .
-        self.file: str = ""  # File being parsed.
-        self.filepos: int = 0  # Part index.
+        self.file: str = ""
+        self.filepos: int = 0
         self.initFields()
         self.idcache: List[str] = []
 
@@ -344,6 +303,8 @@ class ExampleFileParser:
     def parse(self, filen: str) -> List[Example]:
         self.file = filen
         self.filepos = 0
+        self.idcache = []
+        self.initFields()
         examples: List[Example] = []
         egid: re.Pattern = re.compile(r"""#(\S+)\s+""")
 

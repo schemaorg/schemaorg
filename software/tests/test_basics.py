@@ -23,7 +23,7 @@ CURRENT_CONTEXT_FILE = (
 log = logging.getLogger(__name__)
 
 sdotermsource.SdoTermSource.loadSourceGraph("default")
-schemaexamples.SchemaExamples.loaded()
+EXAMPLES = schemaexamples.SchemaExamples.from_default()
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or
@@ -39,7 +39,7 @@ class BallparkCountTests(unittest.TestCase):
 
 class SDOBasicsTestCase(unittest.TestCase):
     def test_ExtractedPlausibleNumberOfExamples(self):
-        example_count = schemaexamples.SchemaExamples.count()
+        example_count = len(EXAMPLES)
         log.info(f"Extracted {example_count} examples.")
         example_range = range(200, 600)
         self.assertIn(
@@ -499,7 +499,7 @@ class BasicJSONLDTests(unittest.TestCase):
 
 class JsonExampleTests(unittest.TestCase):
     def testAllExamples(self):
-        for example in schemaexamples.SchemaExamples.allExamples():
+        for example in EXAMPLES.allExamples():
             source_filename = example.getMeta("file")
             with self.subTest(key=example.getKey(), file=source_filename):
                 if not example.hasJsonld():

@@ -154,5 +154,82 @@ JSON:
             )
 
 
+class TestSchemaExamples(unittest.TestCase):
+
+    def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp_dir.cleanup)
+        self.root = Path(self.temp_dir.name)
+        patcher = patch("SchemaExamples.schemaexamples.paths.DefaultInputLayout")
+        mock_input_layout = patcher.start()
+        mock_input_layout.return_value = InputLayout(self.root)
+        self.addCleanup(patcher.stop)
+
+    def _write(self, name: str, content: str) -> Path:
+        path = self.root / name
+        path.write_text(content, encoding="utf-8")
+        return path
+
+    def test_empty(self):
+        examples = schemaexamples.SchemaExamples.from_files([])
+        self.assertEqual(len(examples), 0)
+        self.assertEqual(list(examples.allExamples()), [])
+        self.assertEqual(examples.examplesForTerm("Thing"), [])
+
+    def test_from_files_indexes_by_term_and_sorts(self):
+        f_b = self._write(
+            "b-examples.txt",
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0020 Thing, Offer")
+            + "\n"
+            + THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0005 Thing"),
+        )
+        f_a = self._write(
+            "a-examples.txt",
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0010 Offer"),
+        )
+        examples = schemaexamples.SchemaExamples.from_files([f_b, f_a])
+
+        self.assertEqual(len(examples), 3)
+        self.assertEqual(
+            [ex.keyvalue for ex in examples.examplesForTerm("Thing")],
+            ["eg-0005", "eg-0020"],
+        )
+        self.assertEqual(
+            [ex.keyvalue for ex in examples.examplesForTerm("Offer")],
+            ["eg-0010", "eg-0020"],
+        )
+        self.assertEqual(
+            [ex.keyvalue for ex in examples.allExamples()],
+            ["eg-0020", "eg-0005", "eg-0010"],
+        )
+
+    def test_duplicate_identifier_across_files_is_rejected(self):
+        first = self._write("first-examples.txt", THING_EXAMPLE)
+        second = self._write("second-examples.txt", THING_EXAMPLE)
+        with self.assertRaisesRegex(
+            ValueError,
+            r"Duplicate example identifier 'eg-0999' in .*second-examples\.txt, "
+            r"already defined in .*first-examples\.txt",
+        ):
+            schemaexamples.SchemaExamples.from_files([first, second])
+
+    def test_instances_are_independent(self):
+        first = self._write(
+            "first-examples.txt",
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0001 Thing"),
+        )
+        second = self._write(
+            "second-examples.txt",
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0002 Offer"),
+        )
+        ex_first = schemaexamples.SchemaExamples.from_files([first])
+        ex_second = schemaexamples.SchemaExamples.from_files([second])
+
+        self.assertEqual([e.keyvalue for e in ex_first.examplesForTerm("Thing")], ["eg-0001"])
+        self.assertEqual(ex_first.examplesForTerm("Offer"), [])
+        self.assertEqual([e.keyvalue for e in ex_second.examplesForTerm("Offer")], ["eg-0002"])
+        self.assertEqual(ex_second.examplesForTerm("Thing"), [])
+
+
 if __name__ == "__main__":
     unittest.main()

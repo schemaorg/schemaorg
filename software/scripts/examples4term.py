@@ -4,7 +4,7 @@
 import argparse
 import csv
 from pathlib import Path
-from typing import Iterable, List, Set
+from typing import Iterable, List, Optional, Set
 
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 from SchemaTerms.sdoterm import SdoTerm
@@ -39,17 +39,15 @@ def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> List[str]
     return result
 
 
-def getexamples(terms: Iterable[str]) -> List[Example]:
-    result: List[Example] = []
-    for t in terms:
-        for e in SchemaExamples.examplesForTerm(t):
-            if e not in result:
-                result.append(e)
-    return result
-
-
-def buildoutput(examples: Iterable[Example], fname: str) -> None:
-    buildcsvoutput(sorted(examples, key=lambda x: str(x.keyvalue)), fname)
+def getexamples(
+    terms: Iterable[str],
+    examples: Optional[SchemaExamples] = None,
+) -> List[Example]:
+    loaded = examples if examples is not None else SchemaExamples.from_default()
+    return sorted(
+        {e for t in terms for e in loaded.examplesForTerm(t)},
+        key=lambda e: e.keyvalue,
+    )
 
 
 def buildcsvoutput(examples: Iterable[Example], fname: str) -> None:
@@ -84,7 +82,7 @@ if __name__ == "__main__":
         default=[],
         action="append",
         nargs="*",
-        help="Term to use(repeatable)",
+        help="Term to use (repeatable)",
     )
     parser.add_argument(
         "-r",
@@ -106,4 +104,4 @@ if __name__ == "__main__":
 
     terms = getterms(args.term, args.recursive)
     examples = getexamples(terms)
-    buildoutput(examples, args.output)
+    buildcsvoutput(examples, args.output)

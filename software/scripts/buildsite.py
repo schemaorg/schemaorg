@@ -13,7 +13,6 @@ from typing import Iterable, List, Optional, Sequence
 
 from schemaorg import constants
 from schemaorg.layout import Releases, checkDataDirectories
-import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
@@ -268,7 +267,6 @@ def processTerms(terms: Iterable[str]) -> None:
             logger=log, message="Building term definition pages", timing=True
         ):
             loadTerms()
-            schemaexamples.SchemaExamples.loaded()
             config = {
                 "stats_providers": stats.get_stats_providers(),
                 "build_opts": schema.config.BUILDOPTS,
@@ -290,7 +288,6 @@ def processFiles(files: Iterable[str]) -> None:
     if any(files):
         with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
             loadTerms()
-            schemaexamples.SchemaExamples.loaded()
             buildfiles.buildFiles(files)
 
 
