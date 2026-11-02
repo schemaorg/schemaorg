@@ -20,7 +20,6 @@ import scripts.buildfiles as buildfiles
 import util.buildocspages as buildocspages
 import util.buildtermpages as buildtermpages
 import util.copystaticdocsplusinsert as copystaticdocsplusinsert
-import util.fileutils as fileutils
 import util.paths as paths
 import util.pretty_logger as pretty_logger
 import util.schema as schema
@@ -331,7 +330,7 @@ def copyReleaseFiles() -> None:
         message=f"Copying release files from {srcdir} to {destdir}",
         logger=log,
     ):
-        fileutils.mycopytree(str(srcdir), str(destdir))
+        shutil.copytree(srcdir, destdir, dirs_exist_ok=True)
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:

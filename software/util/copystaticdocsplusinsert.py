@@ -1,71 +1,98 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Tool that handles Markdown conversion and HTML includes in static doc pages."""
 
-"""Tool that handles includes in static html files."""
-
+from collections.abc import Iterator
 import logging
 from pathlib import Path
+import random
 import re
-from typing import Dict, Generator, List, Optional, Tuple, Union
+import shutil
 
-import util.convertmd2htmldocs as convertmd2htmldocs
-import util.fileutils as fileutils
+import markdown2
+
 import util.paths as paths
 import util.schema as schema
 
-
 log: logging.Logger = logging.getLogger(__name__)
 
+_STATIC_INSERT_MARKER_RE: re.Pattern[str] = re.compile(
+    r"<!-- #### Static Doc Insert", re.IGNORECASE
+)
+
+_MD_DOC_BEGIN: str = """<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{title} - Schema.org</title>
+
+<!-- #### Static Doc Insert Head goes here -->
+</head><body>
+<!-- #### Static Doc Insert PageHead goes here -->
+<div id="mainContent" class="faq">"""
+
+_MD_DOC_END: str = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
 
 
-def _getInserts() -> Generator[Tuple[str, str], None, None]:
+def _getInserts() -> Iterator[tuple[re.Pattern[str], str]]:
     template_dir: Path = paths.DefaultInputLayout().dir(paths.Domain.STATIC_DOC_INSERTS)
+    version = schema.VERSION.current()
+    version_num = version.number()
+    version_date = str(version.date() or "")
     for f_path in template_dir.glob("*.html"):
-        fn: str = f_path.stem.lower().removeprefix("sdi-")
-
-        indata: str = f_path.read_text(encoding="utf-8")
-        indata = indata.replace("{{version}}", schema.VERSION.current().number())
-        indata = indata.replace("{{versiondate}}", str(schema.VERSION.current().date() or ""))
-        indata = indata.replace("{{docsdir}}", "/docs")
-        yield (fn, indata)
-
-
-class Replacer:
-    def __init__(self, destdir: Union[str, Path]) -> None:
-        self.inserts: Dict[str, str] = dict(_getInserts())
-        self.destdir: Path = Path(destdir)
-
-    def insertcopy(self, doc: Union[str, Path], docdata: Optional[str] = None) -> None:
-        """Apply all substitutions defined in self.inserts to a file."""
-        doc_path: Path = Path(doc)
-        data: str = docdata if docdata is not None else doc_path.read_text(encoding="utf-8")
-
-        if re.search(r"<!-- #### Static Doc Insert", data, re.IGNORECASE):
-            for sub, insert_content in self.inserts.items():
-                subpattern: re.Pattern = re.compile(f"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE)
-                data = subpattern.sub(insert_content, data)
-
-            targetfile: Path = self.destdir / doc_path.name
-            targetfile.write_text(data, encoding="utf-8")
+        sub = re.escape(f_path.stem.lower().removeprefix("sdi-"))
+        pattern = re.compile(
+            rf"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE
+        )
+        indata = (
+            f_path.read_text(encoding="utf-8")
+            .replace("{{version}}", version_num)
+            .replace("{{versiondate}}", version_date)
+            .replace("{{docsdir}}", "/docs")
+        )
+        yield pattern, indata
 
 
-def htmlinserts(destdir: Union[str, Path]) -> None:
-    """Perform substitutions on all HTML files in destdir."""
+def _convert_md_docs(doc_dir: Path) -> None:
+    """Convert all Markdown files in doc_dir to HTML in place and remove the .md copies."""
+    for md_path in doc_dir.glob("*.md"):
+        text = md_path.read_text(encoding="utf-8")
+        rng_state = random.getstate()
+        try:
+            # Deterministic markdown2 email obfuscation across releases.
+            random.seed(42)
+            md_html = str(markdown2.markdown(text))
+        finally:
+            random.setstate(rng_state)
+
+        output_path = doc_dir / f"{md_path.stem}.html"
+        output_path.write_text(
+            f"{_MD_DOC_BEGIN.format(title=md_path.stem.title())}{md_html}{_MD_DOC_END}",
+            encoding="utf-8",
+        )
+        md_path.unlink()
+
+
+def htmlinserts(destdir: str | Path) -> None:
+    """Perform static header/footer substitutions on all HTML files in destdir."""
     log.info("Adding header/footer templates to all html files")
-    dest_path: Path = Path(destdir)
-    docs: List[Path] = sorted(dest_path.glob("*.html"))
-    replacer: Replacer = Replacer(destdir=dest_path)
-    for doc in docs:
-        replacer.insertcopy(doc)
-    log.info(f"Added to {len(docs)} files")
+    dest_path = Path(destdir)
+    docs = sorted(dest_path.glob("*.html"))
+    inserts = list(_getInserts())
+    for doc_path in docs:
+        data = doc_path.read_text(encoding="utf-8")
+        if _STATIC_INSERT_MARKER_RE.search(data):
+            for pattern, insert_content in inserts:
+                data = pattern.sub(insert_content, data)
+            doc_path.write_text(data, encoding="utf-8")
+    log.info("Added to %d files", len(docs))
 
 
-def copyFiles(srcdir: str, destdir: str) -> None:
+def copyFiles(srcdir: str | Path, destdir: str | Path) -> None:
     """Copy and complete all the static document pages."""
-    fileutils.mycopytree(srcdir, destdir)
+    dest_path = Path(destdir)
+    shutil.copytree(srcdir, dest_path, dirs_exist_ok=True)
     log.info("Converting .md docs to html")
-    convertmd2htmldocs.mddocs(destdir, destdir)
-    htmlinserts(destdir=destdir)
+    _convert_md_docs(dest_path)
+    htmlinserts(dest_path)
     log.info("Done")
 
 
