@@ -4,13 +4,11 @@ name: CI
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on all pull requests and on pushes to main
   push:
-    branches: 
-      - "*"
+    branches:
+      - main
   pull_request:
-    branches: 
-      - "*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -41,10 +39,7 @@ jobs:
 
       # Local tests prepare
       - name: Local Tests prepare
-        run: |
-          software/scripts/buildsite.py -f RDFExport.nquads Context Examples
-          mkdir software/site/releases/LATEST
-          (cd software/site/releases/`software/scripts/schemaversion.py`; cp -r * ../LATEST)
+        run: software/scripts/buildsite.py -f RDFExport.nquads Context Examples Shex_Shacl
       
       # Run local tests
       - name: Run local tests

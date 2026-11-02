@@ -13,13 +13,17 @@ constraints or targeting the wrong namespace still exit 0. Both have
 happened here.
 """
 
+import os
+import tempfile
 import textwrap
 import unittest
+from unittest.mock import patch
 
 import rdflib
 from rdflib.namespace import SH
 
 from schemaorg.layout import Releases
+import scripts.buildsite as buildsite
 import util.paths as paths
 
 import scripts.validate_examples_shacl as validator
@@ -131,6 +135,29 @@ class ValidateExampleTests(unittest.TestCase):
 
         self.assertEqual(len(self.shapes), shapes_before)
         self.assertEqual(len(self.ontology), ontology_before)
+
+    def testEmptyExamplesExitsConfigError(self):
+        with self.assertRaises(SystemExit) as cm:
+            validator.validate_examples([], invalid_only=True, source_output=False)
+        self.assertEqual(cm.exception.code, os.EX_CONFIG)
+
+    def testMissingShaclFilesExitsConfigError(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch.object(validator.schema.config, "OUTPUTDIR", tmp):
+                with self.assertRaises(SystemExit) as cm:
+                    validator.validate_examples(
+                        [FakeExample("k", self.GOOD)],
+                        invalid_only=True,
+                        source_output=False,
+                    )
+            self.assertEqual(cm.exception.code, os.EX_CONFIG)
+
+    def testRunShaclTestsFailsWhenShaclMissing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch.object(buildsite.schema.config, "OUTPUTDIR", tmp):
+                with self.assertRaises(SystemExit) as cm:
+                    buildsite.runShaclTests()
+            self.assertEqual(cm.exception.code, os.EX_CONFIG)
 
 
 class ShaclGateLivenessTests(unittest.TestCase):
