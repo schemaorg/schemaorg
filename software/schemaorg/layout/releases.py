@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Release discovery and destinations for schema.org published artefacts.
 
 A release's location is computed from its version, never searched for, and
@@ -11,9 +8,8 @@ delegated to the given layout (``InputLayout`` or ``OutputLayout``) through
 up a release, and nothing else.
 """
 
-from enum import Enum, unique
+from enum import StrEnum, unique
 from pathlib import Path
-from typing import List, Optional, Union
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
@@ -23,29 +19,23 @@ from schemaorg.version import Version, VersionItem
 # Sentinel meaning "the current release", per versions.json.
 CURRENT_VERSION = None
 
-VersionRef = Union[str, VersionItem, None]
+VersionRef = str | VersionItem | None
 
 
 @unique
-class Protocol(str, Enum):
+class Protocol(StrEnum):
     """URI scheme a release's vocabulary files are expressed in."""
 
     HTTPS = "https"
     HTTP = "http"
 
-    def __str__(self) -> str:
-        return str(self.value)
-
 
 @unique
-class Scope(str, Enum):
+class Scope(StrEnum):
     """Portion of the vocabulary a release file covers."""
 
     ALL = "all"
     CURRENT = "current"
-
-    def __str__(self) -> str:
-        return str(self.value)
 
 
 class Releases:
@@ -58,8 +48,8 @@ class Releases:
 
     @staticmethod
     def _schema_file(
-        scope: Union[Scope, str],
-        protocol: Union[Protocol, str],
+        scope: Scope | str,
+        protocol: Protocol | str,
         extension: str,
     ) -> str:
         """Joins the non-empty parts, so "" drops its separator too."""
@@ -68,7 +58,7 @@ class Releases:
 
     def __init__(
         self,
-        layout: Union[InputLayout, OutputLayout],
+        layout: InputLayout | OutputLayout,
         version: Version,
     ) -> None:
         self.layout = layout
@@ -76,7 +66,7 @@ class Releases:
 
     # -- versions, per versions.json -------------------------------------
 
-    def versions(self) -> List[VersionItem]:
+    def versions(self) -> list[VersionItem]:
         return self.version.versions()
 
     def current(self) -> VersionItem:
@@ -86,9 +76,9 @@ class Releases:
         if version is None:
             return self.current()
         wanted = str(version)
-        candidates = [v for v in self.versions() if str(v) == wanted]
-        if candidates:
-            return candidates[0]
+        found = next((v for v in self.versions() if str(v) == wanted), None)
+        if found is not None:
+            return found
         declared = ", ".join(str(v) for v in self.versions())
         raise ValueError(
             f"Version {wanted} is not declared in "
@@ -106,7 +96,7 @@ class Releases:
         version: VersionRef = CURRENT_VERSION,
         protocol: Protocol = Protocol.HTTPS,
         scope: Scope = Scope.ALL,
-    ) -> List[Path]:
+    ) -> list[Path]:
         release_dir = self.dir(version)
         if not release_dir.is_dir():
             raise FileNotFoundError(
@@ -124,10 +114,10 @@ class Releases:
     def file(
         self,
         version: VersionRef = CURRENT_VERSION,
-        protocol: Union[Protocol, str] = Protocol.HTTPS,
-        scope: Union[Scope, str] = Scope.ALL,
+        protocol: Protocol | str = Protocol.HTTPS,
+        scope: Scope | str = Scope.ALL,
         extension: str = ".ttl",
-        filename: Optional[str] = None,
+        filename: str | None = None,
     ) -> Path:
         v = self.resolve(version)
         name = filename or self._schema_file(scope, protocol, extension)

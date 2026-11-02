@@ -129,6 +129,17 @@ class TestSdoUri(unittest.TestCase):
         self.assertEqual(upgraded_layer.layer(), "pending")
         self.assertEqual(str(upgraded_layer), "https://pending.schema.org")
 
+    def test_equality_and_hashing(self) -> None:
+        self.assertEqual(SdoUri("Person"), SdoUri(SDO.Person))
+        self.assertEqual(hash(SdoUri("Person")), hash(SdoUri(SDO.Person)))
+        self.assertEqual(len({SdoUri("Person"), SdoUri(SDO.Person)}), 1)
+        self.assertNotEqual(SdoUri("Person"), SdoUri(Literal("Person")))
+        self.assertNotEqual(
+            SdoUri("https://schema.org/Person"),
+            SdoUri(Literal("https://schema.org/Person")),
+        )
+        self.assertNotEqual(SdoUri("Person"), "https://schema.org/Person")
+
 
 if __name__ == "__main__":
     unittest.main()

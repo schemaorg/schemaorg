@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Input layout management for schema.org sources."""
 
+from collections.abc import Sequence
 import os
 from pathlib import Path
 import sys
-from typing import List, Sequence, Union
 
 from schemaorg import constants
 from schemaorg.layout.domain import Domain
@@ -29,11 +26,11 @@ class InputLayout:
         return self.dir(domain) / filename
 
     def files(
-        self, domain: Domain, patterns: Union[str, Sequence[str]]
-    ) -> List[Path]:
+        self, domain: Domain, patterns: str | Sequence[str]
+    ) -> list[Path]:
         """Return matching files for glob patterns in Domain, sorted per pattern."""
         if isinstance(patterns, str):
-            patterns = [patterns]
+            patterns = (patterns,)
         base = self.dir(domain)
         # Sort per pattern to preserve caller pattern order (e.g. core before ext
         # in schemaorg-all-examples.txt); global sort splices subdirs mid-list.
@@ -44,7 +41,7 @@ class InputLayout:
             if not f.name.startswith(".")
         ]
 
-    def relative_file(self, path: Union[Path, str]) -> Path:
+    def relative_file(self, path: Path | str) -> Path:
         """Return a path relative to the root directory."""
         target = Path(path)
         try:
@@ -62,8 +59,9 @@ class InputLayout:
             True if all required paths exist.
         """
         required = (Domain.DOCS, Domain.GCLOUD, Domain.DATA, Domain.TEMPLATES)
-        missing = [self.dir(dom) for dom in required
-                   if not self.dir(dom).is_dir()]
+        missing = [
+            self.dir(dom) for dom in required if not self.dir(dom).is_dir()
+        ]
         versions_file = self.file(Domain.ROOT, constants.VERSIONS_FILE)
         if not versions_file.is_file():
             missing.append(versions_file)
@@ -72,7 +70,6 @@ class InputLayout:
                 f"Required paths not found: {', '.join(str(d) for d in missing)}"
             )
         return True
-
 
 
 def checkDataDirectories() -> bool:

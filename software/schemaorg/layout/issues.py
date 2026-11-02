@@ -1,14 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-import re
+from collections.abc import Sequence
 from pathlib import Path
-from typing import List, Sequence, Set
+import re
 
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
 
-ALL_ISSUES = ["*"]
+ALL_ISSUES: tuple[str, ...] = ("*",)
+_ISSUE_RE: re.Pattern[str] = re.compile(r"^issue-([^-.]+)")
 
 
 class Issues:
@@ -17,39 +15,43 @@ class Issues:
     the schema.org graph and examples.
     """
 
-    def __init__(self, input_layout: InputLayout):
+    def __init__(self, input_layout: InputLayout) -> None:
         self.input_layout = input_layout
 
-    def get_issue_numbers(self) -> List[str]:
+    def get_issue_numbers(self) -> list[str]:
         """Returns a sorted list of all existing issue numbers found in the data."""
         issue_files = self.input_layout.files(Domain.DATA, ["ext/*/issue-*"])
-        issue_numbers: Set[str] = set()
-        for f in issue_files:
-            match = re.match(r"^issue-([^-.]+)", f.name)
-            if match:
-                issue_numbers.add(match.group(1))
+        issue_numbers = {
+            match.group(1)
+            for f in issue_files
+            if (match := _ISSUE_RE.match(f.name))
+        }
         return sorted(issue_numbers)
 
-    def get_ttl_files(self, issues: List[str] = ALL_ISSUES) -> List[Path]:
+    def get_ttl_files(self, issues: Sequence[str] = ALL_ISSUES) -> list[Path]:
         """Returns a list of TTL files needed to create the graph."""
         return self._get_files("*.ttl", issues)
 
-    def get_example_files(self, issues: List[str] = ALL_ISSUES) -> List[Path]:
+    def get_example_files(
+        self, issues: Sequence[str] = ALL_ISSUES
+    ) -> list[Path]:
         """Returns a list of example txt files."""
         return self._get_files("*examples.txt", issues)
 
-    def _get_files(self, ext_glob: str, issues: Sequence[str]) -> List[Path]:
+    def _get_files(self, ext_glob: str, issues: Sequence[str]) -> list[Path]:
         # Always include core data files from the root of the data domain
         root_files = self.input_layout.files(Domain.DATA, [ext_glob])
 
         # Scan all extension files in a single filesystem pass
         ext_files = self.input_layout.files(Domain.DATA, [f"ext/*/{ext_glob}"])
 
-        def keep_for_issues(f: Path) -> bool:
-            match = re.match(r"issue-([^-.]+)", f.name)
-            return not match or match.group(1) in issues
-
         if "*" not in issues:
-            ext_files = [f for f in ext_files if keep_for_issues(f)]
+            wanted = set(issues)
+            ext_files = [
+                f
+                for f in ext_files
+                if not (match := _ISSUE_RE.match(f.name))
+                or match.group(1) in wanted
+            ]
 
         return root_files + ext_files
