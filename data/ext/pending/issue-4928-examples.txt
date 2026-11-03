@@ -1,0 +1,84 @@
+TYPES: #eg-4928a VacationRental, Accommodation, containsPlace, identifier, PropertyValue
+
+PRE-MARKUP:
+
+<!-- The registration number is issued by a public authority for the apartment itself. An operator with several apartments has one number per apartment. The listing's own identifier is a different value. -->
+<h1>Old Town Apartment</h1>
+<p>Via dell'Esempio 12, Apartment 4, 00100 Rome, Italy</p>
+<p>Registration number (CIN): EXAMPLE-CIN-0001</p>
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VacationRental",
+  "name": "Old Town Apartment",
+  "identifier": "oldtown-apt-4",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via dell'Esempio 12",
+    "postalCode": "00100",
+    "addressLocality": "Rome",
+    "addressCountry": "IT"
+  },
+  "containsPlace": {
+    "@type": "Accommodation",
+    "name": "Apartment 4",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "cin",
+      "name": "Codice Identificativo Nazionale (CIN)",
+      "value": "EXAMPLE-CIN-0001"
+    }
+  }
+}
+</script>
+
+TYPES: #eg-4928b Hotel, LodgingBusiness, identifier, PropertyValue
+
+PRE-MARKUP:
+
+<!-- The registration number identifies the hotel as an establishment. It is not the company number of the business that runs it. -->
+<h1>Hotel Example</h1>
+<p>Piazza dell'Esempio 3, 50100 Florence, Italy</p>
+<p>Registration number (CIN): EXAMPLE-CIN-0002</p>
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Hotel Example",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Piazza dell'Esempio 3",
+    "postalCode": "50100",
+    "addressLocality": "Florence",
+    "addressCountry": "IT"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "cin",
+    "name": "Codice Identificativo Nazionale (CIN)",
+    "value": "EXAMPLE-CIN-0002"
+  }
+}
+</script>
