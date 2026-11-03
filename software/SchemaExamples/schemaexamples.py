@@ -66,7 +66,6 @@ class Example:
         idnum: int = self.getIdNum()
         if idnum > -1:
             self.keyvalue = Example.formatId(idnum)
-        self.exselect: list[str] = []
 
     def __str__(self) -> str:
         terms_str = str(self.terms) if self.terms else "No Terms!"
