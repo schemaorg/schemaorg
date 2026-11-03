@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from collections.abc import Sequence
 import os
+import shutil
 import sys
 from typing import Any, IO
 import unittest
@@ -20,7 +21,6 @@ class ColoredTestResult(unittest.TextTestResult):
 
     def __init__(self, stream: IO[Any], descriptions: bool, verbosity: int) -> None:
         super().__init__(stream, descriptions, verbosity)
-        self.is_tty: bool
         try:
             self.is_tty = os.isatty(stream.fileno())
         except Exception:
@@ -28,64 +28,66 @@ class ColoredTestResult(unittest.TextTestResult):
         self.separator1: str = ""
         self.separator2: str = ""
         if self.is_tty:
-            try:
-                columns: int = os.get_terminal_size().columns
-            except Exception:
-                columns = 80
+            columns = shutil.get_terminal_size().columns
             self.separator1 = "▼" * columns
             self.separator2 = "▲" * columns
 
-    def _colorPrint(self, message: str, color: str | None = None, short: str | None = None, newline: bool = True) -> None:
+    def _colorPrint(
+        self,
+        message: str,
+        color: str | None = None,
+        short: str | None = None,
+        newline: bool = True,
+    ) -> None:
         if not self.showAll and short:
             message = short
         if self.is_tty and color:
-            message = color + message + colorama.Fore.WHITE + colorama.Style.NORMAL
+            message = f"{color}{message}{colorama.Style.RESET_ALL}"
         if newline:
             self.stream.writeln(message)
         else:
             self.stream.write(message)
             self.stream.flush()
 
-    def addError(self, test: unittest.TestCase, err: Any) -> None:
-        super().addError(test, err)
-        self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
-
     def startTest(self, test: unittest.TestCase) -> None:
-        super(unittest.TextTestResult, self).startTest(test)
-        lines: list[str] = self.getDescription(test).split("\n")
+        unittest.TestResult.startTest(self, test)
+        lines = self.getDescription(test).split("\n")
         for index, line in enumerate(lines):
-            color: str | None = None
-            if index > 0:
-                color = colorama.Fore.LIGHTWHITE_EX
-            lastline: bool = index == len(lines) - 1
-            if lastline:
+            color = colorama.Fore.LIGHTWHITE_EX if index > 0 else None
+            if index == len(lines) - 1:
                 self._colorPrint(f"{line} … ", color=color, newline=False)
             else:
                 self._colorPrint(line, color=color, newline=True)
 
+    def addError(self, test: unittest.TestCase, err: Any) -> None:
+        unittest.TestResult.addError(self, test, err)
+        self._colorPrint("Error", color=colorama.Fore.YELLOW, short="E")
+
     def addSuccess(self, test: unittest.TestCase) -> None:
-        super(unittest.TextTestResult, self).addSuccess(test)
+        unittest.TestResult.addSuccess(self, test)
         self._colorPrint("OK", color=colorama.Fore.GREEN, short=".")
 
     def addFailure(self, test: unittest.TestCase, err: Any) -> None:
-        super(unittest.TextTestResult, self).addFailure(test, err)
+        unittest.TestResult.addFailure(self, test, err)
         self._colorPrint("FAIL", color=colorama.Fore.RED, short="F")
 
     def addExpectedFailure(self, test: unittest.TestCase, err: Any) -> None:
-        super(unittest.TextTestResult, self).addExpectedFailure(test, err)
+        unittest.TestResult.addExpectedFailure(self, test, err)
         self._colorPrint("Expected failure", color=colorama.Fore.GREEN, short="x")
 
     def addUnexpectedSuccess(self, test: unittest.TestCase) -> None:
-        super(unittest.TextTestResult, self).addUnexpectedSuccess(test)
+        unittest.TestResult.addUnexpectedSuccess(self, test)
         self._colorPrint("Unexpected success", color=colorama.Fore.RED, short="U")
 
     def addSkip(self, test: unittest.TestCase, reason: str) -> None:
-        super(unittest.TextTestResult, self).addSkip(test, reason)
+        unittest.TestResult.addSkip(self, test, reason)
         self._colorPrint("Skipped", color=colorama.Fore.CYAN, short="S")
         if reason:
             self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
-    def printErrorList(self, flavour: str, errors: list[tuple[unittest.TestCase, str]]) -> None:
+    def printErrorList(
+        self, flavour: str, errors: list[tuple[unittest.TestCase, str]]
+    ) -> None:
         color: str | None = None
         if flavour == "ERROR":
             color = colorama.Fore.YELLOW
@@ -98,10 +100,11 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint(f"{err}", color=color)
 
 
-def GetSuite(test_path: str, args: argparse.Namespace | None) -> unittest.TestSuite:
-    if args and args.skipbasics:
-        return unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
-    return unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
+def GetSuite(
+    test_path: str, args: argparse.Namespace | None
+) -> unittest.TestSuite:
+    pattern = "*graphs*.py" if args and args.skipbasics else "test*.py"
+    return unittest.loader.TestLoader().discover(test_path, pattern=pattern)
 
 
 def main(
@@ -113,18 +116,18 @@ def main(
         test_path = str(constants.PROJECT_ROOT / "software/tests")
     if args is None:
         colorama.init()
-        parser: argparse.ArgumentParser = argparse.ArgumentParser(
+        parser = argparse.ArgumentParser(
             description="Configurable testing of schema.org."
         )
         parser.add_argument(
             "--skipbasics", action="store_true", help="Skip basic tests."
         )
         args = parser.parse_args(argv)
-    runner: unittest.TextTestRunner = unittest.TextTestRunner(
+    runner = unittest.TextTestRunner(
         verbosity=2, descriptions=True, resultclass=ColoredTestResult
     )
-    suite: unittest.TestSuite = GetSuite(test_path, args)
-    res: unittest.TestResult = runner.run(suite)
+    suite = GetSuite(test_path, args)
+    res = runner.run(suite)
     return len(res.failures) + len(res.errors)
 
 

@@ -6,5 +6,9 @@ from __future__ import annotations
 from util.schema import VERSION
 
 
-if __name__ == "__main__":
+def main() -> None:
     print(VERSION.current().number())
+
+
+if __name__ == "__main__":
+    main()

@@ -1,209 +1,260 @@
 #!/usr/bin/env python3
+"""Compare vocabulary terms and triples between two schema.org releases or sources."""
 
 from __future__ import annotations
 
 import argparse
-import codecs
+from collections.abc import Iterable, Sequence
 import io
 import logging
-import sys
-from urllib.parse import urlparse
+from pathlib import Path
 
-import dev_appserver
-import rdflib
-from rdflib import Graph, RDF, RDFS
-from rdflib.term import URIRef
-import sdoapp
+from rdflib import Graph, Namespace, RDF, RDFS, URIRef
+from rdflib.term import Node
 
-# Ensure that the google.appengine.* packages are available
-# in tests as well as all bundled third-party packages.
-dev_appserver.fix_sys_path()
+from schemaorg.graph_loader import GraphLoader
+from schemaorg.layout import Issues, Releases
+from schemaorg.sdo_uri import SDO, SdoUri
+import util.paths as paths
+import util.schema as schema
 
-from api import *
-from api import (
-    getMasterStore,
-    read_extensions,
-    read_schemas,
-)
-from apirdflib import getNss
-from schemaorg.sdo_uri import SCHEMA_URL
-
-logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
-
-# The app engine store names its layer graphs with the http:// namespace.
-CORE_NSS = SCHEMA_URL._replace(scheme="http").geturl()
-
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "-e",
-    "--exclude",
-    default=[[]],
-    action="append",
-    nargs="*",
-    help="Exclude graph(s) [core|extensions|bib|auto|meta|{etc} (Repeatable)",
-)
-parser.add_argument(
-    "-i",
-    "--include",
-    default=[[]],
-    action="append",
-    nargs="*",
-    help="Include graph(s) [core|extensions|bib|auto|meta|{etc} (Repeatable) overrides exclude",
-)
-parser.add_argument(
-    "-t", "--triples", default="No", help="Show triple differences Yes|No. Default No"
-)
-parser.add_argument(
-    "-n", "--names", default="No", help="List term names Yes|No. Default No"
-)
-args = parser.parse_args()
-showDiffs = False
-if args.triples.lower() == "yes":
-    showDiffs = True
-showNames = False
-if args.names.lower() == "yes":
-    showNames = True
+log: logging.Logger = logging.getLogger(__name__)
 
 
-def getCurrentGraph():
-    currentGraph = Graph()
-    skiplist = []
-    for e in args.exclude:
-        for s in e:
-            if s == "core":
-                skiplist.append(CORE_NSS)
-            elif s == "extensions":
-                for i in sdoapp.ENABLED_EXTENSIONS:
-                    skiplist.append(getNss(i))
-            else:
-                skiplist.append(getNss(s))
-
-    for e in args.include:
-        for s in e:
-            if s == "core" and CORE_NSS in skiplist:
-                skiplist.remove(CORE_NSS)
-            elif s == "extensions":
-                for i in sdoapp.ENABLED_EXTENSIONS:
-                    if getNss(i) in skiplist:
-                        skiplist.remove(getNss(i))
-            elif getNss(s) in skiplist:
-                skiplist.remove(getNss(s))
-
-    store = getMasterStore()
-    read_schemas(loadExtensions=True)
-    read_extensions(sdoapp.ENABLED_EXTENSIONS)
-    graphs = list(store.graphs())
-
-    gs = sorted(list(store.graphs()), key=lambda u: u.identifier)
-
-    for g in gs:  # Put core first
-        if str(g.identifier) == CORE_NSS:
-            gs.remove(g)
-            gs.insert(0, g)
-            break
-
-    for g in gs:
-        id = str(g.identifier)
-        if urlparse(id).scheme != "http":  # skip some internal graphs
-            continue
-        if id in skiplist:  # Skip because we have been asked to
-            continue
-
-        currentGraph += g
-    return currentGraph
+def _parse_bool_arg(value: str | bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    lowered = value.strip().lower()
+    if lowered in ("yes", "true", "1", "y"):
+        return True
+    if lowered in ("no", "false", "0", "n"):
+        return False
+    raise argparse.ArgumentTypeError(f"Expected Yes or No, got {value!r}")
 
 
-def getPreviousGraph(sources):
-    graph = Graph()
-    parse_errors = rdflib.Graph()
-    for s in sources:
-        graph.parse(s, format="rdfa", pgraph=parse_errors)
+def _load_spec(spec: str | None, *, default_to_source: bool) -> Graph:
+    input_layout = paths.DefaultInputLayout()
+    releases = Releases(input_layout, schema.VERSION)
 
-    return graph
+    if spec is None:
+        if default_to_source:
+            return GraphLoader.load(Issues(input_layout).get_ttl_files())
+        declared = releases.versions()
+        target_ver = declared[1] if len(declared) > 1 else declared[0]
+        spec = str(target_ver)
 
+    if spec == "source":
+        return GraphLoader.load(Issues(input_layout).get_ttl_files())
 
-def termsInGraph(g):
-    """terms that are not defined as properties or types, stringified."""
-    _terms = []
-    # g.bind("rdf",RDF)
-    # g.bind("rdfs",RDFS)
-    for s, p, o in g.triples((None, RDF.type, None)):
-        if s not in _terms:
-            _terms.append(str(s))
-    return _terms
+    candidate = Path(spec)
+    if candidate.is_dir():
+        return GraphLoader.load(sorted(candidate.rglob("*.ttl")))
+    if candidate.is_file():
+        if candidate.suffix == ".ttl":
+            return GraphLoader.load([candidate])
+        return Graph().parse(candidate)
 
-
-def compareCommonTerms(terms, buff):
-    global currentGraph, previousGraph, showDiffs
-    currentGraph.bind("schema", CORE_NSS)
-    currentGraph.bind("dc", "http://purl.org/dc/terms/")
-    currentGraph.bind("rdf", RDF)
-    currentGraph.bind("rdfs", RDFS)
-    changedCount = 0
-    for t in sorted(terms):
-        c = Graph()
-        p = Graph()
-        for trip in currentGraph.triples((URIRef(t), None, None)):
-            c.add(trip)
-        for trip in previousGraph.triples((URIRef(t), None, None)):
-            p.add(trip)
-        newg = c - p
-        dropg = p - c
-        if len(newg) > 0 or len(dropg) > 0:
-            changedCount += 1
-            buff.write(f"   Changed term: {t}\n")
-            if showDiffs:
-                for s, p, o in newg.triples((None, None, None)):
-                    buff.write(
-                        f"       New:     {s} {currentGraph.qname(p)} {o}\n"
-                    )
-                for s, p, o in dropg.triples((None, None, None)):
-                    buff.write(
-                        f"       Dropped: {s} {currentGraph.qname(p)} {o}\n"
-                    )
-    return changedCount
+    try:
+        return GraphLoader.load(releases.get_ttl_files(spec))
+    except FileNotFoundError:
+        release_dir = releases.dir(spec)
+        for fallback in ("schema.nt", "all-layers.nq", "schemaorg-all-http.ttl"):
+            fallback_path = release_dir / fallback
+            if fallback_path.is_file():
+                return Graph().parse(fallback_path)
+        raise
 
 
-currentGraph = None
-previousGraph = None
+def _filter_layers(
+    graph: Graph,
+    exclude: Iterable[str],
+    include: Iterable[str],
+) -> Graph:
+    excluded = set(exclude) - set(include)
+    if not excluded:
+        return graph
 
-UTF8Writer = codecs.getwriter("utf8")
-sys.stdout = UTF8Writer(sys.stdout)
+    skip_core = "core" in excluded
+    skip_extensions = "extensions" in excluded
+
+    layers_by_subject: dict[Node, set[str]] = {}
+    for s, p, o in graph:
+        if isinstance(p, URIRef) and SdoUri(p).uri == SDO.isPartOf:
+            layers_by_subject.setdefault(s, set()).add(SdoUri(o).layer())
+
+    filtered = Graph(bind_namespaces="none")
+    for s, p, o in graph:
+        layers = layers_by_subject.get(s)
+        if not layers:
+            if skip_core:
+                continue
+        else:
+            if skip_extensions or (layers & excluded):
+                continue
+        filtered.add((s, p, o))
+    return filtered
 
 
-if __name__ == "__main__":
-    currentGraph = getCurrentGraph()
-    previousGraph = getPreviousGraph(
-        [
-            "https://raw.github.com/schemaorg/schemaorg/sdo-phobos/data/schema.rdfa",
-            "https://raw.github.com/schemaorg/schemaorg/sdo-phobos/data/ext/auto/auto.rdfa",
-            "https://raw.github.com/schemaorg/schemaorg/sdo-phobos/data/ext/bib/bsdo-1.0.rdfa",
-            "https://raw.github.com/schemaorg/schemaorg/sdo-phobos/data/ext/bib/comics.rdfa",
-        ]
+def termsInGraph(g: Graph) -> set[str]:
+    """Return canonicalized URIs of all typed subjects in `g`."""
+    return {
+        str(SdoUri(s))
+        for s in g.subjects(RDF.type, None)
+        if isinstance(s, URIRef)
+    }
+
+
+def _term_subgraphs(
+    g: Graph, terms: set[str]
+) -> dict[str, set[tuple[Node, Node, Node]]]:
+    indexed: dict[str, set[tuple[Node, Node, Node]]] = {t: set() for t in terms}
+    for s, p, o in g:
+        if isinstance(s, URIRef):
+            subj = SdoUri(s)
+            key = str(subj)
+            if key in indexed:
+                pred = SdoUri(p).uri if isinstance(p, URIRef) else p
+                obj = SdoUri(o).uri if isinstance(o, URIRef) else o
+                indexed[key].add((subj.uri, pred, obj))
+    return indexed
+
+
+def compareCommonTerms(
+    common: set[str],
+    previous_graph: Graph,
+    current_graph: Graph,
+    buff: io.StringIO,
+    show_diffs: bool = False,
+) -> int:
+    qname_graph = Graph()
+    qname_graph.bind("schema", SDO)
+    qname_graph.bind("dc", Namespace("http://purl.org/dc/terms/"))
+    qname_graph.bind("rdf", RDF)
+    qname_graph.bind("rdfs", RDFS)
+
+    prev_by_term = _term_subgraphs(previous_graph, common)
+    curr_by_term = _term_subgraphs(current_graph, common)
+
+    def fmt_pred(pred: Node) -> str:
+        try:
+            return qname_graph.qname(pred) if isinstance(pred, URIRef) else str(pred)
+        except Exception:
+            return str(pred)
+
+    changed_count = 0
+    for term in sorted(common):
+        curr_triples = curr_by_term[term]
+        prev_triples = prev_by_term[term]
+        added = curr_triples - prev_triples
+        dropped = prev_triples - curr_triples
+        if added or dropped:
+            changed_count += 1
+            buff.write(f"   Changed term: {term}\n")
+            if show_diffs:
+                for s, p, o in sorted(added, key=lambda t: (str(t[1]), str(t[2]))):
+                    buff.write(f"       New:     {s} {fmt_pred(p)} {o}\n")
+                for s, p, o in sorted(dropped, key=lambda t: (str(t[1]), str(t[2]))):
+                    buff.write(f"       Dropped: {s} {fmt_pred(p)} {o}\n")
+    return changed_count
+
+
+def main(argv: Sequence[str] | None = None) -> None:
+    logging.basicConfig(level=logging.INFO)
+    # Historical releases predate HTTPS; suppress per-URI upgrade chatter.
+    logging.getLogger("schemaorg.sdo_uri").setLevel(logging.ERROR)
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "-p",
+        "--previous",
+        help="Previous release version or path (default: previous release in versions.json)",
+    )
+    parser.add_argument(
+        "-c",
+        "--current",
+        help="Current release version, 'source', or path (default: working-tree source TTLs)",
+    )
+    parser.add_argument(
+        "-e",
+        "--exclude",
+        default=[],
+        action="extend",
+        nargs="*",
+        help="Exclude layer(s) [core|extensions|pending|attic|meta|auto|bib|...] (repeatable)",
+    )
+    parser.add_argument(
+        "-i",
+        "--include",
+        default=[],
+        action="extend",
+        nargs="*",
+        help="Include layer(s), overriding --exclude (repeatable)",
+    )
+    parser.add_argument(
+        "-t",
+        "--triples",
+        nargs="?",
+        const=True,
+        default=False,
+        type=_parse_bool_arg,
+        help="Show triple differences (Yes/No or flag)",
+    )
+    parser.add_argument(
+        "-n",
+        "--names",
+        nargs="?",
+        const=True,
+        default=False,
+        type=_parse_bool_arg,
+        help="List added, dropped, and changed term names (Yes/No or flag)",
+    )
+    args = parser.parse_args(argv)
+
+    current_graph = _filter_layers(
+        _load_spec(args.current, default_to_source=True),
+        exclude=args.exclude,
+        include=args.include,
+    )
+    previous_graph = _filter_layers(
+        _load_spec(args.previous, default_to_source=False),
+        exclude=args.exclude,
+        include=args.include,
     )
 
-    curTypes = set(termsInGraph(currentGraph))
-    prevTypes = set(termsInGraph(previousGraph))
+    cur_terms = termsInGraph(current_graph)
+    prev_terms = termsInGraph(previous_graph)
 
-    print(f"Current terms count {len(curTypes)}")
-    print(f"Previous terms Count {len(prevTypes)}")
+    print(f"Current terms count {len(cur_terms)}")
+    print(f"Previous terms Count {len(prev_terms)}")
 
-    new = curTypes.difference(prevTypes)
-    dropped = prevTypes.difference(curTypes)
-    common = curTypes.intersection(prevTypes)
+    added = cur_terms - prev_terms
+    dropped = prev_terms - cur_terms
+    common = cur_terms & prev_terms
 
     print("==========   Terms  ================")
     print(f"Dropped terms {len(dropped)}")
-    if showNames:
-        for i in sorted(dropped):
-            print(f"   Dropped term {i}")
-    print(f"New terms {len(new)}")
-    if showNames:
-        for i in sorted(new):
-            print(f"   New term {i}")
+    if args.names:
+        for term in sorted(dropped):
+            print(f"   Dropped term {term}")
+    print(f"New terms {len(added)}")
+    if args.names:
+        for term in sorted(added):
+            print(f"   New term {term}")
 
     buff = io.StringIO()
-    print(f"Changed terms {compareCommonTerms(common, buff)}")
-    if showNames:
-        print(buff.getvalue())
+    changed = compareCommonTerms(
+        common=common,
+        previous_graph=previous_graph,
+        current_graph=current_graph,
+        buff=buff,
+        show_diffs=args.triples,
+    )
+    print(f"Changed terms {changed}")
+    if args.names or args.triples:
+        output = buff.getvalue()
+        if output:
+            print(output, end="")
+
+
+if __name__ == "__main__":
+    main()

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Sequence
 import concurrent.futures
 import logging
 import os
@@ -21,12 +22,11 @@ import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
 import util.schema as schema
 
-
 log: logging.Logger = logging.getLogger(__name__)
 
 
-def load_examples() -> list:
-    """Finds and loads all examples."""
+def load_examples() -> list[schemaexamples.Example]:
+    """Find and load all JSON-LD examples."""
     loaded = schemaexamples.SchemaExamples.from_default()
     log.info("Loaded %d examples, processing JSON-LD variants", len(loaded))
     return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
@@ -137,6 +137,7 @@ class ValidationStats:
         if result.targeted:
             self.targeted_count += 1
 
+        failed = result.error is not None or not result.conforms
         if result.error is not None:
             self.error_count += 1
             log.error("Invalid JSON example %s: %s", result.name, result.error)
@@ -148,7 +149,7 @@ class ValidationStats:
                 result.report,
             )
 
-        if self.source_output:
+        if self.source_output and failed:
             source = "\n".join(
                 f"{i:4d}: {line.rstrip()}"
                 for i, line in enumerate(
@@ -165,17 +166,19 @@ class ValidationStats:
         )
 
 
-def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
-    """Validates the provided examples against the generated SHACL shapes."""
+def validate_examples(
+    examples: Sequence[schemaexamples.Example],
+    invalid_only: bool,
+    source_output: bool,
+) -> None:
+    """Validate the provided examples against the generated SHACL shapes."""
     if not examples:
         log.error("No JSON-LD examples found to validate.")
         sys.exit(os.EX_CONFIG)
 
     releases = Releases(paths.DefaultOutputLayout(), schema.VERSION)
-    shacl_file: Path = releases.file(
-        protocol="", scope="shapes", extension=".shacl"
-    )
-    subclass_file: Path = releases.file(
+    shacl_file = releases.file(protocol="", scope="shapes", extension=".shacl")
+    subclass_file = releases.file(
         protocol="", scope="subclasses", extension=".shacl"
     )
 
@@ -188,14 +191,14 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
         sys.exit(os.EX_CONFIG)
 
     log.info("Loading SHACL shapes and subclass graphs...")
-    shacl_graph: rdflib.Graph = rdflib.Graph()
-    shacl_graph.parse(source=str(shacl_file), format="turtle")
+    shacl_graph = rdflib.Graph()
+    shacl_graph.parse(shacl_file, format="turtle")
 
-    ont_graph: rdflib.Graph = rdflib.Graph()
-    ont_graph.parse(source=str(subclass_file), format="turtle")
+    ont_graph = rdflib.Graph()
+    ont_graph.parse(subclass_file, format="turtle")
 
     # The constructor RDFS-closes ont_graph in place.
-    before: int = len(ont_graph)
+    before = len(ont_graph)
     try:
         engine = ExampleValidator(shacl_graph=shacl_graph, ont_graph=ont_graph)
     except ValueError as exception:
@@ -230,13 +233,23 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
     log.info("All examples validated successfully.")
 
 
-if __name__ == "__main__":
+def main(argv: Sequence[str] | None = None) -> None:
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-i", "--invalidonly", default=False, action="store_true", help="Only report invalid examples")
-    parser.add_argument("-s", "--sourceoutput", default=False, action="store_true", help="Output invalid example source")
+    parser.add_argument(
+        "-i",
+        "--invalidonly",
+        action="store_true",
+        help="Only report invalid examples",
+    )
+    parser.add_argument(
+        "-s",
+        "--sourceoutput",
+        action="store_true",
+        help="Output invalid example source",
+    )
     parser.add_argument("-o", "--output", help="Output site directory")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.output:
         schema.config.OUTPUTDIR = args.output
@@ -247,3 +260,7 @@ if __name__ == "__main__":
         invalid_only=args.invalidonly,
         source_output=args.sourceoutput,
     )
+
+
+if __name__ == "__main__":
+    main()

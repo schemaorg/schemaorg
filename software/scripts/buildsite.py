@@ -25,26 +25,24 @@ import util.pretty_logger as pretty_logger
 import util.schema as schema
 import util.stats as stats
 
-
 log: logging.Logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 args: argparse.Namespace
 
+
 def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
-    """Initialize various systems, returns the args object"""
-    parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
+    """Parse CLI flags and initialize build configuration."""
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "-a",
         "--autobuild",
-        default=False,
         action="store_true",
         help="clear output directory and build all components - overrides all other settings",
     )
     parser.add_argument(
         "-c",
         "--clearfirst",
-        default=False,
         action="store_true",
         help="clear output directory before creating contents",
     )
@@ -52,7 +50,7 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         "-d",
         "--docspages",
         default=[],
-        action="append",
+        action="extend",
         nargs="*",
         help="create docs page(repeatable) - ALL = all pages",
     )
@@ -60,7 +58,7 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         "-f",
         "--files",
         default=[],
-        action="append",
+        action="extend",
         nargs="*",
         help="create files(repeatable) - ALL = all files",
     )
@@ -70,14 +68,12 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "-r",
         "--runtests",
-        default=False,
         action="store_true",
         help="run test scripts before creating contents",
     )
     parser.add_argument(
         "-s",
         "--static",
-        default=False,
         action="store_true",
         help="Refresh static docs in site image",
     )
@@ -85,7 +81,7 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         "-t",
         "--terms",
         default=[],
-        action="append",
+        action="extend",
         nargs="*",
         help="create page for term (repeatable) - ALL = all terms",
     )
@@ -93,54 +89,49 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         "-b",
         "--buildoption",
         default=[],
-        action="append",
+        action="extend",
         nargs="*",
         help="build option(repeatable) - flags to be passed to build code",
     )
     parser.add_argument(
         "--shacltests",
-        default=False,
         action="store_true",
         help="run the post generation SHACL tests",
     )
     parser.add_argument(
         "-release",
         "--release",
-        default=False,
         action="store_true",
-        help="create page for term (repeatable) - ALL = all terms",
+        help="Build the release files into the releases data directory",
     )
     parser.add_argument(
         "--buildrelease",
-        default=False,
         action="store_true",
         help="Build the release files and save them into the releases data directory",
     )
     parser.add_argument(
         "--buildsite",
-        default=False,
         action="store_true",
         help="Build the website from the releases directory + static content + stats",
     )
 
-    args: argparse.Namespace = parser.parse_args(args_list)
+    parsed_args = parser.parse_args(args_list)
 
-    for op in args.buildoption:
-        schema.config.BUILDOPTS.extend(op)
+    # Copy lists so overriding schema.config.* below leaves parsed_args intact.
+    schema.config.BUILDOPTS = list(parsed_args.buildoption)
+    schema.config.TERMS = list(parsed_args.terms)
+    schema.config.PAGES = list(parsed_args.docspages)
+    schema.config.FILES = list(parsed_args.files)
 
-    for ter in args.terms:
-        schema.config.TERMS.extend(ter)
+    if parsed_args.output:
+        schema.config.OUTPUTDIR = parsed_args.output
 
-    for pgs in args.docspages:
-        schema.config.PAGES.extend(pgs)
-
-    for fls in args.files:
-        schema.config.FILES.extend(fls)
-
-    if args.output:
-        schema.config.OUTPUTDIR = args.output
-
-    if args.autobuild or args.release or args.shacltests or args.buildrelease:
+    if (
+        parsed_args.autobuild
+        or parsed_args.release
+        or parsed_args.shacltests
+        or parsed_args.buildrelease
+    ):
         schema.config.TERMS = ["ALL"]
         schema.config.PAGES = ["ALL"]
         schema.config.FILES = ["ALL"]
@@ -151,12 +142,12 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
 
     pretty_logger.MakeRootLogPretty()
 
-    return args
+    return parsed_args
 
 
 def clear() -> None:
     if args.clearfirst or args.autobuild:
-        output_dir: Path = Path(schema.config.OUTPUTDIR)
+        output_dir = Path(schema.config.OUTPUTDIR)
         log.info("Clearing %s directory", output_dir)
         if output_dir.is_dir():
             for item in output_dir.iterdir():
@@ -173,14 +164,17 @@ def runtests() -> None:
         with pretty_logger.BlockLog(
             logger=log, message="Running test scripts before proceeding…"
         ):
-            cmd = [sys.executable, str(constants.PROJECT_ROOT / "software/scripts/runtests.py")]
-            status = subprocess.call(cmd)
+            cmd = [
+                sys.executable,
+                str(constants.PROJECT_ROOT / "software/scripts/runtests.py"),
+            ]
+            status = subprocess.run(cmd, check=False).returncode
             if status:
                 log.error("Errors returned: %d", status)
                 sys.exit(status)
 
 
-def initdir(output_dir_str: str, handler_path: str) -> None:
+def initdir(output_dir_str: str) -> None:
     log.info('Building site in "%s" directory', output_dir_str)
     clear()
 
@@ -195,21 +189,26 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
         )
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
-        gdir: Path = output_layout.dir(paths.Domain.GCLOUD)
-        gcloud_files: list[Path] = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
+        gdir = output_layout.dir(paths.Domain.GCLOUD)
+        gcloud_files = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    version: str = schema.VERSION.current().number()
-    message: str = f"Creating {handler_path} from {schema.constants.HANDLER_TEMPLATE} for version: {version}"
+    version = schema.VERSION.current().number()
+    message = (
+        f"Creating {schema.constants.HANDLER_FILE} from "
+        f"{schema.constants.HANDLER_TEMPLATE} for version: {version}"
+    )
     with pretty_logger.BlockLog(logger=log, message=message):
-        template_file: Path = input_layout.file(paths.Domain.GCLOUD, "handlers-template.yaml")
-        template_data: str = template_file.read_text(encoding="utf-8")
-        handler_data: str = template_data.replace("{{ver}}", version)
-        output_layout.file(paths.Domain.GCLOUD, "handlers.yaml").write_text(
-            handler_data, encoding="utf-8"
+        template_file = input_layout.file(
+            paths.Domain.GCLOUD, schema.constants.HANDLER_TEMPLATE
         )
+        template_data = template_file.read_text(encoding="utf-8")
+        handler_data = template_data.replace("{{ver}}", version)
+        output_layout.file(
+            paths.Domain.GCLOUD, schema.constants.HANDLER_FILE
+        ).write_text(handler_data, encoding="utf-8")
 
 
 LOADEDTERMS: str | None = None
@@ -229,15 +228,17 @@ def loadTerms(source: str | None = None, force: bool = False) -> None:
     if LOADEDTERMS == source and not force:
         return
 
-    init_graph: bool = (LOADEDTERMS is not None) or force
+    init_graph = (LOADEDTERMS is not None) or force
     LOADEDTERMS = source
 
     if not sdotermsource.SdoTermSource.SOURCEGRAPH or init_graph:
         if source == "default":
-            with pretty_logger.BlockLog(logger=log, message="Loading development triples files (default)"):
+            with pretty_logger.BlockLog(
+                logger=log, message="Loading development triples files (default)"
+            ):
                 sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
         elif source == "release":
-            release_file: Path = Releases(
+            release_file = Releases(
                 paths.DefaultInputLayout(), schema.VERSION
             ).file()
 
@@ -247,8 +248,12 @@ def loadTerms(source: str | None = None, force: bool = False) -> None:
                     "Please run --buildrelease first."
                 )
 
-            with pretty_logger.BlockLog(logger=log, message=f"Loading triples from release file {release_file}"):
-                sdotermsource.SdoTermSource.loadSourceGraph(str(release_file), init=init_graph)
+            with pretty_logger.BlockLog(
+                logger=log, message=f"Loading triples from release file {release_file}"
+            ):
+                sdotermsource.SdoTermSource.loadSourceGraph(
+                    str(release_file), init=init_graph
+                )
         else:
             raise ValueError(f"Invalid term source: {source}")
 
@@ -293,13 +298,13 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        cmd: list[str] = [
+        cmd = [
             sys.executable,
             str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
             "-o",
             schema.config.OUTPUTDIR,
         ]
-        status: int = subprocess.call(cmd)
+        status = subprocess.run(cmd, check=False).returncode
         if status:
             log.error(
                 "SHACL validation reported errors (exit code %d). Failing build.",
@@ -324,8 +329,8 @@ def copyReleaseFiles() -> None:
 
     Do not re-add it. A build script has no business touching the index.
     """
-    srcdir: Path = Releases(paths.DefaultInputLayout(), schema.VERSION).dir()
-    destdir: Path = Releases(paths.DefaultOutputLayout(), schema.VERSION).dir()
+    srcdir = Releases(paths.DefaultInputLayout(), schema.VERSION).dir()
+    destdir = Releases(paths.DefaultOutputLayout(), schema.VERSION).dir()
     if not srcdir.is_dir():
         log.warning(
             "Release data directory %s not found. Skipping copying release files.",
@@ -351,6 +356,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         schema.VERSION.current().date(),
     )
 
+    tests_ran = False
+
     # STAGE 1: Build Release
     if args.buildrelease or args.release:
         log.info("=== STAGE 1: BUILDING RELEASE VERSION ===")
@@ -358,14 +365,22 @@ def main(argv: Sequence[str] | None = None) -> None:
 
         schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "data")
 
-        # Run tests first
         runtests()
+        tests_ran = True
 
         # Generate schema-all.html (the FullRelease documentation page)
         processDocs(pages=["FullRelease"])
 
         # Generate all vocabulary/schema release files
-        release_files = ["Context", "Owl", "Httpequivs", "Examples", "RDFExports", "CSVExports", "Shex_Shacl"]
+        release_files = [
+            "Context",
+            "Owl",
+            "Httpequivs",
+            "Examples",
+            "RDFExports",
+            "CSVExports",
+            "Shex_Shacl",
+        ]
         processFiles(files=release_files)
 
         # Validate the generated release files against shapes
@@ -379,13 +394,25 @@ def main(argv: Sequence[str] | None = None) -> None:
         log.info("=== STAGE 1: RELEASE BUILD COMPLETED SUCCESSFULLY ===")
 
     # STAGE 2: Build Site
-    if args.buildsite or args.autobuild or args.static or any(args.files) or any(args.docspages) or any(args.terms):
+    build_site_requested = (
+        args.buildsite
+        or args.autobuild
+        or args.static
+        or bool(args.files)
+        or bool(args.docspages)
+        or bool(args.terms)
+    )
+    if build_site_requested:
         log.info("=== STAGE 2: BUILDING SITE ===")
         loadTerms(source="release")
-        schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "software/site")
+        schema.config.OUTPUTDIR = args.output or str(
+            constants.PROJECT_ROOT / "software/site"
+        )
 
-        initdir(output_dir_str=schema.config.OUTPUTDIR, handler_path=schema.constants.HANDLER_FILE)
-        runtests()
+        initdir(output_dir_str=schema.config.OUTPUTDIR)
+        if not tests_ran:
+            runtests()
+            tests_ran = True
         if args.buildsite or args.autobuild:
             copyReleaseFiles()
 
@@ -399,9 +426,12 @@ def main(argv: Sequence[str] | None = None) -> None:
         log.info("=== STAGE 2: SITE BUILD COMPLETED SUCCESSFULLY ===")
 
     # Global Testing Trigger
-    if (args.runtests or args.shacltests) and not (args.buildsite or args.autobuild or args.buildrelease or args.release or args.static or any(args.files) or any(args.docspages) or any(args.terms)):
+    if (args.runtests or args.shacltests) and not (
+        build_site_requested or args.buildrelease or args.release
+    ):
         log.info("=== RUNNING SCRIBED TEST SUITES ===")
-        runtests()
+        if not tests_ran:
+            runtests()
         if args.shacltests:
             runShaclTests()
 

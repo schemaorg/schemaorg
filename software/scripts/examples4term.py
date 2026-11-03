@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import argparse
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 import csv
 from pathlib import Path
 
@@ -22,14 +22,14 @@ def _add_subterms(term: SdoTerm, seen: set[str], result: list[str]) -> None:
             _add_subterms(sub_term, seen, result)
 
 
-def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> list[str]:
+def getterms(terms: Iterable[str], recursive: bool) -> list[str]:
     result: list[str] = []
     seen: set[str] = set()
 
-    for t in (t for group in term_groups for t in group):
-        term = SdoTermSource.getTerm(t)
+    for term_name in terms:
+        term = SdoTermSource.getTerm(term_name)
         if not term:
-            print(f"No such term: {t}")
+            print(f"No such term: {term_name}")
             continue
         if term.id not in seen:
             seen.add(term.id)
@@ -51,12 +51,13 @@ def getexamples(
     )
 
 
-def buildcsvoutput(examples: Iterable[Example], fname: str) -> None:
-    if not fname.endswith(".csv"):
-        fname = f"{fname}.csv"
+def buildcsvoutput(examples: Iterable[Example], fname: str | Path) -> None:
+    output_path = Path(fname)
+    if output_path.suffix != ".csv":
+        output_path = output_path.with_name(f"{output_path.name}.csv")
 
     fields = ["Example Id", "Source File", "Linked to Terms"]
-    data = [
+    rows = [
         {
             "Example Id": e.keyvalue,
             "Source File": e.getMeta("source"),
@@ -65,35 +66,34 @@ def buildcsvoutput(examples: Iterable[Example], fname: str) -> None:
         for e in examples
     ]
 
-    print(f"examples4term: Writing to: {fname}")
-    with Path(fname).open("w", encoding="utf-8", newline="") as csvfile:
+    print(f"examples4term: Writing to: {output_path}")
+    with output_path.open("w", encoding="utf-8", newline="") as csvfile:
         writer = csv.DictWriter(
             csvfile, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
         )
         writer.writeheader()
-        writer.writerows(data)
+        writer.writerows(rows)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+def main(argv: Sequence[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "-t",
         "--term",
         required=True,
         default=[],
-        action="append",
-        nargs="*",
+        action="extend",
+        nargs="+",
         help="Term to use (repeatable)",
     )
     parser.add_argument(
         "-r",
         "--recursive",
-        default=False,
         action="store_true",
         help="Use term and subtypes",
     )
-    parser.add_argument("-o", "--output", required=True, help="csv output file")
-    args = parser.parse_args()
+    parser.add_argument("-o", "--output", required=True, help="CSV output file")
+    args = parser.parse_args(argv)
 
     if not SdoTermSource.SOURCEGRAPH:
         print("Loading triples files")
@@ -106,3 +106,7 @@ if __name__ == "__main__":
     terms = getterms(args.term, args.recursive)
     examples = getexamples(terms)
     buildcsvoutput(examples, args.output)
+
+
+if __name__ == "__main__":
+    main()

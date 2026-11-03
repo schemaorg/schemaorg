@@ -13,6 +13,8 @@ description: "A unique ID for a Medical Subject Heading supplementary record."
 
 from __future__ import annotations
 
+import argparse
+from collections.abc import Sequence
 from pathlib import Path
 import re
 import sys
@@ -20,233 +22,212 @@ import sys
 from schemaorg import constants
 from schemaorg.sdo_uri import SdoUri
 
-DEBUG = False
+DEBUG: bool = False
 
-PENDING_URI = str(SdoUri.for_layer("pending"))
+PENDING_URI: str = str(SdoUri.for_layer("pending"))
 
-TURTLE_PREFIXES = f"""
-@prefix : <{constants.SCHEMA_URI}> .
+TURTLE_PREFIXES: str = f"""@prefix : <{constants.SCHEMA_URI}> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix dcs: <https://datacommons.org/schema/> .
+@prefix dcs: <https://datacommons.org/schema/> ."""
 
-"""
+_CORE_SCALARS: frozenset[str] = frozenset({":Boolean", ":Text", ":Number"})
+_BLANK_BLOCK_RE = re.compile(r"\n\s*\n")
 
-# originally from datacommons/data/util/
-def my_mcf_to_dict_list(mcf_str: str) -> list:
-    """Converts MCF file string to a list of OrderedDict objects.
+McfNode = dict[str, dict[str, str]]
 
-    Args:
-        mcf_str: String read from MCF file.
 
-    Returns:
-        List of OrderedDict objects where each object represents a node in the MCF file.
-    """
-    # TODO preserve empty lines if required
-    # split by \n\n
-    nodes_str_list = mcf_str.split('\n\n')
-    # each node
-    node_list = []
+def mcf_to_dict_list(mcf_str: str) -> list[McfNode]:
+    """Parse MCF text into a list of node property dictionaries."""
+    node_list: list[McfNode] = []
 
-    for node in nodes_str_list:
-        node = node.strip()
-        # check for comments
-        node_str_list = node.split('\n')
-        cur_node = {}
-        comment_ctr = 0
+    for block in _BLANK_BLOCK_RE.split(mcf_str):
+        block = block.strip()
+        if not block:
+            continue
+
+        cur_node: McfNode = {}
         is_first_prop = True
-        # add each pv to ordered dict
-        for pv_str in node_str_list:
-            # TODO handle multiple occurrences of same property within a node
-            pv_str = pv_str.strip()
-            if pv_str.startswith('#'):
-                cur_node[f'__comment{comment_ctr}'] = pv_str
-                comment_ctr += 1
-            elif is_first_prop:
+        for raw_line in block.splitlines():
+            pv_str = raw_line.strip()
+            if not pv_str or pv_str.startswith("#"):
+                continue
+            if is_first_prop:
                 is_first_prop = False
-                if pv_str and not pv_str.startswith('Node: '):
-                    raise ValueError(
-                        f'Missing "Node: <name>" in MCF node {node}')
-            if pv_str and not pv_str.startswith('#'):
-                # find p, prefix, v
-                pv = pv_str.split(':')
-                if pv_str.count(':') == 1:
-                    p = pv[0].strip()
-                    prefix = ''
-                    v = pv[1].strip()
-                elif pv_str.count(':') == 2:
-                    p = pv[0].strip()
-                    prefix = pv[1].strip()
-                    v = pv[2].strip()
-                else:
-                    p = pv[0].strip()
-                    prefix = pv[1].strip()
-                    v = ':'.join(pv[2:]).strip()
-                    # TODO detect colon within a str(for e.g. descriptionURL)
-                    # logging.warning(
-                    # "# substructure detected in property value(s) using ':'
-                    # found in %s",
-                    #    pv_str)
+                if not pv_str.startswith("Node:"):
+                    raise ValueError(f'Missing "Node: <name>" in MCF node {block}')
+            if ":" not in pv_str:
+                raise ValueError(f"Malformed MCF line (missing ':'): {pv_str}")
 
-                cur_node[p] = {}
-                cur_node[p]['value'] = v
-                if v.startswith('[') and v.endswith(']'):
-                    cur_node[p]['complexValue'] = re.sub(' +', ' ',
-                                                         v)[1:-1].split(' ')
-                if v.count(':') > 0 and ',' in v:
-                    # TODO better handling of multiple values
-                    cur_node[p]['multiple_values'] = []
-                    vals = v.split(',')
-                    for cur_v in vals:
-                        temp_dict = {}
-                        if ':' in cur_v:
-                            temp_dict['namespace'] = cur_v[:cur_v.
-                                                           index(':')].strip()
-                            temp_dict['value'] = cur_v[cur_v.index(':') +
-                                                       1:].strip()
-                        else:
-                            temp_dict['namespace'] = ''
-                            temp_dict['value'] = cur_v
-                cur_node[p]['namespace'] = prefix
-        node_list.append(cur_node)
+            prop, raw_val = (part.strip() for part in pv_str.split(":", 1))
+            if (
+                not raw_val.startswith('"')
+                and "," not in raw_val
+                and ":" in raw_val
+            ):
+                ns_prefix, local_val = (
+                    part.strip() for part in raw_val.split(":", 1)
+                )
+            else:
+                ns_prefix, local_val = "", raw_val
+
+            cur_node[prop] = {
+                "namespace": ns_prefix,
+                "value": local_val,
+                "raw": raw_val,
+            }
+
+        if cur_node:
+            node_list.append(cur_node)
+
     return node_list
 
-def get_pv(node, property_name):
+
+my_mcf_to_dict_list = mcf_to_dict_list
+
+
+def get_pv(node: McfNode, property_name: str) -> str:
     return node.get(property_name, {}).get("value", "").strip('"')
 
-def debug_print(message):
+
+def debug_print(message: str) -> None:
     if DEBUG:
         print(f"# DEBUG: {message}")
 
 
-def multiprop(node, property_name):
-    """
-    Handle multi-valued properties, e.g., subClassOf, domainIncludes, rangeIncludes.
-    Returns a set of cleaned property values.
-    """
-    if property_name in node:
-        pv_values = node[property_name]["value"].split(",")
-        return {pv.strip() for pv in pv_values}
-    return set()
+def multiprop(node: McfNode, property_name: str) -> list[str]:
+    """Return sorted multi-valued property tokens (e.g. domainIncludes)."""
+    entry = node.get(property_name)
+    if not entry:
+        return []
+    raw = entry.get("raw") or entry.get("value", "")
+    return sorted({pv.strip() for pv in raw.split(",") if pv.strip()})
 
-def generate_class_turtle(node, terms):
-    debug_print(f"# Generating Turtle for class node: {node['Node']['value']}")
 
-    node_id = f':{node["Node"]["value"]}'
-    terms['types'].add(node["Node"]["value"])
+def format_turtle_term(raw_term: str) -> str:
+    """Format an MCF term reference as a valid Turtle prefixed name."""
+    term = raw_term.strip()
+    if ":" in term:
+        ns_prefix, local_name = (part.strip() for part in term.split(":", 1))
+        if ns_prefix in ("", "schema", "dcid"):
+            return f":{local_name}"
+        return f"{ns_prefix}:{local_name}"
+    return f":{term}"
+
+
+def generate_class_turtle(
+    node: McfNode, terms: dict[str, set[str]]
+) -> str:
+    local_id = node["Node"]["value"]
+    debug_print(f"Generating Turtle for class node: {local_id}")
+    node_id = format_turtle_term(local_id)
+    terms["types"].add(node_id)
 
     lines = [
-        f'{node_id}',
-        '  a rdfs:Class ;',
-        f'  :isPartOf <{PENDING_URI}> ;'
+        node_id,
+        "  a rdfs:Class ;",
+        f"  :isPartOf <{PENDING_URI}> ;",
     ]
 
-    name_value = get_pv(node, "name")
-    description_value = get_pv(node, "description")
+    for super_class in multiprop(node, "subClassOf"):
+        formatted = format_turtle_term(super_class)
+        terms["types"].add(formatted)
+        lines.append(f"  rdfs:subClassOf {formatted} ;")
 
-    for sub_class in multiprop(node, "subClassOf"):
-        terms['types'].add(sub_class)  # Add the supertype to the terms['types'] set
-        lines.append(f'  rdfs:subClassOf :{sub_class} ;')
-
-    if name_value:
+    if name_value := get_pv(node, "name"):
         lines.append(f'  rdfs:label "{name_value}" ;')
-    if description_value:
+    if description_value := get_pv(node, "description"):
         lines.append(f'  rdfs:comment """{description_value}""" ;')
 
-    lines[-1] = f"{lines[-1][:-1]} ."
+    lines[-1] = f"{lines[-1][:-1]}."
+    return "\n".join(lines)
 
-    return {
-        'turtle': '\n'.join(lines),
-        'terms': terms
-    }
 
-def generate_property_turtle(node, terms):
-    node_id = f':{node["Node"]["value"]}'
-    terms['properties'].add(node["Node"]["value"])
+def generate_property_turtle(
+    node: McfNode, terms: dict[str, set[str]]
+) -> str:
+    local_id = node["Node"]["value"]
+    node_id = format_turtle_term(local_id)
+    terms["properties"].add(node_id)
 
     lines = [
-        f'{node_id}',
-        '  a rdf:Property ;',
-        f'  :isPartOf <{PENDING_URI}> ;'
+        node_id,
+        "  a rdf:Property ;",
+        f"  :isPartOf <{PENDING_URI}> ;",
     ]
-
-    name_value = get_pv(node, "name")
-    description_value = get_pv(node, "description")
 
     for domain_value in multiprop(node, "domainIncludes"):
-        terms['types'].add(domain_value)
-        lines.append(f'  :domainIncludes :{domain_value} ;')
+        formatted = format_turtle_term(domain_value)
+        terms["types"].add(formatted)
+        lines.append(f"  :domainIncludes {formatted} ;")
 
     for range_value in multiprop(node, "rangeIncludes"):
-        terms['types'].add(range_value)
-        lines.append(f'  :rangeIncludes :{range_value} ;')
+        formatted = format_turtle_term(range_value)
+        terms["types"].add(formatted)
+        lines.append(f"  :rangeIncludes {formatted} ;")
 
-    if name_value:
+    if name_value := get_pv(node, "name"):
         lines.append(f'  rdfs:label "{name_value}" ;')
-    if description_value:
+    if description_value := get_pv(node, "description"):
         lines.append(f'  rdfs:comment """{description_value}""" ;')
 
-    lines[-1] = f"{lines[-1][:-1]} ."
+    lines[-1] = f"{lines[-1][:-1]}."
+    return "\n".join(lines)
 
-    return {
-        'turtle': '\n'.join(lines),
-        'terms': terms
+
+def convert_mcf_to_turtle(mcf_data_str: str) -> str:
+    """Convert MCF content string to a complete Schema.org Turtle document."""
+    terms: dict[str, set[str]] = {
+        "types": set(),
+        "properties": set(),
+        "enumerations": set(),
     }
+    mcf_data = mcf_to_dict_list(mcf_data_str)
+    debug_print(f"Loaded MCF data: {len(mcf_data)} entries")
 
-def main():
-    if len(sys.argv) < 2:
-        print("Please provide the path to the MCF file as a command-line argument.")
+    turtle_blocks = [TURTLE_PREFIXES]
+    for node in mcf_data:
+        node_type = node.get("typeOf", {}).get("value")
+        if node_type == "Class":
+            turtle_blocks.append(generate_class_turtle(node, terms))
+        elif node_type == "Property":
+            turtle_blocks.append(generate_property_turtle(node, terms))
+
+    subclass_lines = [
+        f"{term} rdfs:subClassOf :BioChemEntity ."
+        for term in sorted(terms["types"])
+        if term not in _CORE_SCALARS
+    ]
+    if subclass_lines:
+        turtle_blocks.append("\n".join(subclass_lines))
+
+    return "\n\n".join(turtle_blocks) + "\n"
+
+
+def main(argv: Sequence[str] | None = None) -> None:
+    global DEBUG
+    parser = argparse.ArgumentParser(
+        description="Convert a Data Commons MCF file into Schema.org Turtle."
+    )
+    parser.add_argument("mcf_file", type=Path, help="Path to the input MCF file")
+    parser.add_argument("--debug", action="store_true", help="Enable debug output")
+    args = parser.parse_args(argv)
+    DEBUG = args.debug
+
+    if not args.mcf_file.is_file():
+        print(f"MCF file '{args.mcf_file}' does not exist.", file=sys.stderr)
         sys.exit(1)
-
-    mcf_file_path = Path(sys.argv[1])
-
-    if not mcf_file_path.is_file():
-        print(f"MCF file '{mcf_file_path}' does not exist.")
-        sys.exit(1)
-
-    terms = {
-        'types': set(),
-        'properties': set(),
-        'enumerations': set()
-    }
 
     try:
-        mcf_data_str = mcf_file_path.read_text(encoding='utf-8')
-
-        mcf_data = my_mcf_to_dict_list(mcf_data_str)
-        debug_print(f"# Loaded MCF data: {len(mcf_data)} entries")
-
-        turtle_data = [TURTLE_PREFIXES]
-
-        for node in mcf_data:
-            if node["typeOf"]["value"] == "Class":
-                result = generate_class_turtle(node, terms)
-                turtle_data.append(result['turtle'])
-                terms = result['terms']
-            elif node["typeOf"]["value"] == "Property":
-                result = generate_property_turtle(node, terms)
-                turtle_data.append(result['turtle'])
-                terms = result['terms']
-
-
-        final_turtle_output = '\n\n'.join(turtle_data)
-
-        print(final_turtle_output)
-        print("\n")
-        for term in terms["types"]:
-            if term not in ["Boolean", "Text", "Number", "schema:Text"]:
-                if ':' in term:
-                    ns_prefix, term_name = term.split(':', 1)
-                    print(f'{ns_prefix}:{term_name.strip()} rdfs:subClassOf :BioChemEntity .')
-                else:
-                    print(f':{term.strip()} rdfs:subClassOf :BioChemEntity .')
-
-    except Exception as e:
-        print(f"Error converting MCF into Schema TTL: {e}")
+        mcf_data_str = args.mcf_file.read_text(encoding="utf-8")
+        sys.stdout.write(convert_mcf_to_turtle(mcf_data_str))
+    except Exception as exc:
+        print(f"Error converting MCF into Schema TTL: {exc}", file=sys.stderr)
         if DEBUG:
             raise
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
