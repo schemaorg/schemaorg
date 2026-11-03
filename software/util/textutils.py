@@ -13,9 +13,11 @@ def StripHtmlTags(source: str) -> str:
 
 def ShortenOnSentence(source: str, lengthHint: int = 250) -> str:
     """Shorten source at a sentence boundary near the lengthHint."""
-    if not source or len(source) <= lengthHint:
-        return source or ""
+    if not source:
+        return ""
     source = source.strip()
+    if len(source) <= lengthHint:
+        return source
 
     for match in _SENTENCE_END_RE.finditer(source):
         end_pos = match.start() + 1

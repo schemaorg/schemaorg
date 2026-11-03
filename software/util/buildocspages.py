@@ -46,7 +46,7 @@ def schemasPage(_page: str = "") -> str:
 PAGE_CONFIGS: dict[str, tuple[str, str, str]] = {
     "PendingHome": ("Pending", "docs/PendingHome.j2", "pending"),
     "AtticHome": ("Retired", "docs/AtticHome.j2", "attic"),
-    "AutoHome": ("Autotomotives", "docs/AutoHome.j2", "auto"),
+    "AutoHome": ("Automotive", "docs/AutoHome.j2", "auto"),
     "BibHome": ("Bib", "docs/BibHome.j2", "bib"),
     "Health-lifesciHome": (
         "Health-lifesci",
