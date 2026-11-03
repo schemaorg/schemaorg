@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Generate the `shexj` and `shacl` files."""
+
+from __future__ import annotations
 
 import argparse
 import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any
 
 from rdflib import BNode, Graph, Namespace, RDF, RDFS, URIRef
 from rdflib.collection import Collection
@@ -38,7 +38,7 @@ def replace_prefix(data: URIRef) -> URIRef:
     return BASE[f"{PREFIX}{str(data).removeprefix(SCHEMA)}"]
 
 
-def collect_datatypes(source: Graph) -> Set[URIRef]:
+def collect_datatypes(source: Graph) -> set[URIRef]:
     """
     Collects every term that must be serialised as a literal-bearing shape.
 
@@ -52,7 +52,7 @@ def collect_datatypes(source: Graph) -> Set[URIRef]:
     `sh:nodeKind sh:BlankNodeOrIRI`, which forbids it from ever being a
     literal and fails every example that uses it.
     """
-    datatypes: Set[URIRef] = {URIRef(SCHEMA.DataType)}
+    datatypes: set[URIRef] = {URIRef(SCHEMA.DataType)}
 
     for dt_sub in source.transitive_subjects(RDFS.subClassOf, SCHEMA.DataType):
         if isinstance(dt_sub, URIRef):
@@ -69,10 +69,10 @@ def collect_datatypes(source: Graph) -> Set[URIRef]:
 
 
 class ShExJParser:
-    _ancestor_cache: Dict[URIRef, List[URIRef]] = {}
-    _domain_includes: Dict[URIRef, List[URIRef]] = {}
-    _range_includes: Dict[URIRef, List[URIRef]] = {}
-    _subclass_of: Dict[URIRef, List[URIRef]] = {}
+    _ancestor_cache: dict[URIRef, list[URIRef]] = {}
+    _domain_includes: dict[URIRef, list[URIRef]] = {}
+    _range_includes: dict[URIRef, list[URIRef]] = {}
+    _subclass_of: dict[URIRef, list[URIRef]] = {}
 
     @classmethod
     def clear_caches(cls) -> None:
@@ -100,7 +100,7 @@ class ShExJParser:
             cls._subclass_of[k].sort(key=str)
 
     @classmethod
-    def parse_shape(cls, source: Graph, shape: URIRef, is_datatype: bool) -> Dict[str, Any]:
+    def parse_shape(cls, source: Graph, shape: URIRef, is_datatype: bool) -> dict[str, Any]:
         """
         Creates shape ShExJ shape for schema.org entity
 
@@ -111,7 +111,7 @@ class ShExJParser:
         """
 
         shape_id: URIRef = replace_prefix(shape)
-        node: Optional[Dict[str, Any]] = None
+        node: dict[str, Any] | None = None
         if is_datatype:
             node = {
                 "type": "NodeConstraint",
@@ -119,12 +119,12 @@ class ShExJParser:
             }
         else:
             node = {"type": "Shape"}
-            properties: List[URIRef] = cls._domain_includes.get(shape, [])
+            properties: list[URIRef] = cls._domain_includes.get(shape, [])
 
             # find all subclasses
-            ancestors: List[URIRef] = sorted(set(cls.find_parent_classes(source, shape)), key=str)
+            ancestors: list[URIRef] = sorted(set(cls.find_parent_classes(source, shape)), key=str)
             if properties:
-                expression: Dict[str, Any] = {
+                expression: dict[str, Any] = {
                     "type": "EachOf",
                     "expressions": [cls.type_constraint(sorted(ancestors + [shape], key=str))],
                 }
@@ -137,7 +137,7 @@ class ShExJParser:
                 node["expression"] = cls.type_constraint(sorted(ancestors + [shape], key=str))
             node["extra"] = [RDF.type]
 
-            parents: List[URIRef] = sorted([
+            parents: list[URIRef] = sorted([
                 replace_prefix(URIRef(x)) for x in cls._subclass_of.get(shape, [])
             ], key=str)
             if parents:
@@ -146,7 +146,7 @@ class ShExJParser:
         return {"type": "ShapeDecl", "id": shape_id, "shapeExpr": node}
 
     @staticmethod
-    def type_constraint(types: List[URIRef]) -> Dict[str, Any]:
+    def type_constraint(types: list[URIRef]) -> dict[str, Any]:
         """
         Creates rdf:type constraints
 
@@ -160,7 +160,7 @@ class ShExJParser:
         }
 
     @classmethod
-    def parse_property(cls, source: Graph, prop: URIRef) -> Dict[str, Any]:
+    def parse_property(cls, source: Graph, prop: URIRef) -> dict[str, Any]:
         """
         Creates property constraints
 
@@ -168,8 +168,8 @@ class ShExJParser:
         :param prop: property IRI
         :return: JSON(dict) with ShExJ representation of property constraints
         """
-        node: Dict[str, Any] = {"type": "TripleConstraint", "predicate": prop, "min": 0, "max": -1}
-        prop_range: List[URIRef] = sorted([
+        node: dict[str, Any] = {"type": "TripleConstraint", "predicate": prop, "min": 0, "max": -1}
+        prop_range: list[URIRef] = sorted([
             replace_prefix(URIRef(x)) for x in cls._range_includes.get(prop, [])
         ], key=str)
         if len(prop_range) == 1:
@@ -179,7 +179,7 @@ class ShExJParser:
         return node
 
     @classmethod
-    def find_parent_classes(cls, source: Graph, shape: URIRef) -> List[URIRef]:
+    def find_parent_classes(cls, source: Graph, shape: URIRef) -> list[URIRef]:
         """
         Finds all ancestors of the shape in the subclasses tree using transitive closure.
 
@@ -193,10 +193,10 @@ class ShExJParser:
         # transitive_objects(shape, RDFS.subClassOf) returns an iterator
         # including shape
         # itself, but we want ancestors, so we remove it from the result.
-        ancestors: List[Node] = list(source.transitive_objects(shape, RDFS.subClassOf))
+        ancestors: list[Node] = list(source.transitive_objects(shape, RDFS.subClassOf))
         if shape in ancestors:
             ancestors.remove(shape)
-        res: List[URIRef] = [URIRef(c) for c in ancestors if isinstance(c, URIRef)]
+        res: list[URIRef] = [URIRef(c) for c in ancestors if isinstance(c, URIRef)]
         cls._ancestor_cache[shape] = res
         return res
 
@@ -209,11 +209,11 @@ class ShExJParser:
         :return: string representation of ShExJ constraints
         """
         cls.index_graph(source)
-        shapes: List[Node] = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
+        shapes: list[Node] = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
 
-        all_datatypes: Set[URIRef] = collect_datatypes(source)
+        all_datatypes: set[URIRef] = collect_datatypes(source)
 
-        shex: Dict[str, Any] = {
+        shex: dict[str, Any] = {
             "type": "Schema",
             "shapes": [
                 cls.parse_shape(
@@ -245,7 +245,7 @@ class ShaclParser:
             dest.add((node, SHACL.nodeKind, SHACL.IRIOrLiteral))
         else:
             dest.add((node, SHACL.nodeKind, SHACL.BlankNodeOrIRI))
-            properties: List[URIRef] = sorted(ShExJParser._domain_includes.get(shape, []), key=str)
+            properties: list[URIRef] = sorted(ShExJParser._domain_includes.get(shape, []), key=str)
             for prop in properties:
                 if isinstance(prop, URIRef):
                     dest.add(
@@ -257,17 +257,17 @@ class ShaclParser:
                     )
 
     @staticmethod
-    def create_bnode(prefix: str, shape: URIRef, prop: URIRef, range: Optional[URIRef] = None) -> BNode:
+    def create_bnode(prefix: str, shape: URIRef, prop: URIRef, range: URIRef | None = None) -> BNode:
         """
         Creates a deterministic BNode with a given shape, prop, and possibly range.
         """
-        def sid(term: Optional[Node]) -> str:
+        def sid(term: Node | None) -> str:
             return str(term).rsplit("#", 1)[-1].rsplit("/", 1)[-1] if term else "shape"
 
         return BNode("_".join([prefix, sid(shape), sid(prop), sid(range)]))
 
     @staticmethod
-    def parse_property(source: Graph, prop: URIRef, dest: Graph, shape: Optional[URIRef] = None) -> BNode:
+    def parse_property(source: Graph, prop: URIRef, dest: Graph, shape: URIRef | None = None) -> BNode:
         """
         Creates property constraints
 
@@ -279,7 +279,7 @@ class ShaclParser:
         """
         node: BNode = ShaclParser.create_bnode("prop", shape, prop)
         dest.add((node, SHACL.path, prop))
-        property_range: List[URIRef] = sorted([
+        property_range: list[URIRef] = sorted([
             replace_prefix(URIRef(x)) for x in ShExJParser._range_includes.get(prop, [])
         ], key=str)
 
@@ -317,7 +317,7 @@ class ShaclParser:
         for s, p, o in sorted(source.triples((None, RDFS.subClassOf, None)), key=lambda t: (str(t[0]), str(t[1]), str(t[2]))):
             subclasses.add((s, p, o))
 
-        log.info(f"Canonicalizing subclasses graph ({len(subclasses)})")
+        log.info("Canonicalizing subclasses graph (%d)", len(subclasses))
         nsMgr = subclasses.namespace_manager
         subclasses = to_canonical_graph(subclasses)
         subclasses.namespace_manager = nsMgr
@@ -345,9 +345,9 @@ class ShaclParser:
         # first - that ordering is an accident, not a contract.
         ShExJParser.index_graph(source)
 
-        shapes: List[Node] = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
+        shapes: list[Node] = sorted(source.subjects(RDF.type, RDFS.Class), key=str)
 
-        all_datatypes: Set[URIRef] = collect_datatypes(source)
+        all_datatypes: set[URIRef] = collect_datatypes(source)
 
         for shape in shapes:
             if isinstance(shape, URIRef):
@@ -357,7 +357,7 @@ class ShaclParser:
 
 
 def generate_files(
-    term_defs_path: Union[str, Path],
+    term_defs_path: str | Path,
     version: str,
     input_format: str = "nt",
 ) -> None:
@@ -372,19 +372,19 @@ def generate_files(
         version, protocol="", scope="shapes", extension=".shexj"
     )
     shexj_path.write_text(ShExJParser.to_shex(graph), encoding="utf-8")
-    log.info(f"Created {shexj_path}")
+    log.info("Created %s", shexj_path)
 
     shacl_path: Path = releases.file(
         version, protocol="", scope="shapes", extension=".shacl"
     )
     shacl_path.write_text(ShaclParser.to_shacl(graph), encoding="utf-8")
-    log.info(f"Created {shacl_path}")
+    log.info("Created %s", shacl_path)
 
     subclasses_path: Path = releases.file(
         version, protocol="", scope="subclasses", extension=".shacl"
     )
     subclasses_path.write_text(ShaclParser.get_subclasses(graph), encoding="utf-8")
-    log.info(f"Created {subclasses_path}")
+    log.info("Created %s", subclasses_path)
 
 
 if __name__ == "__main__":
@@ -395,7 +395,7 @@ if __name__ == "__main__":
     )
     args: argparse.Namespace = parser.parse_args()
 
-    term_defs_path: Union[str, Path]
+    term_defs_path: str | Path
     if args.sourcefile:
         term_defs_path = args.sourcefile
     else:

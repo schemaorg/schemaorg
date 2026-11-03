@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+"""Debug helper to inspect parsed Data Commons MCF domain/range/subclass fields."""
+
+from __future__ import annotations
 
 import logging
 import re
 
 DEBUG = True
-
-# from util.mcf_dict_util import mcf_to_dict_list
 
 def debug_print(message):
     if DEBUG:

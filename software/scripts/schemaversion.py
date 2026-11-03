@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Print the current schema.org version number."""
+
+from __future__ import annotations
 
 from util.schema import VERSION
 

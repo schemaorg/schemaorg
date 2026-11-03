@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8; python-indent-offset: 4 -*-
-"""A Tool to help maintain the set of ttl files in schema.org.
+"""Tool to reformat, merge, and annotate schema.org Turtle files."""
 
-This helps reformatting, merging and splitting ttl files along
-semantic axis.
-"""
+from __future__ import annotations
 
 import argparse
 import itertools
 import logging
 from pathlib import Path
-from typing import List
 
 import rdflib
 
@@ -26,33 +22,34 @@ def Lint(args: argparse.Namespace) -> None:
         logging.info(" - reading file ...")
         g: graph.SchemaOrgGraph = graph.SchemaOrgGraph([Path(filename)])
         logging.info(
-            f" - writing back {output_filename if output_filename != filename else ''} ..."
+            " - writing back %s ...",
+            output_filename if output_filename != filename else "",
         )
         g.serialize(output_filename, format="turtle")
         if not g.IdenticalTo(graph.SchemaOrgGraph([Path(output_filename)])):
-            logging.fatal(f"Linting file {filename} lost some information.")
+            logging.fatal("Linting file %s lost some information.", filename)
 
     if args.output is not None and len(args.files) > 1:
         logging.fatal("Cannot use --output with multiple files!")
     for index, filename in enumerate(args.files):
-        logging.info(f"Handling file {index} of {len(args.files)} ({filename})")
+        logging.info("Handling file %d of %d (%s)", index, len(args.files), filename)
         LintOne(filename, args.output or filename)
         logging.info(" - validated.")
 
 
 def MergeFiles(args: argparse.Namespace) -> None:
     """Merges a set of files into one."""
-    logging.info(f"Merging files {len(args.files)} into {args.output}")
+    logging.info("Merging files %d into %s", len(args.files), args.output)
     # The loader takes the whole list, so the merge is the load.
     merged: graph.SchemaOrgGraph = graph.SchemaOrgGraph(
         [Path(f) for f in args.files]
     )
-    logging.info(f"Writing {args.output} ...")
+    logging.info("Writing %s ...", args.output)
     merged.serialize(args.output, format="turtle")
 
     for filename in args.files:
         if not merged.FullyContains(graph.SchemaOrgGraph([Path(filename)])):
-            logging.fatal(f"Merging files into {args.output} lost some information.")
+            logging.fatal("Merging files into %s lost some information.", args.output)
 
 
 def Annotate(args: argparse.Namespace) -> None:
@@ -60,15 +57,17 @@ def Annotate(args: argparse.Namespace) -> None:
     if args.output is not None and len(args.files) > 1:
         logging.fatal("Cannot use --output with multiple files!")
 
-    valid_parts: List[str] = ["pending", "attic", "meta", "GA"]
+    valid_parts: list[str] = ["pending", "attic", "meta", "GA"]
     if args.ispartof not in valid_parts:
         logging.fatal(
-            f"PartOf annotation '{args.ispartof}' is not valid: select one of {valid_parts}"
+            "PartOf annotation '%s' is not valid: select one of %s",
+            args.ispartof,
+            valid_parts,
         )
     new_part: rdflib.URIRef = SdoUri.for_layer(args.ispartof).uri
 
     for filename in args.files:
-        logging.info(f"Annotating {filename} ...")
+        logging.info("Annotating %s ...", filename)
         g: graph.SchemaOrgGraph = graph.SchemaOrgGraph([Path(filename)])
         # Clean the existing parts
         g.remove((None, graph.SCHEMAORG.isPartOf, None))
@@ -78,7 +77,7 @@ def Annotate(args: argparse.Namespace) -> None:
                 g.add((sub, graph.SCHEMAORG.isPartOf, new_part))
 
         g.serialize(args.output or filename, format="turtle")
-        logging.info(f" ... done, written to {args.output or filename}")
+        logging.info(" ... done, written to %s", args.output or filename)
 
 
 def main() -> None:

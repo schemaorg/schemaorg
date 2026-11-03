@@ -1,8 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
-from rdflib import Graph, Namespace
-from rdflib import RDF, RDFS
+from __future__ import annotations
+
+from rdflib import Graph, Namespace, RDF, RDFS
 
 from schemaorg.sdo_uri import SCHEMA_URL
 
@@ -83,16 +83,13 @@ if __name__ == "__main__":
     print("\n\n")
 
     print(
-        "Property terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n"
-        % core_props.intersection(new_health_props)
+        f"Property terms that are in 2.2 core and 2.3 ext/health-lifesci: {core_props.intersection(new_health_props)} \n\n"
     )
     print(
-        "Property terms in the ext/health-lifesci but not 2.2 core: %s \n\n"
-        % new_health_props.difference(core_props)
+        f"Property terms in the ext/health-lifesci but not 2.2 core: {new_health_props.difference(core_props)} \n\n"
     )
     print(
-        "Property terms in 2.2 core but not in ext/health-lifesci: %s \n\n"
-        % core_props.difference(new_health_props)
+        f"Property terms in 2.2 core but not in ext/health-lifesci: {core_props.difference(new_health_props)} \n\n"
     )
     print("\n\n")
 

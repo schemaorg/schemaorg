@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Program that builds the whole schema.org website."""
 
+from __future__ import annotations
+
 import argparse
+from collections.abc import Iterable, Sequence
 import logging
 from pathlib import Path
 import shutil
 import subprocess
 import sys
-from typing import Iterable, List, Optional, Sequence
 
 from schemaorg import constants
 from schemaorg.layout import Releases, checkDataDirectories
@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO)
 
 args: argparse.Namespace
 
-def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
+def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
     """Initialize various systems, returns the args object"""
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -157,7 +157,7 @@ def initialize(args_list: Optional[Sequence[str]] = None) -> argparse.Namespace:
 def clear() -> None:
     if args.clearfirst or args.autobuild:
         output_dir: Path = Path(schema.config.OUTPUTDIR)
-        log.info(f"Clearing {output_dir} directory")
+        log.info("Clearing %s directory", output_dir)
         if output_dir.is_dir():
             for item in output_dir.iterdir():
                 if item.name == ".gitkeep":
@@ -176,12 +176,12 @@ def runtests() -> None:
             cmd = [sys.executable, str(constants.PROJECT_ROOT / "software/scripts/runtests.py")]
             status = subprocess.call(cmd)
             if status:
-                log.error(f"Errors returned: {status}")
+                log.error("Errors returned: %d", status)
                 sys.exit(status)
 
 
 def initdir(output_dir_str: str, handler_path: str) -> None:
-    log.info(f'Building site in "{output_dir_str}" directory')
+    log.info('Building site in "%s" directory', output_dir_str)
     clear()
 
     input_layout = paths.DefaultInputLayout()
@@ -196,7 +196,7 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
         gdir: Path = output_layout.dir(paths.Domain.GCLOUD)
-        gcloud_files: List[Path] = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
+        gcloud_files: list[Path] = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
         for path in gcloud_files:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
@@ -212,10 +212,10 @@ def initdir(output_dir_str: str, handler_path: str) -> None:
         )
 
 
-LOADEDTERMS: Optional[str] = None
+LOADEDTERMS: str | None = None
 
 
-def loadTerms(source: Optional[str] = None, force: bool = False) -> None:
+def loadTerms(source: str | None = None, force: bool = False) -> None:
     global LOADEDTERMS
 
     # If no source is requested, and we already loaded something, we're done.
@@ -293,7 +293,7 @@ def processFiles(files: Iterable[str]) -> None:
 def runShaclTests() -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
-        cmd: List[str] = [
+        cmd: list[str] = [
             sys.executable,
             str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
             "-o",
@@ -301,7 +301,10 @@ def runShaclTests() -> None:
         ]
         status: int = subprocess.call(cmd)
         if status:
-            log.error(f"SHACL validation reported errors (exit code {status}). Failing build.")
+            log.error(
+                "SHACL validation reported errors (exit code %d). Failing build.",
+                status,
+            )
             sys.exit(status)
 
 
@@ -324,7 +327,10 @@ def copyReleaseFiles() -> None:
     srcdir: Path = Releases(paths.DefaultInputLayout(), schema.VERSION).dir()
     destdir: Path = Releases(paths.DefaultOutputLayout(), schema.VERSION).dir()
     if not srcdir.is_dir():
-        log.warning(f"Release data directory {srcdir} not found. Skipping copying release files.")
+        log.warning(
+            "Release data directory %s not found. Skipping copying release files.",
+            srcdir,
+        )
         return
     with pretty_logger.BlockLog(
         message=f"Copying release files from {srcdir} to {destdir}",
@@ -333,14 +339,16 @@ def copyReleaseFiles() -> None:
         shutil.copytree(srcdir, destdir, dirs_exist_ok=True)
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     global args
     args = initialize(argv)
 
     checkDataDirectories()
 
     log.info(
-        f"Version: {schema.VERSION.current().number()} Released: {schema.VERSION.current().date()}"
+        "Version: %s Released: %s",
+        schema.VERSION.current().number(),
+        schema.VERSION.current().date(),
     )
 
     # STAGE 1: Build Release

@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""Convert Data Commons MCF definitions into Schema.org Turtle.
+
+Example input:
+
+Node: dcid:medicalSubjectHeadingSupplementaryRecordID
+name: "medicalSubjectHeadingSupplementaryRecordID"
+typeOf: schema:Property
+rangeIncludes: dcs:MeSHSupplementaryRecord, schema:Text
+domainIncludes: dcs:ChemicalCompound, dcs:MeSHSupplementaryRecord
+description: "A unique ID for a Medical Subject Heading supplementary record."
+"""
+
+from __future__ import annotations
 
 from pathlib import Path
 import re
@@ -10,32 +23,6 @@ from schemaorg.sdo_uri import SdoUri
 DEBUG = False
 
 PENDING_URI = str(SdoUri.for_layer("pending"))
-
-# see readme.md
-
-"""Convert MCF into Turtle for Schema.org. 
-
-Example input:
-
-Node: dcid:medicalSubjectHeadingSupplementaryRecordID
-name: "medicalSubjectHeadingSupplementaryRecordID"
-typeOf: schema:Property
-rangeIncludes: dcs:MeSHSupplementaryRecord, schema:Text
-domainIncludes: dcs:ChemicalCompound, dcs:MeSHSupplementaryRecord
-description: "A unique ID for a Medical Subject Heading supplementary record.
-
-Example output:
-
-:medicalSubjectHeadingSupplementaryRecordID
-  a rdf:Property ;
-  :isPartOf <https://pending.schema.org> ;
-  :domainIncludes ChemicalCompound ;
-  :domainIncludes dcs:MeSHSupplementaryRecord ;
-  :rangeIncludes MeSHSupplementaryRecord ;
-  :rangeIncludes schema:Text ;
-  rdfs:label "medicalSubjectHeadingSupplementaryRecordID" ;
-  rdfs:comment \"\"\\"A unique ID for a Medical Subject Heading supplementary record.\"\""  .
-"""
 
 TURTLE_PREFIXES = f"""
 @prefix : <{constants.SCHEMA_URI}> .
@@ -167,7 +154,7 @@ def generate_class_turtle(node, terms):
     if description_value:
         lines.append(f'  rdfs:comment """{description_value}""" ;')
 
-    lines[-1] = lines[-1][:-1] + ' .'
+    lines[-1] = f"{lines[-1][:-1]} ."
 
     return {
         'turtle': '\n'.join(lines),
@@ -200,7 +187,7 @@ def generate_property_turtle(node, terms):
     if description_value:
         lines.append(f'  rdfs:comment """{description_value}""" ;')
 
-    lines[-1] = lines[-1][:-1] + ' .'
+    lines[-1] = f"{lines[-1][:-1]} ."
 
     return {
         'turtle': '\n'.join(lines),
@@ -256,7 +243,7 @@ def main():
                     print(f':{term.strip()} rdfs:subClassOf :BioChemEntity .')
 
     except Exception as e:
-        print(f"Error converting MCF into Schema TTL: {str(e)}")
+        print(f"Error converting MCF into Schema TTL: {e}")
         if DEBUG:
             raise
         sys.exit(1)

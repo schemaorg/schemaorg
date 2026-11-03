@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Export a CSV summary of examples linked to one or more schema.org terms."""
+
+from __future__ import annotations
 
 import argparse
+from collections.abc import Iterable
 import csv
 from pathlib import Path
-from typing import Iterable, List, Optional, Set
 
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 from SchemaTerms.sdoterm import SdoTerm
 from SchemaTerms.sdotermsource import SdoTermSource
 
 
-def _add_subterms(term: SdoTerm, seen: Set[str], result: List[str]) -> None:
+def _add_subterms(term: SdoTerm, seen: set[str], result: list[str]) -> None:
     for sub_id in term.subs.ids:
         if sub_id not in seen:
             seen.add(sub_id)
@@ -20,9 +22,9 @@ def _add_subterms(term: SdoTerm, seen: Set[str], result: List[str]) -> None:
             _add_subterms(sub_term, seen, result)
 
 
-def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> List[str]:
-    result: List[str] = []
-    seen: Set[str] = set()
+def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
 
     for t in (t for group in term_groups for t in group):
         term = SdoTermSource.getTerm(t)
@@ -40,8 +42,8 @@ def getterms(term_groups: Iterable[Iterable[str]], recursive: bool) -> List[str]
 
 def getexamples(
     terms: Iterable[str],
-    examples: Optional[SchemaExamples] = None,
-) -> List[Example]:
+    examples: SchemaExamples | None = None,
+) -> list[Example]:
     loaded = examples if examples is not None else SchemaExamples.from_default()
     return sorted(
         {e for t in terms for e in loaded.examplesForTerm(t)},

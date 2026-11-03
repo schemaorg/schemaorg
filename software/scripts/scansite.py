@@ -1,5 +1,6 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+
+from __future__ import annotations
 
 import json
 from pprint import pprint
@@ -31,13 +32,13 @@ def on_test_host(uri: str) -> str:
 
 # verbose = True
 
-fn = "data/releases/%s/schemaorg-current.jsonld" % v  # Per-release JSON-LD dumps.
+fn = f"data/releases/{v}/schemaorg-current.jsonld"  # Per-release JSON-LD dumps.
 found = []
 checked = 0
 
-print("\nScanning file: %s" % fn)
-print("Searching for: %s" % SEARCH_TERM)
-print("Searching target: %s\n" % host)
+print(f"\nScanning file: {fn}")
+print(f"Searching for: {SEARCH_TERM}")
+print(f"Searching target: {host}\n")
 
 with open(fn) as data_file:
     data = json.load(data_file)
@@ -55,15 +56,15 @@ def checkurl(url):
         result = urllib2.urlopen(str(url))
         thepage = result.read()
     except Exception as e:
-        print("EXCEPT: %s" % str(e))
+        print(f"EXCEPT: {e}")
     else:
         count = thepage.count(SEARCH_TERM)
         if count:
-            msg = "%s - Found %s instances" % (url, count)
+            msg = f"{url} - Found {count} instances"
             found.append(msg)
             print(msg)
         else:
-            print("%s clear" % url)
+            print(f"{url} clear")
 
 
 extensions = []
@@ -73,7 +74,7 @@ for g in sorted(data["@graph"], key=lambda u: u["@id"]):
     layer = SdoUri(g["@id"]).layer()
     if layer != "core" and layer not in extensions:
         extensions.append(layer)
-        print("Extension: %s" % layer)
+        print(f"Extension: {layer}")
     layer_host = urlparse(str(SdoUri.for_layer(layer))).netloc
     for t in sorted(g["@graph"], key=lambda u: u["@id"]):
         url = t["@id"]
@@ -92,10 +93,10 @@ for e in extensions:
     # print e
     checkurl(e)
 
-print("\nChecked %s pages" % checked)
+print(f"\nChecked {checked} pages")
 if len(found):
-    print("Found '%s' in %s pages" % (SEARCH_TERM, len(found)))
+    print(f"Found '{SEARCH_TERM}' in {len(found)} pages")
     for f in found:
         print(f)
 else:
-    print("Found 0 instances of %s" % SEARCH_TERM())
+    print(f"Found 0 instances of {SEARCH_TERM()}")

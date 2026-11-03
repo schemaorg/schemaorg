@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Generate a flat list of schema.org term IDs."""
 
 from __future__ import annotations
 

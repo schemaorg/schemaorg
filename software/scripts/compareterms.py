@@ -1,17 +1,19 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
+from __future__ import annotations
 
 import argparse
 import codecs
-import dev_appserver
 import io
 import logging
-import os
-from rdflib import Graph, RDF, RDFS
-from rdflib.term import URIRef
-import rdflib
-import sdoapp
 import sys
 from urllib.parse import urlparse
+
+import dev_appserver
+import rdflib
+from rdflib import Graph, RDF, RDFS
+from rdflib.term import URIRef
+import sdoapp
 
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
@@ -150,17 +152,15 @@ def compareCommonTerms(terms, buff):
         dropg = p - c
         if len(newg) > 0 or len(dropg) > 0:
             changedCount += 1
-            buff.write("   Changed term: %s\n" % t)
+            buff.write(f"   Changed term: {t}\n")
             if showDiffs:
                 for s, p, o in newg.triples((None, None, None)):
                     buff.write(
-                        "       New:     %s %s %s\n"
-                        % (str(s), currentGraph.qname(p), o)
+                        f"       New:     {s} {currentGraph.qname(p)} {o}\n"
                     )
                 for s, p, o in dropg.triples((None, None, None)):
                     buff.write(
-                        "       Dropped: %s %s %s\n"
-                        % (str(s), currentGraph.qname(p), o)
+                        f"       Dropped: {s} {currentGraph.qname(p)} {o}\n"
                     )
     return changedCount
 
@@ -186,24 +186,24 @@ if __name__ == "__main__":
     curTypes = set(termsInGraph(currentGraph))
     prevTypes = set(termsInGraph(previousGraph))
 
-    print("Current terms count %s" % len(curTypes))
-    print("Previous terms Count %s" % len(prevTypes))
+    print(f"Current terms count {len(curTypes)}")
+    print(f"Previous terms Count {len(prevTypes)}")
 
     new = curTypes.difference(prevTypes)
     dropped = prevTypes.difference(curTypes)
     common = curTypes.intersection(prevTypes)
 
     print("==========   Terms  ================")
-    print("Dropped terms %s" % len(dropped))
+    print(f"Dropped terms {len(dropped)}")
     if showNames:
         for i in sorted(dropped):
-            print("   Dropped term %s" % i)
-    print("New terms %s" % len(new))
+            print(f"   Dropped term {i}")
+    print(f"New terms {len(new)}")
     if showNames:
         for i in sorted(new):
-            print("   New term %s" % i)
+            print(f"   New term {i}")
 
     buff = io.StringIO()
-    print("Changed terms %s" % compareCommonTerms(common, buff))
+    print(f"Changed terms {compareCommonTerms(common, buff)}")
     if showNames:
         print(buff.getvalue())

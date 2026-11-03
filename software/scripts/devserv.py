@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Local Flask development server for a built Schema.org site."""
+
+from __future__ import annotations
 
 import argparse
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Optional, Sequence
 
 from colorama import Fore, Style
 from flask import Flask, Response, after_this_request
 
 from schemaorg import constants
-from util.schema import config, VERSION, constants as schema_constants
+from util.schema import VERSION, config, constants as schema_constants
 
 _docs: Path = Path(schema_constants.DOCSDOCSDIR.lstrip('/'))
 
@@ -102,7 +104,7 @@ def serve_downloads(ver: str, path: str = "") -> Response:
     return app.send_static_file(str(full_path))
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Local dev server for Schema.org.")
     parser.add_argument("--host", default="localhost", help="Host (default: localhost)")
     parser.add_argument("--port", type=int, default=8080, help="Port (default: 8080)")

@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# Based on a CC0 licensed script shared by Gabriel Romualdo <https://xtrp.io/>
 
-# Note: links below are broken.
-# Based on a CC0 licensed script
 # <https://xtrp.io/blog/2019/11/09/a-quick-python-script-to-find-broken-links/>
-# Shared by Gabriel Romualdo <https://xtrp.io/>
+"""Basic command line tool to find broken links in a website."""
 
-
-"""Basic command line tool to find broken links in a web-site."""
+from __future__ import annotations
 
 import argparse
 import sys

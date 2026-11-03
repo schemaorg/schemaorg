@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Runs the Schema.org unit test suite."""
 
+from __future__ import annotations
+
 import argparse
+from collections.abc import Sequence
 import os
 import sys
-from typing import Any, IO, List, Optional, Sequence, Tuple
+from typing import Any, IO
 import unittest
 
 import colorama
@@ -34,7 +35,7 @@ class ColoredTestResult(unittest.TextTestResult):
             self.separator1 = "▼" * columns
             self.separator2 = "▲" * columns
 
-    def _colorPrint(self, message: str, color: Optional[str] = None, short: Optional[str] = None, newline: bool = True) -> None:
+    def _colorPrint(self, message: str, color: str | None = None, short: str | None = None, newline: bool = True) -> None:
         if not self.showAll and short:
             message = short
         if self.is_tty and color:
@@ -51,14 +52,14 @@ class ColoredTestResult(unittest.TextTestResult):
 
     def startTest(self, test: unittest.TestCase) -> None:
         super(unittest.TextTestResult, self).startTest(test)
-        lines: List[str] = self.getDescription(test).split("\n")
+        lines: list[str] = self.getDescription(test).split("\n")
         for index, line in enumerate(lines):
-            color: Optional[str] = None
+            color: str | None = None
             if index > 0:
                 color = colorama.Fore.LIGHTWHITE_EX
             lastline: bool = index == len(lines) - 1
             if lastline:
-                self._colorPrint(line + " … ", color=color, newline=False)
+                self._colorPrint(f"{line} … ", color=color, newline=False)
             else:
                 self._colorPrint(line, color=color, newline=True)
 
@@ -84,8 +85,8 @@ class ColoredTestResult(unittest.TextTestResult):
         if reason:
             self._colorPrint(reason, color=colorama.Fore.LIGHTCYAN_EX)
 
-    def printErrorList(self, flavour: str, errors: List[Tuple[unittest.TestCase, str]]) -> None:
-        color: Optional[str] = None
+    def printErrorList(self, flavour: str, errors: list[tuple[unittest.TestCase, str]]) -> None:
+        color: str | None = None
         if flavour == "ERROR":
             color = colorama.Fore.YELLOW
         elif flavour == "FAIL":
@@ -97,16 +98,16 @@ class ColoredTestResult(unittest.TextTestResult):
             self._colorPrint(f"{err}", color=color)
 
 
-def GetSuite(test_path: str, args: Optional[argparse.Namespace]) -> unittest.TestSuite:
+def GetSuite(test_path: str, args: argparse.Namespace | None) -> unittest.TestSuite:
     if args and args.skipbasics:
         return unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
     return unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
 
 
 def main(
-    test_path: Optional[str] = None,
-    args: Optional[argparse.Namespace] = None,
-    argv: Optional[Sequence[str]] = None,
+    test_path: str | None = None,
+    args: argparse.Namespace | None = None,
+    argv: Sequence[str] | None = None,
 ) -> int:
     if test_path is None:
         test_path = str(constants.PROJECT_ROOT / "software/tests")

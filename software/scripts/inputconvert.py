@@ -1,13 +1,16 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
+
+from __future__ import annotations
 
 import argparse
+import os
 from os import getenv
 from os.path import expanduser
-import os
+import sys
+
+import rdflib
 from rdflib.parser import Parser
 from rdflib.term import URIRef
-import rdflib
-import sys
 
 from schemaorg.sdo_uri import SCHEMA_URL
 
@@ -15,7 +18,7 @@ from schemaorg.sdo_uri import SCHEMA_URL
 # in tests as well as all bundled third-party packages.
 
 sdk_path = getenv(
-    "APP_ENGINE", expanduser("~") + "/google-cloud-sdk/platform/google_appengine/"
+    "APP_ENGINE", f"{expanduser('~')}/google-cloud-sdk/platform/google_appengine/"
 )
 sys.path.insert(0, sdk_path)  # add AppEngine SDK to path
 
@@ -47,31 +50,31 @@ parser.add_argument(
 )
 parser.add_argument("-d", "--defaultns", help="Default output namespace")
 args = parser.parse_args()
-print("%s: Arguments: %s" % (sys.argv[0], args))
+print(f"{sys.argv[0]}: Arguments: {args}")
 if args.format not in OUTTYPES:
     parser.print_help()
     sys.exit(1)
 format = args.format
 combine = args.combinefile
 
-SPARQL1 = """
-PREFIX schema: <%s>
+SPARQL1 = f"""
+PREFIX schema: <{SCHEMA_HTTP}>
 
-DELETE { ?s schema:category ?o }
-WHERE {
+DELETE {{ ?s schema:category ?o }}
+WHERE {{
     ?s schema:category ?o .
-}
-""" % SCHEMA_HTTP
+}}
+"""
 
 
 def out(filename):
     graph.update(SPARQL1)
     graph.bind("", URIRef(SCHEMA_HTTP), override=True)
     if args.outputdir:
-        outfile = "%s/%s" % (args.outputdir, filename)
+        outfile = f"{args.outputdir}/{filename}"
     else:
         outfile = filename
-    print("Writing %s triples to  %s" % (len(graph), outfile))
+    print(f"Writing {len(graph)} triples to  {outfile}")
     f = open(outfile, "w")
     f.write(graph.serialize(format=OUTTYPES.get(format), auto_compact=True))
 
@@ -91,10 +94,10 @@ for fullfilename in files:
     ext = ext[1:]
 
     graph.parse(fullfilename, format=ext)
-    print("Loaded %s triples from %s" % (len(graph), filename))
+    print(f"Loaded {len(graph)} triples from {filename}")
 
     if not combine:
-        out(filename="%s.%s" % (filestub, format))
+        out(filename=f"{filestub}.{format}")
 
 if combine:
     print("Outputting ")
