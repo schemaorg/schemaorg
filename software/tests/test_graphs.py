@@ -1,9 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 import collections
-import logging
-import typing
 import unittest
 
 import rdflib
@@ -11,24 +8,25 @@ import rdflib
 import SchemaTerms.sdotermsource as sdotermsource
 
 
-log = logging.getLogger(__name__)
-
-
 # Tests to probe the health of both schemas and code using graph libraries in
 # rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or
 # @skip("reason...")
 class SDOGraphSetupTestCase(unittest.TestCase):
+    rdflib_data: rdflib.Graph
+
     @classmethod
-    def loadGraphs(self):
+    def loadGraphs(cls) -> None:
         sdotermsource.SdoTermSource.loadSourceGraph("default")
-        self.rdflib_data = sdotermsource.SdoTermSource.sourceGraph()
+        graph = sdotermsource.SdoTermSource.sourceGraph()
+        assert graph is not None
+        cls.rdflib_data = graph
 
     @classmethod
-    def setUpClass(self):
-        SDOGraphSetupTestCase.loadGraphs()
+    def setUpClass(cls) -> None:
+        cls.loadGraphs()
 
-    def test_graphsLoaded(self):
+    def test_graphsLoaded(self) -> None:
         self.assertGreater(
             len(self.rdflib_data),
             0,
@@ -37,7 +35,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     # Supporting functions to streamline tests and make their error
     # messages as informative as possible.
-    def getResults(self, query: str, varnames: tuple[str] = ()) -> list[dict]:
+    def getResults(
+        self, query: str, varnames: tuple[str, ...] = ()
+    ) -> list[dict[str, rdflib.term.Node]]:
         """Runs the SparQL query and returns the results as an array of dict,
            with keys limited to the 'varname' set if provided.
         """
@@ -48,8 +48,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         ]
 
     @staticmethod
-    def formatResults(results, pattern: str = "", varnames: tuple[str] = (),
-                      separator: str = " => ", row_separator: str = "\n\t") -> str:
+    def formatResults(
+        results: list[dict[str, rdflib.term.Node]],
+        pattern: str = "",
+        varnames: tuple[str, ...] = (),
+        separator: str = " => ",
+        row_separator: str = "\n\t",
+    ) -> str:
         """Formatting results to make a human-readable list in one step."""
         def formatLines():
             yield f"Found {len(results)} item{'' if len(results) == 1 else 's'}:"
@@ -62,8 +67,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         return row_separator.join(formatLines())
 
 
-    def assertNoMatch(self, results: typing.Union[str, list[dict]],
-                      error_message: str = "List should be empty", row_pattern: str = None):
+    def assertNoMatch(
+        self,
+        results: str | list[dict[str, rdflib.term.Node]],
+        error_message: str = "List should be empty",
+        row_pattern: str = "",
+    ) -> None:
         if isinstance(results, str):
             # Resolve the SPARQL query into results
             results = self.getResults(results)
@@ -76,7 +85,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
     # "A list of dicts (solution mappings) is returned"
 
-    def test_BaseTypeIsUnique(self):
+    def test_BaseTypeIsUnique(self) -> None:
         a_maps = self.getResults("SELECT ?term ?type WHERE { ?term a ?type . }")
         defined_types = collections.defaultdict(set)
 
@@ -101,7 +110,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         self.assertEqual(len(double_bases), 0, f"Types with multiple base types: {message}")
 
 
-    def test_BaseTypeExists(self):
+    def test_BaseTypeExists(self) -> None:
         a_maps = self.getResults("SELECT ?term ?type WHERE { ?term a ?type . }")
         defined_types = collections.defaultdict(set)
         for a in a_maps:
@@ -128,14 +137,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         self.assertEqual(len(non_datatype_derived), 0, f"Types that have an invalid base type: {message}")
 
 
-    def test_foundSixPlusInverseOf(self):
+    def test_foundSixPlusInverseOf(self) -> None:
         results = self.getResults(
             "SELECT ?x ?y WHERE { ?x <https://schema.org/inverseOf> ?y }"
         )
         self.assertGreaterEqual(len(results), 6,
                                 f"Six or more inverseOf expected. Found: {len(results)}")
 
-    def test_evenNumberOfInverseOf(self):
+    def test_evenNumberOfInverseOf(self) -> None:
         results = self.getResults(
             "SELECT ?x ?y WHERE { ?x <https://schema.org/inverseOf> ?y }"
         )
@@ -143,7 +152,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             len(results) % 2 == 0,
             f"Even number of inverseOf triples expected. Found: {len(results)}")
 
-    def test_noSelfInverseOf(self):
+    def test_noSelfInverseOf(self) -> None:
         self.assertNoMatch("""
             SELECT ?x ?y WHERE {
                 ?x <https://schema.org/inverseOf> ?y .
@@ -152,7 +161,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="inverseOf same property as itself")
 
-    def test_noSelfSupersededBy(self):
+    def test_noSelfSupersededBy(self) -> None:
         self.assertNoMatch("""
             SELECT ?x ?y WHERE {
                 ?x <https://schema.org/supersededBy> ?y .
@@ -162,7 +171,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Type should not be supersededBy itself")
 
     @unittest.expectedFailure  # autos
-    def test_needlessDomainIncludes(self):
+    def test_needlessDomainIncludes(self) -> None:
         # check immediate subtypes don't declare same domainIncludes
         # TODO: could we use property paths here to be more thorough?
         # rdfs:subClassOf+ should work but seems not to.
@@ -183,7 +192,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         row_pattern="Property %(prop)s defining domain, %(c1)s, [which is subClassOf] %(c2)s unnecessarily")
 
     @unittest.expectedFailure
-    def test_needlessRangeIncludes(self):
+    def test_needlessRangeIncludes(self) -> None:
         # as above, but for range. We excuse URL as it is special, not best seen
         # as a Text subtype.
         # check immediate subtypes don't declare same domainIncludes
@@ -205,20 +214,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="No subtype need redeclare a rangeIncludes of its parents",
         row_pattern="Property %(prop)s defining range, %(c1)s, [which is subclassOf] %(c2)s unnecessarily")
 
-    #  def test_supersededByAreLabelled(self):
-    # supersededByAreLabelled_results = self.rdflib_data.query(
-    #     """
-    #       select ?x ?y ?z
-    #       where {
-    #           ?x <https://schema.org/supersededBy> ?y .
-    #           ?y <https://schema.org/name> ?z
-    #       }
-    #     """)
-    # self.assertEqual(
-    #     len(inverseOf_results ) % 2 == 0, True,
-    #     f"Even number of inverseOf triples expected. Found: {len(inverseOf_results)}")
-
-    def test_validRangeIncludes(self):
+    def test_validRangeIncludes(self) -> None:
         self.assertNoMatch("""
             SELECT ?prop ?c1 WHERE {
                 ?prop <https://schema.org/rangeIncludes> ?c1 .
@@ -235,7 +231,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="RangeIncludes should define valid type",
         row_pattern="Property %(prop)s invalid rangeIncludes value: %(c1)s")
 
-    def test_validDomainIncludes(self):
+    def test_validDomainIncludes(self) -> None:
         self.assertNoMatch("""
             SELECT ?prop ?c1 WHERE {
                 ?prop <https://schema.org/domainIncludes> ?c1 .
@@ -253,8 +249,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         row_pattern="Property %(prop)s invalid domainIncludes value: %(c1)s")
 
 
-    # @unittest.expectedFailure
-    def test_simpleLabels(self):
+    def test_simpleLabels(self) -> None:
         self.assertNoMatch("""
             SELECT DISTINCT ?term ?label WHERE {
                 ?term rdfs:label ?label
@@ -269,13 +264,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         # terms are flagged up.
         # https://github.com/schemaorg/schemaorg/issues/1136
 
-    #
-    # TODO: https://github.com/schemaorg/schemaorg/issues/662
-    #
-    # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes
-    # value should lack a type. Found: %s " % len(ndi1_results ) )
-
-    def test_labelMatchesTermId(self):
+    def test_labelMatchesTermId(self) -> None:
         self.assertNoMatch("""
             SELECT ?term ?label WHERE {
                 ?term rdfs:label ?label .
@@ -288,7 +277,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Term should have matching rdfs:label",
         row_pattern="Term '%(term)s' has non-matching label: '%(label)s'")
 
-    def test_superTypesExist(self):
+    def test_superTypesExist(self) -> None:
         self.assertNoMatch("""
             SELECT ?term ?super WHERE {
                 ?term rdfs:subClassOf ?super .
@@ -306,7 +295,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             error_message="Types with nonexistent SuperTypes",
             row_pattern="Term '%(term)s' has nonexistent supertype: '%(super)s'")
 
-    def test_propsWithoutDomain(self):
+    def test_propsWithoutDomain(self) -> None:
         self.assertNoMatch("""
             SELECT ?term WHERE {
                 ?term a rdf:Property .
@@ -318,7 +307,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Property without domain extensions",
         row_pattern="Term '%(term)s' has no domainIncludes values")
 
-    def test_propsWithoutRange(self):
+    def test_propsWithoutRange(self) -> None:
         self.assertNoMatch("""
            SELECT ?term WHERE {
              ?term a rdf:Property .
@@ -330,7 +319,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Property without range extensions",
         row_pattern="Term '%(term)s' has no rangeIncludes values")
 
-    def test_superPropertiesExist(self):
+    def test_superPropertiesExist(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?super WHERE {
             ?term rdf:type rdf:Property .
@@ -348,7 +337,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Property with non-existent SuperProperties",
         row_pattern="Term '%(term)s' has nonexistent super-property: '%(super)s'")
 
-    def test_selfReferencingInverse(self):
+    def test_selfReferencingInverse(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?inverse WHERE {
             ?term rdf:type rdf:Property .
@@ -364,7 +353,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Types with self-referencing inverseOf",
         row_pattern="Term '%(term)s' is defined as inverseOf self")
 
-    def test_sameInverseAndSupersededByTarget(self):
+    def test_sameInverseAndSupersededByTarget(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?inverse ?super WHERE {
             ?term rdf:type rdf:Property .
@@ -378,10 +367,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
           ORDER BY ?term
         """,
         error_message="Types with inverseOf supersededBy shared target",
-        row_pattern="Term '%(term)s' defined ase inverseOf AND supersededBy %(inverse)s")
+        row_pattern="Term '%(term)s' defined as inverseOf AND supersededBy %(inverse)s")
 
-    def test_commentEndWithPeriod(self):
-        """Validate that class and property RDF comments end with a punctuation."""
+    def test_commentEndWithPeriod(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?com WHERE {
             ?term rdfs:comment ?com .
@@ -393,7 +381,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Comment without ending '.', ')' or '?' ")
 
-    def test_typeLabelCase(self):
+    def test_typeLabelCase(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?label WHERE {
             ?term rdf:type rdfs:Class .
@@ -406,7 +394,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Type label does not start with [A-Z] char")
 
-    def test_propertyLabelCase(self):
+    def test_propertyLabelCase(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?label WHERE {
             ?term rdf:type rdf:Property .
@@ -419,7 +407,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Property label not starting with [a-z] char")
 
-    def test_superTypeInAttic(self):
+    def test_superTypeInAttic(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?super WHERE {
             {
@@ -438,7 +426,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Super-term in attic!",
         row_pattern="Term '%(term)s' is sub-term of %(super)s a term in attic")
 
-    def test_referenceTermInAttic(self):
+    def test_referenceTermInAttic(self) -> None:
         self.assertNoMatch("""
           SELECT ?term ?rel ?ref WHERE {
             {
@@ -469,7 +457,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Reference to attic term!",
         row_pattern="Term '%(term)s' makes a %(rel)s reference to %(ref)s, a term in attic")
 
-    def test_termIn2PlusExtensions(self):
+    def test_termIn2PlusExtensions(self) -> None:
         self.assertNoMatch("""
           SELECT ?term (COUNT(?part) as ?count) WHERE {
             ?term <https://schema.org/isPartOf> ?part .
@@ -481,7 +469,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Term partOf multiple extensions",
         row_pattern="Term %(term)s isPartOf %(count)s extensions")
 
-    def test_termIsHttps(self):
+    def test_termIsHttps(self) -> None:
         self.assertNoMatch("""
           SELECT DISTINCT ?term WHERE {
             ?term ?p ?o .
@@ -492,7 +480,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Term defined as http instead of https")
 
-    def test_targetNotHttps(self):
+    def test_targetNotHttps(self) -> None:
         self.assertNoMatch("""
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX schema: <https://schema.org/>
@@ -512,7 +500,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="Term not defined as https://",
         row_pattern="Term '%(term)s' references term %(target)s as https")
 
-    def test_isPartOf(self):
+    def test_isPartOf(self) -> None:
         self.assertNoMatch("""
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX schema: <https://schema.org/>
@@ -544,7 +532,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         row_pattern="Term '%(term)s' has invalid isPartOf value '%(partof)s'")
 
     @unittest.expectedFailure
-    def test_EnumerationWithoutEnums(self):
+    def test_EnumerationWithoutEnums(self) -> None:
         self.assertNoMatch("""
           SELECT ?term WHERE {
               ?term a rdfs:subClassOf+ <https://schema.org/Enumeration> .
@@ -556,7 +544,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         """,
         error_message="Enumeration Type without Enumeration value")
 
-    def test_illegalOwlClassPropertyMixup(self):
+    def test_illegalOwlClassPropertyMixup(self) -> None:
         self.assertNoMatch("""
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         SELECT ?term ?equivType WHERE {
@@ -579,7 +567,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         error_message="A type cannot be both equivalentClass and equivalentProperty!",
         row_pattern="Type '%(equivType)s' cannot be both an equivalent Class (with %(cls)s) and Property of (with %(prop)s)")
 
-    def test_properClassPropertyStructuring(self):
+    def test_properClassPropertyStructuring(self) -> None:
         self.assertNoMatch("""
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

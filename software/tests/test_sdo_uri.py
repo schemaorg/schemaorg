@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""Unit tests for schemaorg.sdo_uri."""
+from __future__ import annotations
 
 import unittest
 from urllib.parse import urlparse

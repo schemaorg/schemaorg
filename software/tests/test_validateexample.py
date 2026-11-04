@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Tests for example validation: the validator, and the shapes it runs on.
 
 ValidateExampleTests drives ExampleValidator on a toy shapes graph, so it
@@ -12,6 +9,8 @@ a payload they are required to reject. Without it, shapes carrying no
 constraints or targeting the wrong namespace still exit 0. Both have
 happened here.
 """
+
+from __future__ import annotations
 
 import os
 import tempfile
@@ -32,14 +31,14 @@ import scripts.validate_examples_shacl as validator
 class FakeExample:
     """Stand-in for a SchemaExamples example. validate() needs these two."""
 
-    def __init__(self, key, jsonld):
+    def __init__(self, key: str, jsonld: str):
         self._key = key
         self._jsonld = jsonld
 
-    def getKey(self):
+    def getKey(self) -> str:
         return self._key
 
-    def getJsonldRaw(self):
+    def getJsonldRaw(self) -> str:
         return self._jsonld
 
 
@@ -50,7 +49,7 @@ class ValidateExampleTests(unittest.TestCase):
            '"name":{"@type":"Person","name":"not a string"}}')
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         shapes_turtle = textwrap.dedent("""\
             @prefix sh:     <http://www.w3.org/ns/shacl#> .
             @prefix schema: <http://schema.org/> .
@@ -68,57 +67,57 @@ class ValidateExampleTests(unittest.TestCase):
             shacl_graph=cls.shapes, ont_graph=cls.ontology
         )
 
-    def validate(self, name, jsonld):
+    def validate(self, name: str, jsonld: str) -> validator.ExampleResult:
         return self.engine.validate(FakeExample(name, jsonld))
 
-    def testResultCarriesItsExample(self):
+    def testResultCarriesItsExample(self) -> None:
         example = FakeExample("some-key", self.GOOD)
 
         result = self.engine.validate(example)
         self.assertIs(result.example, example)
         self.assertEqual(result.name, "some-key")
 
-    def testTargetClassesAreIndexed(self):
+    def testTargetClassesAreIndexed(self) -> None:
         self.assertEqual(
             self.engine.target_classes, frozenset({"http://schema.org/Person"})
         )
 
-    def testShapesWithoutTargetsCannotBuildAValidator(self):
+    def testShapesWithoutTargetsCannotBuildAValidator(self) -> None:
         with self.assertRaises(ValueError):
             validator.ExampleValidator(
                 shacl_graph=rdflib.Graph(), ont_graph=rdflib.Graph()
             )
 
-    def testValidExampleConforms(self):
+    def testValidExampleConforms(self) -> None:
         result = self.validate("good", self.GOOD)
         self.assertTrue(result.targeted)
         self.assertTrue(result.conforms)
         self.assertIsNone(result.error)
         self.assertIsNone(result.report, "clean examples carry no report")
 
-    def testInvalidExampleIsRejectedWithAReport(self):
+    def testInvalidExampleIsRejectedWithAReport(self) -> None:
         result = self.validate("bad", self.BAD)
         self.assertTrue(result.targeted)
         self.assertFalse(result.conforms)
         self.assertIsNone(result.error, "a violation is not an error")
         self.assertTrue(result.report, "a failure must explain itself")
 
-    def testUntargetedExampleConformsButIsNotTargeted(self):
+    def testUntargetedExampleConformsButIsNotTargeted(self) -> None:
         recipe = '{"@context":"http://schema.org/","@type":"Recipe","name":"Soup"}'
 
         result = self.validate("untargeted", recipe)
         self.assertFalse(result.targeted, "no shape targets Recipe")
         self.assertTrue(result.conforms, "vacuously true, not inspected")
 
-    def testMalformedInputIsReportedNotRaised(self):
+    def testMalformedInputIsReportedNotRaised(self) -> None:
         result = self.validate("malformed", "{ this is not json")
         self.assertIsNotNone(result.error)
         self.assertFalse(result.conforms)
 
-    def testNameIsCarriedThrough(self):
+    def testNameIsCarriedThrough(self) -> None:
         self.assertEqual(self.validate("some-key", self.GOOD).name, "some-key")
 
-    def testRepeatedValidationDoesNotGrowTheGraphs(self):
+    def testRepeatedValidationDoesNotGrowTheGraphs(self) -> None:
         """Shared graphs must converge, not accumulate.
 
         pyshacl injects two RDFS axioms into the shapes graph on first use.
@@ -136,12 +135,12 @@ class ValidateExampleTests(unittest.TestCase):
         self.assertEqual(len(self.shapes), shapes_before)
         self.assertEqual(len(self.ontology), ontology_before)
 
-    def testEmptyExamplesExitsConfigError(self):
+    def testEmptyExamplesExitsConfigError(self) -> None:
         with self.assertRaises(SystemExit) as cm:
             validator.validate_examples([], invalid_only=True, source_output=False)
         self.assertEqual(cm.exception.code, os.EX_CONFIG)
 
-    def testMissingShaclFilesExitsConfigError(self):
+    def testMissingShaclFilesExitsConfigError(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(validator.schema.config, "OUTPUTDIR", tmp):
                 with self.assertRaises(SystemExit) as cm:
@@ -152,7 +151,7 @@ class ValidateExampleTests(unittest.TestCase):
                     )
             self.assertEqual(cm.exception.code, os.EX_CONFIG)
 
-    def testRunShaclTestsFailsWhenShaclMissing(self):
+    def testRunShaclTestsFailsWhenShaclMissing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(buildsite.schema.config, "OUTPUTDIR", tmp):
                 with self.assertRaises(SystemExit) as cm:
@@ -171,7 +170,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
     SUBCLASSES_FILENAME = "schemaorg-subclasses.shacl"
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         shapes = cls._load(cls.SHAPES_FILENAME)
         ontology = cls._load(cls.SUBCLASSES_FILENAME)
 
@@ -189,7 +188,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
         )
 
     @classmethod
-    def _load(cls, filename):
+    def _load(cls, filename: str) -> rdflib.Graph | None:
         path = Releases(
             paths.DefaultInputLayout(), validator.schema.VERSION
         ).file(filename=filename)
@@ -200,7 +199,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
         return graph
 
     @staticmethod
-    def canary_payload():
+    def canary_payload() -> str:
         """A payload the shapes are required to reject.
 
         schema:name ranges over Text, so a nested Person is a type error.
@@ -215,15 +214,15 @@ class ShaclGateLivenessTests(unittest.TestCase):
             }
             """)
 
-    def setUp(self):
+    def setUp(self) -> None:
         if self.result is None:
             self.skipTest("release shapes not built")
 
-    def testCanaryParses(self):
+    def testCanaryParses(self) -> None:
         """Usually fails when the schema.org context cannot be fetched."""
         self.assertIsNone(self.result.error)
 
-    def testCanaryIsTargetedByTheShapes(self):
+    def testCanaryIsTargetedByTheShapes(self) -> None:
         targets = {str(t) for t in self.shapes.objects(None, SH.targetClass)}
 
         self.assertTrue(
@@ -233,7 +232,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
             f"  sample targets: {sorted(targets)[:3]}",
         )
 
-    def testCanaryIsRejected(self):
+    def testCanaryIsRejected(self) -> None:
         self.assertFalse(
             self.result.conforms,
             "the canary is deliberately invalid (a Person used as a "

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-
-# Import standard python libraries
+from __future__ import annotations
 
 import unittest
 
@@ -10,21 +7,21 @@ import SchemaTerms.sdoterm as sdoterm
 
 class SdoTermOrIdTest(unittest.TestCase):
 
-    def testEmpty(self):
+    def testEmpty(self) -> None:
         empty = sdoterm.SdoTermOrId()
         self.assertFalse(empty)
         self.assertTrue(empty.expanded)
         self.assertIsNone(empty.id)
         self.assertRaises(sdoterm.UnexpandedTermError, lambda: empty.term)
 
-    def testIdonly(self):
+    def testIdonly(self) -> None:
         id_only = sdoterm.SdoTermOrId(term_id='testing')
         self.assertTrue(id_only)
         self.assertFalse(id_only.expanded)
         self.assertEqual(id_only.id, 'testing')
         self.assertRaises(sdoterm.UnexpandedTermError, lambda: id_only.term)
 
-    def testTerm(self):
+    def testTerm(self) -> None:
         term = sdoterm.SdoReference(term_id='testing2', uri='http://example.com/testing2', label='')
         with_term = sdoterm.SdoTermOrId(term=term)
         self.assertTrue(with_term)
@@ -32,7 +29,7 @@ class SdoTermOrIdTest(unittest.TestCase):
         self.assertEqual(with_term.id, 'testing2')
         self.assertEqual(with_term.term, term)
 
-    def testSetIdAndSetTermInvalidateState(self):
+    def testSetIdAndSetTermInvalidateState(self) -> None:
         term = sdoterm.SdoReference(
             term_id='testing2', uri='http://example.com/testing2', label=''
         )
@@ -50,7 +47,7 @@ class SdoTermOrIdTest(unittest.TestCase):
 
 class SdoTermSequenceTest(unittest.TestCase):
 
-    def testEmpty(self):
+    def testEmpty(self) -> None:
         empty = sdoterm.SdoTermSequence()
         self.assertFalse(empty)
         self.assertTrue(empty.expanded)
@@ -58,7 +55,7 @@ class SdoTermSequenceTest(unittest.TestCase):
         self.assertCountEqual(empty.ids, [])
         self.assertCountEqual(empty.terms, [])
 
-    def testUnexpanded(self):
+    def testUnexpanded(self) -> None:
         unexpanded = sdoterm.SdoTermSequence()
         unexpanded.setIds(['testing3'])
         self.assertTrue(unexpanded)
@@ -67,7 +64,7 @@ class SdoTermSequenceTest(unittest.TestCase):
         self.assertCountEqual(unexpanded.ids, ['testing3'])
         self.assertRaises(sdoterm.UnexpandedTermError, lambda: unexpanded.terms)
 
-    def testExpanded(self):
+    def testExpanded(self) -> None:
         expanded = sdoterm.SdoTermSequence()
         term = sdoterm.SdoReference(term_id='testing4', uri='http://example.com/testing4', label='test')
         expanded.setTerms([term])

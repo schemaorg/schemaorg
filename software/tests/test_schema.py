@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 import unittest
 
@@ -8,13 +7,11 @@ import util.schema as schema
 
 
 class TestSchema(unittest.TestCase):
-    """Unit tests for util.schema module."""
-
-    def test_schema_version_instance(self):
+    def test_schema_version_instance(self) -> None:
         self.assertIsInstance(schema.VERSION, Version)
         self.assertTrue(schema.VERSION.current().number())
 
-    def test_has_opt(self):
+    def test_has_opt(self) -> None:
         self.assertFalse(schema.hasOpt("nonexistent_opt"))
 
 

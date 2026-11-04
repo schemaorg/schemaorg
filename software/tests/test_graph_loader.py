@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""Unit tests for schemaorg.graph_loader."""
+from __future__ import annotations
 
 from pathlib import Path
 import tempfile
@@ -15,22 +12,20 @@ from schemaorg.layout import Domain, InputLayout, Issues
 
 
 class TestGraphLoader(unittest.TestCase):
-    """Test suite for GraphLoader."""
-
-    def setUp(self):
+    def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
         self.root = Path(self.temp_dir.name)
         self.layout = InputLayout(self.root)
         self.issues = Issues(self.layout)
         self.loader = GraphLoader()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.temp_dir.cleanup()
 
-    def test_load_no_files(self):
+    def test_load_no_files(self) -> None:
         self.assertEqual(len(self.loader.load([])), 0)
 
-    def test_load_custom_namespaces_merged(self):
+    def test_load_custom_namespaces_merged(self) -> None:
         data_dir = self.layout.dir(Domain.DATA)
         ext_dir = data_dir / "ext" / "pending"
         ext_dir.mkdir(parents=True, exist_ok=True)
@@ -74,7 +69,7 @@ class TestGraphLoader(unittest.TestCase):
         self.assertIn((thing_uri, rdflib.RDF.type, rdflib.RDFS.Class), graph)
         self.assertIn((special_uri, rdflib.RDF.type, rdflib.RDFS.Class), graph)
 
-    def test_load_issue_filtering(self):
+    def test_load_issue_filtering(self) -> None:
         data_dir = self.layout.dir(Domain.DATA)
         ext_dir = data_dir / "ext" / "pending"
         ext_dir.mkdir(parents=True, exist_ok=True)
@@ -119,7 +114,7 @@ class TestGraphLoader(unittest.TestCase):
         self.assertIn((issue1_uri, rdflib.RDF.type, rdflib.RDFS.Class), g_all)
         self.assertIn((issue2_uri, rdflib.RDF.type, rdflib.RDFS.Class), g_all)
 
-    def test_load_parse_error_raises(self):
+    def test_load_parse_error_raises(self) -> None:
         data_dir = self.layout.dir(Domain.DATA)
         data_dir.mkdir(parents=True, exist_ok=True)
         bad_ttl = data_dir / "schema.ttl"
@@ -129,7 +124,7 @@ class TestGraphLoader(unittest.TestCase):
             with self.assertRaises(Exception):
                 self.loader.load(self.issues.get_ttl_files())
 
-    def test_load_real_data_single_issue(self):
+    def test_load_real_data_single_issue(self) -> None:
         real_issues = Issues(InputLayout(constants.PROJECT_ROOT))
         g = self.loader.load(real_issues.get_ttl_files(issues=["1062"]))
 

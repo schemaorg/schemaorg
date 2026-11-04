@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 from datetime import datetime
 import json
@@ -12,9 +11,7 @@ from schemaorg.version import Version, VersionItem
 
 
 class TestVersion(unittest.TestCase):
-    """Unit tests for the Version class in schemaorg.version."""
-
-    def test_init_explicit_path(self):
+    def test_init_explicit_path(self) -> None:
         """The shipped versions.json parses into a non-empty Version."""
         v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         self.assertEqual(v.versions_path, constants.PROJECT_ROOT / constants.VERSIONS_FILE)
@@ -22,19 +19,16 @@ class TestVersion(unittest.TestCase):
         self.assertTrue(v.versions())
         self.assertTrue(v.current().number())
 
-    def test_init_missing_path_raises(self):
-        """Test initialization without path raises TypeError."""
+    def test_init_missing_path_raises(self) -> None:
         with self.assertRaises(TypeError):
-            Version()  # type: ignore
+            Version()  # type: ignore[call-arg]
 
-    def test_init_missing_file_raises(self):
-        """Test initialization with a nonexistent file raises FileNotFoundError."""
+    def test_init_missing_file_raises(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             with self.assertRaises(FileNotFoundError):
                 Version(Path(tmp_dir) / constants.VERSIONS_FILE)
 
-    def test_init_custom_path(self):
-        """Test initialization with custom versions.json path."""
+    def test_init_custom_path(self) -> None:
         data = {
             "schemaversion": "1.0",
             "releaseLog": {"1.0": "2020-01-01"},
@@ -49,8 +43,7 @@ class TestVersion(unittest.TestCase):
             self.assertEqual(v.current().date(), "2020-01-01")
             self.assertEqual(str(v.current()), "1.0")
 
-    def test_init_missing_schemaversion_in_releaselog_raises(self):
-        """Test initialization raises ValueError when schemaversion is missing from releaseLog."""
+    def test_init_missing_schemaversion_in_releaselog_raises(self) -> None:
         data = {
             "schemaversion": "2.0",
             "releaseLog": {"1.0": "2020-01-01"},
@@ -63,7 +56,7 @@ class TestVersion(unittest.TestCase):
                 Version(tmp_file)
             self.assertIn("2.0", str(ctx.exception))
 
-    def test_current(self):
+    def test_current(self) -> None:
         """current() is one of versions(), with a parseable date."""
         v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         curr = v.current()
@@ -72,7 +65,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(str(curr), curr.number())
         datetime.strptime(curr.date(), "%Y-%m-%d")
 
-    def test_versions(self):
+    def test_versions(self) -> None:
         """Every entry in the shipped versions.json parses."""
         v = Version(constants.PROJECT_ROOT / constants.VERSIONS_FILE)
         all_vers = v.versions()
@@ -83,15 +76,13 @@ class TestVersion(unittest.TestCase):
             self.assertTrue(item.number())
             datetime.strptime(item.date(), "%Y-%m-%d")
 
-    def test_version_item(self):
-        """Test VersionItem properties and methods."""
+    def test_version_item(self) -> None:
         item = VersionItem("30.0", "2026-03-19")
         self.assertEqual(item.number(), "30.0")
         self.assertEqual(item.date(), "2026-03-19")
         self.assertEqual(str(item), "30.0")
 
-    def test_add_version_success(self):
-        """Test adding a newer version updates releaseLog and schemaversion."""
+    def test_add_version_success(self) -> None:
         initial_data = {
             "schemaversion": "1.0",
             "releaseLog": {
@@ -110,8 +101,7 @@ class TestVersion(unittest.TestCase):
             self.assertEqual(saved_data["schemaversion"], "1.1")
             self.assertEqual(saved_data["releaseLog"]["1.1"], "2021-01-01")
 
-    def test_add_older_version(self):
-        """Test adding an older version does not change schemaversion."""
+    def test_add_older_version(self) -> None:
         initial_data = {
             "schemaversion": "2.0",
             "releaseLog": {
@@ -129,8 +119,7 @@ class TestVersion(unittest.TestCase):
             self.assertEqual(saved_data["schemaversion"], "2.0")
             self.assertEqual(saved_data["releaseLog"]["1.5"], "2021-06-01")
 
-    def test_add_version_exists_raises(self):
-        """Test add_version raises when the version already exists."""
+    def test_add_version_exists_raises(self) -> None:
         initial_data = {
             "schemaversion": "1.0",
             "releaseLog": {
@@ -145,8 +134,7 @@ class TestVersion(unittest.TestCase):
             with self.assertRaises(Exception):
                 v.add_version("1.0", "2020-01-01")
 
-    def test_add_version_empty_raises(self):
-        """Test add_version raises when version_number is empty."""
+    def test_add_version_empty_raises(self) -> None:
         initial_data = {
             "schemaversion": "1.0",
             "releaseLog": {
@@ -161,8 +149,7 @@ class TestVersion(unittest.TestCase):
             with self.assertRaises(Exception):
                 v.add_version("", "2021-01-01")
 
-    def test_add_version_invalid_date_raises(self):
-        """Test add_version raises when date format is not YYYY-MM-DD."""
+    def test_add_version_invalid_date_raises(self) -> None:
         initial_data = {
             "schemaversion": "1.0",
             "releaseLog": {

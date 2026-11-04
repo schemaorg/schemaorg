@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 import unittest
 
@@ -8,13 +7,11 @@ import util.buildocspages as buildocspages
 
 
 class TestBuildDocs(unittest.TestCase):
-    """Test the buildocspages package."""
-
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         sdotermsource.SdoTermSource.sourceGraph()
 
-    def testJsonldtree(self):
+    def testJsonldtree(self) -> None:
         buildocspages.jsonldtree(page=None)
 
 

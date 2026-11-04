@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 from pathlib import Path
 import tempfile
@@ -29,9 +28,7 @@ JSON:
 
 
 class TestExampleFileParser(unittest.TestCase):
-    """Test the example file parser logic."""
-
-    def setUp(self):
+    def setUp(self) -> None:
         self.parser = schemaexamples.ExampleFileParser()
         self.temp_file = tempfile.NamedTemporaryFile()
         patcher = patch('SchemaExamples.schemaexamples.paths.DefaultInputLayout')
@@ -39,24 +36,22 @@ class TestExampleFileParser(unittest.TestCase):
         mock_input_layout.return_value = InputLayout(Path(self.temp_file.name).parent)
         self.addCleanup(patcher.stop)
 
-    def test_empty_example(self):
-        """An empty example file holds no examples."""
+    def test_empty_example(self) -> None:
         self.assertEqual(self.parser.parse(self.temp_file.name), [])
 
-    def test_example_without_identifier_is_rejected(self):
+    def test_example_without_identifier_is_rejected(self) -> None:
         self.temp_file.write(THING_EXAMPLE.replace("#eg-0999 ", "").encode("utf8"))
         self.temp_file.seek(0)
         with self.assertRaisesRegex(ValueError, "Example 1 in file .* has no identifier"):
             self.parser.parse(self.temp_file.name)
 
-    def test_duplicate_identifier_is_rejected(self):
+    def test_duplicate_identifier_is_rejected(self) -> None:
         self.temp_file.write(THING_EXAMPLE.encode("utf8") + b"\n" + THING_EXAMPLE.encode("utf8"))
         self.temp_file.seek(0)
         with self.assertRaisesRegex(ValueError, "Example 2 in file .* has duplicate identifier: 'eg-0999'"):
             self.parser.parse(self.temp_file.name)
 
-    def test_single_example(self):
-        """Test parsing of an Example file containing a single entry."""
+    def test_single_example(self) -> None:
         self.temp_file.write(THING_EXAMPLE.encode("utf8"))
         self.temp_file.seek(0)
         result = self.parser.parse(self.temp_file.name)
@@ -83,8 +78,7 @@ class TestExampleFileParser(unittest.TestCase):
             result[0].serialize(),
         )
 
-    def test_two_examples(self):
-        """Test parsing of an Example file containing two entries, one of them synthesized."""
+    def test_two_examples(self) -> None:
         # Write one example
         self.temp_file.write(THING_EXAMPLE.encode("utf8"))
         self.temp_file.write("\n".encode("utf8"))
@@ -108,7 +102,7 @@ class TestExampleFileParser(unittest.TestCase):
         self.assertEqual(result[1].getIdNum(), 777)
         self.assertCountEqual(result[1].terms, ["Offer"])
 
-    def test_serialize(self):
+    def test_serialize(self) -> None:
         example = schemaexamples.Example(
             terms=["Thing"],
             original_html="<b>Thing</b>",
@@ -131,7 +125,7 @@ JSON:
 <script>{}</script>""",
         )
 
-    def test_authored_ids_are_kept_as_is(self):
+    def test_authored_ids_are_kept_as_is(self) -> None:
         self.temp_file.write(
             THING_EXAMPLE.replace("#eg-0999", "#eg-3617a").encode("utf8")
             + b"\n"
@@ -146,7 +140,7 @@ JSON:
         self.assertEqual([ex.getMeta("filepos") for ex in result], [1, 2, 3])
         self.assertIn("TYPES: #eg-3617a Thing", result[0].serialize())
 
-    def test_example_requires_identifier(self):
+    def test_example_requires_identifier(self) -> None:
         with self.assertRaises(ValueError):
             schemaexamples.Example(
                 terms=["Thing"], original_html="", microdata="", rdfa="", jsonld="",
@@ -156,7 +150,7 @@ JSON:
 
 class TestSchemaExamples(unittest.TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp_dir.cleanup)
         self.root = Path(self.temp_dir.name)
@@ -170,13 +164,13 @@ class TestSchemaExamples(unittest.TestCase):
         path.write_text(content, encoding="utf-8")
         return path
 
-    def test_empty(self):
+    def test_empty(self) -> None:
         examples = schemaexamples.SchemaExamples.from_files([])
         self.assertEqual(len(examples), 0)
         self.assertEqual(list(examples.allExamples()), [])
         self.assertEqual(examples.examplesForTerm("Thing"), [])
 
-    def test_from_files_indexes_by_term_and_sorts(self):
+    def test_from_files_indexes_by_term_and_sorts(self) -> None:
         f_b = self._write(
             "b-examples.txt",
             THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0020 Thing, Offer")
@@ -203,7 +197,7 @@ class TestSchemaExamples(unittest.TestCase):
             ["eg-0020", "eg-0005", "eg-0010"],
         )
 
-    def test_duplicate_identifier_across_files_is_rejected(self):
+    def test_duplicate_identifier_across_files_is_rejected(self) -> None:
         first = self._write("first-examples.txt", THING_EXAMPLE)
         second = self._write("second-examples.txt", THING_EXAMPLE)
         with self.assertRaisesRegex(
@@ -213,7 +207,7 @@ class TestSchemaExamples(unittest.TestCase):
         ):
             schemaexamples.SchemaExamples.from_files([first, second])
 
-    def test_instances_are_independent(self):
+    def test_instances_are_independent(self) -> None:
         first = self._write(
             "first-examples.txt",
             THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0001 Thing"),

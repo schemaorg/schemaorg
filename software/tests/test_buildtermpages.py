@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 from pathlib import Path
 import unittest
@@ -11,29 +10,27 @@ import util.schema as schema
 
 
 class TestTermFileName(unittest.TestCase):
-    """Test the utility function that creates paths for terms."""
-
-    def testEmpty(self):
+    def testEmpty(self) -> None:
         with self.assertRaises(ValueError):
             buildtermpages.termFileName("")
 
-    def testUnicode(self):
+    def testUnicode(self) -> None:
         with self.assertRaises(ValueError):
             buildtermpages.termFileName("🟪")
 
-    def testUpper(self):
+    def testUpper(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
             Path(schema.config.OUTPUTDIR).resolve() / "terms/types/T/Thingamabob.html",
         )
 
-    def testLower(self):
+    def testLower(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
             Path(schema.config.OUTPUTDIR).resolve() / "terms/properties/t/thingamabob.html",
         )
 
-    def testDigit(self):
+    def testDigit(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
             Path(schema.config.OUTPUTDIR).resolve() / "terms/types/4/4DStatue.html",
@@ -41,16 +38,14 @@ class TestTermFileName(unittest.TestCase):
 
 
 class TestBuildTermPages(unittest.TestCase):
-    """Test the term page rendering logic."""
-
-    def setUp(self):
+    def setUp(self) -> None:
         self.renderer = buildtermpages.TermPageRenderer(
             stats_providers=[],
             build_opts=[],
             term_docs_dir="/docs"
         )
 
-    def testTemplateRenderNoExample(self):
+    def testTemplateRenderNoExample(self) -> None:
         term = sdoterm.SdoType(
             term_id="42",
             uri="http://example.com/whatchicallit",
@@ -61,8 +56,7 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertRegex(output, r".*http://example\.com/whatchicallit.*")
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
-    def testTemplateRenderOneExample(self):
-        """Test rendering of one term page."""
+    def testTemplateRenderOneExample(self) -> None:
         examples = [
             schemaexamples.Example(
                 terms=["Thingamabob"],

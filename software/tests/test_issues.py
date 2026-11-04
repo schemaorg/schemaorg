@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""Unit tests for schemaorg.layout.issues."""
+from __future__ import annotations
 
 from pathlib import Path
 import tempfile
@@ -11,9 +8,7 @@ from schemaorg.layout import InputLayout, Issues
 
 
 class TestIssues(unittest.TestCase):
-    """Test suite for Issues file discovery class."""
-
-    def setUp(self):
+    def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
         self.root = Path(self.temp_dir.name)
         self.layout = InputLayout(self.root)
@@ -48,15 +43,15 @@ class TestIssues(unittest.TestCase):
         self.issue200_ttl.touch()
         self.issue200_examples.touch()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.temp_dir.cleanup()
 
 
-    def test_get_issue_numbers(self):
+    def test_get_issue_numbers(self) -> None:
         numbers = self.issues.get_issue_numbers()
         self.assertEqual(numbers, ["100", "200"])
 
-    def test_get_ttl_files_all(self):
+    def test_get_ttl_files_all(self) -> None:
         files = self.issues.get_ttl_files()
         expected = [
             self.core_ttl,
@@ -66,7 +61,7 @@ class TestIssues(unittest.TestCase):
         ]
         self.assertEqual(files, expected)
 
-    def test_get_ttl_files_filtered(self):
+    def test_get_ttl_files_filtered(self) -> None:
         files = self.issues.get_ttl_files(["100"])
         expected = [
             self.core_ttl,
@@ -75,7 +70,7 @@ class TestIssues(unittest.TestCase):
         ]
         self.assertEqual(files, expected)
 
-    def test_get_example_files_all(self):
+    def test_get_example_files_all(self) -> None:
         files = self.issues.get_example_files()
         expected = [
             self.core_examples,
@@ -85,7 +80,7 @@ class TestIssues(unittest.TestCase):
         ]
         self.assertEqual(files, expected)
 
-    def test_get_example_files_filtered(self):
+    def test_get_example_files_filtered(self) -> None:
         files = self.issues.get_example_files(["200"])
         expected = [
             self.core_examples,
@@ -94,7 +89,7 @@ class TestIssues(unittest.TestCase):
         ]
         self.assertEqual(files, expected)
 
-    def test_get_ttl_files_nonexistent_issue(self):
+    def test_get_ttl_files_nonexistent_issue(self) -> None:
         files = self.issues.get_ttl_files(["9999"])
         expected = [
             self.core_ttl,
@@ -102,7 +97,7 @@ class TestIssues(unittest.TestCase):
         ]
         self.assertEqual(files, expected)
 
-    def test_get_ttl_files_multiple_issues(self):
+    def test_get_ttl_files_multiple_issues(self) -> None:
         files = self.issues.get_ttl_files(["100", "200"])
         expected = [
             self.core_ttl,
