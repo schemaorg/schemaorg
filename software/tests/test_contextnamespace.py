@@ -88,13 +88,14 @@ class ContextShapesNamespaceTests(unittest.TestCase):
         is exactly what turns the gate into an expensive no-op.
         """
         vocab, _ = self._load_vocab()
+        assert vocab is not None
 
         shapes_path = self._release_file(self.SHAPES_FILENAME)
         if not shapes_path.is_file():
             self.skipTest(f"{shapes_path} not built")
 
         graph = rdflib.Graph()
-        graph.parse(source=str(shapes_path), format="turtle")
+        graph.parse(source=shapes_path, format="turtle")
 
         targets = {str(t) for t in graph.objects(None, SH.targetClass)}
         self.assertTrue(
@@ -120,9 +121,9 @@ class ContextShapesNamespaceTests(unittest.TestCase):
             "  sample: " + ", ".join(conflicting[:5]),
         )
 
-        # And the agreement must be substantial, not incidental: if only a
-        # handful of shapes line up with the context, the gate is mostly
-        # inert even though no single assertion above would complain.
+        # Agreement must be substantial, not incidental: if only a handful of
+        # shapes line up with the context, the gate is mostly inert even
+        # though no single assertion above would complain.
         self.assertGreater(
             len(agreeing),
             len(targets) // 2,

@@ -23,9 +23,8 @@ from rdflib.namespace import SH
 
 from schemaorg.layout import Releases
 import scripts.buildsite as buildsite
-import util.paths as paths
-
 import scripts.validate_examples_shacl as validator
+import util.paths as paths
 
 
 class FakeExample:
@@ -43,10 +42,11 @@ class FakeExample:
 
 
 class ValidateExampleTests(unittest.TestCase):
-
     GOOD = '{"@context":"http://schema.org/","@type":"Person","name":"Jane"}'
-    BAD = ('{"@context":"http://schema.org/","@type":"Person",'
-           '"name":{"@type":"Person","name":"not a string"}}')
+    BAD = (
+        '{"@context":"http://schema.org/","@type":"Person",'
+        '"name":{"@type":"Person","name":"not a string"}}'
+    )
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -123,17 +123,31 @@ class ValidateExampleTests(unittest.TestCase):
         pyshacl injects two RDFS axioms into the shapes graph on first use.
         Idempotent, so reuse is safe, but it is a real write.
         """
-        # Burn the one-off injection.
         self.validate("warmup", self.GOOD)
         shapes_before = len(self.shapes)
         ontology_before = len(self.ontology)
 
-        for name, payload in (("good", self.GOOD), ("bad", self.BAD),
-                              ("good2", self.GOOD)):
+        for name, payload in (
+            ("good", self.GOOD),
+            ("bad", self.BAD),
+            ("good2", self.GOOD),
+        ):
             self.validate(name, payload)
 
         self.assertEqual(len(self.shapes), shapes_before)
         self.assertEqual(len(self.ontology), ontology_before)
+
+    def testSourceOutputOnlyLogsFailures(self) -> None:
+        with self.assertLogs(validator.log, level="INFO") as captured:
+            stats = validator.ValidationStats(
+                total=2, invalid_only=False, source_output=True
+            )
+            stats.add(self.validate("eg-good", self.GOOD))
+            stats.add(self.validate("eg-bad", self.BAD))
+
+        joined = "\n".join(captured.output)
+        self.assertNotIn("Jane", joined)
+        self.assertIn("not a string", joined)
 
     def testEmptyExamplesExitsConfigError(self) -> None:
         with self.assertRaises(SystemExit) as cm:
@@ -168,6 +182,8 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     SHAPES_FILENAME = "schemaorg-shapes.shacl"
     SUBCLASSES_FILENAME = "schemaorg-subclasses.shacl"
+    result: validator.ExampleResult | None
+    shapes: rdflib.Graph
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -179,13 +195,8 @@ class ShaclGateLivenessTests(unittest.TestCase):
             return
 
         cls.shapes = shapes
-        engine = validator.ExampleValidator(
-            shacl_graph=shapes, ont_graph=ontology
-        )
-        # One pyshacl run, three assertions below.
-        cls.result = engine.validate(
-            FakeExample("canary", cls.canary_payload())
-        )
+        engine = validator.ExampleValidator(shacl_graph=shapes, ont_graph=ontology)
+        cls.result = engine.validate(FakeExample("canary", cls.canary_payload()))
 
     @classmethod
     def _load(cls, filename: str) -> rdflib.Graph | None:
@@ -195,7 +206,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
         if not path.is_file():
             return None
         graph = rdflib.Graph()
-        graph.parse(source=str(path), format="turtle")
+        graph.parse(source=path, format="turtle")
         return graph
 
     @staticmethod
@@ -220,9 +231,11 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     def testCanaryParses(self) -> None:
         """Usually fails when the schema.org context cannot be fetched."""
+        assert self.result is not None
         self.assertIsNone(self.result.error)
 
     def testCanaryIsTargetedByTheShapes(self) -> None:
+        assert self.result is not None
         targets = {str(t) for t in self.shapes.objects(None, SH.targetClass)}
 
         self.assertTrue(
@@ -233,6 +246,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
         )
 
     def testCanaryIsRejected(self) -> None:
+        assert self.result is not None
         self.assertFalse(
             self.result.conforms,
             "the canary is deliberately invalid (a Person used as a "

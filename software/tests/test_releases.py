@@ -26,7 +26,7 @@ MODERN_FILES = (
 
 
 def _make_release(root: Path, version: str, *names: str) -> Path:
-    """Creates a release directory containing the named files."""
+    """Create a release directory containing the named files."""
     release_dir = root / version
     release_dir.mkdir(parents=True, exist_ok=True)
     for name in names or MODERN_FILES:
@@ -36,8 +36,9 @@ def _make_release(root: Path, version: str, *names: str) -> Path:
 
 class TestReleases(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_dir = tempfile.TemporaryDirectory()
-        root = Path(self.temp_dir.name)
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        root = Path(temp_dir.name)
 
         self.input_layout = InputLayout(root / "source")
         self.output_layout = OutputLayout(root / "output")
@@ -52,11 +53,8 @@ class TestReleases(unittest.TestCase):
 
         self.releases = self._declare("29.0", "30.0", current="30.0")
 
-    def tearDown(self) -> None:
-        self.temp_dir.cleanup()
-
     def _declare(self, *versions: str, current: str) -> Releases:
-        """Writes a versions.json and returns Releases reading it."""
+        """Write a versions.json and return Releases reading it."""
         self.versions_file.parent.mkdir(parents=True, exist_ok=True)
         self.versions_file.write_text(
             json.dumps(
@@ -70,8 +68,6 @@ class TestReleases(unittest.TestCase):
         self.version = Version(self.versions_file)
         self.releases = Releases(self.output_layout, self.version)
         return self.releases
-
-    # -- versions come from versions.json, not from the filesystem -------
 
     def test_versions_are_read_from_versions_file(self) -> None:
         releases = self._declare("9.0", "10.0", "30.0", current="30.0")
@@ -98,8 +94,6 @@ class TestReleases(unittest.TestCase):
             self.releases.resolve("99.0")
         self.assertIn("not declared", str(context.exception))
 
-    # -- locations: computed, never searched for -------------------------
-
     def test_dir_is_the_version_under_the_layouts_release_dir(self) -> None:
         self.assertEqual(self.releases.dir("29.0"), self.built / "29.0")
         self.assertEqual(
@@ -121,8 +115,6 @@ class TestReleases(unittest.TestCase):
     def test_dir_rejects_undeclared_version(self) -> None:
         with self.assertRaises(ValueError):
             self.releases.dir("99.0")
-
-    # -- reading ---------------------------------------------------------
 
     def test_get_ttl_files_raises_for_declared_but_absent_release(self) -> None:
         with self.assertRaises(FileNotFoundError) as context:
@@ -157,8 +149,6 @@ class TestReleases(unittest.TestCase):
         with self.assertRaises(FileNotFoundError) as context:
             self.releases.get_ttl_files("29.0")
         self.assertIn("schemaorg-all-https.ttl", str(context.exception))
-
-    # -- file: directory creation belongs to the layout ------------------
 
     def test_file_creates_the_release_directory_for_output_layout(self) -> None:
         target = self.releases.dir("30.0")
@@ -229,6 +219,7 @@ class TestReleases(unittest.TestCase):
 
 class TestReleasesRealData(unittest.TestCase):
     """Checks Releases against the repository's declared releases."""
+
     def setUp(self) -> None:
         self.output_layout = OutputLayout(
             constants.PROJECT_ROOT / schema.config.OUTPUTDIR

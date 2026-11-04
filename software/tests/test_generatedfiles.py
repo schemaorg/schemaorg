@@ -9,7 +9,7 @@ class BasicFileTests(unittest.TestCase):
     # Source example files only. Release archives under data/releases/ are
     # deliberately excluded: they are frozen historical artefacts and the
     # older ones legitimately predate the https migration.
-    EXAMPLE_GLOBS: list[str] = ["*example*.txt", "ext/*/*example*.txt"]
+    EXAMPLE_GLOBS: tuple[str, ...] = ("*example*.txt", "ext/*/*example*.txt")
 
     HTTP_SCHEMA_ORG: str = "http://schema.org"
 
@@ -18,11 +18,10 @@ class BasicFileTests(unittest.TestCase):
         layout = paths.DefaultInputLayout()
         files = layout.files(paths.Domain.DATA, self.EXAMPLE_GLOBS)
 
-        # A glob that matches nothing would make this test pass for the most
-        # boring of reasons, so assert we actually looked at something.
         self.assertTrue(
-            files, f"No example files matched {self.EXAMPLE_GLOBS} under "
-                   f"{layout.dir(paths.Domain.DATA)}"
+            files,
+            f"No example files matched {self.EXAMPLE_GLOBS} under "
+            f"{layout.dir(paths.Domain.DATA)}",
         )
 
         offenders: list[str] = []
@@ -41,3 +40,7 @@ class BasicFileTests(unittest.TestCase):
                 f"'{self.HTTP_SCHEMA_ORG}'. Replace them with "
                 f"'https://schema.org' and rerun:\n{joined}"
             )
+
+
+if __name__ == "__main__":
+    unittest.main()

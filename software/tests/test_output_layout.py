@@ -9,12 +9,10 @@ from schemaorg.layout import Domain, OutputLayout
 
 class TestOutputLayout(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_dir = tempfile.TemporaryDirectory()
-        self.output_root = Path(self.temp_dir.name) / "site"
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        self.output_root = Path(temp_dir.name) / "site"
         self.layout = OutputLayout(self.output_root)
-
-    def tearDown(self) -> None:
-        self.temp_dir.cleanup()
 
     def test_dir_standard(self) -> None:
         docs_dir = self.layout.dir(Domain.DOCS)

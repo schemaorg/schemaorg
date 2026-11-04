@@ -19,7 +19,8 @@ class TestConversionFunctions(unittest.TestCase):
     def testToFullId(self) -> None:
         self.assertEqual(sdotermsource.toFullId("fnord"), "https://schema.org/fnord")
         self.assertEqual(
-            sdotermsource.toFullId("https://schema.org/Thing"), "https://schema.org/Thing"
+            sdotermsource.toFullId("https://schema.org/Thing"),
+            "https://schema.org/Thing",
         )
 
     def testUriWrap(self) -> None:
@@ -101,7 +102,7 @@ class TestConversionFunctions(unittest.TestCase):
         product_term = sdotermsource.SdoTermSource.getTerm("Product")
         self.assertIn("product", product_term.comment)
 
-    def testGetAckowledgements(self) -> None:
+    def testGetAcknowledgements(self) -> None:
         product_term = sdotermsource.SdoTermSource.getTerm("Product")
         self.assertTrue(product_term.acknowledgements)
         collaborator = product_term.acknowledgements[0]

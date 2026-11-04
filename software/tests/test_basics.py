@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+from typing import Any
 import unittest
 
 from schemaorg import constants
@@ -9,7 +10,6 @@ import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
-
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
@@ -21,23 +21,29 @@ CURRENT_CONTEXT_FILE = (
 
 log = logging.getLogger(__name__)
 
-sdotermsource.SdoTermSource.loadSourceGraph("default")
-EXAMPLES = schemaexamples.SchemaExamples.from_default()
+EXAMPLES: schemaexamples.SchemaExamples | None = None
+
+
+def setUpModule() -> None:
+    global EXAMPLES
+    sdotermsource.SdoTermSource.loadSourceGraph("default")
+    EXAMPLES = schemaexamples.SchemaExamples.from_default()
+
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or
-# @skip("reason...")
+# @skip("reason...").
 
 
 class BallparkCountTests(unittest.TestCase):
     def test_alltypes(self) -> None:
-        # ballpark estimates.
         type_range = range(TYPECOUNT_LOWERBOUND, TYPECOUNT_UPPERBOUND)
         self.assertIn(len(sdotermsource.SdoTermSource.getAllTypes()), type_range)
 
 
 class SDOBasicsTestCase(unittest.TestCase):
     def test_ExtractedPlausibleNumberOfExamples(self) -> None:
+        assert EXAMPLES is not None
         example_count = len(EXAMPLES)
         log.info("Extracted %d examples.", example_count)
         example_range = range(200, 600)
@@ -51,11 +57,7 @@ class SDOBasicsTestCase(unittest.TestCase):
 class SupertypePathsTestCase(unittest.TestCase):
     def test_simplePath(self) -> None:
         path = sdotermsource.SdoTermSource.getParentPathTo("CreativeWork", "Thing")
-        self.assertEqual(
-            len(path),
-            1,
-            path,
-        )
+        self.assertEqual(len(path), 1, path)
 
     def test_dualPath(self) -> None:
         path = sdotermsource.SdoTermSource.getParentPathTo("Restaurant", "Thing")
@@ -73,77 +75,77 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     def test_gotThing(self) -> None:
         self.assertIsNotNone(
             sdotermsource.SdoTermSource.getTerm("Thing"),
-            msg="Thing node should be accessible via GetUnit('Thing').",
+            msg="Thing node should be accessible via getTerm('Thing').",
         )
 
     def test_gotFooBarThing(self) -> None:
         self.assertIsNone(
             sdotermsource.SdoTermSource.getTerm("FooBar"),
-            msg="Thing node should NOT be accessible via GetUnit('FooBar').",
+            msg="FooBar node should NOT be accessible via getTerm('FooBar').",
         )
 
     def test_NewsArticleIsType(self) -> None:
-        # node.isClass
-        tNewsArticle = sdotermsource.SdoTermSource.getTerm("NewsArticle")
+        t_news_article = sdotermsource.SdoTermSource.getTerm("NewsArticle")
         self.assertEqual(
-            tNewsArticle.termType, sdoterm.SdoTermType.TYPE, "NewsArticle is a class."
+            t_news_article.termType, sdoterm.SdoTermType.TYPE, "NewsArticle is a class."
         )
 
     def test_QuantityisDataType(self) -> None:
-        tQuantity = sdotermsource.SdoTermSource.getTerm("Quantity")
-        self.assertEqual(
-            tQuantity.termType, sdoterm.SdoTermType.DATATYPE, "Quantity is a DataType."
-        )
         # Quantity is a text-ish DataType.
+        t_quantity = sdotermsource.SdoTermSource.getTerm("Quantity")
+        self.assertEqual(
+            t_quantity.termType,
+            sdoterm.SdoTermType.DATATYPE,
+            "Quantity is a DataType.",
+        )
 
     def test_ItemAvailabilityIsEnumeration(self) -> None:
-        eItemAvailability = sdotermsource.SdoTermSource.getTerm("ItemAvailability")
+        e_item_availability = sdotermsource.SdoTermSource.getTerm("ItemAvailability")
         self.assertEqual(
-            eItemAvailability.termType,
+            e_item_availability.termType,
             sdoterm.SdoTermType.ENUMERATION,
             "ItemAvailability is an Enumeration.",
         )
 
     def test_EnumerationIsEnumeration(self) -> None:
-        eEnumeration = sdotermsource.SdoTermSource.getTerm("Enumeration")
+        e_enumeration = sdotermsource.SdoTermSource.getTerm("Enumeration")
         self.assertEqual(
-            eEnumeration.termType,
+            e_enumeration.termType,
             sdoterm.SdoTermType.ENUMERATION,
             "Enumeration is an Enumeration type.",
         )
 
     def test_ArticleSupertypeNewsArticle(self) -> None:
-        tArticle = sdotermsource.SdoTermSource.getTerm("Article")
+        t_article = sdotermsource.SdoTermSource.getTerm("Article")
         self.assertIn(
-            "NewsArticle", tArticle.subs.ids, "NewsArticle is a sub-type of Article"
+            "NewsArticle", t_article.subs.ids, "NewsArticle is a sub-type of Article"
         )
 
     def test_NewsArticleSupertypeArticle(self) -> None:
-        tNewsArticle = sdotermsource.SdoTermSource.getTerm("NewsArticle")
+        t_news_article = sdotermsource.SdoTermSource.getTerm("NewsArticle")
         self.assertNotIn(
-            "Article", tNewsArticle.subs.ids, "Article is not a sub-type of NewsArticle"
+            "Article",
+            t_news_article.subs.ids,
+            "Article is not a sub-type of NewsArticle",
         )
 
     def test_ThingSupertypeThing(self) -> None:
-        tThing = sdotermsource.SdoTermSource.getTerm("Thing")
-        self.assertNotIn("Thing", tThing.subs.ids, "Thing subClassOf Thing.")
+        t_thing = sdotermsource.SdoTermSource.getTerm("Thing")
+        self.assertNotIn("Thing", t_thing.subs.ids, "Thing subClassOf Thing.")
 
     def test_DataTypeSupertypeDataType(self) -> None:
-        tDataType = sdotermsource.SdoTermSource.getTerm("DataType")
+        t_datatype = sdotermsource.SdoTermSource.getTerm("DataType")
         self.assertNotIn(
-            "DataType", tDataType.subs.ids, "DataType subClassOf DataType."
+            "DataType", t_datatype.subs.ids, "DataType subClassOf DataType."
         )
 
-    # TODO: subClassOf() function has "if (self.id == type.id)", investigate how
-    # this is used.
-
     def test_PersonSupertypeThing(self) -> None:
-        tThing = sdotermsource.SdoTermSource.getTerm("Thing")
-        self.assertIn("Person", tThing.subs.ids, "Person subClassOf Thing.")
+        t_thing = sdotermsource.SdoTermSource.getTerm("Thing")
+        self.assertIn("Person", t_thing.subs.ids, "Person subClassOf Thing.")
 
     def test_ThingNotSupertypePerson(self) -> None:
-        tPerson = sdotermsource.SdoTermSource.getTerm("Person")
-        self.assertNotIn("Thing", tPerson.subs.ids, "Thing not subClassOf Person.")
+        t_person = sdotermsource.SdoTermSource.getTerm("Person")
+        self.assertNotIn("Thing", t_person.subs.ids, "Thing not subClassOf Person.")
 
     def test_StoreSupertypeLocalBusiness(self) -> None:
         self.assertTrue(
@@ -164,27 +166,27 @@ class SchemaBasicAPITestCase(unittest.TestCase):
         )
 
     def test_PersonNotAttribute(self) -> None:
-        tPerson = sdotermsource.SdoTermSource.getTerm("Person")
+        t_person = sdotermsource.SdoTermSource.getTerm("Person")
         self.assertNotEqual(
-            tPerson.termType,
+            t_person.termType,
             sdoterm.SdoTermType.PROPERTY,
-            "Not true that Person isAttribute().",
+            "Not true that Person is a Property.",
         )
 
     def test_GetImmediateSubtypesOk(self) -> None:
-        tArticle = sdotermsource.SdoTermSource.getTerm("Article")
+        t_article = sdotermsource.SdoTermSource.getTerm("Article")
         self.assertIn(
             "NewsArticle",
-            tArticle.subs.ids,
+            t_article.subs.ids,
             "NewsArticle is in immediate subtypes of Article.",
         )
 
     def test_GetImmediateSubtypesWrong(self) -> None:
-        tArticle = sdotermsource.SdoTermSource.getTerm("CreativeWork")
+        t_creative_work = sdotermsource.SdoTermSource.getTerm("CreativeWork")
         self.assertNotIn(
             "NewsArticle",
-            tArticle.subs.ids,
-            "CreativeWork is not in immediate subtypes of Article.",
+            t_creative_work.subs.ids,
+            "NewsArticle is not in immediate subtypes of CreativeWork.",
         )
 
 
@@ -197,7 +199,7 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
         p_actors = sdotermsource.SdoTermSource.getTerm("actors")
         self.assertTrue(
             p_actors.superseded,
-            f"actors property has been superseded.{p_actors.superseded} {p_actors.supersededBy}",
+            f"actors property has been superseded. {p_actors.superseded} {p_actors.supersededBy}",
         )
 
     def test_actorNotSuperseded(self) -> None:
@@ -227,39 +229,39 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
         )
 
 
-# acceptedAnswer subPropertyOf suggestedAnswer .
+# acceptedAnswer subPropertyOf suggestedAnswer.
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
     def test_suggestedAnswerSuperproperties(self) -> None:
-        p_acceptedAnswer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
+        p_accepted_answer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
         self.assertIn(
             "suggestedAnswer",
-            p_acceptedAnswer.supers.ids[0],
-            msg="acceptedAnswer superproperties(), suggestedAnswer in 0th element of array.",
+            p_accepted_answer.supers.ids,
+            msg="suggestedAnswer should be in acceptedAnswer superproperties.",
         )
 
     def test_acceptedAnswerSuperpropertiesArrayLen(self) -> None:
-        p_acceptedAnswer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
-        aa_supers = p_acceptedAnswer.supers
+        p_accepted_answer = sdotermsource.SdoTermSource.getTerm("acceptedAnswer")
+        aa_supers = p_accepted_answer.supers
         self.assertEqual(
             len(aa_supers),
             1,
-            msg=f"acceptedAnswer subproperties() gives array of len 1. Actual: {len(aa_supers)} .",
+            msg=f"acceptedAnswer superproperties should have len 1. Actual: {len(aa_supers)}.",
         )
 
     def test_answerSubproperty(self) -> None:
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
+        p_suggested_answer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertIn(
             "acceptedAnswer",
-            p_suggestedAnswer.subs.ids,
-            msg="acceptedAnswer is a subPropertyOf suggestedAanswer.",
+            p_suggested_answer.subs.ids,
+            msg="acceptedAnswer is a subPropertyOf suggestedAnswer.",
         )
 
     def test_answerSubproperties(self) -> None:
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
+        p_suggested_answer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertEqual(
-            "acceptedAnswer",
-            p_suggestedAnswer.subs.ids[0],
-            msg="suggestedAnswer subproperties(), acceptedAnswer in 0th element of array.",
+            tuple(p_suggested_answer.subs.ids),
+            ("acceptedAnswer",),
+            msg="suggestedAnswer subproperties should be ('acceptedAnswer',).",
         )
 
     def test_offerSubpropertiesArrayLen(self) -> None:
@@ -270,10 +272,10 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
     def test_alumniSuperproperty(self) -> None:
         p_alumni = sdotermsource.SdoTermSource.getTerm("alumni")
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
+        p_suggested_answer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
         self.assertNotIn(
             "alumni",
-            p_suggestedAnswer.supers.ids,
+            p_suggested_answer.supers.ids,
             msg="not suggestedAnswer subPropertyOf alumni.",
         )
         self.assertNotIn(
@@ -289,17 +291,17 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
         )
         self.assertNotIn(
             "suggestedAnswer",
-            p_suggestedAnswer.supers.ids,
+            p_suggested_answer.supers.ids,
             msg="not suggestedAnswer subPropertyOf suggestedAnswer.",
         )
 
     def test_alumniInverse(self) -> None:
         p_alumni = sdotermsource.SdoTermSource.getTerm("alumni")
-        p_alumniOf = sdotermsource.SdoTermSource.getTerm("alumniOf")
-        p_suggestedAnswer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
+        p_alumni_of = sdotermsource.SdoTermSource.getTerm("alumniOf")
+        p_suggested_answer = sdotermsource.SdoTermSource.getTerm("suggestedAnswer")
 
         self.assertEqual(
-            "alumni", p_alumniOf.inverse.id, msg="alumniOf inverseOf alumni."
+            "alumni", p_alumni_of.inverse.id, msg="alumniOf inverseOf alumni."
         )
         self.assertEqual(
             "alumniOf", p_alumni.inverse.id, msg="alumni inverseOf alumniOf."
@@ -309,49 +311,34 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
             "alumni", p_alumni.inverse.id, msg="Not alumni inverseOf alumni."
         )
         self.assertNotEqual(
-            "alumniOf", p_alumniOf.inverse.id, msg="Not alumniOf inverseOf alumniOf."
+            "alumniOf", p_alumni_of.inverse.id, msg="Not alumniOf inverseOf alumniOf."
         )
         self.assertNotEqual(
-            "alumni", p_suggestedAnswer.inverse.id, msg="Not answer inverseOf alumni."
+            "alumni", p_suggested_answer.inverse.id, msg="Not answer inverseOf alumni."
         )
-        # Confirmed informally that the direction asserted doesn't matter
-        # currently.
-        # Need to add tests that read in custom test-specific schema markup
-        # samples to verify this.
-        # It is probably best to have redundant inverseOf in the RDFS so that
-        # information is visible locally.
-
-        # TODO: http://schema.org/ReserveAction
-        # has scheduledTime from apparently two parent types. how can we test
-        # against the html ui?
-
-
-# Simple checks that the schema is not mis-shapen.
-# We could do more with SPARQL, but would require rdflib, e.g. sanity check
-# rangeIncludes/domainIncludes with inverseOf
 
 
 class EnumerationValueTests(unittest.TestCase):
     def test_EventStatusTypeIsEnumeration(self) -> None:
-        eEventStatusType = sdotermsource.SdoTermSource.getTerm("EventStatusType")
+        e_event_status_type = sdotermsource.SdoTermSource.getTerm("EventStatusType")
         self.assertEqual(
-            eEventStatusType.termType,
+            e_event_status_type.termType,
             sdoterm.SdoTermType.ENUMERATION,
             msg="EventStatusType is an Enumeration.",
         )
 
     def test_EventStatusTypeIsntEnumerationValue(self) -> None:
-        eEventStatusType = sdotermsource.SdoTermSource.getTerm("EventStatusType")
+        e_event_status_type = sdotermsource.SdoTermSource.getTerm("EventStatusType")
         self.assertNotEqual(
-            eEventStatusType.termType,
+            e_event_status_type.termType,
             sdoterm.SdoTermType.ENUMERATIONVALUE,
             msg="EventStatusType is not an Enumeration value.",
         )
 
     def test_EventCancelledIsEnumerationValue(self) -> None:
-        eEventCancelled = sdotermsource.SdoTermSource.getTerm("EventCancelled")
+        e_event_cancelled = sdotermsource.SdoTermSource.getTerm("EventCancelled")
         self.assertEqual(
-            eEventCancelled.termType,
+            e_event_cancelled.termType,
             sdoterm.SdoTermType.ENUMERATIONVALUE,
             msg="EventCancelled is an Enumeration value.",
         )
@@ -388,7 +375,9 @@ class MarkDownTest(unittest.TestCase):
         )
 
     def test_wikilink_wpre_override(self) -> None:
-        html = localmarkdown.Markdown.parse("See [[Thing]].", wpre="https://schema.org/")
+        html = localmarkdown.Markdown.parse(
+            "See [[Thing]].", wpre="https://schema.org/"
+        )
         self.assertEqual(
             html, 'See <a class="localLink" href="https://schema.org/Thing">Thing</a>.'
         )
@@ -400,34 +389,34 @@ class MarkDownTest(unittest.TestCase):
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
     def test_localbusiness2supertypes(self) -> None:
-        fred = sdotermsource.SdoTermSource.getTerm("LocalBusiness")
+        term = sdotermsource.SdoTermSource.getTerm("LocalBusiness")
         self.assertGreater(
-            len(fred.supers), 1, msg="LocalBusiness is subClassOf Place + Organization."
+            len(term.supers), 1, msg="LocalBusiness is subClassOf Place + Organization."
         )
 
     def test_restaurant_non_multiple_supertypes(self) -> None:
-        fred = sdotermsource.SdoTermSource.getTerm("Restaurant")
+        term = sdotermsource.SdoTermSource.getTerm("Restaurant")
         self.assertEqual(
-            len(fred.supers), 1, msg="Restaurant only has one *direct* supertype."
+            len(term.supers), 1, msg="Restaurant only has one *direct* supertype."
         )
 
     def test_article_non_multiple_supertypes(self) -> None:
-        fred = sdotermsource.SdoTermSource.getTerm("Article")
+        term = sdotermsource.SdoTermSource.getTerm("Article")
         self.assertEqual(
-            len(fred.supers), 1, msg="Article only has one direct supertype."
+            len(term.supers), 1, msg="Article only has one direct supertype."
         )
 
 
 class SimpleCommentCountTests(unittest.TestCase):
     def test_zeroCommentCount(self) -> None:
         query = f"""
-    SELECT ?term ?comment WHERE {{
-            ?term a ?type.
-            FILTER NOT EXISTS {{ ?term rdfs:comment ?comment. }}
-            FILTER (strStarts(str(?term),"{VOCABURI}"))
-      }}
-      ORDER BY ?term"""
-
+            SELECT ?term ?comment WHERE {{
+                ?term a ?type.
+                FILTER NOT EXISTS {{ ?term rdfs:comment ?comment. }}
+                FILTER (strStarts(str(?term), "{VOCABURI}"))
+            }}
+            ORDER BY ?term
+        """
         ndi1_results = sdotermsource.SdoTermSource.query(query)
         for row in ndi1_results:
             log.warning("Term %s has no rdfs:comment value", row["term"])
@@ -439,14 +428,15 @@ class SimpleCommentCountTests(unittest.TestCase):
 
     def test_multiCommentCount(self) -> None:
         query = f"""
-    SELECT ?term ?comment WHERE {{
-            ?term a ?type;
-              rdfs:comment ?comment.
-              FILTER (strStarts(str(?term),"{VOCABURI}"))
-    }}
-    GROUP BY ?term
-    HAVING (count(DISTINCT ?comment) > 1)
-    ORDER BY ?term"""
+            SELECT ?term ?comment WHERE {{
+                ?term a ?type;
+                  rdfs:comment ?comment.
+                FILTER (strStarts(str(?term), "{VOCABURI}"))
+            }}
+            GROUP BY ?term
+            HAVING (count(DISTINCT ?comment) > 1)
+            ORDER BY ?term
+        """
         ndi1_results = sdotermsource.SdoTermSource.query(query)
         if ndi1_results:
             log.warning("Query was: %s", query)
@@ -463,43 +453,34 @@ class SimpleCommentCountTests(unittest.TestCase):
 
 
 class BasicJSONLDTests(unittest.TestCase):
-    def setUp(self) -> None:
-        self.ctx = None
+    ctx: dict[str, Any]
+
+    @classmethod
+    def setUpClass(cls) -> None:
         try:
-            self.ctx = json.loads(CURRENT_CONTEXT_FILE.read_text(encoding="utf-8"))
-        except OSError:
+            cls.ctx = json.loads(CURRENT_CONTEXT_FILE.read_text(encoding="utf-8"))
+        except OSError as exc:
             raise unittest.SkipTest(
-                "jsonldcontext.json file not loaded - bypassing tests"
-            )
+                "jsonldcontext.jsonld file not loaded - bypassing tests"
+            ) from exc
 
     def test_issuedBy_jsonld(self) -> None:
-        if not self.ctx:
-            raise unittest.SkipTest(
-                f"{CURRENT_CONTEXT_FILE} file not loaded - bypassing tests"
-            )
         self.assertIn(
             "issuedBy", self.ctx["@context"], "issuedBy should be defined."
         )
 
     def test_dateModified_jsonld(self) -> None:
-        if not self.ctx:
-            raise unittest.SkipTest(
-                f"{CURRENT_CONTEXT_FILE} file not loaded - bypassing tests"
-            )
         self.assertIn(
             "dateModified", self.ctx["@context"], "dateModified should be defined."
         )
 
     def test_sameas_jsonld(self) -> None:
-        if not self.ctx:
-            raise unittest.SkipTest(
-                "jsonldcontext.json file not loaded - bypassing tests"
-            )
         self.assertIn("sameAs", self.ctx["@context"], msg="sameAs should be defined.")
 
 
 class JsonExampleTests(unittest.TestCase):
     def testAllExamples(self) -> None:
+        assert EXAMPLES is not None
         for example in EXAMPLES.allExamples():
             source_filename = example.getMeta("file")
             with self.subTest(key=example.getKey(), file=source_filename):
@@ -509,20 +490,16 @@ class JsonExampleTests(unittest.TestCase):
                 try:
                     json.loads(json_source)
                 except json.decoder.JSONDecodeError as json_error:
-                    # Display a helpful error message showing where the JSON
-                    # error is.
                     lines = json_error.doc.split("\n")
                     snippet = (
                         lines[json_error.lineno - 1]
                         + "\n"
                         + "^".rjust(json_error.colno)
                     )
-                    # Show up to three lines above the error, often the problem
-                    # is a missing comma above.
+                    # Show up to three lines above the error; often a missing comma above.
                     if json_error.lineno > 2:
                         for i in range(2, min(json_error.lineno, 5)):
                             snippet = lines[json_error.lineno - i] + "\n" + snippet
-                    # Adjust by the offset inside the example file.
                     lineno = json_error.lineno + (example.jsonld_offset or 0)
                     self.fail(
                         f"JSON parsing error: '{json_error.msg}' in file "

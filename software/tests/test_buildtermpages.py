@@ -27,7 +27,8 @@ class TestTermFileName(unittest.TestCase):
     def testLower(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
-            Path(schema.config.OUTPUTDIR).resolve() / "terms/properties/t/thingamabob.html",
+            Path(schema.config.OUTPUTDIR).resolve()
+            / "terms/properties/t/thingamabob.html",
         )
 
     def testDigit(self) -> None:
@@ -42,7 +43,7 @@ class TestBuildTermPages(unittest.TestCase):
         self.renderer = buildtermpages.TermPageRenderer(
             stats_providers=[],
             build_opts=[],
-            term_docs_dir="/docs"
+            term_docs_dir="/docs",
         )
 
     def testTemplateRenderNoExample(self) -> None:
@@ -52,8 +53,8 @@ class TestBuildTermPages(unittest.TestCase):
             label="whatchicallit",
         )
         output = self.renderer.termtemplateRender(term=term, examples=[], json="")
-        self.assertRegex(output, r".*whatchicallit.*")
-        self.assertRegex(output, r".*http://example\.com/whatchicallit.*")
+        self.assertIn("whatchicallit", output)
+        self.assertIn("http://example.com/whatchicallit", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
     def testTemplateRenderOneExample(self) -> None:
@@ -67,18 +68,17 @@ class TestBuildTermPages(unittest.TestCase):
                 exmeta={"id": "eg-0042", "file": __file__, "filepos": 0},
             )
         ]
-        json = "[42]"
         term = sdoterm.SdoType(
             term_id="42",
             uri="http://example.com/thingamabob",
             label="Thingamabob",
         )
         output = self.renderer.termtemplateRender(
-            term=term, examples=examples, json=json
+            term=term, examples=examples, json="[42]"
         )
-        self.assertRegex(output, r".*Thingamabob.*")
-        self.assertRegex(output, r".*http://example\.com/thingamabob.*")
-        self.assertRegex(output, ".*Awesome &amp; Thingamabob.*")
+        self.assertIn("Thingamabob", output)
+        self.assertIn("http://example.com/thingamabob", output)
+        self.assertIn("Awesome &amp; Thingamabob", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
 

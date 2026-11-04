@@ -13,41 +13,31 @@ from schemaorg.layout import Domain, InputLayout, checkDataDirectories
 
 class TestInputLayout(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_dir = tempfile.TemporaryDirectory()
-        self.root = Path(self.temp_dir.name)
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        self.root = Path(temp_dir.name)
         self.layout = InputLayout(self.root)
 
-    def tearDown(self) -> None:
-        self.temp_dir.cleanup()
-
     def test_dir_standard(self) -> None:
-        self.assertEqual(
-            self.layout.dir(Domain.DATA),
-            self.root / "data"
-        )
+        self.assertEqual(self.layout.dir(Domain.DATA), self.root / "data")
         self.assertEqual(
             self.layout.dir(Domain.STATIC_DOC_INSERTS),
-            self.root / "templates" / "static-doc-inserts"
+            self.root / "templates" / "static-doc-inserts",
         )
         self.assertEqual(
-            self.layout.dir(Domain.GCLOUD),
-            self.root / "software" / "gcloud"
+            self.layout.dir(Domain.GCLOUD), self.root / "software" / "gcloud"
         )
-        self.assertEqual(
-            self.layout.dir(Domain.ROOT),
-            self.root
-        )
+        self.assertEqual(self.layout.dir(Domain.ROOT), self.root)
 
     def test_dir_release_is_the_unversioned_archive(self) -> None:
         self.assertEqual(
-            self.layout.dir(Domain.RELEASE),
-            self.root / "data" / "releases"
+            self.layout.dir(Domain.RELEASE), self.root / "data" / "releases"
         )
 
     def test_file(self) -> None:
         self.assertEqual(
             self.layout.file(Domain.DOCS, "index.html"),
-            self.root / "docs" / "index.html"
+            self.root / "docs" / "index.html",
         )
 
     def test_relative_file(self) -> None:
@@ -66,14 +56,13 @@ class TestInputLayout(unittest.TestCase):
         f3.touch()
         hidden.touch()
 
-        found = self.layout.files(Domain.DATA, "*.ttl")
-        self.assertEqual(found, [f1, f2])
-
-        found_multi = self.layout.files(Domain.DATA, ["*.ttl", "*.txt"])
-        self.assertEqual(found_multi, [f1, f2, f3])
-
-        found_reversed = self.layout.files(Domain.DATA, ["*.txt", "*.ttl"])
-        self.assertEqual(found_reversed, [f3, f1, f2])
+        self.assertEqual(self.layout.files(Domain.DATA, "*.ttl"), [f1, f2])
+        self.assertEqual(
+            self.layout.files(Domain.DATA, ["*.ttl", "*.txt"]), [f1, f2, f3]
+        )
+        self.assertEqual(
+            self.layout.files(Domain.DATA, ["*.txt", "*.ttl"]), [f3, f1, f2]
+        )
 
     def test_is_complete(self) -> None:
         versions_file = self.layout.file(Domain.ROOT, constants.VERSIONS_FILE)
@@ -97,9 +86,7 @@ class TestInputLayout(unittest.TestCase):
     def test_check_data_directories_fails_on_exception(
         self, mock_is_complete, mock_stderr
     ) -> None:
-        expected_msg = (
-            f'Required directory "{self.root / "docs"}" not found - Exiting\n'
-        )
+        expected_msg = f'Required directory "{self.root / "docs"}" not found - Exiting\n'
         mock_is_complete.side_effect = FileNotFoundError(expected_msg)
         with self.assertRaises(SystemExit) as ctx:
             checkDataDirectories()
@@ -107,9 +94,10 @@ class TestInputLayout(unittest.TestCase):
         self.assertIn(expected_msg, mock_stderr.getvalue())
 
     @patch("schemaorg.layout.input_layout.InputLayout._is_complete")
-    def test_check_data_directories_succeeds_when_complete(self, mock_is_complete) -> None:
+    def test_check_data_directories_succeeds_when_complete(
+        self, mock_is_complete
+    ) -> None:
         mock_is_complete.return_value = True
-        # Should not raise SystemExit
         checkDataDirectories()
 
 
