@@ -1,11 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Module providing GraphLoader to load RDF graphs from Schema.org data files."""
 
+from collections.abc import Iterable
 import logging
 from pathlib import Path
-from typing import Sequence
 
 import rdflib
 
@@ -22,23 +19,18 @@ class GraphLoader:
     is one chosen file -- so the choice is not hidden in here.
     """
 
-    def load(self, files: Sequence[Path]) -> rdflib.Graph:
+    @staticmethod
+    def load(files: Iterable[Path]) -> rdflib.Graph:
         """Loads the given TTL files into one graph.
 
         Namespace bindings are whatever the files themselves declare; none
         are added here.
-
-        Args:
-            files: The turtle files to parse, in order.
-
-        Returns:
-            A graph holding the union of all triples.
         """
         graph = rdflib.Graph(bind_namespaces="none")
         for file_path in files:
             try:
-                graph.parse(str(file_path), format="turtle")
+                graph.parse(file_path, format="turtle")
             except Exception as e:
-                log.warning(f"Error parsing TTL file '{file_path}': {e}")
+                log.warning("Error parsing TTL file '%s': %s", file_path, e)
                 raise
         return graph

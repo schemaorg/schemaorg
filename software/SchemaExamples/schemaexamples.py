@@ -1,33 +1,28 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
 
+from collections.abc import Collection, Iterable
 import logging
 from pathlib import Path
 import re
-from typing import Any, Collection, Dict, Iterable, List, Optional, Tuple, Union
-
-import requests
+from typing import Any
 
 from schemaorg.layout import Issues
 import util.paths as paths
 
-
 IDPREFIX: str = "eg-"
-NO_JSON_REGEXPS: Tuple[re.Pattern, ...] = (
+NO_JSON_REGEXPS: tuple[re.Pattern[str], ...] = (
     re.compile("No JSON-?LD", re.I),
     re.compile("This example is in microdata only", re.I),
     re.compile("No Json example available", re.I),
     re.compile("microdata only", re.I),
 )
 
-
-ldscript_match: re.Pattern = re.compile(
+ldscript_match: re.Pattern[str] = re.compile(
     r'[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',
     re.S,
 )
-
+_EGID_RE: re.Pattern[str] = re.compile(r"#(\S+)\s+")
+_SECTION_TOKENS: tuple[str, ...] = ("PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:")
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -40,20 +35,29 @@ class Example:
     """
 
     def __init__(
-        self, terms: List[str], original_html: str, microdata: str, rdfa: str, jsonld: str, exmeta: Dict[str, Any], jsonld_offset: Optional[int] = None
+        self,
+        terms: list[str],
+        original_html: str,
+        microdata: str,
+        rdfa: str,
+        jsonld: str,
+        exmeta: dict[str, Any],
+        jsonld_offset: int | None = None,
     ) -> None:
-        self.terms: List[str] = terms
+        self.terms: list[str] = terms
         if not terms:
             log.info(
-                f"No terms for ex: {exmeta.get('filepos')} in file {exmeta.get('file')}"
+                "No terms for ex: %s in file %s",
+                exmeta.get("filepos"),
+                exmeta.get("file"),
             )
         self.original_html: str = original_html
         self.microdata: str = microdata
         self.rdfa: str = rdfa
         self.jsonld: str = jsonld
-        self.jsonld_offset: Optional[int] = jsonld_offset
-        self.exmeta: Dict[str, Any] = exmeta
-        keyvalue: Optional[str] = self.exmeta.get("id", None)
+        self.jsonld_offset: int | None = jsonld_offset
+        self.exmeta: dict[str, Any] = exmeta
+        keyvalue: str | None = self.exmeta.get("id")
         if not keyvalue:
             raise ValueError(
                 f"Example {exmeta.get('filepos')} in file {exmeta.get('file')} has no identifier"
@@ -62,33 +66,19 @@ class Example:
         idnum: int = self.getIdNum()
         if idnum > -1:
             self.keyvalue = Example.formatId(idnum)
-        self.exselect: List[str] = []
 
     def __str__(self) -> str:
-        buf: List[str] = []
-        buf.append("Example: \nTerms: ")
-        if not self.terms:
-            buf.append("No Terms!")
-        else:
-            buf.append(f"{self.terms}")
-        buf.append(f"\nKeyvalue: {self.keyvalue}")
-        buf.append(
-            f"\nOrigLen: {len(self.original_html)} MicroLen: {len(self.microdata)} RdfaLen: {len(self.rdfa)} JsonLen: {len(self.jsonld)}"
+        terms_str = str(self.terms) if self.terms else "No Terms!"
+        return (
+            f"Example: \nTerms: {terms_str}"
+            f"\nKeyvalue: {self.keyvalue}"
+            f"\nOrigLen: {len(self.original_html)} MicroLen: {len(self.microdata)} "
+            f"RdfaLen: {len(self.rdfa)} JsonLen: {len(self.jsonld)}"
+            f"\nexmeta: {self.exmeta}"
         )
-        buf.append(f"\nexmeta: {self.exmeta}")
-        return "".join(buf)
 
-    def getKey(self) -> Optional[str]:
+    def getKey(self) -> str:
         return self.keyvalue
-
-    def setKey(self, key: str) -> None:
-        self.keyvalue = key
-
-    def getTerms(self) -> List[str]:
-        return self.terms
-
-    def setTerms(self, terms: List[str]) -> None:
-        self.terms = terms
 
     def getHtml(self) -> str:
         return self.original_html
@@ -147,7 +137,7 @@ class Example:
 
     def serialize(self) -> str:
         termnames: str = ", ".join(self.terms)
-        sections: List[str] = [
+        sections: list[str] = [
             f"TYPES: #{self.keyvalue} {termnames}\n",
             "PRE-MARKUP:",
             self.getHtml(),
@@ -169,11 +159,11 @@ class SchemaExamples:
     """Immutable-by-convention collection of examples indexed by ID and term."""
 
     def __init__(self, examples: Iterable[Example] = ()) -> None:
-        self._examples: Dict[str, Example] = {}
-        self._by_term: Dict[str, List[str]] = {}
+        self._examples: dict[str, Example] = {}
+        self._by_term: dict[str, list[str]] = {}
         for example in examples:
             keyvalue: str = example.keyvalue
-            previous: Optional[Example] = self._examples.get(keyvalue)
+            previous: Example | None = self._examples.get(keyvalue)
             if previous is not None:
                 raise ValueError(
                     f"Duplicate example identifier '{keyvalue}' in {example.getMeta('source')}, "
@@ -186,19 +176,19 @@ class SchemaExamples:
                     mapped_ids.append(keyvalue)
 
     @classmethod
-    def from_files(cls, files: Iterable[Union[str, Path]]) -> SchemaExamples:
-        load_files: List[str] = [str(f) for f in files]
+    def from_files(cls, files: Iterable[str | Path]) -> SchemaExamples:
+        load_files: list[str] = [str(f) for f in files]
         if not load_files:
             return cls()
-        log.info(f"Loading examples from {len(load_files)} files")
+        log.info("Loading examples from %d files", len(load_files))
         parser = ExampleFileParser()
-        parsed: List[Example] = []
+        parsed: list[Example] = []
         for f in load_files:
             for example in parser.parse(f):
                 example.setMeta("source", f)
                 parsed.append(example)
         instance = cls(parsed)
-        log.info(f"Loaded {len(instance)} examples")
+        log.info("Loaded %d examples", len(instance))
         return instance
 
     @classmethod
@@ -208,13 +198,13 @@ class SchemaExamples:
     def __len__(self) -> int:
         return len(self._examples)
 
-    def examplesForTerm(self, term: str) -> List[Example]:
-        examples: List[Example] = [
+    def examplesForTerm(self, term: str) -> list[Example]:
+        examples = [
             ex
-            for e in self._by_term.get(term, [])
+            for e in self._by_term.get(term, ())
             if (ex := self._examples.get(e))
         ]
-        return sorted(examples, key=lambda x: str(x.keyvalue))
+        return sorted(examples, key=lambda x: x.keyvalue)
 
     def allExamples(self) -> Collection[Example]:
         return self._examples.values()
@@ -225,17 +215,17 @@ class ExampleFileParser:
         self.file: str = ""
         self.filepos: int = 0
         self.initFields()
-        self.idcache: List[str] = []
+        self.idcache: set[str] = set()
 
     def initFields(self) -> None:
-        self.currentStr: List[str] = []
-        self.terms: List[str] = []
-        self.exmeta: Dict[str, Any] = {}
+        self.currentStr: list[str] = []
+        self.terms: list[str] = []
+        self.exmeta: dict[str, Any] = {}
         self.preMarkupStr: str = ""
         self.microdataStr: str = ""
         self.rdfaStr: str = ""
         self.jsonStr: str = ""
-        self.jsonld_offset: Optional[int] = None
+        self.jsonld_offset: int | None = None
         self.state: str = ""
 
     def nextPart(self, next_state: str) -> None:
@@ -255,15 +245,13 @@ class ExampleFileParser:
     def trimCurrentStr(self) -> None:
         # strip: leading blank lines, strip multi blank lines (replace with 1)
         # end with blank line
-        temp: List[str] = []
+        temp: list[str] = []
         begin: bool = True
         inwhitespace: bool = False
 
         for line in self.currentStr:
             if not line.strip():
-                if begin:
-                    continue
-                else:
+                if not begin:
                     inwhitespace = True
             else:
                 if begin:
@@ -278,13 +266,13 @@ class ExampleFileParser:
             temp.append("\n")
         self.currentStr = temp
 
-    def process_example_id(self, m: re.Match) -> str:
+    def process_example_id(self, m: re.Match[str]) -> str:
         ident: str = m.group(1)
         if ident in self.idcache:
             raise ValueError(
                 f"Example {self.filepos} in file {self.file} has duplicate identifier: '{ident}'"
             )
-        self.idcache.append(ident)
+        self.idcache.add(ident)
         self.exmeta["id"] = ident
         return ""
 
@@ -300,27 +288,19 @@ class ExampleFileParser:
             jsonld_offset=self.jsonld_offset,
         )
 
-    def parse(self, filen: str) -> List[Example]:
-        self.file = filen
+    def parse(self, filen: str | Path) -> list[Example]:
+        self.file = str(filen).removeprefix("file://")
         self.filepos = 0
-        self.idcache = []
+        self.idcache = set()
         self.initFields()
-        examples: List[Example] = []
-        egid: re.Pattern = re.compile(r"""#(\S+)\s+""")
+        examples: list[Example] = []
 
-        self.file = self.file.removeprefix("file://")
+        content = Path(self.file).read_text(encoding="utf-8")
+        rel_file = str(paths.DefaultInputLayout().relative_file(self.file))
 
-        content: str
-        if "://" in self.file:
-            r: requests.Response = requests.get(self.file)
-            content = r.text
-        else:
-            content = Path(self.file).read_text(encoding="utf-8")
-
-        lines: List[str] = re.split("\n|\r", content)
         first: bool = True
         boilerplate: bool = False
-        for lineno, line in enumerate(lines):
+        for lineno, line in enumerate(content.splitlines()):
             # Per-example sections begin with e.g.:
             # 'TYPES: #music-2 Person, MusicComposition, Organization'
             line = line.rstrip()
@@ -336,18 +316,17 @@ class ExampleFileParser:
                         examples.append(self.makeExample())
                     boilerplate = False
                     self.initFields()
-                self.exmeta["file"] = str(paths.DefaultInputLayout().relative_file(self.file))
+                self.exmeta["file"] = rel_file
                 self.exmeta["filepos"] = self.filepos
-                typelist: List[str] = re.split(":", line)
-                tdata: str = egid.sub(
-                    self.process_example_id, typelist[1]
+                _, type_spec = line.split(":", 1)
+                tdata = _EGID_RE.sub(
+                    self.process_example_id, type_spec
                 )  # strips IDs, records them in exmeta["id"]
-                ttl: List[str] = tdata.split(",")
-                for ttli in ttl:
-                    ttli = ttli.strip()
-                    if ttli:
-                        if "@@" not in ttli and "FakeEntryNeeded" not in ttli:
-                            self.terms.append(ttli)
+                for item in tdata.split(","):
+                    term_name = item.strip()
+                    if term_name:
+                        if "@@" not in term_name and "FakeEntryNeeded" not in term_name:
+                            self.terms.append(term_name)
                         else:
                             boilerplate = True
                 if not boilerplate and "id" not in self.exmeta:
@@ -359,8 +338,7 @@ class ExampleFileParser:
                 # `getJsonldRaw`.
                 if '<script type="application/ld+json">' in line:
                     self.jsonld_offset = lineno + 1
-                tokens: Tuple[str, ...] = ("PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:")
-                for tk in tokens:
+                for tk in _SECTION_TOKENS:
                     if line.startswith(tk):
                         self.nextPart(tk)
                         line = line.removeprefix(tk)

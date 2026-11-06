@@ -396,6 +396,16 @@ class MarkDownTest(unittest.TestCase):
             "Markdown string not formatted correctly",
         )
 
+    def test_wikilink_wpre_override(self):
+        html = localmarkdown.Markdown.parse("See [[Thing]].", wpre="https://schema.org/")
+        self.assertEqual(
+            html, 'See <a class="localLink" href="https://schema.org/Thing">Thing</a>.'
+        )
+        self.assertEqual(
+            localmarkdown.Markdown.parse("See [[Thing]]."),
+            'See <a class="localLink" href="/Thing">Thing</a>.',
+        )
+
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
     def test_localbusiness2supertypes(self):

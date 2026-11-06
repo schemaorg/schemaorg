@@ -1,18 +1,20 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any
 from xml.dom import minidom
 from xml.etree import ElementTree
 
-KEY_ORDER: List[str] = ["@context", "@id", "@type"]
+KEY_ORDER: tuple[str, ...] = ("@context", "@id", "@type")
+_KEY_RANK: dict[str, int] = {k: i for i, k in enumerate(KEY_ORDER)}
+_RDF_ABOUT = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about"
+_RDF_RESOURCE = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource"
 
 
-def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
-    """Sorts children of an XML element for deterministic output.
+def sort_xml(xml_input: str | ElementTree.Element) -> str:
+    """Sort children of an XML element for deterministic output.
 
     If the input is a string, it will be parsed as an XML Element.
-    The function returns a formatted XML string.
+    Returns a formatted XML string.
     """
     if isinstance(xml_input, str):
         root = ElementTree.fromstring(xml_input)
@@ -21,53 +23,36 @@ def sort_xml(xml_input: Union[str, ElementTree.Element]) -> str:
     else:
         raise TypeError(f"Expected str or ElementTree.Element, got {type(xml_input)}")
 
-    def get_key(elem: ElementTree.Element) -> Tuple[str, str, str]:
-        # We look for rdf:about or about attribute
-        about: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or elem.get("about")
-        if about:
+    def get_key(elem: ElementTree.Element) -> tuple[str, str, str]:
+        if about := (elem.get(_RDF_ABOUT) or elem.get("about")):
             return (about, "", "")
-        # Fallback to tag name (primary) and resource or string representation
-        # (secondary)
-        tag: str = elem.tag
-        resource: Optional[str] = elem.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource") or elem.get("resource")
-        if resource:
+        tag = elem.tag
+        if resource := (elem.get(_RDF_RESOURCE) or elem.get("resource")):
             return (tag, resource, "")
-        return (tag, "", ElementTree.tostring(elem))
+        return (tag, "", ElementTree.tostring(elem, encoding="unicode"))
 
     def recursive_sort(element: ElementTree.Element) -> None:
-        children: List[ElementTree.Element] = list(element)
-        if not children:
+        if not len(element):
             return
-        children.sort(key=get_key)
-        for child in list(element):
-            element.remove(child)
-        for child in children:
-            element.append(child)
+        element[:] = sorted(element, key=get_key)
+        for child in element:
             recursive_sort(child)
 
     recursive_sort(root)
-
-    pretty_xml: str = (
+    pretty_xml = (
         minidom.parseString(ElementTree.tostring(root))
         .toprettyxml(encoding="UTF-8")
         .decode()
     )
-
-    # Filter out empty lines and strip trailing whitespace from each line
-    lines: List[str] = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
-
-    return f'{"\n".join(lines)}\n'
+    lines = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
+    return '\n'.join(lines) + '\n'
 
 
-def universal_sort_key(item: Tuple[str, Any]) -> Tuple[int, str]:
-
-    """Sort key for dictionary items (k, v).
-
-    Returns a priority rank and the key name itself.
-    """
+def universal_sort_key(item: tuple[str, Any]) -> tuple[int, str]:
+    """Sort key for dictionary items (k, v)."""
     k, v = item
-    if k in KEY_ORDER:
-        return (KEY_ORDER.index(k), k)
+    if (rank := _KEY_RANK.get(k)) is not None:
+        return (rank, k)
     if k.startswith("@"):
         return (len(KEY_ORDER), k)
     if isinstance(v, (str, bytes, bool, int, float)) or v is None:
@@ -78,34 +63,24 @@ def universal_sort_key(item: Tuple[str, Any]) -> Tuple[int, str]:
 def list_sort_key(item: Any) -> str:
     """Sort key for list items."""
     if isinstance(item, dict):
-        # Prefer sorting by @id, then @type, then string representation
         return str(item.get("@id", item.get("@type", str(item))))
     return str(item)
 
 
 def sort_dict(data: Any) -> Any:
-    """Recursively sort dictionary keys and list elements for predictability.
-
-    Uses universal_sort_key for dictionaries. 
-    Sorts all lists for determinism, using list_sort_key for elements.
-    """
+    """Recursively sort dictionary keys and list elements for predictability."""
     if isinstance(data, dict):
         try:
-            # Sort keys based on universal priorities
             sorted_items = sorted(data.items(), key=universal_sort_key)
             return {k: sort_dict(v) for k, v in sorted_items}
         except Exception:
-            # Fallback to original order if sorting fails
             return {k: sort_dict(v) for k, v in data.items()}
 
-    elif isinstance(data, list):
+    if isinstance(data, list):
         try:
-            # Process items in the list and sort them
-            # Sorting all lists ensures 100% determinism.
             sorted_list = sorted(data, key=list_sort_key)
             return [sort_dict(i) for i in sorted_list]
         except Exception:
-            # Fallback: process items without sorting if not comparable
             return [sort_dict(i) for i in data]
 
     return data

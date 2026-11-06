@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
 
 import collections
+from collections.abc import Sequence
 import logging
 from pathlib import Path
 import re
-from typing import Dict, List, Optional, Sequence, Union
 from urllib.parse import urljoin
 
 from schemaorg import constants
@@ -16,41 +13,40 @@ import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.paths as paths
 
-
 log: logging.Logger = logging.getLogger(__name__)
 
-INCLUDE_RE: re.Pattern = re.compile(R"---\s+([^.]+)\.md")
+INCLUDE_RE: re.Pattern[str] = re.compile(R"---\s+([^.]+)\.md")
 SECTION_SEPARATOR: str = "---"
 
 
 class collaborator:
     """Wrapper for the collaboration meta-data."""
 
-    COLLABORATORS: Dict[str, "collaborator"] = {}
-    CONTRIBUTORS: Dict[str, "collaborator"] = {}
+    COLLABORATORS: dict[str, collaborator] = {}
+    CONTRIBUTORS: dict[str, collaborator] = {}
 
-    def __init__(self, ref: str, desc: Optional[str] = None) -> None:
+    def __init__(self, ref: str, desc: str | None = None) -> None:
         self.ref: str = ref
         self.urirel: str = str(Path("/docs/collab") / ref)
         self.uri: str = urljoin(constants.SCHEMA_URI, self.urirel)
         self.docurl: str = self.urirel
-        self.terms: Optional[Sequence[sdoterm.SdoTerm]] = None
+        self.terms: Sequence[sdoterm.SdoTerm] | None = None
         self.contributor: bool = False
-        self.img: Optional[str] = None
-        self.code: Optional[str] = None
-        self.title: Optional[str] = None
-        self.url: Optional[str] = None
+        self.img: str | None = None
+        self.title: str | None = None
+        self.url: str | None = None
         self.description: str = ""
         self.acknowledgement: str = ""
         if desc:
             self._parseDesc(desc)
 
         collaborator.COLLABORATORS[self.ref] = self
-        log.debug(f"Created collaborator for '{ref}'")
+        log.debug("Created collaborator for '%s'", ref)
 
     def __str__(self) -> str:
         return (
-            f"<collaborator ref: {self.ref} uri: {self.uri} contributor: {self.contributor} img: '{self.img}' title: '{self.title}' url: '{self.url}'>"
+            f"<collaborator ref: {self.ref} uri: {self.uri} contributor: {self.contributor} "
+            f"img: '{self.img}' title: '{self.title}' url: '{self.url}'>"
         )
 
     def _parseDesc(self, desc: str) -> None:
@@ -60,8 +56,8 @@ class collaborator:
           desc: content of the file, typically found at the path data/collab/*.md
         """
         section: int = 0
-        attributes: Dict[str, str] = {}
-        lines_by_section: Dict[str, List[str]] = collections.defaultdict(list)
+        attributes: dict[str, str] = {}
+        lines_by_section: dict[str, list[str]] = collections.defaultdict(list)
         section_selector: str = ""
 
         for line in desc.splitlines():
@@ -75,31 +71,29 @@ class collaborator:
                     attributes[key.strip()] = value.strip()
                 continue
             if section > 1:
-                include_match = re.search(INCLUDE_RE, line)
-                if include_match:
-                    section_selector = include_match.groups()[0]
+                if include_match := INCLUDE_RE.search(line):
+                    section_selector = include_match.group(1)
                     continue
                 lines_by_section[section_selector].append(line)
 
-        self.url = attributes.get("url")
-        self.title = attributes.get("title")
-        self.img = attributes.get("img")
-        attributes.pop("url", None)
-        attributes.pop("title", None)
-        attributes.pop("img", None)
+        self.url = attributes.pop("url", None)
+        self.title = attributes.pop("title", None)
+        self.img = attributes.pop("img", None)
         if attributes:
             log.warning(
-                f"Unknown attributes found in collaborator file {self.urirel}: {attributes}"
+                "Unknown attributes found in collaborator file %s: %s",
+                self.urirel,
+                attributes,
             )
 
-        description_lines: List[str] = lines_by_section["DescriptionText"]
-        acknowledgement_lines: List[str] = lines_by_section["AcknowledgementText"]
-        lines_by_section.pop("DescriptionText", None)
-        lines_by_section.pop("AcknowledgementText", None)
+        description_lines = lines_by_section.pop("DescriptionText", [])
+        acknowledgement_lines = lines_by_section.pop("AcknowledgementText", [])
 
         if lines_by_section:
             log.warning(
-                f"Unknown sections found in collaborator file {self.urirel}: {list(lines_by_section.keys())}"
+                "Unknown sections found in collaborator file %s: %s",
+                self.urirel,
+                list(lines_by_section),
             )
 
         self.description = localmarkdown.Markdown.parseLines(description_lines)
@@ -108,37 +102,37 @@ class collaborator:
     def getTerms(self) -> Sequence[sdoterm.SdoTerm]:
         if not self.contributor:
             return []
-        if not self.terms:
+        if self.terms is None:
             self.terms = sdotermsource.SdoTermSource.getAcknowledgedTerms(self.uri)
         return self.terms
 
     @classmethod
-    def getCollaborator(cls, ref: str) -> Optional["collaborator"]:
+    def getCollaborator(cls, ref: str) -> collaborator | None:
         cls.loadCollaborators()
         key: str = Path(ref).name
-        coll: Optional[collaborator] = cls.COLLABORATORS.get(key)
+        coll = cls.COLLABORATORS.get(key)
         if not coll:
-            log.warning(f"No collaborator for '{ref}'")
+            log.warning("No collaborator for '%s'", ref)
         return coll
 
     @classmethod
-    def getContributor(cls, ref: str) -> Optional["collaborator"]:
+    def getContributor(cls, ref: str) -> collaborator | None:
         key: str = Path(ref).name
         cls.loadContributors()
-        cont: Optional[collaborator] = cls.CONTRIBUTORS.get(key)
+        cont = cls.CONTRIBUTORS.get(key)
         if not cont:
-            log.warning(f"No contributor for '{ref}'")
+            log.warning("No contributor for '%s'", ref)
         return cont
 
     @classmethod
-    def createCollaborator(cls, file_path: Union[str, Path]) -> Optional["collaborator"]:
+    def createCollaborator(cls, file_path: str | Path) -> collaborator | None:
         path = Path(file_path)
         ref = path.stem
         try:
             desc = path.read_text(encoding="utf-8")
             return cls(ref, desc=desc)
         except OSError as e:
-            log.error(f"Error loading colaborator source: {e}")
+            log.error("Error loading collaborator source: %s", e)
             return None
 
     @classmethod
@@ -146,12 +140,12 @@ class collaborator:
         if not cls.COLLABORATORS:
             for file_path in paths.DefaultInputLayout().files(paths.Domain.DATA, "collab/*.md"):
                 cls.createCollaborator(file_path)
-            log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
+            log.info("Loaded %d collaborators", len(cls.COLLABORATORS))
 
     @classmethod
     def createContributor(cls, ref: str) -> None:
         key: str = Path(ref).name
-        coll: Optional[collaborator] = cls.getCollaborator(key)
+        coll = cls.getCollaborator(key)
         if coll:
             coll.contributor = True
             cls.CONTRIBUTORS[key] = coll
@@ -164,12 +158,11 @@ class collaborator:
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
             }"""
-            res = sdotermsource.SdoTermSource.query(query)
-            for row in res:
+            for row in sdotermsource.SdoTermSource.query(query):
                 cls.createContributor(str(row.val))
-            log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
+            log.info("Loaded %d contributors", len(cls.CONTRIBUTORS))
 
     @classmethod
-    def collaborators(cls) -> List["collaborator"]:
+    def collaborators(cls) -> list[collaborator]:
         cls.loadCollaborators()
         return list(cls.COLLABORATORS.values())

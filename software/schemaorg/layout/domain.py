@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Domain enumeration representing filesystem paths for schema.org layouts."""
 
-from enum import Enum, unique
+from enum import StrEnum, unique
 
 
 @unique
-class Domain(str, Enum):
+class Domain(StrEnum):
     """Domains mapped directly to their relative filesystem paths."""
 
     # Core source directories
@@ -28,6 +25,3 @@ class Domain(str, Enum):
     TERMS = "terms"
     RELEASE = "releases"
     EMPTY = "empty"
-
-    def __str__(self) -> str:
-        return str(self.value)

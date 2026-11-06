@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Deterministic Turtle serialisation.
 
 rdflib's stock Turtle serialiser orders subjects by reference count, which
@@ -17,10 +14,8 @@ nothing to do with schema.org. A caller that wants deterministic Turtle now
 says so.
 """
 
-from typing import List
-
 from rdflib import BNode, RDF, RDFS
-from rdflib.plugin import register, Serializer
+from rdflib.plugin import Serializer, register
 from rdflib.plugins.serializers.turtle import TurtleSerializer
 import rdflib.term
 
@@ -28,11 +23,11 @@ import rdflib.term
 class CustomTurtleSerializer(TurtleSerializer):
     """Turtle serialiser with a human-reviewable subject order."""
 
-    topClasses = [RDFS.Class, RDF.Property]
+    topClasses = (RDFS.Class, RDF.Property)
 
-    def orderSubjects(self) -> List[rdflib.term.Node]:
+    def orderSubjects(self) -> list[rdflib.term.Node]:
         seen = set()
-        subjects = []
+        subjects: list[rdflib.term.Node] = []
 
         # Emit classes and properties first, sorted lexicographically.
         for classURI in self.topClasses:

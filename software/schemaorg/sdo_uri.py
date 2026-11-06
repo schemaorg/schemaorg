@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Schema.org URI namespace and manipulation helpers."""
 
+from __future__ import annotations
+
 import logging
-from typing import Optional, Union
 from urllib.parse import ParseResult, urlparse
 
 from rdflib import BNode, Literal, Namespace, URIRef
@@ -26,7 +24,7 @@ class SdoUri:
     Scheme-less strings are schema.org term names; BNodes and Literals are never URIs.
     """
 
-    def __init__(self, uri: Union[Node, str, ParseResult]) -> None:
+    def __init__(self, uri: Node | str | ParseResult) -> None:
         if uri is None:
             raise TypeError("uri cannot be None")
         self._is_non_uri = isinstance(uri, (BNode, Literal))
@@ -38,7 +36,12 @@ class SdoUri:
         if not self._parsed.scheme:
             self._parsed = urlparse(f"{constants.SCHEMA_URI}{self._parsed.geturl()}")
         if self._parsed.scheme != SCHEMA_URL.scheme and self.is_sdo():
-            log.warning(f"Upgrading {self._parsed.scheme}:// schema.org URI to {SCHEMA_URL.scheme}:// {self._parsed.geturl()}")
+            log.warning(
+                "Upgrading %s:// schema.org URI to %s:// %s",
+                self._parsed.scheme,
+                SCHEMA_URL.scheme,
+                self._parsed.geturl(),
+            )
             self._parsed = self._parsed._replace(scheme=SCHEMA_URL.scheme)
 
     @property
@@ -66,7 +69,7 @@ class SdoUri:
         return "core"
 
     @classmethod
-    def for_layer(cls, layer: Optional[str] = None) -> "SdoUri":
+    def for_layer(cls, layer: str | None = None) -> SdoUri:
         """Root URI of a layer: https://schema.org for core/None/"", https://<layer>.schema.org otherwise (no trailing slash, no path)."""
         netloc = SCHEMA_URL.netloc
         if layer and layer != "core":
@@ -75,6 +78,17 @@ class SdoUri:
 
     def is_retired(self) -> bool:
         return self.layer() == "attic"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SdoUri):
+            return NotImplemented
+        return (
+            self._is_non_uri == other._is_non_uri
+            and self._parsed == other._parsed
+        )
+
+    def __hash__(self) -> int:
+        return hash((self._is_non_uri, self._parsed))
 
     def __str__(self) -> str:
         return self._parsed.geturl()

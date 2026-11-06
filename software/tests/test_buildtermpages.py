@@ -24,19 +24,19 @@ class TestTermFileName(unittest.TestCase):
     def testUpper(self):
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
-            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/types/T/Thingamabob.html"),
+            Path(schema.config.OUTPUTDIR).resolve() / "terms/types/T/Thingamabob.html",
         )
 
     def testLower(self):
         self.assertEqual(
             buildtermpages.termFileName("thingamabob"),
-            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/properties/t/thingamabob.html"),
+            Path(schema.config.OUTPUTDIR).resolve() / "terms/properties/t/thingamabob.html",
         )
 
     def testDigit(self):
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
-            str(Path(schema.config.OUTPUTDIR).resolve() / "terms/types/4/4DStatue.html"),
+            Path(schema.config.OUTPUTDIR).resolve() / "terms/types/4/4DStatue.html",
         )
 
 

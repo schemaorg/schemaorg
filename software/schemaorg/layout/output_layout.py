@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Output layout management for generated schema.org website files."""
 
 from pathlib import Path
@@ -24,17 +21,18 @@ class OutputLayout:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
+    def _domain_path(self, domain: Domain) -> Path:
+        if domain == Domain.GCLOUD:
+            return self.output_dir / Domain.GCLOUD_SITE.value
+        return self.output_dir / domain.value
+
     def dir(self, domain: Domain) -> Path:
         """Return directory for the given Domain, ensuring it exists."""
-        if domain == Domain.GCLOUD:
-            path = self.output_dir / Domain.GCLOUD_SITE.value
-        else:
-            path = self.output_dir / domain.value
-        return self._ensure_dir(path)
+        return self._ensure_dir(self._domain_path(domain))
 
     def file(self, domain: Domain, filename: str) -> Path:
         """Return file path in Domain, ensuring parent directory exists."""
-        path = self.dir(domain) / filename
+        path = self._domain_path(domain) / filename
         self._ensure_dir(path.parent)
         return path
 

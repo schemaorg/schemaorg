@@ -32,6 +32,22 @@ class SdoTermOrIdTest(unittest.TestCase):
         self.assertEqual(with_term.id, 'testing2')
         self.assertEqual(with_term.term, term)
 
+    def testSetIdAndSetTermInvalidateState(self):
+        term = sdoterm.SdoReference(
+            term_id='testing2', uri='http://example.com/testing2', label=''
+        )
+        holder = sdoterm.SdoTermOrId(term=term)
+        holder.setId('other')
+        self.assertEqual(holder.id, 'other')
+        self.assertFalse(holder.expanded)
+        with self.assertRaises(sdoterm.UnexpandedTermError):
+            _ = holder.term
+
+        holder.setTerm(None)
+        self.assertFalse(holder)
+        self.assertIsNone(holder.id)
+        self.assertTrue(holder.expanded)
+
 class SdoTermSequenceTest(unittest.TestCase):
 
     def testEmpty(self):
