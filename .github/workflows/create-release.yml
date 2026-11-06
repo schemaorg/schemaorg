@@ -10,19 +10,19 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Release created automatically from push of ${{ github.ref }}
-
-          draft: false
-          prerelease: false
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          TAG_NAME: ${{ github.ref_name }}
+          REF_PATH: ${{ github.ref }}
+        run: |
+          gh release create "${TAG_NAME}" \
+            --verify-tag \
+            --title "Release ${TAG_NAME}" \
+            --notes "Release created automatically from push of ${REF_PATH}"
