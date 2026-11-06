@@ -90,11 +90,19 @@ Once a local version of the repository has been cloned, in to an appropriate pyt
 
 This will create a local working copy of the schema.org website in the local `site` directory. Dependent on the configuration of your system, this will take between 5-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
 
-**buildsite.py**
+**buildfiles.py (`build_schema`)**
 
-The `buildsite.py` script creates and manages a local image of the Schema.org website as a set of static html pages and download files in the `site` directory. It constructs these from local working copies of the files in the repository. The contents of the `site` directory are **not** committed and stored in the repository.  The `site` directory image has two main purposes:
+The checked-in directory `data/releases/next/` always tracks the 35 generated schema release files (RDF dumps, CSV tables, JSON-LD context, OWL, ShEx/SHACL shapes, and examples) corresponding to the current `.ttl` definitions, examples, and exporter code. Whenever you modify schema definitions, examples, or renderers, regenerate `data/releases/next/` before committing:
+
+    ./software/scripts/buildfiles.py
+
+CI verifies that running `buildfiles.py` produces zero diff in `data/releases/next/`.
+
+**buildsite.py (`build_site`)**
+
+The `buildsite.py` script creates and manages a local image of the Schema.org website as static HTML pages and `docs/*` supporting files in `software/site` (defaulting to `--version next`; pass `--version latest` or `--version X.Y` to render against a published release). The contents of `software/site` are **not** committed to the repository. The `site` directory image has two main purposes:
     1) It provides a local work-in-progress representation of the website for local testing and debug (see below) and;
-    2) It provides an image of the website that is used for deployment to GCloud for wider access and the production Schema.org site.
+    2) It provides an image of the website that is used for deployment to GCloud (`deploy2gcloud.sh` stages `data/releases/` automatically during upload).
 
 Running Locally
 ===============
@@ -103,7 +111,7 @@ To locally serve as a website, run:
 
     ./software/scripts/devserv.py
 
-This will serve the site from the `localhost:8080` address. Use options `--host` and `--port` to change this.
+This serves `software/site` on `localhost:8080` and maps `/version/<ver>/...` (including `/version/next/...` and `/version/latest/...`) directly to `data/releases/<ver>/...` without copying release archives into `software/site`. Use options `--host` and `--port` to change the bind address.
 
 Open a browser, on the same system, to `localhost:8080` to see the locally served site.
 
@@ -111,12 +119,15 @@ Open a browser, on the same system, to `localhost:8080` to see the locally serve
 Testing Locally
 ===============
 
-Locally one can run tests that assert that the schema is self-consistent, and that examples actually satisfy the schema defined in RDF:
+Locally one can regenerate `data/releases/next/`, run unit tests, and validate all JSON-LD examples against the generated SHACL shapes:
 
-    software/scripts/buildsite.py -a -r --shacltests
+    ./software/scripts/buildfiles.py
+    ./software/scripts/runtests.py
+    ./software/scripts/validate_examples_shacl.py
 
-This will auto-build the entire site (`-a`), run the tests (`-r`) as well as
-validate the examples (`--shacltests`).
+To also auto-build the full HTML site and run both test suites in one pass:
+
+    ./software/scripts/buildsite.py -a -r --shacltests
 
 
 Deploying to GCloud
@@ -140,11 +151,11 @@ the Turtle format (`.ttl`) subset that we use to represent schemas.
 
 See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
-The build scripts use a single configuration file `versions.json` to control the version of schema.org release that is built.  To change that version the `schemaversion` value should be set to the new version and a matching entry should be added to the `releaseLog` section.  If a version is not yet ready for release, the convention is to substitute `XX` in the date section.  eg. `"11.2": "2020-XX-XX",`.
+`versions.json` records published numbered releases (`schemaversion` and `releaseLog`). Ongoing unreleased edits target `data/releases/next/` by default without modifying `versions.json`. When cutting an official numbered release, record it via `./software/scripts/schemaversion.py --add X.Y --date YYYY-MM-DD` and generate `data/releases/X.Y/` via `./software/scripts/buildfiles.py --version X.Y`.
 
-If the version number or date has been changed, a full build of the site is required, to reflect that change:
+If the published version has changed and you want `software/site` rendered against that published release:
 
-    ./software/scripts/buildsite.py -a
+    ./software/scripts/buildsite.py -a --version latest
 
 Vocabulary Definition and Examples Files
 ========================================
@@ -161,9 +172,8 @@ For details see the output of the command `./software/scripts/buildsite.py -h`. 
 
 * `./software/scripts/buildsite.py -t Book sameAs`  Would rebuild the *Book* and *sameAs* term pages.
 * `./software/scripts/buildsite.py -t All`  Would rebuild all term pages.
-* `./software/scripts/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
-* `./software/scripts/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
-* `./software/scripts/buildsite.py -f All` Would rebuild all output and definition files.
+* `./software/scripts/buildsite.py -f All` Would rebuild all `docs/*` supporting files (`docs/schemaorg.owl`, `docs/jsonldcontext.jsonld`, `docs/sitemap.xml`, `docs/tree.jsonld`, `docs/jsoncounts.json`).
+* `./software/scripts/buildfiles.py` Rebuilds the 35 schema release files in `data/releases/next/`.
 * `./software/scripts/buildsite.py -s` Would copy any static docs pages, css files etc. into the `site`.
 * `./software/scripts/buildsite.py -d PendingHome` Would rebuild the home page for the pending section (`docs/pending.home.html`).
 * `./software/scripts/buildsite.py -d All` Would rebuild all dynamically created docs files.

@@ -233,10 +233,8 @@ class TestReleasesRealData(unittest.TestCase):
     """Checks Releases against the repository's declared releases."""
 
     def setUp(self) -> None:
-        self.output_layout = OutputLayout(
-            constants.PROJECT_ROOT / schema.config.OUTPUTDIR
-        )
-        self.releases = Releases(self.output_layout, schema.VERSION)
+        self.input_layout = InputLayout(constants.PROJECT_ROOT)
+        self.releases = Releases(self.input_layout, schema.VERSION)
 
     def test_versions_file_is_richly_populated(self) -> None:
         self.assertGreater(len(self.releases.versions()), 40)
@@ -247,17 +245,17 @@ class TestReleasesRealData(unittest.TestCase):
     def test_default_release_dir_is_next(self) -> None:
         self.assertEqual(
             self.releases.dir(),
-            self.output_layout.dir(Domain.RELEASE) / NEXT_VERSION,
+            self.input_layout.dir(Domain.RELEASE) / NEXT_VERSION,
         )
         self.assertEqual(
             self.releases.dir(LATEST_RELEASE),
-            self.output_layout.dir(Domain.RELEASE) / str(self.releases.current()),
+            self.input_layout.dir(Domain.RELEASE) / str(self.releases.current()),
         )
 
     def test_canonical_file_resolves_to_one_path(self) -> None:
         expected = self.releases.dir() / "schemaorg-all-https.ttl"
         if not expected.is_file():
-            self.skipTest(f"site not built: no {expected}")
+            self.skipTest(f"release not built: no {expected}")
 
         self.assertEqual(self.releases.get_ttl_files(), [expected])
 

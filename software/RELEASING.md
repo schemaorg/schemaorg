@@ -50,20 +50,20 @@ becomes
         "3.8": "2019-07-01",
     }
 
-... this should have a release date for the current release and all
-previous releases that are archived under data/releases/{version}/*
+... this should have an `YYYY-MM-DD` release date for the current release and all
+previous published releases archived under `data/releases/{version}/*`. Ongoing
+unreleased changes live under `data/releases/next/` and do not appear in
+`versions.json`.
 
 
 e.g.
-    data/releases/2.1
-    data/releases/2.1/all-layers.nq
-    data/releases/2.1/core.nq
-    data/releases/2.1/ext-auto.nq
-    data/releases/2.1/ext-bib.nq
-    data/releases/2.1/README.md
-    data/releases/2.1/schema-all.html
-    data/releases/2.1/schema.nt
-    data/releases/2.1/schema.rdfa
+    data/releases/30.1/schemaorg-all-https.ttl
+    data/releases/30.1/schemaorg-all-https.nq
+    data/releases/30.1/schemaorg-all-https.jsonld
+    data/releases/30.1/schemaorg-current-https.ttl
+    data/releases/30.1/schemaorgcontext.jsonld
+    data/releases/30.1/schemaorg.owl
+    data/releases/30.1/schemaorg-shapes.shacl
 
 PRE-RELEASE STEPS
 =================
@@ -72,12 +72,14 @@ Before building a release, confirm your Python environment is using the correct 
 
 In a checked out version of the _main_ branch:
 
-* Successfully run the `./software/scripts/buildsite.py --release` command.  This will:
-  * assign missing example ids
-  * complete a full build of the site, proceeded by tests.
-  * copy working copies of release files into data/releases directory
-
-* The resultant version [to be released] should be committed and pushed to github and CI tests completed successfully.
+* Record the new numbered release and date in `versions.json`:
+  `./software/scripts/schemaversion.py --add X.Y --date YYYY-MM-DD`
+* Build and validate the numbered release schema files under `data/releases/X.Y/`:
+  `./software/scripts/buildsite.py --release --version X.Y`
+  (or `./software/scripts/buildfiles.py --version X.Y` followed by `./software/scripts/runtests.py` and `./software/scripts/validate_examples_shacl.py --version X.Y`).
+* Build the static site targeting the new published release when preparing deployment:
+  `./software/scripts/buildsite.py -a --version latest`
+* Commit `versions.json`, `docs/releases.html`, and `data/releases/X.Y/`, push to GitHub, and verify CI tests pass.
 
 DEPLOY RELEASE
 ==============
@@ -104,8 +106,6 @@ Then push
 `git push origin [tag name]`
 
 After push, release should be auto created and be visible on the repo home page (takes a few minutes)
-
-* Set up versions.json file for next version - use 2022-XX-XX wildcard date until actual release date confirmed.
 
 GENERAL PRE-Release conditions
 ==============================
