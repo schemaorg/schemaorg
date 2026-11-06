@@ -1,0 +1,34 @@
+
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/tv-pilot>
+    a ex:TVPilot ;
+    schema:name "tv-pilot-name" ;
+    schema:alternateName "Other name" ;
+    schema:description "a nice pilot." ;
+    schema:image
+        <https://example.com>,
+        <https://example.com> ;
+    schema:datePublished "2026-08-30"^^xsd:date ;
+    ex:publishedOn "BroadcastService" ;
+    schema:genre "Documentary" ;
+    schema:productionCompany [
+        a schema:Organization ;
+        schema:name "ComfortSeat"
+    ] ;
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+    schema:partOfSeries [
+        a schema:TVSeries ;
+        schema:name "thing"
+    ] ;
+    schema:trailer [
+        a schema:VideoObject ;
+        schema:duration "PT1M33S" ;
+        schema:name "Trailer" ;
+        schema:contentUrl <https://example.com>
+    ] .
