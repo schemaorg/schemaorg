@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from typing import Any
-from xml.dom import minidom
 from xml.etree import ElementTree
 
 KEY_ORDER: tuple[str, ...] = ("@context", "@id", "@type")
@@ -39,13 +38,8 @@ def sort_xml(xml_input: str | ElementTree.Element) -> str:
             recursive_sort(child)
 
     recursive_sort(root)
-    pretty_xml = (
-        minidom.parseString(ElementTree.tostring(root))
-        .toprettyxml(encoding="UTF-8")
-        .decode()
-    )
-    lines = [line.rstrip() for line in pretty_xml.splitlines() if line.strip()]
-    return '\n'.join(lines) + '\n'
+    ElementTree.indent(root, space="\t")
+    return f"{ElementTree.tostring(root, encoding='unicode', xml_declaration=True)}\n"
 
 
 def universal_sort_key(item: tuple[str, Any]) -> tuple[int, str]:
