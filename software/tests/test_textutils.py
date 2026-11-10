@@ -44,6 +44,12 @@ class TestShortenOnSentence(unittest.TestCase):
             "The quick brown fox jumps over the lazy dog...",
         )
 
+    def testStripsWhitespaceBeforeLengthCheck(self):
+        self.assertEqual(
+            textutils.ShortenOnSentence(f"{' ' * 30}{SENTENCE}  ", lengthHint=50),
+            SENTENCE,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
