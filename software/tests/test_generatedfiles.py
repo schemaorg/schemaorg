@@ -1,35 +1,30 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-from typing import List
 import unittest
 
 import util.paths as paths
 
 
 class BasicFileTests(unittest.TestCase):
-    """Basic tests for file level integrity."""
-
     # Source example files only. Release archives under data/releases/ are
     # deliberately excluded: they are frozen historical artefacts and the
     # older ones legitimately predate the https migration.
-    EXAMPLE_GLOBS: List[str] = ["*example*.txt", "ext/*/*example*.txt"]
+    EXAMPLE_GLOBS: tuple[str, ...] = ("*example*.txt", "ext/*/*example*.txt")
 
     HTTP_SCHEMA_ORG: str = "http://schema.org"
 
-    def testNoHttpExamples(self):
+    def testNoHttpExamples(self) -> None:
         """Examples must use https://schema.org, never http://schema.org."""
         layout = paths.DefaultInputLayout()
         files = layout.files(paths.Domain.DATA, self.EXAMPLE_GLOBS)
 
-        # A glob that matches nothing would make this test pass for the most
-        # boring of reasons, so assert we actually looked at something.
         self.assertTrue(
-            files, f"No example files matched {self.EXAMPLE_GLOBS} under "
-                   f"{layout.dir(paths.Domain.DATA)}"
+            files,
+            f"No example files matched {self.EXAMPLE_GLOBS} under "
+            f"{layout.dir(paths.Domain.DATA)}",
         )
 
-        offenders: List[str] = []
+        offenders: list[str] = []
         for path in files:
             lines = path.read_text(encoding="utf-8").splitlines()
             for number, line in enumerate(lines, start=1):
@@ -39,8 +34,13 @@ class BasicFileTests(unittest.TestCase):
                     )
 
         if offenders:
+            joined = "\n".join(offenders)
             self.fail(
                 f"{len(offenders)} line(s) in the example files reference "
                 f"'{self.HTTP_SCHEMA_ORG}'. Replace them with "
-                f"'https://schema.org' and rerun:\n" + "\n".join(offenders)
+                f"'https://schema.org' and rerun:\n{joined}"
             )
+
+
+if __name__ == "__main__":
+    unittest.main()

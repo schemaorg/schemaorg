@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""Unit tests for schemaorg.layout.stats_layout."""
+from __future__ import annotations
 
 import datetime
 import json
@@ -9,29 +6,23 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from schemaorg.layout.domain import Domain
-from schemaorg.layout.input_layout import InputLayout
-from schemaorg.layout.stats_layout import StatsLayout, StatsProvider
+from schemaorg.layout import Domain, InputLayout, StatsLayout, StatsProvider
 import util.stats as legacy_stats
 
 
 class TestStatsLayout(unittest.TestCase):
-    """Test suite for StatsLayout."""
-
-    def setUp(self):
-        self.temp_dir = tempfile.TemporaryDirectory()
-        self.root = Path(self.temp_dir.name)
+    def setUp(self) -> None:
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        self.root = Path(temp_dir.name)
         self.input_layout = InputLayout(self.root)
         self.stats_dir = self.input_layout.dir(Domain.PUBLIC_STATS)
         self.layout = StatsLayout(self.input_layout)
 
-    def tearDown(self):
-        self.temp_dir.cleanup()
-
-    def test_providers_nonexistent_dir(self):
+    def test_providers_nonexistent_dir(self) -> None:
         self.assertEqual(self.layout.providers(), [])
 
-    def test_providers_discovery(self):
+    def test_providers_discovery(self) -> None:
         self.stats_dir.mkdir(parents=True, exist_ok=True)
         (self.stats_dir / "google").mkdir()
         (self.stats_dir / "bing").mkdir()
@@ -40,7 +31,7 @@ class TestStatsLayout(unittest.TestCase):
 
         self.assertEqual(self.layout.providers(), ["bing", "google"])
 
-    def test_list_files(self):
+    def test_list_files(self) -> None:
         self.assertEqual(self.layout._list_files("nonexistent"), [])
 
         provider_dir = self.stats_dir / "google"
@@ -56,7 +47,7 @@ class TestStatsLayout(unittest.TestCase):
         self.assertEqual(self.layout._list_files("google", ext="json"), [f_json])
         self.assertEqual(self.layout._list_files("google", ext="csv"), [f_csv])
 
-    def test_epochs(self):
+    def test_epochs(self) -> None:
         provider_dir = self.stats_dir / "google"
         provider_dir.mkdir(parents=True, exist_ok=True)
         f1 = provider_dir / "stats_2025_12.json"
@@ -77,39 +68,42 @@ class TestStatsLayout(unittest.TestCase):
             },
         )
 
-    def test_read_json_and_csv(self):
+    def test_read_json_and_csv(self) -> None:
         provider_dir = self.stats_dir / "google"
         provider_dir.mkdir(parents=True, exist_ok=True)
 
         json_file = provider_dir / "data.json"
-        with open(json_file, "w", encoding="utf-8") as f:
-            json.dump([{"key": "value"}], f)
+        json_file.write_text(json.dumps([{"key": "value"}]), encoding="utf-8")
         self.assertEqual(self.layout._read_json(json_file), [{"key": "value"}])
 
         csv_file = provider_dir / "data.csv"
-        with open(csv_file, "w", encoding="utf-8") as f:
-            f.write(" Name , Value \nhttps://schema.org/Thing,high\n")
+        csv_file.write_text(
+            " Name , Value \nhttps://schema.org/Thing,high\n", encoding="utf-8"
+        )
         self.assertEqual(
             self.layout._read_csv(csv_file),
             [{"Name": "https://schema.org/Thing", "Value": "high"}],
         )
 
-    def test_get_stats(self):
+    def test_get_stats(self) -> None:
         google_dir = self.stats_dir / "google"
         google_dir.mkdir(parents=True, exist_ok=True)
         old_json = google_dir / "stats_2025_12.json"
         new_json = google_dir / "stats_2026_01.json"
 
-        with open(old_json, "w", encoding="utf-8") as f:
-            json.dump([{"Name": "OldThing", "Domain Bucket": "low"}], f)
-        with open(new_json, "w", encoding="utf-8") as f:
-            json.dump(
+        old_json.write_text(
+            json.dumps([{"Name": "OldThing", "Domain Bucket": "low"}]),
+            encoding="utf-8",
+        )
+        new_json.write_text(
+            json.dumps(
                 [
                     {"Name": "Thing", "Domain Bucket": "high"},
                     {"Name": "Event", "Domain Bucket": "medium"},
-                ],
-                f,
-            )
+                ]
+            ),
+            encoding="utf-8",
+        )
 
         empty_dir = self.stats_dir / "empty"
         empty_dir.mkdir(parents=True, exist_ok=True)
@@ -129,10 +123,9 @@ class TestStatsLayout(unittest.TestCase):
             {"Thing": "high", "Event": "medium"},
         )
 
-        filtered = self.layout.get_stats(providers=["empty"])
-        self.assertEqual(filtered, [])
+        self.assertEqual(self.layout.get_stats(providers=["empty"]), [])
 
-    def test_backward_compatibility_reexports(self):
+    def test_backward_compatibility_reexports(self) -> None:
         self.assertIs(legacy_stats.StatsLayout, StatsLayout)
         self.assertIs(legacy_stats.StatsProvider, StatsProvider)
         self.assertTrue(callable(legacy_stats.get_stats_providers))

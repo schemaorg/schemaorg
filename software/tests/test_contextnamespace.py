@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Guards the namespace agreement between the context and the SHACL shapes.
 
 Background
@@ -26,7 +23,10 @@ single failure mode that can render the entire SHACL suite meaningless
 without anybody noticing.
 """
 
+from __future__ import annotations
+
 import json
+from pathlib import Path
 import unittest
 
 import rdflib
@@ -46,12 +46,12 @@ class ContextShapesNamespaceTests(unittest.TestCase):
     EXPECTED_VOCAB = "http://schema.org/"
 
     @classmethod
-    def _release_file(cls, filename):
+    def _release_file(cls, filename: str) -> Path:
         return Releases(paths.DefaultInputLayout(), schema.VERSION).file(
             filename=filename
         )
 
-    def _load_vocab(self):
+    def _load_vocab(self) -> tuple[str | None, Path]:
         path = self._release_file(self.CONTEXT_FILENAME)
         if not path.is_file():
             self.skipTest(f"{path} not built")
@@ -59,7 +59,7 @@ class ContextShapesNamespaceTests(unittest.TestCase):
         self.assertIn("@context", document, f"{path} has no @context")
         return document["@context"].get("@vocab"), path
 
-    def testContextVocabIsHttp(self):
+    def testContextVocabIsHttp(self) -> None:
         """The generated context must expand terms into the http namespace."""
         vocab, path = self._load_vocab()
         self.assertEqual(
@@ -72,7 +72,7 @@ class ContextShapesNamespaceTests(unittest.TestCase):
             "checking anything.",
         )
 
-    def testShapesTargetTheSameNamespaceAsTheContext(self):
+    def testShapesTargetTheSameNamespaceAsTheContext(self) -> None:
         """schema.org shapes must target the namespace the context expands to.
 
         This is the assertion that actually matters. The one above pins a
@@ -88,13 +88,14 @@ class ContextShapesNamespaceTests(unittest.TestCase):
         is exactly what turns the gate into an expensive no-op.
         """
         vocab, _ = self._load_vocab()
+        assert vocab is not None
 
         shapes_path = self._release_file(self.SHAPES_FILENAME)
         if not shapes_path.is_file():
             self.skipTest(f"{shapes_path} not built")
 
         graph = rdflib.Graph()
-        graph.parse(source=str(shapes_path), format="turtle")
+        graph.parse(source=shapes_path, format="turtle")
 
         targets = {str(t) for t in graph.objects(None, SH.targetClass)}
         self.assertTrue(
@@ -120,9 +121,9 @@ class ContextShapesNamespaceTests(unittest.TestCase):
             "  sample: " + ", ".join(conflicting[:5]),
         )
 
-        # And the agreement must be substantial, not incidental: if only a
-        # handful of shapes line up with the context, the gate is mostly
-        # inert even though no single assertion above would complain.
+        # Agreement must be substantial, not incidental: if only a handful of
+        # shapes line up with the context, the gate is mostly inert even
+        # though no single assertion above would complain.
         self.assertGreater(
             len(agreeing),
             len(targets) // 2,

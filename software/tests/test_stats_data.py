@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-"""Tests to verify that public statistics data files use https:// URLs."""
-
-from typing import List
 import unittest
 
 import util.paths as paths
@@ -11,21 +7,22 @@ import util.stats as stats
 
 
 class PublicStatsDataTests(unittest.TestCase):
-    """Tests to verify that public statistics data use https://."""
+    """Public statistics data files must use https:// URLs."""
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.layout = stats.StatsLayout(paths.DefaultInputLayout())
 
     def test_stats_csv_use_https(self) -> None:
-        """Verify that statistics CSV files use https:// for all terms."""
-        failures: List[str] = []
+        failures: list[str] = []
         for provider in self.layout.providers():
             for epoch, file_path in self.layout.epochs(provider, ext="csv").items():
                 for row in self.layout._read_csv(file_path):
                     name = row.get("Name", "")
                     if not name.startswith("https://"):
-                        failures.append(f" - Provider: {provider}, Epoch: {epoch.strftime('%Y_%m')}")
+                        failures.append(
+                            f" - Provider: {provider}, Epoch: {epoch.strftime('%Y_%m')}"
+                        )
                         break
 
         if failures:
@@ -33,14 +30,15 @@ class PublicStatsDataTests(unittest.TestCase):
             self.fail(f"Statistics CSV data contains non-https URLs in:\n{joined}")
 
     def test_stats_json_use_https(self) -> None:
-        """Verify that statistics JSON files use https:// for all terms."""
-        failures: List[str] = []
+        failures: list[str] = []
         for provider in self.layout.providers():
             for epoch, file_path in self.layout.epochs(provider, ext="json").items():
                 for entry in self.layout._read_json(file_path):
                     name = entry.get("Name", "")
                     if not name.startswith("https://"):
-                        failures.append(f" - Provider: {provider}, Epoch: {epoch.strftime('%Y_%m')}")
+                        failures.append(
+                            f" - Provider: {provider}, Epoch: {epoch.strftime('%Y_%m')}"
+                        )
                         break
 
         if failures:
