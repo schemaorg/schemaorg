@@ -1,0 +1,125 @@
+"""Module that handles layout and parsing of dynamic public stats providers."""
+
+from collections.abc import Sequence
+import csv
+from dataclasses import dataclass
+import datetime
+import json
+from pathlib import Path
+import re
+from typing import Any
+import unicodedata
+
+from schemaorg.layout.domain import Domain
+from schemaorg.layout.input_layout import InputLayout
+
+_EPOCH_RE: re.Pattern[str] = re.compile(r"(\d{4}_\d{2})")
+
+
+@dataclass
+class StatsProvider:
+    provider_id: str
+    name: str
+    description: str
+    date: str
+    stats_map: dict[str, str]
+
+
+class StatsLayout:
+    """Handles layout and file discovery for public statistics."""
+
+    def __init__(self, layout: InputLayout) -> None:
+        self.base_dir: Path = layout.dir(Domain.PUBLIC_STATS)
+
+    def providers(self) -> list[str]:
+        """Lists the providers (subdirs) present in the stats dir."""
+        if not self.base_dir.is_dir():
+            return []
+        return sorted(
+            subdir.name
+            for subdir in self.base_dir.iterdir()
+            if subdir.is_dir() and not subdir.name.startswith(".")
+        )
+
+    def _list_files(
+        self, provider: str, ext: str | None = None
+    ) -> list[Path]:
+        """Private method to list the files in a provider's directory."""
+        provider_dir = self.base_dir / provider
+        if not provider_dir.is_dir():
+            return []
+        return sorted(
+            p
+            for p in provider_dir.iterdir()
+            if p.is_file() and (not ext or p.suffix == f".{ext}")
+        )
+
+    def epochs(
+        self, provider: str, ext: str | None = "json"
+    ) -> dict[datetime.datetime, Path]:
+        """Provides the different sets of stats files found in a provider's directory."""
+
+        def extract_epoch(filename: Path) -> datetime.datetime | None:
+            m = _EPOCH_RE.search(filename.name)
+            return (
+                datetime.datetime.strptime(m.group(1), "%Y_%m")
+                if m
+                else None
+            )
+
+        return {
+            epoch: f
+            for f in self._list_files(provider, ext)
+            if "summary" not in f.name
+            and (epoch := extract_epoch(f)) is not None
+        }
+
+    def _read_json(self, file_path: Path | str) -> Any:
+        """Private method to read and parse a JSON file."""
+        return json.loads(Path(file_path).read_text(encoding="utf-8"))
+
+    def _read_csv(self, file_path: Path | str) -> list[dict[str, str]]:
+        """Private method to read and parse a CSV file."""
+        with Path(file_path).open(encoding="utf-8", newline="") as f:
+            return [
+                {field.strip(): val for field, val in row.items()}
+                for row in csv.DictReader(f)
+            ]
+
+    def get_stats(
+        self, providers: Sequence[str] | None = None
+    ) -> list[StatsProvider]:
+        """Returns a list of StatsProvider objects."""
+        selected = [
+            p for p in self.providers() if not providers or p in providers
+        ]
+
+        result: list[StatsProvider] = []
+        for provider in selected:
+            epochs = self.epochs(provider)
+            if not epochs:
+                continue
+            latest_epoch = max(epochs)
+            json_file = epochs[latest_epoch]
+
+            stats_map: dict[str, str] = {}
+            for entry in self._read_json(json_file):
+                entry_name = (entry.get("Name") or "").strip()
+                bucket = (entry.get("Domain Bucket") or "").strip()
+                normalized_name = unicodedata.normalize("NFC", entry_name)
+                stats_map[normalized_name] = bucket
+
+            display_name = provider.capitalize()
+            result.append(
+                StatsProvider(
+                    provider_id=provider,
+                    name=display_name,
+                    description=(
+                        f"Based on monthly aggregations from {display_name}'s web index."
+                    ),
+                    date=latest_epoch.strftime("%B %Y"),
+                    stats_map=stats_map,
+                )
+            )
+
+        return result

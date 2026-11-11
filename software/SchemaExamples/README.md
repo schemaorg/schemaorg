@@ -25,13 +25,7 @@ One or more Examples are useually stored in a single file, by convention, with t
 The ```schemaexamples.py``` module contains two significant classes: 
  
  * ```Example``` - Class for representing, modifying and serialising an example entry
- * ```SchemaExamples``` - A utility class for reading examples from file(s) and providing mappings between Schema.org terms and associated examples.
- 
-Checkout the example-code directory for usage, and the util directory for functionality implemented within schemorg.
-
-To run the examples, you can execute them either from the project root or from their own directory.
-Example from project root: `python3 software/SchemaExamples/example-code/examples4terms.py`
-Example from example directory: `cd software/SchemaExamples/example-code && python3 examples4terms.py`
+ * ```SchemaExamples``` - Container loaded from example file(s) (via ```SchemaExamples.from_files``` or ```SchemaExamples.from_default```) providing mappings between Schema.org terms and associated examples.
 
 
 

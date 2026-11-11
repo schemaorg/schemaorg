@@ -1,131 +1,112 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Export a CSV summary of examples linked to one or more schema.org terms."""
+
+from __future__ import annotations
 
 import argparse
+from collections.abc import Iterable, Sequence
 import csv
-import io
-import os
-import sys
+from pathlib import Path
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
-
-from SchemaExamples.schemaexamples import SchemaExamples
+from SchemaExamples.schemaexamples import Example, SchemaExamples
+from SchemaTerms.sdoterm import SdoTerm
 from SchemaTerms.sdotermsource import SdoTermSource
-import util.textutils as textutils
-
-if not SdoTermSource.SOURCEGRAPH:
-    print("Loading triples files")
-    SdoTermSource.loadSourceGraph("default")
-    print(
-        "loaded %s triples - %s terms"
-        % (len(SdoTermSource.sourceGraph()), len(SdoTermSource.getAllTerms()))
-    )
-
-workingterms = []
 
 
-def getterms(term, recursive):
-    global workingterms
+def _add_subterms(term: SdoTerm, seen: set[str], result: list[str]) -> None:
+    for sub_id in term.subs.ids:
+        if sub_id not in seen:
+            seen.add(sub_id)
+            result.append(sub_id)
+        if sub_term := SdoTermSource.getTerm(sub_id):
+            _add_subterms(sub_term, seen, result)
 
-    termlist = []
-    for ts in term:
-        termlist.extend(ts)
 
-    for t in termlist:
-        term = SdoTermSource.getTerm(t)
+def getterms(terms: Iterable[str], recursive: bool) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+
+    for term_name in terms:
+        term = SdoTermSource.getTerm(term_name)
         if not term:
-            print("No such term: %s" % t)
+            print(f"No such term: {term_name}")
             continue
-        addtoworking(term.id)
-
+        if term.id not in seen:
+            seen.add(term.id)
+            result.append(term.id)
         if recursive:
-            addrecursive(term)
+            _add_subterms(term, seen, result)
+
+    return result
 
 
-def addtoworking(term):
-    global workingterms
-    if term not in workingterms:
-        workingterms.append(term)
-
-
-def addrecursive(term):
-    for t in term.subs:
-        addtoworking(t)
-        addrecursive(SdoTermSource.getTerm(t))
-
-
-def getexamples(terms):
-    for t in terms:
-        examples = SchemaExamples.examplesForTerm(t)
-        addtoworkingex(examples)
-
-
-workingex = []
-
-
-def addtoworkingex(examples):
-    for e in examples:
-        if e not in workingex:
-            workingex.append(e)
-
-
-def buildoutput(workingex, fname):
-    workingex = sorted(workingex, key=lambda x: (x.keyvalue))
-
-    buildcsvoutput(workingex, fname)
-
-
-def buildcsvoutput(workingex, fname):
-    if not fname.endswith(".csv"):
-        fname = fname + ".csv"
-
-    data = []
-    fields = ["Example Id", "Source File", "Linked to Terms"]
-    for e in workingex:
-        row = {}
-        row["Example Id"] = e.keyvalue
-        row["Source File"] = e.getMeta("source")
-        row["Linked to Terms"] = textutils.Array2String(e.terms)
-        data.append(row)
-
-    csvout = io.StringIO()
-    print("examples4term: Writing to: %s" % fname)
-
-    csvfile = open(fname, "w")
-    writer = csv.DictWriter(
-        csvout, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
+def getexamples(
+    terms: Iterable[str],
+    examples: SchemaExamples | None = None,
+) -> list[Example]:
+    loaded = examples if examples is not None else SchemaExamples.from_default()
+    return sorted(
+        {e for t in terms for e in loaded.examplesForTerm(t)},
+        key=lambda e: e.keyvalue,
     )
-    writer.writeheader()
-    for row in data:
-        writer.writerow(row)
-    csvfile.write(csvout.getvalue())
-    csvfile.close()
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+def buildcsvoutput(examples: Iterable[Example], fname: str | Path) -> None:
+    output_path = Path(fname)
+    if output_path.suffix != ".csv":
+        output_path = output_path.with_name(f"{output_path.name}.csv")
+
+    fields = ["Example Id", "Source File", "Linked to Terms"]
+    rows = [
+        {
+            "Example Id": e.keyvalue,
+            "Source File": e.getMeta("source"),
+            "Linked to Terms": ", ".join(e.terms),
+        }
+        for e in examples
+    ]
+
+    print(f"examples4term: Writing to: {output_path}")
+    with output_path.open("w", encoding="utf-8", newline="") as csvfile:
+        writer = csv.DictWriter(
+            csvfile, fieldnames=fields, quoting=csv.QUOTE_ALL, lineterminator="\n"
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def main(argv: Sequence[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "-t",
         "--term",
         required=True,
         default=[],
-        action="append",
-        nargs="*",
-        help="Term to use(repeatable)",
+        action="extend",
+        nargs="+",
+        help="Term to use (repeatable)",
     )
     parser.add_argument(
         "-r",
         "--recursive",
-        default=False,
         action="store_true",
-        help="Use tern=m and subtypes",
+        help="Use term and subtypes",
     )
-    parser.add_argument("-o", "--output", required=True, help="csv output file")
-    args = parser.parse_args()
+    parser.add_argument("-o", "--output", required=True, help="CSV output file")
+    args = parser.parse_args(argv)
 
-    getterms(args.term, args.recursive)
-    getexamples(workingterms)
-    fname = args.output
-    buildoutput(workingex, fname)
+    if not SdoTermSource.SOURCEGRAPH:
+        print("Loading triples files")
+        SdoTermSource.loadSourceGraph("default")
+        print(
+            f"loaded {len(SdoTermSource.sourceGraph())} triples - "
+            f"{len(SdoTermSource.getAllTerms())} terms"
+        )
+
+    terms = getterms(args.term, args.recursive)
+    examples = getexamples(terms)
+    buildcsvoutput(examples, args.output)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# mcf2turtle.py imports schemaorg.*, so it needs software/ on PYTHONPATH.
+export PYTHONPATH="$(cd "$(dirname "$0")/../.." && pwd)"
+
 # biological_taxonomy.mcf     
 # disease.mcf                                   
 # genome_annotation.mcf

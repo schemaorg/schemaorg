@@ -1,24 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
 
-import collections
-import copy
-import glob
+from collections.abc import Iterable, Sequence
 import json
 import logging
-import os
 from pathlib import Path
-import re
-import sys
 import threading
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Type, Union, cast
+from typing import Any
 
 import rdflib
 
-import software
-
+from schemaorg import constants
+from schemaorg.layout import Issues
+from schemaorg.sdo_uri import SDO, SdoUri
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
@@ -26,22 +19,14 @@ import util.paths as paths
 import util.pretty_logger as pretty_logger
 from util.sort_dict import sort_dict
 
-
 log: logging.Logger = logging.getLogger(__name__)
 
-DEFVOCABURI: str = "https://schema.org/"
-VOCABURI: Optional[str] = None
-DATATYPEURI: Optional[rdflib.URIRef] = None
-ENUMERATIONURI: Optional[rdflib.URIRef] = None
-THINGURI: Optional[rdflib.URIRef] = None
-
 CORE: str = "core"
-DEFTRIPLESFILESGLOB: Tuple[str, str] = ("data/*.ttl", "data/ext/*/*.ttl")
-LOADEDDEFAULT: bool = False
+_RDF_FILE_FORMATS: dict[str, str] = {".nt": "nt", ".ttl": "turtle"}
 
 
 def bindNameSpaces(graph: rdflib.Graph) -> None:
-    namespaces: Dict[str, str] = {
+    namespaces: dict[str, str] = {
         "dc": "http://purl.org/dc/elements/1.1/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "dct": "http://purl.org/dc/terms/",
@@ -75,6 +60,7 @@ def bindNameSpaces(graph: rdflib.Graph) -> None:
         "fibo-fnd-agr-ctr": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/",
         "fibo-fnd-arr-doc": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/",
         "fibo-fnd-arr-lif": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/",
+        "fibo-fnd-arr-reg": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/",
         "fibo-fnd-dt-oc": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/",
         "fibo-fnd-org-org": "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/",
         "fibo-fnd-pas-pas": "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/",
@@ -99,8 +85,6 @@ def bindNameSpaces(graph: rdflib.Graph) -> None:
         "mo": "http://purl.org/ontology/mo/",
         "og": "http://ogp.me/ns#",
     }
-    prefix: str
-    uri: str
     for prefix, uri in namespaces.items():
         graph.bind(prefix, uri)
 
@@ -110,95 +94,91 @@ class _TermAccumulator:
 
     def __init__(self, term_id: str) -> None:
         self.id: str = term_id
-        self.types: List[rdflib.URIRef] = []
-        self.sups: List[rdflib.URIRef] = []
-        self.label: Optional[str] = None
-        self.layer: Optional[str] = None
-        self.type: Optional[rdflib.URIRef] = None
+        self.types: list[rdflib.URIRef] = []
+        self.sups: list[rdflib.URIRef] = []
+        self.label: str | None = None
+        self.layer: str | None = None
+        self.type: rdflib.URIRef | None = None
 
     def appendRow(self, row: rdflib.query.ResultRow) -> None:
         self.types.append(row.type)
         self.sups.append(row.sup)
         self.type = row.type
         self.label = str(row.label)
-        self.layer = layerFromUri(str(row.layer))
+        self.layer = layerFromUri(row.layer)
 
 
-def _loadOneSourceGraph(file_path: Union[str, Path]) -> rdflib.Graph:
-    """Load the content of one source file."""
-    path: Path = Path(file_path)
-    formats: Dict[str, str] = {".nt": "nt", ".ttl": "turtle"}
-    file_format: Optional[str] = formats.get(path.suffix)
+def _parse_into_graph(graph: rdflib.Graph, file_path: str | Path) -> None:
+    """Parse one RDF source file directly into graph."""
+    path = Path(file_path)
+    file_format = _RDF_FILE_FORMATS.get(path.suffix)
     if not file_format:
         raise NotImplementedError(f"Unsupported file format: {path.suffix}")
     try:
-        graph: rdflib.Graph = rdflib.Graph()
-        graph.parse(source=str(path), format=file_format)
-        return graph
+        graph.parse(source=path, format=file_format)
     except Exception as e:
-        message: str = f"Error parsing source file '{file_path}': {e}"
+        message = f"Error parsing source file '{file_path}': {e}"
         log.warning(message)
-        raise IOError(message) from e
+        raise OSError(message) from e
 
 
 class SdoTermSource:
     """This class acts as the source of information for terms."""
 
-    TYPE: str = "Class"
-    TERMCOUNTS: Optional[Dict[Union[sdoterm.SdoTermType, str], int]] = None
+    TERMCOUNTS: dict[sdoterm.SdoTermType | str, int] | None = None
 
-    SOURCEGRAPH: Optional[rdflib.Graph] = None
-    MARKDOWNPROCESS: bool = True
-    EXPANDEDTERMS: Dict[str, Any] = {}
-    TERMS: Dict[str, Any] = {}
+    SOURCEGRAPH: rdflib.Graph | None = None
+    EXPANDEDTERMS: dict[str, Any] = {}
+    TERMS: dict[str, Any] = {}
 
     TERMSLOCK: threading.Lock = threading.Lock()
     RDFLIBLOCK: threading.Lock = threading.Lock()
     LOADEDDEFAULT: bool = False
 
-    def __init__(self, uri: str, ttype: Optional[Union[rdflib.URIRef, str]] = None, label: str = "", layer: Optional[str] = None) -> None:
+    def __init__(
+        self,
+        uri: str,
+        ttype: rdflib.URIRef | str | None = None,
+        label: str = "",
+        layer: str | None = None,
+    ) -> None:
         term_id: str = uri2id(uri)
         self.layer: str = layer or CORE
         self.termdesc: Any = None
 
-        self.parent: Optional[sdoterm.SdoTerm] = None
-        self.checkedDataTypeParents: bool = False
-        self.supersededBy: Optional[str] = None
-        self.supersedes: Optional[List[str]] = None
-        self.supers: Optional[List[str]] = None
-        self.termStack: Optional[List[sdoterm.SdoTerm]] = None
-        self.subs: Optional[List[str]] = None
-        self.members: Optional[List[str]] = None
-        self.props: Optional[List[str]] = None
-        self.propUsedOn: Optional[List[str]] = None
-        self.ranges: Optional[List[str]] = None
-        self.domains: Optional[List[str]] = None
-        self.targetOf: Optional[List[str]] = None
-        self.equivalents: Optional[List[str]] = None
+        self.parent: sdoterm.SdoTerm | None = None
+        self.supersededBy: str | None = None
+        self.supersedes: list[str] | None = None
+        self.supers: list[str] | None = None
+        self.termStack: list[sdoterm.SdoTerm] | None = None
+        self.subs: list[str] | None = None
+        self.members: list[str] | None = None
+        self.props: list[str] | None = None
+        self.ranges: list[str] | None = None
+        self.domains: list[str] | None = None
+        self.targetOf: list[str] | None = None
+        self.equivalents: list[str] | None = None
         self.gotinverseOf: bool = False
-        self.inverseOf: Optional[str] = None
-        self.comments: Optional[Sequence[str]] = None
-        self.comment: Optional[str] = None
-        self.srcacks: Optional[List[Any]] = None
-        self.sources: Optional[List[str]] = None
-        self.acks: Optional[Sequence[sdocollaborators.collaborator]] = None
-        self.examples: Optional[List[Any]] = None
-        global DATATYPEURI, ENUMERATIONURI
-        cls: Type[SdoTermSource] = self.__class__
+        self.inverseOf: str | None = None
+        self.comments: Sequence[str] | None = None
+        self.comment: str | None = None
+        self.sources: list[str] | None = None
+        self.acks: Sequence[sdocollaborators.collaborator] | None = None
+        cls: type[SdoTermSource] = self.__class__
         self.ttype: sdoterm.SdoTermType
         if ttype == rdflib.RDFS.Class:
             self.ttype = sdoterm.SdoTermType.TYPE
-            if uri == str(DATATYPEURI):
+            if uri == str(SDO.DataType):
                 self.ttype = sdoterm.SdoTermType.DATATYPE
-            elif uri == str(ENUMERATIONURI):
+            elif uri == str(SDO.Enumeration):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
             elif self._isEnumeration(term_id=term_id):
                 self.ttype = sdoterm.SdoTermType.ENUMERATION
         elif ttype == rdflib.RDF.Property:
             self.ttype = sdoterm.SdoTermType.PROPERTY
-        elif ttype == ENUMERATIONURI:
+        elif ttype == SDO.Enumeration:
             self.ttype = sdoterm.SdoTermType.ENUMERATION
-        elif ttype == DATATYPEURI:
+        elif ttype == SDO.DataType:
             self.ttype = sdoterm.SdoTermType.DATATYPE
         elif not ttype:
             self.ttype = sdoterm.SdoTermType.REFERENCE
@@ -224,7 +204,6 @@ class SdoTermSource:
 
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
-        self.termdesc.comments = self.getComments()
         self.termdesc.equivalents.setIds(self.getEquivalents())
         self.termdesc.pending = self.inLayers("pending")
         self.termdesc.retired = self.inLayers("attic")
@@ -245,14 +224,15 @@ class SdoTermSource:
             if self.ttype == sdoterm.SdoTermType.ENUMERATION:
                 if not self.termdesc.properties:
                     self.termdesc.termStack.clear()
-                self.termdesc._enumerationMembers.setIds(self.getEnumerationMembers())
+                self.termdesc._enumerationMembers.setIds(
+                    self.getEnumerationMembers() or ()
+                )
         elif self.ttype == sdoterm.SdoTermType.PROPERTY:
             self.termdesc.domainIncludes.setIds(self.getDomains())
             self.termdesc.rangeIncludes.setIds(self.getRanges())
             self.termdesc.inverse.setId(self.getInverseOf())
         elif self.ttype == sdoterm.SdoTermType.REFERENCE:
             self.termdesc.label = prefixedIdFromUri(uri)
-            self.termdesc.comment = self.getComment()
 
         cls.TERMS[uri] = self.termdesc
 
@@ -273,70 +253,37 @@ class SdoTermSource:
         assert self.termdesc is not None
         return self.termdesc
 
-    def getType(self) -> sdoterm.SdoTermType:
-        return self.ttype
-
-    def isClass(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.TYPE
-
-    def isProperty(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.PROPERTY
-
-    def isDataType(self) -> bool:
-        if self.ttype == sdoterm.SdoTermType.DATATYPE:
-            return True
-        if self.isClass() and not self.checkedDataTypeParents:
-            self.checkedDataTypeParents = True
-            sup_id: str
-            for sup_id in self.getSupers():
-                sup: Optional[sdoterm.SdoTerm] = self.__class__.getTerm(sup_id)
-                if sup and sup.termType == sdoterm.SdoTermType.DATATYPE:
-                    self.ttype = sdoterm.SdoTermType.DATATYPE
-                    return True
-        return False
-
     @classmethod
     def _isEnumeration(cls, term_id: str) -> bool:
-        global ENUMERATIONURI
-        query: str = """
-          ASK  {
-                    %s rdfs:subClassOf* %s.
-            }""" % (uriWrap(toFullId(term_id)), uriWrap(str(ENUMERATIONURI)))
+        query: str = f"""
+          ASK {{
+                    {uriWrap(toFullId(term_id))} rdfs:subClassOf* {uriWrap(str(SDO.Enumeration))}.
+            }}"""
 
         result: Sequence[rdflib.query.ResultRow] = cls.query(query)
         return bool(result[-1])
 
-    def _isEnumerationValue(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.ENUMERATIONVALUE
-
-    def isReference(self) -> bool:
-        return self.ttype == sdoterm.SdoTermType.REFERENCE
-
-    def getParent(self) -> Optional[sdoterm.SdoTerm]:
-        return self.parent
-
-    def getPrefixedId(self) -> str:
-        return prefixedIdFromUri(self.uri)
-
     def getComments(self) -> Sequence[str]:
-        if not self.comments:
+        if self.comments is None:
             self.comments = tuple(map(str, self.loadObjects(rdflib.RDFS.comment)))
         return self.comments
 
     def getComment(self) -> str:
-        if not self.comment:
+        if self.comment is None:
             self.loadComment()
         assert self.comment is not None
         return self.comment
 
     def getSupersededBy(self) -> str:
-        if not self.supersededBy:
-            ss: List[rdflib.term.Node] = self.loadObjects("schema:supersededBy")
-            tmp: List[str] = [t for s in ss if (t := uri2id(str(s)))]
+        if self.supersededBy is None:
+            ss = self.loadObjects("schema:supersededBy")
+            tmp = [t for s in ss if (t := uri2id(str(s)))]
 
             if len(tmp) > 1:
                 log.debug(
-                    f"Warning '{self.id}' supersededBy more than 1 term ({len(tmp)})"
+                    "Warning '%s' supersededBy more than 1 term (%d)",
+                    self.id,
+                    len(tmp),
                 )
             self.supersededBy = tmp[0] if tmp else ""
         return self.supersededBy
@@ -344,55 +291,47 @@ class SdoTermSource:
     def superseded(self) -> bool:
         return bool(self.getSupersededBy())
 
-    def getSupersedes(self) -> List[str]:
-        if not self.supersedes:
-            subs: List[rdflib.term.Node] = self.loadSubjects("schema:supersededBy")
+    def getSupersedes(self) -> list[str]:
+        if self.supersedes is None:
+            subs = self.loadSubjects("schema:supersededBy")
             self.supersedes = sorted(uri2id(str(sub)) for sub in subs)
         return self.supersedes
 
-    def getSources(self) -> List[str]:
-        if not self.sources:
-            objs: List[rdflib.term.Node] = self.loadObjects("schema:source")
+    def getSources(self) -> list[str]:
+        if self.sources is None:
+            objs = self.loadObjects("schema:source")
             self.sources = sorted(str(o) for o in objs)
         return self.sources
 
     def getAcknowledgements(self) -> Sequence[sdocollaborators.collaborator]:
-        if not self.acks:
-            acks: List[sdocollaborators.collaborator] = []
-            objs: List[rdflib.term.Node] = self.loadObjects("schema:contributor")
-            obj: rdflib.term.Node
-            for obj in objs:
-                if obj:
-                    cont: Optional[sdocollaborators.collaborator] = sdocollaborators.collaborator.getContributor(str(obj))
-                    if cont:
-                        acks.append(cont)
+        if self.acks is None:
+            acks = [
+                cont
+                for obj in self.loadObjects("schema:contributor")
+                if obj and (cont := sdocollaborators.collaborator.getContributor(str(obj)))
+            ]
             self.acks = sorted(acks, key=lambda t: t.title or "")
         return self.acks
 
-    def getLayer(self) -> str:
-        return self.layer
-
-    def getInverseOf(self) -> Optional[str]:
+    def getInverseOf(self) -> str | None:
         if not self.gotinverseOf:
             self.gotinverseOf = True
-            inverse: Optional[Any] = self.loadValue("schema:inverseOf")
-            if inverse:
+            if inverse := self.loadValue("schema:inverseOf"):
                 self.inverseOf = uri2id(str(inverse))
         return self.inverseOf
 
-    def getSupers(self) -> List[str]:
-        if not self.supers:
+    def getSupers(self) -> list[str]:
+        if self.supers is None:
             self.loadsupers()
         assert self.supers is not None
         return self.supers
 
-    def getTermStack(self) -> List[sdoterm.SdoTerm]:
-        if not self.termStack:
+    def getTermStack(self) -> list[sdoterm.SdoTerm]:
+        if self.termStack is None:
             self.termStack = []
-            sup_id: str
             for sup_id in self.getSupers():
                 try:
-                    s: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(sup_id, createReference=True)
+                    s = self.__class__._getTerm(sup_id, createReference=True)
                     if not s or s.termType == sdoterm.SdoTermType.REFERENCE:
                         continue
                     self.termStack.append(s)
@@ -402,82 +341,64 @@ class SdoTermSource:
                     assert self.termdesc is not None
                     e.add_note(f"Circular references with {self.termdesc}")
                     raise
-            stack: List[sdoterm.SdoTerm] = []
-            t: sdoterm.SdoTerm
+            stack: list[sdoterm.SdoTerm] = []
             for t in reversed(self.termStack):
                 if t not in stack:
                     stack.append(t)
             self.termStack = list(reversed(stack))
         return self.termStack
 
-    def getSubs(self) -> List[str]:
-        if not self.subs:
+    def getSubs(self) -> list[str]:
+        if self.subs is None:
             self.loadsubs()
         assert self.subs is not None
         return self.subs
 
-    def getProperties(self, getall: bool = False) -> List[str]:
-        if not self.props:
-            subs: List[rdflib.term.Node] = self.loadSubjects("schema:domainIncludes")
+    def getProperties(self, getall: bool = False) -> list[str]:
+        if self.props is None:
+            subs = self.loadSubjects("schema:domainIncludes")
             self.props = sorted(uri2id(str(sub)) for sub in subs)
-        ret: List[str] = self.props
+        ret = self.props
 
         if getall:
-            allprop_ids: Set[str] = set(self.props)
-            t: sdoterm.SdoTerm
+            allprop_ids: set[str] = set(self.props)
             for t in self.getTermStack():
-                term: sdoterm.SdoTerm = t if isinstance(t, sdoterm.SdoTerm) else self.__class__._getTerm(t, createReference=True)
-                if term.id != self.id:
-                    if term.id == "ENUMERATION":
-                        break
-                    if term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
-                        allprop_ids.update(term.properties.ids)
+                term = (
+                    t
+                    if isinstance(t, sdoterm.SdoTerm)
+                    else self.__class__._getTerm(t, createReference=True)
+                )
+                if term and term.id != self.id and term.termType in sdoterm.SdoTerm.TYPE_LIKE_TYPES:
+                    allprop_ids.update(term.allproperties.ids)
             ret = sorted(allprop_ids)
         return ret
 
-    def getPropUsedOn(self) -> List[str]:
-        raise NotImplementedError("Not implemented yet")
-
-    def getRanges(self) -> List[str]:
-        if not self.ranges:
-            objs: List[rdflib.term.Node] = self.loadObjects("schema:rangeIncludes")
+    def getRanges(self) -> list[str]:
+        if self.ranges is None:
+            objs = self.loadObjects("schema:rangeIncludes")
             self.ranges = sorted(uri2id(str(obj)) for obj in objs)
         return self.ranges
 
-    def getDomains(self) -> List[str]:
-        if not self.domains:
-            objs: List[rdflib.term.Node] = self.loadObjects("schema:domainIncludes")
+    def getDomains(self) -> list[str]:
+        if self.domains is None:
+            objs = self.loadObjects("schema:domainIncludes")
             self.domains = sorted(uri2id(str(obj)) for obj in objs)
         return self.domains
 
-    def getTargetOf(self, plusparents: bool = False, stopontarget: bool = False) -> List[str]:
-        global ENUMERATIONURI, THINGURI
-        if not self.targetOf:
-            subs: List[rdflib.term.Node] = self.loadSubjects("schema:rangeIncludes")
+    def getTargetOf(self) -> list[str]:
+        if self.targetOf is None:
+            subs = self.loadSubjects("schema:rangeIncludes")
             self.targetOf = sorted(uri2id(str(sub)) for sub in subs)
-        ret: List[str] = self.targetOf
-        if not (self.targetOf and stopontarget):
-            if plusparents:
-                targets: Set[str] = set(self.targetOf)
-                s: str
-                for s in self.getSupers():
-                    sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(s, createReference=True)
-                    if not sup or sup.uri in (str(ENUMERATIONURI), str(THINGURI)):
-                        break
-                    targets.update(sup.expectedTypeFor.ids)
-                    if targets and stopontarget:
-                        break
-                ret = sorted(targets)
-        return ret
+        return self.targetOf
 
-    def getEquivalents(self) -> List[str]:
-        if not self.equivalents:
-            equivalents: List[rdflib.term.Node] = self.loadObjects("owl:equivalentClass")
+    def getEquivalents(self) -> list[str]:
+        if self.equivalents is None:
+            equivalents = self.loadObjects("owl:equivalentClass")
             equivalents.extend(self.loadObjects("owl:equivalentProperty"))
             self.equivalents = sorted((str(e) for e in equivalents), key=prefixedIdFromUri)
         return self.equivalents
 
-    def inLayers(self, layers: Union[str, Iterable[str]]) -> bool:
+    def inLayers(self, layers: str | Iterable[str]) -> bool:
         if isinstance(layers, str):
             return self.layer == layers
         return self.layer in layers
@@ -486,124 +407,125 @@ class SdoTermSource:
         return self.layer if self.layer and self.layer != CORE else ""
 
     @classmethod
-    def subClassOf(cls, child: Union[str, sdoterm.SdoTerm], parent: Union[str, sdoterm.SdoTerm]) -> bool:
-        child_obj: Optional[sdoterm.SdoTerm] = cls.getTerm(child) if isinstance(child, str) else child
-        parent_obj: Optional[sdoterm.SdoTerm] = cls.getTerm(parent) if isinstance(parent, str) else parent
+    def subClassOf(
+        cls, child: str | sdoterm.SdoTerm, parent: str | sdoterm.SdoTerm
+    ) -> bool:
+        child_obj = cls.getTerm(child) if isinstance(child, str) else child
+        parent_obj = cls.getTerm(parent) if isinstance(parent, str) else parent
 
         if child_obj == parent_obj:
             return True
-        if not child_obj:
+        if not child_obj or not parent_obj:
             return False
 
-        parents: Tuple[str, ...] = child_obj.supers.ids
-        if parent_obj and parent_obj.id in parents:
+        parents = child_obj.supers.ids
+        if parent_obj.id in parents:
             return True
 
-        return any(cls.subClassOf(p, parent_obj) for p in parents) if parent_obj else False
+        return any(cls.subClassOf(p, parent_obj) for p in parents)
 
     def loadComment(self) -> None:
-        comments: Sequence[str] = self.getComments()
-        wpre: Optional[str] = None
+        comments = self.getComments()
+        wpre: str | None = None
         assert self.termdesc is not None
         name: str = self.termdesc.id
         if name.startswith("https:"):
-            val: str = Path(name).name
+            val = Path(name).name
             wpre = name[: -len(val)]
 
-        comment_buffer: List[str]
-        if self.__class__.MARKDOWNPROCESS:
-            comment_buffer = [
-                localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments
-            ]
-        else:
-            comment_buffer = list(comments)
+        comment_buffer = [
+            localmarkdown.Markdown.parse(comment, wpre=wpre) for comment in comments
+        ]
         self.comment = " ".join(comment_buffer).strip()
 
-    def loadValue(self, valType: str) -> Optional[Any]:
-        ret: List[rdflib.term.Node] = self.loadObjects(valType)
+    def loadValue(self, valType: str) -> Any | None:
+        ret = self.loadObjects(valType)
         return ret[0] if ret else None
 
-    def loadObjects(self, pred: Union[rdflib.URIRef, str]) -> List[rdflib.term.Node]:
-        query: str = """
-        SELECT ?val WHERE {
-                %s %s ?val.
-         }""" % (uriWrap(toFullId(self.id)), uriWrap(str(pred)))
-        res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
-        return [row.val for row in res]
+    def loadObjects(self, pred: rdflib.URIRef | str) -> list[rdflib.term.Node]:
+        query = f"""
+        SELECT ?val WHERE {{
+                {uriWrap(toFullId(self.id))} {uriWrap(str(pred))} ?val.
+         }}"""
+        return [row.val for row in self.__class__.query(query)]
 
-    def loadSubjects(self, pred: Union[rdflib.URIRef, str]) -> List[rdflib.term.Node]:
-        query: str = """
-        SELECT ?sub WHERE {
-                ?sub %s %s.
-         }""" % (uriWrap(str(pred)), uriWrap(toFullId(self.id)))
-        res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
-        return [row.sub for row in res]
+    def loadSubjects(self, pred: rdflib.URIRef | str) -> list[rdflib.term.Node]:
+        query = f"""
+        SELECT ?sub WHERE {{
+                ?sub {uriWrap(str(pred))} {uriWrap(toFullId(self.id))}.
+         }}"""
+        return [row.sub for row in self.__class__.query(query)]
 
     def loadsupers(self) -> None:
-        fullId: str = toFullId(self.id)
-        query: str = """
-        SELECT ?sup WHERE {
-             {
-                 %s rdfs:subClassOf ?sup .
-             }UNION{
-                 %s rdfs:subPropertyOf ?sup .
-             }
-         }
-         ORDER BY ?sup""" % (uriWrap(fullId), uriWrap(fullId))
+        wrapped_id = uriWrap(toFullId(self.id))
+        query = f"""
+        SELECT ?sup WHERE {{
+             {{
+                 {wrapped_id} rdfs:subClassOf ?sup .
+             }} UNION {{
+                 {wrapped_id} rdfs:subPropertyOf ?sup .
+             }}
+         }}
+         ORDER BY ?sup"""
 
-        res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
+        res = self.__class__.query(query)
         self.supers = sorted(uri2id(str(row.sup)) for row in res)
 
     def loadsubs(self) -> None:
-        fullId: str = toFullId(self.id)
-        sel: str = "rdfs:subClassOf" if self.ttype in sdoterm.SdoTerm.TYPE_LIKE_TYPES else "rdfs:subPropertyOf"
-        query: str = """
-        SELECT ?sub WHERE {
-                ?sub %s %s.
-         }ORDER BY ?sub""" % (uriWrap(sel), uriWrap(fullId))
-        res: Sequence[rdflib.query.ResultRow] = self.__class__.query(query)
+        fullId = toFullId(self.id)
+        sel = (
+            "rdfs:subClassOf"
+            if self.ttype in sdoterm.SdoTerm.TYPE_LIKE_TYPES
+            else "rdfs:subPropertyOf"
+        )
+        query = f"""
+        SELECT ?sub WHERE {{
+                ?sub {uriWrap(sel)} {uriWrap(fullId)}.
+         }} ORDER BY ?sub"""
+        res = self.__class__.query(query)
         self.subs = [uri2id(str(row.sub)) for row in res]
 
         if self.ttype == sdoterm.SdoTermType.DATATYPE:
-            subjects: List[rdflib.term.Node] = self.loadSubjects("a")
+            subjects = self.loadSubjects("a")
             self.subs.extend(uri2id(str(child)) for child in subjects)
         self.subs.sort()
 
-    def getEnumerationMembers(self) -> Optional[List[str]]:
-        if not self.members and self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            subjects: List[rdflib.term.Node] = self.loadSubjects("a")
+    def getEnumerationMembers(self) -> list[str] | None:
+        if self.members is None and self.ttype == sdoterm.SdoTermType.ENUMERATION:
+            subjects = self.loadSubjects("a")
             self.members = sorted(uri2id(str(child)) for child in subjects)
         return self.members
 
-    def getParentPaths(self, cstack: Optional[List[str]] = None) -> List[List[str]]:
-        self._pstacks: List[List[str]] = []
-        cstack_list: List[str] = cstack or []
-        self._pstacks.append(cstack_list)
+    def getParentPaths(self) -> list[list[str]]:
+        cstack_list: list[str] = []
+        self._pstacks: list[list[str]] = [cstack_list]
         assert self.termdesc is not None
         self._getParentPaths(self.termdesc, cstack_list)
 
-        inserts: List[str] = []
+        inserts: list[str] = []
         if self.ttype == sdoterm.SdoTermType.PROPERTY:
             inserts = ["Property", "Thing"]
         elif self.ttype == sdoterm.SdoTermType.DATATYPE and self.id != "DataType":
             inserts = ["DataType"]
         elif self.ttype == sdoterm.SdoTermType.TYPE:
-            base: str = self._pstacks[0][0]
-            basetype: Optional[sdoterm.SdoTerm] = self.termdesc if base == self.id else self.__class__._getTerm(base)
+            base = self._pstacks[0][0]
+            basetype = (
+                self.termdesc
+                if base == self.id
+                else self.__class__._getTerm(base)
+            )
             if basetype and basetype.termType == sdoterm.SdoTermType.DATATYPE:
                 inserts = ["DataType"]
 
-        ins: str
-        s: List[str]
         for ins in inserts:
             for s in self._pstacks:
                 s.insert(0, ins)
 
         return self._pstacks
 
-    def _getParentPaths(self, term: sdoterm.SdoTerm, cstack: List[str]) -> None:
+    def _getParentPaths(self, term: sdoterm.SdoTerm, cstack: list[str]) -> None:
         cstack.insert(0, term.id)
-        super_ids: List[str] = list(term.supers.ids)
+        super_ids: list[str] = list(term.supers.ids)
 
         if (
             term.termType == sdoterm.SdoTermType.ENUMERATIONVALUE
@@ -613,46 +535,34 @@ class SdoTermSource:
             assert term.enumerationParent.id is not None
             super_ids.append(term.enumerationParent.id)
 
-        super_ids = [
-            sid for sid in super_ids
-            if not (sid.startswith("http:") or sid.startswith("https:"))
-        ]
+        super_ids = [sid for sid in super_ids if SdoUri(sid).is_sdo()]
 
-        tmpStacks: List[List[str]] = [cstack]
+        tmpStacks: list[list[str]] = [cstack]
         if super_ids:
-            i: int
-            for i in range(1, len(super_ids)):
-                t: List[str] = cstack[:]
+            for _ in range(1, len(super_ids)):
+                t = cstack[:]
                 tmpStacks.append(t)
                 self._pstacks.append(t)
 
-            x: int
-            parent_id: str
             for x, parent_id in enumerate(super_ids):
-                sup: Optional[sdoterm.SdoTerm] = self.__class__._getTerm(parent_id)
+                sup = self.__class__._getTerm(parent_id)
                 if sup:
                     self._getParentPaths(sup, tmpStacks[x])
 
     @classmethod
-    def getParentPathTo(cls, start_term_id: str, end_term_id: Optional[str] = None) -> List[List[str]]:
+    def getParentPathTo(
+        cls, start_term_id: str, end_term_id: str | None = None
+    ) -> list[list[str]]:
         end_term_id = end_term_id or "Thing"
-        start_term: Optional[sdoterm.SdoTerm] = cls.getTerm(start_term_id, expanded=True)
+        start_term = cls.getTerm(start_term_id, expanded=True)
         if not start_term:
             return []
         return [list(path) for path in start_term.superPaths if end_term_id in path]
 
-    def checkForEnumVal(self) -> bool:
-        if self.ttype == sdoterm.SdoTermType.ENUMERATION:
-            return True
-
-        sup_id: str
-        return any(
-            (sup_term := self.__class__.getTerm(sup_id)) and sup_term.checkForEnumVal()
-            for sup_id in self.getSupers()
-        )
-
     @classmethod
-    def expandTerms(cls, terms: Iterable[sdoterm.SdoTerm], depth: int = 2) -> List[sdoterm.SdoTerm]:
+    def expandTerms(
+        cls, terms: Iterable[sdoterm.SdoTerm], depth: int = 2
+    ) -> list[sdoterm.SdoTerm]:
         return [cls.expandTerm(t, depth=depth) for t in terms]
 
     @classmethod
@@ -667,7 +577,6 @@ class SdoTermSource:
         termdesc.superPaths = [
             sdoterm.SdoTermSequence.forElements(paths) for paths in termdesc.superPaths
         ]
-        termdesc.termStack.setTerms(cls.termsFromIds(termdesc.termStack.ids))
         termdesc.supers.setTerms(cls.termsFromIds(termdesc.supers.ids))
         termdesc.subs.setTerms(cls.termsFromIds(termdesc.subs.ids))
         termdesc.equivalents.setTerms(cls.termsFromIds(termdesc.equivalents.ids))
@@ -691,10 +600,12 @@ class SdoTermSource:
                 )
 
             if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
+                assert isinstance(termdesc, sdoterm.SdoEnumeration)
                 termdesc.enumerationMembers.setTerms(
                     cls.termsFromIds(termdesc.enumerationMembers.ids)
                 )
         elif termdesc.termType == sdoterm.SdoTermType.PROPERTY:
+            assert isinstance(termdesc, sdoterm.SdoProperty)
             termdesc.domainIncludes.setTerms(
                 cls.termsFromIds(termdesc.domainIncludes.ids)
             )
@@ -704,40 +615,37 @@ class SdoTermSource:
             if termdesc.inverse.id:
                 termdesc.inverse.setTerm(cls.termFromId(termdesc.inverse.id))
         elif termdesc.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
+            assert isinstance(termdesc, sdoterm.SdoEnumerationvalue)
             if termdesc.enumerationParent.id:
                 termdesc.enumerationParent.setTerm(
                     cls.termFromId(termdesc.enumerationParent.id)
                 )
 
-        if depth > 0:
-            termdesc.termStack.setTerms(
-                cls.expandTerms(
-                    cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1
-                )
+        termdesc.termStack.setTerms(
+            cls.expandTerms(
+                cls.termsFromIds(termdesc.termStack.ids), depth=depth - 1
             )
+        )
 
         return termdesc
 
     @classmethod
-    def termFromId(cls, id: str = "") -> Optional[sdoterm.SdoTerm]:
+    def termFromId(cls, id: str = "") -> sdoterm.SdoTerm | None:
         if not id:
             return None
-        ids: Sequence[sdoterm.SdoTerm] = cls.termsFromIds([id])
+        ids = cls.termsFromIds([id])
         return ids[0] if ids else None
 
     @classmethod
     def termsFromIds(
-        cls, ids: Optional[Sequence[Union[str, sdoterm.SdoTerm]]] = None
+        cls, ids: Sequence[str | sdoterm.SdoTerm] | None = None
     ) -> Sequence[sdoterm.SdoTerm]:
         """Convert a sequence of term-identities into a sequence of SdoTerms."""
-        id_list: Sequence[Union[str, sdoterm.SdoTerm]] = ids or []
-        ret: List[sdoterm.SdoTerm] = []
-        tid: Union[str, sdoterm.SdoTerm]
-        for tid in id_list:
+        ret: list[sdoterm.SdoTerm] = []
+        for tid in ids or ():
             if tid:
                 if isinstance(tid, str):
-                    term: Optional[sdoterm.SdoTerm] = cls._getTerm(tid, createReference=True)
-                    if term:
+                    if term := cls._getTerm(tid, createReference=True):
                         ret.append(term)
                 else:
                     ret.append(tid)
@@ -746,10 +654,9 @@ class SdoTermSource:
     @classmethod
     def _singleTermFromResult(
         cls, res: Sequence[rdflib.query.ResultRow], termId: str
-    ) -> Optional[sdoterm.SdoTerm]:
+    ) -> sdoterm.SdoTerm | None:
         """Return a single term matching `termId` from res."""
-        tmp: _TermAccumulator = _TermAccumulator(termId)
-        row: rdflib.query.ResultRow
+        tmp = _TermAccumulator(termId)
         for row in res:
             tmp.appendRow(row)
 
@@ -759,133 +666,130 @@ class SdoTermSource:
     def termsFromResults(
         cls, res: Sequence[rdflib.query.ResultRow]
     ) -> Sequence[sdoterm.SdoTerm]:
-        rows_by_term_id: Dict[str, _TermAccumulator] = {}
-        row: rdflib.query.ResultRow
+        rows_by_term_id: dict[str, _TermAccumulator] = {}
         for row in res:
-            key: str = str(row.term)
-            if key not in rows_by_term_id:
-                rows_by_term_id[key] = _TermAccumulator(key)
-            rows_by_term_id[key].appendRow(row)
+            key = str(row.term)
+            acc = rows_by_term_id.get(key)
+            if acc is None:
+                acc = _TermAccumulator(key)
+                rows_by_term_id[key] = acc
+            acc.appendRow(row)
 
-        acc: _TermAccumulator
         return [t for acc in rows_by_term_id.values() if (t := cls._createTerm(acc))]
 
     @classmethod
-    def _createTerm(cls, tmp: _TermAccumulator) -> Optional[sdoterm.SdoTerm]:
-        global DATATYPEURI, ENUMERATIONURI
+    def _createTerm(cls, tmp: _TermAccumulator) -> sdoterm.SdoTerm | None:
         if not tmp or not tmp.id:
             return None
 
-        if DATATYPEURI in tmp.types:
-            tmp.type = DATATYPEURI
-        elif ENUMERATIONURI in tmp.sups:
-            tmp.type = ENUMERATIONURI
-        elif tmp.types and len(tmp.types) > 1:
+        if SDO.DataType in tmp.types:
+            tmp.type = SDO.DataType
+        elif SDO.Enumeration in tmp.sups:
+            tmp.type = SDO.Enumeration
+        elif len(tmp.types) > 1:
             tmp.type = sorted(tmp.types)[0]
 
-        term: Optional[sdoterm.SdoTerm] = cls.TERMS.get(tmp.id)
+        term: sdoterm.SdoTerm | None = cls.TERMS.get(tmp.id)
         if not term:
-            t: SdoTermSource = cls(tmp.id, ttype=tmp.type, label=tmp.label or "", layer=tmp.layer)
-            term = t.termdesc
+            term = cls(
+                tmp.id, ttype=tmp.type, label=tmp.label or "", layer=tmp.layer
+            ).termdesc
         return term
 
     @classmethod
-    def triples4Term(cls, termId: str) -> Iterable[Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]]:
-        term: Optional[sdoterm.SdoTerm] = cls.getTerm(termId)
-        g: Optional[rdflib.Graph] = cls.SOURCEGRAPH
-        if not term or not g:
-            return []
+    def triples4Term(
+        cls, termId: str
+    ) -> Iterable[tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]]:
+        term = cls.getTerm(termId)
+        g = cls.SOURCEGRAPH
+        if not term or g is None:
+            return ()
         return g.triples((rdflib.URIRef(term.uri), None, None))
 
     @classmethod
-    def getTermAsRdfString(cls, termId: str, output_format: str, full: bool = False) -> str:
-        global VOCABURI
-        term: Optional[sdoterm.SdoTerm] = cls.getTerm(termId)
+    def getTermAsRdfString(
+        cls, termId: str, output_format: str, full: bool = False
+    ) -> str:
+        term = cls.getTerm(termId)
         if not term or term.termType == sdoterm.SdoTermType.REFERENCE:
             return ""
-        g: rdflib.Graph = rdflib.Graph()
-        assert VOCABURI is not None
-        g.bind("schema", VOCABURI)
+        g = rdflib.Graph()
+        g.bind("schema", constants.SCHEMA_URI)
 
-        trip: Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]
         if not full:
             for trip in cls.triples4Term(term.id):
                 g.add(trip)
         else:
-            types: List[sdoterm.SdoTerm] = []
-            props: List[sdoterm.SdoTerm] = []
-            stack: List[sdoterm.SdoTerm] = [term]
+            types: list[sdoterm.SdoTerm] = []
+            props: list[sdoterm.SdoTerm] = []
+            stack: list[sdoterm.SdoTerm] = [term, *cls.termsFromIds(term.termStack.ids)]
 
-            stack.extend(cls.termsFromIds(term.termStack.ids))
-            t: sdoterm.SdoTerm
             for t in stack:
                 if t.termType == sdoterm.SdoTermType.PROPERTY:
                     props.append(t)
                 else:
                     types.append(t)
                     if t.termType == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                        e_parent: Optional[sdoterm.SdoTerm] = cls.termFromId(t.enumerationParent.id or "")
-                        if e_parent:
+                        assert isinstance(t, sdoterm.SdoEnumerationvalue)
+                        if e_parent := cls.termFromId(t.enumerationParent.id or ""):
                             types.append(e_parent)
                     elif t == stack[0]:
+                        assert isinstance(t, sdoterm._SdoTypeLike)
                         props.extend(cls.termsFromIds(t.allproperties.ids))
 
-            for t in sorted(types):
-                if t:
-                    for trip in cls.triples4Term(t.id):
-                        g.add(trip)
-
-            p: sdoterm.SdoTerm
-            for p in sorted(props):
-                if p:
-                    for trip in cls.triples4Term(p.id):
-                        g.add(trip)
+            for item in (*sorted(types), *sorted(props)):
+                for trip in cls.triples4Term(item.id):
+                    g.add(trip)
 
         if output_format == "rdf":
             output_format = "pretty-xml"
 
-        ret: Union[str, bytes] = g.serialize(format=output_format, auto_compact=True, sort_keys=True, max_depth=1)
+        ret = g.serialize(
+            format=output_format, auto_compact=True, sort_keys=True, max_depth=1
+        )
 
         if output_format == "json-ld":
             try:
-                data: Any = json.loads(ret)
-                return json.dumps(sort_dict(data), indent=2)
-            except Exception:
+                return json.dumps(sort_dict(json.loads(ret)), indent=2)
+            except (TypeError, ValueError):
                 pass
         return str(ret)
 
     @classmethod
-    def getAllTypes(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
+    def getAllTypes(
+        cls, layer: str | None = None, expanded: bool = False
+    ) -> Sequence[str | sdoterm.SdoTerm]:
         return cls.getAllTerms(
             ttype=sdoterm.SdoTermType.TYPE, layer=layer, expanded=expanded
         )
 
     @classmethod
-    def getAllProperties(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
+    def getAllProperties(
+        cls, layer: str | None = None, expanded: bool = False
+    ) -> Sequence[str | sdoterm.SdoTerm]:
         return cls.getAllTerms(
             ttype=sdoterm.SdoTermType.PROPERTY, layer=layer, expanded=expanded
         )
 
     @classmethod
-    def getAllEnumerations(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
-        return cls.getAllTerms(
-            ttype=sdoterm.SdoTermType.ENUMERATION, layer=layer, expanded=expanded
-        )
-
-    @classmethod
-    def getAllEnumerationvalues(cls, layer: Optional[str] = None, expanded: bool = False) -> Sequence[Union[str, sdoterm.SdoTerm]]:
+    def getAllEnumerationvalues(
+        cls, layer: str | None = None, expanded: bool = False
+    ) -> Sequence[str | sdoterm.SdoTerm]:
         return cls.getAllTerms(
             ttype=sdoterm.SdoTermType.ENUMERATIONVALUE, layer=layer, expanded=expanded
         )
 
     @classmethod
     def getAllTerms(
-        cls, ttype: Optional[sdoterm.SdoTermType] = None, layer: Optional[str] = None, suppressSourceLinks: bool = False, expanded: bool = False
-    ) -> Sequence[Union[str, sdoterm.SdoTerm]]:
+        cls,
+        ttype: sdoterm.SdoTermType | None = None,
+        layer: str | None = None,
+        suppressSourceLinks: bool = False,
+        expanded: bool = False,
+    ) -> Sequence[str | sdoterm.SdoTerm]:
         with pretty_logger.BlockLog(
             logger=log, message="GetAllTerms", timing=True
         ) as block:
-            global DATATYPEURI, ENUMERATIONURI
             typsel: str = ""
             extra: str = ""
             if ttype == sdoterm.SdoTermType.TYPE:
@@ -893,27 +797,27 @@ class SdoTermSource:
             elif ttype == sdoterm.SdoTermType.PROPERTY:
                 typsel = f"a <{rdflib.RDF.Property}>;"
             elif ttype == sdoterm.SdoTermType.DATATYPE:
-                typsel = f"a <{DATATYPEURI}>;"
+                typsel = f"a <{SDO.DataType}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATION:
-                typsel = f"rdfs:subClassOf* <{ENUMERATIONURI}>;"
+                typsel = f"rdfs:subClassOf* <{SDO.Enumeration}>;"
             elif ttype == sdoterm.SdoTermType.ENUMERATIONVALUE:
-                extra = f"?type rdfs:subClassOf*  <{ENUMERATIONURI}>."
-            elif not ttype:
-                typsel = ""
-            else:
-                log.debug(f"Invalid type value '{ttype}'")
+                extra = f"?type rdfs:subClassOf*  <{SDO.Enumeration}>."
+            elif ttype:
+                log.debug("Invalid type value '%s'", ttype)
 
             laysel: str = ""
             fil: str = ""
-            suppress: str = ""
             if layer:
-                if layer == "core":
+                if layer == CORE:
                     fil = "FILTER NOT EXISTS { ?term schema:isPartOf ?x. }"
                 else:
                     laysel = f"schema:isPartOf <{uriFromLayer(layer)}>; "
 
-            if suppressSourceLinks:
-                suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+            suppress = (
+                "FILTER NOT EXISTS { ?s dc:source ?term. }"
+                if suppressSourceLinks
+                else ""
+            )
 
             query: str = f"""SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {{
                  ?term a ?type;
@@ -936,24 +840,18 @@ class SdoTermSource:
             ORDER BY ?term
             """
 
-            log.debug(f"query {query}")
-            res: Sequence[rdflib.query.ResultRow] = cls.query(query)
-            log.debug(f"res {len(res)}")
+            log.debug("query %s", query)
+            res = cls.query(query)
+            log.debug("res %d", len(res))
 
-            terms: List[Union[str, sdoterm.SdoTerm]] = []
+            terms: list[str | sdoterm.SdoTerm]
             if expanded:
                 with pretty_logger.BlockLog(
                     logger=log, message=f"Expanding {len(res)} terms", timing=True
                 ):
                     terms = list(cls.termsFromResults(res))
             else:
-                seen: Set[str] = set()
-                row: rdflib.query.ResultRow
-                for row in res:
-                    term_id: str = uri2id(str(row.term))
-                    if term_id not in seen:
-                        terms.append(term_id)
-                        seen.add(term_id)
+                terms = list(dict.fromkeys(uri2id(str(row.term)) for row in res))
             block.message = f"GetAllTerms: {len(terms)} terms, total: {len(cls.TERMS)}"
             return terms
 
@@ -975,64 +873,63 @@ class SdoTermSource:
             }}
             ORDER BY ?term
             """
-        res: Sequence[rdflib.query.ResultRow] = cls.query(query)
-        return cls.termsFromResults(res)
+        return cls.termsFromResults(cls.query(query))
 
     @classmethod
-    def setSourceGraph(cls, g: rdflib.graph.Graph) -> None:
-        global VOCABURI
+    def setSourceGraph(cls, g: rdflib.Graph) -> None:
         cls.SOURCEGRAPH = g
-        if VOCABURI:
-            g.bind("schema", VOCABURI)
+        g.bind("schema", constants.SCHEMA_URI)
         bindNameSpaces(g)
 
         cls.TERMS = {}
         cls.EXPANDEDTERMS = {}
+        cls.TERMCOUNTS = None
 
     @classmethod
     def loadSourceGraph(
-        cls, files: Optional[Union[str, Iterable[str]]] = None, init: bool = False, vocaburi: Optional[str] = None
+        cls, files: str | Iterable[str | Path] | None = None, init: bool = False
     ) -> None:
-        global VOCABURI, DEFTRIPLESFILESGLOB
         if init:
             cls.SOURCEGRAPH = None
-        if not VOCABURI and not vocaburi:
-            cls.setVocabUri(DEFVOCABURI)
-        elif vocaburi:
-            cls.setVocabUri(vocaburi)
 
-        load_files: List[str] = []
+        load_files: Sequence[str | Path]
         if not files or files == "default":
-            if cls.SOURCEGRAPH:
+            if cls.SOURCEGRAPH is not None:
                 if not cls.LOADEDDEFAULT:
-                    raise Exception("Sourcegraph already loaded - cannot overwrite with defaults")
+                    raise RuntimeError(
+                        "Sourcegraph already loaded - cannot overwrite with defaults"
+                    )
                 log.info("Default files already loaded")
                 return
 
             cls.LOADEDDEFAULT = True
-            log.info(
-                "SdoTermSource.loadSourceGraph() loading from default files",
-            )
-            load_files = [str(p) for p in paths.DefaultInputLayout().domain_files(paths.Domain.DATA, ["*.ttl", "ext/*/*.ttl"])]
+            log.info("SdoTermSource.loadSourceGraph() loading from default files")
+            load_files = Issues(paths.DefaultInputLayout()).get_ttl_files()
         elif isinstance(files, str):
             cls.LOADEDDEFAULT = False
-            log.info(f"SdoTermSource.loadSourceGraph() loading from file: {files}")
+            log.info("SdoTermSource.loadSourceGraph() loading from file: %s", files)
             load_files = [files]
         else:
             cls.LOADEDDEFAULT = False
-            log.info(f"SdoTermSource.loadSourceGraph() loading from {len(list(files))} files")
             load_files = list(files)
+            log.info(
+                "SdoTermSource.loadSourceGraph() loading from %d files",
+                len(load_files),
+            )
 
         if not load_files:
-            raise Exception("No triples file(s) to load")
+            raise ValueError("No triples file(s) to load")
 
-        cls.setSourceGraph(rdflib.Graph())
-        file_path: str
+        parsed = rdflib.Graph(bind_namespaces="none")
         for file_path in load_files:
-            assert cls.SOURCEGRAPH is not None
-            cls.SOURCEGRAPH += _loadOneSourceGraph(file_path)
+            _parse_into_graph(parsed, file_path)
+        graph = rdflib.Graph()
+        graph += parsed
+        cls.setSourceGraph(graph)
         log.info(
-            f"Done: Loaded {len(cls.sourceGraph())} triples - {len(cls.getAllTerms())} terms",
+            "Done: Loaded %d triples - %d terms",
+            len(cls.sourceGraph()),
+            len(cls.getAllTerms()),
         )
 
     @classmethod
@@ -1043,45 +940,30 @@ class SdoTermSource:
         return cls.SOURCEGRAPH
 
     @staticmethod
-    def setVocabUri(uri: Optional[str] = None) -> None:
-        global VOCABURI, DATATYPEURI, ENUMERATIONURI, THINGURI
-        VOCABURI = uri or DEFVOCABURI
-        DATATYPEURI = rdflib.URIRef(f"{VOCABURI}DataType")
-        ENUMERATIONURI = rdflib.URIRef(f"{VOCABURI}Enumeration")
-        THINGURI = rdflib.URIRef(f"{VOCABURI}Thing")
-
-    @classmethod
-    def vocabUri(cls) -> str:
-        global VOCABURI
-        if not VOCABURI:
-            cls.setVocabUri()
-        assert VOCABURI is not None
-        return VOCABURI
+    def vocabUri() -> str:
+        return constants.SCHEMA_URI
 
     @classmethod
     def query(cls, query_string: str) -> Sequence[rdflib.query.ResultRow]:
-        graph: rdflib.Graph = cls.sourceGraph()
+        graph = cls.sourceGraph()
         with cls.RDFLIBLOCK:
-            result: Sequence[rdflib.query.ResultRow] = tuple(graph.query(query_string))
-        return result
+            return tuple(graph.query(query_string))
 
     @classmethod
-    def termCounts(cls) -> Dict[Union[sdoterm.SdoTermType, str], int]:
-        global VOCABURI
-        if not cls.TERMCOUNTS:
+    def termCounts(cls) -> dict[sdoterm.SdoTermType | str, int]:
+        if cls.TERMCOUNTS is None:
             def run_count_query(q: str) -> int:
-                res: Sequence[rdflib.query.ResultRow] = cls.query(q)
+                res = cls.query(q)
                 return int(res[0][0])
 
-            allterms: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            classes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdfs:Class . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            properties: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdf:Property . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            enums: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            enumvals: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . ?type rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            datatypes: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ {{ ?s a schema:DataType . }}UNION{{ ?s rdf:type* schema:DataType . }}UNION{{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . }} FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
-            datatypeclasses: int = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . FILTER (strStarts(str(?s),"{VOCABURI}")) }}')
+            classes = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdfs:Class . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            properties = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a rdf:Property . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            enums = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            enumvals = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s a ?type . ?type rdfs:subClassOf* schema:Enumeration . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            datatypes = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ {{ ?s a schema:DataType . }}UNION{{ ?s rdf:type* schema:DataType . }}UNION{{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . }} FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
+            datatypeclasses = run_count_query(f'SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {{ ?s rdfs:subClassOf* ?x . ?x a schema:DataType . FILTER (strStarts(str(?s),"{constants.SCHEMA_URI}")) }}')
 
-            types: int = classes - 1 - enums - datatypeclasses
+            types = classes - 1 - enums - datatypeclasses
             datatypes -= 1
 
             cls.TERMCOUNTS = {
@@ -1090,31 +972,21 @@ class SdoTermSource:
                 sdoterm.SdoTermType.DATATYPE: datatypes,
                 sdoterm.SdoTermType.ENUMERATION: enums,
                 sdoterm.SdoTermType.ENUMERATIONVALUE: enumvals,
-                "All": types + properties + datatypes + enums + enumvals
+                "All": types + properties + datatypes + enums + enumvals,
             }
         return cls.TERMCOUNTS
-
-    @classmethod
-    def setMarkdownProcess(cls, process: bool) -> None:
-        cls.MARKDOWNPROCESS = process
-
-    @classmethod
-    def termCache(cls) -> Dict[str, sdoterm.SdoTerm]:
-        return cls.TERMS
 
     @classmethod
     def getTerm(
         cls,
         termId: str,
         expanded: bool = False,
-        refresh: bool = False,
         createReference: bool = False,
-    ) -> Optional[sdoterm.SdoTerm]:
+    ) -> sdoterm.SdoTerm | None:
         with cls.TERMSLOCK:
             return cls._getTerm(
                 termId,
                 expanded=expanded,
-                refresh=refresh,
                 createReference=createReference,
             )
 
@@ -1123,37 +995,32 @@ class SdoTermSource:
         cls,
         termId: str,
         expanded: bool = False,
-        refresh: bool = False,
         createReference: bool = False,
-    ) -> Optional[sdoterm.SdoTerm]:
+    ) -> sdoterm.SdoTerm | None:
         if not termId:
             return None
         assert isinstance(termId, str), termId
         termId = termId.strip()
-        fullId: str = toFullId(termId)
-        term: Optional[sdoterm.SdoTerm] = cls.TERMS.get(fullId)
-
-        if term and refresh:
-            del cls.TERMS[fullId]
-            log.info(f"Term '{termId}' found and removed")
-            term = None
+        fullId = toFullId(termId)
+        term: sdoterm.SdoTerm | None = cls.TERMS.get(fullId)
 
         if not term:
-            query: str = f"""
+            wrapped = uriWrap(fullId)
+            query = f"""
             SELECT ?term ?type ?label ?layer ?sup WHERE {{
-                 {uriWrap(fullId)} a ?type;
+                 {wrapped} a ?type;
                     rdfs:label ?label.
-                OPTIONAL {{ {uriWrap(fullId)} schema:isPartOf ?layer. }}
-                OPTIONAL {{ {uriWrap(fullId)} rdfs:subClassOf ?sup. }}
-                OPTIONAL {{ {uriWrap(fullId)} rdfs:subPropertyOf ?sup. }}
+                OPTIONAL {{ {wrapped} schema:isPartOf ?layer. }}
+                OPTIONAL {{ {wrapped} rdfs:subClassOf ?sup. }}
+                OPTIONAL {{ {wrapped} rdfs:subPropertyOf ?sup. }}
             }}"""
-            res: Sequence[rdflib.query.ResultRow] = cls.query(query)
+            res = cls.query(query)
             if res:
                 term = cls._singleTermFromResult(res, termId=fullId)
             elif createReference:
                 term = cls(fullId).getTermdesc()
             else:
-                log.warning(f"No definition of term {fullId}")
+                log.warning("No definition of term %s", fullId)
 
         if term and expanded and not term.expanded():
             if fullId not in cls.EXPANDEDTERMS:
@@ -1164,15 +1031,11 @@ class SdoTermSource:
 
 
 def toFullId(termId: str) -> str:
-    global VOCABURI
-    assert VOCABURI
     if ":" not in termId:
-        return f"{VOCABURI}{termId}"
+        return f"{constants.SCHEMA_URI}{termId}"
 
     if termId.startswith("http"):
         return termId
-    prefix: str
-    id_component: str
     prefix, id_component = termId.split(":", 1)
     return f"{uriForPrefix(prefix)}{id_component}"
 
@@ -1183,72 +1046,34 @@ def uriWrap(identity_str: str) -> str:
     return identity_str
 
 
-LAYERPATTERN: Optional[str] = None
-
-
-def layerFromUri(uri: str) -> Optional[str]:
-    global VOCABURI, LAYERPATTERN
-    assert VOCABURI
+def layerFromUri(uri: str | None) -> str | None:
+    """Layer named by a schema.org host (``pending``, ``attic``, ...); None for core or non-URIs."""
     if not uri:
         return None
-    if not LAYERPATTERN:
-        voc: str = VOCABURI.rstrip("/#")
-        prto: Optional[str]
-        root: Optional[str]
-        prto, root = getProtoAndRoot(voc)
-        LAYERPATTERN = rf"^{prto}([\w]*)\.{root}"
-
-    if m := re.search(LAYERPATTERN, str(uri)):
-        return m.group(1)
-    return None
+    layer = SdoUri(uri).layer()
+    return None if layer == CORE else layer
 
 
-def uriFromLayer(layer: Optional[str] = None) -> str:
-    global VOCABURI
-    assert VOCABURI is not None
-    voc: str = VOCABURI.rstrip("/#")
-    if not layer:
-        return voc
-    prto: Optional[str]
-    root: Optional[str]
-    prto, root = getProtoAndRoot(voc)
-    return f"{prto}{layer}.{root}"
-
-
-ProtoAndRoot = collections.namedtuple("ProtoAndRoot", ["proto", "root"])
-
-
-def getProtoAndRoot(uri: str) -> ProtoAndRoot:
-    m: Optional[re.Match] = re.search(r"^(https:\/\/)(.*)", uri)
-    if m:
-        return ProtoAndRoot(m.group(1), m.group(2))
-    return ProtoAndRoot(None, None)
+def uriFromLayer(layer: str | None = None) -> str:
+    return str(SdoUri.for_layer(layer))
 
 
 def uri2id(uri: str) -> str:
-    global VOCABURI
-    assert VOCABURI is not None
-    if uri.startswith(VOCABURI):
-        return uri[len(VOCABURI):]
-    return uri
+    return SdoUri(uri).term_name()
 
 
-def prefixFromUri(uri: str) -> Optional[str]:
+def prefixFromUri(uri: str) -> str | None:
     if SdoTermSource.SOURCEGRAPH is None:
         return None
-    pref: rdflib.term.Node
-    pth: rdflib.term.Node
     for pref, pth in SdoTermSource.SOURCEGRAPH.namespaces():
         if uri.startswith(str(pth)):
             return str(pref)
     return None
 
 
-def uriForPrefix(pre: str) -> Optional[rdflib.term.URIRef]:
+def uriForPrefix(pre: str) -> rdflib.term.URIRef | None:
     if SdoTermSource.SOURCEGRAPH is None:
         return None
-    pref: rdflib.term.Node
-    pth: rdflib.term.URIRef
     for pref, pth in SdoTermSource.SOURCEGRAPH.namespaces():
         if pre == str(pref):
             return pth
@@ -1257,9 +1082,8 @@ def uriForPrefix(pre: str) -> Optional[rdflib.term.URIRef]:
 
 def prefixedIdFromUri(uri: str) -> str:
     """Converts a URI into a string of the form namespace:term."""
-    prefix: Optional[str] = prefixFromUri(uri)
-    if prefix:
-        base: str = Path(uri).name
+    if prefix := prefixFromUri(uri):
+        base = Path(uri).name
         if "#" in base:
             base = base.split("#", 1)[1]
         return f"{prefix}:{base}"

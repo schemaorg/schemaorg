@@ -1,29 +1,46 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-import os
-import subprocess
-import sys
 import unittest
 
-import software
+import util.paths as paths
 
 
 class BasicFileTests(unittest.TestCase):
-    """Basic tests for file level integrity."""
+    # Source example files only. Release archives under data/releases/ are
+    # deliberately excluded: they are frozen historical artefacts and the
+    # older ones legitimately predate the https migration.
+    EXAMPLE_GLOBS: tuple[str, ...] = ("*example*.txt", "ext/*/*example*.txt")
 
-    def testNoHttpExamples(self):
-        """Test that no examples contain url of the http://schema.org (they should be https)."""
-        httpexamplescheck = (
-            "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
+    HTTP_SCHEMA_ORG: str = "http://schema.org"
+
+    def testNoHttpExamples(self) -> None:
+        """Examples must use https://schema.org, never http://schema.org."""
+        layout = paths.DefaultInputLayout()
+        files = layout.files(paths.Domain.DATA, self.EXAMPLE_GLOBS)
+
+        self.assertTrue(
+            files,
+            f"No example files matched {self.EXAMPLE_GLOBS} under "
+            f"{layout.dir(paths.Domain.DATA)}",
         )
-        out = ""
-        try:
-            out = subprocess.check_output(httpexamplescheck, shell=True)
-            if out:
-                self.fail(
-                    "Examples file(s) found containing 'http://schema.org':\n%s\n"
-                    "Replace with 'https://schema.org and rerun."
-                )
-        except:
-            pass
+
+        offenders: list[str] = []
+        for path in files:
+            lines = path.read_text(encoding="utf-8").splitlines()
+            for number, line in enumerate(lines, start=1):
+                if self.HTTP_SCHEMA_ORG in line:
+                    offenders.append(
+                        f"  {layout.relative_file(path)}:{number}: {line.strip()}"
+                    )
+
+        if offenders:
+            joined = "\n".join(offenders)
+            self.fail(
+                f"{len(offenders)} line(s) in the example files reference "
+                f"'{self.HTTP_SCHEMA_ORG}'. Replace them with "
+                f"'https://schema.org' and rerun:\n{joined}"
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()

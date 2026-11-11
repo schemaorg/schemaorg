@@ -1,85 +1,30 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Module that handles the schema.org version information and global constants."""
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
 
-import util.paths as paths
-from util.sort_dict import sort_dict
+from schemaorg.constants import PROJECT_ROOT, VERSIONS_FILE
+from schemaorg.version import Version
 
 
 class constants:
     SITENAME: str = "Schema.org"
     DOCSDOCSDIR: str = "/docs"
-    TERMDOCSDIR: str = "/docs"
+    TERMDOCSDIR: str = DOCSDOCSDIR
     HANDLER_TEMPLATE: str = "handlers-template.yaml"
     HANDLER_FILE: str = "handlers.yaml"
-    RELEASE_DIR: str = "software/site/releases"
-    HOMEPAGE: str = "https://schema.org"
 
 
 class config:
-    BUILDOPTS: List[str] = []
-    TERMS: List[str] = []
-    PAGES: List[str] = []
-    FILES: List[str] = []
+    BUILDOPTS: list[str] = []
+    TERMS: list[str] = []
+    PAGES: list[str] = []
+    FILES: list[str] = []
     OUTPUTDIR: str = "software/site"
 
 
 def hasOpt(opt: str) -> bool:
-    """Return true if `opt` is among the build options"""
+    """Return true if `opt` is among the build options."""
     return opt in config.BUILDOPTS
 
 
-def getOutputDir() -> str:
-    return config.OUTPUTDIR
-
-
-def getDocsOutputDir() -> str:
-    return str(Path(config.OUTPUTDIR) / "docs")
-
-
-VERSION_DATA: Optional[Dict[str, Any]] = None
-
-
-def getVersionData() -> Dict[str, Any]:
-    global VERSION_DATA
-    if VERSION_DATA is None:
-        VERSION_DATA = json.loads(
-            paths.DefaultInputLayout()
-            .domain_file(paths.Domain.ROOT, "versions.json")
-            .read_text()
-        )
-    assert VERSION_DATA is not None
-    return VERSION_DATA
-
-
-def getVersion() -> str:
-    return str(getVersionData()["schemaversion"])
-
-
-def getVersionDate(ver: str) -> Optional[str]:
-    ret: Optional[str] = getVersionData()["releaseLog"].get(ver)
-    return ret
-
-
-def getCurrentVersionDate() -> Optional[str]:
-    return getVersionDate(getVersion())
-
-
-def setVersion(ver: str, date: str) -> None:
-    versiondata: Dict[str, Any] = getVersionData()
-    versiondata["schemaversion"] = ver
-    versiondata["releaseLog"][ver] = date
-
-    logs: Dict[str, str] = versiondata["releaseLog"]
-    versiondata["releaseLog"] = dict(
-        sorted(logs.items(), key=lambda x: float(x[0]), reverse=True)
-    )
-
-    paths.DefaultInputLayout().domain_file(
-        paths.Domain.ROOT, "versions.json"
-    ).write_text(json.dumps(sort_dict(versiondata), indent=4))
+VERSION = Version(PROJECT_ROOT / VERSIONS_FILE)

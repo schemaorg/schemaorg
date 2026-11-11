@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Print the current schema.org version number."""
 
-import os
-import sys
+from __future__ import annotations
 
-if os.getcwd() not in sys.path:
-    sys.path.insert(1, os.getcwd())
-import software
+from util.schema import VERSION
 
-import util.schema as schema
+
+def main() -> None:
+    print(VERSION.current().number())
 
 
 if __name__ == "__main__":
-    print(schema.getVersion())
+    main()
