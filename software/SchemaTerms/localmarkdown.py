@@ -1,23 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-
 from __future__ import annotations
 
-import logging
-import os
+from collections.abc import Iterable
 import re
-import sys
 import threading
-from typing import Iterable, Optional
 
 import markdown2
 
-import software
-
-
-WIKILINKPATTERN: str = r"\[\[([\w0-9_ -]+)\]\]"
-
-log: logging.Logger = logging.getLogger(__name__)
+_WIKILINK_RE: re.Pattern[str] = re.compile(r"\[\[([\w0-9_ -]+)\]\]")
 
 
 class MarkdownTool:
@@ -28,16 +17,10 @@ class MarkdownTool:
     def __init__(self) -> None:
         self._md: markdown2.Markdown = markdown2.Markdown()
         self._parselock: threading.Lock = threading.Lock()
-        self.wpre: Optional[str] = None
-        self.wpost: Optional[str] = None
 
-    def setPre(self, pre: str = "./") -> None:
-        self.wpre = pre
-
-    def setPost(self, post: str = "") -> None:
-        self.wpost = post
-
-    def parse(self, source: str, preservePara: bool = False, wpre: Optional[str] = None) -> str:
+    def parse(
+        self, source: str, preservePara: bool = False, wpre: str | None = None
+    ) -> str:
         source = source.strip()
         if not source:
             return ""
@@ -48,24 +31,25 @@ class MarkdownTool:
 
         if not preservePara:
             if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>\n"):
-                ret = ret[3:-5]
+                ret = ret.removeprefix("<p>").removesuffix("</p>\n")
 
             ret = ret.replace("<p>", "").replace("</p>", "<br/><br/>")
-            if ret.endswith("<br/><br/>"):
-                ret = ret[:-10]
+            ret = ret.removesuffix("<br/><br/>")
 
         return self.parseWiklinks(ret, wpre=wpre)
 
     def parseLines(self, lines: Iterable[str]) -> str:
         return self.parse("".join(lines))
 
-    def parseWiklinks(self, source: str, wpre: Optional[str] = None) -> str:
-        self.wpre = wpre
-        return re.sub(WIKILINKPATTERN, self.wikilinksReplace, source)
-
-    def wikilinksReplace(self, match: re.Match) -> str:
-        t: str = match.group(1)
-        return f'<a class="{self.WCLASS}" href="{self.WPRE}{t}{self.WPOST}">{t}</a>'
+    def parseWiklinks(self, source: str, wpre: str | None = None) -> str:
+        prefix = self.WPRE if wpre is None else wpre
+        return _WIKILINK_RE.sub(
+            lambda m: (
+                f'<a class="{self.WCLASS}" href="{prefix}{m.group(1)}{self.WPOST}">'
+                f"{m.group(1)}</a>"
+            ),
+            source,
+        )
 
     @classmethod
     def setWikilinkCssClass(cls, c: str) -> None:

@@ -150,8 +150,8 @@ that are useful for publishers and consumers of schema.org data.
             {% if loop.last %}</ul>{% endif %}
         {% endfor %}
         {% for term in prop.rangeIncludes.terms %}
-            {%if loop.first %}<br/>Values:<ul>{% endif %}
-                <li>{{ Linkterm }}</li>
+            {% if loop.first %}<br/>Values:<ul>{% endif %}
+                <li>{{ Link(term) }}</li>
             {% if loop.last %}</ul>{% endif %}
         {% endfor %}
         <small>[<a href="#intro">^top</a>]</small>

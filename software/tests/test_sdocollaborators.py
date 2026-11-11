@@ -1,14 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+from __future__ import annotations
 
-import os
-import sys
 import unittest
 
-import software
-
 import SchemaTerms.sdocollaborators as sdocollaborators
-
 
 TEST_DESCRIPTION = """---
 img: http://example.com/logo.png
@@ -22,10 +16,7 @@ This is a `test` acknowledgement.
 
 
 class SdoCollaboratorTest(unittest.TestCase):
-    """Tests for the dodcollaborators library."""
-
-    def test_collaborator(self):
-        """Test the collaborator instance parsing."""
+    def test_collaborator(self) -> None:
         collab = sdocollaborators.collaborator(ref="/tmp/test", desc=TEST_DESCRIPTION)
         self.assertEqual(collab.uri, "https://schema.org/tmp/test")
         self.assertEqual(collab.title, "Test Foundation")

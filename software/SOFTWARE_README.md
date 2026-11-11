@@ -30,23 +30,58 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
 
 **_Note:_** The python application only runs under **_Python 3.11 or above_** which should be preinstalled on the local system.
 
-It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
+It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3/library/venv.html
 
+    python3 -m venv .venv
+    source .venv/bin/activate
 
-The python environment for schemaorg depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+**Installing the software**
 
-    pip install -r software/requirements.txt
+The project is described by `software/pyproject.toml`, which declares both the
+third-party dependencies and the schema.org packages themselves. Install it in
+editable mode so that your local edits take effect immediately:
 
-All commands and scripts should be run from in the root `schemaorg` directory.
+    pip install -e software
+
+The editable install puts the `software` directory on the Python path, which is
+what allows the scripts to import `schemaorg`, `SchemaTerms`, `SchemaExamples`
+and `util` regardless of where you invoke them from.
+
+To also get the development tooling (`mypy`, `pytest`), install the `dev` extra:
+
+    pip install -e "software[dev]"
+
+All commands and scripts should be run from in the root `schemaorg` directory,
+with the virtual environment activated.
+
+**Script aliases**
+
+The install also creates a set of command aliases in the virtual environment,
+which can be used instead of the script paths:
+
+| Alias             | Equivalent script                     |
+| ----------------- | ------------------------------------- |
+| `build_site`      | `./software/scripts/buildsite.py`     |
+| `build_schema`    | `./software/scripts/buildfiles.py`    |
+| `build_term_list` | `./software/scripts/buildtermlist.py` |
+| `reorg`           | `./software/scripts/reorg.py`         |
+| `run_tests`       | `./software/scripts/runtests.py`      |
+| `dev_server`      | `./software/scripts/devserv.py`       |
+
+Both forms are equivalent; the script paths are used throughout the rest of this
+document.
 
 **Module Not Found Errors**
 If when running local scripts you receive an error of this form:
 
     ModuleNotFoundError: No module named 'module_name'
 
-There are two common causes. Either your Python environment is not correctly set to 3.11 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the command:
+There are three common causes. Either your Python environment is not correctly
+set to 3.11 or above, or your virtual environment is not activated, or the
+install is stale because dependencies or packages have been added or changed.
+To confirm you have the correct modules loaded, run again the command:
 
-    pip install -r software/requirements.txt
+    pip install -e software
 
 **Initial Build**
 Once a local version of the repository has been cloned, in to an appropriate python environment, initially run the following command:
@@ -177,10 +212,11 @@ From Amazon AWS Management Console - https://console.aws.amazon.com
 
 Command line commands:
  * `sudo apt-get update && sudo apt-get upgrade`
- * `sudo apt-get install git python3-pip`
+ * `sudo apt-get install git python3-pip python3-venv`
  * `git clone https://github.com/schemaorg/schemaorg.git`
  * `cd schemaorg`
- * `pip3 install -r software/requirements.txt`
+ * `python3 -m venv .venv && source .venv/bin/activate`
+ * `pip install -e software`
  * `./software/scripts/buildsite.py -a`
 
  To serve local version of Schema.org site for web access:

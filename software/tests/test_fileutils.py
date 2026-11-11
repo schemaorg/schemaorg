@@ -1,40 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-import os
-import sys
-import tempfile
 import unittest
-
-import software
 
 import util.fileutils as fileutils
 
 
 class FileUtilsTest(unittest.TestCase):
-    def test_checkFilePath(self):
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            fileutils.checkFilePath(tmp_dir)
-
-    def test_ensureAbsolutePath(self):
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            path = fileutils.ensureAbsolutePath(
-                output_dir=tmp_dir, relative_path="fnord/fnuble"
-            )
-            self.assertEqual(os.path.basename(path), "fnuble")
-            self.assertEqual(os.path.split(os.path.dirname(path))[-1], "fnord")
-
-    def test_releaseFilePath(self):
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            path = fileutils.releaseFilePath(
-                output_dir=tmp_dir,
-                version="42",
-                selector="all",
-                protocol="http",
-                output_format="json-ld",
-            )
-            self.assertEqual(os.path.basename(path), "schemaorg-all-http.jsonld")
-            self.assertEqual(os.path.split(os.path.dirname(path))[-1], "42")
+    def test_isAll(self) -> None:
+        self.assertTrue(fileutils.isAll("all"))
+        self.assertTrue(fileutils.isAll("ALL"))
+        self.assertTrue(fileutils.isAll(fileutils.FileSelector.ALL))
+        self.assertFalse(fileutils.isAll("current"))
+        self.assertFalse(fileutils.isAll(fileutils.FileSelector.CURRENT))
 
 
 if __name__ == "__main__":

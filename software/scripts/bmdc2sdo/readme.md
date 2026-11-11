@@ -6,6 +6,8 @@
 # - add enumerations exporter (and statvars?)
 
 # Usage: 
+# The converter imports schemaorg.*, so like every other script it needs
+# PYTHONPATH=software (relative to the repo root; the .sh wrappers set it).
 # python mcf2turtle.py ~/working/datcom/schema/biomedical_schema/biological_taxonomy.mcf 
 # or several files
 # find ~/working/datcom/schema/biomedical_schema/ -name \*.mcf -exec ./mcf2turtle.py {} \;

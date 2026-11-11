@@ -1,11 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-import os
-import sys
+from pathlib import Path
 import unittest
-
-import software
 
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
@@ -14,63 +10,54 @@ import util.schema as schema
 
 
 class TestTermFileName(unittest.TestCase):
-    """Test the utility function that creates paths for terms."""
-
-    def testEmpty(self):
+    def testEmpty(self) -> None:
         with self.assertRaises(ValueError):
             buildtermpages.termFileName("")
 
-    def testUnicode(self):
+    def testUnicode(self) -> None:
         with self.assertRaises(ValueError):
             buildtermpages.termFileName("🟪")
 
-    def testUpper(self):
+    def testUpper(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("Thingamabob"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/types/T/Thingamabob.html")))
-
-    def testLower(self):
-        self.assertEqual(
-            buildtermpages.termFileName("thingamabob"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/properties/t/thingamabob.html"))
+            Path(schema.config.OUTPUTDIR).resolve() / "terms/types/T/Thingamabob.html",
         )
 
-    def testDigit(self):
+    def testLower(self) -> None:
+        self.assertEqual(
+            buildtermpages.termFileName("thingamabob"),
+            Path(schema.config.OUTPUTDIR).resolve()
+            / "terms/properties/t/thingamabob.html",
+        )
+
+    def testDigit(self) -> None:
         self.assertEqual(
             buildtermpages.termFileName("4DStatue"),
-            os.path.abspath(os.path.join(
-                schema.config.OUTPUTDIR,
-                "terms/types/4/4DStatue.html"))
+            Path(schema.config.OUTPUTDIR).resolve() / "terms/types/4/4DStatue.html",
         )
 
 
 class TestBuildTermPages(unittest.TestCase):
-    """Test the term page rendering logic."""
-
-    def setUp(self):
+    def setUp(self) -> None:
         self.renderer = buildtermpages.TermPageRenderer(
             stats_providers=[],
             build_opts=[],
-            term_docs_dir="/docs"
+            term_docs_dir="/docs",
         )
 
-    def testTemplateRenderNoExample(self):
+    def testTemplateRenderNoExample(self) -> None:
         term = sdoterm.SdoType(
             term_id="42",
             uri="http://example.com/whatchicallit",
             label="whatchicallit",
         )
         output = self.renderer.termtemplateRender(term=term, examples=[], json="")
-        self.assertRegex(output, r".*whatchicallit.*")
-        self.assertRegex(output, r".*http://example\.com/whatchicallit.*")
+        self.assertIn("whatchicallit", output)
+        self.assertIn("http://example.com/whatchicallit", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
-    def testTemplateRenderOneExample(self):
-        """Test rendering of one term page."""
+    def testTemplateRenderOneExample(self) -> None:
         examples = [
             schemaexamples.Example(
                 terms=["Thingamabob"],
@@ -78,21 +65,20 @@ class TestBuildTermPages(unittest.TestCase):
                 microdata="",
                 rdfa="",
                 jsonld="",
-                exmeta={"file": __file__, "filepos": 0},
+                exmeta={"id": "eg-0042", "file": __file__, "filepos": 0},
             )
         ]
-        json = "[42]"
         term = sdoterm.SdoType(
             term_id="42",
             uri="http://example.com/thingamabob",
             label="Thingamabob",
         )
         output = self.renderer.termtemplateRender(
-            term=term, examples=examples, json=json
+            term=term, examples=examples, json="[42]"
         )
-        self.assertRegex(output, r".*Thingamabob.*")
-        self.assertRegex(output, r".*http://example\.com/thingamabob.*")
-        self.assertRegex(output, ".*Awesome &amp; Thingamabob.*")
+        self.assertIn("Thingamabob", output)
+        self.assertIn("http://example.com/thingamabob", output)
+        self.assertIn("Awesome &amp; Thingamabob", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
 

@@ -15,30 +15,34 @@
   </div>
 </div>
 <div class='ds-selector-tabs ds-selector'>
+  {%- set sel_html = 'selected' if ex.hasHtml() else '' %}
+  {%- set sel_microdata = 'selected' if (not sel_html and ex.hasMicrodata()) else '' %}
+  {%- set sel_rdfa = 'selected' if (not sel_html and not sel_microdata and ex.hasRdfa()) else '' %}
+  {%- set sel_jsonld = 'selected' if (not sel_html and not sel_microdata and not sel_rdfa and ex.hasJsonld()) else '' %}
   <div class='selectors'>
   {% if ex.hasHtml() %}
-    <a data-selects='original_html' class='{{ex.exselect[0]}}'>No Markup</a>
+    <a data-selects='original_html' class='{{sel_html}}'>No Markup</a>
   {% endif %}
   {% if ex.hasMicrodata() %}
-    <a data-selects='microdata' class='{{ex.exselect[1]}}'>Microdata</a>
+    <a data-selects='microdata' class='{{sel_microdata}}'>Microdata</a>
   {% endif %}
   {% if ex.hasRdfa() %}
-    <a data-selects='rdfa' class='{{ex.exselect[2]}}'>RDFa</a>
+    <a data-selects='rdfa' class='{{sel_rdfa}}'>RDFa</a>
   {% endif %}
   {% if ex.hasJsonld() %}
-    <a data-selects='jsonld' class='{{ex.exselect[3]}}'>JSON-LD</a>
+    <a data-selects='jsonld' class='{{sel_jsonld}}'>JSON-LD</a>
     <a data-selects='structure' class='extabs'>Structure</a>
   {% endif %}
 
   </div>
   {% if ex.hasHtml() %}
-  <div class="ds-tab {{ex.getKey()}} original_html {{ex.exselect[0]}}" >
+  <div class="ds-tab {{ex.getKey()}} original_html {{sel_html}}" >
     <div class="ds-tab-note" >Example notes or example HTML without markup.</div>
     <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getHtml() }}</pre>
   </div>
   {% endif %}
   {% if ex.hasMicrodata() %}
-  <div class="ds-tab {{ex.getKey()}} microdata {{ex.exselect[1]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+  <div class="ds-tab {{ex.getKey()}} microdata {{sel_microdata}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
     <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
     <meta itemprop="codeSampleType" content="snippet" />
     <link itemprop="license" href="https://schema.org/docs/terms.html" />
@@ -48,17 +52,17 @@
   </div>
   {% endif %}
   {% if ex.hasRdfa() %}
-  <div class="ds-tab {{ex.getKey()}} rdfa {{ex.exselect[2]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+  <div class="ds-tab {{ex.getKey()}} rdfa {{sel_rdfa}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
     <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
     <meta itemprop="codeSampleType" content="snippet" />
     <link itemprop="license" href="https://schema.org/docs/terms.html" />
-    <link itemprop="sameAs" href="https://github.com/schemaorg/schemaorg/blob/main/{{ ex.getMeta('file') }} }}" />
+    <link itemprop="sameAs" href="https://github.com/schemaorg/schemaorg/blob/main/{{ ex.getMeta('file') }}" />
     <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/RDFa" itemprop="programmingLanguage">RDFa</a> embedded in HTML.</div>
     <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getRdfa() }}</pre>
   </div>
   {% endif %}
   {% if ex.hasJsonld() %}
-  <div class="ds-tab {{ex.getKey()}} jsonld {{ex.exselect[3]}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+  <div class="ds-tab {{ex.getKey()}} jsonld {{sel_jsonld}}" itemscope itemtype="https://schema.org/SoftwareSourceCode">
     <link itemprop="codeRepository" href="https://github.com/schemaorg/schemaorg/" />
     <meta itemprop="codeSampleType" content="snippet" />
     <link itemprop="license" href="https://schema.org/docs/terms.html" />

@@ -1,21 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 import logging
-import os
 import sys
 import time
-from typing import Any, Dict, List, Optional, Type
+from types import TracebackType
 
 import colorama
-
-import software
 
 
 class PrettyLogFormatter(logging.Formatter):
     """Helper class to format the log messages from the various parts of the project."""
 
-    COLORS: Dict[str, str] = {
+    COLORS: dict[str, str] = {
         "WARNING": colorama.Fore.YELLOW,
         "INFO": colorama.Fore.CYAN,
         "DEBUG": colorama.Fore.BLUE,
@@ -23,8 +19,8 @@ class PrettyLogFormatter(logging.Formatter):
         "ERROR": colorama.Fore.RED,
     }
 
-    def __init__(self, use_color: bool = True, shard: Optional[int] = None) -> None:
-        fmt: str = "%(levelname)s %(name)s: %(message)s"
+    def __init__(self, use_color: bool = True, shard: int | None = None) -> None:
+        fmt = "%(levelname)s %(name)s: %(message)s"
         if shard is not None:
             fmt = f"%(levelname)s ({shard}) %(name)s: %(message)s"
         super().__init__(fmt=fmt)
@@ -32,67 +28,78 @@ class PrettyLogFormatter(logging.Formatter):
 
     @classmethod
     def _computeLevelName(cls, record: logging.LogRecord) -> str:
-        msg: str = record.getMessage().casefold()
+        msg = record.getMessage().casefold()
         if msg == "done" or msg.startswith("done:"):
             return f"{colorama.Fore.LIGHTGREEN_EX}{record.levelname}{colorama.Fore.RESET}"
-        color: Optional[str] = cls.COLORS.get(record.levelname)
-        if color:
+        if color := cls.COLORS.get(record.levelname):
             return f"{color}{record.levelname}{colorama.Fore.RESET}"
         return record.levelname
 
     @classmethod
     def _computeName(cls, record: logging.LogRecord) -> str:
-        name: str = record.name.split(".")[-1]
+        name = record.name.rsplit(".", 1)[-1]
         return f"{colorama.Style.DIM}{name}{colorama.Style.RESET_ALL}"
 
     def format(self, record: logging.LogRecord) -> str:
-        if self.use_color:
+        if not self.use_color:
+            return super().format(record)
+        orig_levelname = record.levelname
+        orig_name = record.name
+        try:
             record.levelname = self._computeLevelName(record)
             record.name = self._computeName(record)
-        return super().format(record)
+            return super().format(record)
+        finally:
+            record.levelname = orig_levelname
+            record.name = orig_name
 
 
 class BlockLog:
-    def __init__(self, logger: logging.Logger, message: str, timing: bool = False, displayStart: bool = True) -> None:
+    def __init__(
+        self,
+        logger: logging.Logger,
+        message: str,
+        timing: bool = False,
+        displayStart: bool = True,
+    ) -> None:
         self.logger: logging.Logger = logger
         self.message: str = message
         self.timing: bool = timing
         self.displayStart: bool = displayStart
-        self.start_time: Optional[float] = None
-        self.elapsed: Optional[float] = None
+        self.start_time: float | None = None
+        self.elapsed: float | None = None
 
-    def __enter__(self) -> "BlockLog":
+    def __enter__(self) -> BlockLog:
         if self.displayStart:
-            self.logger.info(f"Start: {self.message}")
+            self.logger.info("Start: %s", self.message)
         if self.timing:
             self.start_time = time.perf_counter()
         return self
 
-    def __exit__(self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException], traceback: Any) -> None:
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> None:
         if self.timing and self.start_time is not None:
             self.elapsed = time.perf_counter() - self.start_time
 
-        if exc_value:
-            self.logger.error(f"Failed: {self.message}")
+        if exc_value is not None:
+            self.logger.error("Failed: %s", self.message)
+        elif self.elapsed is not None:
+            self.logger.info("Done: %s in %.2f seconds", self.message, self.elapsed)
         else:
-            if self.elapsed is not None:
-                self.logger.info(
-                    f"Done: {self.message} in {self.elapsed:.2f} seconds",
-                )
-            else:
-                self.logger.info(f"Done: {self.message}")
+            self.logger.info("Done: %s", self.message)
 
     def append(self, message: str) -> None:
         self.message = f"{self.message} {message}"
 
 
-def MakeRootLogPretty(shard: Optional[int] = None) -> None:
+def MakeRootLogPretty(shard: int | None = None) -> None:
     """Makes the root log pretty if standard output is a terminal."""
-    handler: logging.StreamHandler = logging.StreamHandler(sys.stdout)
-    formatter: PrettyLogFormatter = PrettyLogFormatter(
-        use_color=sys.stdout.isatty(), shard=shard
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(
+        PrettyLogFormatter(use_color=sys.stdout.isatty(), shard=shard)
     )
-    handler.setFormatter(formatter)
-
-    root_log: logging.Logger = logging.getLogger()
-    root_log.handlers = [handler]
+    logging.getLogger().handlers = [handler]
