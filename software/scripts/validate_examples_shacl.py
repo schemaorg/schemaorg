@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Validate JSON-LD examples against the generated SHACL schema."""
 
-"""
-Tool that validates the JSON-LD in the examples against the generated SHACL schema.
-This replaces the legacy Ruby validation tests.
-"""
+from __future__ import annotations
 
 import argparse
+from collections.abc import Sequence
 import concurrent.futures
 import logging
 import os
 from pathlib import Path
 import sys
-from typing import FrozenSet, NamedTuple, Optional
+from typing import NamedTuple
 
 import owlrl
 import pyshacl
@@ -24,14 +22,13 @@ import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
 import util.schema as schema
 
-
 log: logging.Logger = logging.getLogger(__name__)
 
 
-def load_examples() -> list:
-    """Finds and loads all examples."""
+def load_examples() -> list[schemaexamples.Example]:
+    """Find and load all JSON-LD examples."""
     loaded = schemaexamples.SchemaExamples.from_default()
-    log.info(f"Loaded {len(loaded)} examples, processing JSON-LD variants")
+    log.info("Loaded %d examples, processing JSON-LD variants", len(loaded))
     return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
 
 
@@ -43,9 +40,9 @@ class ExampleResult(NamedTuple):
     targeted: bool
     conforms: bool
     #: SHACL report, failures only.
-    report: Optional[str]
+    report: str | None
     #: Not validatable at all, e.g. bad JSON. Distinct from conforms=False.
-    error: Optional[str]
+    error: str | None
 
     @property
     def name(self) -> str:
@@ -71,7 +68,7 @@ class ExampleValidator:
         # Closed once so validate() can run with inference="none".
         owlrl.DeductiveClosure(owlrl.RDFS_Semantics).expand(self.ont_graph)
 
-        self.target_classes: FrozenSet[str] = frozenset(
+        self.target_classes: frozenset[str] = frozenset(
             str(t) for t in self.shacl_graph.objects(None, SH.targetClass)
         )
         if not self.target_classes:
@@ -129,77 +126,87 @@ class ValidationStats:
         self.count: int = 0
         self.error_count: int = 0
         self.targeted_count: int = 0
-        log.info(f"Validating {self.total} examples")
+        log.info("Validating %d examples", self.total)
 
     def add(self, result: ExampleResult) -> None:
         """Record one result and log whatever it warrants."""
         self.count += 1
         if not self.invalid_only:
-            log.info(f"Validating example {result.name}")
+            log.info("Validating example %s", result.name)
 
         if result.targeted:
             self.targeted_count += 1
 
+        failed = result.error is not None or not result.conforms
         if result.error is not None:
             self.error_count += 1
-            log.error(f"Invalid JSON example {result.name}: {result.error}")
+            log.error("Invalid JSON example %s: %s", result.name, result.error)
         elif not result.conforms:
             self.error_count += 1
             log.error(
-                f"Validation failed for example {result.name}:\n{result.report}"
+                "Validation failed for example %s:\n%s",
+                result.name,
+                result.report,
             )
 
-        if self.source_output:
+        if self.source_output and failed:
             source = "\n".join(
                 f"{i:4d}: {line.rstrip()}"
                 for i, line in enumerate(
                     result.example.getJsonldRaw().splitlines(), start=1
                 )
             )
-            log.info(f"Source:\n{source}")
+            log.info("Source:\n%s", source)
 
     def done(self) -> None:
         log.info(
-            f"Done: Processed {self.count} examples, "
-            f"{self.targeted_count} of which matched at least one shape"
+            "Done: Processed %d examples, %d of which matched at least one shape",
+            self.count,
+            self.targeted_count,
         )
 
 
-def validate_examples(examples: list, invalid_only: bool, source_output: bool) -> None:
-    """Validates the provided examples against the generated SHACL shapes."""
+def validate_examples(
+    examples: Sequence[schemaexamples.Example],
+    invalid_only: bool,
+    source_output: bool,
+) -> None:
+    """Validate the provided examples against the generated SHACL shapes."""
     if not examples:
         log.error("No JSON-LD examples found to validate.")
         sys.exit(os.EX_CONFIG)
 
     releases = Releases(paths.DefaultOutputLayout(), schema.VERSION)
-    shacl_file: Path = releases.file(
-        protocol="", scope="shapes", extension=".shacl"
-    )
-    subclass_file: Path = releases.file(
+    shacl_file = releases.file(protocol="", scope="shapes", extension=".shacl")
+    subclass_file = releases.file(
         protocol="", scope="subclasses", extension=".shacl"
     )
 
     if not shacl_file.exists() or not subclass_file.exists():
-        log.error(f"SHACL files not found at {shacl_file} or {subclass_file} – check site build")
+        log.error(
+            "SHACL files not found at %s or %s – check site build",
+            shacl_file,
+            subclass_file,
+        )
         sys.exit(os.EX_CONFIG)
 
     log.info("Loading SHACL shapes and subclass graphs...")
-    shacl_graph: rdflib.Graph = rdflib.Graph()
-    shacl_graph.parse(source=str(shacl_file), format="turtle")
+    shacl_graph = rdflib.Graph()
+    shacl_graph.parse(shacl_file, format="turtle")
 
-    ont_graph: rdflib.Graph = rdflib.Graph()
-    ont_graph.parse(source=str(subclass_file), format="turtle")
+    ont_graph = rdflib.Graph()
+    ont_graph.parse(subclass_file, format="turtle")
 
     # The constructor RDFS-closes ont_graph in place.
-    before: int = len(ont_graph)
+    before = len(ont_graph)
     try:
         engine = ExampleValidator(shacl_graph=shacl_graph, ont_graph=ont_graph)
     except ValueError as exception:
-        log.error(f"SHACL gate is dead: {exception}")
+        log.error("SHACL gate is dead: %s", exception)
         sys.exit(os.EX_CONFIG)
 
-    log.info(f"Subclass ontology RDFS-closed: {before} -> {len(ont_graph)} triples")
-    log.info(f"Shapes declare {len(engine.target_classes)} target classes")
+    log.info("Subclass ontology RDFS-closed: %d -> %d triples", before, len(ont_graph))
+    log.info("Shapes declare %d target classes", len(engine.target_classes))
 
     stats = ValidationStats(
         total=len(examples), invalid_only=invalid_only, source_output=source_output
@@ -212,26 +219,37 @@ def validate_examples(examples: list, invalid_only: bool, source_output: bool) -
     stats.done()
 
     if stats.error_count:
-        log.error(f"Found {stats.error_count} invalid examples")
+        log.error("Found %d invalid examples", stats.error_count)
         sys.exit(1)
 
     if not stats.targeted_count:
         log.error(
-            f"SHACL gate inspected none of the {stats.count} examples: no example "
-            "declares a type that any shape targets."
+            "SHACL gate inspected none of the %d examples: no example "
+            "declares a type that any shape targets.",
+            stats.count,
         )
         sys.exit(os.EX_CONFIG)
 
     log.info("All examples validated successfully.")
 
 
-if __name__ == "__main__":
+def main(argv: Sequence[str] | None = None) -> None:
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-i", "--invalidonly", default=False, action="store_true", help="Only report invalid examples")
-    parser.add_argument("-s", "--sourceoutput", default=False, action="store_true", help="Output invalid example source")
+    parser.add_argument(
+        "-i",
+        "--invalidonly",
+        action="store_true",
+        help="Only report invalid examples",
+    )
+    parser.add_argument(
+        "-s",
+        "--sourceoutput",
+        action="store_true",
+        help="Output invalid example source",
+    )
     parser.add_argument("-o", "--output", help="Output site directory")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.output:
         schema.config.OUTPUTDIR = args.output
@@ -242,3 +260,7 @@ if __name__ == "__main__":
         invalid_only=args.invalidonly,
         source_output=args.sourceoutput,
     )
+
+
+if __name__ == "__main__":
+    main()

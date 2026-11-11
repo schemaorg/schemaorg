@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Generate a flat list of schema.org term IDs."""
 
 from __future__ import annotations
 
@@ -16,6 +17,9 @@ generateTerms = generate_terms
 
 
 def main(argv: Sequence[str] | None = None) -> None:
+    logging.basicConfig(level=logging.INFO)
+    pretty_logger.MakeRootLogPretty()
+
     parser = argparse.ArgumentParser(description="Build list of schema.org terms.")
     parser.add_argument(
         "-t",
