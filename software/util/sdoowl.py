@@ -57,7 +57,7 @@ class OwlBuild:
         version: Optional[VersionItem] = None,
         graph: Optional[rdflib.Graph] = None,
     ) -> None:
-        self.version: VersionItem = version or schema.VERSION.current()
+        self.version: VersionItem = version or schema.target_version()
         self.graph: Optional[rdflib.Graph] = graph
         self.typesCount: int = 0
         self.propsCount: int = 0

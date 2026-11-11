@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 from pathlib import Path
 import tempfile
@@ -7,12 +8,50 @@ import unittest
 from unittest.mock import patch
 
 import rdflib
-from schemaorg.layout import OutputLayout, Protocol, Releases, Scope
-from schemaorg.version import VersionItem
+from schemaorg.layout import (
+    Domain,
+    InputLayout,
+    OutputLayout,
+    Protocol,
+    Releases,
+    Scope,
+)
+from schemaorg.version import Version, VersionItem
+import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.schema as schema
 from util.sdoowl import OwlBuild
+
+FIXTURE_TTL = """\
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Thing a rdfs:Class ;
+    rdfs:label "Thing" ;
+    rdfs:comment "The most generic type." .
+
+:DataType a rdfs:Class ;
+    rdfs:subClassOf rdfs:Class ;
+    rdfs:label "DataType" ;
+    rdfs:comment "Basic data types." .
+
+:Text a :DataType, rdfs:Class ;
+    rdfs:label "Text" ;
+    rdfs:comment "Data type: Text." .
+
+:Person a rdfs:Class ;
+    rdfs:subClassOf :Thing ;
+    rdfs:label "Person" ;
+    rdfs:comment "A person." .
+
+:name a rdf:Property ;
+    rdfs:label "name" ;
+    rdfs:comment "The name of the item." ;
+    :domainIncludes :Thing ;
+    :rangeIncludes :Text .
+"""
 
 
 class TestBuildFiles(unittest.TestCase):
@@ -110,6 +149,75 @@ class TestBuildFiles(unittest.TestCase):
         unreleased = buildfiles.sitemap("Sitemap", version=VersionItem("next"))
         self.assertNotIn("<lastmod>", unreleased)
         self.assertIn("<loc>https://schema.org/Person</loc>", unreleased)
+
+    def testExportReleaseFilesAndSiteDocsWithLayouts(self) -> None:
+        self.addCleanup(
+            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            in_dir = root / "in"
+            site_dir = root / "site"
+            (in_dir / "data").mkdir(parents=True)
+            (in_dir / "versions.json").write_text(
+                json.dumps(
+                    {
+                        "schemaversion": "30.1",
+                        "releaseLog": {"30.1": "2026-09-16"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (in_dir / "data" / "schema.ttl").write_text(
+                FIXTURE_TTL, encoding="utf-8"
+            )
+            input_layout = InputLayout(in_dir)
+            release_out_layout = OutputLayout(in_dir / "data")
+            site_out_layout = OutputLayout(site_dir)
+
+            stale = release_out_layout.file(Domain.RELEASE, "next/stale.txt")
+            stale.write_text("obsolete", encoding="utf-8")
+
+            buildfiles.export_release_files(
+                input_layout=input_layout, output_layout=release_out_layout
+            )
+
+            self.assertFalse((in_dir / "data" / "docs").exists())
+            self.assertFalse(stale.exists())
+
+            releases = Releases(
+                release_out_layout, Version(in_dir / "versions.json")
+            )
+            self.assertEqual(len(list(releases.dir("next").iterdir())), 35)
+            https_nq = releases.file(filename="schemaorg-all-https.nq").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("<https://schema.org/next> .", https_nq)
+
+            buildfiles.export_site_docs(
+                input_layout=input_layout, output_layout=site_out_layout
+            )
+            for name in (
+                "jsoncounts.json",
+                "jsonpcounts.js",
+                "sitemap.xml",
+                "tree.jsonld",
+                "schemaorg.owl",
+                "jsonldcontext.jsonld",
+                "jsonldcontext.json",
+                "jsonldcontext.json.txt",
+            ):
+                self.assertTrue(
+                    site_out_layout.file(Domain.DOCS, name).is_file(), name
+                )
+            self.assertFalse((site_dir / "releases").exists())
+
+            buildfiles.export_release_files(
+                input_layout=input_layout,
+                output_layout=release_out_layout,
+                version="30.1",
+            )
+            self.assertTrue(releases.file("30.1", filename="schemaorg.owl").is_file())
 
 
 if __name__ == "__main__":

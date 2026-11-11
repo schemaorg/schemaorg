@@ -7,7 +7,6 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from schemaorg.layout import Releases
 from schemaorg.sdo_uri import SCHEMA_URL
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
@@ -242,11 +241,11 @@ def fullReleasePage(_page: str = "") -> str:
         key=lambda t: t.id,
     )
 
-    current = schema.VERSION.current()
+    target = schema.target_version()
     extra_vars: dict[str, Any] = {
         "title": "Full Release Summary",
-        "version": current.number(),
-        "date": current.date(),
+        "version": target.number(),
+        "date": target.date() or "Unreleased",
         "listings": node_listings,
         "types": types,
         "properties": properties,
@@ -328,10 +327,7 @@ PAGELIST: dict[str, tuple[Callable[[str], str], list[tuple[paths.Domain, str]]]]
     "FullOrig": (fullPage, [(paths.Domain.DOCS, "full.orig.html")]),
     "FullRelease": (
         fullReleasePage,
-        [
-            (paths.Domain.DOCS, "fullrelease.html"),
-            (paths.Domain.RELEASE, "schema-all.html"),
-        ],
+        [(paths.Domain.DOCS, "fullrelease.html")],
     ),
     "TermFind": (termfind, [(paths.Domain.DOCS_TERMFIND, "termlist.txt")]),
 }
@@ -346,7 +342,6 @@ def buildDocs(pages: Iterable[str]) -> None:
     )
 
     output_layout = paths.DefaultOutputLayout()
-    releases = Releases(output_layout, schema.VERSION)
 
     for page in process_pages:
         if entry := PAGELIST.get(page):
@@ -356,10 +351,8 @@ def buildDocs(pages: Iterable[str]) -> None:
             ):
                 content = func(page)
                 for domain, filename in targets:
-                    if domain == paths.Domain.RELEASE:
-                        out_path = releases.file(filename=filename)
-                    else:
-                        out_path = output_layout.file(domain, filename)
-                    out_path.write_text(content, encoding="utf-8")
+                    output_layout.file(domain, filename).write_text(
+                        content, encoding="utf-8"
+                    )
         else:
             log.warning("Unknown or missing page name: %s", page)
