@@ -6,10 +6,13 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+import rdflib
 from schemaorg.layout import OutputLayout, Protocol, Releases, Scope
+from schemaorg.version import VersionItem
 import scripts.buildfiles as buildfiles
 import util.fileutils as fileutils
 import util.schema as schema
+from util.sdoowl import OwlBuild
 
 
 class TestBuildFiles(unittest.TestCase):
@@ -78,6 +81,35 @@ class TestBuildFiles(unittest.TestCase):
                 https_csv.read_text(encoding="utf-8"),
                 '"id","value"\n"123","https://schema.org/Fnuble"\n"456","Blubrl"\n',
             )
+
+    def testOwlBuildHandlesNextWithoutDate(self) -> None:
+        empty_graph = rdflib.Graph()
+        dated = OwlBuild(
+            version=VersionItem("30.1", "2026-09-16"), graph=empty_graph
+        ).getContent()
+        self.assertIn("released: 2026-09-16", dated)
+        self.assertIn("dcterms:modified", dated)
+
+        unreleased = OwlBuild(
+            version=VersionItem("next"), graph=empty_graph
+        ).getContent()
+        self.assertIn("Generated from Schema.org version: next", unreleased)
+        self.assertNotIn("released:", unreleased)
+        self.assertNotIn("None", unreleased)
+        self.assertNotIn("dcterms:modified", unreleased)
+        self.assertIn("<owl:versionInfo", unreleased)
+
+    @patch(
+        "SchemaTerms.sdotermsource.SdoTermSource.getAllTerms",
+        return_value=["Person"],
+    )
+    def testSitemapOmitsLastmodWithoutDate(self, _mock_terms) -> None:
+        dated = buildfiles.sitemap("Sitemap", version=VersionItem("30.1", "2026-09-16"))
+        self.assertIn("<lastmod>2026-09-16</lastmod>", dated)
+
+        unreleased = buildfiles.sitemap("Sitemap", version=VersionItem("next"))
+        self.assertNotIn("<lastmod>", unreleased)
+        self.assertIn("<loc>https://schema.org/Person</loc>", unreleased)
 
 
 if __name__ == "__main__":

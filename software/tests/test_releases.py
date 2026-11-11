@@ -9,6 +9,8 @@ from schemaorg import constants
 from schemaorg.layout import (
     Domain,
     InputLayout,
+    LATEST_RELEASE,
+    NEXT_VERSION,
     OutputLayout,
     Protocol,
     Releases,
@@ -87,7 +89,10 @@ class TestReleases(unittest.TestCase):
         item = self.releases.resolve("29.0")
         self.assertEqual(item.number(), "29.0")
         self.assertEqual(self.releases.resolve(item).number(), "29.0")
-        self.assertEqual(self.releases.resolve().number(), "30.0")
+        self.assertEqual(self.releases.resolve().number(), NEXT_VERSION)
+        self.assertEqual(self.releases.resolve(None).number(), NEXT_VERSION)
+        self.assertEqual(self.releases.resolve(NEXT_VERSION).number(), NEXT_VERSION)
+        self.assertEqual(self.releases.resolve(LATEST_RELEASE).number(), "30.0")
 
     def test_resolve_rejects_undeclared_version(self) -> None:
         with self.assertRaises(ValueError) as context:
@@ -100,9 +105,14 @@ class TestReleases(unittest.TestCase):
             Releases(self.input_layout, self.version).dir("29.0"),
             self.archive / "29.0",
         )
+        self.assertEqual(
+            Releases(self.input_layout, self.version).dir(),
+            self.archive / NEXT_VERSION,
+        )
 
-    def test_dir_defaults_to_current(self) -> None:
-        self.assertEqual(self.releases.dir(), self.built / "30.0")
+    def test_dir_defaults_to_next(self) -> None:
+        self.assertEqual(self.releases.dir(), self.built / NEXT_VERSION)
+        self.assertEqual(self.releases.dir(LATEST_RELEASE), self.built / "30.0")
 
     def test_dir_does_not_require_the_release_to_exist(self) -> None:
         path = self.releases.dir("29.0")
@@ -170,9 +180,11 @@ class TestReleases(unittest.TestCase):
         path = self.releases.file("30.0", filename="schemaorg.owl")
         self.assertEqual(path, target / "schemaorg.owl")
 
-    def test_file_defaults_to_the_current_https_ttl(self) -> None:
+    def test_file_defaults_to_the_next_https_ttl(self) -> None:
         path = self.releases.file()
-        self.assertEqual(path, self.built / "30.0" / "schemaorg-all-https.ttl")
+        self.assertEqual(
+            path, self.built / NEXT_VERSION / "schemaorg-all-https.ttl"
+        )
 
     def test_file_honours_the_extension(self) -> None:
         path = self.releases.file("30.0", extension=".nt")
@@ -232,9 +244,13 @@ class TestReleasesRealData(unittest.TestCase):
     def test_current_is_declared(self) -> None:
         self.assertIn(self.releases.current(), self.releases.versions())
 
-    def test_current_release_dir_is_computed_from_the_version(self) -> None:
+    def test_default_release_dir_is_next(self) -> None:
         self.assertEqual(
             self.releases.dir(),
+            self.output_layout.dir(Domain.RELEASE) / NEXT_VERSION,
+        )
+        self.assertEqual(
+            self.releases.dir(LATEST_RELEASE),
             self.output_layout.dir(Domain.RELEASE) / str(self.releases.current()),
         )
 

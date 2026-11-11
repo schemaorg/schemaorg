@@ -16,6 +16,7 @@ import rdflib.namespace
 from schemaorg import constants
 from schemaorg.layout import Releases
 from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
+from schemaorg.version import VersionItem
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
@@ -73,14 +74,13 @@ def owl(page: str) -> str:
     return str(OwlBuild().getContent())
 
 
-def sitemap(page: str) -> str:
-    version_date: str = str(schema.VERSION.current().date() or "")
+def sitemap(page: str, version: Optional[VersionItem] = None) -> str:
+    target = version or schema.VERSION.current()
+    version_date = target.date()
+    lastmod = f"   <lastmod>{version_date}</lastmod>\n" if version_date else ""
+
     def node(t: str) -> str:
-        return f""" <url>
-   <loc>{constants.SCHEMA_URI}{t}</loc>
-   <lastmod>{version_date}</lastmod>
- </url>
-"""
+        return f" <url>\n   <loc>{constants.SCHEMA_URI}{t}</loc>\n{lastmod} </url>\n"
     STATICPAGES: List[str] = [
         "docs/schemas.html", "docs/full.html", "docs/gs.html", "docs/about.html",
         "docs/howwework.html", "docs/releases.html", "docs/faq.html",
