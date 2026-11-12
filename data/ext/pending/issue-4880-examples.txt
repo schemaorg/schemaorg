@@ -1,0 +1,82 @@
+TYPES: #eg-0304 televisionseries, movieseries
+
+PRE-MARKUP:
+
+Example of TV special series.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/TVSeries">
+  <h1 itemprop="name">TV Special Series Name</h1>
+  <p itemprop="description">A nice TV special.</p>
+  <meta itemprop="numberOfEpisodes" content="10">
+  <meta itemprop="numberOfSeasons" content="2">
+  <span itemprop="genre">Documentary</span>
+  <img itemprop="image" src="https://example.com/image-1.jpg">
+  <img itemprop="image" src="https://example.com/image-2.jpg">
+  <div itemprop="productionCompany" itemscope itemtype="https://schema.org/Organization">
+    <span itemprop="name">ComfortSeat</span>
+  </div>
+  <div itemprop="countryOfOrigin" itemscope itemtype="https://schema.org/Country">
+    <span itemprop="name">Brazil</span>
+  </div>
+  <div itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
+    <span itemprop="name">Thing</span>
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="TVSeries">
+  <h1 property="name">TV Special Series Name</h1>
+  <p property="description">A nice TV special.</p>
+  <meta property="numberOfEpisodes" content="10">
+  <meta property="numberOfSeasons" content="2">
+  <span property="genre">Documentary</span>
+  <img property="image" src="https://example.com/image-1.jpg">
+  <img property="image" src="https://example.com/image-2.jpg">
+  <div property="productionCompany" typeof="Organization">
+    <span property="name">ComfortSeat</span>
+  </div>
+  <div property="countryOfOrigin" typeof="Country">
+    <span property="name">Brazil</span>
+  </div>
+  <div property="hasPart" typeof="CreativeWork">
+    <span property="name">Thing</span>
+  </div>
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TVSeries",
+  "name": "TV Special Series Name",
+  "description": "A nice TV special.",
+  "image": [
+    "https://example.com/image-1.jpg",
+    "https://example.com/image-2.jpg"
+  ],
+  "numberOfEpisodes": 10,
+  "numberOfSeasons": 2,
+  "genre": "Documentary",
+  "productionCompany": {
+    "@type": "Organization",
+    "name": "ComfortSeat"
+  },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "hasPart": {
+    "@type": "CreativeWork",
+    "name": "Thing"
+  }
+}
+</script>

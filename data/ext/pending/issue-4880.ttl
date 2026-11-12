@@ -1,0 +1,26 @@
+
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+
+<https://example.com/tv-special-series>
+    a ex:TVSpecialSeries ;
+    schema:name "tv-special-series-name" ;
+    schema:description "a nice tv special." ;
+    schema:URL
+        <https://example.com/image-1.jpg>,
+        <https://example.com/image-2.jpg> ;
+    schema:numberOfEpisodes 10 ;
+    schema:numberOfSeasons 2 ;
+    schema:genre "Documentary" ;
+    schema:productionCompany [
+        a schema:Organization ;
+        schema:name "ComfortSeat"
+    ] ;
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+    schema:hasPart [
+        a schema:CreativeWork ;
+        schema:name "thing"
+    ] .

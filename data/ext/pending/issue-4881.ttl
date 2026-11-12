@@ -1,0 +1,166 @@
+
+TYPES: #eg-0308 tvpilot, televisionepisode, televisionseries
+
+PRE-MARKUP:
+
+Example of a television pilot episode.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/TVEpisode">
+  <h1 itemprop="name">TV Pilot Name</h1>
+
+  <meta itemprop="alternateName" content="Other name">
+
+  <p itemprop="description">A nice pilot.</p>
+
+  <img itemprop="image" src="https://example.com/image-1.jpg">
+  <img itemprop="image" src="https://example.com/image-2.jpg">
+
+  <meta itemprop="datePublished" content="2026-08-30">
+
+  <span itemprop="genre">Documentary</span>
+
+  <div itemprop="productionCompany" itemscope
+       itemtype="https://schema.org/Organization">
+    <span itemprop="name">ComfortSeat</span>
+  </div>
+
+  <div itemprop="countryOfOrigin" itemscope
+       itemtype="https://schema.org/Country">
+    <span itemprop="name">Brazil</span>
+  </div>
+
+  <div itemprop="partOfSeries" itemscope
+       itemtype="https://schema.org/TVSeries">
+    <span itemprop="name">Thing</span>
+  </div>
+
+  <div itemprop="trailer" itemscope
+       itemtype="https://schema.org/VideoObject">
+    <span itemprop="name">Trailer</span>
+    <meta itemprop="duration" content="PT1M33S">
+    <link itemprop="contentUrl" href="https://example.com">
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="TVEpisode">
+
+  <h1 property="name">TV Pilot Name</h1>
+
+  <meta property="alternateName" content="Other name">
+
+  <p property="description">A nice pilot.</p>
+
+  <img property="image" src="https://example.com/image-1.jpg">
+  <img property="image" src="https://example.com/image-2.jpg">
+
+  <meta property="datePublished" content="2026-08-30">
+
+  <span property="genre">Documentary</span>
+
+  <div property="productionCompany" typeof="Organization">
+    <span property="name">ComfortSeat</span>
+  </div>
+
+  <div property="countryOfOrigin" typeof="Country">
+    <span property="name">Brazil</span>
+  </div>
+
+  <div property="partOfSeries" typeof="TVSeries">
+    <span property="name">Thing</span>
+  </div>
+
+  <div property="trailer" typeof="VideoObject">
+    <span property="name">Trailer</span>
+    <meta property="duration" content="PT1M33S">
+    <link property="contentUrl" href="https://example.com">
+  </div>
+
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TVEpisode",
+  "name": "TV Pilot Name",
+  "alternateName": "Other name",
+  "description": "A nice pilot.",
+  "image": [
+    "https://example.com/image-1.jpg",
+    "https://example.com/image-2.jpg"
+  ],
+  "datePublished": "2026-08-30",
+  "genre": "Documentary",
+  "productionCompany": {
+    "@type": "Organization",
+    "name": "ComfortSeat"
+  },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "partOfSeries": {
+    "@type": "TVSeries",
+    "name": "Thing"
+  },
+  "trailer": {
+    "@type": "VideoObject",
+    "duration": "PT1M33S",
+    "name": "Trailer",
+    "contentUrl": "https://example.com"
+  }
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/tv-pilot>
+    a schema:TVEpisode ;
+    schema:name "TV Pilot Name" ;
+    schema:alternateName "Other name" ;
+    schema:description "A nice pilot." ;
+
+    schema:image
+        <https://example.com/image-1.jpg>,
+        <https://example.com/image-2.jpg> ;
+
+    schema:datePublished "2026-08-30"^^xsd:date ;
+    schema:genre "Documentary" ;
+
+    schema:productionCompany [
+        a schema:Organization ;
+        schema:name "ComfortSeat"
+    ] ;
+
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+
+    schema:partOfSeries [
+        a schema:TVSeries ;
+        schema:name "Thing"
+    ] ;
+
+    schema:trailer [
+        a schema:VideoObject ;
+        schema:duration "PT1M33S" ;
+        schema:name "Trailer" ;
+        schema:contentUrl <https://example.com>
+    ] .

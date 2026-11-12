@@ -1,0 +1,248 @@
+
+TYPES: #eg-0307 televisionblock, broadcastservice, televisionepisode
+
+PRE-MARKUP:
+
+Example of a television programming block with a live broadcast, broadcast service, television episode, presenters, performers and production company.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/BroadcastEvent">
+  <h1 itemprop="name">Nome do Bloco de TV</h1>
+
+  <meta itemprop="startDate" content="2026-10-08T20:00:00-04:00">
+  <meta itemprop="endDate" content="2026-10-08T22:00:00-04:00">
+  <meta itemprop="isLiveBroadcast" content="true">
+
+  <div itemprop="publishedOn" itemscope
+       itemtype="https://schema.org/BroadcastService">
+    <span itemprop="name">WAAY-TV</span>
+    <span itemprop="broadcastDisplayName">ABC</span>
+
+    <div itemprop="broadcastAffiliateOf" itemscope
+         itemtype="https://schema.org/Organization">
+      <span itemprop="name">ABC</span>
+    </div>
+
+    <div itemprop="provider" itemscope
+         itemtype="https://schema.org/Organization">
+      <span itemprop="name">Comcast</span>
+    </div>
+
+    <div itemprop="owner" itemscope
+         itemtype="https://schema.org/Organization">
+      <span itemprop="name">Comcast</span>
+    </div>
+  </div>
+
+  <div itemprop="workPerformed" itemscope
+       itemtype="https://schema.org/TVEpisode">
+    <h2 itemprop="name">Nome do Programa</h2>
+
+    <div itemprop="presenter" itemscope
+         itemtype="https://schema.org/Person">
+      <span itemprop="name">Nome do Apresentador</span>
+    </div>
+
+    <div itemprop="performer" itemscope
+         itemtype="https://schema.org/Person">
+      <span itemprop="name">Participante 1</span>
+    </div>
+
+    <div itemprop="performer" itemscope
+         itemtype="https://schema.org/Person">
+      <span itemprop="name">Participante 2</span>
+    </div>
+
+    <div itemprop="partOfSeries" itemscope
+         itemtype="https://schema.org/TVSeries">
+      <span itemprop="name">Nome da Série</span>
+    </div>
+
+    <div itemprop="productionCompany" itemscope
+         itemtype="https://schema.org/Organization">
+      <span itemprop="name">Nome da Produtora</span>
+    </div>
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="BroadcastEvent">
+
+  <h1 property="name">Nome do Bloco de TV</h1>
+
+  <meta property="startDate" content="2026-10-08T20:00:00-04:00">
+  <meta property="endDate" content="2026-10-08T22:00:00-04:00">
+  <meta property="isLiveBroadcast" content="true">
+
+  <div property="publishedOn" typeof="BroadcastService">
+    <span property="name">WAAY-TV</span>
+    <span property="broadcastDisplayName">ABC</span>
+
+    <div property="broadcastAffiliateOf" typeof="Organization">
+      <span property="name">ABC</span>
+    </div>
+
+    <div property="provider" typeof="Organization">
+      <span property="name">Comcast</span>
+    </div>
+
+    <div property="owner" typeof="Organization">
+      <span property="name">Comcast</span>
+    </div>
+  </div>
+
+  <div property="workPerformed" typeof="TVEpisode">
+    <h2 property="name">Nome do Programa</h2>
+
+    <div property="presenter" typeof="Person">
+      <span property="name">Nome do Apresentador</span>
+    </div>
+
+    <div property="performer" typeof="Person">
+      <span property="name">Participante 1</span>
+    </div>
+
+    <div property="performer" typeof="Person">
+      <span property="name">Participante 2</span>
+    </div>
+
+    <div property="partOfSeries" typeof="TVSeries">
+      <span property="name">Nome da Série</span>
+    </div>
+
+    <div property="productionCompany" typeof="Organization">
+      <span property="name">Nome da Produtora</span>
+    </div>
+  </div>
+
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BroadcastEvent",
+  "name": "Nome do Bloco de TV",
+  "startDate": "2026-10-08T20:00:00-04:00",
+  "endDate": "2026-10-08T22:00:00-04:00",
+  "isLiveBroadcast": true,
+  "publishedOn": {
+    "@type": "BroadcastService",
+    "name": "WAAY-TV",
+    "broadcastDisplayName": "ABC",
+    "broadcastAffiliateOf": {
+      "@type": "Organization",
+      "name": "ABC"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "Comcast"
+    },
+    "owner": {
+      "@type": "Organization",
+      "name": "Comcast"
+    }
+  },
+  "workPerformed": {
+    "@type": "TVEpisode",
+    "name": "Nome do Programa",
+    "presenter": {
+      "@type": "Person",
+      "name": "Nome do Apresentador"
+    },
+    "performer": [
+      {
+        "@type": "Person",
+        "name": "Participante 1"
+      },
+      {
+        "@type": "Person",
+        "name": "Participante 2"
+      }
+    ],
+    "partOfSeries": {
+      "@type": "TVSeries",
+      "name": "Nome da Série"
+    },
+    "productionCompany": {
+      "@type": "Organization",
+      "name": "Nome da Produtora"
+    }
+  }
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/television-block>
+    a schema:BroadcastEvent ;
+    schema:name "Nome do Bloco de TV" ;
+    schema:startDate
+        "2026-10-08T20:00:00-04:00"^^xsd:dateTime ;
+    schema:endDate
+        "2026-10-08T22:00:00-04:00"^^xsd:dateTime ;
+    schema:isLiveBroadcast true ;
+
+    schema:publishedOn [
+        a schema:BroadcastService ;
+        schema:name "WAAY-TV" ;
+        schema:broadcastDisplayName "ABC" ;
+
+        schema:broadcastAffiliateOf [
+            a schema:Organization ;
+            schema:name "ABC"
+        ] ;
+
+        schema:provider [
+            a schema:Organization ;
+            schema:name "Comcast"
+        ] ;
+
+        schema:owner [
+            a schema:Organization ;
+            schema:name "Comcast"
+        ]
+    ] ;
+
+    schema:workPerformed [
+        a schema:TVEpisode ;
+        schema:name "Nome do Programa" ;
+
+        schema:presenter [
+            a schema:Person ;
+            schema:name "Nome do Apresentador"
+        ] ;
+
+        schema:performer [
+            a schema:Person ;
+            schema:name "Participante 1"
+        ] ,
+        [
+            a schema:Person ;
+            schema:name "Participante 2"
+        ] ;
+
+        schema:partOfSeries [
+            a schema:TVSeries ;
+            schema:name "Nome da Série"
+        ] ;
+
+        schema:productionCompany [
+            a schema:Organization ;
+            schema:name "Nome da Produtora"
+        ]
+    ] .

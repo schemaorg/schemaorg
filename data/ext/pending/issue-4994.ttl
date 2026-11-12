@@ -1,0 +1,174 @@
+TYPES: #eg-0306 game, videogame, alternate-reality-game
+
+PRE-MARKUP:
+
+Example of an Alternate Reality Game (ARG).
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/Game">
+  <h1 itemprop="name">I Love Bees</h1>
+
+  <p itemprop="description">
+    A scary Alternate Reality Game (ARG). Boo!
+  </p>
+
+  <link itemprop="sameAs"
+        href="https://en.wikipedia.org/wiki/I_Love_Bees">
+
+  <span itemprop="author">Author name</span>
+  <span itemprop="award">Award name</span>
+
+  <div itemprop="gameLocation"
+       itemscope
+       itemtype="https://schema.org/Place">
+    <span itemprop="name">United States</span>
+  </div>
+
+  <meta itemprop="datePublished" content="2004-08-11">
+
+  <a itemprop="discussionUrl"
+     href="https://example.com/discussion">
+    Discussion
+  </a>
+
+  <span itemprop="alternativeHeadline">A Title</span>
+
+  <img itemprop="image"
+       src="https://example.com/image.jpg"
+       alt="I Love Bees">
+
+  <div itemprop="isBasedOn"
+       itemscope
+       itemtype="https://schema.org/CreativeWork">
+    <span itemprop="name">Original source work</span>
+  </div>
+
+  <a itemprop="url" href="https://example.com">
+    Official website
+  </a>
+
+  <span itemprop="publisher">Publisher name</span>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="Game">
+
+  <h1 property="name">I Love Bees</h1>
+
+  <p property="description">
+    A scary Alternate Reality Game (ARG). Boo!
+  </p>
+
+  <link property="sameAs"
+        href="https://en.wikipedia.org/wiki/I_Love_Bees">
+
+  <span property="author">Author name</span>
+  <span property="award">Award name</span>
+
+  <div property="gameLocation" typeof="Place">
+    <span property="name">United States</span>
+  </div>
+
+  <meta property="datePublished" content="2004-08-11">
+
+  <a property="discussionUrl"
+     href="https://example.com/discussion">
+    Discussion
+  </a>
+
+  <span property="alternativeHeadline">A Title</span>
+
+  <img property="image"
+       src="https://example.com/image.jpg"
+       alt="I Love Bees">
+
+  <div property="isBasedOn" typeof="CreativeWork">
+    <span property="name">Original source work</span>
+  </div>
+
+  <a property="url" href="https://example.com">
+    Official website
+  </a>
+
+  <span property="publisher">Publisher name</span>
+
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "I Love Bees",
+  "description": "A scary Alternate Reality Game (ARG). Boo!",
+  "sameAs": [
+    "https://en.wikipedia.org/wiki/I_Love_Bees"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Author name"
+  },
+  "award": "Award name",
+  "gameLocation": {
+    "@type": "Place",
+    "name": "United States"
+  },
+  "datePublished": "2004-08-11",
+  "discussionUrl": "https://example.com/discussion",
+  "alternativeHeadline": "A Title",
+  "image": "https://example.com/image.jpg",
+  "isBasedOn": {
+    "@type": "CreativeWork",
+    "name": "Original source work"
+  },
+  "url": "https://example.com",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Publisher name"
+  }
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:i-love-bees
+    a schema:Game ;
+    schema:name "I Love Bees" ;
+    schema:description "A scary Alternate Reality Game (ARG). Boo!" ;
+    schema:sameAs <https://en.wikipedia.org/wiki/I_Love_Bees> ;
+    schema:author [
+        a schema:Person ;
+        schema:name "Author name"
+    ] ;
+    schema:award "Award name" ;
+    schema:gameLocation [
+        a schema:Place ;
+        schema:name "United States"
+    ] ;
+    schema:datePublished "2004-08-11"^^xsd:date ;
+    schema:discussionUrl <https://example.com/discussion> ;
+    schema:alternativeHeadline "A Title" ;
+    schema:image <https://example.com/image.jpg> ;
+    schema:isBasedOn [
+        a schema:CreativeWork ;
+        schema:name "Original source work"
+    ] ;
+    schema:url <https://example.com> ;
+    schema:publisher [
+        a schema:Organization ;
+        schema:name "Publisher name"
+    ] .

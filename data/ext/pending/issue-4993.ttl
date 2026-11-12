@@ -1,0 +1,117 @@
+TYPES: #eg-0305 organization, sportsorganization, team
+
+PRE-MARKUP:
+
+Example of a fictional team or organization.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/Organization">
+  <h1 itemprop="name">Fictional Team</h1>
+  <meta itemprop="alternateName" content="fictionalteam">
+
+  <img itemprop="logo" src="https://exemplo.com.br/logo.png" alt="Fictional Team Logo">
+
+  <span itemprop="location">Location Name</span>
+
+  <div itemprop="member" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Member One</span>
+  </div>
+
+  <div itemprop="member" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Member Two</span>
+  </div>
+
+  <div itemprop="member" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Member Three</span>
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="Organization">
+  <h1 property="name">Fictional Team</h1>
+  <meta property="alternateName" content="fictionalteam">
+
+  <img property="logo" src="https://exemplo.com.br/logo.png" alt="Fictional Team Logo">
+
+  <span property="location">Location Name</span>
+
+  <div property="member" typeof="Person">
+    <span property="name">Member One</span>
+  </div>
+
+  <div property="member" typeof="Person">
+    <span property="name">Member Two</span>
+  </div>
+
+  <div property="member" typeof="Person">
+    <span property="name">Member Three</span>
+  </div>
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Fictional Team",
+  "alternateName": "fictionalteam",
+  "logo": "https://exemplo.com.br/logo.png",
+  "location": {
+    "@type": "Place",
+    "name": "Location Name"
+  },
+  "member": [
+    {
+      "@type": "Person",
+      "name": "Member One"
+    },
+    {
+      "@type": "Person",
+      "name": "Member Two"
+    },
+    {
+      "@type": "Person",
+      "name": "Member Three"
+    }
+  ]
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:fictionalteam
+    a schema:Organization ;
+    schema:name "Fictional Team" ;
+    schema:alternateName "fictionalteam" ;
+    schema:logo <https://exemplo.com.br/logo.png> ;
+    schema:location [
+        a schema:Place ;
+        schema:name "Location Name"
+    ] ;
+    schema:member
+        [
+            a schema:Person ;
+            schema:name "Member One"
+        ],
+        [
+            a schema:Person ;
+            schema:name "Member Two"
+        ],
+        [
+            a schema:Person ;
+            schema:name "Member Three"
+        ] .

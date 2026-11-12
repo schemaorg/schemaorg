@@ -1,0 +1,234 @@
+TYPES: #eg-0303 movies, televisionspecial, creativework
+
+PRE-MARKUP:
+
+Example of a television special movie.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/Movie">
+  <h1 itemprop="name">Special Example</h1>
+
+  <p itemprop="description">Example of a television special.</p>
+
+  <meta itemprop="duration" content="PT1H30M">
+  <span itemprop="genre">Example</span>
+
+  <div itemprop="director" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Joe</span>
+  </div>
+
+  <div itemprop="actor" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Actor 1</span>
+  </div>
+
+  <div itemprop="actor" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Actor 2</span>
+  </div>
+
+  <div itemprop="trailer" itemscope itemtype="https://schema.org/VideoObject">
+    <span itemprop="name">Trailer of Special</span>
+    <p itemprop="description">A nice trailer.</p>
+    <meta itemprop="thumbnailUrl" content="https://example.com/trailer-thumb.jpg">
+    <meta itemprop="uploadDate" content="2026-11-01T08:00:00+08:00">
+    <link itemprop="contentUrl" href="https://example.com/trailer.mp4">
+    <link itemprop="embedUrl" href="https://example.com/embed/trailer">
+  </div>
+
+  <div itemprop="productionCompany" itemscope itemtype="https://schema.org/Organization">
+    <span itemprop="name">Example</span>
+  </div>
+
+  <div itemprop="releasedEvent" itemscope itemtype="https://schema.org/PublicationEvent">
+    <meta itemprop="startDate" content="2026-12-25T20:00:00-03:00">
+    <div itemprop="location" itemscope itemtype="https://schema.org/Country">
+      <span itemprop="name">Brazil</span>
+    </div>
+  </div>
+
+  <div itemprop="countryOfOrigin" itemscope itemtype="https://schema.org/Country">
+    <span itemprop="name">Brazil</span>
+  </div>
+
+  <div itemprop="isBasedOn" itemscope itemtype="https://schema.org/TVSeries">
+    <span itemprop="name">Original TV Series</span>
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="Movie">
+
+  <h1 property="name">Special Example</h1>
+
+  <p property="description">Example of a television special.</p>
+
+  <meta property="duration" content="PT1H30M">
+  <span property="genre">Example</span>
+
+  <div property="director" typeof="Person">
+    <span property="name">Joe</span>
+  </div>
+
+  <div property="actor" typeof="Person">
+    <span property="name">Actor 1</span>
+  </div>
+
+  <div property="actor" typeof="Person">
+    <span property="name">Actor 2</span>
+  </div>
+
+  <div property="trailer" typeof="VideoObject">
+    <span property="name">Trailer of Special</span>
+    <p property="description">A nice trailer.</p>
+    <meta property="thumbnailUrl" content="https://example.com/trailer-thumb.jpg">
+    <meta property="uploadDate" content="2026-11-01T08:00:00+08:00">
+    <link property="contentUrl" href="https://example.com/trailer.mp4">
+    <link property="embedUrl" href="https://example.com/embed/trailer">
+  </div>
+
+  <div property="productionCompany" typeof="Organization">
+    <span property="name">Example</span>
+  </div>
+
+  <div property="releasedEvent" typeof="PublicationEvent">
+    <meta property="startDate" content="2026-12-25T20:00:00-03:00">
+    <div property="location" typeof="Country">
+      <span property="name">Brazil</span>
+    </div>
+  </div>
+
+  <div property="countryOfOrigin" typeof="Country">
+    <span property="name">Brazil</span>
+  </div>
+
+  <div property="isBasedOn" typeof="TVSeries">
+    <span property="name">Original TV Series</span>
+  </div>
+
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Movie",
+  "name": "Special Example",
+  "description": "Example of a television special.",
+  "duration": "PT1H30M",
+  "genre": "Example",
+  "director": {
+    "@type": "Person",
+    "name": "Joe"
+  },
+  "actor": [
+    {
+      "@type": "Person",
+      "name": "Actor 1"
+    },
+    {
+      "@type": "Person",
+      "name": "Actor 2"
+    }
+  ],
+  "trailer": {
+    "@type": "VideoObject",
+    "name": "Trailer of Special",
+    "description": "A nice trailer.",
+    "thumbnailUrl": "https://example.com/trailer-thumb.jpg",
+    "uploadDate": "2026-11-01T08:00:00+08:00",
+    "contentUrl": "https://example.com/trailer.mp4",
+    "embedUrl": "https://example.com/embed/trailer"
+  },
+  "productionCompany": {
+    "@type": "Organization",
+    "name": "Example"
+  },
+  "releasedEvent": {
+    "@type": "PublicationEvent",
+    "startDate": "2026-12-25T20:00:00-03:00",
+    "location": {
+      "@type": "Country",
+      "name": "Brazil"
+    }
+  },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "isBasedOn": {
+    "@type": "TVSeries",
+    "name": "Original TV Series"
+  }
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
+@prefix schema: <https://schema.org/> .
+@prefix ex: <https://example.com/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:special-example
+    a schema:Movie ;
+    schema:name "Special Example" ;
+    schema:description "Example of a television special." ;
+    schema:duration "PT1H30M" ;
+    schema:genre "Example" ;
+
+    schema:director [
+        a schema:Person ;
+        schema:name "Joe"
+    ] ;
+
+    schema:actor
+        [
+            a schema:Person ;
+            schema:name "Actor 1"
+        ],
+        [
+            a schema:Person ;
+            schema:name "Actor 2"
+        ] ;
+
+    schema:trailer [
+        a schema:VideoObject ;
+        schema:name "Trailer of Special" ;
+        schema:description "A nice trailer." ;
+        schema:thumbnailUrl <https://example.com/trailer-thumb.jpg> ;
+        schema:uploadDate "2026-11-01T08:00:00+08:00"^^xsd:dateTime ;
+        schema:contentUrl <https://example.com/trailer.mp4> ;
+        schema:embedUrl <https://example.com/embed/trailer>
+    ] ;
+
+    schema:productionCompany [
+        a schema:Organization ;
+        schema:name "Example"
+    ] ;
+
+    schema:releasedEvent [
+        a schema:PublicationEvent ;
+        schema:startDate "2026-12-25T20:00:00-03:00"^^xsd:dateTime ;
+        schema:location [
+            a schema:Country ;
+            schema:name "Brazil"
+        ]
+    ] ;
+
+    schema:countryOfOrigin [
+        a schema:Country ;
+        schema:name "Brazil"
+    ] ;
+
+    schema:isBasedOn [
+        a schema:TVSeries ;
+        schema:name "Original TV Series"
+    ] .
