@@ -35,11 +35,11 @@ def templateRender(
     template_instance: jinja2.Template | None = None,
 ) -> str:
     """Render a page template."""
-    current = schema.VERSION.current()
+    target = schema.target_version()
     tvars: dict[str, Any] = {
         "local_vars": {},
-        "version": current.number(),
-        "versiondate": current.date(),
+        "version": target.number(),
+        "versiondate": target.date() or "",
         "sitename": schema.constants.SITENAME,
         "TERMHREFPREFIX": TERMHREFPREFIX,
         "TERMHREFSUFFIX": TERMHREFSUFFIX,

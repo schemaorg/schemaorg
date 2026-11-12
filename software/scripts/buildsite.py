@@ -12,7 +12,12 @@ import subprocess
 import sys
 
 from schemaorg import constants
-from schemaorg.layout import Releases, checkDataDirectories
+from schemaorg.layout import (
+    NEXT_VERSION,
+    OutputLayout,
+    Releases,
+    checkDataDirectories,
+)
 import SchemaTerms.localmarkdown
 import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
@@ -60,7 +65,7 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         default=[],
         action="extend",
         nargs="*",
-        help="create files(repeatable) - ALL = all files",
+        help="create the release files (always the complete set; any value such as ALL triggers it)",
     )
     parser.add_argument(
         "-o", "--output", help="output site directory (default: ./software/site)"
@@ -114,6 +119,11 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Build the website from the releases directory + static content + stats",
     )
+    parser.add_argument(
+        "--version",
+        default=NEXT_VERSION,
+        help="Target release version ('next', 'latest', or declared X.Y)",
+    )
 
     parsed_args = parser.parse_args(args_list)
 
@@ -122,6 +132,7 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
     schema.config.TERMS = list(parsed_args.terms)
     schema.config.PAGES = list(parsed_args.docspages)
     schema.config.FILES = list(parsed_args.files)
+    schema.config.TARGET_VERSION = parsed_args.version
 
     if parsed_args.output:
         schema.config.OUTPUTDIR = parsed_args.output
@@ -195,7 +206,7 @@ def initdir(output_dir_str: str) -> None:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    version = schema.VERSION.current().number()
+    version = schema.target_version().number()
     message = (
         f"Creating {schema.constants.HANDLER_FILE} from "
         f"{schema.constants.HANDLER_TEMPLATE} for version: {version}"
@@ -240,7 +251,7 @@ def loadTerms(source: str | None = None, force: bool = False) -> None:
         elif source == "release":
             release_file = Releases(
                 paths.DefaultInputLayout(), schema.VERSION
-            ).file()
+            ).file(schema.target_version())
 
             if not release_file.exists():
                 raise FileNotFoundError(
@@ -288,22 +299,26 @@ def processDocs(pages: Iterable[str]) -> None:
             buildocspages.buildDocs(pages)
 
 
-def processFiles(files: Iterable[str]) -> None:
-    if any(files):
-        with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
-            loadTerms()
-            buildfiles.buildFiles(files)
+def processFiles() -> None:
+    with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
+        buildfiles.export_site_docs(
+            input_layout=paths.DefaultInputLayout(),
+            output_layout=paths.DefaultOutputLayout(),
+            version=schema.target_version(),
+        )
 
 
-def runShaclTests() -> None:
+def runShaclTests(releases_output_dir: str | Path | None = None) -> None:
     """Run the SHACL validation tests on the generated examples."""
     with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
         cmd = [
             sys.executable,
             str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
-            "-o",
-            schema.config.OUTPUTDIR,
+            "--version",
+            schema.target_version().number(),
         ]
+        if releases_output_dir is not None:
+            cmd.extend(["-o", str(releases_output_dir)])
         status = subprocess.run(cmd, check=False).returncode
         if status:
             log.error(
@@ -313,47 +328,17 @@ def runShaclTests() -> None:
             sys.exit(status)
 
 
-def copyReleaseFiles() -> None:
-    """Copy the built release files into the site tree for deployment.
-
-    The destination is *disposable build output*. Its only consumers are the
-    deploy scripts, which `cd software/site` and upload whatever is there.
-
-    This function used to end with `git add -f <destdir>`, which is why 36
-    files / 54 MB of scratch output landed in the repository in the 30.1
-    release commit. The `-f` was specifically overriding the
-    `software/site/*` .gitignore rule. It was never right: the only caller is
-    STAGE 2, where OUTPUTDIR is `software/site`, so it could only ever stage
-    the throwaway copy -- never the real archive in `data/releases/`, which
-    STAGE 1 produces and which a human commits deliberately.
-
-    Do not re-add it. A build script has no business touching the index.
-    """
-    srcdir = Releases(paths.DefaultInputLayout(), schema.VERSION).dir()
-    destdir = Releases(paths.DefaultOutputLayout(), schema.VERSION).dir()
-    if not srcdir.is_dir():
-        log.warning(
-            "Release data directory %s not found. Skipping copying release files.",
-            srcdir,
-        )
-        return
-    with pretty_logger.BlockLog(
-        message=f"Copying release files from {srcdir} to {destdir}",
-        logger=log,
-    ):
-        shutil.copytree(srcdir, destdir, dirs_exist_ok=True)
-
-
 def main(argv: Sequence[str] | None = None) -> None:
     global args
     args = initialize(argv)
 
     checkDataDirectories()
 
+    target = schema.target_version()
     log.info(
         "Version: %s Released: %s",
-        schema.VERSION.current().number(),
-        schema.VERSION.current().date(),
+        target.number(),
+        target.date() or "unreleased",
     )
 
     tests_ran = False
@@ -361,35 +346,17 @@ def main(argv: Sequence[str] | None = None) -> None:
     # STAGE 1: Build Release
     if args.buildrelease or args.release:
         log.info("=== STAGE 1: BUILDING RELEASE VERSION ===")
-        loadTerms(source="default")
-
-        schema.config.OUTPUTDIR = str(constants.PROJECT_ROOT / "data")
-
         runtests()
         tests_ran = True
 
-        # Generate schema-all.html (the FullRelease documentation page)
-        processDocs(pages=["FullRelease"])
+        with pretty_logger.BlockLog(logger=log, message="Building release files"):
+            buildfiles.export_release_files(
+                input_layout=paths.DefaultInputLayout(),
+                output_layout=OutputLayout(constants.PROJECT_ROOT / "data"),
+                version=target,
+            )
 
-        # Generate all vocabulary/schema release files
-        release_files = [
-            "Context",
-            "Owl",
-            "Httpequivs",
-            "Examples",
-            "RDFExports",
-            "CSVExports",
-            "Shex_Shacl",
-        ]
-        processFiles(files=release_files)
-
-        # Validate the generated release files against shapes
         runShaclTests()
-
-        temp_docs_dir = constants.PROJECT_ROOT / "data/docs"
-        if temp_docs_dir.is_dir():
-            log.info("Cleaning up temporary files in data/docs")
-            shutil.rmtree(temp_docs_dir)
 
         log.info("=== STAGE 1: RELEASE BUILD COMPLETED SUCCESSFULLY ===")
 
@@ -413,12 +380,11 @@ def main(argv: Sequence[str] | None = None) -> None:
         if not tests_ran:
             runtests()
             tests_ran = True
-        if args.buildsite or args.autobuild:
-            copyReleaseFiles()
 
         processTerms(terms=schema.config.TERMS)
         processDocs(pages=schema.config.PAGES)
-        processFiles(files=schema.config.FILES)
+        if any(schema.config.FILES) or args.buildsite:
+            processFiles()
 
         if args.shacltests:
             runShaclTests()
