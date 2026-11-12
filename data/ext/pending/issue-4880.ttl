@@ -1,26 +1,135 @@
+TYPES: #eg-0309 screenplay, creativework, writtenwork
 
+PRE-MARKUP:
+
+Example of a screenplay.
+
+MICRODATA:
+
+HTML
+<div itemscope itemtype="https://schema.org/CreativeWork">
+  <h1 itemprop="name">A Good Screenplay</h1>
+
+  <span itemprop="genre">Example</span>
+
+  <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Joe</span>
+  </div>
+
+  <meta itemprop="datePublished" content="2026-12-25">
+
+  <meta itemprop="inLanguage" content="en">
+
+  <div itemprop="countryOfOrigin" itemscope itemtype="https://schema.org/Country">
+    <span itemprop="name">Brazil</span>
+  </div>
+
+  <div itemprop="copyrightHolder" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Joe</span>
+  </div>
+
+  <div itemprop="encoding" itemscope itemtype="https://schema.org/MediaObject">
+    <link itemprop="contentUrl" href="https://example.com/a-good-screenplay.pdf">
+    <meta itemprop="encodingFormat" content="application/pdf">
+  </div>
+</div>
+
+
+RDFA:
+
+HTML
+<div vocab="https://schema.org/" typeof="CreativeWork">
+
+  <h1 property="name">A Good Screenplay</h1>
+
+  <span property="genre">Example</span>
+
+  <div property="author" typeof="Person">
+    <span property="name">Joe</span>
+  </div>
+
+  <meta property="datePublished" content="2026-12-25">
+
+  <meta property="inLanguage" content="en">
+
+  <div property="countryOfOrigin" typeof="Country">
+    <span property="name">Brazil</span>
+  </div>
+
+  <div property="copyrightHolder" typeof="Person">
+    <span property="name">Joe</span>
+  </div>
+
+  <div property="encoding" typeof="MediaObject">
+    <link property="contentUrl" href="https://example.com/a-good-screenplay.pdf">
+    <meta property="encodingFormat" content="application/pdf">
+  </div>
+
+</div>
+
+
+JSON:
+
+HTML
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "A Good Screenplay",
+  "genre": "Example",
+  "author": {
+    "@type": "Person",
+    "name": "Joe"
+  },
+  "datePublished": "2026-12-25",
+  "inLanguage": "en",
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "copyrightHolder": {
+    "@type": "Person",
+    "name": "Joe"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "contentUrl": "https://example.com/a-good-screenplay.pdf",
+    "encodingFormat": "application/pdf"
+  }
+}
+</script>
+
+
+TURTLE (RDF):
+
+turtle
 @prefix schema: <https://schema.org/> .
 @prefix ex: <https://example.com/vocab/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://example.com/a-good-screenplay>
-    a ex:Screenplay ;
+    a schema:CreativeWork ;
     schema:name "A Good Screenplay" ;
     schema:genre "Example" ;
+
     schema:author [
         a schema:Person ;
         schema:name "Joe"
     ] ;
+
     schema:datePublished "2026-12-25"^^xsd:date ;
     schema:inLanguage "en" ;
+
     schema:countryOfOrigin [
         a schema:Country ;
         schema:name "Brazil"
     ] ;
+
     schema:copyrightHolder [
         a schema:Person ;
         schema:name "Joe"
     ] ;
+
     schema:encoding [
         a schema:MediaObject ;
         schema:contentUrl
