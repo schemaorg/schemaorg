@@ -88,7 +88,7 @@ Once a local version of the repository has been cloned, in to an appropriate pyt
 
     ./software/scripts/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependent on the configuration of your system, this will take between 5-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
+This will create a local working copy of the schema.org website (targeting `next` by default) in `software/site`. Dependent on the configuration of your system, this will take between 5-20 minutes. Note, this full build is only needed initially or when significant changes have been made; prior to deploying a published production release, run `./software/scripts/buildsite.py -a --version latest`. See below for details on how to build individual files and pages.
 
 **buildfiles.py (`build_schema`)**
 
@@ -180,11 +180,14 @@ For details see the output of the command `./software/scripts/buildsite.py -h`. 
 
 Changes to created pages are immediately reflected in the output of the local `./software/scripts/devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
 
-Whenever any changes or additions are made to .ttl files, examples files, documents or other files in the docs directory, these will need to be reflected into the `site` directory using `buildsite.py`.
+Whenever any changes or additions are made to `.ttl` files, examples files, documents, or other files in `docs/`, reflect them into `software/site` using `buildsite.py`. Because site builds read vocabulary terms from `data/releases/<version>/schemaorg-all-https.ttl` (default `next`), regenerate `data/releases/next/` first after editing `.ttl` files:
 
-In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./software/scripts/devserv.py`.
+    ./software/scripts/buildfiles.py
+    ./software/scripts/buildsite.py -t <Term>
 
-_Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes (including those pulled from the repository) in the local system into the `site` website image.
+For example-only or wording changes once `data/releases/next/` is up to date, rebuilding just the affected term pages with `./software/scripts/buildsite.py -t <Term>` is sufficient to preview them via `./software/scripts/devserv.py`.
+
+_Note:_ **Remember** to run `./software/scripts/buildsite.py -a --version latest` prior to a production deployment or release (or `./software/scripts/buildsite.py -a` for a `next` preview deployment) so `software/site` reflects all current changes.
 
 Releasing New Production Releases of the Site
 =============================================

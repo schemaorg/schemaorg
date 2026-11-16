@@ -12,6 +12,7 @@ import unicodedata
 
 from schemaorg.layout.stats_layout import StatsProvider
 import SchemaExamples.schemaexamples as schemaexamples
+import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import util.fileutils as fileutils
@@ -119,10 +120,40 @@ class TermPageRenderer:
                 raise
 
 
+_WORKER_CONFIG_KEYS = frozenset({"target_version", "output_dir", "release_file"})
+
+
+def _init_worker(
+    target_version: str | None = None,
+    output_dir: str | None = None,
+    release_file: str | Path | None = None,
+) -> None:
+    if target_version is not None:
+        schema.config.TARGET_VERSION = target_version
+    if output_dir is not None:
+        schema.config.OUTPUTDIR = output_dir
+    if release_file is not None and (
+        sdotermsource.SdoTermSource.SOURCEGRAPH is None
+        or sdotermsource.SdoTermSource.LOADEDDEFAULT
+    ):
+        sdotermsource.SdoTermSource.loadSourceGraph(str(release_file), init=True)
+        sdocollaborators.collaborator.COLLABORATORS.clear()
+        sdocollaborators.collaborator.CONTRIBUTORS.clear()
+        sdocollaborators.collaborator.loadContributors()
+
+
 def _buildTermIds(args: tuple[tuple[int, list[str]], dict[str, Any]]) -> None:
     (shard, term_ids), config = args
     pretty_logger.MakeRootLogPretty(shard=shard)
-    renderer = TermPageRenderer(**config)
+    _init_worker(
+        target_version=config.get("target_version"),
+        output_dir=config.get("output_dir"),
+        release_file=config.get("release_file"),
+    )
+    renderer_config = {
+        k: v for k, v in config.items() if k not in _WORKER_CONFIG_KEYS
+    }
+    renderer = TermPageRenderer(**renderer_config)
     for term_id in term_ids:
         try:
             renderer.RenderAndWriteSingleTerm(term_id)
@@ -156,6 +187,8 @@ def buildTerms(
             "stats_providers": stats.get_stats_providers(),
             "build_opts": schema.config.BUILDOPTS,
             "term_docs_dir": schema.constants.TERMDOCSDIR,
+            "target_version": schema.config.TARGET_VERSION,
+            "output_dir": schema.config.OUTPUTDIR,
         }
     if "examples" not in config:
         config = {
@@ -174,7 +207,14 @@ def buildTerms(
 
         tasks = [(item, config) for item in sharded_terms.items()]
 
-        with multiprocessing.Pool() as pool:
+        with multiprocessing.Pool(
+            initializer=_init_worker,
+            initargs=(
+                config.get("target_version"),
+                config.get("output_dir"),
+                config.get("release_file"),
+            ),
+        ) as pool:
             pool.map(_buildTermIds, tasks)
     elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
     log.info("%d Terms generated in %s seconds", len(term_list), elapsed)

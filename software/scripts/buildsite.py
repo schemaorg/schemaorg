@@ -206,7 +206,7 @@ def initdir(output_dir_str: str) -> None:
             shutil.copy(path, gdir)
         block.append(f"copied {len(gcloud_files)} files")
 
-    version = schema.target_version().number()
+    version = schema.VERSION.current().number()
     message = (
         f"Creating {schema.constants.HANDLER_FILE} from "
         f"{schema.constants.HANDLER_TEMPLATE} for version: {version}"
@@ -282,10 +282,22 @@ def processTerms(terms: Iterable[str]) -> None:
             logger=log, message="Building term definition pages", timing=True
         ):
             loadTerms()
+            release_file = (
+                str(
+                    Releases(paths.DefaultInputLayout(), schema.VERSION).file(
+                        schema.target_version()
+                    )
+                )
+                if LOADEDTERMS == "release"
+                else None
+            )
             config = {
                 "stats_providers": stats.get_stats_providers(),
                 "build_opts": schema.config.BUILDOPTS,
                 "term_docs_dir": schema.constants.TERMDOCSDIR,
+                "target_version": schema.config.TARGET_VERSION,
+                "output_dir": schema.config.OUTPUTDIR,
+                "release_file": release_file,
             }
             buildtermpages.buildTerms(terms, config=config)
 

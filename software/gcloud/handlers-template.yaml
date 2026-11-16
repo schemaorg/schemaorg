@@ -222,6 +222,18 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
+
+- url: /version/latest/(.*\.owl)
+  mime_type: application/rdf+xml
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.owl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
   
   
 #####
@@ -328,13 +340,12 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
-  
 
-- url: /version/(.*)/$
-  mime_type: text/html
-  static_files: releases/\1/schema-all.html
-  upload: releases/.*/.*
-  http_headers:
+- url: /version/(.*/.*\.owl)
+  mime_type: application/rdf+xml
+  static_files: releases/\1
+  upload: releases/(.*/.*\.owl)
+  http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: "*"
@@ -342,22 +353,10 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
-- url: /version/(.*)$
-  mime_type: text/html
-  static_files: releases/\1/schema-all.html
-  upload: releases/.*/.*
-  http_headers:
-    Access-Control-Allow-Credentials: 'true'
-    Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: "*"
-    Access-control-allow-methods: GET
-  secure: always
-  redirect_http_response_code: 301  
-  
-- url: /version/(.*)/.*\.shacl
+- url: /version/(.*/.*\.shacl)
   mime_type: text/turtle
   static_files: releases/\1
-  upload: releases/(.*)/.*\.shacl
+  upload: releases/(.*/.*\.shacl)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -365,12 +364,36 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
-  
-- url: /version/(.*)/.*\.shexj
+
+- url: /version/(.*/.*\.shexj)
   mime_type: application/json+shexschema
   static_files: releases/\1
-  upload: releases/(.*)/.*\.shexj
+  upload: releases/(.*/.*\.shexj)
   http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/([2-9]\.[0-9]+|[12][0-9]\.[0-9]+|30\.[01])[\/]?$
+  mime_type: text/html
+  static_files: releases/\1/schema-all.html
+  upload: releases/([2-9]\.[0-9]+|[12][0-9]\.[0-9]+|30\.[01])/schema-all\.html
+  http_headers:
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/[^/]+[\/]?$
+  mime_type: text/html
+  static_files: docs/fullrelease.html
+  upload: docs/fullrelease.html
+  http_headers:
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: "*"

@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from pathlib import Path
+import tempfile
 import unittest
 
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.sdoterm as sdoterm
+import SchemaTerms.sdotermsource as sdotermsource
 import util.buildtermpages as buildtermpages
 import util.schema as schema
 
@@ -80,6 +82,57 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertIn("http://example.com/thingamabob", output)
         self.assertIn("Awesome &amp; Thingamabob", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
+
+    def testWorkerConfigAppliesTargetVersionOutputDirAndReleaseFile(self) -> None:
+        orig_target = schema.config.TARGET_VERSION
+        orig_output = schema.config.OUTPUTDIR
+        self.addCleanup(setattr, schema.config, "TARGET_VERSION", orig_target)
+        self.addCleanup(setattr, schema.config, "OUTPUTDIR", orig_output)
+        self.addCleanup(
+            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ttl_path = root / "release.ttl"
+            ttl_path.write_text(
+                "@prefix : <https://schema.org/> .\n"
+                "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                ':WorkerOnlyType a rdfs:Class ; rdfs:label "WorkerOnlyType" ; '
+                'rdfs:comment "Loaded from release_file." .\n',
+                encoding="utf-8",
+            )
+            out_dir = root / "custom_site"
+
+            schema.config.TARGET_VERSION = "next"
+            schema.config.OUTPUTDIR = "software/site"
+            sdotermsource.SdoTermSource.SOURCEGRAPH = None
+
+            published = schema.VERSION.current()
+            buildtermpages._buildTermIds(
+                (
+                    (0, ["WorkerOnlyType"]),
+                    {
+                        "stats_providers": [],
+                        "build_opts": [],
+                        "term_docs_dir": "/docs",
+                        "examples": schemaexamples.SchemaExamples.from_files([]),
+                        "target_version": published.number(),
+                        "output_dir": str(out_dir),
+                        "release_file": str(ttl_path),
+                    },
+                )
+            )
+
+            rendered_file = (
+                out_dir / "terms/types/W/WorkerOnlyType.html"
+            )
+            self.assertTrue(rendered_file.is_file())
+            html = rendered_file.read_text(encoding="utf-8")
+            self.assertIn("Loaded from release_file.", html)
+            self.assertIn(f"V{published.number()}", html)
+            self.assertIn(str(published.date()), html)
+            self.assertNotIn("Vnext", html)
 
 
 if __name__ == "__main__":
