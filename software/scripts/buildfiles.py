@@ -584,10 +584,26 @@ def buildFiles(
     files: Iterable[str],
     domains: frozenset[paths.Domain] | None = None,
 ) -> None:
+    prev_wikilinks = (
+        localmarkdown.MarkdownTool.WCLASS,
+        localmarkdown.MarkdownTool.WPRE,
+        localmarkdown.MarkdownTool.WPOST,
+    )
     localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
     localmarkdown.MarkdownTool.setWikilinkPrePath(constants.SCHEMA_URI)
     localmarkdown.MarkdownTool.setWikilinkPostPath("")
+    try:
+        _buildFiles(files, domains=domains)
+    finally:
+        localmarkdown.MarkdownTool.setWikilinkCssClass(prev_wikilinks[0])
+        localmarkdown.MarkdownTool.setWikilinkPrePath(prev_wikilinks[1])
+        localmarkdown.MarkdownTool.setWikilinkPostPath(prev_wikilinks[2])
 
+
+def _buildFiles(
+    files: Iterable[str],
+    domains: frozenset[paths.Domain] | None = None,
+) -> None:
     targets = (
         sorted(FILELIST.keys())
         if any(fileutils.isAll(f) for f in files)

@@ -17,9 +17,13 @@ from schemaorg.layout import (
     Scope,
 )
 from schemaorg.version import Version, VersionItem
+import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
+import scripts.buildsite as buildsite
 import util.fileutils as fileutils
+import util.paths as paths
 import util.schema as schema
 from util.sdoowl import OwlBuild
 
@@ -30,7 +34,7 @@ FIXTURE_TTL = """\
 
 :Thing a rdfs:Class ;
     rdfs:label "Thing" ;
-    rdfs:comment "The most generic type." .
+    rdfs:comment "The most generic type; see [[Person]]." .
 
 :DataType a rdfs:Class ;
     rdfs:subClassOf rdfs:Class ;
@@ -51,6 +55,9 @@ FIXTURE_TTL = """\
     rdfs:comment "The name of the item." ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text .
+
+<https://example.org/foreign-dataset> a :Thing ;
+    rdfs:label "ForeignDataset" .
 """
 
 
@@ -218,6 +225,74 @@ class TestBuildFiles(unittest.TestCase):
                 version="30.1",
             )
             self.assertTrue(releases.file("30.1", filename="schemaorg.owl").is_file())
+
+    def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(self) -> None:
+        self.addCleanup(
+            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
+        )
+        orig_loaded = buildsite.LOADEDTERMS
+        self.addCleanup(setattr, buildsite, "LOADEDTERMS", orig_loaded)
+        orig_target = schema.config.TARGET_VERSION
+        self.addCleanup(setattr, schema.config, "TARGET_VERSION", orig_target)
+        prev_wpre = localmarkdown.MarkdownTool.WPRE
+        self.addCleanup(localmarkdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            in_dir = Path(tmp) / "in"
+            (in_dir / "data").mkdir(parents=True)
+            (in_dir / "versions.json").write_text(
+                json.dumps(
+                    {
+                        "schemaversion": "30.1",
+                        "releaseLog": {"30.1": "2026-09-16"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (in_dir / "data" / "schema.ttl").write_text(
+                FIXTURE_TTL, encoding="utf-8"
+            )
+            input_layout = InputLayout(in_dir)
+            release_out_layout = OutputLayout(in_dir / "data")
+            version_obj = Version(in_dir / "versions.json")
+
+            localmarkdown.MarkdownTool.setWikilinkPrePath("/")
+            buildsite.LOADEDTERMS = None
+            schema.config.TARGET_VERSION = "next"
+
+            buildfiles.export_release_files(
+                input_layout=input_layout, output_layout=release_out_layout
+            )
+
+            self.assertEqual(localmarkdown.MarkdownTool.WPRE, "/")
+            csv_text = (
+                Releases(release_out_layout, version_obj)
+                .file(
+                    protocol=Protocol.HTTPS,
+                    scope=Scope.ALL,
+                    extension="-types.csv",
+                )
+                .read_text(encoding="utf-8")
+            )
+            self.assertIn('href=""https://schema.org/Person""', csv_text)
+
+            with (
+                patch.object(paths, "DefaultInputLayout", return_value=input_layout),
+                patch.object(buildsite.schema, "VERSION", version_obj),
+                patch.object(
+                    sdocollaborators.collaborator, "loadContributors"
+                ),
+            ):
+                buildsite.loadTerms(source="release")
+
+            self.assertNotIn(
+                "https://example.org/foreign-dataset",
+                sdotermsource.SdoTermSource.getAllTerms(),
+            )
+            thing = sdotermsource.SdoTermSource.getTerm("Thing")
+            self.assertIsNotNone(thing)
+            assert thing is not None
+            self.assertIn('href="/Person"', thing.comment)
 
 
 if __name__ == "__main__":
