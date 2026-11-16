@@ -15,9 +15,9 @@ from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
 from rdflib.term import Node
 
-from schemaorg.layout import Releases
+from schemaorg import constants
+from schemaorg.layout import NEXT_VERSION, OutputLayout, Releases
 from schemaorg.sdo_uri import SCHEMA_URL, SDO
-import util.paths as paths
 import util.schema as schema
 from util.sort_dict import sort_dict
 
@@ -367,14 +367,16 @@ class ShaclParser:
 
 def generate_files(
     term_defs_path: str | Path,
-    version: str,
+    version: str = NEXT_VERSION,
     input_format: str = "nt",
     releases: Releases | None = None,
 ) -> None:
     graph = Graph().parse(Path(term_defs_path), format=input_format)
     graph.bind("schema", _detect_schema_ns(graph))
 
-    rel = releases or Releases(paths.DefaultOutputLayout(), schema.VERSION)
+    rel = releases or Releases(
+        OutputLayout(constants.PROJECT_ROOT / "data"), schema.VERSION
+    )
 
     shexj_path = rel.file(
         version, protocol="", scope="shapes", extension=".shexj"
@@ -409,11 +411,16 @@ def main(argv: Sequence[str] | None = None) -> None:
     parser.add_argument(
         "-f", "--format", default="nt", help="source file format (default: nt)"
     )
+    parser.add_argument(
+        "--version",
+        default=NEXT_VERSION,
+        help="Target release version (default: 'next')",
+    )
     args = parser.parse_args(argv)
 
     generate_files(
         term_defs_path=args.sourcefile,
-        version=schema.VERSION.current().number(),
+        version=args.version,
         input_format=args.format,
     )
 

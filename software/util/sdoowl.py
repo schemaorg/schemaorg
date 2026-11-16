@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from typing import Dict, FrozenSet, List, Optional, Set
-from xml.dom import minidom
 from xml.etree import ElementTree
 
 import rdflib
@@ -11,6 +10,7 @@ from rdflib.term import URIRef
 
 from schemaorg import constants
 from schemaorg.sdo_uri import SDO, SdoUri
+from schemaorg.version import VersionItem
 from SchemaTerms.localmarkdown import Markdown, MarkdownTool
 from SchemaTerms.sdotermsource import SdoTermSource, layerFromUri, uriFromLayer
 import util.schema as schema
@@ -52,7 +52,13 @@ def _MakePrettyComment(text: str) -> ElementTree.Comment:
 
 
 class OwlBuild:
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        version: Optional[VersionItem] = None,
+        graph: Optional[rdflib.Graph] = None,
+    ) -> None:
+        self.version: VersionItem = version or schema.target_version()
+        self.graph: Optional[rdflib.Graph] = graph
         self.typesCount: int = 0
         self.propsCount: int = 0
         self.namedCount: int = 0
@@ -69,9 +75,13 @@ class OwlBuild:
         for k, v in sorted(NAMESPACES.items()):
             self.dom.set(k, v)
 
-        version: str = schema.VERSION.current().number()
-        version_date: Optional[str] = schema.VERSION.current().date()
-        comment_text: str = f"Generated from Schema.org version: {version} released: {version_date}"
+        version: str = self.version.number()
+        version_date: Optional[str] = self.version.date()
+        comment_text: str = (
+            f"Generated from Schema.org version: {version} released: {version_date}"
+            if version_date
+            else f"Generated from Schema.org version: {version}"
+        )
         self.dom.append(_MakePrettyComment(text=comment_text))
         self.ont = ElementTree.SubElement(self.dom, "owl:Ontology")
         self.ont.set("rdf:about", constants.SCHEMA_URI)
@@ -80,20 +90,21 @@ class OwlBuild:
         info.text = version
         x: ElementTree.Element = ElementTree.SubElement(self.ont, "rdfs:label")
         x.text = "Schema.org Vocabulary"
-        x = ElementTree.SubElement(self.ont, "dcterms:modified")
-        x.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#date")
-        x.text = version_date
+        if version_date is not None:
+            x = ElementTree.SubElement(self.ont, "dcterms:modified")
+            x.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#date")
+            x.text = version_date
         self.dom.append(_MakePrettyComment(text="Definitions"))
 
     def _loadGraph(self) -> None:
-        self.list(SdoTermSource.sourceGraph())
+        self.list(self.graph if self.graph is not None else SdoTermSource.sourceGraph())
 
     def getContent(self) -> str:
         return self.prettify(self.dom)
 
     def prettify(self, elem: ElementTree.Element) -> str:
-        doc: minidom.Document = minidom.parseString(ElementTree.tostring(elem))
-        return doc.toprettyxml(encoding="UTF-8").decode("utf-8")
+        ElementTree.indent(elem, space="\t")
+        return f"{ElementTree.tostring(elem, encoding='unicode', xml_declaration=True)}\n"
 
     def list(self, graph: rdflib.Graph) -> None:
         self.dom.append(_MakePrettyComment(text="Class Definitions"))

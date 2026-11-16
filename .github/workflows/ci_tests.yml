@@ -37,10 +37,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e software
 
-      # Local tests prepare
-      - name: Local Tests prepare
-        run: software/scripts/buildsite.py -f RDFExport.nquads Context Examples Shex_Shacl
-      
-      # Run local tests
-      - name: Run local tests
-        run: software/scripts/buildsite.py -r --shacltests
+      # Verify checked-in 'next' release artifacts match current sources
+      - name: Verify data/releases/next is up to date
+        run: |
+          software/scripts/buildfiles.py
+          git diff --exit-code data/releases/next/
+          test -z "$(git ls-files --others --exclude-standard data/releases/next/)"
+
+      # Run unit tests and SHACL example validation
+      - name: Run local tests and SHACL validation
+        run: |
+          software/scripts/runtests.py
+          software/scripts/validate_examples_shacl.py

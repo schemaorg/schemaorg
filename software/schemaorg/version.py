@@ -7,27 +7,47 @@ from pathlib import Path
 from typing import Any
 
 
+NEXT_VERSION: str = "next"
+LATEST_RELEASE: str = "latest"
+
+
 @dataclass(frozen=True)
 class VersionItem:
-    """Individual version entry with number and release date."""
+    """Individual version entry with identifier and optional release date."""
 
     _number: str
-    _date: str = field(compare=False)
+    _date: str | None = field(default=None, compare=False)
 
     def __post_init__(self) -> None:
         if not self._number:
-            raise ValueError(f"version {self._number} is not a number")
-        float(self._number)
-        datetime.strptime(self._date, "%Y-%m-%d")
+            raise ValueError(f"version {self._number!r} is not a number")
+        if self._number == NEXT_VERSION:
+            if self._date is not None:
+                raise ValueError(
+                    f"unreleased version '{NEXT_VERSION}' must not have a date"
+                )
+        else:
+            float(self._number)
+            if not self._date:
+                raise ValueError(
+                    f"version {self._number} requires a release date"
+                )
+            datetime.strptime(self._date, "%Y-%m-%d")
+
+    def is_next(self) -> bool:
+        return self._number == NEXT_VERSION
 
     def number(self) -> str:
         return self._number
 
-    def date(self) -> str:
+    def date(self) -> str | None:
         return self._date
 
     def __str__(self) -> str:
         return self._number
+
+
+_NEXT_ITEM: VersionItem = VersionItem(NEXT_VERSION)
 
 
 class Version:
@@ -48,11 +68,31 @@ class Version:
             )
         self._current = current
 
+    def next(self) -> VersionItem:
+        return _NEXT_ITEM
+
     def current(self) -> VersionItem:
         return self._current
 
     def versions(self) -> list[VersionItem]:
         return list(self._versions)
+
+    def resolve(
+        self, version: str | VersionItem | None = NEXT_VERSION
+    ) -> VersionItem:
+        if version is None or str(version) == NEXT_VERSION:
+            return self.next()
+        wanted = str(version)
+        if wanted == LATEST_RELEASE:
+            return self.current()
+        found = next((v for v in self._versions if str(v) == wanted), None)
+        if found is not None:
+            return found
+        declared = ", ".join(str(v) for v in self._versions)
+        raise ValueError(
+            f"Version {wanted} is not declared in "
+            f"{self.versions_path}. Declared: {declared}"
+        )
 
     def add_version(self, version_number: str, date: str) -> None:
         new_version = VersionItem(version_number, date)

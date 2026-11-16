@@ -16,4 +16,4 @@ run the appropriate deploy script:
 
 † Relevant access permissions will be required to deploy to these sites.
 
-‡ To be confident that all changes are deployed, run the 'software/scripts/buildsite.py -a' command before deploying
+‡ To be confident that all changes are deployed, run 'software/scripts/buildsite.py -a --version latest' before deploying a published release (or 'software/scripts/buildsite.py -a' when previewing unreleased 'next' changes).

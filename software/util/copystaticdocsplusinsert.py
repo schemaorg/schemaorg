@@ -32,20 +32,27 @@ _MD_DOC_BEGIN: str = """<!DOCTYPE html>
 _MD_DOC_END: str = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
 
 
+_EMPTY_DATE_SEP_RE: re.Pattern[str] = re.compile(
+    r'\s*<span class="sep">\|</span>\s*\{\{versiondate\}\}'
+)
+
+
 def _getInserts() -> Iterator[tuple[re.Pattern[str], str]]:
     template_dir: Path = paths.DefaultInputLayout().dir(paths.Domain.STATIC_DOC_INSERTS)
-    version = schema.VERSION.current()
+    version = schema.target_version()
     version_num = version.number()
-    version_date = str(version.date() or "")
+    version_date = version.date()
     for f_path in template_dir.glob("*.html"):
         sub = re.escape(f_path.stem.lower().removeprefix("sdi-"))
         pattern = re.compile(
             rf"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE
         )
+        raw = f_path.read_text(encoding="utf-8")
+        if version_date is None:
+            raw = _EMPTY_DATE_SEP_RE.sub("", raw)
         indata = (
-            f_path.read_text(encoding="utf-8")
-            .replace("{{version}}", version_num)
-            .replace("{{versiondate}}", version_date)
+            raw.replace("{{version}}", version_num)
+            .replace("{{versiondate}}", version_date or "")
             .replace("{{docsdir}}", "/docs")
         )
         yield pattern, indata

@@ -5,19 +5,18 @@ import logging
 from typing import Any
 import unittest
 
-from schemaorg import constants
+from schemaorg.layout import Releases
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
+import util.paths as paths
+import util.schema as schema
 
 VOCABURI = sdotermsource.SdoTermSource.vocabUri()
 
 TYPECOUNT_UPPERBOUND = 1500
 TYPECOUNT_LOWERBOUND = 500
-CURRENT_CONTEXT_FILE = (
-    constants.PROJECT_ROOT / "software/site/docs/jsonldcontext.jsonld"
-)
 
 log = logging.getLogger(__name__)
 
@@ -457,11 +456,14 @@ class BasicJSONLDTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        context_file = Releases(
+            paths.DefaultInputLayout(), schema.VERSION
+        ).file(filename="schemaorgcontext.jsonld")
         try:
-            cls.ctx = json.loads(CURRENT_CONTEXT_FILE.read_text(encoding="utf-8"))
+            cls.ctx = json.loads(context_file.read_text(encoding="utf-8"))
         except OSError as exc:
             raise unittest.SkipTest(
-                "jsonldcontext.jsonld file not loaded - bypassing tests"
+                f"{context_file} not built - bypassing tests"
             ) from exc
 
     def test_issuedBy_jsonld(self) -> None:

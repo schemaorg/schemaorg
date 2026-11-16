@@ -27,8 +27,11 @@ then
 fi
 
 cd software/site
-echo Preparing .yaml files
+trap 'rm -f *.yaml; rm -rf releases' EXIT
+echo Preparing .yaml and release files
 cp gcloud/*.yaml .
+rm -rf releases
+cp -r ../../data/releases .
 echo Done
 
 function usage {
@@ -187,8 +190,9 @@ gcloud app deploy --quiet --no-promote --project "$PROJECT" --version="$VERSION"
 echo
 
 echo "Version '$VERSION' of project '$PROJECT' deployed "
-echo clearing .yaml files
+echo clearing .yaml and release files
 rm -f *.yaml
+rm -rf releases
 
 if [ "$MIG" = "Y" ]
 then

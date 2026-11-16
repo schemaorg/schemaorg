@@ -13,10 +13,10 @@ happened here.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 import tempfile
 import textwrap
 import unittest
-from unittest.mock import patch
 
 import rdflib
 from rdflib.namespace import SH
@@ -156,20 +156,22 @@ class ValidateExampleTests(unittest.TestCase):
 
     def testMissingShaclFilesExitsConfigError(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            with patch.object(validator.schema.config, "OUTPUTDIR", tmp):
-                with self.assertRaises(SystemExit) as cm:
-                    validator.validate_examples(
-                        [FakeExample("k", self.GOOD)],
-                        invalid_only=True,
-                        source_output=False,
-                    )
+            empty_releases = Releases(
+                validator.OutputLayout(Path(tmp)), validator.schema.VERSION
+            )
+            with self.assertRaises(SystemExit) as cm:
+                validator.validate_examples(
+                    [FakeExample("k", self.GOOD)],
+                    invalid_only=True,
+                    source_output=False,
+                    releases=empty_releases,
+                )
             self.assertEqual(cm.exception.code, os.EX_CONFIG)
 
     def testRunShaclTestsFailsWhenShaclMissing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            with patch.object(buildsite.schema.config, "OUTPUTDIR", tmp):
-                with self.assertRaises(SystemExit) as cm:
-                    buildsite.runShaclTests()
+            with self.assertRaises(SystemExit) as cm:
+                buildsite.runShaclTests(releases_output_dir=tmp)
             self.assertEqual(cm.exception.code, os.EX_CONFIG)
 
 

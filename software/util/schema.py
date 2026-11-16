@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from schemaorg.constants import PROJECT_ROOT, VERSIONS_FILE
-from schemaorg.version import Version
+from schemaorg.version import NEXT_VERSION, Version, VersionItem
 
 
 class constants:
@@ -20,6 +20,7 @@ class config:
     PAGES: list[str] = []
     FILES: list[str] = []
     OUTPUTDIR: str = "software/site"
+    TARGET_VERSION: str = NEXT_VERSION
 
 
 def hasOpt(opt: str) -> bool:
@@ -28,3 +29,8 @@ def hasOpt(opt: str) -> bool:
 
 
 VERSION = Version(PROJECT_ROOT / VERSIONS_FILE)
+
+
+def target_version() -> VersionItem:
+    """Return the active target VersionItem resolved from config.TARGET_VERSION."""
+    return VERSION.resolve(config.TARGET_VERSION)

@@ -8,9 +8,10 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from colorama import Fore, Style
-from flask import Flask, Response, after_this_request
+from flask import Flask, Response, abort, after_this_request, send_from_directory
 
 from schemaorg import constants
+from schemaorg.layout import InputLayout, Releases
 from util.schema import VERSION, config, constants as schema_constants
 
 _docs: Path = Path(schema_constants.DOCSDOCSDIR.lstrip("/"))
@@ -95,12 +96,20 @@ def serve_terms(path: str) -> Response:
 @app.route("/version/<ver>/")
 @app.route("/version/<ver>/<path:path>")
 def serve_downloads(ver: str, path: str = "") -> Response:
-    if ver == "latest":
-        ver = VERSION.current().number()
+    releases = Releases(InputLayout(constants.PROJECT_ROOT), VERSION)
+    try:
+        resolved = releases.resolve(ver)
+    except ValueError:
+        abort(404)
+    release_dir = releases.dir(resolved)
     if not path:
-        path = "schema-all.html"
+        if (release_dir / "schema-all.html").is_file():
+            print(f"Serving release file: {release_dir / 'schema-all.html'}")
+            return send_from_directory(release_dir, "schema-all.html")
+        return _send_static(_docs / "fullrelease.html")
 
-    return _send_static(Path("releases") / ver / path)
+    print(f"Serving release file: {release_dir / path}")
+    return send_from_directory(release_dir, path)
 
 
 def main(argv: Sequence[str] | None = None) -> None:
@@ -116,7 +125,10 @@ def main(argv: Sequence[str] | None = None) -> None:
 
     app.config["PRODUCTION"] = args_parsed.production
 
-    print(f"Local dev server for Schema.org version: {VERSION.current().number()}")
+    print(
+        f"Local dev server for Schema.org (default: 'next', latest release: "
+        f"{VERSION.current().number()})"
+    )
     print(f"Serving files from {app.static_folder}")
     if args_parsed.production:
         print(Fore.RED + "Running with Production settings" + Style.RESET_ALL)

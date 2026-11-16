@@ -17,7 +17,8 @@ import pyshacl
 import rdflib
 from rdflib.namespace import RDF, SH
 
-from schemaorg.layout import Releases
+from schemaorg.layout import NEXT_VERSION, OutputLayout, Releases
+from schemaorg.layout.releases import VersionRef
 import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
 import util.schema as schema
@@ -170,16 +171,18 @@ def validate_examples(
     examples: Sequence[schemaexamples.Example],
     invalid_only: bool,
     source_output: bool,
+    releases: Releases | None = None,
+    version: VersionRef = NEXT_VERSION,
 ) -> None:
     """Validate the provided examples against the generated SHACL shapes."""
     if not examples:
         log.error("No JSON-LD examples found to validate.")
         sys.exit(os.EX_CONFIG)
 
-    releases = Releases(paths.DefaultOutputLayout(), schema.VERSION)
-    shacl_file = releases.file(protocol="", scope="shapes", extension=".shacl")
-    subclass_file = releases.file(
-        protocol="", scope="subclasses", extension=".shacl"
+    rel = releases or Releases(paths.DefaultInputLayout(), schema.VERSION)
+    shacl_file = rel.file(version, protocol="", scope="shapes", extension=".shacl")
+    subclass_file = rel.file(
+        version, protocol="", scope="subclasses", extension=".shacl"
     )
 
     if not shacl_file.exists() or not subclass_file.exists():
@@ -248,17 +251,30 @@ def main(argv: Sequence[str] | None = None) -> None:
         action="store_true",
         help="Output invalid example source",
     )
-    parser.add_argument("-o", "--output", help="Output site directory")
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="Optional output root containing releases/ (defaults to checked-in data/releases/)",
+    )
+    parser.add_argument(
+        "--version",
+        default=NEXT_VERSION,
+        help="Release version whose shapes to validate against (default: 'next')",
+    )
     args = parser.parse_args(argv)
 
-    if args.output:
-        schema.config.OUTPUTDIR = args.output
-
+    layout = (
+        OutputLayout(Path(args.output))
+        if args.output
+        else paths.DefaultInputLayout()
+    )
     examples = load_examples()
     validate_examples(
         examples=examples,
         invalid_only=args.invalidonly,
         source_output=args.sourceoutput,
+        releases=Releases(layout, schema.VERSION),
+        version=args.version,
     )
 
 

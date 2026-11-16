@@ -14,10 +14,7 @@ from pathlib import Path
 from schemaorg.layout.domain import Domain
 from schemaorg.layout.input_layout import InputLayout
 from schemaorg.layout.output_layout import OutputLayout
-from schemaorg.version import Version, VersionItem
-
-# Sentinel meaning "the current release", per versions.json.
-CURRENT_VERSION = None
+from schemaorg.version import LATEST_RELEASE, NEXT_VERSION, Version, VersionItem
 
 VersionRef = str | VersionItem | None
 
@@ -69,31 +66,24 @@ class Releases:
     def versions(self) -> list[VersionItem]:
         return self.version.versions()
 
+    def next(self) -> VersionItem:
+        return self.version.next()
+
     def current(self) -> VersionItem:
         return self.version.current()
 
-    def resolve(self, version: VersionRef = CURRENT_VERSION) -> VersionItem:
-        if version is None:
-            return self.current()
-        wanted = str(version)
-        found = next((v for v in self.versions() if str(v) == wanted), None)
-        if found is not None:
-            return found
-        declared = ", ".join(str(v) for v in self.versions())
-        raise ValueError(
-            f"Version {wanted} is not declared in "
-            f"{self.version.versions_path}. Declared: {declared}"
-        )
+    def resolve(self, version: VersionRef = NEXT_VERSION) -> VersionItem:
+        return self.version.resolve(version)
 
     # -- locations: computed, never searched for -------------------------
 
-    def dir(self, version: VersionRef = CURRENT_VERSION) -> Path:
+    def dir(self, version: VersionRef = NEXT_VERSION) -> Path:
         v = self.resolve(version)
         return self.layout.dir(Domain.RELEASE) / str(v)
 
     def get_ttl_files(
         self,
-        version: VersionRef = CURRENT_VERSION,
+        version: VersionRef = NEXT_VERSION,
         protocol: Protocol = Protocol.HTTPS,
         scope: Scope = Scope.ALL,
     ) -> list[Path]:
@@ -113,7 +103,7 @@ class Releases:
 
     def file(
         self,
-        version: VersionRef = CURRENT_VERSION,
+        version: VersionRef = NEXT_VERSION,
         protocol: Protocol | str = Protocol.HTTPS,
         scope: Scope | str = Scope.ALL,
         extension: str = ".ttl",

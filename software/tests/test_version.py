@@ -8,7 +8,7 @@ from typing import Any
 import unittest
 
 from schemaorg import constants
-from schemaorg.version import Version, VersionItem
+from schemaorg.version import LATEST_RELEASE, NEXT_VERSION, Version, VersionItem
 
 
 class TestVersion(unittest.TestCase):
@@ -68,7 +68,9 @@ class TestVersion(unittest.TestCase):
         curr = v.current()
         self.assertIn(curr, v.versions())
         self.assertTrue(curr.number())
+        self.assertFalse(curr.is_next())
         self.assertEqual(str(curr), curr.number())
+        assert curr.date() is not None
         datetime.strptime(curr.date(), "%Y-%m-%d")
 
     def test_versions(self) -> None:
@@ -80,13 +82,59 @@ class TestVersion(unittest.TestCase):
         for item in all_vers:
             self.assertIsInstance(item.number(), str)
             self.assertTrue(item.number())
+            assert item.date() is not None
             datetime.strptime(item.date(), "%Y-%m-%d")
 
     def test_version_item(self) -> None:
         item = VersionItem("30.0", "2026-03-19")
         self.assertEqual(item.number(), "30.0")
         self.assertEqual(item.date(), "2026-03-19")
+        self.assertFalse(item.is_next())
         self.assertEqual(str(item), "30.0")
+
+    def test_next_version_item(self) -> None:
+        item = VersionItem(NEXT_VERSION)
+        self.assertEqual(item.number(), "next")
+        self.assertIsNone(item.date())
+        self.assertTrue(item.is_next())
+        self.assertEqual(str(item), "next")
+        with self.assertRaises(ValueError):
+            VersionItem(NEXT_VERSION, "2026-01-01")
+        with self.assertRaises(ValueError):
+            VersionItem("30.0")
+        with self.assertRaises(ValueError):
+            VersionItem("bogus", "2026-01-01")
+
+    def test_resolve(self) -> None:
+        tmp_file = self._write_versions(
+            {
+                "schemaversion": "2.0",
+                "releaseLog": {
+                    "2.0": "2022-01-01",
+                    "1.0": "2020-01-01",
+                },
+            }
+        )
+        v = Version(tmp_file)
+        self.assertEqual(v.resolve(), VersionItem("next"))
+        self.assertEqual(v.resolve(None), VersionItem("next"))
+        self.assertEqual(v.resolve("next"), VersionItem("next"))
+        self.assertEqual(v.resolve(v.next()), VersionItem("next"))
+        self.assertEqual(v.resolve(LATEST_RELEASE).number(), "2.0")
+        self.assertEqual(v.resolve("1.0").number(), "1.0")
+        with self.assertRaises(ValueError):
+            v.resolve("9.9")
+
+    def test_add_version_rejects_next(self) -> None:
+        tmp_file = self._write_versions(
+            {
+                "schemaversion": "1.0",
+                "releaseLog": {"1.0": "2020-01-01"},
+            }
+        )
+        v = Version(tmp_file)
+        with self.assertRaises(ValueError):
+            v.add_version(NEXT_VERSION, "2026-01-01")
 
     def test_add_version_success(self) -> None:
         tmp_file = self._write_versions(
