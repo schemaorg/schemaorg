@@ -18,6 +18,7 @@ from rdflib.term import Node
 from schemaorg import constants
 from schemaorg.layout import NEXT_VERSION, OutputLayout, Releases
 from schemaorg.sdo_uri import SCHEMA_URL, SDO
+import SchemaTerms.sdotermsource as sdotermsource
 import util.schema as schema
 from util.sort_dict import sort_dict
 
@@ -318,7 +319,7 @@ class ShaclParser:
     def get_subclasses(source: Graph) -> str:
         """Serialize the canonicalized rdfs:subClassOf graph as Turtle."""
         schema_ns = _detect_schema_ns(source)
-        subclasses = Graph()
+        subclasses = Graph(bind_namespaces="none")
         subclasses.bind("schema", schema_ns)
         subclasses.bind("rdfs", RDFS)
         for s, p, o in sorted(
@@ -345,7 +346,8 @@ class ShaclParser:
         schema_ns = ShExJParser._schema_ns
         base_ns = BASE if schema_ns == SCHEMA else Namespace(f"{schema_ns}validation#")
 
-        dest = Graph()
+        dest = Graph(bind_namespaces="none")
+        sdotermsource.bindNameSpaces(dest)
         dest.bind("sh", SHACL)
         dest.bind("schema", schema_ns)
         dest.bind("", base_ns)

@@ -192,11 +192,11 @@ def exportrdf(exportType: str, subdirectory_path: str | None = None) -> None:
     global ALL_GRAPH, CURRENT_GRAPH
 
     if ALL_GRAPH is None:
-        ALL_GRAPH = rdflib.Graph()
+        ALL_GRAPH = rdflib.Graph(bind_namespaces="none")
         ALL_GRAPH.bind("schema", SDO)
         sdotermsource.bindNameSpaces(ALL_GRAPH)
 
-        CURRENT_GRAPH = rdflib.Graph()
+        CURRENT_GRAPH = rdflib.Graph(bind_namespaces="none")
         sdotermsource.bindNameSpaces(CURRENT_GRAPH)
         CURRENT_GRAPH.bind("schema", SDO)
 
