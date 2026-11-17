@@ -11,9 +11,9 @@ from rdflib.namespace import RDF, RDFS
 from rdflib.term import URIRef
 
 from schemaorg import constants
+from schemaorg.markdown import Markdown
 from schemaorg.sdo_uri import SDO, SdoUri
 from schemaorg.version import VersionItem
-from SchemaTerms.localmarkdown import Markdown
 
 NAMESPACES: dict[str, str] = {
     "xml:base": constants.SCHEMA_URI,

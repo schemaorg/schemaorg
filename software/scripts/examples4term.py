@@ -8,34 +8,53 @@ from collections.abc import Iterable, Sequence
 import csv
 from pathlib import Path
 
+from rdflib import URIRef
+
+from schemaorg import constants
+from schemaorg.graph_loader import GraphLoader
+from schemaorg.layout import InputLayout, Issues
+from schemaorg.model import Vocabulary, VocabularyLoader
+from schemaorg.sdo_uri import SdoUri
 from SchemaExamples.schemaexamples import Example, SchemaExamples
-from SchemaTerms.sdoterm import SdoTerm
-from SchemaTerms.sdotermsource import SdoTermSource
 
 
-def _add_subterms(term: SdoTerm, seen: set[str], result: list[str]) -> None:
-    for sub_id in term.subs.ids:
+def _load_default_vocab() -> tuple[int, Vocabulary]:
+    files = Issues(InputLayout(constants.PROJECT_ROOT)).get_ttl_files()
+    graph = GraphLoader.load(files)
+    return len(graph), VocabularyLoader(graph).load()
+
+
+def _add_subterms(
+    vocab: Vocabulary, uri: URIRef, seen: set[str], result: list[str]
+) -> None:
+    for sub_uri in vocab.subs.get(uri, ()):
+        sub_id = SdoUri(sub_uri).term_name()
         if sub_id not in seen:
             seen.add(sub_id)
             result.append(sub_id)
-        if sub_term := SdoTermSource.getTerm(sub_id):
-            _add_subterms(sub_term, seen, result)
+        if vocab.term(sub_uri) is not None:
+            _add_subterms(vocab, sub_uri, seen, result)
 
 
-def getterms(terms: Iterable[str], recursive: bool) -> list[str]:
+def getterms(
+    terms: Iterable[str],
+    recursive: bool,
+    vocab: Vocabulary | None = None,
+) -> list[str]:
+    loaded = vocab if vocab is not None else _load_default_vocab()[1]
     result: list[str] = []
     seen: set[str] = set()
 
     for term_name in terms:
-        term = SdoTermSource.getTerm(term_name)
-        if not term:
+        term = loaded.term(term_name)
+        if term is None:
             print(f"No such term: {term_name}")
             continue
         if term.id not in seen:
             seen.add(term.id)
             result.append(term.id)
         if recursive:
-            _add_subterms(term, seen, result)
+            _add_subterms(loaded, term.uri, seen, result)
 
     return result
 
@@ -95,15 +114,11 @@ def main(argv: Sequence[str] | None = None) -> None:
     parser.add_argument("-o", "--output", required=True, help="CSV output file")
     args = parser.parse_args(argv)
 
-    if not SdoTermSource.SOURCEGRAPH:
-        print("Loading triples files")
-        SdoTermSource.loadSourceGraph("default")
-        print(
-            f"loaded {len(SdoTermSource.sourceGraph())} triples - "
-            f"{len(SdoTermSource.getAllTerms())} terms"
-        )
+    print("Loading triples files")
+    triple_count, vocab = _load_default_vocab()
+    print(f"loaded {triple_count} triples - {len(vocab.all_terms())} terms")
 
-    terms = getterms(args.term, args.recursive)
+    terms = getterms(args.term, args.recursive, vocab=vocab)
     examples = getexamples(terms)
     buildcsvoutput(examples, args.output)
 

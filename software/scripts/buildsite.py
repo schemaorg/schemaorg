@@ -11,16 +11,20 @@ import shutil
 import subprocess
 import sys
 
-from schemaorg import constants
+from schemaorg import constants, markdown
+from schemaorg.collaborators import CollaboratorRegistry
+from schemaorg.graph_loader import GraphLoader
+from schemaorg.jsonld_slice import TermJsonLdIndex
 from schemaorg.layout import (
+    InputLayout,
     NEXT_VERSION,
     OutputLayout,
     Releases,
     checkDataDirectories,
 )
-import SchemaTerms.localmarkdown
-import SchemaTerms.sdocollaborators as sdocollaborators
-import SchemaTerms.sdotermsource as sdotermsource
+from schemaorg.model import Vocabulary, VocabularyLoader
+from schemaorg.term_view import TermViewCatalog
+from schemaorg.version import VersionItem
 import scripts.buildfiles as buildfiles
 import util.buildocspages as buildocspages
 import util.buildtermpages as buildtermpages
@@ -147,9 +151,9 @@ def initialize(args_list: Sequence[str] | None = None) -> argparse.Namespace:
         schema.config.PAGES = ["ALL"]
         schema.config.FILES = ["ALL"]
 
-    SchemaTerms.localmarkdown.Markdown.setWikilinkCssClass("localLink")
-    SchemaTerms.localmarkdown.Markdown.setWikilinkPrePath("/")
-    SchemaTerms.localmarkdown.Markdown.setWikilinkPostPath("")
+    markdown.Markdown.setWikilinkCssClass("localLink")
+    markdown.Markdown.setWikilinkPrePath("/")
+    markdown.Markdown.setWikilinkPostPath("")
 
     pretty_logger.MakeRootLogPretty()
 
@@ -199,7 +203,9 @@ def initdir(output_dir_str: str) -> None:
             str(output_layout.dir(paths.Domain.DOCS)),
         )
 
-    with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
+    with pretty_logger.BlockLog(
+        logger=log, message="Preparing GCloud files"
+    ) as block:
         gdir = output_layout.dir(paths.Domain.GCLOUD)
         gcloud_files = input_layout.files(paths.Domain.GCLOUD, "*.yaml")
         for path in gcloud_files:
@@ -222,110 +228,94 @@ def initdir(output_dir_str: str) -> None:
         ).write_text(handler_data, encoding="utf-8")
 
 
-LOADEDTERMS: str | None = None
+def load_site_bundle(
+    input_layout: InputLayout | None = None,
+    target: VersionItem | None = None,
+) -> tuple[TermViewCatalog, TermJsonLdIndex, Path]:
+    """Load Vocabulary, Collaborators, and JSON-LD slice index once from Releases."""
+    layout = input_layout or paths.DefaultInputLayout()
+    resolved = target or schema.target_version()
+    releases = Releases(layout, schema.VERSION)
+    release_file = releases.file(resolved)
+    if not release_file.exists():
+        raise FileNotFoundError(
+            f"Release file not found: {release_file}. "
+            "Please run --buildrelease first."
+        )
+    release_jsonld = releases.file(resolved, extension=".jsonld")
+
+    with pretty_logger.BlockLog(
+        logger=log,
+        message=f"Loading vocabulary from release {release_file}",
+        timing=True,
+    ):
+        graph = GraphLoader.load([release_file])
+        vocab = VocabularyLoader(graph, version=resolved).load()
+        collaborators = CollaboratorRegistry.from_layout(layout, vocab)
+        catalog = TermViewCatalog.from_graph(graph, vocab, collaborators)
+        jsonld_index = TermJsonLdIndex.from_graph(
+            graph, jsonld_file=release_jsonld
+        )
+    return catalog, jsonld_index, release_file
 
 
-def loadTerms(source: str | None = None, force: bool = False) -> None:
-    global LOADEDTERMS
-
-    # If no source is requested, and we already loaded something, we're done.
-    if source is None:
-        if LOADEDTERMS is not None:
-            return
-        # Default fallback for lazy calls that happen before explicit stage loading
-        source = "release"
-
-    # If the requested source is already loaded, and we don't force, we're done.
-    if LOADEDTERMS == source and not force:
-        return
-
-    init_graph = (sdotermsource.SdoTermSource.SOURCEGRAPH is not None) or force
-    LOADEDTERMS = source
-
-    if not sdotermsource.SdoTermSource.SOURCEGRAPH or init_graph:
-        if source == "default":
-            with pretty_logger.BlockLog(
-                logger=log, message="Loading development triples files (default)"
-            ):
-                sdotermsource.SdoTermSource.loadSourceGraph("default", init=init_graph)
-        elif source == "release":
-            release_file = Releases(
-                paths.DefaultInputLayout(), schema.VERSION
-            ).file(schema.target_version())
-
-            if not release_file.exists():
-                raise FileNotFoundError(
-                    f"Release file not found: {release_file}. "
-                    "Please run --buildrelease first."
-                )
-
-            with pretty_logger.BlockLog(
-                logger=log, message=f"Loading triples from release file {release_file}"
-            ):
-                sdotermsource.SdoTermSource.loadSourceGraph(
-                    str(release_file), init=init_graph
-                )
-        else:
-            raise ValueError(f"Invalid term source: {source}")
-
-        if init_graph:
-            sdocollaborators.collaborator.COLLABORATORS.clear()
-            sdocollaborators.collaborator.CONTRIBUTORS.clear()
-
-        with pretty_logger.BlockLog(logger=log, message="Loading contributors"):
-            sdocollaborators.collaborator.loadContributors()
-
-
-def processTerms(terms: Iterable[str]) -> None:
+def processTerms(
+    terms: Iterable[str],
+    catalog: TermViewCatalog,
+    jsonld_index: TermJsonLdIndex,
+    release_file: Path,
+) -> None:
     if any(terms):
         with pretty_logger.BlockLog(
             logger=log, message="Building term definition pages", timing=True
         ):
-            loadTerms()
-            release_file = (
-                str(
-                    Releases(paths.DefaultInputLayout(), schema.VERSION).file(
-                        schema.target_version()
-                    )
-                )
-                if LOADEDTERMS == "release"
-                else None
-            )
             config = {
                 "stats_providers": stats.get_stats_providers(),
                 "build_opts": schema.config.BUILDOPTS,
                 "term_docs_dir": schema.constants.TERMDOCSDIR,
                 "target_version": schema.config.TARGET_VERSION,
                 "output_dir": schema.config.OUTPUTDIR,
-                "release_file": release_file,
+                "release_file": str(release_file),
             }
-            buildtermpages.buildTerms(terms, config=config)
+            buildtermpages.buildTerms(
+                terms,
+                config=config,
+                catalog=catalog,
+                jsonld_index=jsonld_index,
+            )
 
 
-def processDocs(pages: Iterable[str]) -> None:
+def processDocs(pages: Iterable[str], catalog: TermViewCatalog) -> None:
     if any(pages):
         with pretty_logger.BlockLog(
-            logger=log, message="Building dynamic documentation pages", timing=True
+            logger=log,
+            message="Building dynamic documentation pages",
+            timing=True,
         ):
-            loadTerms()
-            buildocspages.buildDocs(pages)
+            buildocspages.buildDocs(pages, catalog=catalog)
 
 
-def processFiles() -> None:
+def processFiles(vocab: Vocabulary | None = None) -> None:
     with pretty_logger.BlockLog(logger=log, message="Building supporting files"):
         buildfiles.export_site_docs(
             input_layout=paths.DefaultInputLayout(),
             output_layout=paths.DefaultOutputLayout(),
             version=schema.target_version(),
+            vocab=vocab,
         )
 
 
 def runShaclTests(releases_output_dir: str | Path | None = None) -> None:
     """Run the SHACL validation tests on the generated examples."""
-    with pretty_logger.BlockLog(logger=log, message="Running SHACL validation tests"):
+    with pretty_logger.BlockLog(
+        logger=log, message="Running SHACL validation tests"
+    ):
         cmd = [
             sys.executable,
-            str(constants.PROJECT_ROOT / "software/scripts/validate_examples_shacl.py"),
+            str(
+                constants.PROJECT_ROOT
+                / "software/scripts/validate_examples_shacl.py"
+            ),
             "--version",
             schema.target_version().number(),
         ]
@@ -354,6 +344,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
 
     tests_ran = False
+    shacl_ran = False
 
     # STAGE 1: Build Release
     if args.buildrelease or args.release:
@@ -361,7 +352,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         runtests()
         tests_ran = True
 
-        with pretty_logger.BlockLog(logger=log, message="Building release files"):
+        with pretty_logger.BlockLog(
+            logger=log, message="Building release files"
+        ):
             buildfiles.export_release_files(
                 input_layout=paths.DefaultInputLayout(),
                 output_layout=OutputLayout(constants.PROJECT_ROOT / "data"),
@@ -369,6 +362,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             )
 
         runShaclTests()
+        shacl_ran = True
 
         log.info("=== STAGE 1: RELEASE BUILD COMPLETED SUCCESSFULLY ===")
 
@@ -383,7 +377,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     if build_site_requested:
         log.info("=== STAGE 2: BUILDING SITE ===")
-        loadTerms(source="release")
+        catalog, jsonld_index, release_file = load_site_bundle(target=target)
         schema.config.OUTPUTDIR = args.output or str(
             constants.PROJECT_ROOT / "software/site"
         )
@@ -393,13 +387,19 @@ def main(argv: Sequence[str] | None = None) -> None:
             runtests()
             tests_ran = True
 
-        processTerms(terms=schema.config.TERMS)
-        processDocs(pages=schema.config.PAGES)
+        processTerms(
+            terms=schema.config.TERMS,
+            catalog=catalog,
+            jsonld_index=jsonld_index,
+            release_file=release_file,
+        )
+        processDocs(pages=schema.config.PAGES, catalog=catalog)
         if any(schema.config.FILES) or args.buildsite:
-            processFiles()
+            processFiles(vocab=catalog.vocab)
 
-        if args.shacltests:
+        if args.shacltests and not shacl_ran:
             runShaclTests()
+            shacl_ran = True
 
         log.info("=== STAGE 2: SITE BUILD COMPLETED SUCCESSFULLY ===")
 
@@ -410,7 +410,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         log.info("=== RUNNING SCRIBED TEST SUITES ===")
         if not tests_ran:
             runtests()
-        if args.shacltests:
+        if args.shacltests and not shacl_ran:
             runShaclTests()
 
 

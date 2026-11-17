@@ -7,9 +7,9 @@ from typing import Any
 
 from rdflib.term import URIRef
 
+from schemaorg import markdown
 from schemaorg.model import Vocabulary
 from schemaorg.sdo_uri import SDO, SdoUri
-import SchemaTerms.localmarkdown as localmarkdown
 from util.sort_dict import sort_dict
 import util.textutils as textutils
 
@@ -26,7 +26,7 @@ def _tree_node(
 
     node: dict[str, Any] = term_dict if term_dict is not None else {}
     rendered_comment = (
-        localmarkdown.Markdown.parse(termdesc.comment, wpre="/").strip()
+        markdown.Markdown.parse(termdesc.comment, wpre="/").strip()
         if termdesc.comment
         else ""
     )

@@ -5,7 +5,9 @@ import unittest
 
 import rdflib
 
-import SchemaTerms.sdotermsource as sdotermsource
+from schemaorg import constants
+from schemaorg.graph_loader import GraphLoader
+from schemaorg.layout import InputLayout, Issues
 
 
 # Tests to probe the health of both schemas and code using graph libraries in
@@ -17,10 +19,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
     @classmethod
     def loadGraphs(cls) -> None:
-        sdotermsource.SdoTermSource.loadSourceGraph("default")
-        graph = sdotermsource.SdoTermSource.sourceGraph()
-        assert graph is not None
-        cls.rdflib_data = graph
+        files = Issues(InputLayout(constants.PROJECT_ROOT)).get_ttl_files()
+        cls.rdflib_data = GraphLoader.load(files)
 
     @classmethod
     def setUpClass(cls) -> None:
