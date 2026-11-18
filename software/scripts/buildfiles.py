@@ -30,6 +30,7 @@ from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
 from schemaorg.version import Version, VersionItem
 import SchemaExamples.schemaexamples as schemaexamples
 import SchemaTerms.localmarkdown as localmarkdown
+import SchemaTerms.sdocollaborators as sdocollaborators
 import SchemaTerms.sdoterm as sdoterm
 import SchemaTerms.sdotermsource as sdotermsource
 import scripts.shex_shacl_shapes_exporter as shex_shacl_shapes_exporter
@@ -589,15 +590,28 @@ def buildFiles(
         localmarkdown.MarkdownTool.WPRE,
         localmarkdown.MarkdownTool.WPOST,
     )
-    localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
-    localmarkdown.MarkdownTool.setWikilinkPrePath(constants.SCHEMA_URI)
-    localmarkdown.MarkdownTool.setWikilinkPostPath("")
+    caches: tuple[dict[str, Any], ...] = (
+        sdotermsource.SdoTermSource.TERMS,
+        sdotermsource.SdoTermSource.EXPANDEDTERMS,
+        sdocollaborators.collaborator.COLLABORATORS,
+        sdocollaborators.collaborator.CONTRIBUTORS,
+    )
+    target_wikilinks = ("localLink", constants.SCHEMA_URI, "")
+    if prev_wikilinks != target_wikilinks:
+        for cache in caches:
+            cache.clear()
     try:
+        localmarkdown.MarkdownTool.setWikilinkCssClass("localLink")
+        localmarkdown.MarkdownTool.setWikilinkPrePath(constants.SCHEMA_URI)
+        localmarkdown.MarkdownTool.setWikilinkPostPath("")
         _buildFiles(files, domains=domains)
     finally:
         localmarkdown.MarkdownTool.setWikilinkCssClass(prev_wikilinks[0])
         localmarkdown.MarkdownTool.setWikilinkPrePath(prev_wikilinks[1])
         localmarkdown.MarkdownTool.setWikilinkPostPath(prev_wikilinks[2])
+        if prev_wikilinks != target_wikilinks:
+            for cache in caches:
+                cache.clear()
 
 
 def _buildFiles(

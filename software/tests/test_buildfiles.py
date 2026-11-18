@@ -158,6 +158,8 @@ class TestBuildFiles(unittest.TestCase):
         self.assertIn("<loc>https://schema.org/Person</loc>", unreleased)
 
     def testExportReleaseFilesAndSiteDocsWithLayouts(self) -> None:
+        self.enterContext(patch.dict(sdocollaborators.collaborator.COLLABORATORS))
+        self.enterContext(patch.dict(sdocollaborators.collaborator.CONTRIBUTORS))
         self.addCleanup(
             sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
         )
@@ -227,6 +229,8 @@ class TestBuildFiles(unittest.TestCase):
             self.assertTrue(releases.file("30.1", filename="schemaorg.owl").is_file())
 
     def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(self) -> None:
+        self.enterContext(patch.dict(sdocollaborators.collaborator.COLLABORATORS))
+        self.enterContext(patch.dict(sdocollaborators.collaborator.CONTRIBUTORS))
         self.addCleanup(
             sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
         )
@@ -265,6 +269,10 @@ class TestBuildFiles(unittest.TestCase):
             )
 
             self.assertEqual(localmarkdown.MarkdownTool.WPRE, "/")
+            post_stage1_thing = sdotermsource.SdoTermSource.getTerm("Thing")
+            self.assertIsNotNone(post_stage1_thing)
+            assert post_stage1_thing is not None
+            self.assertIn('href="/Person"', post_stage1_thing.comment)
             csv_text = (
                 Releases(release_out_layout, version_obj)
                 .file(
@@ -279,9 +287,6 @@ class TestBuildFiles(unittest.TestCase):
             with (
                 patch.object(paths, "DefaultInputLayout", return_value=input_layout),
                 patch.object(buildsite.schema, "VERSION", version_obj),
-                patch.object(
-                    sdocollaborators.collaborator, "loadContributors"
-                ),
             ):
                 buildsite.loadTerms(source="release")
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from unittest.mock import patch
 
 import SchemaTerms.sdocollaborators as sdocollaborators
 
@@ -17,7 +18,10 @@ This is a `test` acknowledgement.
 
 class SdoCollaboratorTest(unittest.TestCase):
     def test_collaborator(self) -> None:
-        collab = sdocollaborators.collaborator(ref="/tmp/test", desc=TEST_DESCRIPTION)
+        with patch.dict(sdocollaborators.collaborator.COLLABORATORS):
+            collab = sdocollaborators.collaborator(
+                ref="/tmp/test", desc=TEST_DESCRIPTION
+            )
         self.assertEqual(collab.uri, "https://schema.org/tmp/test")
         self.assertEqual(collab.title, "Test Foundation")
         self.assertEqual(collab.img, "http://example.com/logo.png")
