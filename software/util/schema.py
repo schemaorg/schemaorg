@@ -2,13 +2,18 @@
 
 from __future__ import annotations
 
-from schemaorg.constants import PROJECT_ROOT, VERSIONS_FILE
+from schemaorg.constants import (
+    PROJECT_ROOT,
+    SITENAME as _SITENAME,
+    VERSIONS_FILE,
+)
+from schemaorg.layout import Domain
 from schemaorg.version import NEXT_VERSION, Version, VersionItem
 
 
 class constants:
-    SITENAME: str = "Schema.org"
-    DOCSDOCSDIR: str = "/docs"
+    SITENAME: str = _SITENAME
+    DOCSDOCSDIR: str = f"/{Domain.DOCS}"
     TERMDOCSDIR: str = DOCSDOCSDIR
     HANDLER_TEMPLATE: str = "handlers-template.yaml"
     HANDLER_FILE: str = "handlers.yaml"

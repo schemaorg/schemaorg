@@ -6,8 +6,12 @@ import unittest
 
 from rdflib import URIRef
 
+from schemaorg import constants
+from schemaorg.layout import InputLayout
 from schemaorg.model import SchemaType
+from schemaorg.template_renderer import TemplateRenderer
 from schemaorg.term_view import TermView, TermViewCatalog
+from schemaorg.version import VersionItem
 import SchemaExamples.schemaexamples as schemaexamples
 import util.buildtermpages as buildtermpages
 import util.schema as schema
@@ -88,6 +92,29 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertIn("http://example.com/thingamabob", output)
         self.assertIn("Awesome &amp; Thingamabob", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
+
+    def testExplicitTemplateRendererOverridesGlobalVersion(self) -> None:
+        custom_renderer = TemplateRenderer(
+            InputLayout(constants.PROJECT_ROOT),
+            VersionItem("99.0", "2099-12-31"),
+            (),
+        )
+        page_renderer = buildtermpages.TermPageRenderer(
+            stats_providers=[],
+            build_opts=[],
+            term_docs_dir="/docs",
+            template_renderer=custom_renderer,
+        )
+        term = TermView(
+            SchemaType(
+                uri=URIRef("http://example.com/FloatingType"),
+                label="FloatingType",
+            ),
+            TermViewCatalog(),
+        )
+        output = page_renderer.termtemplateRender(term=term, examples=[], json="")
+        self.assertIn("V99.0", output)
+        self.assertIn("2099-12-31", output)
 
     def testWorkerConfigAppliesTargetVersionOutputDirAndReleaseFile(self) -> None:
         orig_target = schema.config.TARGET_VERSION

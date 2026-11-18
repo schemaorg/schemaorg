@@ -16,10 +16,10 @@ from schemaorg.jsonld_slice import TermJsonLdIndex
 from schemaorg.layout import Issues, Releases
 from schemaorg.layout.stats_layout import StatsProvider
 from schemaorg.model import VocabularyLoader
+from schemaorg.template_renderer import TemplateRenderer
 from schemaorg.term_view import TermKind, TermView, TermViewCatalog
 import SchemaExamples.schemaexamples as schemaexamples
 import util.fileutils as fileutils
-import util.jinja_render as jinja_render
 import util.paths as paths
 import util.pretty_logger as pretty_logger
 import util.schema as schema
@@ -31,6 +31,7 @@ log: logging.Logger = logging.getLogger(__name__)
 _SHARED_CATALOG: TermViewCatalog | None = None
 _SHARED_JSONLD: TermJsonLdIndex | None = None
 _SHARED_EXAMPLES: schemaexamples.SchemaExamples | None = None
+_SHARED_RENDERER: TemplateRenderer | None = None
 _SHARED_RELEASE_KEY: str | None = None
 
 
@@ -92,6 +93,7 @@ class TermPageRenderer:
         examples: schemaexamples.SchemaExamples | None = None,
         catalog: TermViewCatalog | None = None,
         jsonld_index: TermJsonLdIndex | None = None,
+        template_renderer: TemplateRenderer | None = None,
     ) -> None:
         self.stats_providers = stats_providers
         self.build_opts = build_opts
@@ -99,7 +101,12 @@ class TermPageRenderer:
         self.examples = examples
         self.catalog = catalog
         self.jsonld_index = jsonld_index
-        self.template = jinja_render.get_jinja_env().get_template(
+        self.template_renderer = template_renderer or TemplateRenderer(
+            paths.DefaultInputLayout(),
+            schema.target_version(),
+            self.build_opts,
+        )
+        self.template = self.template_renderer.get_template(
             "terms/TermPage.j2"
         )
 
@@ -131,9 +138,7 @@ class TermPageRenderer:
             "examples": examples,
             "stats_badges": stats_badges,
         }
-        return jinja_render.templateRender(
-            extra_vars=extra_vars, template_instance=self.template
-        )
+        return self.template_renderer.render(self.template, extra_vars)
 
     def RenderAndWriteSingleTerm(self, term_key: str) -> None:
         """Render a single term and write the result into a file."""
@@ -204,6 +209,17 @@ def _buildTermIds(args: tuple[tuple[int, list[str]], dict[str, Any]]) -> None:
     renderer_config.setdefault("jsonld_index", _SHARED_JSONLD)
     if renderer_config.get("examples") is None and _SHARED_EXAMPLES is not None:
         renderer_config["examples"] = _SHARED_EXAMPLES
+    target = schema.target_version()
+    if (
+        renderer_config.get("template_renderer") is None
+        and _SHARED_RENDERER is not None
+        and (
+            _SHARED_RENDERER.version.number(),
+            _SHARED_RENDERER.version.date(),
+        )
+        == (target.number(), target.date())
+    ):
+        renderer_config["template_renderer"] = _SHARED_RENDERER
     renderer = TermPageRenderer(**renderer_config)
     for term_id in term_ids:
         try:
@@ -220,7 +236,7 @@ def buildTerms(
     jsonld_index: TermJsonLdIndex | None = None,
 ) -> None:
     """Build the rendered version for a collection of terms."""
-    global _SHARED_CATALOG, _SHARED_JSONLD, _SHARED_EXAMPLES, _SHARED_RELEASE_KEY
+    global _SHARED_CATALOG, _SHARED_JSONLD, _SHARED_EXAMPLES, _SHARED_RENDERER, _SHARED_RELEASE_KEY
     tic = time.perf_counter()
 
     if config is None:
@@ -258,16 +274,26 @@ def buildTerms(
             paths.DefaultInputLayout()
         )
 
+    template_renderer = config.get("template_renderer")
+    if template_renderer is None:
+        template_renderer = TemplateRenderer(
+            paths.DefaultInputLayout(),
+            schema.target_version(),
+            config.get("build_opts", ()),
+        )
+    template_renderer.get_template("terms/TermPage.j2")
+
     _SHARED_CATALOG = catalog
     _SHARED_JSONLD = jsonld_index
     _SHARED_EXAMPLES = examples
+    _SHARED_RENDERER = template_renderer
     _SHARED_RELEASE_KEY = release_key
 
     # Strip heavy objects from per-task IPC payload; workers read _SHARED_* via COW.
     light_config = {
         k: v
         for k, v in config.items()
-        if k not in ("examples", "catalog", "jsonld_index")
+        if k not in ("examples", "catalog", "jsonld_index", "template_renderer")
     }
 
     shard_numbers = min(multiprocessing.cpu_count(), len(term_list))
