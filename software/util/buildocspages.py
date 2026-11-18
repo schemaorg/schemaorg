@@ -324,7 +324,6 @@ PAGELIST: dict[str, tuple[Callable[[str], str], list[tuple[paths.Domain, str]]]]
     "MetaHome": (homePage, [(paths.Domain.DOCS, "meta.home.html")]),
     "Schemas": (schemasPage, [(paths.Domain.DOCS, "schemas.html")]),
     "Full": (fullPage, [(paths.Domain.DOCS, "full.html")]),
-    "FullOrig": (fullPage, [(paths.Domain.DOCS, "full.orig.html")]),
     "FullRelease": (
         fullReleasePage,
         [(paths.Domain.DOCS, "fullrelease.html")],
