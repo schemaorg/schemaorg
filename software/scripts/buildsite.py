@@ -239,7 +239,7 @@ def loadTerms(source: str | None = None, force: bool = False) -> None:
     if LOADEDTERMS == source and not force:
         return
 
-    init_graph = (LOADEDTERMS is not None) or force
+    init_graph = (sdotermsource.SdoTermSource.SOURCEGRAPH is not None) or force
     LOADEDTERMS = source
 
     if not sdotermsource.SdoTermSource.SOURCEGRAPH or init_graph:
