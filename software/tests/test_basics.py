@@ -31,11 +31,12 @@ EXAMPLES: schemaexamples.SchemaExamples | None = None
 
 def setUpModule() -> None:
     global GRAPH, VOCAB, CATALOG, EXAMPLES
-    files = Issues(InputLayout(constants.PROJECT_ROOT)).get_ttl_files()
+    layout = InputLayout(constants.PROJECT_ROOT)
+    files = Issues(layout).get_ttl_files()
     GRAPH = GraphLoader.load(files)
     VOCAB = VocabularyLoader(GRAPH).load()
     CATALOG = TermViewCatalog.from_graph(GRAPH, VOCAB)
-    EXAMPLES = schemaexamples.SchemaExamples.from_default()
+    EXAMPLES = schemaexamples.SchemaExamples.from_layout(layout)
 
 
 def _term(term_id: str) -> TermView:

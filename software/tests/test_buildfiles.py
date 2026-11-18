@@ -359,11 +359,7 @@ class TestRenderers(unittest.TestCase):
                 'TYPES: #eg-1 Person\nPRE-MARKUP:\nAda\nJSON:\n{"@type": "Person"}\n',
                 encoding="utf-8",
             )
-            with patch(
-                "SchemaExamples.schemaexamples.paths.DefaultInputLayout",
-                return_value=InputLayout(root),
-            ):
-                rendered = render_examples((ex_file,))
+            rendered = render_examples((ex_file,))
             self.assertIn("#eg-0001", rendered)
             self.assertIn("Person", rendered)
 

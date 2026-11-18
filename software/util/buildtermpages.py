@@ -153,7 +153,9 @@ class TermPageRenderer:
                 return
             try:
                 if self.examples is None:
-                    self.examples = schemaexamples.SchemaExamples.from_default()
+                    self.examples = schemaexamples.SchemaExamples.from_layout(
+                        paths.DefaultInputLayout()
+                    )
                 examples = self.examples.examplesForTerm(term.id)
                 json_str = self.jsonld_index.render_for(term)
                 pageout = self.termtemplateRender(term, examples, json_str)
@@ -252,7 +254,9 @@ def buildTerms(
 
     examples = config.get("examples")
     if examples is None:
-        examples = schemaexamples.SchemaExamples.from_default()
+        examples = schemaexamples.SchemaExamples.from_layout(
+            paths.DefaultInputLayout()
+        )
 
     _SHARED_CATALOG = catalog
     _SHARED_JSONLD = jsonld_index

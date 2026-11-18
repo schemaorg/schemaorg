@@ -28,7 +28,9 @@ log: logging.Logger = logging.getLogger(__name__)
 
 def load_examples() -> list[schemaexamples.Example]:
     """Find and load all JSON-LD examples."""
-    loaded = schemaexamples.SchemaExamples.from_default()
+    loaded = schemaexamples.SchemaExamples.from_layout(
+        paths.DefaultInputLayout()
+    )
     log.info("Loaded %d examples, processing JSON-LD variants", len(loaded))
     return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
 

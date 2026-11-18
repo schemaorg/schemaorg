@@ -3,10 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
 
+from schemaorg.layout import InputLayout
 import SchemaExamples.schemaexamples as schemaexamples
-from util.paths import InputLayout
 
 THING_EXAMPLE = """TYPES: #eg-0999 Thing
 
@@ -33,11 +32,6 @@ class TestExampleFileParser(unittest.TestCase):
         self.addCleanup(temp_dir.cleanup)
         self.temp_path = Path(temp_dir.name) / "examples.txt"
         self.temp_path.write_text("", encoding="utf-8")
-
-        patcher = patch("SchemaExamples.schemaexamples.paths.DefaultInputLayout")
-        mock_input_layout = patcher.start()
-        mock_input_layout.return_value = InputLayout(self.temp_path.parent)
-        self.addCleanup(patcher.stop)
 
     def test_empty_example(self) -> None:
         self.assertEqual(self.parser.parse(self.temp_path), [])
@@ -66,7 +60,7 @@ class TestExampleFileParser(unittest.TestCase):
         result = self.parser.parse(self.temp_path)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0].getIdNum(), 999)
-        self.assertEqual(result[0].getMeta("file"), self.temp_path.name)
+        self.assertEqual(result[0].getMeta("file"), str(self.temp_path))
         self.assertCountEqual(result[0].terms, ["Thing"])
         self.assertEqual(
             result[0].getHtml().strip(),
@@ -167,10 +161,6 @@ class TestSchemaExamples(unittest.TestCase):
         temp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(temp_dir.cleanup)
         self.root = Path(temp_dir.name)
-        patcher = patch("SchemaExamples.schemaexamples.paths.DefaultInputLayout")
-        mock_input_layout = patcher.start()
-        mock_input_layout.return_value = InputLayout(self.root)
-        self.addCleanup(patcher.stop)
 
     def _write(self, name: str, content: str) -> Path:
         path = self.root / name
@@ -240,6 +230,34 @@ class TestSchemaExamples(unittest.TestCase):
             [e.keyvalue for e in ex_second.examplesForTerm("Offer")], ["eg-0002"]
         )
         self.assertEqual(ex_second.examplesForTerm("Thing"), [])
+
+    def test_from_layout_normalizes_relative_file_meta(self) -> None:
+        core = self.root / "data" / "examples.txt"
+        ext = self.root / "data" / "ext" / "pending" / "issue-10-examples.txt"
+        ext.parent.mkdir(parents=True)
+        core.write_text(
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0001 Thing"),
+            encoding="utf-8",
+        )
+        ext.write_text(
+            THING_EXAMPLE.replace("#eg-0999 Thing", "#eg-0010 Offer"),
+            encoding="utf-8",
+        )
+        loaded = schemaexamples.SchemaExamples.from_layout(
+            InputLayout(self.root)
+        )
+        self.assertEqual(
+            [e.keyvalue for e in loaded.allExamples()],
+            ["eg-0001", "eg-0010"],
+        )
+        self.assertEqual(
+            loaded.examplesForTerm("Thing")[0].getMeta("file"),
+            "data/examples.txt",
+        )
+        self.assertEqual(
+            loaded.examplesForTerm("Offer")[0].getMeta("file"),
+            "data/ext/pending/issue-10-examples.txt",
+        )
 
 
 if __name__ == "__main__":

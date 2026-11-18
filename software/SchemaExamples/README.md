@@ -25,7 +25,7 @@ One or more Examples are useually stored in a single file, by convention, with t
 The ```schemaexamples.py``` module contains two significant classes: 
  
  * ```Example``` - Class for representing, modifying and serialising an example entry
- * ```SchemaExamples``` - Container loaded from example file(s) (via ```SchemaExamples.from_files``` or ```SchemaExamples.from_default```) providing mappings between Schema.org terms and associated examples.
+ * ```SchemaExamples``` - Container loaded from example file(s) (via ```SchemaExamples.from_files``` or ```SchemaExamples.from_layout```) providing mappings between Schema.org terms and associated examples.
 
 
 
