@@ -27,16 +27,18 @@ _RDF_FILE_FORMATS: dict[str, str] = {".nt": "nt", ".ttl": "turtle"}
 
 def bindNameSpaces(graph: rdflib.Graph) -> None:
     namespaces: dict[str, str] = {
-        "dc": "http://purl.org/dc/elements/1.1/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "dct": "http://purl.org/dc/terms/",
         "dctype": "http://purl.org/dc/dcmitype/",
+        "dst": "http://cv.iptc.org/newscodes/digitalsourcetype/",
         "foaf": "http://xmlns.com/foaf/0.1/",
         "owl": "http://www.w3.org/2002/07/owl#",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "void": "http://rdfs.org/ns/void#",
+        "xml": "http://www.w3.org/XML/1998/namespace",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "cmns-cls": "https://www.omg.org/spec/Commons/Classifiers/",
         "cmns-col": "https://www.omg.org/spec/Commons/Collections/",
         "cmns-dt": "https://www.omg.org/spec/Commons/DatesAndTimes/",
@@ -45,11 +47,7 @@ def bindNameSpaces(graph: rdflib.Graph) -> None:
         "cmns-loc": "https://www.omg.org/spec/Commons/Locations/",
         "cmns-q": "https://www.omg.org/spec/Commons/Quantities/",
         "cmns-txt": "https://www.omg.org/spec/Commons/Text/",
-        "lcc-3166-1": "https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/",
-        "lcc-4217": "https://www.omg.org/spec/LCC/Countries/ISO4217-CurrencyCodes/",
-        "lcc-lr": "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/",
         "fibo-be-corp-corp": "https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/",
-        "fibo-be-ge-ge": "https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/",
         "fibo-be-le-cb": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/",
         "fibo-be-le-lp": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/",
         "fibo-be-nfp-nfp": "https://spec.edmcouncil.org/fibo/ontology/BE/NotForProfitOrganizations/NotForProfitOrganizations/",
@@ -59,13 +57,11 @@ def bindNameSpaces(graph: rdflib.Graph) -> None:
         "fibo-fnd-acc-cur": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/",
         "fibo-fnd-agr-ctr": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/",
         "fibo-fnd-arr-doc": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/",
-        "fibo-fnd-arr-lif": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/",
         "fibo-fnd-arr-reg": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Registration/",
         "fibo-fnd-dt-oc": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/",
         "fibo-fnd-org-org": "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/",
         "fibo-fnd-pas-pas": "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/",
         "fibo-fnd-plc-adr": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/",
-        "fibo-fnd-plc-fac": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Facilities/",
         "fibo-fnd-plc-loc": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Locations/",
         "fibo-fnd-pty-pty": "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/",
         "fibo-fnd-rel-rel": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/",
@@ -814,7 +810,7 @@ class SdoTermSource:
                     laysel = f"schema:isPartOf <{uriFromLayer(layer)}>; "
 
             suppress = (
-                "FILTER NOT EXISTS { ?s dc:source ?term. }"
+                "FILTER NOT EXISTS { ?s <http://purl.org/dc/elements/1.1/source> ?term. }"
                 if suppressSourceLinks
                 else ""
             )
@@ -923,7 +919,7 @@ class SdoTermSource:
         parsed = rdflib.Graph(bind_namespaces="none")
         for file_path in load_files:
             _parse_into_graph(parsed, file_path)
-        graph = rdflib.Graph()
+        graph = rdflib.Graph(bind_namespaces="none")
         graph += parsed
         cls.setSourceGraph(graph)
         log.info(
