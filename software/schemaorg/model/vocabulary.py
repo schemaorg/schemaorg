@@ -131,7 +131,7 @@ class Vocabulary:
             if u in memo:
                 return memo[u]
             if u in visiting:
-                return ()
+                raise ValueError(f"Cycle in hierarchy involving {u}")
             term = all_terms.get(u)
             if term is None:
                 return ()

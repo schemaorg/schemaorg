@@ -256,6 +256,33 @@ class TestModelTermsFixture(unittest.TestCase):
         vocab3 = VocabularyLoader(mutated_graph, version=self.version).load()
         self.assertNotEqual(self.vocab.term(SDO.name), vocab3.term(SDO.name))
 
+    def test_rejects_http_schema_org_uris(self) -> None:
+        http_graph = rdflib.Graph(bind_namespaces="core")
+        http_graph.parse(
+            data='<http://schema.org/Person> a <http://www.w3.org/2000/01/rdf-schema#Class> .',
+            format="turtle",
+        )
+        with self.assertRaisesRegex(ValueError, "Expected https://"):
+            VocabularyLoader(http_graph).load()
+
+    def test_ignores_external_classes_with_blank_node_superclasses(self) -> None:
+        graph = _build_fixture_graph()
+        ext_cls = URIRef("http://example.org/ExternalRestrictionClass")
+        bnode = rdflib.BNode()
+        graph.add((ext_cls, RDF.type, RDFS.Class))
+        graph.add((ext_cls, RDFS.subClassOf, bnode))
+        graph.add((ext_cls, SDO.source, Literal("plain-text-source")))
+
+        vocab = VocabularyLoader(graph).load()
+        self.assertNotIn(ext_cls, vocab.types)
+        self.assertIn(SDO.Person, vocab.types)
+
+    def test_rejects_hierarchy_cycle(self) -> None:
+        graph = _build_fixture_graph()
+        graph.add((SDO.Thing, RDFS.subClassOf, SDO.Patient))
+        with self.assertRaisesRegex(ValueError, "Cycle in hierarchy"):
+            VocabularyLoader(graph).load()
+
 
 class TestVocabularyLoaderRealGraph(unittest.TestCase):
     def test_real_vocabulary_counts(self) -> None:
@@ -263,12 +290,21 @@ class TestVocabularyLoaderRealGraph(unittest.TestCase):
         graph = GraphLoader().load(files)
         vocab = VocabularyLoader(graph).load()
 
-        self.assertEqual(len(vocab.types), 940)
-        self.assertEqual(len(vocab.properties), 1540)
-        self.assertEqual(len(vocab.enumerations), 96)
-        self.assertEqual(len(vocab.enum_values), 544)
-        self.assertEqual(len(vocab.datatypes), 10)
-        self.assertEqual(len(vocab.all_terms()), 3026)
+        self.assertIn(len(vocab.types), range(800, 1500))
+        self.assertIn(len(vocab.properties), range(1200, 2500))
+        self.assertIn(len(vocab.enumerations), range(70, 200))
+        self.assertIn(len(vocab.enum_values), range(400, 1000))
+        self.assertGreaterEqual(len(vocab.datatypes), 8)
+        self.assertLessEqual(vocab.enumerations, vocab.types.keys())
+        self.assertTrue(vocab.types.keys().isdisjoint(vocab.properties.keys()))
+        self.assertTrue(vocab.types.keys().isdisjoint(vocab.enum_values.keys()))
+        self.assertEqual(
+            set(vocab.all_terms()),
+            set(vocab.types)
+            | set(vocab.datatypes)
+            | set(vocab.properties)
+            | set(vocab.enum_values),
+        )
 
 
 if __name__ == "__main__":

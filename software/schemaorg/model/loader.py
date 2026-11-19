@@ -3,20 +3,44 @@
 
 """Loader that populates flat pydantic-rdf models and builds a Vocabulary."""
 
-from typing import Dict, Optional, Set, Tuple
+from typing import Dict, Optional, Set, Tuple, Type, TypeVar, cast
+from urllib.parse import urlparse
 
 import rdflib
-from rdflib import RDFS, URIRef
+from rdflib import RDF, RDFS, URIRef
 
 from schemaorg.model.terms import (
     DataType,
     EnumerationValue,
     SchemaProperty,
+    SchemaTerm,
     SchemaType,
 )
 from schemaorg.model.vocabulary import Vocabulary
-from schemaorg.sdo_uri import SDO, SdoUri
+from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
 from schemaorg.version import VersionItem
+
+_T = TypeVar("_T", bound=SchemaTerm)
+
+
+def _sdo_entities(graph: rdflib.Graph, model_cls: Type[_T]) -> Dict[URIRef, _T]:
+    """Parse only https:// schema.org URIRefs of model_cls.rdf_type."""
+    out: Dict[URIRef, _T] = {}
+    for u in graph.subjects(RDF.type, model_cls.rdf_type):
+        if not isinstance(u, URIRef):
+            continue
+        parsed = urlparse(str(u))
+        host = parsed.hostname or ""
+        if host != SCHEMA_URL.hostname and not host.endswith(
+            f".{SCHEMA_URL.hostname}"
+        ):
+            continue
+        if parsed.scheme != SCHEMA_URL.scheme:
+            raise ValueError(
+                f"Expected {SCHEMA_URL.scheme}:// schema.org URI, got {u}"
+            )
+        out[u] = model_cls.parse_graph(graph, u)
+    return out
 
 
 class VocabularyLoader:
@@ -36,19 +60,9 @@ class VocabularyLoader:
         Dict[URIRef, EnumerationValue],
         Dict[URIRef, DataType],
     ]:
-        # Extract all schema.org classes (rdf:type rdfs:Class), excluding external URIs.
-        types: Dict[URIRef, SchemaType] = {
-            t.uri: t
-            for t in SchemaType.all_entities(self.graph)
-            if SdoUri(t.uri).is_sdo()
-        }
+        types = _sdo_entities(self.graph, SchemaType)
+        datatypes = _sdo_entities(self.graph, DataType)
 
-        # Extract primitive datatypes (rdf:type schema:DataType, e.g. Text, Number, Boolean).
-        datatypes: Dict[URIRef, DataType] = {
-            dt.uri: dt
-            for dt in DataType.all_entities(self.graph)
-            if SdoUri(dt.uri).is_sdo()
-        }
         # Root schema:DataType has rdf:type rdfs:Class (not schema:DataType); promote it.
         if SDO.DataType in types and SDO.DataType not in datatypes:
             datatypes[SDO.DataType] = DataType(**types[SDO.DataType].model_dump())
@@ -65,19 +79,15 @@ class VocabularyLoader:
             if dt_uri == SDO.DataType:
                 continue
             dt_name = SdoUri(dt_uri).term_name()
-            dt_value_cls = type(
-                f"DT_{dt_name}", (DataType,), {"rdf_type": dt_uri}
+            dt_value_cls = cast(
+                Type[DataType],
+                type(f"DT_{dt_name}", (DataType,), {"rdf_type": dt_uri}),
             )
-            for inst in dt_value_cls.all_entities(self.graph):
-                if SdoUri(inst.uri).is_sdo() and inst.uri not in datatypes:
-                    datatypes[inst.uri] = DataType(**inst.model_dump())
+            for inst_uri, inst in _sdo_entities(self.graph, dt_value_cls).items():
+                if inst_uri not in datatypes:
+                    datatypes[inst_uri] = DataType(**inst.model_dump())
 
-        # Extract all schema.org properties (rdf:type rdf:Property).
-        properties: Dict[URIRef, SchemaProperty] = {
-            p.uri: p
-            for p in SchemaProperty.all_entities(self.graph)
-            if SdoUri(p.uri).is_sdo()
-        }
+        properties = _sdo_entities(self.graph, SchemaProperty)
 
         # Walk rdfs:subClassOf downward from schema:Enumeration to find all
         # enumeration classes (including multi-level ones like MedicalSpecialty).
@@ -102,17 +112,17 @@ class VocabularyLoader:
         enum_values: Dict[URIRef, EnumerationValue] = {}
         for ec in sorted(enum_classes, key=str):
             ec_name = SdoUri(ec).term_name()
-            ev_cls = type(
-                f"EV_{ec_name}", (EnumerationValue,), {"rdf_type": ec}
+            ev_cls = cast(
+                Type[EnumerationValue],
+                type(f"EV_{ec_name}", (EnumerationValue,), {"rdf_type": ec}),
             )
-            for ev in ev_cls.all_entities(self.graph):
+            for ev_uri, ev in _sdo_entities(self.graph, ev_cls).items():
                 if (
-                    SdoUri(ev.uri).is_sdo()
-                    and ev.uri not in types
-                    and ev.uri not in properties
-                    and ev.uri not in enum_values
+                    ev_uri not in types
+                    and ev_uri not in properties
+                    and ev_uri not in enum_values
                 ):
-                    enum_values[ev.uri] = EnumerationValue(**ev.model_dump())
+                    enum_values[ev_uri] = EnumerationValue(**ev.model_dump())
 
         return types, properties, enum_values, datatypes
 
