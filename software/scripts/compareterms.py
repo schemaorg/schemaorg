@@ -4,19 +4,14 @@
 from __future__ import annotations
 
 import argparse
-from collections.abc import Iterable, Sequence
-import io
+from collections.abc import Sequence
 import logging
-from pathlib import Path
+import sys
 
-from rdflib import Graph, Namespace, RDF, RDFS, URIRef
-from rdflib.term import Node
-
-from schemaorg.graph_loader import GraphLoader
-from schemaorg.layout import Issues, Releases
-from schemaorg.sdo_uri import SDO, SdoUri
-import util.paths as paths
-import util.schema as schema
+from schemaorg import constants
+from schemaorg.layout import InputLayout
+from schemaorg.progress import LogProgressReporter
+from schemaorg.tasks.compare_vocabulary import CompareVocabularyTask
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -30,132 +25,6 @@ def _parse_bool_arg(value: str | bool) -> bool:
     if lowered in ("no", "false", "0", "n"):
         return False
     raise argparse.ArgumentTypeError(f"Expected Yes or No, got {value!r}")
-
-
-def _load_spec(spec: str | None, *, default_to_source: bool) -> Graph:
-    input_layout = paths.DefaultInputLayout()
-    releases = Releases(input_layout, schema.VERSION)
-
-    if spec is None:
-        if default_to_source:
-            return GraphLoader.load(Issues(input_layout).get_ttl_files())
-        declared = releases.versions()
-        target_ver = declared[1] if len(declared) > 1 else declared[0]
-        spec = str(target_ver)
-
-    if spec == "source":
-        return GraphLoader.load(Issues(input_layout).get_ttl_files())
-
-    candidate = Path(spec)
-    if candidate.is_dir():
-        return GraphLoader.load(sorted(candidate.rglob("*.ttl")))
-    if candidate.is_file():
-        if candidate.suffix == ".ttl":
-            return GraphLoader.load([candidate])
-        return Graph().parse(candidate)
-
-    try:
-        return GraphLoader.load(releases.get_ttl_files(spec))
-    except FileNotFoundError:
-        release_dir = releases.dir(spec)
-        for fallback in ("schema.nt", "all-layers.nq", "schemaorg-all-http.ttl"):
-            fallback_path = release_dir / fallback
-            if fallback_path.is_file():
-                return Graph().parse(fallback_path)
-        raise
-
-
-def _filter_layers(
-    graph: Graph,
-    exclude: Iterable[str],
-    include: Iterable[str],
-) -> Graph:
-    excluded = set(exclude) - set(include)
-    if not excluded:
-        return graph
-
-    skip_core = "core" in excluded
-    skip_extensions = "extensions" in excluded
-
-    layers_by_subject: dict[Node, set[str]] = {}
-    for s, p, o in graph:
-        if isinstance(p, URIRef) and SdoUri(p).uri == SDO.isPartOf:
-            layers_by_subject.setdefault(s, set()).add(SdoUri(o).layer())
-
-    filtered = Graph(bind_namespaces="none")
-    for s, p, o in graph:
-        layers = layers_by_subject.get(s)
-        if not layers:
-            if skip_core:
-                continue
-        else:
-            if skip_extensions or (layers & excluded):
-                continue
-        filtered.add((s, p, o))
-    return filtered
-
-
-def termsInGraph(g: Graph) -> set[str]:
-    """Return canonicalized URIs of all typed subjects in `g`."""
-    return {
-        str(SdoUri(s))
-        for s in g.subjects(RDF.type, None)
-        if isinstance(s, URIRef)
-    }
-
-
-def _term_subgraphs(
-    g: Graph, terms: set[str]
-) -> dict[str, set[tuple[Node, Node, Node]]]:
-    indexed: dict[str, set[tuple[Node, Node, Node]]] = {t: set() for t in terms}
-    for s, p, o in g:
-        if isinstance(s, URIRef):
-            subj = SdoUri(s)
-            key = str(subj)
-            if key in indexed:
-                pred = SdoUri(p).uri if isinstance(p, URIRef) else p
-                obj = SdoUri(o).uri if isinstance(o, URIRef) else o
-                indexed[key].add((subj.uri, pred, obj))
-    return indexed
-
-
-def compareCommonTerms(
-    common: set[str],
-    previous_graph: Graph,
-    current_graph: Graph,
-    buff: io.StringIO,
-    show_diffs: bool = False,
-) -> int:
-    qname_graph = Graph()
-    qname_graph.bind("schema", SDO)
-    qname_graph.bind("dct", Namespace("http://purl.org/dc/terms/"))
-    qname_graph.bind("rdf", RDF)
-    qname_graph.bind("rdfs", RDFS)
-
-    prev_by_term = _term_subgraphs(previous_graph, common)
-    curr_by_term = _term_subgraphs(current_graph, common)
-
-    def fmt_pred(pred: Node) -> str:
-        try:
-            return qname_graph.qname(pred) if isinstance(pred, URIRef) else str(pred)
-        except Exception:
-            return str(pred)
-
-    changed_count = 0
-    for term in sorted(common):
-        curr_triples = curr_by_term[term]
-        prev_triples = prev_by_term[term]
-        added = curr_triples - prev_triples
-        dropped = prev_triples - curr_triples
-        if added or dropped:
-            changed_count += 1
-            buff.write(f"   Changed term: {term}\n")
-            if show_diffs:
-                for s, p, o in sorted(added, key=lambda t: (str(t[1]), str(t[2]))):
-                    buff.write(f"       New:     {s} {fmt_pred(p)} {o}\n")
-                for s, p, o in sorted(dropped, key=lambda t: (str(t[1]), str(t[2]))):
-                    buff.write(f"       Dropped: {s} {fmt_pred(p)} {o}\n")
-    return changed_count
 
 
 def main(argv: Sequence[str] | None = None) -> None:
@@ -210,50 +79,17 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     args = parser.parse_args(argv)
 
-    current_graph = _filter_layers(
-        _load_spec(args.current, default_to_source=True),
-        exclude=args.exclude,
-        include=args.include,
-    )
-    previous_graph = _filter_layers(
-        _load_spec(args.previous, default_to_source=False),
-        exclude=args.exclude,
-        include=args.include,
-    )
-
-    cur_terms = termsInGraph(current_graph)
-    prev_terms = termsInGraph(previous_graph)
-
-    print(f"Current terms count {len(cur_terms)}")
-    print(f"Previous terms Count {len(prev_terms)}")
-
-    added = cur_terms - prev_terms
-    dropped = prev_terms - cur_terms
-    common = cur_terms & prev_terms
-
-    print("==========   Terms  ================")
-    print(f"Dropped terms {len(dropped)}")
-    if args.names:
-        for term in sorted(dropped):
-            print(f"   Dropped term {term}")
-    print(f"New terms {len(added)}")
-    if args.names:
-        for term in sorted(added):
-            print(f"   New term {term}")
-
-    buff = io.StringIO()
-    changed = compareCommonTerms(
-        common=common,
-        previous_graph=previous_graph,
-        current_graph=current_graph,
-        buff=buff,
-        show_diffs=args.triples,
-    )
-    print(f"Changed terms {changed}")
-    if args.names or args.triples:
-        output = buff.getvalue()
-        if output:
-            print(output, end="")
+    report = CompareVocabularyTask(
+        input_layout=InputLayout(constants.PROJECT_ROOT),
+        previous_spec=args.previous,
+        current_spec=args.current,
+        exclude_layers=args.exclude,
+        include_layers=args.include,
+        show_names=args.names,
+        show_triples=args.triples,
+        progress=LogProgressReporter(logger=log, log_steps=False),
+    ).run()
+    sys.stdout.write(report.formatted_report)
 
 
 if __name__ == "__main__":
