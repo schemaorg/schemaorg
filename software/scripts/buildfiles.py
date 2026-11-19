@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""CLI and orchestrator for generating schema.org release and site doc files."""
+"""CLI and compatibility shell for schema.org release and site metadata exports."""
 
 from __future__ import annotations
 
 import argparse
 from collections.abc import Sequence
-import functools
-from functools import partial
 import logging
 from pathlib import Path
 
@@ -22,11 +20,6 @@ from schemaorg.layout import (
 from schemaorg.layout.releases import VersionRef
 from schemaorg.model import Vocabulary, VocabularyLoader
 from schemaorg.progress import LogProgressReporter
-from schemaorg.renderers import (
-    CountsRenderer,
-    render_jsonld_tree,
-    render_sitemap,
-)
 from schemaorg.tasks.export_release_files import (
     Artifact,
     ExportReleaseFilesTask,
@@ -35,49 +28,13 @@ from schemaorg.tasks.export_release_files import (
     export_scoped,
     write_artifact,
 )
-from schemaorg.version import Version, VersionItem
-import util.pretty_logger as pretty_logger
+from schemaorg.tasks.export_site_metadata import (
+    ExportSiteMetadataTask,
+    plan_site_docs,
+)
+from schemaorg.version import Version
 
 log: logging.Logger = logging.getLogger(__name__)
-
-
-def plan_site_docs(
-    vocab: Vocabulary,
-    version: VersionItem,
-    releases: Releases,
-    output_layout: OutputLayout,
-) -> list[Artifact]:
-    """Website supporting files under Domain.DOCS (no file I/O yet)."""
-
-    def docs_file(filename: str) -> Path:
-        return output_layout.file(Domain.DOCS, filename)
-
-    read_context = functools.cache(
-        lambda: releases.file(
-            version, filename="schemaorgcontext.jsonld"
-        ).read_text(encoding="utf-8")
-    )
-    read_owl = lambda: releases.file(
-        version, filename="schemaorg.owl"
-    ).read_text(encoding="utf-8")
-    counts = CountsRenderer(vocab, version)
-    return [
-        Artifact("Context", docs_file("jsonldcontext.jsonld"), read_context, ()),
-        Artifact("Context", docs_file("jsonldcontext.json"), read_context, ()),
-        Artifact("Context", docs_file("jsonldcontext.json.txt"), read_context, ()),
-        Artifact(
-            "Tree", docs_file("tree.jsonld"), partial(render_jsonld_tree, vocab), ()
-        ),
-        Artifact("jsoncounts", docs_file("jsoncounts.json"), counts.json, ()),
-        Artifact("jsonpcounts", docs_file("jsonpcounts.js"), counts.jsonp, ()),
-        Artifact("Owl", docs_file("schemaorg.owl"), read_owl, ()),
-        Artifact(
-            "Sitemap",
-            docs_file("sitemap.xml"),
-            partial(render_sitemap, vocab, version),
-            (),
-        ),
-    ]
 
 
 def export_release_files(
@@ -85,7 +42,7 @@ def export_release_files(
     output_layout: OutputLayout,
     version: VersionRef = NEXT_VERSION,
 ) -> None:
-    """Loads the source graph, plans, and writes schema release files (9 for next, 35 for numbered)."""
+    """Load the source graph and write schema release files (9 for next, 35 for numbered)."""
     version_obj = Version(
         input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
     )
@@ -104,26 +61,23 @@ def export_site_docs(
     version: VersionRef = NEXT_VERSION,
     vocab: Vocabulary | None = None,
 ) -> None:
-    """Loads the target release (unless vocab is supplied) and writes Domain.DOCS site files."""
-    version_obj = Version(input_layout.file(Domain.ROOT, constants.VERSIONS_FILE))
+    """Write the 8 Domain.DOCS site metadata files."""
+    version_obj = Version(
+        input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
+    )
     target_version = version_obj.resolve(version)
-    releases = Releases(input_layout, version_obj)
-
     if vocab is None:
-        ttl_files = releases.get_ttl_files(target_version)
-        with pretty_logger.BlockLog(
-            message=f"Loading release graph for {target_version}", logger=log
-        ):
-            all_graph = GraphLoader.load(ttl_files)
-            vocab = VocabularyLoader(all_graph, version=target_version).load()
+        releases = Releases(input_layout, version_obj)
+        all_graph = GraphLoader.load(releases.get_ttl_files(target_version))
+        vocab = VocabularyLoader(all_graph, version=target_version).load()
 
-    for artifact in plan_site_docs(
-        vocab, target_version, releases, output_layout
-    ):
-        with pretty_logger.BlockLog(
-            message=f"Exporting {artifact.name}: {artifact.path}", logger=log
-        ):
-            write_artifact(artifact)
+    ExportSiteMetadataTask(
+        input_layout=input_layout,
+        output_layout=output_layout,
+        version=target_version,
+        vocab=vocab,
+        progress=LogProgressReporter(logger=log, log_steps=True),
+    ).run()
 
 
 def main(argv: Sequence[str] | None = None) -> None:
