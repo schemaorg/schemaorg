@@ -7,9 +7,9 @@
 @prefix cmns-loc: <https://www.omg.org/spec/Commons/Locations/> .
 @prefix cmns-q: <https://www.omg.org/spec/Commons/Quantities/> .
 @prefix cmns-txt: <https://www.omg.org/spec/Commons/Text/> .
+@prefix dc: <http://purl.org/dc/terms/> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix dct: <http://purl.org/dc/terms/> .
-@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
 @prefix dst: <http://cv.iptc.org/newscodes/digitalsourcetype/> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix fibo-be-corp-corp: <https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/> .
@@ -69,13 +69,13 @@ snomed:51114001 a rdfs:Class .
 
 snomed:63653004 a rdfs:Class .
 
-dctype:Dataset a rdfs:Class .
+dcmitype:Dataset a rdfs:Class .
 
-dctype:Event a rdfs:Class .
+dcmitype:Event a rdfs:Class .
 
-dctype:Image a rdfs:Class .
+dcmitype:Image a rdfs:Class .
 
-dctype:Text a rdfs:Class .
+dcmitype:Text a rdfs:Class .
 
 bibo:Issue a rdfs:Class .
 
@@ -1365,7 +1365,7 @@ schema:Dataset a rdfs:Class ;
     rdfs:label "Dataset" ;
     rdfs:comment "A body of structured information describing some topic(s) of interest." ;
     rdfs:subClassOf schema:CreativeWork ;
-    owl:equivalentClass dctype:Dataset,
+    owl:equivalentClass dcmitype:Dataset,
         void:Dataset,
         dcat:Dataset ;
     schema:contributor <https://schema.org/docs/collab/DatasetClass> .
@@ -1880,7 +1880,7 @@ schema:Event a rdfs:Class ;
     rdfs:label "Event" ;
     rdfs:comment "An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the [[offers]] property. Repeated events may be structured as separate Event objects." ;
     rdfs:subClassOf schema:Thing ;
-    owl:equivalentClass dctype:Event,
+    owl:equivalentClass dcmitype:Event,
         fibo-fnd-dt-oc:Occurrence .
 
 schema:EventAttendanceModeEnumeration a rdfs:Class ;
@@ -2483,7 +2483,7 @@ schema:ImageObject a rdfs:Class ;
     rdfs:label "ImageObject" ;
     rdfs:comment "An image file." ;
     rdfs:subClassOf schema:MediaObject ;
-    owl:equivalentClass dctype:Image .
+    owl:equivalentClass dcmitype:Image .
 
 schema:ImageObjectSnapshot a rdfs:Class ;
     rdfs:label "ImageObjectSnapshot" ;
@@ -5224,7 +5224,7 @@ schema:TextObject a rdfs:Class ;
     rdfs:label "TextObject" ;
     rdfs:comment "A text file. The text can be unformatted or contain markup, html, etc." ;
     rdfs:subClassOf schema:MediaObject ;
-    owl:equivalentClass dctype:Text .
+    owl:equivalentClass dcmitype:Text .
 
 schema:TheaterEvent a rdfs:Class ;
     rdfs:label "TheaterEvent" ;
@@ -10577,7 +10577,7 @@ schema:contraindication a rdf:Property ;
 schema:contributor a rdf:Property ;
     rdfs:label "contributor" ;
     rdfs:comment "A secondary contributor to the CreativeWork or Event." ;
-    owl:equivalentProperty dct:contributor ;
+    owl:equivalentProperty dc:contributor ;
     schema:domainIncludes schema:CreativeWork,
         schema:Event ;
     schema:rangeIncludes schema:Organization,
@@ -15124,7 +15124,7 @@ schema:name a rdf:Property ;
     rdfs:comment "The name of the item." ;
     rdfs:subPropertyOf rdfs:label ;
     owl:equivalentProperty og:title,
-        dct:title,
+        dc:title,
         cmns-txt:hasName ;
     schema:domainIncludes schema:Thing ;
     schema:rangeIncludes schema:Text .
@@ -16662,7 +16662,7 @@ schema:publishedOn a rdf:Property ;
 schema:publisher a rdf:Property ;
     rdfs:label "publisher" ;
     rdfs:comment "The publisher of the article in question." ;
-    owl:equivalentProperty dct:publisher ;
+    owl:equivalentProperty dc:publisher ;
     schema:domainIncludes schema:CreativeWork,
         schema:FinancialIncentive ;
     schema:rangeIncludes schema:Organization,
@@ -17895,7 +17895,7 @@ schema:spatial a rdf:Property ;
     rdfs:label "spatial" ;
     rdfs:comment """The "spatial" property can be used in cases when more specific properties
 (e.g. [[locationCreated]], [[spatialCoverage]], [[contentLocation]]) are not known to be appropriate.""" ;
-    owl:equivalentProperty dct:spatial ;
+    owl:equivalentProperty dc:spatial ;
     schema:domainIncludes schema:CreativeWork ;
     schema:rangeIncludes schema:Place .
 
@@ -19495,25 +19495,25 @@ og:url a rdf:Property .
 
 og:video a rdf:Property .
 
-dct:audience a rdf:Property .
+dc:audience a rdf:Property .
 
-dct:contributor a rdf:Property .
+dc:contributor a rdf:Property .
 
-dct:creator a rdf:Property .
+dc:creator a rdf:Property .
 
-dct:description a rdf:Property .
+dc:description a rdf:Property .
 
-dct:identifier a rdf:Property .
+dc:identifier a rdf:Property .
 
-dct:language a rdf:Property .
+dc:language a rdf:Property .
 
-dct:publisher a rdf:Property .
+dc:publisher a rdf:Property .
 
-dct:subject a rdf:Property .
+dc:subject a rdf:Property .
 
-dct:temporal a rdf:Property .
+dc:temporal a rdf:Property .
 
-dct:title a rdf:Property .
+dc:title a rdf:Property .
 
 bibo:isbn a rdf:Property .
 
@@ -19796,7 +19796,7 @@ schema:attendee a rdf:Property ;
 schema:audience a rdf:Property ;
     rdfs:label "audience" ;
     rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
-    owl:equivalentProperty dct:audience ;
+    owl:equivalentProperty dc:audience ;
     schema:domainIncludes schema:CreativeWork,
         schema:Event,
         schema:LodgingBusiness,
@@ -19948,7 +19948,7 @@ schema:contentLocation a rdf:Property ;
 schema:creator a rdf:Property ;
     rdfs:label "creator" ;
     rdfs:comment "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork." ;
-    owl:equivalentProperty dct:creator ;
+    owl:equivalentProperty dc:creator ;
     schema:domainIncludes schema:CreativeWork,
         schema:UserComments ;
     schema:rangeIncludes schema:Organization,
@@ -20239,7 +20239,7 @@ schema:inDefinedTermSet a rdf:Property ;
 schema:inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
     rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]]." ;
-    owl:equivalentProperty dct:language ;
+    owl:equivalentProperty dc:language ;
     schema:domainIncludes schema:BroadcastService,
         schema:CommunicateAction,
         schema:CreativeWork,
@@ -20771,7 +20771,7 @@ schema:temporalCoverage a rdf:Property ;
       Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via "1939/1945".
 
 Open-ended date ranges can be written with ".." in place of the end date. For example, "2015-11/.." indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.""" ;
-    owl:equivalentProperty dct:temporal ;
+    owl:equivalentProperty dc:temporal ;
     schema:domainIncludes schema:CreativeWork ;
     schema:rangeIncludes schema:DateTime,
         schema:Text,
@@ -20936,14 +20936,14 @@ eli:type_document a rdf:Property .
 
 eli:version_date a rdf:Property .
 
-dct:spatial a rdf:Property .
+dc:spatial a rdf:Property .
 
 unece:PaymentDueDate a rdf:Property .
 
 schema:about a rdf:Property ;
     rdfs:label "about" ;
     rdfs:comment "The subject matter of an object." ;
-    owl:equivalentProperty dct:subject ;
+    owl:equivalentProperty dc:subject ;
     schema:domainIncludes schema:Certification,
         schema:CommunicateAction,
         schema:CreativeWork,
@@ -21072,7 +21072,7 @@ schema:spatialCoverage a rdf:Property ;
       contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates
       areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.""" ;
     rdfs:subPropertyOf schema:contentLocation ;
-    owl:equivalentProperty dct:spatial ;
+    owl:equivalentProperty dc:spatial ;
     schema:domainIncludes schema:CreativeWork ;
     schema:rangeIncludes schema:Place .
 
@@ -21215,7 +21215,7 @@ schema:description a rdf:Property ;
     rdfs:label "description" ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty og:description,
-        dct:description,
+        dc:description,
         gs1:description ;
     schema:domainIncludes schema:Thing ;
     schema:rangeIncludes schema:Text,
@@ -21342,7 +21342,7 @@ schema:identifier a rdf:Property ;
     rdfs:label "identifier" ;
     rdfs:comment """The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.
         """ ;
-    owl:equivalentProperty dct:identifier,
+    owl:equivalentProperty dc:identifier,
         cmns-id:identifiedBy ;
     schema:domainIncludes schema:Thing ;
     schema:rangeIncludes schema:PropertyValue,

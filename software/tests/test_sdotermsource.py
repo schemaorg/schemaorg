@@ -62,7 +62,7 @@ class TestConversionFunctions(unittest.TestCase):
             sdotermsource.prefixFromUri("https://schema.org/Thing"), "schema"
         )
         self.assertEqual(
-            sdotermsource.prefixFromUri("http://purl.org/dc/terms/"), "dct"
+            sdotermsource.prefixFromUri("http://purl.org/dc/terms/"), "dc"
         )
         self.assertEqual(
             sdotermsource.prefixFromUri(
@@ -78,7 +78,7 @@ class TestConversionFunctions(unittest.TestCase):
             rdflib.URIRef("https://schema.org/"),
         )
         self.assertEqual(
-            sdotermsource.uriForPrefix("dct"),
+            sdotermsource.uriForPrefix("dc"),
             rdflib.URIRef("http://purl.org/dc/terms/"),
         )
         self.assertIsNone(sdotermsource.uriForPrefix("feedface"))
@@ -89,7 +89,7 @@ class TestConversionFunctions(unittest.TestCase):
         )
         self.assertEqual(
             sdotermsource.prefixedIdFromUri("http://purl.org/dc/terms/title"),
-            "dct:title",
+            "dc:title",
         )
         self.assertEqual(
             sdotermsource.prefixedIdFromUri(
