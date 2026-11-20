@@ -120,7 +120,7 @@ class TestGraphLoader(unittest.TestCase):
         self.assertGreater(len(g), 1000)
         ns = dict(g.namespaces())
         self.assertEqual(str(ns.get("")), "https://schema.org/")
-        self.assertEqual(str(ns.get("dc")), "http://purl.org/dc/terms/")
+        self.assertEqual(str(ns.get("dct")), "http://purl.org/dc/terms/")
         self.assertIn("cmns-cls", ns)
         self.assertIn("fibo-be-corp-corp", ns)
 

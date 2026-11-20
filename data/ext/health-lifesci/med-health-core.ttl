@@ -2,6 +2,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix snomed: <http://purl.bioontology.org/ontology/SNOMEDCT/> .
 
 :AnatomicalStructure a rdfs:Class ;
     rdfs:label "AnatomicalStructure" ;
@@ -25,7 +26,7 @@
     rdfs:label "Artery" ;
     rdfs:comment "A type of blood vessel that specifically carries blood away from the heart." ;
     rdfs:subClassOf :Vessel ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/51114001> ;
+    owl:equivalentClass snomed:51114001 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :BloodTest a rdfs:Class ;
@@ -92,7 +93,7 @@
     rdfs:comment "A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge makes a clear difference between them." ;
     rdfs:subClassOf :Product,
         :Substance ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/410942007> ;
+    owl:equivalentClass snomed:410942007 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :DrugClass a rdfs:Class ;
@@ -246,7 +247,7 @@
     rdfs:label "MedicalDevice" ;
     rdfs:comment "Any object used in a medical capacity, such as to diagnose or treat a patient." ;
     rdfs:subClassOf :MedicalEntity ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/63653004> ;
+    owl:equivalentClass snomed:63653004 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :MedicalDevicePurpose a rdfs:Class ;
@@ -325,7 +326,7 @@
     rdfs:label "MedicalProcedure" ;
     rdfs:comment "A process of care used in either a diagnostic, therapeutic, preventive or palliative capacity that relies on invasive (surgical), non-invasive, or other techniques." ;
     rdfs:subClassOf :MedicalEntity ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/50731006> ;
+    owl:equivalentClass snomed:50731006 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :MedicalProcedureType a rdfs:Class ;
@@ -486,7 +487,7 @@
     rdfs:comment "A patient is any person recipient of health care services." ;
     rdfs:subClassOf :MedicalAudience,
         :Person ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/116154003> ;
+    owl:equivalentClass snomed:116154003 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :Pharmacy a rdfs:Class ;
@@ -539,7 +540,7 @@
     rdfs:label "Substance" ;
     rdfs:comment "Any matter of defined composition that has discrete existence, whose origin may be biological, mineral or chemical." ;
     rdfs:subClassOf :MedicalEntity ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/105590001> ;
+    owl:equivalentClass snomed:105590001 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :SuperficialAnatomy a rdfs:Class ;
@@ -552,14 +553,14 @@
     rdfs:label "SurgicalProcedure" ;
     rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
     rdfs:subClassOf :MedicalProcedure ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> ;
+    owl:equivalentClass snomed:387713003 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :TherapeuticProcedure a rdfs:Class ;
     rdfs:label "TherapeuticProcedure" ;
     rdfs:comment "A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition." ;
     rdfs:subClassOf :MedicalProcedure ;
-    owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/277132007> ;
+    owl:equivalentClass snomed:277132007 ;
     :isPartOf <https://health-lifesci.schema.org> .
 
 :TreatmentIndication a rdfs:Class ;

@@ -128,7 +128,7 @@ def compareCommonTerms(
 ) -> int:
     qname_graph = Graph()
     qname_graph.bind("schema", SDO)
-    qname_graph.bind("dc", Namespace("http://purl.org/dc/terms/"))
+    qname_graph.bind("dct", Namespace("http://purl.org/dc/terms/"))
     qname_graph.bind("rdf", RDF)
     qname_graph.bind("rdfs", RDFS)
 

@@ -1,4 +1,5 @@
 @prefix : <https://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix cmns-cls: <https://www.omg.org/spec/Commons/Classifiers/> .
 @prefix cmns-col: <https://www.omg.org/spec/Commons/Collections/> .
 @prefix cmns-dt: <https://www.omg.org/spec/Commons/DatesAndTimes/> .
@@ -7,10 +8,11 @@
 @prefix cmns-loc: <https://www.omg.org/spec/Commons/Locations/> .
 @prefix cmns-q: <https://www.omg.org/spec/Commons/Quantities/> .
 @prefix cmns-txt: <https://www.omg.org/spec/Commons/Text/> .
-@prefix dc: <http://purl.org/dc/terms/> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
 @prefix dst: <http://cv.iptc.org/newscodes/digitalsourcetype/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix fibo-be-corp-corp: <https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/> .
 @prefix fibo-be-le-cb: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/> .
 @prefix fibo-be-le-lp: <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/> .
@@ -34,12 +36,14 @@
 @prefix gleif-L1: <https://www.gleif.org/ontology/L1/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/> .
+@prefix mo: <http://purl.org/ontology/mo/> .
 @prefix og: <http://ogp.me/ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix unece: <http://unece.org/vocab#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix void: <http://rdfs.org/ns/void#> .
 
 :3DModel a rdfs:Class ;
@@ -885,7 +889,7 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
     rdfs:label "ContactPoint" ;
     rdfs:comment "A contact point&#x2014;for example, a Customer Complaints department." ;
     rdfs:subClassOf :StructuredValue ;
-    owl:equivalentClass <http://www.w3.org/2006/vcard/ns#VCard>,
+    owl:equivalentClass vcard:VCard,
         gs1:ContactPoint,
         fibo-fnd-org-org:ContactPoint .
 
@@ -1065,7 +1069,7 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
     rdfs:label "Dataset" ;
     rdfs:comment "A body of structured information describing some topic(s) of interest." ;
     rdfs:subClassOf :CreativeWork ;
-    owl:equivalentClass dcmitype:Dataset,
+    owl:equivalentClass dctype:Dataset,
         void:Dataset,
         dcat:Dataset ;
     :contributor <https://schema.org/docs/collab/DatasetClass> .
@@ -1453,7 +1457,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:label "Event" ;
     rdfs:comment "An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the [[offers]] property. Repeated events may be structured as separate Event objects." ;
     rdfs:subClassOf :Thing ;
-    owl:equivalentClass dcmitype:Event,
+    owl:equivalentClass dctype:Event,
         fibo-fnd-dt-oc:Occurrence .
 
 :EventAttendanceModeEnumeration a rdfs:Class ;
@@ -1986,7 +1990,7 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:label "ImageObject" ;
     rdfs:comment "An image file." ;
     rdfs:subClassOf :MediaObject ;
-    owl:equivalentClass dcmitype:Image .
+    owl:equivalentClass dctype:Image .
 
 :ImageObjectSnapshot a rdfs:Class ;
     rdfs:label "ImageObjectSnapshot" ;
@@ -2154,7 +2158,7 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:label "LegalForceStatus" ;
     rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
     rdfs:subClassOf :StatusEnumeration ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> ;
+    skos:exactMatch eli:InForce ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -2168,7 +2172,7 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:label "LegalValueLevel" ;
     rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
     rdfs:subClassOf :Enumeration ;
-    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> ;
+    skos:closeMatch eli:LegalValue ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -2177,8 +2181,8 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:label "Legislation" ;
     rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
     rdfs:subClassOf :CreativeWork ;
-    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalExpression>,
-        <http://data.europa.eu/eli/ontology#LegalRecontributor> ;
+    skos:closeMatch eli:LegalExpression,
+        eli:LegalRecontributor ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -2188,7 +2192,7 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
     rdfs:subClassOf :Legislation,
         :MediaObject ;
-    skos:closeMatch <http://data.europa.eu/eli/ontology#Format> ;
+    skos:closeMatch eli:Format ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -2953,7 +2957,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "Periodical" ;
     rdfs:comment "A publication in any medium issued in successive parts bearing numerical or chronological designations and intended to continue indefinitely, such as a magazine, scholarly journal, or newspaper.\\n\\nSee also [blog post](https://blog.schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/)." ;
     rdfs:subClassOf :CreativeWorkSeries ;
-    owl:equivalentClass <http://purl.org/ontology/bibo/Periodical> ;
+    owl:equivalentClass bibo:Periodical ;
     :contributor <https://schema.org/docs/collab/bibex> .
 
 :Permit a rdfs:Class ;
@@ -3223,7 +3227,7 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:label "PublicationIssue" ;
     rdfs:comment "A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.\\n\\nSee also [blog post](https://blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/)." ;
     rdfs:subClassOf :CreativeWork ;
-    owl:equivalentClass <http://purl.org/ontology/bibo/Issue> ;
+    owl:equivalentClass bibo:Issue ;
     :contributor <https://schema.org/docs/collab/bibex> .
 
 :PublicationVolume a rdfs:Class ;
@@ -4048,7 +4052,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TextObject" ;
     rdfs:comment "A text file. The text can be unformatted or contain markup, html, etc." ;
     rdfs:subClassOf :MediaObject ;
-    owl:equivalentClass dcmitype:Text .
+    owl:equivalentClass dctype:Text .
 
 :TheaterEvent a rdfs:Class ;
     rdfs:label "TheaterEvent" ;
@@ -4481,7 +4485,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :about a rdf:Property ;
     rdfs:label "about" ;
     rdfs:comment "The subject matter of an object." ;
-    owl:equivalentProperty dc:subject ;
+    owl:equivalentProperty dct:subject ;
     :domainIncludes :Certification,
         :CommunicateAction,
         :CreativeWork,
@@ -5277,7 +5281,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :audience a rdf:Property ;
     rdfs:label "audience" ;
     rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
-    owl:equivalentProperty dc:audience ;
+    owl:equivalentProperty dct:audience ;
     :domainIncludes :CreativeWork,
         :Event,
         :LodgingBusiness,
@@ -6316,7 +6320,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :contributor a rdf:Property ;
     rdfs:label "contributor" ;
     rdfs:comment "A secondary contributor to the CreativeWork or Event." ;
-    owl:equivalentProperty dc:contributor ;
+    owl:equivalentProperty dct:contributor ;
     :domainIncludes :CreativeWork,
         :Event ;
     :rangeIncludes :Organization,
@@ -6478,7 +6482,7 @@ In the case of products, the country of origin of the product. The exact interpr
 :creator a rdf:Property ;
     rdfs:label "creator" ;
     rdfs:comment "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork." ;
-    owl:equivalentProperty dc:creator ;
+    owl:equivalentProperty dct:creator ;
     :domainIncludes :CreativeWork,
         :UserComments ;
     :rangeIncludes :Organization,
@@ -6932,7 +6936,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "description" ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty og:description,
-        dc:description,
+        dct:description,
         gs1:description ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text,
@@ -8584,7 +8588,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:label "identifier" ;
     rdfs:comment """The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.
         """ ;
-    owl:equivalentProperty dc:identifier,
+    owl:equivalentProperty dct:identifier,
         cmns-id:identifiedBy ;
     :domainIncludes :Thing ;
     :rangeIncludes :PropertyValue,
@@ -8638,7 +8642,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
     rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]]." ;
-    owl:equivalentProperty dc:language ;
+    owl:equivalentProperty dct:language ;
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event,
@@ -9072,7 +9076,7 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "isbn" ;
     rdfs:comment "The ISBN of the book." ;
     rdfs:subPropertyOf :identifier ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/isbn> ;
+    owl:equivalentProperty bibo:isbn ;
     :domainIncludes :Book ;
     :rangeIncludes :Text .
 
@@ -9102,7 +9106,7 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "issn" ;
     rdfs:comment "The International Standard Serial Number (ISSN) that identifies this serial publication. You can repeat this property to identify different formats of, or the linking ISSN (ISSN-L) for, this serial publication." ;
     rdfs:subPropertyOf :identifier ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/issn> ;
+    owl:equivalentProperty bibo:issn ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :Blog,
         :CreativeWorkSeries,
@@ -9114,7 +9118,7 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "issueNumber" ;
     rdfs:comment "Identifies the issue of publication; for example, \"iii\" or \"2\"." ;
     rdfs:subPropertyOf :position ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/issue> ;
+    owl:equivalentProperty bibo:issue ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :PublicationIssue ;
     :rangeIncludes :Integer,
@@ -9415,8 +9419,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationAmends" ;
     rdfs:comment "Another legislation that this legislation amends, introducing legal changes." ;
     rdfs:subPropertyOf :legislationChanges ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#amends> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#amends> ;
+    owl:equivalentProperty eli:amends ;
+    skos:exactMatch eli:amends ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9426,8 +9430,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationApplies a rdf:Property ;
     rdfs:label "legislationApplies" ;
     rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#implements> ;
+    owl:equivalentProperty eli:implements ;
+    skos:exactMatch eli:implements ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9437,8 +9441,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
     rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#changes> ;
+    owl:equivalentProperty eli:changes ;
+    skos:exactMatch eli:changes ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9449,8 +9453,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationCommences" ;
     rdfs:comment "Another legislation that this one sets into force." ;
     rdfs:subPropertyOf :legislationChanges ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#commences> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#commences> ;
+    owl:equivalentProperty eli:commences ;
+    skos:exactMatch eli:commences ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9460,8 +9464,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationConsolidates a rdf:Property ;
     rdfs:label "legislationConsolidates" ;
     rdfs:comment "Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#consolidates> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#consolidates> ;
+    owl:equivalentProperty eli:consolidates ;
+    skos:exactMatch eli:consolidates ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9471,8 +9475,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationCorrects a rdf:Property ;
     rdfs:label "legislationCorrects" ;
     rdfs:comment "Another legislation in which this one introduces textual changes, like correction of spelling mistakes, with no legal impact (for modifications that have legal impact, use <a href=\"/legislationAmends\">legislationAmends</a>)." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#corrects> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#corrects> ;
+    owl:equivalentProperty eli:corrects ;
+    skos:exactMatch eli:corrects ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9482,8 +9486,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationCountersignedBy a rdf:Property ;
     rdfs:label "legislationCountersignedBy" ;
     rdfs:comment "The person or organization that countersigned the legislation. Depending on the legal context, a countersignature can indicate that the signed authority undertakes to assume responsibility for texts emanating from a person who is inviolable and irresponsible, (for example a King, Grand Duc or President), or that the authority is in charge of the implementation of the text." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#countersigned_by> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    owl:equivalentProperty eli:countersigned_by ;
+    skos:exactMatch eli:countersigned_by ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Organization,
@@ -9495,8 +9499,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationDate" ;
     rdfs:comment "The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force." ;
     rdfs:subPropertyOf :dateCreated ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_document> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#date_document> ;
+    owl:equivalentProperty eli:date_document ;
+    skos:exactMatch eli:date_document ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Date ;
@@ -9506,8 +9510,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationDateOfApplicability a rdf:Property ;
     rdfs:label "legislationDateOfApplicability" ;
     rdfs:comment "The date at which the Legislation becomes applicable. This can sometimes be distinct from the date of entry into force : a text may come in force today, and state it will become applicable in 3 months." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_applicability> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#date_applicability> ;
+    owl:equivalentProperty eli:date_applicability ;
+    skos:exactMatch eli:date_applicability ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Date ;
@@ -9517,8 +9521,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationDateVersion a rdf:Property ;
     rdfs:label "legislationDateVersion" ;
     rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> ;
+    owl:equivalentProperty eli:version_date ;
+    skos:exactMatch eli:version_date ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Date ;
@@ -9529,8 +9533,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationEnsuresImplementationOf" ;
     rdfs:comment "Indicates that this Legislation ensures the implementation of another Legislation, for example by modifying national legislations so that they do not contradict to an EU regulation or decision. This implies a legal meaning. Transpositions of EU Directive should be captured with <a href=\"/legislationTransposes\">legislationTransposes</a>." ;
     rdfs:subPropertyOf :legislationApplies ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    owl:equivalentProperty eli:ensures_implementation_of ;
+    skos:exactMatch eli:ensures_implementation_of ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9541,7 +9545,7 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationIdentifier" ;
     rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
     rdfs:subPropertyOf :identifier ;
-    skos:closeMatch <http://data.europa.eu/eli/ontology#id_local> ;
+    skos:closeMatch eli:id_local ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Text,
@@ -9554,8 +9558,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:comment "The jurisdiction from which the legislation originates." ;
     rdfs:subPropertyOf :jurisdiction,
         :spatialCoverage ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#jurisdiction> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#jurisdiction> ;
+    owl:equivalentProperty eli:jurisdiction ;
+    skos:exactMatch eli:jurisdiction ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :AdministrativeArea,
@@ -9566,8 +9570,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationLegalForce a rdf:Property ;
     rdfs:label "legislationLegalForce" ;
     rdfs:comment "Whether the legislation is currently in force, not in force, or partially in force." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#in_force> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#in_force> ;
+    owl:equivalentProperty eli:in_force ;
+    skos:exactMatch eli:in_force ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :LegalForceStatus ;
@@ -9577,8 +9581,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationLegalValue a rdf:Property ;
     rdfs:label "legislationLegalValue" ;
     rdfs:comment "The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a \"stronger\" legal value than the HTML file of the same act." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#legal_value> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#legal_value> ;
+    owl:equivalentProperty eli:legal_value ;
+    skos:exactMatch eli:legal_value ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :LegislationObject ;
     :rangeIncludes :LegalValueLevel ;
@@ -9589,8 +9593,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationPassedBy" ;
     rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
     rdfs:subPropertyOf :creator ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> ;
+    owl:equivalentProperty eli:passed_by ;
+    skos:exactMatch eli:passed_by ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Organization,
@@ -9602,8 +9606,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationRepeals" ;
     rdfs:comment "Another legislation that this legislation repeals (cancels, abrogates)." ;
     rdfs:subPropertyOf :legislationChanges ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#repeals> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#repeals> ;
+    owl:equivalentProperty eli:repeals ;
+    skos:exactMatch eli:repeals ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9613,8 +9617,8 @@ Use Text for incentives that are limited based on other criteria, for example if
 :legislationResponsible a rdf:Property ;
     rdfs:label "legislationResponsible" ;
     rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#responsibility_of> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#responsibility_of> ;
+    owl:equivalentProperty eli:responsibility_of ;
+    skos:exactMatch eli:responsibility_of ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Organization,
@@ -9626,8 +9630,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationTransposes" ;
     rdfs:comment "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations." ;
     rdfs:subPropertyOf :legislationApplies ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#transposes> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#transposes> ;
+    owl:equivalentProperty eli:transposes ;
+    skos:exactMatch eli:transposes ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :Legislation ;
@@ -9638,8 +9642,8 @@ Use Text for incentives that are limited based on other criteria, for example if
     rdfs:label "legislationType" ;
     rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
     rdfs:subPropertyOf :genre ;
-    owl:equivalentProperty <http://data.europa.eu/eli/ontology#type_document> ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#type_document> ;
+    owl:equivalentProperty eli:type_document ;
+    skos:exactMatch eli:type_document ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :domainIncludes :Legislation ;
     :rangeIncludes :CategoryCode,
@@ -10328,7 +10332,7 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     rdfs:comment "The name of the item." ;
     rdfs:subPropertyOf rdfs:label ;
     owl:equivalentProperty og:title,
-        dc:title,
+        dct:title,
         cmns-txt:hasName ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text .
@@ -10937,7 +10941,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :pageEnd a rdf:Property ;
     rdfs:label "pageEnd" ;
     rdfs:comment "The page on which the work ends; for example \"138\" or \"xvi\"." ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/pageEnd> ;
+    owl:equivalentProperty bibo:pageEnd ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :Article,
         :PublicationIssue,
@@ -10948,7 +10952,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :pageStart a rdf:Property ;
     rdfs:label "pageStart" ;
     rdfs:comment "The page on which the work starts; for example \"135\" or \"xiii\"." ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/pageStart> ;
+    owl:equivalentProperty bibo:pageStart ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :Article,
         :PublicationIssue,
@@ -10959,7 +10963,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :pagination a rdf:Property ;
     rdfs:label "pagination" ;
     rdfs:comment "Any description of pages that is not separated into pageStart and pageEnd; for example, \"1-6, 9, 55\" or \"10-12, 46-49\"." ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/pages> ;
+    owl:equivalentProperty bibo:pages ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :Article,
         :PublicationIssue,
@@ -11757,7 +11761,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 :publisher a rdf:Property ;
     rdfs:label "publisher" ;
     rdfs:comment "The publisher of the article in question." ;
-    owl:equivalentProperty dc:publisher ;
+    owl:equivalentProperty dct:publisher ;
     :domainIncludes :CreativeWork,
         :FinancialIncentive ;
     :rangeIncludes :Organization,
@@ -11940,7 +11944,7 @@ While such policies are most typically expressed in natural language, sometimes 
 :recordLabel a rdf:Property ;
     rdfs:label "recordLabel" ;
     rdfs:comment "The label that issued the release." ;
-    owl:equivalentProperty <http://purl.org/ontology/mo/label> ;
+    owl:equivalentProperty mo:label ;
     :contributor <https://schema.org/docs/collab/MBZ> ;
     :domainIncludes :MusicRelease ;
     :rangeIncludes :Organization .
@@ -12911,7 +12915,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "spatial" ;
     rdfs:comment """The "spatial" property can be used in cases when more specific properties
 (e.g. [[locationCreated]], [[spatialCoverage]], [[contentLocation]]) are not known to be appropriate.""" ;
-    owl:equivalentProperty dc:spatial ;
+    owl:equivalentProperty dct:spatial ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Place .
 
@@ -12921,7 +12925,7 @@ While such policies are most typically expressed in natural language, sometimes 
       contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates
       areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.""" ;
     rdfs:subPropertyOf :contentLocation ;
-    owl:equivalentProperty dc:spatial ;
+    owl:equivalentProperty dct:spatial ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Place .
 
@@ -13350,7 +13354,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
       Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via "1939/1945".
 
 Open-ended date ranges can be written with ".." in place of the end date. For example, "2015-11/.." indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.""" ;
-    owl:equivalentProperty dc:temporal ;
+    owl:equivalentProperty dct:temporal ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :DateTime,
         :Text,
@@ -13871,8 +13875,8 @@ This property can be used alongside the license property which indicates license
         :QuantitativeValue ;
     :rangeIncludes :Boolean,
         :Number,
-        :StructuredValue,
         :QualitativeValue,
+        :StructuredValue,
         :Text .
 
 :valueAddedTaxIncluded a rdf:Property ;
@@ -14078,7 +14082,7 @@ This property can be used alongside the license property which indicates license
     rdfs:label "volumeNumber" ;
     rdfs:comment "Identifies the volume of publication or multi-part work; for example, \"iii\" or \"2\"." ;
     rdfs:subPropertyOf :position ;
-    owl:equivalentProperty <http://purl.org/ontology/bibo/volume> ;
+    owl:equivalentProperty bibo:volume ;
     :contributor <https://schema.org/docs/collab/bibex> ;
     :domainIncludes :PublicationVolume ;
     :rangeIncludes :Integer,
@@ -14299,7 +14303,7 @@ This property can be used alongside the license property which indicates license
 :AuthoritativeLegalValue a :LegalValueLevel ;
     rdfs:label "AuthoritativeLegalValue" ;
     rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> ;
+    skos:exactMatch eli:LegalValue-authoritative ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -14532,7 +14536,7 @@ For an [[AudioObject]] to be 'missing context': Unaltered audio presented in an 
     rdfs:label "DefinitiveLegalValue" ;
     rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
   Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> ;
+    skos:exactMatch eli:LegalValue-definitive ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -14838,7 +14842,7 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
     rdfs:comment "Indicates that a legislation is in force." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> ;
+    skos:exactMatch eli:InForce-inForce ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -15297,7 +15301,7 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
     rdfs:comment "Indicates that a legislation is currently not in force." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> ;
+    skos:exactMatch eli:InForce-notInForce ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -15305,7 +15309,7 @@ For an [[AudioObject]] to be 'edited or cropped content': The audio has been edi
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
     rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> ;
+    skos:exactMatch eli:LegalValue-official ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -15436,7 +15440,7 @@ For an [[AudioObject]] to be 'original': No evidence the audio has been misleadi
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
     rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> ;
+    skos:exactMatch eli:InForce-partiallyInForce ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
@@ -15909,7 +15913,7 @@ For an [[AudioObject]] to be 'transformed content': Part or all of the audio has
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
     rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> ;
+    skos:exactMatch eli:LegalValue-unofficial ;
     :contributor <https://schema.org/docs/collab/ELI> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1156>,
         <https://op.europa.eu/en/web/eu-vocabularies/model/-/resource/dataset/eli> .
