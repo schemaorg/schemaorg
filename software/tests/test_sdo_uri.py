@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from rdflib import BNode, Literal, URIRef
 
 from schemaorg import constants
+from schemaorg.layout import Domain
 from schemaorg.sdo_uri import SCHEMA_URL, SDO, SdoUri
 
 
@@ -30,6 +31,8 @@ class TestSdoUri(unittest.TestCase):
         self.assertFalse(wrapped.is_retired())
         with self.assertRaises(ValueError):
             _ = wrapped.uri
+        with self.assertRaises(ValueError):
+            _ = wrapped.path
         # Same characters as a plain str still mean a bare term name.
         self.assertTrue(SdoUri(str(bnode)).is_sdo())
         self.assertEqual(str(SdoUri(str(bnode))), f"https://schema.org/{bnode}")
@@ -43,6 +46,8 @@ class TestSdoUri(unittest.TestCase):
             self.assertFalse(wrapped.is_retired())
             with self.assertRaises(ValueError):
                 _ = wrapped.uri
+            with self.assertRaises(ValueError):
+                _ = wrapped.path
 
     def test_external_uri_preserved(self) -> None:
         ext = SdoUri("http://xmlns.com/foaf/0.1/Person")
@@ -125,6 +130,43 @@ class TestSdoUri(unittest.TestCase):
         self.assertTrue(upgraded_layer.is_sdo())
         self.assertEqual(upgraded_layer.layer(), "pending")
         self.assertEqual(str(upgraded_layer), "https://pending.schema.org")
+
+    def test_relative_paths_and_path_property(self) -> None:
+        for raw in ("/docs/collab/rNews", "docs/collab/rNews"):
+            sdo = SdoUri(raw)
+            self.assertTrue(sdo.is_sdo())
+            self.assertEqual(str(sdo), "https://schema.org/docs/collab/rNews")
+            self.assertEqual(sdo.path, "/docs/collab/rNews")
+            self.assertEqual(sdo.term_name(), "docs/collab/rNews")
+
+        self.assertEqual(SdoUri("Person").path, "/Person")
+        self.assertEqual(SdoUri.for_layer("pending").path, "")
+        self.assertEqual(
+            SdoUri("http://xmlns.com/foaf/0.1/Person").path,
+            "/foaf/0.1/Person",
+        )
+
+    def test_from_path(self) -> None:
+        collab = SdoUri.from_path(Domain.DOCS_COLLAB, "rNews")
+        self.assertTrue(collab.is_sdo())
+        self.assertEqual(str(collab), "https://schema.org/docs/collab/rNews")
+        self.assertEqual(collab.path, "/docs/collab/rNews")
+        self.assertEqual(
+            collab.uri, URIRef("https://schema.org/docs/collab/rNews")
+        )
+
+        # POSIX semantics: an absolute segment overrides earlier segments.
+        overridden = SdoUri.from_path(Domain.DOCS_COLLAB, "/tmp/test")
+        self.assertEqual(str(overridden), "https://schema.org/tmp/test")
+        self.assertEqual(overridden.path, "/tmp/test")
+
+        # Root and leading double-slash still resolve under schema.org.
+        self.assertEqual(str(SdoUri.from_path()), constants.SCHEMA_URI)
+        self.assertEqual(SdoUri.from_path().path, "/")
+        dbl = SdoUri.from_path("//example.com/foo")
+        self.assertTrue(dbl.is_sdo())
+        self.assertEqual(str(dbl), "https://schema.org/example.com/foo")
+        self.assertEqual(dbl.path, "/example.com/foo")
 
     def test_equality_and_hashing(self) -> None:
         self.assertEqual(SdoUri("Person"), SdoUri(SDO.Person))

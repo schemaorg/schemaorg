@@ -21,6 +21,9 @@ class TestInputLayout(unittest.TestCase):
     def test_dir_standard(self) -> None:
         self.assertEqual(self.layout.dir(Domain.DATA), self.root / "data")
         self.assertEqual(
+            self.layout.dir(Domain.DATA_COLLAB), self.root / "data" / "collab"
+        )
+        self.assertEqual(
             self.layout.dir(Domain.STATIC_DOC_INSERTS),
             self.root / "templates" / "static-doc-inserts",
         )
