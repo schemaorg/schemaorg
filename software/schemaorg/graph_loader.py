@@ -1,4 +1,6 @@
-"""Module providing GraphLoader to load RDF graphs from Schema.org data files."""
+"""RDF graph loading and release-scope partitioning."""
+
+from __future__ import annotations
 
 from collections.abc import Iterable
 import logging
@@ -6,7 +8,85 @@ from pathlib import Path
 
 import rdflib
 
+from schemaorg import constants
+from schemaorg.sdo_uri import SDO, SdoUri
+
 log: logging.Logger = logging.getLogger(__name__)
+
+_META_CLASSES: frozenset[rdflib.URIRef] = frozenset({
+    rdflib.RDFS.Class,
+    rdflib.OWL.Class,
+    rdflib.RDF.Property,
+})
+_META_PROPS: frozenset[rdflib.URIRef] = frozenset({
+    rdflib.RDF.Property,
+    rdflib.OWL.ObjectProperty,
+    rdflib.OWL.DatatypeProperty,
+})
+_FOREIGN_STUB_RULES: tuple[
+    tuple[tuple[rdflib.URIRef, ...], frozenset[rdflib.URIRef], rdflib.URIRef],
+    ...,
+] = (
+    (
+        (rdflib.RDFS.subClassOf, rdflib.OWL.equivalentClass),
+        _META_CLASSES,
+        rdflib.RDFS.Class,
+    ),
+    (
+        (rdflib.RDFS.subPropertyOf, rdflib.OWL.equivalentProperty),
+        _META_PROPS,
+        rdflib.RDF.Property,
+    ),
+)
+
+
+def _copy_namespaces(source: rdflib.Graph, target: rdflib.Graph) -> None:
+    for prefix, ns_uri in sorted(
+        source.namespaces(), key=lambda kv: (str(kv[0]) == "", str(kv[0]))
+    ):
+        key = str(prefix) or (
+            "schema" if str(ns_uri) == constants.SCHEMA_URI else ""
+        )
+        if key:
+            target.bind(key, ns_uri, override=True)
+
+
+def split_release_graphs(
+    source_graph: rdflib.Graph,
+) -> tuple[rdflib.Graph, rdflib.Graph]:
+    """ALL graph (schema.org subjects plus foreign type stubs) and CURRENT graph (no attic)."""
+    all_graph = rdflib.Graph(bind_namespaces="none")
+    current_graph = rdflib.Graph(bind_namespaces="none")
+
+    for s, p, o in source_graph:
+        if isinstance(s, rdflib.URIRef) and SdoUri(s).is_sdo():
+            all_graph.add((s, p, o))
+
+    # Foreign classes and properties referenced by schema.org terms get a bare
+    # type declaration so consumers can resolve them (skipping W3C meta-terms).
+    for predicates, excluded, stub_type in _FOREIGN_STUB_RULES:
+        for pred in predicates:
+            for _, o in list(all_graph.subject_objects(pred)):
+                if (
+                    isinstance(o, rdflib.URIRef)
+                    and o not in excluded
+                    and not SdoUri(o).is_sdo()
+                ):
+                    all_graph.add((o, rdflib.RDF.type, stub_type))
+
+    retired = {
+        s
+        for s, o in all_graph.subject_objects(SDO.isPartOf)
+        if SdoUri(o).is_retired()
+    }
+    for s, p, o in all_graph:
+        if s not in retired:
+            current_graph.add((s, p, o))
+
+    _copy_namespaces(source_graph, all_graph)
+    _copy_namespaces(source_graph, current_graph)
+
+    return all_graph, current_graph
 
 
 class GraphLoader:
