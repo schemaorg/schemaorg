@@ -9,6 +9,7 @@ class Domain(StrEnum):
 
     # Core source directories
     DATA = "data"
+    DATA_COLLAB = "data/collab"
     DOCS = "docs"
     TEMPLATES = "templates"
     STATIC_DOC_INSERTS = "templates/static-doc-inserts"

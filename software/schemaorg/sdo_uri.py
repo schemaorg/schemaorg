@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import logging
-from urllib.parse import ParseResult, urlparse
+from pathlib import PurePosixPath
+from urllib.parse import ParseResult, urljoin, urlparse
 
 from rdflib import BNode, Literal, Namespace, URIRef
 from rdflib.term import Node
@@ -21,7 +22,7 @@ if not SCHEMA_URL.hostname:
 class SdoUri:
     """Wrapper around a URI or term identifier for schema.org URI operations.
 
-    Scheme-less strings are schema.org term names; BNodes and Literals are never URIs.
+    Scheme-less strings are schema.org term names or paths; BNodes and Literals are never URIs.
     """
 
     def __init__(self, uri: Node | str | ParseResult) -> None:
@@ -34,7 +35,9 @@ class SdoUri:
         self._parsed = uri if isinstance(uri, ParseResult) else urlparse(str(uri))
 
         if not self._parsed.scheme:
-            self._parsed = urlparse(f"{constants.SCHEMA_URI}{self._parsed.geturl()}")
+            self._parsed = urlparse(
+                urljoin(constants.SCHEMA_URI, self._parsed.geturl())
+            )
         if self._parsed.scheme != SCHEMA_URL.scheme and self.is_sdo():
             log.warning(
                 "Upgrading %s:// schema.org URI to %s:// %s",
@@ -49,6 +52,12 @@ class SdoUri:
         if self._is_non_uri:
             raise ValueError(f"Not a URI: {self._parsed.geturl()!r}")
         return URIRef(self._parsed.geturl())
+
+    @property
+    def path(self) -> str:
+        if self._is_non_uri:
+            raise ValueError(f"Not a URI: {self._parsed.geturl()!r}")
+        return self._parsed.path
 
     def is_sdo(self) -> bool:
         host = self._parsed.hostname or ""
@@ -75,6 +84,12 @@ class SdoUri:
         if layer and layer != "core":
             netloc = f"{layer}.{SCHEMA_URL.hostname}"
         return cls(SCHEMA_URL._replace(netloc=netloc, path=""))
+
+    @classmethod
+    def from_path(cls, *parts: str) -> SdoUri:
+        """Build a core schema.org URI by POSIX-joining path segments."""
+        joined = str(PurePosixPath("/", *parts))
+        return cls(SCHEMA_URL._replace(path="/" + joined.lstrip("/")))
 
     def is_retired(self) -> bool:
         return self.layer() == "attic"
