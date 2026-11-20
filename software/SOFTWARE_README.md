@@ -92,7 +92,7 @@ This will create a local working copy of the schema.org website (targeting `next
 
 **buildfiles.py (`build_schema`)**
 
-The checked-in directory `data/releases/next/` always tracks the 35 generated schema release files (RDF dumps, CSV tables, JSON-LD context, OWL, ShEx/SHACL shapes, and examples) corresponding to the current `.ttl` definitions, examples, and exporter code. Whenever you modify schema definitions, examples, or renderers, regenerate `data/releases/next/` before committing:
+The checked-in directory `data/releases/next/` tracks the 9 generated `next` schema files (`schemaorg-all-https.ttl`, `schemaorg-current-https.ttl`, JSON-LD context, OWL, HTTP equivalents, ShEx/SHACL shapes, and examples) corresponding to the current `.ttl` definitions, examples, and exporter code (official numbered releases via `--version X.Y` generate all 35 files across protocols and formats). Whenever you modify schema definitions, examples, or renderers, regenerate `data/releases/next/` before committing:
 
     ./software/scripts/buildfiles.py
 
@@ -173,7 +173,7 @@ For details see the output of the command `./software/scripts/buildsite.py -h`. 
 * `./software/scripts/buildsite.py -t Book sameAs`  Would rebuild the *Book* and *sameAs* term pages.
 * `./software/scripts/buildsite.py -t All`  Would rebuild all term pages.
 * `./software/scripts/buildsite.py -f All` Would rebuild all `docs/*` supporting files (`docs/schemaorg.owl`, `docs/jsonldcontext.jsonld`, `docs/sitemap.xml`, `docs/tree.jsonld`, `docs/jsoncounts.json`).
-* `./software/scripts/buildfiles.py` Rebuilds the 35 schema release files in `data/releases/next/`.
+* `./software/scripts/buildfiles.py` Rebuilds the 9 `next` schema release files in `data/releases/next/` (use `--version X.Y` for all 35 numbered release files).
 * `./software/scripts/buildsite.py -s` Would copy any static docs pages, css files etc. into the `site`.
 * `./software/scripts/buildsite.py -d PendingHome` Would rebuild the home page for the pending section (`docs/pending.home.html`).
 * `./software/scripts/buildsite.py -d All` Would rebuild all dynamically created docs files.

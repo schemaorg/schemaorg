@@ -214,10 +214,12 @@ class TestRenderers(unittest.TestCase):
                     ttl_text, encoding="utf-8"
                 )
                 out_layout = OutputLayout(in_dir / "data")
-                buildfiles.export_release_files(InputLayout(in_dir), out_layout)
+                buildfiles.export_release_files(
+                    InputLayout(in_dir), out_layout, version="30.1"
+                )
                 rel_dir = Releases(
                     out_layout, Version(in_dir / "versions.json")
-                ).dir("next")
+                ).dir("30.1")
                 outputs[label] = {
                     p.name: p.read_text(encoding="utf-8")
                     for p in rel_dir.iterdir()
@@ -381,6 +383,7 @@ class TestPlan(unittest.TestCase):
             )
             version = Version(versions_path)
             next_version = version.next()
+            numbered_version = version.current()
             release_layout = OutputLayout(Path(tmp) / "data")
             site_layout = OutputLayout(Path(tmp) / "site")
             releases = Releases(release_layout, version)
@@ -388,22 +391,59 @@ class TestPlan(unittest.TestCase):
             vocab = VocabularyLoader(all_graph, version=next_version).load()
             csv = CsvRenderer(vocab)
 
-            all_scoped = buildfiles.export_scoped(
+            next_all_scoped = buildfiles.export_scoped(
                 Scope.ALL, all_graph, csv, next_version, releases
             )
-            current_scoped = buildfiles.export_scoped(
+            next_current_scoped = buildfiles.export_scoped(
                 Scope.CURRENT, current_graph, csv, next_version, releases
             )
-            release_unscoped = buildfiles.export_release_unscoped(
+            next_unscoped = buildfiles.export_release_unscoped(
                 all_graph, vocab, next_version, releases, ()
             )
             site_docs = buildfiles.plan_site_docs(
                 vocab, next_version, releases, site_layout
             )
+            self.assertEqual(
+                [a.path.name for a in next_all_scoped],
+                ["schemaorg-all-https.ttl"],
+            )
+            self.assertEqual(
+                [a.path.name for a in next_current_scoped],
+                ["schemaorg-current-https.ttl"],
+            )
+            self.assertEqual(len(next_unscoped), 7)
+            self.assertEqual(len(site_docs), 8)
+
+            next_artifacts = [
+                *next_all_scoped,
+                *next_current_scoped,
+                *next_unscoped,
+            ]
+            next_paths = [a.path for a in next_artifacts]
+            self.assertEqual(len(next_paths), len(set(next_paths)))
+            self.assertEqual(len(next_artifacts), 9)
+            self.assertTrue(
+                all(p.parent == releases.dir("next") for p in next_paths)
+            )
+            self.assertTrue(
+                all(
+                    a.path.parent == site_layout.dir(Domain.DOCS)
+                    for a in site_docs
+                )
+            )
+
+            all_scoped = buildfiles.export_scoped(
+                Scope.ALL, all_graph, csv, numbered_version, releases
+            )
+            current_scoped = buildfiles.export_scoped(
+                Scope.CURRENT, current_graph, csv, numbered_version, releases
+            )
+            release_unscoped = buildfiles.export_release_unscoped(
+                all_graph, vocab, numbered_version, releases, ()
+            )
             self.assertEqual(len(all_scoped), 14)
             self.assertEqual(len(current_scoped), 14)
             self.assertEqual(len(release_unscoped), 7)
-            self.assertEqual(len(site_docs), 8)
 
             release_artifacts = [
                 *all_scoped,
@@ -418,13 +458,7 @@ class TestPlan(unittest.TestCase):
             )
             self.assertEqual(len(release_artifacts), 35)
             self.assertTrue(
-                all(p.parent == releases.dir("next") for p in release_paths)
-            )
-            self.assertTrue(
-                all(
-                    a.path.parent == site_layout.dir(Domain.DOCS)
-                    for a in site_docs
-                )
+                all(p.parent == releases.dir("30.1") for p in release_paths)
             )
             http = [
                 a
@@ -456,6 +490,10 @@ class TestPlan(unittest.TestCase):
 
             stale = release_out_layout.file(Domain.RELEASE, "next/stale.txt")
             stale.write_text("obsolete", encoding="utf-8")
+            stale_http = release_out_layout.file(
+                Domain.RELEASE, "next/schemaorg-all-http.ttl"
+            )
+            stale_http.write_text("obsolete", encoding="utf-8")
 
             buildfiles.export_release_files(
                 input_layout=input_layout, output_layout=release_out_layout
@@ -463,39 +501,25 @@ class TestPlan(unittest.TestCase):
 
             self.assertFalse((in_dir / "data" / "docs").exists())
             self.assertFalse(stale.exists())
+            self.assertFalse(stale_http.exists())
 
             releases = Releases(
                 release_out_layout, Version(in_dir / "versions.json")
             )
-            self.assertEqual(len(list(releases.dir("next").iterdir())), 35)
-            self.assertTrue(releases.file(filename="httpequivs.ttl").is_file())
-            for name in (
-                "schemaorg-all-https-types.csv",
-                "schemaorg-all-http-types.csv",
-                "schemaorg-current-https-properties.csv",
-                "schemaorg-current-http-properties.csv",
-                "schemaorg-shapes.shexj",
-                "schemaorg-shapes.shacl",
-                "schemaorg-subclasses.shacl",
-                "schemaorgcontext.jsonld",
-                "schemaorg.owl",
-            ):
-                self.assertTrue(releases.file(filename=name).is_file(), name)
-
-            https_nq = releases.file(
-                filename="schemaorg-all-https.nq"
-            ).read_text(encoding="utf-8")
-            self.assertIn("<https://schema.org/next> .", https_nq)
-
-            https_nt = releases.file(
-                filename="schemaorg-all-https.nt"
-            ).read_text(encoding="utf-8")
-            http_nt = releases.file(filename="schemaorg-all-http.nt").read_text(
-                encoding="utf-8"
+            self.assertEqual(
+                sorted(p.name for p in releases.dir("next").iterdir()),
+                [
+                    "httpequivs.ttl",
+                    "schemaorg-all-examples.txt",
+                    "schemaorg-all-https.ttl",
+                    "schemaorg-current-https.ttl",
+                    "schemaorg-shapes.shacl",
+                    "schemaorg-shapes.shexj",
+                    "schemaorg-subclasses.shacl",
+                    "schemaorg.owl",
+                    "schemaorgcontext.jsonld",
+                ],
             )
-            self.assertIn("<https://schema.org/Person>", https_nt)
-            self.assertNotIn("https://schema.org", http_nt)
-            self.assertEqual(protocol_swap()(https_nt), http_nt)
 
             buildfiles.export_site_docs(
                 input_layout=input_layout, output_layout=site_out_layout
@@ -528,9 +552,37 @@ class TestPlan(unittest.TestCase):
                 output_layout=release_out_layout,
                 version="30.1",
             )
-            self.assertTrue(
-                releases.file("30.1", filename="schemaorg.owl").is_file()
-            )
+            self.assertEqual(len(list(releases.dir("30.1").iterdir())), 35)
+            for name in (
+                "httpequivs.ttl",
+                "schemaorg-all-https-types.csv",
+                "schemaorg-all-http-types.csv",
+                "schemaorg-current-https-properties.csv",
+                "schemaorg-current-http-properties.csv",
+                "schemaorg-shapes.shexj",
+                "schemaorg-shapes.shacl",
+                "schemaorg-subclasses.shacl",
+                "schemaorgcontext.jsonld",
+                "schemaorg.owl",
+            ):
+                self.assertTrue(
+                    releases.file("30.1", filename=name).is_file(), name
+                )
+
+            https_nq = releases.file(
+                "30.1", filename="schemaorg-all-https.nq"
+            ).read_text(encoding="utf-8")
+            self.assertIn("<https://schema.org/30.1> .", https_nq)
+
+            https_nt = releases.file(
+                "30.1", filename="schemaorg-all-https.nt"
+            ).read_text(encoding="utf-8")
+            http_nt = releases.file(
+                "30.1", filename="schemaorg-all-http.nt"
+            ).read_text(encoding="utf-8")
+            self.assertIn("<https://schema.org/Person>", https_nt)
+            self.assertNotIn("https://schema.org", http_nt)
+            self.assertEqual(protocol_swap()(https_nt), http_nt)
 
     def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(
         self,
