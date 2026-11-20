@@ -4,9 +4,11 @@ from pathlib import Path
 import tempfile
 import unittest
 
+from rdflib import URIRef
+
+from schemaorg.model import SchemaType
+from schemaorg.term_view import TermView, TermViewCatalog
 import SchemaExamples.schemaexamples as schemaexamples
-import SchemaTerms.sdoterm as sdoterm
-import SchemaTerms.sdotermsource as sdotermsource
 import util.buildtermpages as buildtermpages
 import util.schema as schema
 
@@ -49,10 +51,12 @@ class TestBuildTermPages(unittest.TestCase):
         )
 
     def testTemplateRenderNoExample(self) -> None:
-        term = sdoterm.SdoType(
-            term_id="42",
-            uri="http://example.com/whatchicallit",
-            label="whatchicallit",
+        term = TermView(
+            SchemaType(
+                uri=URIRef("http://example.com/whatchicallit"),
+                label="whatchicallit",
+            ),
+            TermViewCatalog(),
         )
         output = self.renderer.termtemplateRender(term=term, examples=[], json="")
         self.assertIn("whatchicallit", output)
@@ -70,10 +74,12 @@ class TestBuildTermPages(unittest.TestCase):
                 exmeta={"id": "eg-0042", "file": __file__, "filepos": 0},
             )
         ]
-        term = sdoterm.SdoType(
-            term_id="42",
-            uri="http://example.com/thingamabob",
-            label="Thingamabob",
+        term = TermView(
+            SchemaType(
+                uri=URIRef("http://example.com/thingamabob"),
+                label="Thingamabob",
+            ),
+            TermViewCatalog(),
         )
         output = self.renderer.termtemplateRender(
             term=term, examples=examples, json="[42]"
@@ -86,11 +92,14 @@ class TestBuildTermPages(unittest.TestCase):
     def testWorkerConfigAppliesTargetVersionOutputDirAndReleaseFile(self) -> None:
         orig_target = schema.config.TARGET_VERSION
         orig_output = schema.config.OUTPUTDIR
+        orig_cat = buildtermpages._SHARED_CATALOG
+        orig_jld = buildtermpages._SHARED_JSONLD
+        orig_key = buildtermpages._SHARED_RELEASE_KEY
         self.addCleanup(setattr, schema.config, "TARGET_VERSION", orig_target)
         self.addCleanup(setattr, schema.config, "OUTPUTDIR", orig_output)
-        self.addCleanup(
-            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
-        )
+        self.addCleanup(setattr, buildtermpages, "_SHARED_CATALOG", orig_cat)
+        self.addCleanup(setattr, buildtermpages, "_SHARED_JSONLD", orig_jld)
+        self.addCleanup(setattr, buildtermpages, "_SHARED_RELEASE_KEY", orig_key)
 
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -106,7 +115,9 @@ class TestBuildTermPages(unittest.TestCase):
 
             schema.config.TARGET_VERSION = "next"
             schema.config.OUTPUTDIR = "software/site"
-            sdotermsource.SdoTermSource.SOURCEGRAPH = None
+            buildtermpages._SHARED_CATALOG = None
+            buildtermpages._SHARED_JSONLD = None
+            buildtermpages._SHARED_RELEASE_KEY = None
 
             published = schema.VERSION.current()
             buildtermpages._buildTermIds(
@@ -124,9 +135,7 @@ class TestBuildTermPages(unittest.TestCase):
                 )
             )
 
-            rendered_file = (
-                out_dir / "terms/types/W/WorkerOnlyType.html"
-            )
+            rendered_file = out_dir / "terms/types/W/WorkerOnlyType.html"
             self.assertTrue(rendered_file.is_file())
             html = rendered_file.read_text(encoding="utf-8")
             self.assertIn("Loaded from release_file.", html)

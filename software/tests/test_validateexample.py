@@ -12,11 +12,14 @@ happened here.
 
 from __future__ import annotations
 
+from functools import partial
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import textwrap
 import unittest
+from unittest.mock import patch
 
 import rdflib
 from rdflib.namespace import SH
@@ -150,16 +153,23 @@ class ValidateExampleTests(unittest.TestCase):
         self.assertIn("not a string", joined)
 
     def testEmptyExamplesExitsConfigError(self) -> None:
-        with self.assertRaises(SystemExit) as cm:
+        with (
+            self.assertLogs(validator.log, level="ERROR") as logs,
+            self.assertRaises(SystemExit) as cm,
+        ):
             validator.validate_examples([], invalid_only=True, source_output=False)
         self.assertEqual(cm.exception.code, os.EX_CONFIG)
+        self.assertIn("No JSON-LD examples found", "\n".join(logs.output))
 
     def testMissingShaclFilesExitsConfigError(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             empty_releases = Releases(
                 validator.OutputLayout(Path(tmp)), validator.schema.VERSION
             )
-            with self.assertRaises(SystemExit) as cm:
+            with (
+                self.assertLogs(validator.log, level="ERROR") as logs,
+                self.assertRaises(SystemExit) as cm,
+            ):
                 validator.validate_examples(
                     [FakeExample("k", self.GOOD)],
                     invalid_only=True,
@@ -167,12 +177,19 @@ class ValidateExampleTests(unittest.TestCase):
                     releases=empty_releases,
                 )
             self.assertEqual(cm.exception.code, os.EX_CONFIG)
+            self.assertIn("SHACL files not found", "\n".join(logs.output))
 
     def testRunShaclTestsFailsWhenShaclMissing(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaises(SystemExit) as cm:
-                buildsite.runShaclTests(releases_output_dir=tmp)
-            self.assertEqual(cm.exception.code, os.EX_CONFIG)
+        quiet_run = partial(subprocess.run, capture_output=True)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(buildsite.subprocess, "run", side_effect=quiet_run),
+            self.assertLogs(buildsite.log, level="INFO") as logs,
+            self.assertRaises(SystemExit) as cm,
+        ):
+            buildsite.runShaclTests(releases_output_dir=tmp)
+        self.assertEqual(cm.exception.code, os.EX_CONFIG)
+        self.assertIn("SHACL validation reported errors", "\n".join(logs.output))
 
 
 class ShaclGateLivenessTests(unittest.TestCase):

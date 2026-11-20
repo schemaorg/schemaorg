@@ -265,18 +265,20 @@ def export_site_docs(
     input_layout: InputLayout,
     output_layout: OutputLayout,
     version: VersionRef = NEXT_VERSION,
+    vocab: Vocabulary | None = None,
 ) -> None:
-    """Loads the target release and writes Domain.DOCS site files."""
+    """Loads the target release (unless vocab is supplied) and writes Domain.DOCS site files."""
     version_obj = Version(input_layout.file(Domain.ROOT, constants.VERSIONS_FILE))
     target_version = version_obj.resolve(version)
     releases = Releases(input_layout, version_obj)
-    ttl_files = releases.get_ttl_files(target_version)
 
-    with pretty_logger.BlockLog(
-        message=f"Loading release graph for {target_version}", logger=log
-    ):
-        all_graph = GraphLoader().load(ttl_files)
-        vocab = VocabularyLoader(all_graph, version=target_version).load()
+    if vocab is None:
+        ttl_files = releases.get_ttl_files(target_version)
+        with pretty_logger.BlockLog(
+            message=f"Loading release graph for {target_version}", logger=log
+        ):
+            all_graph = GraphLoader().load(ttl_files)
+            vocab = VocabularyLoader(all_graph, version=target_version).load()
 
     for artifact in plan_site_docs(
         vocab, target_version, releases, output_layout

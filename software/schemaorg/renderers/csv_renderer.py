@@ -11,7 +11,7 @@ from typing import Any
 
 import rdflib
 
-from schemaorg import constants
+from schemaorg import constants, markdown
 from schemaorg.model import (
     EnumerationValue,
     SchemaProperty,
@@ -20,7 +20,6 @@ from schemaorg.model import (
     Vocabulary,
 )
 from schemaorg.sdo_uri import SdoUri
-import SchemaTerms.localmarkdown as localmarkdown
 
 Row = dict[str, str]
 
@@ -94,7 +93,7 @@ class CsvRenderer:
     def _base_row(self, term: SchemaTerm) -> Row:
         layer = SdoUri(term.isPartOf[0]).layer() if term.isPartOf else "core"
         comment = (
-            localmarkdown.Markdown.parse(
+            markdown.Markdown.parse(
                 term.comment, wpre=self.wikilink_prefix
             ).strip()
             if term.comment
