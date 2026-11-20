@@ -28,8 +28,8 @@ _RDF_FILE_FORMATS: dict[str, str] = {".nt": "nt", ".ttl": "turtle"}
 def bindNameSpaces(graph: rdflib.Graph) -> None:
     namespaces: dict[str, str] = {
         "dcat": "http://www.w3.org/ns/dcat#",
-        "dc": "http://purl.org/dc/terms/",
-        "dcmitype": "http://purl.org/dc/dcmitype/",
+        "dct": "http://purl.org/dc/terms/",
+        "dctype": "http://purl.org/dc/dcmitype/",
         "dst": "http://cv.iptc.org/newscodes/digitalsourcetype/",
         "foaf": "http://xmlns.com/foaf/0.1/",
         "owl": "http://www.w3.org/2002/07/owl#",

@@ -8,9 +8,9 @@
 @prefix cmns-loc: <https://www.omg.org/spec/Commons/Locations/> .
 @prefix cmns-q: <https://www.omg.org/spec/Commons/Quantities/> .
 @prefix cmns-txt: <https://www.omg.org/spec/Commons/Text/> .
-@prefix dc: <http://purl.org/dc/terms/> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
 @prefix dst: <http://cv.iptc.org/newscodes/digitalsourcetype/> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix fibo-be-corp-corp: <https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/> .
@@ -45,7 +45,6 @@
 @prefix unece: <http://unece.org/vocab#> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix void: <http://rdfs.org/ns/void#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 
 :3DModel a rdfs:Class ;
     rdfs:label "3DModel" ;
@@ -1070,7 +1069,7 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
     rdfs:label "Dataset" ;
     rdfs:comment "A body of structured information describing some topic(s) of interest." ;
     rdfs:subClassOf :CreativeWork ;
-    owl:equivalentClass dcmitype:Dataset,
+    owl:equivalentClass dctype:Dataset,
         void:Dataset,
         dcat:Dataset ;
     :contributor <https://schema.org/docs/collab/DatasetClass> .
@@ -1458,7 +1457,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
     rdfs:label "Event" ;
     rdfs:comment "An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the [[offers]] property. Repeated events may be structured as separate Event objects." ;
     rdfs:subClassOf :Thing ;
-    owl:equivalentClass dcmitype:Event,
+    owl:equivalentClass dctype:Event,
         fibo-fnd-dt-oc:Occurrence .
 
 :EventAttendanceModeEnumeration a rdfs:Class ;
@@ -1991,7 +1990,7 @@ In general these codes are not declared here to be mutually exclusive, although 
     rdfs:label "ImageObject" ;
     rdfs:comment "An image file." ;
     rdfs:subClassOf :MediaObject ;
-    owl:equivalentClass dcmitype:Image .
+    owl:equivalentClass dctype:Image .
 
 :ImageObjectSnapshot a rdfs:Class ;
     rdfs:label "ImageObjectSnapshot" ;
@@ -4053,7 +4052,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TextObject" ;
     rdfs:comment "A text file. The text can be unformatted or contain markup, html, etc." ;
     rdfs:subClassOf :MediaObject ;
-    owl:equivalentClass dcmitype:Text .
+    owl:equivalentClass dctype:Text .
 
 :TheaterEvent a rdfs:Class ;
     rdfs:label "TheaterEvent" ;
@@ -4486,7 +4485,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :about a rdf:Property ;
     rdfs:label "about" ;
     rdfs:comment "The subject matter of an object." ;
-    owl:equivalentProperty dc:subject ;
+    owl:equivalentProperty dct:subject ;
     :domainIncludes :Certification,
         :CommunicateAction,
         :CreativeWork,
@@ -5282,7 +5281,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :audience a rdf:Property ;
     rdfs:label "audience" ;
     rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
-    owl:equivalentProperty dc:audience ;
+    owl:equivalentProperty dct:audience ;
     :domainIncludes :CreativeWork,
         :Event,
         :LodgingBusiness,
@@ -6321,7 +6320,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :contributor a rdf:Property ;
     rdfs:label "contributor" ;
     rdfs:comment "A secondary contributor to the CreativeWork or Event." ;
-    owl:equivalentProperty dc:contributor ;
+    owl:equivalentProperty dct:contributor ;
     :domainIncludes :CreativeWork,
         :Event ;
     :rangeIncludes :Organization,
@@ -6483,7 +6482,7 @@ In the case of products, the country of origin of the product. The exact interpr
 :creator a rdf:Property ;
     rdfs:label "creator" ;
     rdfs:comment "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork." ;
-    owl:equivalentProperty dc:creator ;
+    owl:equivalentProperty dct:creator ;
     :domainIncludes :CreativeWork,
         :UserComments ;
     :rangeIncludes :Organization,
@@ -6937,7 +6936,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "description" ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty og:description,
-        dc:description,
+        dct:description,
         gs1:description ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text,
@@ -8589,7 +8588,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
     rdfs:label "identifier" ;
     rdfs:comment """The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.
         """ ;
-    owl:equivalentProperty dc:identifier,
+    owl:equivalentProperty dct:identifier,
         cmns-id:identifiedBy ;
     :domainIncludes :Thing ;
     :rangeIncludes :PropertyValue,
@@ -8643,7 +8642,7 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 :inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
     rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]]." ;
-    owl:equivalentProperty dc:language ;
+    owl:equivalentProperty dct:language ;
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event,
@@ -10333,7 +10332,7 @@ If there are several [[variableMeasured]] properties recorded for some given dat
     rdfs:comment "The name of the item." ;
     rdfs:subPropertyOf rdfs:label ;
     owl:equivalentProperty og:title,
-        dc:title,
+        dct:title,
         cmns-txt:hasName ;
     :domainIncludes :Thing ;
     :rangeIncludes :Text .
@@ -11762,7 +11761,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 :publisher a rdf:Property ;
     rdfs:label "publisher" ;
     rdfs:comment "The publisher of the article in question." ;
-    owl:equivalentProperty dc:publisher ;
+    owl:equivalentProperty dct:publisher ;
     :domainIncludes :CreativeWork,
         :FinancialIncentive ;
     :rangeIncludes :Organization,
@@ -12916,7 +12915,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "spatial" ;
     rdfs:comment """The "spatial" property can be used in cases when more specific properties
 (e.g. [[locationCreated]], [[spatialCoverage]], [[contentLocation]]) are not known to be appropriate.""" ;
-    owl:equivalentProperty dc:spatial ;
+    owl:equivalentProperty dct:spatial ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Place .
 
@@ -12926,7 +12925,7 @@ While such policies are most typically expressed in natural language, sometimes 
       contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates
       areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.""" ;
     rdfs:subPropertyOf :contentLocation ;
-    owl:equivalentProperty dc:spatial ;
+    owl:equivalentProperty dct:spatial ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Place .
 
@@ -13355,7 +13354,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
       Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via "1939/1945".
 
 Open-ended date ranges can be written with ".." in place of the end date. For example, "2015-11/.." indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.""" ;
-    owl:equivalentProperty dc:temporal ;
+    owl:equivalentProperty dct:temporal ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :DateTime,
         :Text,

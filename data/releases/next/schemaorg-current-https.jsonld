@@ -9,9 +9,9 @@
     "cmns-loc": "https://www.omg.org/spec/Commons/Locations/",
     "cmns-q": "https://www.omg.org/spec/Commons/Quantities/",
     "cmns-txt": "https://www.omg.org/spec/Commons/Text/",
-    "dc": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
-    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dct": "http://purl.org/dc/terms/",
+    "dctype": "http://purl.org/dc/dcmitype/",
     "dst": "http://cv.iptc.org/newscodes/digitalsourcetype/",
     "eli": "http://data.europa.eu/eli/ontology#",
     "fibo-be-corp-corp": "https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/",
@@ -200,50 +200,6 @@
       "@type": "rdf:Property"
     },
     {
-      "@id": "dc:audience",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:contributor",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:creator",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:description",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:identifier",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:language",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:publisher",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:spatial",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:subject",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:temporal",
-      "@type": "rdf:Property"
-    },
-    {
-      "@id": "dc:title",
-      "@type": "rdf:Property"
-    },
-    {
       "@id": "dcat:Catalog",
       "@type": "rdfs:Class"
     },
@@ -256,19 +212,63 @@
       "@type": "rdfs:Class"
     },
     {
-      "@id": "dcmitype:Dataset",
+      "@id": "dct:audience",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:contributor",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:creator",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:description",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:identifier",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:language",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:publisher",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:spatial",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:subject",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:temporal",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dct:title",
+      "@type": "rdf:Property"
+    },
+    {
+      "@id": "dctype:Dataset",
       "@type": "rdfs:Class"
     },
     {
-      "@id": "dcmitype:Event",
+      "@id": "dctype:Event",
       "@type": "rdfs:Class"
     },
     {
-      "@id": "dcmitype:Image",
+      "@id": "dctype:Image",
       "@type": "rdfs:Class"
     },
     {
-      "@id": "dcmitype:Text",
+      "@id": "dctype:Text",
       "@type": "rdfs:Class"
     },
     {
@@ -3790,7 +3790,7 @@
           "@id": "dcat:Dataset"
         },
         {
-          "@id": "dcmitype:Dataset"
+          "@id": "dctype:Dataset"
         },
         {
           "@id": "void:Dataset"
@@ -5168,7 +5168,7 @@
       "rdfs:label": "Event",
       "owl:equivalentClass": [
         {
-          "@id": "dcmitype:Event"
+          "@id": "dctype:Event"
         },
         {
           "@id": "fibo-fnd-dt-oc:Occurrence"
@@ -6885,7 +6885,7 @@
       "rdfs:comment": "An image file.",
       "rdfs:label": "ImageObject",
       "owl:equivalentClass": {
-        "@id": "dcmitype:Image"
+        "@id": "dctype:Image"
       },
       "rdfs:subClassOf": {
         "@id": "schema:MediaObject"
@@ -14509,7 +14509,7 @@
       "rdfs:comment": "A text file. The text can be unformatted or contain markup, html, etc.",
       "rdfs:label": "TextObject",
       "owl:equivalentClass": {
-        "@id": "dcmitype:Text"
+        "@id": "dctype:Text"
       },
       "rdfs:subClassOf": {
         "@id": "schema:MediaObject"
@@ -16276,7 +16276,7 @@
       "rdfs:comment": "The subject matter of an object.",
       "rdfs:label": "about",
       "owl:equivalentProperty": {
-        "@id": "dc:subject"
+        "@id": "dct:subject"
       },
       "schema:domainIncludes": [
         {
@@ -18688,7 +18688,7 @@
       "rdfs:comment": "An intended audience, i.e. a group for whom something was created.",
       "rdfs:label": "audience",
       "owl:equivalentProperty": {
-        "@id": "dc:audience"
+        "@id": "dct:audience"
       },
       "schema:domainIncludes": [
         {
@@ -21790,7 +21790,7 @@
       "rdfs:comment": "A secondary contributor to the CreativeWork or Event.",
       "rdfs:label": "contributor",
       "owl:equivalentProperty": {
-        "@id": "dc:contributor"
+        "@id": "dct:contributor"
       },
       "schema:domainIncludes": [
         {
@@ -22247,7 +22247,7 @@
       "rdfs:comment": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.",
       "rdfs:label": "creator",
       "owl:equivalentProperty": {
-        "@id": "dc:creator"
+        "@id": "dct:creator"
       },
       "schema:domainIncludes": [
         {
@@ -23346,7 +23346,7 @@
       "rdfs:label": "description",
       "owl:equivalentProperty": [
         {
-          "@id": "dc:description"
+          "@id": "dct:description"
         },
         {
           "@id": "gs1:description"
@@ -28963,7 +28963,7 @@
           "@id": "cmns-id:identifiedBy"
         },
         {
-          "@id": "dc:identifier"
+          "@id": "dct:identifier"
         }
       ],
       "schema:domainIncludes": {
@@ -29199,7 +29199,7 @@
       "rdfs:comment": "The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]].",
       "rdfs:label": "inLanguage",
       "owl:equivalentProperty": {
-        "@id": "dc:language"
+        "@id": "dct:language"
       },
       "schema:domainIncludes": [
         {
@@ -34126,7 +34126,7 @@
           "@id": "cmns-txt:hasName"
         },
         {
-          "@id": "dc:title"
+          "@id": "dct:title"
         },
         {
           "@id": "og:title"
@@ -38171,7 +38171,7 @@
       "rdfs:comment": "The publisher of the article in question.",
       "rdfs:label": "publisher",
       "owl:equivalentProperty": {
-        "@id": "dc:publisher"
+        "@id": "dct:publisher"
       },
       "schema:domainIncludes": [
         {
@@ -41477,7 +41477,7 @@
       "rdfs:comment": "The \"spatial\" property can be used in cases when more specific properties\n(e.g. [[locationCreated]], [[spatialCoverage]], [[contentLocation]]) are not known to be appropriate.",
       "rdfs:label": "spatial",
       "owl:equivalentProperty": {
-        "@id": "dc:spatial"
+        "@id": "dct:spatial"
       },
       "schema:domainIncludes": {
         "@id": "schema:CreativeWork"
@@ -41492,7 +41492,7 @@
       "rdfs:comment": "The spatialCoverage of a CreativeWork indicates the place(s) which are the focus of the content. It is a subproperty of\n      contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates\n      areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.",
       "rdfs:label": "spatialCoverage",
       "owl:equivalentProperty": {
-        "@id": "dc:spatial"
+        "@id": "dct:spatial"
       },
       "rdfs:subPropertyOf": {
         "@id": "schema:contentLocation"
@@ -42954,7 +42954,7 @@
       "rdfs:comment": "The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In\n      the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written \"2011/2012\"). Other forms of content, e.g. ScholarlyArticle, Book, TVSeries or TVEpisode, may indicate their temporalCoverage in broader terms - textually or via well-known URL.\n      Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via \"1939/1945\".\n\nOpen-ended date ranges can be written with \"..\" in place of the end date. For example, \"2015-11/..\" indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.",
       "rdfs:label": "temporalCoverage",
       "owl:equivalentProperty": {
-        "@id": "dc:temporal"
+        "@id": "dct:temporal"
       },
       "schema:domainIncludes": {
         "@id": "schema:CreativeWork"
