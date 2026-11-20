@@ -5,20 +5,24 @@ from __future__ import annotations
 import collections
 from collections.abc import Mapping
 import logging
-from pathlib import Path
+from pathlib import PurePosixPath
 import re
-from urllib.parse import urljoin
 
 from rdflib import URIRef
 
-from schemaorg import constants, markdown
+from schemaorg import markdown
 from schemaorg.layout import Domain, InputLayout
 from schemaorg.model import SchemaTerm, Vocabulary
+from schemaorg.sdo_uri import SdoUri
 
 log: logging.Logger = logging.getLogger(__name__)
 
 _INCLUDE_RE: re.Pattern[str] = re.compile(r"---\s+([^.]+)\.md")
 _SECTION_SEPARATOR: str = "---"
+
+
+def _collab_key(ref: URIRef | str) -> str:
+    return PurePosixPath(SdoUri(ref).path).name
 
 
 class Collaborator:
@@ -30,11 +34,12 @@ class Collaborator:
         desc: str | None = None,
         contributor: bool = False,
     ) -> None:
+        sdo = SdoUri.from_path(Domain.DOCS_COLLAB, ref)
         self.ref: str = ref
-        self.code: str = Path(ref).name
-        self.urirel: str = str(Path("/docs/collab") / ref)
-        self.uri: str = urljoin(constants.SCHEMA_URI, self.urirel)
-        self.docurl: str = self.urirel
+        self.code: str = PurePosixPath(sdo.path).name
+        self.urirel: str = sdo.path
+        self.uri: str = str(sdo)
+        self.docurl: str = sdo.path
         self.contributor: bool = contributor
         self.img: str | None = None
         self.title: str | None = None
@@ -111,7 +116,7 @@ class CollaboratorRegistry:
         cls, input_layout: InputLayout, vocab: Vocabulary | None = None
     ) -> CollaboratorRegistry:
         by_ref: dict[str, Collaborator] = {}
-        for path in input_layout.files(Domain.DATA, "collab/*.md"):
+        for path in input_layout.files(Domain.DATA_COLLAB, "*.md"):
             try:
                 desc = path.read_text(encoding="utf-8")
             except OSError as exc:
@@ -124,7 +129,7 @@ class CollaboratorRegistry:
             seen_missing: set[str] = set()
             for term in vocab.all_terms().values():
                 for c_uri in term.contributor:
-                    key = Path(str(c_uri)).name
+                    key = _collab_key(c_uri)
                     coll = by_ref.get(key)
                     if coll is None:
                         if str(c_uri) not in seen_missing:
@@ -143,7 +148,7 @@ class CollaboratorRegistry:
         return list(self._by_ref.values())
 
     def get(self, ref: str) -> Collaborator | None:
-        return self._by_ref.get(Path(ref).name)
+        return self._by_ref.get(_collab_key(ref))
 
     def for_term(self, term: SchemaTerm) -> tuple[Collaborator, ...]:
         acks = [
@@ -154,4 +159,4 @@ class CollaboratorRegistry:
         return tuple(sorted(acks, key=lambda c: c.title or ""))
 
     def term_uris(self, ref: str) -> tuple[URIRef, ...]:
-        return self._ack_uris.get(Path(ref).name, ())
+        return self._ack_uris.get(_collab_key(ref), ())

@@ -8,8 +8,7 @@ from typing import Any
 
 import rdflib
 
-from schemaorg import constants
-from schemaorg.sdo_uri import SdoUri
+from schemaorg.sdo_uri import SDO, SdoUri
 from schemaorg.term_view import TermKind, TermView
 from util.sort_dict import sort_dict
 
@@ -84,7 +83,7 @@ class TermJsonLdIndex:
         for prefix, ns_uri in graph.namespaces():
             if str(prefix):
                 copy.bind(str(prefix), ns_uri, override=True)
-        copy.bind("schema", constants.SCHEMA_URI, override=True)
+        copy.bind("schema", SDO, override=True)
         for triple in graph:
             copy.add(triple)
         raw = copy.serialize(

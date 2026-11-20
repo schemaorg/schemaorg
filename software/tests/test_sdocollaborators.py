@@ -51,6 +51,10 @@ class SdoCollaboratorTest(unittest.TestCase):
             coll = registry.get("TestOrg")
             self.assertIsNotNone(coll)
             assert coll is not None
+            self.assertEqual(coll.code, "TestOrg")
+            self.assertEqual(coll.urirel, "/docs/collab/TestOrg")
+            self.assertEqual(coll.docurl, "/docs/collab/TestOrg")
+            self.assertEqual(coll.uri, "https://schema.org/docs/collab/TestOrg")
             self.assertTrue(coll.contributor)
             self.assertEqual(registry.term_uris("TestOrg"), (term.uri,))
             self.assertEqual(registry.for_term(term), (coll,))
