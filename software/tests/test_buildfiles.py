@@ -25,13 +25,10 @@ from schemaorg.renderers import (
     render_sitemap,
     uriwrap,
 )
+from schemaorg import markdown
 from schemaorg.version import Version, VersionItem
-import SchemaTerms.localmarkdown as localmarkdown
-import SchemaTerms.sdocollaborators as sdocollaborators
-import SchemaTerms.sdotermsource as sdotermsource
 import scripts.buildfiles as buildfiles
 import scripts.buildsite as buildsite
-import util.paths as paths
 import util.schema as schema
 
 FIXTURE_TTL = """
@@ -325,14 +322,14 @@ class TestRenderers(unittest.TestCase):
         self.assertIn(renderer.json(), renderer.jsonp())
 
     def testOwlRendererHandlesNextWithoutDate(self) -> None:
-        prev_wpre = localmarkdown.MarkdownTool.WPRE
-        self.addCleanup(localmarkdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
-        localmarkdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
+        prev_wpre = markdown.MarkdownTool.WPRE
+        self.addCleanup(markdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
+        markdown.MarkdownTool.setWikilinkPrePath("https://schema.org/")
 
         dated = OwlRenderer(
             self.all_graph, VersionItem("30.1", "2026-09-16")
         ).render()
-        self.assertEqual(localmarkdown.MarkdownTool.WPRE, "https://schema.org/")
+        self.assertEqual(markdown.MarkdownTool.WPRE, "https://schema.org/")
         self.assertIn("released: 2026-09-16", dated)
         self.assertIn("dcterms:modified", dated)
         self.assertIn('href="/Thing"', dated)
@@ -538,15 +535,10 @@ class TestPlan(unittest.TestCase):
     def testStage1ReleaseExportDoesNotLeakStateIntoStage2SiteBuild(
         self,
     ) -> None:
-        self.addCleanup(
-            sdotermsource.SdoTermSource.loadSourceGraph, "default", init=True
-        )
-        orig_loaded = buildsite.LOADEDTERMS
-        self.addCleanup(setattr, buildsite, "LOADEDTERMS", orig_loaded)
         orig_target = schema.config.TARGET_VERSION
         self.addCleanup(setattr, schema.config, "TARGET_VERSION", orig_target)
-        prev_wpre = localmarkdown.MarkdownTool.WPRE
-        self.addCleanup(localmarkdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
+        prev_wpre = markdown.MarkdownTool.WPRE
+        self.addCleanup(markdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
 
         with tempfile.TemporaryDirectory() as tmp:
             in_dir = Path(tmp) / "in"
@@ -568,30 +560,25 @@ class TestPlan(unittest.TestCase):
             release_out_layout = OutputLayout(in_dir / "data")
             version_obj = Version(in_dir / "versions.json")
 
-            localmarkdown.MarkdownTool.setWikilinkPrePath("/")
-            sdotermsource.SdoTermSource.loadSourceGraph([raw_ttl], init=True)
-            buildsite.LOADEDTERMS = None
+            markdown.MarkdownTool.setWikilinkPrePath("/")
             schema.config.TARGET_VERSION = "next"
 
             buildfiles.export_release_files(
                 input_layout=input_layout, output_layout=release_out_layout
             )
 
-            self.assertEqual(localmarkdown.MarkdownTool.WPRE, "/")
+            self.assertEqual(markdown.MarkdownTool.WPRE, "/")
 
-            with (
-                patch.object(paths, "DefaultInputLayout", return_value=input_layout),
-                patch.object(buildsite.schema, "VERSION", version_obj),
-                patch.dict(sdocollaborators.collaborator.COLLABORATORS),
-                patch.dict(sdocollaborators.collaborator.CONTRIBUTORS),
-            ):
-                buildsite.loadTerms(source="release")
+            with patch.object(buildsite.schema, "VERSION", version_obj):
+                catalog, _, _ = buildsite.load_site_bundle(
+                    input_layout=input_layout, target=version_obj.next()
+                )
 
             self.assertNotIn(
-                "https://example.org/foreign-dataset",
-                sdotermsource.SdoTermSource.getAllTerms(),
+                rdflib.URIRef("https://example.org/foreign-dataset"),
+                catalog.vocab.all_terms(),
             )
-            person = sdotermsource.SdoTermSource.getTerm("Person")
+            person = catalog.get("Person")
             self.assertIsNotNone(person)
             assert person is not None
             self.assertIn('href="/Thing"', person.comment)

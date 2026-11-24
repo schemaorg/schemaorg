@@ -4,7 +4,7 @@ from collections.abc import Iterable
 import re
 import threading
 
-import markdown2
+import markdown2  # type: ignore[import-untyped]
 
 _WIKILINK_RE: re.Pattern[str] = re.compile(r"\[\[([\w0-9_ -]+)\]\]")
 
@@ -38,8 +38,10 @@ class MarkdownTool:
 
         return self.parseWiklinks(ret, wpre=wpre)
 
-    def parseLines(self, lines: Iterable[str]) -> str:
-        return self.parse("".join(lines))
+    def parseLines(
+        self, lines: Iterable[str], wpre: str | None = None
+    ) -> str:
+        return self.parse("".join(lines), wpre=wpre)
 
     def parseWiklinks(self, source: str, wpre: str | None = None) -> str:
         prefix = self.WPRE if wpre is None else wpre

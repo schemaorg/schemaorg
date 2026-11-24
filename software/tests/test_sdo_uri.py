@@ -66,6 +66,36 @@ class TestSdoUri(unittest.TestCase):
         self.assertEqual(bare.term_name(), "Person")
         self.assertEqual(str(bare), "https://schema.org/Person")
 
+    def test_schema_prefix_curie(self) -> None:
+        prefixed = SdoUri(f"{constants.SCHEMA_PREFIX}:Person")
+        self.assertTrue(prefixed.is_sdo())
+        self.assertEqual(prefixed.uri, SDO.Person)
+        self.assertEqual(prefixed.term_name(), "Person")
+        self.assertEqual(str(prefixed), "https://schema.org/Person")
+        self.assertEqual(prefixed, SdoUri("Person"))
+        self.assertEqual(hash(prefixed), hash(SdoUri(SDO.Person)))
+
+        self.assertEqual(
+            SdoUri(f"{constants.SCHEMA_PREFIX}:").uri, SDO[""]
+        )
+        self.assertEqual(
+            str(SdoUri(f"{constants.SCHEMA_PREFIX}:docs/collab/rNews")),
+            "https://schema.org/docs/collab/rNews",
+        )
+        self.assertEqual(
+            SdoUri(f"{constants.SCHEMA_PREFIX}:/Person").uri, SDO.Person
+        )
+        self.assertEqual(
+            SdoUri(urlparse(f"{constants.SCHEMA_PREFIX}:Person")).uri,
+            SDO.Person,
+        )
+
+        # Other CURIE prefixes and Literals must not resolve to schema.org.
+        self.assertFalse(SdoUri("bibo:Issue").is_sdo())
+        self.assertFalse(
+            SdoUri(Literal(f"{constants.SCHEMA_PREFIX}:Person")).is_sdo()
+        )
+
     def test_layer_extraction(self) -> None:
         hls = SdoUri("https://health-lifesci.schema.org")
         self.assertTrue(hls.is_sdo())

@@ -7,7 +7,11 @@ import unittest
 import rdflib
 
 from schemaorg import constants
-from schemaorg.graph_loader import GraphLoader
+from schemaorg.graph_loader import (
+    GraphLoader,
+    split_release_graphs,
+    validate_schema_namespaces,
+)
 from schemaorg.layout import Domain, InputLayout, Issues
 
 
@@ -126,6 +130,65 @@ class TestGraphLoader(unittest.TestCase):
 
         plan_uri = rdflib.URIRef("https://schema.org/HealthInsurancePlan")
         self.assertIn((plan_uri, rdflib.RDF.type, rdflib.RDFS.Class), g)
+
+    def test_rejects_schema_prefix_bound_to_other_uri(self) -> None:
+        data_dir = self.layout.dir(Domain.DATA)
+        data_dir.mkdir(parents=True, exist_ok=True)
+        for wrong_uri in ("https://example.org/", "https://pending.schema.org/"):
+            with self.subTest(wrong_uri=wrong_uri):
+                ttl = data_dir / "bad_schema_prefix.ttl"
+                ttl.write_text(
+                    f"@prefix {constants.SCHEMA_PREFIX}: <{wrong_uri}> .\n"
+                    "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                    f"{constants.SCHEMA_PREFIX}:Thing a rdfs:Class .\n",
+                    encoding="utf-8",
+                )
+                with self.assertRaisesRegex(
+                    ValueError, "Invalid schema namespace binding"
+                ):
+                    self.loader.load([ttl])
+
+    def test_rejects_schema_uri_bound_to_other_prefix(self) -> None:
+        data_dir = self.layout.dir(Domain.DATA)
+        data_dir.mkdir(parents=True, exist_ok=True)
+        bad_ttl = data_dir / "bad_alias.ttl"
+        bad_ttl.write_text(
+            f"@prefix sdo: <{constants.SCHEMA_URI}> .\n"
+            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            "sdo:Thing a rdfs:Class .\n",
+            encoding="utf-8",
+        )
+        good_ttl = data_dir / "good_schema.ttl"
+        good_ttl.write_text(
+            f"@prefix {constants.SCHEMA_PREFIX}: <{constants.SCHEMA_URI}> .\n"
+            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            f"{constants.SCHEMA_PREFIX}:Person a rdfs:Class .\n",
+            encoding="utf-8",
+        )
+        # Caught immediately even if a subsequent file binds schema: properly.
+        with self.assertRaisesRegex(
+            ValueError, "Invalid schema namespace binding"
+        ):
+            self.loader.load([bad_ttl, good_ttl])
+
+    def test_split_release_graphs_promotes_default_prefix_to_schema(self) -> None:
+        g = rdflib.Graph(bind_namespaces="none")
+        g.parse(
+            data=(
+                f"@prefix : <{constants.SCHEMA_URI}> .\n"
+                "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                ":Thing a rdfs:Class .\n"
+            ),
+            format="turtle",
+        )
+        all_g, cur_g = split_release_graphs(g)
+        self.assertEqual(
+            str(dict(all_g.namespaces())[constants.SCHEMA_PREFIX]),
+            constants.SCHEMA_URI,
+        )
+        self.assertNotIn("", dict(all_g.namespaces()))
+        validate_schema_namespaces(all_g)
+        validate_schema_namespaces(cur_g)
 
 
 if __name__ == "__main__":

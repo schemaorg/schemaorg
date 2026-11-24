@@ -1,30 +1,34 @@
 from __future__ import annotations
 
 import unittest
-from unittest.mock import patch
 
-import SchemaTerms.sdoterm as sdoterm
+from rdflib import URIRef
+
+from schemaorg.model import SchemaProperty, SchemaType, Vocabulary
+from schemaorg.term_view import TermViewCatalog
 import util.buildocspages as buildocspages
 
 
 class TestBuildDocs(unittest.TestCase):
-    @patch("SchemaTerms.sdotermsource.SdoTermSource.getAllTerms")
-    def testGenerateTerms(self, mock_get_all_terms) -> None:
-        mock_get_all_terms.return_value = [
-            sdoterm.SdoType(
-                term_id="Person", uri="https://schema.org/Person", label="Person"
-            ),
-            sdoterm.SdoProperty(
-                term_id="name", uri="https://schema.org/name", label="name"
-            ),
-            "ignored-raw-id",
-        ]
+    def testGenerateTerms(self) -> None:
+        person = SchemaType(
+            uri=URIRef("https://schema.org/Person"), label="Person"
+        )
+        name = SchemaProperty(
+            uri=URIRef("https://schema.org/name"), label="name"
+        )
+        vocab = Vocabulary(
+            types={person.uri: person},
+            properties={name.uri: name},
+        )
+        catalog = TermViewCatalog(vocab=vocab)
+
         self.assertEqual(
-            list(buildocspages.generate_terms(tags=False)),
+            list(buildocspages.generate_terms(tags=False, catalog=catalog)),
             ["Person\n", "name\n"],
         )
         self.assertEqual(
-            list(buildocspages.generate_terms(tags=True)),
+            list(buildocspages.generate_terms(tags=True, catalog=catalog)),
             ["Person t\n", "name p\n"],
         )
 

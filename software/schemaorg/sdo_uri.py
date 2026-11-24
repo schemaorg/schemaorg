@@ -22,7 +22,8 @@ if not SCHEMA_URL.hostname:
 class SdoUri:
     """Wrapper around a URI or term identifier for schema.org URI operations.
 
-    Scheme-less strings are schema.org term names or paths; BNodes and Literals are never URIs.
+    Scheme-less strings and ``schema:`` CURIEs resolve under schema.org;
+    BNodes and Literals are never URIs.
     """
 
     def __init__(self, uri: Node | str | ParseResult) -> None:
@@ -34,7 +35,12 @@ class SdoUri:
             return
         self._parsed = uri if isinstance(uri, ParseResult) else urlparse(str(uri))
 
-        if not self._parsed.scheme:
+        if (
+            self._parsed.scheme == constants.SCHEMA_PREFIX
+            and not self._parsed.netloc
+        ):
+            self._parsed = urlparse(str(SDO[self._parsed.path.lstrip("/")]))
+        elif not self._parsed.scheme:
             self._parsed = urlparse(
                 urljoin(constants.SCHEMA_URI, self._parsed.geturl())
             )

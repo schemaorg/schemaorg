@@ -40,12 +40,31 @@ _FOREIGN_STUB_RULES: tuple[
 )
 
 
+_SCHEMA_ROOT: SdoUri = SdoUri(constants.SCHEMA_URI)
+
+
+def validate_schema_namespaces(
+    graph: rdflib.Graph, source: Path | None = None
+) -> None:
+    """Assert schema: <-> SCHEMA_URI 1:1 (allowing Turtle's unnamed ':' prefix)."""
+    where = f" in {source}" if source is not None else ""
+    for prefix, ns_uri in graph.namespaces():
+        sdo = SdoUri(ns_uri)
+        if prefix != constants.SCHEMA_PREFIX and not sdo.is_sdo():
+            continue
+        if prefix not in ("", constants.SCHEMA_PREFIX) or sdo != _SCHEMA_ROOT:
+            raise ValueError(
+                f"Invalid schema namespace binding '{prefix}:' -> <{ns_uri}>; "
+                f"expected '{constants.SCHEMA_PREFIX}:' <-> <{_SCHEMA_ROOT}>{where}"
+            )
+
+
 def _copy_namespaces(source: rdflib.Graph, target: rdflib.Graph) -> None:
     for prefix, ns_uri in sorted(
-        source.namespaces(), key=lambda kv: (str(kv[0]) == "", str(kv[0]))
+        source.namespaces(), key=lambda kv: (kv[0] == "", kv[0])
     ):
-        key = str(prefix) or (
-            "schema" if str(ns_uri) == constants.SCHEMA_URI else ""
+        key = prefix or (
+            constants.SCHEMA_PREFIX if SdoUri(ns_uri) == _SCHEMA_ROOT else ""
         )
         if key:
             target.bind(key, ns_uri, override=True)
@@ -55,6 +74,7 @@ def split_release_graphs(
     source_graph: rdflib.Graph,
 ) -> tuple[rdflib.Graph, rdflib.Graph]:
     """ALL graph (schema.org subjects plus foreign type stubs) and CURRENT graph (no attic)."""
+    validate_schema_namespaces(source_graph)
     all_graph = rdflib.Graph(bind_namespaces="none")
     current_graph = rdflib.Graph(bind_namespaces="none")
 
@@ -104,7 +124,8 @@ class GraphLoader:
         """Loads the given TTL files into one graph.
 
         Namespace bindings are whatever the files themselves declare; none
-        are added here.
+        are added here. Enforces the ``schema:`` <-> ``SCHEMA_URI`` invariant
+        after each file is parsed.
         """
         graph = rdflib.Graph(bind_namespaces="none")
         for file_path in files:
@@ -113,4 +134,5 @@ class GraphLoader:
             except Exception as e:
                 log.warning("Error parsing TTL file '%s': %s", file_path, e)
                 raise
+            validate_schema_namespaces(graph, source=file_path)
         return graph

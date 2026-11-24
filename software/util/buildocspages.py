@@ -6,9 +6,12 @@ import logging
 from pathlib import Path
 from typing import Any
 
-import SchemaTerms.sdocollaborators as sdocollaborators
-import SchemaTerms.sdoterm as sdoterm
-import SchemaTerms.sdotermsource as sdotermsource
+from schemaorg.collaborators import Collaborator, CollaboratorRegistry
+from schemaorg.graph_loader import GraphLoader
+from schemaorg.layout import Issues, Releases
+from schemaorg.model import VocabularyLoader
+from schemaorg.renderers import CountsRenderer
+from schemaorg.term_view import TermKind, TermView, TermViewCatalog
 import util.fileutils as fileutils
 import util.jinja_render as jinja_render
 import util.paths as paths
@@ -16,6 +19,21 @@ import util.pretty_logger as pretty_logger
 import util.schema as schema
 
 log: logging.Logger = logging.getLogger(__name__)
+
+
+def _default_catalog() -> TermViewCatalog:
+    input_layout = paths.DefaultInputLayout()
+    releases = Releases(input_layout, schema.VERSION)
+    rel_ttl = releases.file(schema.target_version())
+    ttl_files = (
+        [rel_ttl]
+        if rel_ttl.is_file()
+        else Issues(input_layout).get_ttl_files()
+    )
+    graph = GraphLoader.load(ttl_files)
+    vocab = VocabularyLoader(graph, version=schema.target_version()).load()
+    collaborators = CollaboratorRegistry.from_layout(input_layout, vocab)
+    return TermViewCatalog.from_graph(graph, vocab, collaborators)
 
 
 def docsTemplateRender(
@@ -30,10 +48,12 @@ def docsTemplateRender(
     return jinja_render.templateRender(template, tvars)
 
 
-def schemasPage(_page: str = "") -> str:
+def schemasPage(_page: str = "", catalog: TermViewCatalog | None = None) -> str:
+    cat = catalog or _default_catalog()
+    counts = CountsRenderer(cat.vocab, schema.target_version()).counts
     extra_vars: dict[str, Any] = {
         "title": "Schemas",
-        "termcounts": sdotermsource.SdoTermSource.termCounts(),
+        "termcounts": counts,
     }
     return docsTemplateRender("docs/Schemas.j2", extra_vars)
 
@@ -52,25 +72,23 @@ PAGE_CONFIGS: dict[str, tuple[str, str, str]] = {
 }
 
 
-def _issue_category(term: sdoterm.SdoTerm) -> str:
+def _issue_category(term: TermView) -> str:
     for source in term.sources:
         if "schemaorg/issue" in source:
             return f"issue-{Path(source).name}"
     return ""
 
 
-def homePage(page: str) -> str:
+def homePage(page: str, catalog: TermViewCatalog | None = None) -> str:
     title, template, filt = PAGE_CONFIGS.get(
         page, (schema.constants.SITENAME, "docs/Home.j2", "")
     )
 
-    sectionterms: dict[str, dict[sdoterm.SdoTermType, list[sdoterm.SdoTerm]]] = {}
+    sectionterms: dict[str, dict[TermKind, list[TermView]]] = {}
     termcount = 0
     if filt:
-        all_terms = sdotermsource.SdoTermSource.getAllTerms(
-            layer=filt, expanded=True
-        )
-        terms = [t for t in all_terms if isinstance(t, sdoterm.SdoTerm)]
+        cat = catalog or _default_catalog()
+        terms = cat.all_views(layer=filt)
         sectionterms, termcount = buildTermCatList(
             terms, group_by_issue=(filt == "pending")
         )
@@ -84,14 +102,14 @@ def homePage(page: str) -> str:
 
 
 def buildTermCatList(
-    terms: Iterable[sdoterm.SdoTerm], group_by_issue: bool = False
-) -> tuple[dict[str, dict[sdoterm.SdoTermType, list[sdoterm.SdoTerm]]], int]:
-    buckets: dict[str, dict[sdoterm.SdoTermType, list[sdoterm.SdoTerm]]] = (
-        defaultdict(lambda: defaultdict(list))
+    terms: Iterable[TermView], group_by_issue: bool = False
+) -> tuple[dict[str, dict[TermKind, list[TermView]]], int]:
+    buckets: dict[str, dict[TermKind, list[TermView]]] = defaultdict(
+        lambda: defaultdict(list)
     )
     termcount = 0
     for term in sorted(terms, key=lambda t: t.id):
-        if term.termType == sdoterm.SdoTermType.REFERENCE:
+        if term.termType == TermKind.REFERENCE:
             continue
         cat = _issue_category(term) if group_by_issue else ""
         buckets[cat][term.termType].append(term)
@@ -108,10 +126,11 @@ class listingNode:
     def __init__(
         self,
         term: str,
+        catalog: TermViewCatalog,
         title: str = "",
         visit_set: set[str] | None = None,
     ) -> None:
-        termdesc = sdotermsource.SdoTermSource.getTerm(term)
+        termdesc = catalog.get(term)
         if not termdesc:
             raise UnknownTermError(f"No description for term {term}")
         visit_set = visit_set if visit_set is not None else set()
@@ -119,37 +138,39 @@ class listingNode:
         self.subs: list[listingNode] = []
         self.title: str = title
         self.id: str = termdesc.label
-        self.termType: sdoterm.SdoTermType = termdesc.termType
+        self.termType: TermKind = termdesc.termType
         self.retired: bool = termdesc.retired
         self.pending: bool = termdesc.pending
 
         if self.id not in visit_set:
             visit_set.add(self.id)
             child_ids: list[str] = []
-            if termdesc.termType == sdoterm.SdoTermType.ENUMERATION:
-                assert isinstance(termdesc, sdoterm.SdoEnumeration)
+            if termdesc.termType == TermKind.ENUMERATION:
                 child_ids.extend(sorted(termdesc.enumerationMembers.ids))
             child_ids.extend(sorted(termdesc.subs.ids))
 
             for child_id in child_ids:
                 try:
-                    self.subs.append(listingNode(child_id, visit_set=visit_set))
+                    self.subs.append(
+                        listingNode(child_id, catalog, visit_set=visit_set)
+                    )
                 except UnknownTermError as e:
-                    log.warning("Error while building node %s for %s: %s", child_id, term, e)
+                    log.warning(
+                        "Error while building node %s for %s: %s",
+                        child_id,
+                        term,
+                        e,
+                    )
         else:
             self.repeat = True
 
 
-listings: list[listingNode] | None = None
-
-
-def fullPage(page: str) -> str:
-    global listings
-    if listings is None:
-        listings = [
-            listingNode("Thing", title="Types:"),
-            listingNode("DataType", title="DataTypes:"),
-        ]
+def fullPage(page: str, catalog: TermViewCatalog | None = None) -> str:
+    cat = catalog or _default_catalog()
+    listings = [
+        listingNode("Thing", cat, title="Types:"),
+        listingNode("DataType", cat, title="DataTypes:"),
+    ]
     extra_vars: dict[str, Any] = {
         "title": "Full schema hierarchy",
         "listings": listings,
@@ -157,26 +178,15 @@ def fullPage(page: str) -> str:
     return docsTemplateRender(f"docs/{page}.j2", extra_vars)
 
 
-def fullReleasePage(_page: str = "") -> str:
-    node_listings = [listingNode("Thing", title="Type hierarchy")]
+def fullReleasePage(
+    _page: str = "", catalog: TermViewCatalog | None = None
+) -> str:
+    cat = catalog or _default_catalog()
+    node_listings = [listingNode("Thing", cat, title="Type hierarchy")]
 
-    all_enum_vals = sdotermsource.SdoTermSource.getAllEnumerationvalues(expanded=True)
-    all_types = sdotermsource.SdoTermSource.getAllTypes(expanded=True)
-
-    types = [
-        t for t in (*all_enum_vals, *all_types) if isinstance(t, sdoterm.SdoTerm)
-    ]
-    types = sorted(
-        sdotermsource.SdoTermSource.expandTerms(types), key=lambda t: t.id
-    )
-
-    all_props = sdotermsource.SdoTermSource.getAllProperties(expanded=True)
-    properties = sorted(
-        sdotermsource.SdoTermSource.expandTerms(
-            [p for p in all_props if isinstance(p, sdoterm.SdoTerm)], depth=1
-        ),
-        key=lambda t: t.id,
-    )
+    type_uris = (*cat.vocab.enum_values, *cat.vocab.types)
+    types = sorted(cat.views(type_uris), key=lambda t: t.id)
+    properties = sorted(cat.views(cat.vocab.properties), key=lambda t: t.id)
 
     target = schema.target_version()
     extra_vars: dict[str, Any] = {
@@ -190,23 +200,33 @@ def fullReleasePage(_page: str = "") -> str:
     return docsTemplateRender("docs/FullRelease.j2", extra_vars)
 
 
-def collabs(_page: str = "") -> str:
-    colls = sorted(
-        sdocollaborators.collaborator.collaborators(), key=lambda t: t.title or ""
+def collabs(_page: str = "", catalog: TermViewCatalog | None = None) -> str:
+    cat = catalog or _default_catalog()
+    registry = cat.collaborators or CollaboratorRegistry.from_layout(
+        paths.DefaultInputLayout(), cat.vocab
     )
+    colls = sorted(registry.all(), key=lambda c: c.title or "")
 
     for coll in colls:
-        createCollab(coll)
+        createCollab(coll, cat, registry)
 
-    extra_vars: dict[str, Any] = {"collaborators": colls, "title": "Collaborators"}
+    extra_vars: dict[str, Any] = {
+        "collaborators": colls,
+        "title": "Collaborators",
+    }
     return docsTemplateRender("docs/Collabs.j2", extra_vars)
 
 
-def createCollab(coll: sdocollaborators.collaborator) -> None:
-    terms: dict[str, dict[sdoterm.SdoTermType, list[sdoterm.SdoTerm]]] = {}
+def createCollab(
+    coll: Collaborator,
+    catalog: TermViewCatalog,
+    registry: CollaboratorRegistry,
+) -> None:
+    terms: dict[str, dict[TermKind, list[TermView]]] = {}
     termcount = 0
     if coll.contributor:
-        terms, termcount = buildTermCatList(coll.getTerms())
+        ack_views = catalog.views(registry.term_uris(coll.ref))
+        terms, termcount = buildTermCatList(ack_views)
 
     extra_vars: dict[str, Any] = {
         "coll": coll,
@@ -224,31 +244,38 @@ def createCollab(coll: sdocollaborators.collaborator) -> None:
     log.info("Created %s", filename)
 
 
-_TERM_TAGS: dict[sdoterm.SdoTermType, str] = {
-    sdoterm.SdoTermType.PROPERTY: " p",
-    sdoterm.SdoTermType.TYPE: " t",
-    sdoterm.SdoTermType.DATATYPE: " d",
-    sdoterm.SdoTermType.ENUMERATION: " e",
-    sdoterm.SdoTermType.ENUMERATIONVALUE: " v",
+_TERM_TAGS: dict[TermKind, str] = {
+    TermKind.PROPERTY: " p",
+    TermKind.TYPE: " t",
+    TermKind.DATATYPE: " d",
+    TermKind.ENUMERATION: " e",
+    TermKind.ENUMERATIONVALUE: " v",
 }
 
 
-def generate_terms(tags: bool = False) -> Iterator[str]:
-    for term in sdotermsource.SdoTermSource.getAllTerms(expanded=True):
-        if not isinstance(term, sdoterm.SdoTerm):
-            continue
+def generate_terms(
+    tags: bool = False, catalog: TermViewCatalog | None = None
+) -> Iterator[str]:
+    cat = catalog or _default_catalog()
+    for term in cat.all_views():
         label = _TERM_TAGS.get(term.termType, "") if tags else ""
         yield f"{term.id}{label}\n"
 
 
-def termfind(_page: str = "") -> str:
+def termfind(_page: str = "", catalog: TermViewCatalog | None = None) -> str:
     if not schema.hasOpt("notermfinder"):
         log.info("Building term list")
-        return "".join(generate_terms(tags=True))
+        return "".join(generate_terms(tags=True, catalog=catalog))
     return ""
 
 
-PAGELIST: dict[str, tuple[Callable[[str], str], list[tuple[paths.Domain, str]]]] = {
+PAGELIST: dict[
+    str,
+    tuple[
+        Callable[..., str],
+        list[tuple[paths.Domain, str]],
+    ],
+] = {
     "Home": (homePage, [(paths.Domain.DOCS, "home.html")]),
     "PendingHome": (homePage, [(paths.Domain.DOCS, "pending.home.html")]),
     "AtticHome": (homePage, [(paths.Domain.DOCS, "attic.home.html")]),
@@ -269,14 +296,19 @@ PAGELIST: dict[str, tuple[Callable[[str], str], list[tuple[paths.Domain, str]]]]
 }
 
 
-def buildDocs(pages: Iterable[str]) -> None:
+def buildDocs(
+    pages: Iterable[str], catalog: TermViewCatalog | None = None
+) -> None:
     page_list = list(pages)
+    if not page_list:
+        return
     process_pages = (
         sorted(PAGELIST)
         if any(fileutils.isAll(p) for p in page_list)
         else page_list
     )
 
+    cat = catalog or _default_catalog()
     output_layout = paths.DefaultOutputLayout()
 
     for page in process_pages:
@@ -285,7 +317,7 @@ def buildDocs(pages: Iterable[str]) -> None:
             with pretty_logger.BlockLog(
                 logger=log, message=f"Generating page {page}"
             ):
-                content = func(page)
+                content = func(page, catalog=cat)
                 for domain, filename in targets:
                     output_layout.file(domain, filename).write_text(
                         content, encoding="utf-8"
