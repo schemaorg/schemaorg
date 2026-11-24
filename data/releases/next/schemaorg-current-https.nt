@@ -11109,12 +11109,14 @@
 <https://schema.org/hasPOS> <https://schema.org/domainIncludes> <https://schema.org/Person> .
 <https://schema.org/hasPOS> <https://schema.org/rangeIncludes> <https://schema.org/Place> .
 <https://schema.org/hasPart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<https://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." .
+<https://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection." .
 <https://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#label> "hasPart" .
 <https://schema.org/hasPart> <https://schema.org/contributor> <https://schema.org/docs/collab/bibex> .
 <https://schema.org/hasPart> <https://schema.org/domainIncludes> <https://schema.org/CreativeWork> .
+<https://schema.org/hasPart> <https://schema.org/domainIncludes> <https://schema.org/Product> .
 <https://schema.org/hasPart> <https://schema.org/inverseOf> <https://schema.org/isPartOf> .
 <https://schema.org/hasPart> <https://schema.org/rangeIncludes> <https://schema.org/CreativeWork> .
+<https://schema.org/hasPart> <https://schema.org/rangeIncludes> <https://schema.org/Product> .
 <https://schema.org/hasParticipationOffer> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <https://schema.org/hasParticipationOffer> <http://www.w3.org/2000/01/rdf-schema#comment> "An offer to participate in the event, for example, Call for Proposals, Call for Speakers, or Call for Performers." .
 <https://schema.org/hasParticipationOffer> <http://www.w3.org/2000/01/rdf-schema#label> "hasParticipationOffer" .
@@ -11612,12 +11614,12 @@
 <https://schema.org/includesHealthPlanNetwork> <https://schema.org/rangeIncludes> <https://schema.org/HealthPlanNetwork> .
 <https://schema.org/includesHealthPlanNetwork> <https://schema.org/source> <https://github.com/schemaorg/schemaorg/issues/1062> .
 <https://schema.org/includesObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<https://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#comment> "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." .
+<https://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#comment> "This links to a node or nodes indicating the exact quantity of the products included in an [[Offer]], [[Product]], or [[ProductCollection]]." .
 <https://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#label> "includesObject" .
 <https://schema.org/includesObject> <https://schema.org/contributor> <https://schema.org/docs/collab/GoodRelationsTerms> .
 <https://schema.org/includesObject> <https://schema.org/domainIncludes> <https://schema.org/Demand> .
 <https://schema.org/includesObject> <https://schema.org/domainIncludes> <https://schema.org/Offer> .
-<https://schema.org/includesObject> <https://schema.org/domainIncludes> <https://schema.org/ProductCollection> .
+<https://schema.org/includesObject> <https://schema.org/domainIncludes> <https://schema.org/Product> .
 <https://schema.org/includesObject> <https://schema.org/rangeIncludes> <https://schema.org/TypeAndQuantityNode> .
 <https://schema.org/incomeLimit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <https://schema.org/incomeLimit> <http://www.w3.org/2000/01/rdf-schema#comment> "Optional. Income limit for which the incentive is applicable for.\n    \n<p>If MonetaryAmount is specified, this should be based on annualized income (e.g. if an incentive is limited to those making <$114,000 annually):</p>\n    {\n        \"@type\": \"MonetaryAmount\",\n        \"maxValue\": 114000,\n        \"currency\": \"USD\",\n    }\n\nUse Text for incentives that are limited based on other criteria, for example if an incentive is only available to recipients making 120% of the median poverty income in their area." .
@@ -11867,11 +11869,13 @@
 <https://schema.org/isOftenBoughtWith> <https://schema.org/rangeIncludes> <https://schema.org/Product> .
 <https://schema.org/isOftenBoughtWith> <https://schema.org/source> <https://github.com/schemaorg/schemaorg/issues/4878> .
 <https://schema.org/isPartOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<https://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." .
+<https://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection." .
 <https://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#label> "isPartOf" .
 <https://schema.org/isPartOf> <https://schema.org/domainIncludes> <https://schema.org/CreativeWork> .
+<https://schema.org/isPartOf> <https://schema.org/domainIncludes> <https://schema.org/Product> .
 <https://schema.org/isPartOf> <https://schema.org/inverseOf> <https://schema.org/hasPart> .
 <https://schema.org/isPartOf> <https://schema.org/rangeIncludes> <https://schema.org/CreativeWork> .
+<https://schema.org/isPartOf> <https://schema.org/rangeIncludes> <https://schema.org/Product> .
 <https://schema.org/isPartOf> <https://schema.org/rangeIncludes> <https://schema.org/URL> .
 <https://schema.org/isPartOfBioChemEntity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <https://schema.org/isPartOfBioChemEntity> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. " .

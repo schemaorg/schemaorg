@@ -28192,20 +28192,30 @@
     {
       "@id": "schema:hasPart",
       "@type": "rdf:Property",
-      "rdfs:comment": "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).",
+      "rdfs:comment": "Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection.",
       "rdfs:label": "hasPart",
       "schema:contributor": {
         "@id": "http://schema.org/docs/collab/bibex"
       },
-      "schema:domainIncludes": {
-        "@id": "schema:CreativeWork"
-      },
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Product"
+        }
+      ],
       "schema:inverseOf": {
         "@id": "schema:isPartOf"
       },
-      "schema:rangeIncludes": {
-        "@id": "schema:CreativeWork"
-      }
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Product"
+        }
+      ]
     },
     {
       "@id": "schema:hasParticipationOffer",
@@ -29548,7 +29558,7 @@
     {
       "@id": "schema:includesObject",
       "@type": "rdf:Property",
-      "rdfs:comment": "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]].",
+      "rdfs:comment": "This links to a node or nodes indicating the exact quantity of the products included in an [[Offer]], [[Product]], or [[ProductCollection]].",
       "rdfs:label": "includesObject",
       "schema:contributor": {
         "@id": "http://schema.org/docs/collab/GoodRelationsTerms"
@@ -29561,7 +29571,7 @@
           "@id": "schema:Offer"
         },
         {
-          "@id": "schema:ProductCollection"
+          "@id": "schema:Product"
         }
       ],
       "schema:rangeIncludes": {
@@ -30235,17 +30245,25 @@
     {
       "@id": "schema:isPartOf",
       "@type": "rdf:Property",
-      "rdfs:comment": "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of.",
+      "rdfs:comment": "Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection.",
       "rdfs:label": "isPartOf",
-      "schema:domainIncludes": {
-        "@id": "schema:CreativeWork"
-      },
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Product"
+        }
+      ],
       "schema:inverseOf": {
         "@id": "schema:hasPart"
       },
       "schema:rangeIncludes": [
         {
           "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Product"
         },
         {
           "@id": "schema:URL"

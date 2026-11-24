@@ -13502,11 +13502,11 @@ schema:includesHealthPlanNetwork a rdf:Property ;
 
 schema:includesObject a rdf:Property ;
     rdfs:label "includesObject" ;
-    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." ;
+    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in an [[Offer]], [[Product]], or [[ProductCollection]]." ;
     schema:contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     schema:domainIncludes schema:Demand,
         schema:Offer,
-        schema:ProductCollection ;
+        schema:Product ;
     schema:rangeIncludes schema:TypeAndQuantityNode .
 
 schema:incomeLimit a rdf:Property ;
@@ -21251,11 +21251,13 @@ cmns-q:hasUpperBound a rdf:Property .
 
 schema:hasPart a rdf:Property ;
     rdfs:label "hasPart" ;
-    rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." ;
+    rdfs:comment "Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection." ;
     schema:contributor <https://schema.org/docs/collab/bibex> ;
-    schema:domainIncludes schema:CreativeWork ;
+    schema:domainIncludes schema:CreativeWork,
+        schema:Product ;
     schema:inverseOf schema:isPartOf ;
-    schema:rangeIncludes schema:CreativeWork .
+    schema:rangeIncludes schema:CreativeWork,
+        schema:Product .
 
 schema:position a rdf:Property ;
     rdfs:label "position" ;
@@ -21271,10 +21273,12 @@ cmns-q:hasLowerBound a rdf:Property .
 
 schema:isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
-    rdfs:comment "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." ;
-    schema:domainIncludes schema:CreativeWork ;
+    rdfs:comment "Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection." ;
+    schema:domainIncludes schema:CreativeWork,
+        schema:Product ;
     schema:inverseOf schema:hasPart ;
     schema:rangeIncludes schema:CreativeWork,
+        schema:Product,
         schema:URL .
 
 schema:instrument a rdf:Property ;

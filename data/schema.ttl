@@ -8410,11 +8410,13 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 
 :hasPart a rdf:Property ;
     rdfs:label "hasPart" ;
-    rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." ;
+    rdfs:comment "Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection." ;
     :contributor <https://schema.org/docs/collab/bibex> ;
-    :domainIncludes :CreativeWork ;
+    :domainIncludes :CreativeWork,
+        :Product ;
     :inverseOf :isPartOf ;
-    :rangeIncludes :CreativeWork .
+    :rangeIncludes :CreativeWork,
+        :Product .
 
 :hasProductReturnPolicy a rdf:Property ;
     rdfs:label "hasProductReturnPolicy" ;
@@ -8817,9 +8819,10 @@ For multiple different incentivized items, use multiple [[DefinedTerm]] or [[Pro
 
 :includesObject a rdf:Property ;
     rdfs:label "includesObject" ;
-    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." ;
+    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in an [[Offer]], [[Product]], or [[ProductCollection]]." ;
     :domainIncludes :Demand,
-        :Offer ;
+        :Offer,
+        :Product ;
     :rangeIncludes :TypeAndQuantityNode .
 
 :incomeLimit a rdf:Property ;
@@ -9000,10 +9003,12 @@ Use Text for incentives that are limited based on other criteria, for example if
 
 :isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
-    rdfs:comment "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." ;
-    :domainIncludes :CreativeWork ;
+    rdfs:comment "Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection." ;
+    :domainIncludes :CreativeWork,
+        :Product ;
     :inverseOf :hasPart ;
     :rangeIncludes :CreativeWork,
+        :Product,
         :URL .
 
 :isPlanForApartment a rdf:Property ;

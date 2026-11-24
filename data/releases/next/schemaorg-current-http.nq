@@ -11109,12 +11109,14 @@
 <http://schema.org/hasPOS> <http://schema.org/domainIncludes> <http://schema.org/Person> <http://schema.org/next> .
 <http://schema.org/hasPOS> <http://schema.org/rangeIncludes> <http://schema.org/Place> <http://schema.org/next> .
 <http://schema.org/hasPart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
-<http://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." <http://schema.org/next> .
+<http://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection." <http://schema.org/next> .
 <http://schema.org/hasPart> <http://www.w3.org/2000/01/rdf-schema#label> "hasPart" <http://schema.org/next> .
 <http://schema.org/hasPart> <http://schema.org/contributor> <http://schema.org/docs/collab/bibex> <http://schema.org/next> .
 <http://schema.org/hasPart> <http://schema.org/domainIncludes> <http://schema.org/CreativeWork> <http://schema.org/next> .
+<http://schema.org/hasPart> <http://schema.org/domainIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/hasPart> <http://schema.org/inverseOf> <http://schema.org/isPartOf> <http://schema.org/next> .
 <http://schema.org/hasPart> <http://schema.org/rangeIncludes> <http://schema.org/CreativeWork> <http://schema.org/next> .
+<http://schema.org/hasPart> <http://schema.org/rangeIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/hasParticipationOffer> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
 <http://schema.org/hasParticipationOffer> <http://www.w3.org/2000/01/rdf-schema#comment> "An offer to participate in the event, for example, Call for Proposals, Call for Speakers, or Call for Performers." <http://schema.org/next> .
 <http://schema.org/hasParticipationOffer> <http://www.w3.org/2000/01/rdf-schema#label> "hasParticipationOffer" <http://schema.org/next> .
@@ -11612,12 +11614,12 @@
 <http://schema.org/includesHealthPlanNetwork> <http://schema.org/rangeIncludes> <http://schema.org/HealthPlanNetwork> <http://schema.org/next> .
 <http://schema.org/includesHealthPlanNetwork> <http://schema.org/source> <https://github.com/schemaorg/schemaorg/issues/1062> <http://schema.org/next> .
 <http://schema.org/includesObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
-<http://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#comment> "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." <http://schema.org/next> .
+<http://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#comment> "This links to a node or nodes indicating the exact quantity of the products included in an [[Offer]], [[Product]], or [[ProductCollection]]." <http://schema.org/next> .
 <http://schema.org/includesObject> <http://www.w3.org/2000/01/rdf-schema#label> "includesObject" <http://schema.org/next> .
 <http://schema.org/includesObject> <http://schema.org/contributor> <http://schema.org/docs/collab/GoodRelationsTerms> <http://schema.org/next> .
 <http://schema.org/includesObject> <http://schema.org/domainIncludes> <http://schema.org/Demand> <http://schema.org/next> .
 <http://schema.org/includesObject> <http://schema.org/domainIncludes> <http://schema.org/Offer> <http://schema.org/next> .
-<http://schema.org/includesObject> <http://schema.org/domainIncludes> <http://schema.org/ProductCollection> <http://schema.org/next> .
+<http://schema.org/includesObject> <http://schema.org/domainIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/includesObject> <http://schema.org/rangeIncludes> <http://schema.org/TypeAndQuantityNode> <http://schema.org/next> .
 <http://schema.org/incomeLimit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
 <http://schema.org/incomeLimit> <http://www.w3.org/2000/01/rdf-schema#comment> "Optional. Income limit for which the incentive is applicable for.\n    \n<p>If MonetaryAmount is specified, this should be based on annualized income (e.g. if an incentive is limited to those making <$114,000 annually):</p>\n    {\n        \"@type\": \"MonetaryAmount\",\n        \"maxValue\": 114000,\n        \"currency\": \"USD\",\n    }\n\nUse Text for incentives that are limited based on other criteria, for example if an incentive is only available to recipients making 120% of the median poverty income in their area." <http://schema.org/next> .
@@ -11867,11 +11869,13 @@
 <http://schema.org/isOftenBoughtWith> <http://schema.org/rangeIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/isOftenBoughtWith> <http://schema.org/source> <https://github.com/schemaorg/schemaorg/issues/4878> <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
-<http://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." <http://schema.org/next> .
+<http://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection." <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://www.w3.org/2000/01/rdf-schema#label> "isPartOf" <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://schema.org/domainIncludes> <http://schema.org/CreativeWork> <http://schema.org/next> .
+<http://schema.org/isPartOf> <http://schema.org/domainIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://schema.org/inverseOf> <http://schema.org/hasPart> <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://schema.org/rangeIncludes> <http://schema.org/CreativeWork> <http://schema.org/next> .
+<http://schema.org/isPartOf> <http://schema.org/rangeIncludes> <http://schema.org/Product> <http://schema.org/next> .
 <http://schema.org/isPartOf> <http://schema.org/rangeIncludes> <http://schema.org/URL> <http://schema.org/next> .
 <http://schema.org/isPartOfBioChemEntity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://schema.org/next> .
 <http://schema.org/isPartOfBioChemEntity> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. " <http://schema.org/next> .

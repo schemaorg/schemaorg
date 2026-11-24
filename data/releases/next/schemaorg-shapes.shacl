@@ -2568,8 +2568,6 @@
 
 :ValidSchemaProductCollection a sh:NodeShape ;
     sh:nodeKind sh:BlankNodeOrIRI ;
-    sh:property [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTypeAndQuantityNode ] ) ;
-            sh:path schema:includesObject ] ;
     sh:targetClass schema:ProductCollection .
 
 :ValidSchemaProductReturnEnumeration a sh:NodeShape ;
@@ -7798,146 +7796,6 @@
             sh:path schema:workPerformed ] ;
     sh:targetClass schema:Event .
 
-:ValidSchemaProduct a sh:NodeShape ;
-    sh:nodeKind sh:BlankNodeOrIRI ;
-    sh:property [ sh:or ( [ sh:node :ValidSchemaPropertyValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:additionalProperty ],
-        [ sh:or ( [ sh:node :ValidSchemaAggregateRating ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:aggregateRating ],
-        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:asin ],
-        [ sh:or ( [ sh:node :ValidSchemaAudience ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:audience ],
-        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaPerson ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:authorizedRepresentative ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:award ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:awards ],
-        [ sh:or ( [ sh:node :ValidSchemaBrand ] [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:brand ],
-        [ sh:or ( [ sh:node :ValidSchemaCategoryCode ] [ sh:node :ValidSchemaPhysicalActivityCategory ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaThing ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:category ],
-        [ sh:or ( [ sh:node :ValidSchemaImageObject ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:colorSwatch ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:color ],
-        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTextObject ] [ sh:node :ValidSchemaURL ] [ sh:node :ValidSchemaWebContent ] ) ;
-            sh:path schema:consumerNotice ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:countryOfAssembly ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:countryOfLastProcessing ],
-        [ sh:or ( [ sh:node :ValidSchemaCountry ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:countryOfOrigin ],
-        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:depth ],
-        [ sh:or ( [ sh:node :ValidSchemaPlace ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:displayLocation ],
-        [ sh:or ( [ sh:node :ValidSchemaGrant ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:funding ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:gtin12 ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:gtin13 ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:gtin14 ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:gtin8 ],
-        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:gtin ],
-        [ sh:or ( [ sh:node :ValidSchemaAdultOrientedEnumeration ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasAdultConsideration ],
-        [ sh:or ( [ sh:node :ValidSchemaCertification ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasCertification ],
-        [ sh:or ( [ sh:node :ValidSchemaDigitalProductPassport ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:hasDigitalProductPassport ],
-        [ sh:or ( [ sh:node :ValidSchemaEnergyConsumptionDetails ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasEnergyConsumptionDetails ],
-        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:hasGS1DigitalLink ],
-        [ sh:or ( [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasMeasurement ],
-        [ sh:or ( [ sh:node :ValidSchemaMerchantReturnPolicy ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasMerchantReturnPolicy ],
-        [ sh:or ( [ sh:node :ValidSchemaProductReturnPolicy ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:hasProductReturnPolicy ],
-        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:height ],
-        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaPerson ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:importer ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:inProductGroupWithID ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isAccessoryOrSparePartFor ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isConsumableFor ],
-        [ sh:or ( [ sh:node :ValidSchemaBoolean ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isFamilyFriendly ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isOftenBoughtWith ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaService ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isRelatedTo ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaService ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isSimilarTo ],
-        [ sh:or ( [ sh:node :ValidSchemaProductGroup ] [ sh:node :ValidSchemaProductModel ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:isVariantOf ],
-        [ sh:or ( [ sh:node :ValidSchemaOfferItemCondition ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:itemCondition ],
-        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:keywords ],
-        [ sh:or ( [ sh:node :ValidSchemaImageObject ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:logo ],
-        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:manufacturer ],
-        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:material ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:mobileUrl ],
-        [ sh:or ( [ sh:node :ValidSchemaProductModel ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:model ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:mpn ],
-        [ sh:or ( [ sh:node :ValidSchemaItemList ] [ sh:node :ValidSchemaListItem ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaWebContent ] ) ;
-            sh:path schema:negativeNotes ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:nsn ],
-        [ sh:or ( [ sh:node :ValidSchemaDemand ] [ sh:node :ValidSchemaOffer ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:offers ],
-        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:pattern ],
-        [ sh:or ( [ sh:node :ValidSchemaItemList ] [ sh:node :ValidSchemaListItem ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaWebContent ] ) ;
-            sh:path schema:positiveNotes ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:productID ],
-        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:productionDate ],
-        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:purchaseDate ],
-        [ sh:or ( [ sh:node :ValidSchemaNumber ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:recycledContentPercentage ],
-        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:releaseDate ],
-        [ sh:or ( [ sh:node :ValidSchemaReview ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:review ],
-        [ sh:or ( [ sh:node :ValidSchemaReview ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:reviews ],
-        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaSizeSpecification ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:size ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:sku ],
-        [ sh:node :ValidSchemaText ;
-            sh:path schema:slogan ],
-        [ sh:or ( [ sh:node :ValidSchemaPropertyValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:specification ],
-        [ sh:or ( [ sh:node :ValidSchemaChemicalSubstance ] [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
-            sh:path schema:substanceOfConcern ],
-        [ sh:or ( [ sh:node :ValidSchemaMass ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:weight ],
-        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
-            sh:path schema:width ] ;
-    sh:targetClass schema:Product .
-
 :ValidSchemaContactPoint a sh:NodeShape ;
     sh:nodeKind sh:BlankNodeOrIRI ;
     sh:property [ sh:or ( [ sh:node :ValidSchemaAdministrativeArea ] [ sh:node :ValidSchemaGeoShape ] [ sh:node :ValidSchemaPlace ] [ sh:node :ValidSchemaText ] ) ;
@@ -8017,6 +7875,152 @@
 :ValidSchemaAdministrativeArea a sh:NodeShape ;
     sh:nodeKind sh:BlankNodeOrIRI ;
     sh:targetClass schema:AdministrativeArea .
+
+:ValidSchemaProduct a sh:NodeShape ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [ sh:or ( [ sh:node :ValidSchemaPropertyValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:additionalProperty ],
+        [ sh:or ( [ sh:node :ValidSchemaAggregateRating ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:aggregateRating ],
+        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:asin ],
+        [ sh:or ( [ sh:node :ValidSchemaAudience ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:audience ],
+        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaPerson ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:authorizedRepresentative ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:award ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:awards ],
+        [ sh:or ( [ sh:node :ValidSchemaBrand ] [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:brand ],
+        [ sh:or ( [ sh:node :ValidSchemaCategoryCode ] [ sh:node :ValidSchemaPhysicalActivityCategory ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaThing ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:category ],
+        [ sh:or ( [ sh:node :ValidSchemaImageObject ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:colorSwatch ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:color ],
+        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTextObject ] [ sh:node :ValidSchemaURL ] [ sh:node :ValidSchemaWebContent ] ) ;
+            sh:path schema:consumerNotice ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:countryOfAssembly ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:countryOfLastProcessing ],
+        [ sh:or ( [ sh:node :ValidSchemaCountry ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:countryOfOrigin ],
+        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:depth ],
+        [ sh:or ( [ sh:node :ValidSchemaPlace ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:displayLocation ],
+        [ sh:or ( [ sh:node :ValidSchemaGrant ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:funding ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:gtin12 ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:gtin13 ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:gtin14 ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:gtin8 ],
+        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:gtin ],
+        [ sh:or ( [ sh:node :ValidSchemaAdultOrientedEnumeration ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasAdultConsideration ],
+        [ sh:or ( [ sh:node :ValidSchemaCertification ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasCertification ],
+        [ sh:or ( [ sh:node :ValidSchemaDigitalProductPassport ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:hasDigitalProductPassport ],
+        [ sh:or ( [ sh:node :ValidSchemaEnergyConsumptionDetails ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasEnergyConsumptionDetails ],
+        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:hasGS1DigitalLink ],
+        [ sh:or ( [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasMeasurement ],
+        [ sh:or ( [ sh:node :ValidSchemaMerchantReturnPolicy ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasMerchantReturnPolicy ],
+        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasPart ],
+        [ sh:or ( [ sh:node :ValidSchemaProductReturnPolicy ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:hasProductReturnPolicy ],
+        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:height ],
+        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaPerson ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:importer ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:inProductGroupWithID ],
+        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTypeAndQuantityNode ] ) ;
+            sh:path schema:includesObject ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isAccessoryOrSparePartFor ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isConsumableFor ],
+        [ sh:or ( [ sh:node :ValidSchemaBoolean ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isFamilyFriendly ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isOftenBoughtWith ],
+        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:isPartOf ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaService ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isRelatedTo ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaService ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isSimilarTo ],
+        [ sh:or ( [ sh:node :ValidSchemaProductGroup ] [ sh:node :ValidSchemaProductModel ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:isVariantOf ],
+        [ sh:or ( [ sh:node :ValidSchemaOfferItemCondition ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:itemCondition ],
+        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:keywords ],
+        [ sh:or ( [ sh:node :ValidSchemaImageObject ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:logo ],
+        [ sh:or ( [ sh:node :ValidSchemaOrganization ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:manufacturer ],
+        [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:material ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:mobileUrl ],
+        [ sh:or ( [ sh:node :ValidSchemaProductModel ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:model ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:mpn ],
+        [ sh:or ( [ sh:node :ValidSchemaItemList ] [ sh:node :ValidSchemaListItem ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaWebContent ] ) ;
+            sh:path schema:negativeNotes ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:nsn ],
+        [ sh:or ( [ sh:node :ValidSchemaDemand ] [ sh:node :ValidSchemaOffer ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:offers ],
+        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:pattern ],
+        [ sh:or ( [ sh:node :ValidSchemaItemList ] [ sh:node :ValidSchemaListItem ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaWebContent ] ) ;
+            sh:path schema:positiveNotes ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:productID ],
+        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:productionDate ],
+        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:purchaseDate ],
+        [ sh:or ( [ sh:node :ValidSchemaNumber ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:recycledContentPercentage ],
+        [ sh:or ( [ sh:node :ValidSchemaDate ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:releaseDate ],
+        [ sh:or ( [ sh:node :ValidSchemaReview ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:review ],
+        [ sh:or ( [ sh:node :ValidSchemaReview ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:reviews ],
+        [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaSizeSpecification ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:size ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:sku ],
+        [ sh:node :ValidSchemaText ;
+            sh:path schema:slogan ],
+        [ sh:or ( [ sh:node :ValidSchemaPropertyValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:specification ],
+        [ sh:or ( [ sh:node :ValidSchemaChemicalSubstance ] [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+            sh:path schema:substanceOfConcern ],
+        [ sh:or ( [ sh:node :ValidSchemaMass ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:weight ],
+        [ sh:or ( [ sh:node :ValidSchemaDistance ] [ sh:node :ValidSchemaQuantitativeValue ] [ sh:node :ValidSchemaText ] ) ;
+            sh:path schema:width ] ;
+    sh:targetClass schema:Product .
 
 :ValidSchemaTime a sh:NodeShape ;
     sh:nodeKind sh:IRIOrLiteral ;
@@ -8194,7 +8198,7 @@
             sh:path schema:funding ],
         [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
             sh:path schema:genre ],
-        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaText ] ) ;
+        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
             sh:path schema:hasPart ],
         [ sh:node :ValidSchemaText ;
             sh:path schema:headline ],
@@ -8214,7 +8218,7 @@
             sh:path schema:isBasedOn ],
         [ sh:or ( [ sh:node :ValidSchemaBoolean ] [ sh:node :ValidSchemaText ] ) ;
             sh:path schema:isFamilyFriendly ],
-        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
+        [ sh:or ( [ sh:node :ValidSchemaCreativeWork ] [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
             sh:path schema:isPartOf ],
         [ sh:or ( [ sh:node :ValidSchemaDefinedTerm ] [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaURL ] ) ;
             sh:path schema:keywords ],
