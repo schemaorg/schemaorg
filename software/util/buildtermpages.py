@@ -131,7 +131,6 @@ class TermPageRenderer:
                     })
         extra_vars: dict[str, Any] = {
             "title": term.label,
-            "BUILDOPTS": self.build_opts,
             "docsdir": self.term_docs_dir,
             "term": term,
             "jsonldPayload": json,
@@ -209,15 +208,9 @@ def _buildTermIds(args: tuple[tuple[int, list[str]], dict[str, Any]]) -> None:
     renderer_config.setdefault("jsonld_index", _SHARED_JSONLD)
     if renderer_config.get("examples") is None and _SHARED_EXAMPLES is not None:
         renderer_config["examples"] = _SHARED_EXAMPLES
-    target = schema.target_version()
     if (
         renderer_config.get("template_renderer") is None
         and _SHARED_RENDERER is not None
-        and (
-            _SHARED_RENDERER.version.number(),
-            _SHARED_RENDERER.version.date(),
-        )
-        == (target.number(), target.date())
     ):
         renderer_config["template_renderer"] = _SHARED_RENDERER
     renderer = TermPageRenderer(**renderer_config)
@@ -276,9 +269,14 @@ def buildTerms(
 
     template_renderer = config.get("template_renderer")
     if template_renderer is None:
+        target = (
+            schema.VERSION.resolve(config["target_version"])
+            if config.get("target_version") is not None
+            else schema.target_version()
+        )
         template_renderer = TemplateRenderer(
             paths.DefaultInputLayout(),
-            schema.target_version(),
+            target,
             config.get("build_opts", ()),
         )
     template_renderer.get_template("terms/TermPage.j2")
@@ -297,25 +295,28 @@ def buildTerms(
     }
 
     shard_numbers = min(multiprocessing.cpu_count(), len(term_list))
-    with pretty_logger.BlockLog(
-        logger=log,
-        message=f"Building {len(term_list)} term pages with {shard_numbers} shards.",
-    ):
-        sharded_terms: dict[int, list[str]] = collections.defaultdict(list)
-        for n, term_id in enumerate(term_list):
-            sharded_terms[n % shard_numbers].append(term_id)
+    try:
+        with pretty_logger.BlockLog(
+            logger=log,
+            message=f"Building {len(term_list)} term pages with {shard_numbers} shards.",
+        ):
+            sharded_terms: dict[int, list[str]] = collections.defaultdict(list)
+            for n, term_id in enumerate(term_list):
+                sharded_terms[n % shard_numbers].append(term_id)
 
-        tasks = [(item, light_config) for item in sharded_terms.items()]
+            tasks = [(item, light_config) for item in sharded_terms.items()]
 
-        with multiprocessing.Pool(
-            processes=len(tasks),
-            initializer=_init_worker,
-            initargs=(
-                light_config.get("target_version"),
-                light_config.get("output_dir"),
-                light_config.get("release_file"),
-            ),
-        ) as pool:
-            pool.map(_buildTermIds, tasks)
+            with multiprocessing.Pool(
+                processes=len(tasks),
+                initializer=_init_worker,
+                initargs=(
+                    light_config.get("target_version"),
+                    light_config.get("output_dir"),
+                    light_config.get("release_file"),
+                ),
+            ) as pool:
+                pool.map(_buildTermIds, tasks)
+    finally:
+        _SHARED_RENDERER = None
     elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
     log.info("%d Terms generated in %s seconds", len(term_list), elapsed)

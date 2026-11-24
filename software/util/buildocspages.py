@@ -37,20 +37,11 @@ def _default_catalog() -> TermViewCatalog:
 
 
 def _default_renderer() -> TemplateRenderer:
-    target = schema.target_version()
-    if (
-        _SHARED_DOCS_RENDERER is not None
-        and (
-            _SHARED_DOCS_RENDERER.version.number(),
-            _SHARED_DOCS_RENDERER.version.date(),
-        )
-        == (target.number(), target.date())
-        and _SHARED_DOCS_RENDERER.build_opts == tuple(schema.config.BUILDOPTS)
-    ):
+    if _SHARED_DOCS_RENDERER is not None:
         return _SHARED_DOCS_RENDERER
     return TemplateRenderer(
         paths.DefaultInputLayout(),
-        target,
+        schema.target_version(),
         schema.config.BUILDOPTS,
     )
 
@@ -333,16 +324,19 @@ def buildDocs(
     )
     output_layout = paths.DefaultOutputLayout()
 
-    for page in process_pages:
-        if entry := PAGELIST.get(page):
-            func, targets = entry
-            with pretty_logger.BlockLog(
-                logger=log, message=f"Generating page {page}"
-            ):
-                content = func(page, catalog=cat)
-                for domain, filename in targets:
-                    output_layout.file(domain, filename).write_text(
-                        content, encoding="utf-8"
-                    )
-        else:
-            log.warning("Unknown or missing page name: %s", page)
+    try:
+        for page in process_pages:
+            if entry := PAGELIST.get(page):
+                func, targets = entry
+                with pretty_logger.BlockLog(
+                    logger=log, message=f"Generating page {page}"
+                ):
+                    content = func(page, catalog=cat)
+                    for domain, filename in targets:
+                        output_layout.file(domain, filename).write_text(
+                            content, encoding="utf-8"
+                        )
+            else:
+                log.warning("Unknown or missing page name: %s", page)
+    finally:
+        _SHARED_DOCS_RENDERER = None

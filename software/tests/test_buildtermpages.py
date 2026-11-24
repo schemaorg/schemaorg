@@ -7,8 +7,9 @@ import unittest
 from rdflib import URIRef
 
 from schemaorg import constants
+from schemaorg.jsonld_slice import TermJsonLdIndex
 from schemaorg.layout import InputLayout
-from schemaorg.model import SchemaType
+from schemaorg.model import SchemaType, Vocabulary
 from schemaorg.template_renderer import TemplateRenderer
 from schemaorg.term_view import TermView, TermViewCatalog
 from schemaorg.version import VersionItem
@@ -93,11 +94,13 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertIn("Awesome &amp; Thingamabob", output)
         self.assertNotIn('class="google-public-stats-badge-container"', output)
 
-    def testExplicitTemplateRendererOverridesGlobalVersion(self) -> None:
+    def testExplicitTemplateRendererOverridesGlobalVersionAndBuildOpts(
+        self,
+    ) -> None:
         custom_renderer = TemplateRenderer(
             InputLayout(constants.PROJECT_ROOT),
             VersionItem("99.0", "2099-12-31"),
-            (),
+            ("goto",),
         )
         page_renderer = buildtermpages.TermPageRenderer(
             stats_providers=[],
@@ -115,6 +118,54 @@ class TestBuildTermPages(unittest.TestCase):
         output = page_renderer.termtemplateRender(term=term, examples=[], json="")
         self.assertIn("V99.0", output)
         self.assertIn("2099-12-31", output)
+        self.assertIn("jumpmenu.js", output)
+
+    def testBuildTermsHonorsExplicitTemplateRendererAndResetsShared(
+        self,
+    ) -> None:
+        for attr in (
+            "_SHARED_CATALOG",
+            "_SHARED_JSONLD",
+            "_SHARED_EXAMPLES",
+            "_SHARED_RENDERER",
+            "_SHARED_RELEASE_KEY",
+        ):
+            self.addCleanup(
+                setattr, buildtermpages, attr, getattr(buildtermpages, attr)
+            )
+        custom_renderer = TemplateRenderer(
+            InputLayout(constants.PROJECT_ROOT),
+            VersionItem("99.0", "2099-12-31"),
+            ("goto",),
+        )
+        term = SchemaType(
+            uri=URIRef("https://schema.org/FloatingType"),
+            label="FloatingType",
+        )
+        catalog = TermViewCatalog(vocab=Vocabulary(types={term.uri: term}))
+        jsonld_index = TermJsonLdIndex(context={}, nodes_by_id={})
+        with tempfile.TemporaryDirectory() as tmp:
+            out_dir = Path(tmp) / "site"
+            buildtermpages.buildTerms(
+                ["FloatingType"],
+                config={
+                    "stats_providers": [],
+                    "build_opts": [],
+                    "term_docs_dir": "/docs",
+                    "examples": schemaexamples.SchemaExamples.from_files([]),
+                    "template_renderer": custom_renderer,
+                    "output_dir": str(out_dir),
+                },
+                catalog=catalog,
+                jsonld_index=jsonld_index,
+            )
+            html = (out_dir / "terms/types/F/FloatingType.html").read_text(
+                encoding="utf-8"
+            )
+        self.assertIn("V99.0", html)
+        self.assertIn("2099-12-31", html)
+        self.assertIn("jumpmenu.js", html)
+        self.assertIsNone(buildtermpages._SHARED_RENDERER)
 
     def testWorkerConfigAppliesTargetVersionOutputDirAndReleaseFile(self) -> None:
         orig_target = schema.config.TARGET_VERSION
