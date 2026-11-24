@@ -306,7 +306,7 @@ def buildTerms(
 
             tasks = [(item, light_config) for item in sharded_terms.items()]
 
-            with multiprocessing.Pool(
+            with multiprocessing.get_context("fork").Pool(
                 processes=len(tasks),
                 initializer=_init_worker,
                 initargs=(
