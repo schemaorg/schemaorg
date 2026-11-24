@@ -4,7 +4,7 @@
     {% else %}{% set CLASS = "core" %}
     {% endif %}
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}}
+    <a href="/{{name}}" {{props|safe}}
         class="{{CLASS}}" title="{{titlepre}}{{name}}">{{name}}</a>
 {%- endmacro %}
 
@@ -16,7 +16,7 @@
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
     {% if text|length %}{% set label = text %}{% else %}{% set label = name %}{% endif %}
 
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}}
+    <a href="/{{name}}" {{props|safe}}
             class="{{CLASS}}" title="{{titlepre}}{{name}}">{{label|safe}}</a>
 {%- endmacro %}
 
@@ -29,7 +29,7 @@
     <span itemscope itemprop="itemListElement" itemtype="https://schema.org/ListItem">
     <meta itemprop="name" content="{{name}}" />
     <meta itemprop="position" content="{{position}}" />
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} itemprop="item"
+    <a href="/{{name}}" {{props|safe}} itemprop="item"
         class="{{CLASS}}" title="{{titlepre}}{{name}}">{{name}}</a>
     </span>
 {%- endmacro %}

@@ -11,9 +11,6 @@ from schemaorg import constants
 from schemaorg.layout import Domain, InputLayout
 from schemaorg.version import VersionItem
 
-_TERM_HREF_PREFIX: str = "/"
-_TERM_HREF_SUFFIX: str = ""
-
 
 def _set_local_var(
     local_vars_dict: dict[str, Any], name: str, value: Any
@@ -58,8 +55,6 @@ class TemplateRenderer:
             "sitename": constants.SITENAME,
             "docsdir": f"/{Domain.DOCS}",
             "BUILDOPTS": self.build_opts,
-            "TERMHREFPREFIX": _TERM_HREF_PREFIX,
-            "TERMHREFSUFFIX": _TERM_HREF_SUFFIX,
         }
         tvars.update(extra_vars)
         compiled = (

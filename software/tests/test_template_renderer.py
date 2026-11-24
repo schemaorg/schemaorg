@@ -26,8 +26,7 @@ class TestTemplateRenderer(unittest.TestCase):
     def test_renders_release_version_and_site_defaults(self) -> None:
         self._write_template(
             "page.j2",
-            "{{ sitename }}|V{{ version }}|{{ versiondate }}|"
-            "{{ docsdir }}|{{ TERMHREFPREFIX }}Thing{{ TERMHREFSUFFIX }}",
+            "{{ sitename }}|V{{ version }}|{{ versiondate }}|{{ docsdir }}",
         )
         renderer = TemplateRenderer(
             self.layout,
@@ -36,7 +35,7 @@ class TestTemplateRenderer(unittest.TestCase):
         )
         self.assertEqual(
             renderer.render("page.j2", {}),
-            "Schema.org|V30.1|2026-09-16|/docs|/Thing",
+            "Schema.org|V30.1|2026-09-16|/docs",
         )
 
     def test_next_version_renders_empty_versiondate(self) -> None:
