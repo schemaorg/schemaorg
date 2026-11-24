@@ -6,7 +6,7 @@ import unittest
 import rdflib
 
 from schemaorg import constants
-from schemaorg.graph_loader import GraphLoader
+from schemaorg.graph_loader import GraphLoader, validate_schema_namespaces
 from schemaorg.layout import InputLayout, Issues
 
 
@@ -32,6 +32,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             0,
             "Graph rdflib_data should have some triples in it.",
         )
+
+    def test_schemaPrefixBinding(self) -> None:
+        validate_schema_namespaces(self.rdflib_data)
 
     def getResults(
         self, query: str, varnames: tuple[str, ...] = ()

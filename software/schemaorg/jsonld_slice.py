@@ -8,6 +8,7 @@ from typing import Any
 
 import rdflib
 
+from schemaorg import constants
 from schemaorg.sdo_uri import SDO, SdoUri
 from schemaorg.term_view import TermKind, TermView
 from util.sort_dict import sort_dict
@@ -64,11 +65,12 @@ class TermJsonLdIndex:
             node_id = node.get("@id", "")
             if not isinstance(node_id, str) or not node_id:
                 continue
-            if node_id.startswith("schema:"):
-                tid = node_id.removeprefix("schema:")
-            elif SdoUri(node_id).is_sdo():
-                tid = SdoUri(node_id).term_name()
-            else:
+            if not node_id.startswith(
+                (f"{constants.SCHEMA_PREFIX}:", "http://", "https://")
+            ):
+                continue
+            sdo = SdoUri(node_id)
+            if not sdo.is_sdo() or not (tid := sdo.term_name()):
                 continue
             nodes_by_id[tid] = node
         return cls(context, nodes_by_id)
@@ -83,7 +85,7 @@ class TermJsonLdIndex:
         for prefix, ns_uri in graph.namespaces():
             if str(prefix):
                 copy.bind(str(prefix), ns_uri, override=True)
-        copy.bind("schema", SDO, override=True)
+        copy.bind(constants.SCHEMA_PREFIX, SDO, override=True)
         for triple in graph:
             copy.add(triple)
         raw = copy.serialize(
