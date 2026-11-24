@@ -94,6 +94,8 @@ class TermJsonLdIndex:
         return cls.from_jsonld_text(str(raw))
 
     def render_for(self, view: TermView) -> str:
+        if view.id not in self._nodes_by_id:
+            return ""
         if view.termType == TermKind.PROPERTY:
             ids = {view.id, *view.termStack.ids}
         elif view.termType == TermKind.ENUMERATIONVALUE:

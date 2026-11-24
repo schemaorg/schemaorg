@@ -6,7 +6,6 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 import enum
 import functools
-from pathlib import Path
 from typing import Any
 
 import rdflib
@@ -291,10 +290,9 @@ class TermViewCatalog:
     def prefixed_id(self, uri: str) -> str:
         for prefix, ns_uri in self.namespaces:
             if uri.startswith(ns_uri):
-                base = Path(uri).name
-                if "#" in base:
-                    base = base.split("#", 1)[1]
-                return f"{prefix}:{base}"
+                local = uri.removeprefix(ns_uri)
+                if local and not any(c in local for c in "/#:"):
+                    return f"{prefix}:{local}"
         return uri
 
     def parent_paths(self, term: SchemaTerm) -> tuple[TermSeq, ...]:
@@ -312,17 +310,21 @@ class TermViewCatalog:
                         if ep_id not in sup_ids:
                             sup_ids.append(ep_id)
                         break
-            sup_ids = [sid for sid in sup_ids if SdoUri(sid).is_sdo()]
-            tmp = [cstack]
-            if sup_ids:
-                for _ in range(1, len(sup_ids)):
+            parents = [
+                parent
+                for sid in sup_ids
+                if SdoUri(sid).is_sdo()
+                and sid not in cstack
+                and (parent := self.vocab.term(sid)) is not None
+            ]
+            if parents:
+                branches = [cstack]
+                for _ in range(1, len(parents)):
                     branch = cstack[:]
-                    tmp.append(branch)
+                    branches.append(branch)
                     pstacks.append(branch)
-                for idx, pid in enumerate(sup_ids):
-                    parent = self.vocab.term(pid)
-                    if parent is not None:
-                        walk(parent, tmp[idx])
+                for parent, branch in zip(parents, branches):
+                    walk(parent, branch)
 
         walk(term, pstacks[0])
 

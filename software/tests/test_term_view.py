@@ -117,6 +117,43 @@ class TestTermViewAndJsonLdSlice(unittest.TestCase):
             ],
         )
 
+        # Missing target term returns empty payload instead of ancestor-only JSON-LD.
+        empty_index = TermJsonLdIndex(context={}, nodes_by_id={})
+        self.assertEqual(empty_index.render_for(person), "")
+
+    def test_prefixed_id_matches_sub_namespace_and_skips_bare_root(self) -> None:
+        cat = TermViewCatalog(
+            namespaces={
+                "ex": "https://example.org/",
+                "ex_sub": "https://example.org/sub/",
+            }
+        )
+        self.assertEqual(
+            cat.prefixed_id("https://example.org/sub/TermA"), "ex_sub:TermA"
+        )
+        self.assertEqual(
+            cat.prefixed_id("https://example.org/"), "https://example.org/"
+        )
+
+    def test_super_paths_ignores_missing_supertype_without_dangling_branch(
+        self,
+    ) -> None:
+        g = rdflib.Graph(bind_namespaces="none")
+        g.parse(
+            data=(
+                "@prefix : <https://schema.org/> .\n"
+                "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                ':Thing a rdfs:Class ; rdfs:label "Thing" .\n'
+                ':Child a rdfs:Class ; rdfs:label "Child" ; '
+                "rdfs:subClassOf :Thing, :MissingTypo .\n"
+            ),
+            format="turtle",
+        )
+        cat = TermViewCatalog.from_graph(g, VocabularyLoader(g).load())
+        child = cat.get("Child")
+        assert child is not None
+        self.assertEqual([p.ids for p in child.superPaths], [("Thing", "Child")])
+
 
 if __name__ == "__main__":
     unittest.main()

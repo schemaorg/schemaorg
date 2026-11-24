@@ -266,7 +266,7 @@ def buildTerms(
         if k not in ("examples", "catalog", "jsonld_index")
     }
 
-    shard_numbers = multiprocessing.cpu_count()
+    shard_numbers = min(multiprocessing.cpu_count(), len(term_list))
     with pretty_logger.BlockLog(
         logger=log,
         message=f"Building {len(term_list)} term pages with {shard_numbers} shards.",
@@ -278,6 +278,7 @@ def buildTerms(
         tasks = [(item, light_config) for item in sharded_terms.items()]
 
         with multiprocessing.Pool(
+            processes=len(tasks),
             initializer=_init_worker,
             initargs=(
                 light_config.get("target_version"),
