@@ -13576,12 +13576,14 @@ In the context of [[ShippingService]], use the [[ServicePeriod]] format, that co
 		<ns2:rangeIncludes rdf:resource="http://schema.org/Place" />
 	</rdf:Property>
 	<rdf:Property rdf:about="http://schema.org/hasPart">
-		<ns1:comment>Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).</ns1:comment>
+		<ns1:comment>Indicates an item, [[Product]], or [[CreativeWork]] that is part of this item, [[Product]], or [[CreativeWork]] (in some sense), such as a member of a coordinated set or collection.</ns1:comment>
 		<ns1:label>hasPart</ns1:label>
 		<ns2:contributor rdf:resource="http://schema.org/docs/collab/bibex" />
 		<ns2:domainIncludes rdf:resource="http://schema.org/CreativeWork" />
+		<ns2:domainIncludes rdf:resource="http://schema.org/Product" />
 		<ns2:inverseOf rdf:resource="http://schema.org/isPartOf" />
 		<ns2:rangeIncludes rdf:resource="http://schema.org/CreativeWork" />
+		<ns2:rangeIncludes rdf:resource="http://schema.org/Product" />
 	</rdf:Property>
 	<rdf:Property rdf:about="http://schema.org/hasParticipationOffer">
 		<ns1:comment>An offer to participate in the event, for example, Call for Proposals, Call for Speakers, or Call for Performers.</ns1:comment>
@@ -14533,11 +14535,13 @@ Use Text for incentives that are limited based on other criteria, for example if
 		<ns2:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/4878" />
 	</rdf:Property>
 	<rdf:Property rdf:about="http://schema.org/isPartOf">
-		<ns1:comment>Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of.</ns1:comment>
+		<ns1:comment>Indicates an item, [[Product]], or [[CreativeWork]] that this item, [[Product]], or [[CreativeWork]] (in some sense) is part of, such as a member of a coordinated set or collection.</ns1:comment>
 		<ns1:label>isPartOf</ns1:label>
 		<ns2:domainIncludes rdf:resource="http://schema.org/CreativeWork" />
+		<ns2:domainIncludes rdf:resource="http://schema.org/Product" />
 		<ns2:inverseOf rdf:resource="http://schema.org/hasPart" />
 		<ns2:rangeIncludes rdf:resource="http://schema.org/CreativeWork" />
+		<ns2:rangeIncludes rdf:resource="http://schema.org/Product" />
 		<ns2:rangeIncludes rdf:resource="http://schema.org/URL" />
 	</rdf:Property>
 	<rdf:Property rdf:about="http://schema.org/isPartOfBioChemEntity">

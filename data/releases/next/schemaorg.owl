@@ -20509,7 +20509,7 @@ In the context of &lt;a class="localLink" href="/ShippingService"&gt;ShippingSer
 		</rdfs:range>
 	</owl:ObjectProperty>
 	<owl:ObjectProperty rdf:about="https://schema.org/hasPart">
-		<rdfs:comment xml:lang="en">Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).</rdfs:comment>
+		<rdfs:comment xml:lang="en">Indicates an item, &lt;a class="localLink" href="/Product"&gt;Product&lt;/a&gt;, or &lt;a class="localLink" href="/CreativeWork"&gt;CreativeWork&lt;/a&gt; that is part of this item, &lt;a class="localLink" href="/Product"&gt;Product&lt;/a&gt;, or &lt;a class="localLink" href="/CreativeWork"&gt;CreativeWork&lt;/a&gt; (in some sense), such as a member of a coordinated set or collection.</rdfs:comment>
 		<rdfs:label xml:lang="en">hasPart</rdfs:label>
 		<owl:inverseOf rdf:resource="https://schema.org/isPartOf" />
 		<rdfs:isDefinedBy rdf:resource="https://schema.org/hasPart" />
@@ -20517,6 +20517,7 @@ In the context of &lt;a class="localLink" href="/ShippingService"&gt;ShippingSer
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
 					<owl:Class rdf:about="https://schema.org/CreativeWork" />
+					<owl:Class rdf:about="https://schema.org/Product" />
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
@@ -20524,6 +20525,7 @@ In the context of &lt;a class="localLink" href="/ShippingService"&gt;ShippingSer
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
 					<owl:Class rdf:about="https://schema.org/CreativeWork" />
+					<owl:Class rdf:about="https://schema.org/Product" />
 					<owl:Class rdf:about="https://schema.org/Role" />
 					<owl:Class rdf:about="https://schema.org/Text" />
 					<owl:Class rdf:about="https://schema.org/URL" />
@@ -23078,7 +23080,7 @@ See also &lt;a class="localLink" href="/eligibleRegion"&gt;eligibleRegion&lt;/a&
 		</rdfs:range>
 	</owl:ObjectProperty>
 	<owl:ObjectProperty rdf:about="https://schema.org/isPartOf">
-		<rdfs:comment xml:lang="en">Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of.</rdfs:comment>
+		<rdfs:comment xml:lang="en">Indicates an item, &lt;a class="localLink" href="/Product"&gt;Product&lt;/a&gt;, or &lt;a class="localLink" href="/CreativeWork"&gt;CreativeWork&lt;/a&gt; that this item, &lt;a class="localLink" href="/Product"&gt;Product&lt;/a&gt;, or &lt;a class="localLink" href="/CreativeWork"&gt;CreativeWork&lt;/a&gt; (in some sense) is part of, such as a member of a coordinated set or collection.</rdfs:comment>
 		<rdfs:label xml:lang="en">isPartOf</rdfs:label>
 		<owl:inverseOf rdf:resource="https://schema.org/hasPart" />
 		<rdfs:isDefinedBy rdf:resource="https://schema.org/isPartOf" />
@@ -23086,6 +23088,7 @@ See also &lt;a class="localLink" href="/eligibleRegion"&gt;eligibleRegion&lt;/a&
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
 					<owl:Class rdf:about="https://schema.org/CreativeWork" />
+					<owl:Class rdf:about="https://schema.org/Product" />
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
@@ -23093,6 +23096,7 @@ See also &lt;a class="localLink" href="/eligibleRegion"&gt;eligibleRegion&lt;/a&
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
 					<owl:Class rdf:about="https://schema.org/CreativeWork" />
+					<owl:Class rdf:about="https://schema.org/Product" />
 					<owl:Class rdf:about="https://schema.org/Role" />
 					<owl:Class rdf:about="https://schema.org/Text" />
 					<owl:Class rdf:about="https://schema.org/URL" />
