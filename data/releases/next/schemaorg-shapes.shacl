@@ -2568,6 +2568,8 @@
 
 :ValidSchemaProductCollection a sh:NodeShape ;
     sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTypeAndQuantityNode ] ) ;
+            sh:path schema:includesObject ] ;
     sh:targetClass schema:ProductCollection .
 
 :ValidSchemaProductReturnEnumeration a sh:NodeShape ;
@@ -7948,8 +7950,6 @@
             sh:path schema:importer ],
         [ sh:node :ValidSchemaText ;
             sh:path schema:inProductGroupWithID ],
-        [ sh:or ( [ sh:node :ValidSchemaText ] [ sh:node :ValidSchemaTypeAndQuantityNode ] ) ;
-            sh:path schema:includesObject ],
         [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
             sh:path schema:isAccessoryOrSparePartFor ],
         [ sh:or ( [ sh:node :ValidSchemaProduct ] [ sh:node :ValidSchemaText ] ) ;
