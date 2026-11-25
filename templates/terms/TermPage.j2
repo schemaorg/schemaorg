@@ -10,11 +10,6 @@
     {% endif %}
     {% include 'terms/Head.j2' with context %}
 
-    {% if "goto" in BUILDOPTS %}
-        <script src="{{docsdir}}/jumpmenu.js"></script>
-        <link rel="stylesheet" type="text/css" href="{{docsdir}}/jumpmenu.css" />
-    {% endif %}
-
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
@@ -45,7 +40,7 @@
                         <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></ul>
+                </ul></code>
             </div>
             <div class="jumptarget" id="types" title="Used on">
                 <h3>Used on these types</h3>
@@ -55,7 +50,7 @@
                         <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></ul>
+                </ul></code>
             </div>
         {% endif %}
 

@@ -20,5 +20,9 @@
     <script src="{{docsdir}}/clipboard/clipboard.min.js"></script>
 
 <link rel="canonical" href="https://schema.org/{{term.id}}" />
-   
+    {% if "goto" in BUILDOPTS %}
+        <script src="{{docsdir}}/jumpmenu.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{docsdir}}/jumpmenu.css" />
+    {% endif %}
+
 </head>

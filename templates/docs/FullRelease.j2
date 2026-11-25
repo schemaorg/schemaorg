@@ -11,22 +11,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Generated from FullRelease.j2 -->
-<head>
-    <title>{{ title }} - {{ sitename }} {{ SUBNAME }}</title>
-    <meta charset="utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="shortcut icon" type="image/png" href="{{docsdir}}/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="https://schema.org/schemaorg.css" />
-    <link rel="stylesheet" type="text/css" href="{{docsdir}}/schemaorg.css" />
-    <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
-    <link rel="stylesheet" type="text/css" href="{{docsdir}}/prettify.css" />
-    <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{docsdir}}/schemaorg.js"></script>
-
-</head>
     {% include 'docs/DocsHead.j2' with context %}
 <body>
     {% include 'PageHeader.j2' with context %}
@@ -50,6 +34,7 @@
   <dd>
      This release, full core and extension definition files in N-Triples, Quads, JSON-LD, and Turtle formats, are also available for <a href="/docs/developers.html#defs">download</a>.
   </dd>
+</dl>
 
 <p>
 <b>Overview:</b>
@@ -81,7 +66,7 @@ that are useful for publishers and consumers of schema.org data.
       {% endif %}
       {% if not node.retired %}
         <li class="tbranch" {% if not node.repeat %} id="C.{{node.id}}"{% endif %}>{{ Link(node) }}
-            {% if node.repeat %} <a href="#C.{{node.id}}">+ {% endif %}
+            {% if node.repeat %} <a href="#C.{{node.id}}">+</a> {% endif %}
             {% if node.subs %}
                 <ul>
                     {{ loop(node.subs) }}
@@ -91,6 +76,7 @@ that are useful for publishers and consumers of schema.org data.
       {% endif %}
       {% if loop.depth == 1 %}
         </ul>
+        </div>
       {% endif %}
     {% endfor %}
 
@@ -136,7 +122,7 @@ that are useful for publishers and consumers of schema.org data.
 
     <br/>
     {% for prop in properties %}
-        {% if not loop.first %}, {% endif %}{{ Link(prop) }}</a>
+        {% if not loop.first %}, {% endif %}{{ Link(prop) }}
     {% endfor %}
     <br/>
     </div>
@@ -145,7 +131,7 @@ that are useful for publishers and consumers of schema.org data.
         <h4 id="term_{{prop.id}}" title="{{prop.label}}">{{prop.label}}</h4>
         <p>{{prop.comment|safe}}</p>
         {% for term in prop.domainIncludes.terms %}
-            <br/>Relevant types:<ul>
+            {% if loop.first %}<br/>Relevant types:<ul>{% endif %}
                 <li>{{ Link(term) }}</li>
             {% if loop.last %}</ul>{% endif %}
         {% endfor %}
