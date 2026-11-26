@@ -6,8 +6,7 @@ from pathlib import Path
 import re
 from typing import Any
 
-from schemaorg.layout import Issues
-import util.paths as paths
+from schemaorg.layout import InputLayout, Issues
 
 IDPREFIX: str = "eg-"
 NO_JSON_REGEXPS: tuple[re.Pattern[str], ...] = (
@@ -158,7 +157,7 @@ class Example:
 class SchemaExamples:
     """Immutable-by-convention collection of examples indexed by ID and term."""
 
-    def __init__(self, examples: Iterable[Example] = ()) -> None:
+    def __init__(self, examples: Iterable[Example]) -> None:
         self._examples: dict[str, Example] = {}
         self._by_term: dict[str, list[str]] = {}
         for example in examples:
@@ -179,7 +178,7 @@ class SchemaExamples:
     def from_files(cls, files: Iterable[str | Path]) -> SchemaExamples:
         load_files: list[str] = [str(f) for f in files]
         if not load_files:
-            return cls()
+            return cls(())
         log.info("Loading examples from %d files", len(load_files))
         parser = ExampleFileParser()
         parsed: list[Example] = []
@@ -192,8 +191,14 @@ class SchemaExamples:
         return instance
 
     @classmethod
-    def from_default(cls) -> SchemaExamples:
-        return cls.from_files(Issues(paths.DefaultInputLayout()).get_example_files())
+    def from_layout(cls, input_layout: InputLayout) -> SchemaExamples:
+        instance = cls.from_files(Issues(input_layout).get_example_files())
+        for example in instance.allExamples():
+            example.setMeta(
+                "file",
+                input_layout.relative_file(example.getMeta("file")).as_posix(),
+            )
+        return instance
 
     def __len__(self) -> int:
         return len(self._examples)
@@ -296,7 +301,6 @@ class ExampleFileParser:
         examples: list[Example] = []
 
         content = Path(self.file).read_text(encoding="utf-8")
-        rel_file = str(paths.DefaultInputLayout().relative_file(self.file))
 
         first: bool = True
         boilerplate: bool = False
@@ -316,7 +320,7 @@ class ExampleFileParser:
                         examples.append(self.makeExample())
                     boilerplate = False
                     self.initFields()
-                self.exmeta["file"] = rel_file
+                self.exmeta["file"] = self.file
                 self.exmeta["filepos"] = self.filepos
                 _, type_spec = line.split(":", 1)
                 tdata = _EGID_RE.sub(

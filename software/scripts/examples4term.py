@@ -63,7 +63,11 @@ def getexamples(
     terms: Iterable[str],
     examples: SchemaExamples | None = None,
 ) -> list[Example]:
-    loaded = examples if examples is not None else SchemaExamples.from_default()
+    loaded = (
+        examples
+        if examples is not None
+        else SchemaExamples.from_layout(InputLayout(constants.PROJECT_ROOT))
+    )
     return sorted(
         {e for t in terms for e in loaded.examplesForTerm(t)},
         key=lambda e: e.keyvalue,

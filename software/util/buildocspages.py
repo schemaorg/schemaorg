@@ -11,9 +11,9 @@ from schemaorg.graph_loader import GraphLoader
 from schemaorg.layout import Issues, Releases
 from schemaorg.model import VocabularyLoader
 from schemaorg.renderers import CountsRenderer
+from schemaorg.template_renderer import TemplateRenderer
 from schemaorg.term_view import TermKind, TermView, TermViewCatalog
 import util.fileutils as fileutils
-import util.jinja_render as jinja_render
 import util.paths as paths
 import util.pretty_logger as pretty_logger
 import util.schema as schema
@@ -36,16 +36,20 @@ def _default_catalog() -> TermViewCatalog:
     return TermViewCatalog.from_graph(graph, vocab, collaborators)
 
 
+def _default_renderer() -> TemplateRenderer:
+    if _SHARED_DOCS_RENDERER is not None:
+        return _SHARED_DOCS_RENDERER
+    return TemplateRenderer(
+        paths.DefaultInputLayout(),
+        schema.target_version(),
+        schema.config.BUILDOPTS,
+    )
+
+
 def docsTemplateRender(
     template: str, extra_vars: dict[str, Any] | None = None
 ) -> str:
-    tvars: dict[str, Any] = {
-        "BUILDOPTS": schema.config.BUILDOPTS,
-        "docsdir": schema.constants.DOCSDOCSDIR,
-    }
-    if extra_vars:
-        tvars.update(extra_vars)
-    return jinja_render.templateRender(template, tvars)
+    return _default_renderer().render(template, extra_vars or {})
 
 
 def schemasPage(_page: str = "", catalog: TermViewCatalog | None = None) -> str:
@@ -296,9 +300,13 @@ PAGELIST: dict[
 }
 
 
+_SHARED_DOCS_RENDERER: TemplateRenderer | None = None
+
+
 def buildDocs(
     pages: Iterable[str], catalog: TermViewCatalog | None = None
 ) -> None:
+    global _SHARED_DOCS_RENDERER
     page_list = list(pages)
     if not page_list:
         return
@@ -309,18 +317,26 @@ def buildDocs(
     )
 
     cat = catalog or _default_catalog()
+    _SHARED_DOCS_RENDERER = TemplateRenderer(
+        paths.DefaultInputLayout(),
+        schema.target_version(),
+        schema.config.BUILDOPTS,
+    )
     output_layout = paths.DefaultOutputLayout()
 
-    for page in process_pages:
-        if entry := PAGELIST.get(page):
-            func, targets = entry
-            with pretty_logger.BlockLog(
-                logger=log, message=f"Generating page {page}"
-            ):
-                content = func(page, catalog=cat)
-                for domain, filename in targets:
-                    output_layout.file(domain, filename).write_text(
-                        content, encoding="utf-8"
-                    )
-        else:
-            log.warning("Unknown or missing page name: %s", page)
+    try:
+        for page in process_pages:
+            if entry := PAGELIST.get(page):
+                func, targets = entry
+                with pretty_logger.BlockLog(
+                    logger=log, message=f"Generating page {page}"
+                ):
+                    content = func(page, catalog=cat)
+                    for domain, filename in targets:
+                        output_layout.file(domain, filename).write_text(
+                            content, encoding="utf-8"
+                        )
+            else:
+                log.warning("Unknown or missing page name: %s", page)
+    finally:
+        _SHARED_DOCS_RENDERER = None

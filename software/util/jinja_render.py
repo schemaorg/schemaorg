@@ -9,8 +9,6 @@ from schemaorg import constants
 import util.schema as schema
 
 TEMPLATESDIR = constants.PROJECT_ROOT / "templates"
-TERMHREFSUFFIX = ""
-TERMHREFPREFIX = "/"
 
 
 def _set_local_var(local_vars_dict: dict[str, Any], name: str, value: Any) -> str:
@@ -41,8 +39,6 @@ def templateRender(
         "version": target.number(),
         "versiondate": target.date() or "",
         "sitename": schema.constants.SITENAME,
-        "TERMHREFPREFIX": TERMHREFPREFIX,
-        "TERMHREFSUFFIX": TERMHREFSUFFIX,
     }
     if extra_vars:
         tvars.update(extra_vars)
