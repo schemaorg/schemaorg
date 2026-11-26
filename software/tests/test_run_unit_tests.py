@@ -31,6 +31,11 @@ class TestRunUnitTestsTask(unittest.TestCase):
                         self.assertEqual(1 + 1, 2)
                     def test_fail(self) -> None:
                         self.assertEqual(1, 2)
+                    def test_error(self) -> None:
+                        raise RuntimeError("boom")
+                    def test_subtest_fail(self) -> None:
+                        with self.subTest(case="bad-case"):
+                            self.assertEqual("a", "b")
             """),
             encoding="utf-8",
         )
@@ -44,7 +49,7 @@ class TestRunUnitTestsTask(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def test_runs_all_tests_and_reports_failures(self) -> None:
+    def test_runs_all_tests_and_logs_failures_errors_and_subtests(self) -> None:
         logger = logging.getLogger("test.run_unit_tests")
         reporter = LogProgressReporter(logger=logger, log_steps=True)
         with self.assertLogs(logger, level=logging.INFO) as captured:
@@ -54,11 +59,15 @@ class TestRunUnitTestsTask(unittest.TestCase):
                 progress=reporter,
             ).run()
 
-        self.assertEqual(summary.total_run, 3)
-        self.assertEqual(summary.failure_count, 1)
-        self.assertEqual(summary.error_count, 0)
+        joined = "\n".join(captured.output)
+        self.assertEqual(summary.total_run, 5)
+        self.assertEqual(summary.failure_count, 2)
+        self.assertEqual(summary.error_count, 1)
         self.assertFalse(summary.ok)
-        self.assertIn("(3/3 tests)", "\n".join(captured.output))
+        self.assertIn("(5/5 tests)", joined)
+        self.assertIn("ERROR in", joined)
+        self.assertIn("boom", joined)
+        self.assertIn("case='bad-case'", joined)
 
     def test_skip_basics_runs_only_graphs_pattern(self) -> None:
         summary = RunUnitTestsTask(

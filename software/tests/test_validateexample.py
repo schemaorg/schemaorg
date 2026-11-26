@@ -13,6 +13,8 @@ happened here.
 from __future__ import annotations
 
 from functools import partial
+import json
+import logging
 import os
 from pathlib import Path
 import subprocess
@@ -24,7 +26,15 @@ from unittest.mock import patch
 import rdflib
 from rdflib.namespace import SH
 
-from schemaorg.layout import Releases
+from schemaorg.layout import OutputLayout, Releases
+from schemaorg.progress import LogProgressReporter, NullProgressReporter
+from schemaorg.tasks.validate_examples import (
+    ExampleResult,
+    ExampleValidator,
+    ShaclConfigError,
+    ValidateExamplesTask,
+)
+from schemaorg.version import Version
 import scripts.buildsite as buildsite
 import scripts.validate_examples_shacl as validator
 import util.paths as paths
@@ -45,6 +55,9 @@ class FakeExample:
 
 
 class ValidateExampleTests(unittest.TestCase):
+    shapes: rdflib.Graph
+    ontology: rdflib.Graph
+    engine: ExampleValidator
     GOOD = '{"@context":"http://schema.org/","@type":"Person","name":"Jane"}'
     BAD = (
         '{"@context":"http://schema.org/","@type":"Person",'
@@ -66,11 +79,11 @@ class ValidateExampleTests(unittest.TestCase):
         cls.shapes = rdflib.Graph()
         cls.shapes.parse(data=shapes_turtle, format="turtle")
         cls.ontology = rdflib.Graph()
-        cls.engine = validator.ExampleValidator(
+        cls.engine = ExampleValidator(
             shacl_graph=cls.shapes, ont_graph=cls.ontology
         )
 
-    def validate(self, name: str, jsonld: str) -> validator.ExampleResult:
+    def validate(self, name: str, jsonld: str) -> ExampleResult:
         return self.engine.validate(FakeExample(name, jsonld))
 
     def testResultCarriesItsExample(self) -> None:
@@ -87,7 +100,7 @@ class ValidateExampleTests(unittest.TestCase):
 
     def testShapesWithoutTargetsCannotBuildAValidator(self) -> None:
         with self.assertRaises(ValueError):
-            validator.ExampleValidator(
+            ExampleValidator(
                 shacl_graph=rdflib.Graph(), ont_graph=rdflib.Graph()
             )
 
@@ -140,17 +153,79 @@ class ValidateExampleTests(unittest.TestCase):
         self.assertEqual(len(self.shapes), shapes_before)
         self.assertEqual(len(self.ontology), ontology_before)
 
-    def testSourceOutputOnlyLogsFailures(self) -> None:
-        with self.assertLogs(validator.log, level="INFO") as captured:
-            stats = validator.ValidationStats(
-                total=2, invalid_only=False, source_output=True
-            )
-            stats.add(self.validate("eg-good", self.GOOD))
-            stats.add(self.validate("eg-bad", self.BAD))
+    def _write_temp_releases(self, root: Path) -> tuple[Releases, Version]:
+        versions_path = root / "versions.json"
+        versions_path.write_text(
+            json.dumps({
+                "schemaversion": "30.1",
+                "releaseLog": {"30.1": "2026-09-16"},
+            }),
+            encoding="utf-8",
+        )
+        version = Version(versions_path)
+        releases = Releases(OutputLayout(root / "out"), version)
+        shapes = releases.file(
+            version.next(), protocol="", scope="shapes", extension=".shacl"
+        )
+        shapes.write_text(self.shapes.serialize(format="turtle"), encoding="utf-8")
+        releases.file(
+            version.next(), protocol="", scope="subclasses", extension=".shacl"
+        ).write_text("", encoding="utf-8")
+        return releases, version
+
+    def testTaskValidatesExamplesAndSourceOutputOnlyLogsFailures(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            releases, version = self._write_temp_releases(Path(tmp))
+            logger = logging.getLogger("test.validate_task")
+            reporter = LogProgressReporter(logger=logger, log_steps=True)
+            with self.assertLogs(logger, level=logging.INFO) as captured:
+                summary = ValidateExamplesTask(
+                    releases=releases,
+                    version=version.next(),
+                    examples=(
+                        FakeExample("eg-good", self.GOOD),
+                        FakeExample("eg-bad", self.BAD),
+                    ),
+                    invalid_only=False,
+                    source_output=True,
+                    progress=reporter,
+                ).run()
 
         joined = "\n".join(captured.output)
+        self.assertEqual(summary.total_count, 2)
+        self.assertEqual(summary.targeted_count, 2)
+        self.assertEqual(summary.error_count, 1)
+        self.assertEqual(summary.failures[0].name, "eg-bad")
+        self.assertIn("(2/2 examples)", joined)
         self.assertNotIn("Jane", joined)
         self.assertIn("not a string", joined)
+
+    def testTaskReportsMalformedJsonAsFailureNotConfigError(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            releases, version = self._write_temp_releases(Path(tmp))
+            summary = ValidateExamplesTask(
+                releases=releases,
+                version=version.next(),
+                examples=(FakeExample("eg-broken", "{ not json"),),
+                invalid_only=True,
+                source_output=False,
+                progress=NullProgressReporter(),
+            ).run()
+        self.assertEqual(summary.error_count, 1)
+        self.assertEqual(summary.targeted_count, 0)
+        self.assertIsNotNone(summary.failures[0].error)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            releases, version = self._write_temp_releases(Path(tmp))
+            with self.assertRaises(ShaclConfigError):
+                ValidateExamplesTask(
+                    releases=releases,
+                    version=version.next(),
+                    examples=(),
+                    invalid_only=True,
+                    source_output=False,
+                    progress=NullProgressReporter(),
+                ).run()
 
     def testEmptyExamplesExitsConfigError(self) -> None:
         with (
@@ -161,10 +236,11 @@ class ValidateExampleTests(unittest.TestCase):
         self.assertEqual(cm.exception.code, os.EX_CONFIG)
         self.assertIn("No JSON-LD examples found", "\n".join(logs.output))
 
-    def testMissingShaclFilesExitsConfigError(self) -> None:
+    def testMissingShaclFilesExitsConfigErrorWithoutMkdir(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
+            fresh_out = Path(tmp) / "fresh"
             empty_releases = Releases(
-                validator.OutputLayout(Path(tmp)), validator.schema.VERSION
+                OutputLayout(fresh_out), validator.schema.VERSION
             )
             with (
                 self.assertLogs(validator.log, level="ERROR") as logs,
@@ -178,6 +254,7 @@ class ValidateExampleTests(unittest.TestCase):
                 )
             self.assertEqual(cm.exception.code, os.EX_CONFIG)
             self.assertIn("SHACL files not found", "\n".join(logs.output))
+            self.assertFalse(fresh_out.exists())
 
     def testRunShaclTestsFailsWhenShaclMissing(self) -> None:
         quiet_run = partial(subprocess.run, capture_output=True)
@@ -201,7 +278,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     SHAPES_FILENAME = "schemaorg-shapes.shacl"
     SUBCLASSES_FILENAME = "schemaorg-subclasses.shacl"
-    result: validator.ExampleResult | None
+    result: ExampleResult | None
     shapes: rdflib.Graph
 
     @classmethod
@@ -214,7 +291,7 @@ class ShaclGateLivenessTests(unittest.TestCase):
             return
 
         cls.shapes = shapes
-        engine = validator.ExampleValidator(shacl_graph=shapes, ont_graph=ontology)
+        engine = ExampleValidator(shacl_graph=shapes, ont_graph=ontology)
         cls.result = engine.validate(FakeExample("canary", cls.canary_payload()))
 
     @classmethod

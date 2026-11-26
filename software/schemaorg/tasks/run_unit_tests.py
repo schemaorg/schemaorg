@@ -51,12 +51,36 @@ class _ProgressTestResult(unittest.TestResult):
     def addError(self, test: unittest.TestCase, err: Any) -> None:
         super().addError(test, err)
         _, traceback_str = self.errors[-1]
-        self._progress.log(f"ERROR in {test.id()}:\n{traceback_str}", logging.ERROR)
+        self._progress.log(
+            f"ERROR in {test.id()}:\n{traceback_str}", logging.ERROR
+        )
 
     def addFailure(self, test: unittest.TestCase, err: Any) -> None:
         super().addFailure(test, err)
         _, traceback_str = self.failures[-1]
-        self._progress.log(f"FAIL in {test.id()}:\n{traceback_str}", logging.ERROR)
+        self._progress.log(
+            f"FAIL in {test.id()}:\n{traceback_str}", logging.ERROR
+        )
+
+    def addSubTest(
+        self,
+        test: unittest.TestCase,
+        subtest: unittest.TestCase,
+        err: Any,
+    ) -> None:
+        super().addSubTest(test, subtest, err)
+        if err is None:
+            return
+        if issubclass(err[0], test.failureException):
+            _, traceback_str = self.failures[-1]
+            self._progress.log(
+                f"FAIL in {subtest.id()}:\n{traceback_str}", logging.ERROR
+            )
+        else:
+            _, traceback_str = self.errors[-1]
+            self._progress.log(
+                f"ERROR in {subtest.id()}:\n{traceback_str}", logging.ERROR
+            )
 
     def addUnexpectedSuccess(self, test: unittest.TestCase) -> None:
         super().addUnexpectedSuccess(test)
@@ -65,18 +89,13 @@ class _ProgressTestResult(unittest.TestResult):
         )
 
 
+@dataclass(frozen=True)
 class RunUnitTestsTask:
     """Discovers and executes unittest cases in a given directory."""
 
-    def __init__(
-        self,
-        tests_dir: Path,
-        skip_basics: bool,
-        progress: ProgressReporter,
-    ) -> None:
-        self.tests_dir: Path = tests_dir
-        self.skip_basics: bool = skip_basics
-        self.progress: ProgressReporter = progress
+    tests_dir: Path
+    skip_basics: bool
+    progress: ProgressReporter
 
     def run(self) -> TestSuiteSummary:
         pattern = "*graphs*.py" if self.skip_basics else "test*.py"

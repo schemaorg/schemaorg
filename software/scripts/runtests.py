@@ -12,9 +12,17 @@ import sys
 from schemaorg import constants
 from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.run_unit_tests import RunUnitTestsTask
-import util.pretty_logger as pretty_logger
 
 log: logging.Logger = logging.getLogger(__name__)
+
+
+def _configure_runner_logger() -> None:
+    if not log.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter("%(levelname)s %(name)s: %(message)s"))
+        log.addHandler(handler)
+    log.setLevel(logging.INFO)
+    log.propagate = False
 
 
 def main(
@@ -22,8 +30,7 @@ def main(
     args: argparse.Namespace | None = None,
     argv: Sequence[str] | None = None,
 ) -> int:
-    logging.basicConfig(level=logging.INFO)
-    pretty_logger.MakeRootLogPretty()
+    _configure_runner_logger()
 
     if test_path is None:
         test_path = str(constants.PROJECT_ROOT / "software/tests")
@@ -41,11 +48,7 @@ def main(
         skip_basics=bool(args.skipbasics),
         progress=LogProgressReporter(logger=log, log_steps=False),
     ).run()
-    return (
-        summary.failure_count
-        + summary.error_count
-        + summary.unexpected_success_count
-    )
+    return 0 if summary.ok else 1
 
 
 if __name__ == "__main__":

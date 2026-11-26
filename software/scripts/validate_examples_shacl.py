@@ -14,12 +14,9 @@ from schemaorg.layout import NEXT_VERSION, OutputLayout, Releases
 from schemaorg.layout.releases import VersionRef
 from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.validate_examples import (
-    ExampleResult,
-    ExampleValidator,
     ShaclConfigError,
     ValidatableExample,
     ValidateExamplesTask,
-    format_numbered_source,
 )
 import SchemaExamples.schemaexamples as schemaexamples
 import util.paths as paths
@@ -35,45 +32,6 @@ def load_examples() -> list[schemaexamples.Example]:
     )
     log.info("Loaded %d examples, processing JSON-LD variants", len(loaded))
     return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
-
-
-class ValidationStats:
-    """Compatibility accumulator logging example validation outcomes."""
-
-    def __init__(
-        self, total: int, invalid_only: bool, source_output: bool
-    ) -> None:
-        self.total = total
-        self.invalid_only = invalid_only
-        self.source_output = source_output
-        self.count: int = 0
-        self.error_count: int = 0
-        self.targeted_count: int = 0
-        log.info("Validating %d examples", self.total)
-
-    def add(self, result: ExampleResult) -> None:
-        self.count += 1
-        if not self.invalid_only:
-            log.info("Validating example %s", result.name)
-        if result.targeted:
-            self.targeted_count += 1
-
-        failed = result.error is not None or not result.conforms
-        if result.error is not None:
-            self.error_count += 1
-            log.error("Invalid JSON example %s: %s", result.name, result.error)
-        elif not result.conforms:
-            self.error_count += 1
-            log.error(
-                "Validation failed for example %s:\n%s",
-                result.name,
-                result.report,
-            )
-        if self.source_output and failed:
-            log.info(
-                "Source:\n%s",
-                format_numbered_source(result.example.getJsonldRaw()),
-            )
 
 
 def validate_examples(

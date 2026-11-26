@@ -12,7 +12,7 @@ import pyshacl
 import rdflib
 from rdflib.namespace import RDF, SH
 
-from schemaorg.layout import Releases
+from schemaorg.layout import Domain, OutputLayout, Releases
 from schemaorg.progress import ProgressReporter
 from schemaorg.version import VersionItem
 
@@ -118,34 +118,38 @@ def format_numbered_source(raw_jsonld: str) -> str:
     )
 
 
+@dataclass(frozen=True)
 class ValidateExamplesTask:
     """Validates JSON-LD examples against release SHACL shapes via ProgressReporter."""
 
-    def __init__(
-        self,
-        releases: Releases,
-        version: VersionItem,
-        examples: Sequence[ValidatableExample],
-        invalid_only: bool,
-        source_output: bool,
-        progress: ProgressReporter,
-    ) -> None:
-        self.releases: Releases = releases
-        self.version: VersionItem = version
-        self.examples: Sequence[ValidatableExample] = examples
-        self.invalid_only: bool = invalid_only
-        self.source_output: bool = source_output
-        self.progress: ProgressReporter = progress
+    releases: Releases
+    version: VersionItem
+    examples: Sequence[ValidatableExample]
+    invalid_only: bool
+    source_output: bool
+    progress: ProgressReporter
 
     def run(self) -> ValidationSummary:
         if not self.examples:
             raise ShaclConfigError("No JSON-LD examples found to validate.")
 
+        version = self.releases.resolve(self.version)
+        if isinstance(self.releases.layout, OutputLayout):
+            release_dir = (
+                self.releases.layout.output_dir
+                / Domain.RELEASE.value
+                / version.number()
+            )
+            if not release_dir.is_dir():
+                raise ShaclConfigError(
+                    f"SHACL files not found in {release_dir} – check site build"
+                )
+
         shacl_file = self.releases.file(
-            self.version, protocol="", scope="shapes", extension=".shacl"
+            version, protocol="", scope="shapes", extension=".shacl"
         )
         subclass_file = self.releases.file(
-            self.version, protocol="", scope="subclasses", extension=".shacl"
+            version, protocol="", scope="subclasses", extension=".shacl"
         )
         if not shacl_file.is_file() or not subclass_file.is_file():
             raise ShaclConfigError(
@@ -201,7 +205,7 @@ class ValidateExamplesTask:
                     )
                 p.advance(1)
 
-        if not targeted_count:
+        if not targeted_count and not failures:
             raise ShaclConfigError(
                 f"SHACL gate inspected none of the {len(self.examples)} examples: "
                 "no example declares a type that any shape targets."
