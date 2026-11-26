@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 import csv
+from dataclasses import dataclass
 import logging
 from pathlib import Path
 
@@ -15,26 +16,14 @@ from schemaorg.sdo_uri import SdoUri
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 
 
-def _add_subterms(
-    vocab: Vocabulary, uri: URIRef, seen: set[str], result: list[str]
-) -> None:
-    for sub_uri in vocab.subs.get(uri, ()):
-        sub_id = SdoUri(sub_uri).term_name()
-        if sub_id not in seen:
-            seen.add(sub_id)
-            result.append(sub_id)
-        if vocab.term(sub_uri) is not None:
-            _add_subterms(vocab, sub_uri, seen, result)
-
-
 def _resolve_terms(
     vocab: Vocabulary,
     term_names: Sequence[str],
     recursive: bool,
     progress_handle: TaskProgress,
-) -> list[str]:
-    result: list[str] = []
+) -> set[str]:
     seen: set[str] = set()
+    stack: list[URIRef] = []
 
     for term_name in term_names:
         term = vocab.term(term_name)
@@ -43,31 +32,30 @@ def _resolve_terms(
             continue
         if term.id not in seen:
             seen.add(term.id)
-            result.append(term.id)
-        if recursive:
-            _add_subterms(vocab, term.uri, seen, result)
+            if recursive:
+                stack.append(term.uri)
 
-    return result
+    while stack:
+        uri = stack.pop()
+        for sub_uri in vocab.subs.get(uri, ()):
+            sub_id = SdoUri(sub_uri).term_name()
+            if sub_id not in seen:
+                seen.add(sub_id)
+                stack.append(sub_uri)
+
+    return seen
 
 
+@dataclass(frozen=True)
 class ExportTermExamplesTask:
     """Exports a CSV summary of examples linked to one or more terms."""
 
-    def __init__(
-        self,
-        vocab: Vocabulary,
-        examples: SchemaExamples,
-        term_names: Sequence[str],
-        recursive: bool,
-        output_path: Path,
-        progress: ProgressReporter,
-    ) -> None:
-        self.vocab: Vocabulary = vocab
-        self.examples: SchemaExamples = examples
-        self.term_names: tuple[str, ...] = tuple(term_names)
-        self.recursive: bool = recursive
-        self.output_path: Path = output_path
-        self.progress: ProgressReporter = progress
+    vocab: Vocabulary
+    examples: SchemaExamples
+    term_names: Sequence[str]
+    recursive: bool
+    output_path: Path
+    progress: ProgressReporter
 
     def run(self) -> Path:
         target_path = (
@@ -111,13 +99,11 @@ class ExportTermExamplesTask:
                 )
                 writer.writeheader()
                 for example in matched:
-                    writer.writerow(
-                        {
-                            "Example Id": example.keyvalue,
-                            "Source File": example.getMeta("source"),
-                            "Linked to Terms": ", ".join(example.terms),
-                        }
-                    )
+                    writer.writerow({
+                        "Example Id": example.keyvalue,
+                        "Source File": example.getMeta("source"),
+                        "Linked to Terms": ", ".join(example.terms),
+                    })
                     p.advance(1)
 
         return target_path

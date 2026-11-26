@@ -3,41 +3,72 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 import itertools
 from pathlib import Path
+import tempfile
 
 import rdflib
+from rdflib.compare import isomorphic
+from rdflib.namespace import RDF, RDFS
 
+from schemaorg.graph_loader import GraphLoader
 from schemaorg.progress import ProgressReporter
 from schemaorg.publish.turtle import CustomTurtleSerializer
-from schemaorg.sdo_uri import SdoUri
-import util.schema_graph as graph
+from schemaorg.sdo_uri import SDO, SdoUri
 
 VALID_PARTS: tuple[str, ...] = ("pending", "attic", "meta", "GA")
 
 
-def _write_turtle(g: graph.SchemaOrgGraph, target: Path) -> None:
+def _graphs_equal(a: rdflib.Graph, b: rdflib.Graph) -> bool:
+    if not (a - b) and not (b - a):
+        return True
+    if any(isinstance(node, rdflib.BNode) for triple in a for node in triple):
+        return isomorphic(a, b)
+    return False
+
+
+def _write_turtle_atomic(
+    graph: rdflib.Graph,
+    target: Path,
+    *,
+    verify: bool,
+    error_message: str = "",
+) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
-    with target.open("wb") as stream:
-        CustomTurtleSerializer(g.g).serialize(stream)
+    with tempfile.NamedTemporaryFile(
+        dir=target.parent, delete=False, suffix=".tmp"
+    ) as stream:
+        tmp_path = Path(stream.name)
+        try:
+            CustomTurtleSerializer(graph).serialize(stream)
+        except BaseException:
+            tmp_path.unlink(missing_ok=True)
+            raise
+    try:
+        if verify:
+            written = GraphLoader.load([tmp_path])
+            if not _graphs_equal(graph, written):
+                raise ValueError(error_message)
+        tmp_path.replace(target)
+    except BaseException:
+        tmp_path.unlink(missing_ok=True)
+        raise
 
 
+@dataclass(frozen=True)
 class LintTurtleTask:
     """Reformats Turtle file(s) deterministically and verifies round-trip parity."""
 
-    def __init__(
-        self,
-        files: Sequence[Path],
-        output: Path | None,
-        progress: ProgressReporter,
-    ) -> None:
-        if not files:
+    files: Sequence[Path]
+    output: Path | None
+    progress: ProgressReporter
+
+    def __post_init__(self) -> None:
+        if not self.files:
             raise ValueError("LintTurtleTask requires at least one file.")
-        if output is not None and len(files) > 1:
+        if self.output is not None and len(self.files) > 1:
             raise ValueError("Cannot use output path with multiple files.")
-        self.files: tuple[Path, ...] = tuple(files)
-        self.output: Path | None = output
-        self.progress: ProgressReporter = progress
 
     def run(self) -> list[Path]:
         written: list[Path] = []
@@ -51,31 +82,29 @@ class LintTurtleTask:
                 target_path = (
                     self.output if self.output is not None else source_path
                 )
-                g = graph.SchemaOrgGraph([source_path])
-                _write_turtle(g, target_path)
-                if not g.IdenticalTo(graph.SchemaOrgGraph([target_path])):
-                    raise ValueError(
-                        f"Linting file {source_path} lost information."
-                    )
+                g = GraphLoader.load([source_path])
+                _write_turtle_atomic(
+                    g,
+                    target_path,
+                    verify=True,
+                    error_message=f"Linting file {source_path} lost information.",
+                )
                 written.append(target_path)
                 p.advance(1)
         return written
 
 
+@dataclass(frozen=True)
 class MergeTurtleTask:
     """Merges multiple Turtle files into one deterministic Turtle file."""
 
-    def __init__(
-        self,
-        files: Sequence[Path],
-        output: Path,
-        progress: ProgressReporter,
-    ) -> None:
-        if not files:
+    files: Sequence[Path]
+    output: Path
+    progress: ProgressReporter
+
+    def __post_init__(self) -> None:
+        if not self.files:
             raise ValueError("MergeTurtleTask requires at least one file.")
-        self.files: tuple[Path, ...] = tuple(files)
-        self.output: Path = output
-        self.progress: ProgressReporter = progress
 
     def run(self) -> Path:
         with self.progress.task(
@@ -84,45 +113,38 @@ class MergeTurtleTask:
             unit="files",
         ) as p:
             p.step(self.output.name)
-            # SchemaOrgGraph loads the whole sequence into a single graph.
-            merged = graph.SchemaOrgGraph(self.files)
-            _write_turtle(merged, self.output)
-
-            written = graph.SchemaOrgGraph([self.output])
-            for path in self.files:
-                p.step(path.name)
-                if not written.FullyContains(graph.SchemaOrgGraph([path])):
-                    raise ValueError(
-                        f"Merging files into {self.output} lost information "
-                        f"from {path}."
-                    )
-                p.advance(1)
+            merged = GraphLoader.load(self.files)
+            _write_turtle_atomic(
+                merged,
+                self.output,
+                verify=True,
+                error_message=(
+                    f"Merging files into {self.output} lost information."
+                ),
+            )
+            p.advance(len(self.files))
         return self.output
 
 
+@dataclass(frozen=True)
 class AnnotateTurtleTask:
     """Sets or clears schema:isPartOf annotations on types and properties."""
 
-    def __init__(
-        self,
-        files: Sequence[Path],
-        output: Path | None,
-        part_of: str,
-        progress: ProgressReporter,
-    ) -> None:
-        if not files:
+    files: Sequence[Path]
+    output: Path | None
+    part_of: str
+    progress: ProgressReporter
+
+    def __post_init__(self) -> None:
+        if not self.files:
             raise ValueError("AnnotateTurtleTask requires at least one file.")
-        if output is not None and len(files) > 1:
+        if self.output is not None and len(self.files) > 1:
             raise ValueError("Cannot use output path with multiple files.")
-        if part_of not in VALID_PARTS:
+        if self.part_of not in VALID_PARTS:
             raise ValueError(
-                f"PartOf annotation {part_of!r} is not valid: "
+                f"PartOf annotation {self.part_of!r} is not valid: "
                 f"select one of {list(VALID_PARTS)}"
             )
-        self.files: tuple[Path, ...] = tuple(files)
-        self.output: Path | None = output
-        self.part_of: str = part_of
-        self.progress: ProgressReporter = progress
 
     def run(self) -> list[Path]:
         # GA is the unannotated state.
@@ -140,12 +162,16 @@ class AnnotateTurtleTask:
                 target_path = (
                     self.output if self.output is not None else source_path
                 )
-                g = graph.SchemaOrgGraph([source_path])
-                g.remove((None, graph.SCHEMAORG.isPartOf, None))
+                g = GraphLoader.load([source_path])
+                g.remove((None, SDO.isPartOf, None))
                 if new_part is not None:
-                    for sub in itertools.chain(g.Types(), g.Properties()):
-                        g.add((sub, graph.SCHEMAORG.isPartOf, new_part))
-                _write_turtle(g, target_path)
+                    subjects = itertools.chain(
+                        g.subjects(RDF.type, RDFS.Class),
+                        g.subjects(RDF.type, RDF.Property),
+                    )
+                    for sub in subjects:
+                        g.add((sub, SDO.isPartOf, new_part))
+                _write_turtle_atomic(g, target_path, verify=False)
                 written.append(target_path)
                 p.advance(1)
         return written

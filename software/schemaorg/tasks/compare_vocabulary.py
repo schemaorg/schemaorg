@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import io
 from pathlib import Path
 
-from rdflib import Graph, Namespace, RDF, RDFS, URIRef
+from rdflib import Dataset, Graph, Namespace, RDF, RDFS, URIRef
 from rdflib.term import Node
 
 from schemaorg import constants
@@ -30,25 +30,34 @@ class VocabularyDiffReport:
     formatted_report: str
 
 
+def _parse_rdf_file(path: Path) -> Graph:
+    if path.suffix == ".nq":
+        ds = Dataset()
+        ds.parse(path, format="nquads")
+        flat = Graph(bind_namespaces="none")
+        for s, p, o, _ in ds.quads((None, None, None, None)):
+            flat.add((s, p, o))
+        return flat
+    return Graph(bind_namespaces="none").parse(path)
+
+
 def _load_spec(
     input_layout: InputLayout,
     spec: str | None,
     default_to_source: bool,
 ) -> Graph:
-    if spec is None and default_to_source:
-        return GraphLoader.load(Issues(input_layout).get_ttl_files())
-
-    if spec == "source":
+    if spec == "source" or (spec is None and default_to_source):
         return GraphLoader.load(Issues(input_layout).get_ttl_files())
 
     if spec is not None:
         candidate = Path(spec)
         if candidate.is_dir():
-            return GraphLoader.load(sorted(candidate.rglob("*.ttl")))
+            ttl_files = sorted(candidate.rglob("*.ttl"))
+            if not ttl_files:
+                raise FileNotFoundError(f"No .ttl files found in {candidate}")
+            return GraphLoader.load(ttl_files)
         if candidate.is_file():
-            if candidate.suffix == ".ttl":
-                return GraphLoader.load([candidate])
-            return Graph().parse(candidate)
+            return _parse_rdf_file(candidate)
 
     version_registry = Version(
         input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
@@ -61,13 +70,13 @@ def _load_spec(
         spec = str(target_ver)
 
     try:
-        return GraphLoader.load(releases.get_ttl_files(spec))
+        return _parse_rdf_file(releases.get_ttl_files(spec)[0])
     except FileNotFoundError:
         release_dir = releases.dir(spec)
         for fallback in ("schema.nt", "all-layers.nq", "schemaorg-all-http.ttl"):
             fallback_path = release_dir / fallback
             if fallback_path.is_file():
-                return Graph().parse(fallback_path)
+                return _parse_rdf_file(fallback_path)
         raise
 
 
@@ -76,7 +85,8 @@ def _filter_layers(
     exclude: Iterable[str],
     include: Iterable[str],
 ) -> Graph:
-    excluded = set(exclude) - set(include)
+    included = set(include)
+    excluded = set(exclude) - included
     if not excluded:
         return graph
 
@@ -86,7 +96,9 @@ def _filter_layers(
     layers_by_subject: dict[Node, set[str]] = {}
     for s, p, o in graph:
         if isinstance(p, URIRef) and SdoUri(p).uri == SDO.isPartOf:
-            layers_by_subject.setdefault(s, set()).add(SdoUri(o).layer())
+            layer = SdoUri(o).layer()
+            if layer != "core":
+                layers_by_subject.setdefault(s, set()).add(layer)
 
     filtered = Graph(bind_namespaces="none")
     for s, p, o in graph:
@@ -94,9 +106,10 @@ def _filter_layers(
         if not layers:
             if skip_core:
                 continue
-        else:
-            if skip_extensions or (layers & excluded):
-                continue
+        elif (layers & excluded) or (
+            skip_extensions and not (layers & included)
+        ):
+            continue
         filtered.add((s, p, o))
     return filtered
 
@@ -128,7 +141,7 @@ def _compare_common_terms(
     common: set[str],
     previous_graph: Graph,
     current_graph: Graph,
-    buff: io.StringIO,
+    buff: io.StringIO | None,
     show_diffs: bool,
 ) -> int:
     qname_graph = Graph()
@@ -158,41 +171,32 @@ def _compare_common_terms(
         dropped = prev_triples - curr_triples
         if added or dropped:
             changed_count += 1
-            buff.write(f"   Changed term: {term}\n")
-            if show_diffs:
-                for s, p, o in sorted(
-                    added, key=lambda t: (str(t[1]), str(t[2]))
-                ):
-                    buff.write(f"       New:     {s} {fmt_pred(p)} {o}\n")
-                for s, p, o in sorted(
-                    dropped, key=lambda t: (str(t[1]), str(t[2]))
-                ):
-                    buff.write(f"       Dropped: {s} {fmt_pred(p)} {o}\n")
+            if buff is not None:
+                buff.write(f"   Changed term: {term}\n")
+                if show_diffs:
+                    for s, p, o in sorted(
+                        added, key=lambda t: (str(t[1]), str(t[2]))
+                    ):
+                        buff.write(f"       New:     {s} {fmt_pred(p)} {o}\n")
+                    for s, p, o in sorted(
+                        dropped, key=lambda t: (str(t[1]), str(t[2]))
+                    ):
+                        buff.write(f"       Dropped: {s} {fmt_pred(p)} {o}\n")
     return changed_count
 
 
+@dataclass(frozen=True)
 class CompareVocabularyTask:
     """Compares vocabulary terms and triples between two schema.org sources."""
 
-    def __init__(
-        self,
-        input_layout: InputLayout,
-        previous_spec: str | None,
-        current_spec: str | None,
-        exclude_layers: Sequence[str],
-        include_layers: Sequence[str],
-        show_names: bool,
-        show_triples: bool,
-        progress: ProgressReporter,
-    ) -> None:
-        self.input_layout: InputLayout = input_layout
-        self.previous_spec: str | None = previous_spec
-        self.current_spec: str | None = current_spec
-        self.exclude_layers: tuple[str, ...] = tuple(exclude_layers)
-        self.include_layers: tuple[str, ...] = tuple(include_layers)
-        self.show_names: bool = show_names
-        self.show_triples: bool = show_triples
-        self.progress: ProgressReporter = progress
+    input_layout: InputLayout
+    previous_spec: str | None
+    current_spec: str | None
+    exclude_layers: Sequence[str]
+    include_layers: Sequence[str]
+    show_names: bool
+    show_triples: bool
+    progress: ProgressReporter
 
     def run(self) -> VocabularyDiffReport:
         with self.progress.task(
@@ -232,7 +236,11 @@ class CompareVocabularyTask:
             dropped = tuple(sorted(prev_terms - cur_terms))
             common = cur_terms & prev_terms
 
-            diff_buf = io.StringIO()
+            diff_buf = (
+                io.StringIO()
+                if (self.show_names or self.show_triples)
+                else None
+            )
             changed = _compare_common_terms(
                 common=common,
                 previous_graph=previous_graph,
@@ -254,7 +262,7 @@ class CompareVocabularyTask:
                 for term in added:
                     report_buf.write(f"   New term {term}\n")
             report_buf.write(f"Changed terms {changed}\n")
-            if self.show_names or self.show_triples:
+            if diff_buf is not None:
                 report_buf.write(diff_buf.getvalue())
             p.advance(1)
 

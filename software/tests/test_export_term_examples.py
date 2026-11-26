@@ -27,30 +27,18 @@ class TestExportTermExamplesTask(unittest.TestCase):
             "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
             "@prefix schema: <https://schema.org/> .\n"
             'schema:CreativeWork a rdfs:Class ; rdfs:label "CreativeWork" .\n'
-            "schema:Book a rdfs:Class ;\n"
-            '    rdfs:label "Book" ;\n'
-            "    rdfs:subClassOf schema:CreativeWork .\n",
+            'schema:Book a rdfs:Class ; rdfs:label "Book" ; rdfs:subClassOf schema:CreativeWork .\n'
+            'schema:Media a rdfs:Class ; rdfs:label "Media" ; rdfs:subClassOf schema:CreativeWork .\n'
+            'schema:AudioBook a rdfs:Class ; rdfs:label "AudioBook" ; rdfs:subClassOf schema:Book, schema:Media .\n',
             encoding="utf-8",
         )
         (data_dir / "examples.txt").write_text(
-            "TYPES: #eg-0001 CreativeWork\n"
-            "PRE-MARKUP:\n"
-            "A work.\n"
-            "MICRODATA:\n"
-            "No microdata.\n"
-            "RDFA:\n"
-            "No rdfa.\n"
-            "JSON:\n"
-            '{"@context": "https://schema.org", "@type": "CreativeWork"}\n\n'
-            "TYPES: #eg-0002 Book\n"
-            "PRE-MARKUP:\n"
-            "A book.\n"
-            "MICRODATA:\n"
-            "No microdata.\n"
-            "RDFA:\n"
-            "No rdfa.\n"
-            "JSON:\n"
-            '{"@context": "https://schema.org", "@type": "Book"}\n',
+            "TYPES: #eg-0001 CreativeWork, Book\n"
+            "PRE-MARKUP:\nA work.\n"
+            'JSON:\n{"@context": "https://schema.org", "@type": "CreativeWork"}\n\n'
+            "TYPES: #eg-0002 AudioBook\n"
+            "PRE-MARKUP:\nAn audiobook.\n"
+            'JSON:\n{"@context": "https://schema.org", "@type": "AudioBook"}\n',
             encoding="utf-8",
         )
 
@@ -59,9 +47,7 @@ class TestExportTermExamplesTask(unittest.TestCase):
         self.vocab = VocabularyLoader(graph).load()
         self.examples = SchemaExamples.from_layout(input_layout)
 
-    def test_exports_direct_and_recursive_examples_and_appends_csv_suffix(
-        self,
-    ) -> None:
+    def test_exports_direct_and_recursive_deduped_csv_columns(self) -> None:
         direct_out = self.root / "direct"
         written_direct = ExportTermExamplesTask(
             vocab=self.vocab,
@@ -75,7 +61,10 @@ class TestExportTermExamplesTask(unittest.TestCase):
         self.assertEqual(written_direct, self.root / "direct.csv")
         with written_direct.open(encoding="utf-8", newline="") as f:
             rows = list(csv.DictReader(f))
-        self.assertEqual([r["Example Id"] for r in rows], ["eg-0001"])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["Example Id"], "eg-0001")
+        self.assertTrue(rows[0]["Source File"].endswith("examples.txt"))
+        self.assertEqual(rows[0]["Linked to Terms"], "CreativeWork, Book")
 
         recursive_out = self.root / "recursive.csv"
         logger = logging.getLogger("test.term_examples")
@@ -83,7 +72,7 @@ class TestExportTermExamplesTask(unittest.TestCase):
             ExportTermExamplesTask(
                 vocab=self.vocab,
                 examples=self.examples,
-                term_names=["CreativeWork", "MissingTerm"],
+                term_names=["CreativeWork", "Book", "MissingTerm"],
                 recursive=True,
                 output_path=recursive_out,
                 progress=LogProgressReporter(logger=logger, log_steps=False),
