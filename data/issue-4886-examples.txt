@@ -1,0 +1,39 @@
+
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sourceport name",
+  "softwareVersion": "1.1.0",
+  "author": {
+    "@type": "Person",
+    "name": "developer name"
+  },
+  "datePublished": "2001-01-01",
+  "screenshot": "https://example.com/image.png",
+  "video": "https://example.com/video.mp4",
+  "operatingSystem": "Windows",
+  "isBasedOn": "https://example.com/original-work",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": [
+      "https://example.com.br",
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://example.com.br",
+        "contentType": "text/html"
+      },
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://example.com.br/download",
+        "contentType": "application/octet-stream",
+        "actionApplication": {
+          "@type": "SoftwareApplication",
+          "@id": "https://example.com.br/#software",
+          "name": "Sourceport",
+          "operatingSystem": "Windows",
+          "discussionUrl": "https://example.com.br/discussions"
+        }
+      }
+    ]
+  }
+}
