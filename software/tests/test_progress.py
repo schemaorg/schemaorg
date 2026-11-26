@@ -33,6 +33,33 @@ class TestProgressReporter(unittest.TestCase):
         self.assertIn("WARNING:test.progress:extra detail", joined)
         self.assertIn("Done: Exporting (2/2 files)", joined)
 
+    def test_log_progress_reporter_default_hides_steps_and_handles_unbounded(
+        self,
+    ) -> None:
+        logger = logging.getLogger("test.progress.unbounded")
+        reporter = LogProgressReporter(logger=logger)
+        with self.assertLogs(logger, level=logging.INFO) as captured:
+            with reporter.task("Scanning", total=None, unit="items") as p:
+                p.step("hidden")
+                p.advance(2)
+
+        joined = "\n".join(captured.output)
+        self.assertIn("Start: Scanning", joined)
+        self.assertNotIn("hidden", joined)
+        self.assertIn("Done: Scanning (2 items)", joined)
+
+    def test_log_progress_reporter_logs_failure_on_exception(self) -> None:
+        logger = logging.getLogger("test.progress.fail")
+        reporter = LogProgressReporter(logger=logger)
+        with self.assertLogs(logger, level=logging.INFO) as captured:
+            with self.assertRaisesRegex(RuntimeError, "boom"):
+                with reporter.task("Broken", total=1, unit="step"):
+                    raise RuntimeError("boom")
+
+        joined = "\n".join(captured.output)
+        self.assertIn("Failed: Broken", joined)
+        self.assertNotIn("Done: Broken", joined)
+
 
 if __name__ == "__main__":
     unittest.main()

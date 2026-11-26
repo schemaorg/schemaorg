@@ -86,14 +86,48 @@ class TestSiteBundle(unittest.TestCase):
         self.assertEqual(len(bundle.stats_providers), 1)
         self.assertIn("(6/6 steps)", "\n".join(captured.output))
 
-    def test_missing_release_file_raises_file_not_found(self) -> None:
+    def test_from_release_uses_precomputed_jsonld_when_present(self) -> None:
+        releases_out = OutputLayout(self.root / "data")
+        releases = Releases(releases_out, self.version)
+        self._write_release_ttl(releases)
+        jsonld_path = releases.file(self.version.next(), extension=".jsonld")
+        jsonld_path.write_text(
+            json.dumps({
+                "@context": {"schema": "https://schema.org/"},
+                "@graph": [{
+                    "@id": "schema:Person",
+                    "@type": "rdfs:Class",
+                    "rdfs:label": "PrecomputedPerson",
+                }],
+            }),
+            encoding="utf-8",
+        )
+
+        bundle = SiteBundle.from_release(
+            input_layout=self.layout,
+            releases_layout=releases_out,
+            target_version=self.version.next(),
+            progress=NullProgressReporter(),
+        )
+        person = bundle.catalog.get("Person")
+        self.assertIsNotNone(person)
+        assert person is not None
+        self.assertIn(
+            "PrecomputedPerson", bundle.jsonld_index.render_for(person)
+        )
+
+    def test_missing_release_file_raises_without_creating_output_dirs(
+        self,
+    ) -> None:
+        fresh_out = self.root / "fresh_out"
         with self.assertRaises(FileNotFoundError):
             SiteBundle.from_release(
                 input_layout=self.layout,
-                releases_layout=self.layout,
+                releases_layout=OutputLayout(fresh_out),
                 target_version=self.version.next(),
                 progress=NullProgressReporter(),
             )
+        self.assertFalse(fresh_out.exists())
 
 
 if __name__ == "__main__":

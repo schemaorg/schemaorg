@@ -5,8 +5,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-import rdflib
-
 from schemaorg import constants
 from schemaorg.collaborators import CollaboratorRegistry
 from schemaorg.graph_loader import GraphLoader
@@ -34,9 +32,7 @@ class SiteBundle:
     target_version: VersionItem
     current_version: VersionItem
     release_file: Path
-    graph: rdflib.Graph
     vocab: Vocabulary
-    collaborators: CollaboratorRegistry
     catalog: TermViewCatalog
     jsonld_index: TermJsonLdIndex
     examples: SchemaExamples
@@ -54,12 +50,23 @@ class SiteBundle:
             input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
         )
         current_version = version_registry.current()
+        if isinstance(releases_layout, OutputLayout):
+            release_dir = (
+                releases_layout.output_dir
+                / Domain.RELEASE.value
+                / target_version.number()
+            )
+            if not release_dir.is_dir():
+                raise FileNotFoundError(
+                    f"Release directory not found: {release_dir}. "
+                    "Generate release files first."
+                )
         releases = Releases(releases_layout, version_registry)
         release_file = releases.file(target_version)
         if not release_file.is_file():
             raise FileNotFoundError(
                 f"Release file not found: {release_file}. "
-                "Please run --buildrelease first."
+                "Generate release files first."
             )
         release_jsonld = releases.file(target_version, extension=".jsonld")
 
@@ -103,9 +110,7 @@ class SiteBundle:
             target_version=target_version,
             current_version=current_version,
             release_file=release_file,
-            graph=graph,
             vocab=vocab,
-            collaborators=collaborators,
             catalog=catalog,
             jsonld_index=jsonld_index,
             examples=examples,

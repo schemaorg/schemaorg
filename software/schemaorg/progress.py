@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
-from contextlib import AbstractContextManager, contextmanager
+from contextlib import AbstractContextManager, contextmanager, nullcontext
 import logging
+import time
 from typing import Protocol
-
-import util.pretty_logger as pretty_logger
 
 
 class TaskProgress(Protocol):
@@ -48,17 +47,19 @@ class _NullTaskProgress:
         pass
 
 
+_NULL_PROGRESS: _NullTaskProgress = _NullTaskProgress()
+
+
 class NullProgressReporter:
     """Silent no-op reporter for unit tests and non-interactive callers."""
 
-    @contextmanager
     def task(
         self,
         description: str,
         total: int | None,
         unit: str,
-    ) -> Iterator[TaskProgress]:
-        yield _NullTaskProgress()
+    ) -> AbstractContextManager[TaskProgress]:
+        return nullcontext(_NULL_PROGRESS)
 
 
 class _LogTaskProgress:
@@ -72,10 +73,8 @@ class _LogTaskProgress:
         self.description = description
         self.log_steps = log_steps
         self.completed: int = 0
-        self.current_step: str = ""
 
     def step(self, label: str) -> None:
-        self.current_step = label
         if self.log_steps:
             self.logger.info("%s: %s", self.description, label)
 
@@ -87,9 +86,9 @@ class _LogTaskProgress:
 
 
 class LogProgressReporter:
-    """Logger-backed reporter using pretty_logger.BlockLog."""
+    """Logger-backed reporter with start/done/failure timing logs."""
 
-    def __init__(self, logger: logging.Logger, log_steps: bool) -> None:
+    def __init__(self, logger: logging.Logger, log_steps: bool = False) -> None:
         self.logger: logging.Logger = logger
         self.log_steps: bool = log_steps
 
@@ -101,13 +100,18 @@ class LogProgressReporter:
         unit: str,
     ) -> Iterator[TaskProgress]:
         handle = _LogTaskProgress(self.logger, description, self.log_steps)
-        with pretty_logger.BlockLog(
-            logger=self.logger,
-            message=description,
-            timing=True,
-        ) as block:
+        self.logger.info("Start: %s", description)
+        start = time.perf_counter()
+        try:
             yield handle
-            if total is not None:
-                block.append(f"({handle.completed}/{total} {unit})")
-            elif handle.completed:
-                block.append(f"({handle.completed} {unit})")
+        except BaseException:
+            self.logger.error("Failed: %s", description)
+            raise
+        elapsed = time.perf_counter() - start
+        if total is not None:
+            summary = f"{description} ({handle.completed}/{total} {unit})"
+        elif handle.completed:
+            summary = f"{description} ({handle.completed} {unit})"
+        else:
+            summary = description
+        self.logger.info("Done: %s in %.2f seconds", summary, elapsed)
