@@ -80,6 +80,19 @@ def export_scoped(
 ) -> list[Artifact]:
     """RDF and CSV release artifacts for one scope (no file I/O)."""
     rdf = RdfRenderer(graph)
+    if version.is_next():
+        return [
+            Artifact(
+                "RDFExport.turtle",
+                releases.file(
+                    version=version,
+                    protocol=Protocol.HTTPS,
+                    scope=scope,
+                    extension=".ttl",
+                ),
+                partial(rdf.render, "turtle"),
+            )
+        ]
     include_retired = scope == Scope.ALL
     scoped_renders: tuple[tuple[str, str, Callable[[], str]], ...] = (
         (
@@ -227,7 +240,7 @@ def export_release_files(
     output_layout: OutputLayout,
     version: VersionRef = NEXT_VERSION,
 ) -> None:
-    """Loads the source graph, plans, and writes all 35 schema release files."""
+    """Loads the source graph, plans, and writes schema release files (9 for next, 35 for numbered)."""
     version_obj = Version(input_layout.file(Domain.ROOT, constants.VERSIONS_FILE))
     target_version = version_obj.resolve(version)
     releases = Releases(output_layout, version_obj)
