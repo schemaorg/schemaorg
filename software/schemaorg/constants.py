@@ -7,7 +7,7 @@ import pyprojroot
 
 SCHEMA_URI: str = "https://schema.org/"
 SCHEMA_PREFIX: str = "schema"
-SITENAME: str = urlparse(SCHEMA_URI).hostname.capitalize()
+SITENAME: str = (urlparse(SCHEMA_URI).hostname or "").capitalize()
 VERSIONS_FILE: str = "versions.json"
 PROJECT_ROOT: Path = pyprojroot.find_root(
     pyprojroot.has_file(VERSIONS_FILE), Path(__file__).parent

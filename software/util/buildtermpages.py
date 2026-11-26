@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import collections
 from collections.abc import Iterable, Sequence
 import datetime
 import logging
-import multiprocessing
 from pathlib import Path
 import time
 from typing import Any
@@ -26,13 +24,6 @@ import util.schema as schema
 import util.stats as stats
 
 log: logging.Logger = logging.getLogger(__name__)
-
-# Prewarmed in parent before multiprocessing.Pool forks so workers share via COW.
-_SHARED_CATALOG: TermViewCatalog | None = None
-_SHARED_JSONLD: TermJsonLdIndex | None = None
-_SHARED_EXAMPLES: schemaexamples.SchemaExamples | None = None
-_SHARED_RENDERER: TemplateRenderer | None = None
-_SHARED_RELEASE_KEY: str | None = None
 
 
 def termFileName(termid: str) -> Path:
@@ -88,15 +79,18 @@ class TermPageRenderer:
     def __init__(
         self,
         stats_providers: Sequence[StatsProvider],
-        build_opts: Sequence[str],
         term_docs_dir: str,
+        build_opts: Sequence[str] = (),
         examples: schemaexamples.SchemaExamples | None = None,
         catalog: TermViewCatalog | None = None,
         jsonld_index: TermJsonLdIndex | None = None,
         template_renderer: TemplateRenderer | None = None,
     ) -> None:
+        if template_renderer is not None and build_opts:
+            raise ValueError(
+                "Cannot pass both template_renderer and non-empty build_opts"
+            )
         self.stats_providers = stats_providers
-        self.build_opts = build_opts
         self.term_docs_dir = term_docs_dir
         self.examples = examples
         self.catalog = catalog
@@ -104,7 +98,7 @@ class TermPageRenderer:
         self.template_renderer = template_renderer or TemplateRenderer(
             paths.DefaultInputLayout(),
             schema.target_version(),
-            self.build_opts,
+            build_opts,
         )
         self.template = self.template_renderer.get_template(
             "terms/TermPage.j2"
@@ -169,59 +163,6 @@ class TermPageRenderer:
                 raise
 
 
-_WORKER_CONFIG_KEYS = frozenset({
-    "target_version",
-    "output_dir",
-    "release_file",
-})
-
-
-def _init_worker(
-    target_version: str | None = None,
-    output_dir: str | None = None,
-    release_file: str | Path | None = None,
-) -> None:
-    global _SHARED_CATALOG, _SHARED_JSONLD, _SHARED_RELEASE_KEY
-    if target_version is not None:
-        schema.config.TARGET_VERSION = target_version
-    if output_dir is not None:
-        schema.config.OUTPUTDIR = output_dir
-    if release_file is not None:
-        key = str(Path(release_file).resolve())
-        if _SHARED_CATALOG is None or _SHARED_RELEASE_KEY != key:
-            _SHARED_CATALOG, _SHARED_JSONLD = _load_bundle(Path(key))
-            _SHARED_RELEASE_KEY = key
-
-
-def _buildTermIds(args: tuple[tuple[int, list[str]], dict[str, Any]]) -> None:
-    (shard, term_ids), config = args
-    pretty_logger.MakeRootLogPretty(shard=shard)
-    _init_worker(
-        target_version=config.get("target_version"),
-        output_dir=config.get("output_dir"),
-        release_file=config.get("release_file"),
-    )
-    renderer_config = {
-        k: v for k, v in config.items() if k not in _WORKER_CONFIG_KEYS
-    }
-    renderer_config.setdefault("catalog", _SHARED_CATALOG)
-    renderer_config.setdefault("jsonld_index", _SHARED_JSONLD)
-    if renderer_config.get("examples") is None and _SHARED_EXAMPLES is not None:
-        renderer_config["examples"] = _SHARED_EXAMPLES
-    if (
-        renderer_config.get("template_renderer") is None
-        and _SHARED_RENDERER is not None
-    ):
-        renderer_config["template_renderer"] = _SHARED_RENDERER
-    renderer = TermPageRenderer(**renderer_config)
-    for term_id in term_ids:
-        try:
-            renderer.RenderAndWriteSingleTerm(term_id)
-        except Exception as e:
-            e.add_note(f"While building term_id {term_id}")
-            raise
-
-
 def buildTerms(
     term_ids: Iterable[str],
     config: dict[str, Any] | None = None,
@@ -229,7 +170,6 @@ def buildTerms(
     jsonld_index: TermJsonLdIndex | None = None,
 ) -> None:
     """Build the rendered version for a collection of terms."""
-    global _SHARED_CATALOG, _SHARED_JSONLD, _SHARED_EXAMPLES, _SHARED_RENDERER, _SHARED_RELEASE_KEY
     tic = time.perf_counter()
 
     if config is None:
@@ -241,82 +181,70 @@ def buildTerms(
             "output_dir": schema.config.OUTPUTDIR,
         }
 
-    release_file = config.get("release_file")
-    release_key = (
-        str(Path(release_file).resolve()) if release_file is not None else None
-    )
-
-    if catalog is None or jsonld_index is None:
-        catalog, jsonld_index = _load_bundle(
-            Path(release_key) if release_key else None
-        )
-
-    raw_ids = list(term_ids)
-    if any(fileutils.isAll(tid) for tid in raw_ids):
-        log.info("Loading all term identifiers")
-        term_list = [v.id for v in catalog.all_views()]
-    else:
-        term_list = raw_ids
-
-    if not term_list:
-        return
-
-    examples = config.get("examples")
-    if examples is None:
-        examples = schemaexamples.SchemaExamples.from_layout(
-            paths.DefaultInputLayout()
-        )
-
-    template_renderer = config.get("template_renderer")
-    if template_renderer is None:
-        target = (
-            schema.VERSION.resolve(config["target_version"])
-            if config.get("target_version") is not None
-            else schema.target_version()
-        )
-        template_renderer = TemplateRenderer(
-            paths.DefaultInputLayout(),
-            target,
-            config.get("build_opts", ()),
-        )
-    template_renderer.get_template("terms/TermPage.j2")
-
-    _SHARED_CATALOG = catalog
-    _SHARED_JSONLD = jsonld_index
-    _SHARED_EXAMPLES = examples
-    _SHARED_RENDERER = template_renderer
-    _SHARED_RELEASE_KEY = release_key
-
-    # Strip heavy objects from per-task IPC payload; workers read _SHARED_* via COW.
-    light_config = {
-        k: v
-        for k, v in config.items()
-        if k not in ("examples", "catalog", "jsonld_index", "template_renderer")
-    }
-
-    shard_numbers = min(multiprocessing.cpu_count(), len(term_list))
+    orig_target = schema.config.TARGET_VERSION
+    orig_output = schema.config.OUTPUTDIR
     try:
+        if config.get("target_version") is not None:
+            schema.config.TARGET_VERSION = config["target_version"]
+        if config.get("output_dir") is not None:
+            schema.config.OUTPUTDIR = config["output_dir"]
+
+        release_file = config.get("release_file")
+        if catalog is None or jsonld_index is None:
+            catalog, jsonld_index = _load_bundle(
+                Path(release_file).resolve()
+                if release_file is not None
+                else None
+            )
+
+        raw_ids = list(term_ids)
+        if any(fileutils.isAll(tid) for tid in raw_ids):
+            log.info("Loading all term identifiers")
+            term_list = [v.id for v in catalog.all_views()]
+        else:
+            term_list = raw_ids
+
+        if not term_list:
+            return
+
+        examples = config.get("examples")
+        if examples is None:
+            examples = schemaexamples.SchemaExamples.from_layout(
+                paths.DefaultInputLayout()
+            )
+
+        template_renderer = config.get("template_renderer")
+        if template_renderer is not None and config.get("build_opts"):
+            raise ValueError(
+                "Cannot pass both template_renderer and non-empty build_opts"
+            )
+        if template_renderer is None:
+            template_renderer = TemplateRenderer(
+                paths.DefaultInputLayout(),
+                schema.target_version(),
+                config.get("build_opts", ()),
+            )
+
+        renderer = TermPageRenderer(
+            stats_providers=config["stats_providers"],
+            term_docs_dir=config["term_docs_dir"],
+            examples=examples,
+            catalog=catalog,
+            jsonld_index=jsonld_index,
+            template_renderer=template_renderer,
+        )
         with pretty_logger.BlockLog(
             logger=log,
-            message=f"Building {len(term_list)} term pages with {shard_numbers} shards.",
+            message=f"Building {len(term_list)} term pages.",
         ):
-            sharded_terms: dict[int, list[str]] = collections.defaultdict(list)
-            for n, term_id in enumerate(term_list):
-                sharded_terms[n % shard_numbers].append(term_id)
-
-            tasks = [(item, light_config) for item in sharded_terms.items()]
-
-            with multiprocessing.get_context("fork").Pool(
-                processes=len(tasks),
-                initializer=_init_worker,
-                initargs=(
-                    light_config.get("target_version"),
-                    light_config.get("output_dir"),
-                    light_config.get("release_file"),
-                ),
-            ) as pool:
-                pool.map(_buildTermIds, tasks)
+            for term_id in term_list:
+                try:
+                    renderer.RenderAndWriteSingleTerm(term_id)
+                except Exception as e:
+                    e.add_note(f"While building term_id {term_id}")
+                    raise
     finally:
-        _SHARED_RENDERER = None
+        schema.config.TARGET_VERSION = orig_target
+        schema.config.OUTPUTDIR = orig_output
     elapsed = datetime.timedelta(seconds=time.perf_counter() - tic)
     log.info("%d Terms generated in %s seconds", len(term_list), elapsed)

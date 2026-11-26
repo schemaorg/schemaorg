@@ -104,7 +104,6 @@ class TestBuildTermPages(unittest.TestCase):
         )
         page_renderer = buildtermpages.TermPageRenderer(
             stats_providers=[],
-            build_opts=[],
             term_docs_dir="/docs",
             template_renderer=custom_renderer,
         )
@@ -120,19 +119,17 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertIn("2099-12-31", output)
         self.assertIn("jumpmenu.js", output)
 
-    def testBuildTermsHonorsExplicitTemplateRendererAndResetsShared(
-        self,
-    ) -> None:
-        for attr in (
-            "_SHARED_CATALOG",
-            "_SHARED_JSONLD",
-            "_SHARED_EXAMPLES",
-            "_SHARED_RENDERER",
-            "_SHARED_RELEASE_KEY",
-        ):
-            self.addCleanup(
-                setattr, buildtermpages, attr, getattr(buildtermpages, attr)
+        with self.assertRaises(ValueError):
+            buildtermpages.TermPageRenderer(
+                stats_providers=[],
+                term_docs_dir="/docs",
+                build_opts=["goto"],
+                template_renderer=custom_renderer,
             )
+
+    def testBuildTermsHonorsExplicitTemplateRenderer(self) -> None:
+        orig_output = schema.config.OUTPUTDIR
+        orig_target = schema.config.TARGET_VERSION
         custom_renderer = TemplateRenderer(
             InputLayout(constants.PROJECT_ROOT),
             VersionItem("99.0", "2099-12-31"),
@@ -150,7 +147,6 @@ class TestBuildTermPages(unittest.TestCase):
                 ["FloatingType"],
                 config={
                     "stats_providers": [],
-                    "build_opts": [],
                     "term_docs_dir": "/docs",
                     "examples": schemaexamples.SchemaExamples.from_files([]),
                     "template_renderer": custom_renderer,
@@ -165,19 +161,16 @@ class TestBuildTermPages(unittest.TestCase):
         self.assertIn("V99.0", html)
         self.assertIn("2099-12-31", html)
         self.assertIn("jumpmenu.js", html)
-        self.assertIsNone(buildtermpages._SHARED_RENDERER)
+        self.assertEqual(schema.config.OUTPUTDIR, orig_output)
+        self.assertEqual(schema.config.TARGET_VERSION, orig_target)
 
-    def testWorkerConfigAppliesTargetVersionOutputDirAndReleaseFile(self) -> None:
+    def testBuildTermsAppliesTargetVersionOutputDirAndReleaseFile(
+        self,
+    ) -> None:
         orig_target = schema.config.TARGET_VERSION
         orig_output = schema.config.OUTPUTDIR
-        orig_cat = buildtermpages._SHARED_CATALOG
-        orig_jld = buildtermpages._SHARED_JSONLD
-        orig_key = buildtermpages._SHARED_RELEASE_KEY
         self.addCleanup(setattr, schema.config, "TARGET_VERSION", orig_target)
         self.addCleanup(setattr, schema.config, "OUTPUTDIR", orig_output)
-        self.addCleanup(setattr, buildtermpages, "_SHARED_CATALOG", orig_cat)
-        self.addCleanup(setattr, buildtermpages, "_SHARED_JSONLD", orig_jld)
-        self.addCleanup(setattr, buildtermpages, "_SHARED_RELEASE_KEY", orig_key)
 
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -193,24 +186,19 @@ class TestBuildTermPages(unittest.TestCase):
 
             schema.config.TARGET_VERSION = "next"
             schema.config.OUTPUTDIR = "software/site"
-            buildtermpages._SHARED_CATALOG = None
-            buildtermpages._SHARED_JSONLD = None
-            buildtermpages._SHARED_RELEASE_KEY = None
 
             published = schema.VERSION.current()
-            buildtermpages._buildTermIds(
-                (
-                    (0, ["WorkerOnlyType"]),
-                    {
-                        "stats_providers": [],
-                        "build_opts": [],
-                        "term_docs_dir": "/docs",
-                        "examples": schemaexamples.SchemaExamples.from_files([]),
-                        "target_version": published.number(),
-                        "output_dir": str(out_dir),
-                        "release_file": str(ttl_path),
-                    },
-                )
+            buildtermpages.buildTerms(
+                ["WorkerOnlyType"],
+                config={
+                    "stats_providers": [],
+                    "build_opts": [],
+                    "term_docs_dir": "/docs",
+                    "examples": schemaexamples.SchemaExamples.from_files([]),
+                    "target_version": published.number(),
+                    "output_dir": str(out_dir),
+                    "release_file": str(ttl_path),
+                },
             )
 
             rendered_file = out_dir / "terms/types/W/WorkerOnlyType.html"
@@ -220,6 +208,8 @@ class TestBuildTermPages(unittest.TestCase):
             self.assertIn(f"V{published.number()}", html)
             self.assertIn(str(published.date()), html)
             self.assertNotIn("Vnext", html)
+            self.assertEqual(schema.config.TARGET_VERSION, "next")
+            self.assertEqual(schema.config.OUTPUTDIR, "software/site")
 
 
 if __name__ == "__main__":
