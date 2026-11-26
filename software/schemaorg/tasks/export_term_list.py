@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
+from dataclasses import dataclass
 from pathlib import Path
 
 from schemaorg.progress import ProgressReporter
@@ -25,38 +26,24 @@ def format_term_lines(
         yield f"{term.id}{suffix}\n"
 
 
+@dataclass(frozen=True)
 class ExportTermListTask:
     """Writes a sorted list of schema.org term IDs (optionally tagged by kind)."""
 
-    def __init__(
-        self,
-        catalog: TermViewCatalog,
-        include_tags: bool,
-        output_path: Path,
-        progress: ProgressReporter,
-    ) -> None:
-        self.catalog: TermViewCatalog = catalog
-        self.include_tags: bool = include_tags
-        self.output_path: Path = output_path
-        self.progress: ProgressReporter = progress
+    catalog: TermViewCatalog
+    include_tags: bool
+    output_path: Path
+    progress: ProgressReporter
 
     def run(self) -> Path:
-        views = self.catalog.all_views()
+        lines = list(format_term_lines(self.catalog, self.include_tags))
         with self.progress.task(
             f"Writing term list ({self.output_path.name})",
-            total=len(views),
+            total=len(lines),
             unit="terms",
         ) as p:
             p.step(self.output_path.name)
-            lines: list[str] = []
-            for term in views:
-                suffix = (
-                    _TERM_TAGS.get(term.termType, "")
-                    if self.include_tags
-                    else ""
-                )
-                lines.append(f"{term.id}{suffix}\n")
-                p.advance(1)
             self.output_path.parent.mkdir(parents=True, exist_ok=True)
             self.output_path.write_text("".join(lines), encoding="utf-8")
+            p.advance(len(lines))
         return self.output_path

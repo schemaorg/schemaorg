@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
+from dataclasses import dataclass
 from pathlib import Path
 import random
 import re
@@ -44,12 +45,17 @@ _MD_DOC_END: str = (
 def _load_static_inserts(
     input_layout: InputLayout, target_version: VersionItem
 ) -> Iterator[tuple[re.Pattern[str], str]]:
-    inserts_dir = input_layout.dir(Domain.STATIC_DOC_INSERTS)
+    files = input_layout.files(Domain.STATIC_DOC_INSERTS, "*.html")
+    if not files:
+        raise FileNotFoundError(
+            "No static doc insert templates (*.html) found in "
+            f"{input_layout.dir(Domain.STATIC_DOC_INSERTS)}"
+        )
     version_num = target_version.number()
     version_date = target_version.date()
     docs_dir = f"/{Domain.DOCS}"
 
-    for f_path in inserts_dir.glob("*.html"):
+    for f_path in files:
         sub = re.escape(f_path.stem.lower().removeprefix("sdi-"))
         pattern = re.compile(
             rf"<!-- #### Static Doc Insert {sub} .* -->", re.IGNORECASE
@@ -66,7 +72,7 @@ def _load_static_inserts(
 
 
 def _convert_md_docs(doc_dir: Path) -> None:
-    for md_path in doc_dir.glob("*.md"):
+    for md_path in sorted(doc_dir.glob("*.md")):
         text = md_path.read_text(encoding="utf-8")
         rng_state = random.getstate()
         try:
@@ -88,33 +94,30 @@ def _convert_md_docs(doc_dir: Path) -> None:
         md_path.unlink()
 
 
+@dataclass(frozen=True)
 class PrepareSiteStaticTask:
     """Clears site dir if requested, copies static docs, and renders GCloud config."""
 
-    def __init__(
-        self,
-        input_layout: InputLayout,
-        output_layout: OutputLayout,
-        target_version: VersionItem,
-        current_version: VersionItem,
-        clear_first: bool,
-        progress: ProgressReporter,
-    ) -> None:
-        self.input_layout: InputLayout = input_layout
-        self.output_layout: OutputLayout = output_layout
-        self.target_version: VersionItem = target_version
-        self.current_version: VersionItem = current_version
-        self.clear_first: bool = clear_first
-        self.progress: ProgressReporter = progress
+    input_layout: InputLayout
+    output_layout: OutputLayout
+    target_version: VersionItem
+    current_version: VersionItem
+    clear_first: bool
+    progress: ProgressReporter
 
     def _clear_output_dir(self) -> None:
         out_dir = self.output_layout.output_dir
+        if self.input_layout.root_dir.is_relative_to(out_dir):
+            raise ValueError(
+                f"Refusing to clear {out_dir}: contains input root "
+                f"{self.input_layout.root_dir}"
+            )
         if not out_dir.is_dir():
             return
         for item in out_dir.iterdir():
             if item.name == ".gitkeep":
                 continue
-            if item.is_dir():
+            if item.is_dir() and not item.is_symlink():
                 shutil.rmtree(item)
             else:
                 item.unlink()
@@ -151,7 +154,7 @@ class PrepareSiteStaticTask:
                 data = doc_path.read_text(encoding="utf-8")
                 if _STATIC_INSERT_MARKER_RE.search(data):
                     for pattern, insert_content in inserts:
-                        data = pattern.sub(insert_content, data)
+                        data = pattern.sub(lambda _: insert_content, data)
                     doc_path.write_text(data, encoding="utf-8")
             p.advance(1)
 
