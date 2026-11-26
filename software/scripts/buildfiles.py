@@ -21,17 +21,10 @@ from schemaorg.layout.releases import VersionRef
 from schemaorg.model import Vocabulary, VocabularyLoader
 from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.export_release_files import (
-    Artifact,
     ExportReleaseFilesTask,
-    PROTOCOL_VARIANTS,
-    export_release_unscoped,
-    export_scoped,
     write_artifact,
 )
-from schemaorg.tasks.export_site_metadata import (
-    ExportSiteMetadataTask,
-    plan_site_docs,
-)
+from schemaorg.tasks.export_site_metadata import plan_site_docs
 from schemaorg.version import Version
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -66,18 +59,22 @@ def export_site_docs(
         input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
     )
     target_version = version_obj.resolve(version)
+    releases = Releases(input_layout, version_obj)
     if vocab is None:
-        releases = Releases(input_layout, version_obj)
         all_graph = GraphLoader.load(releases.get_ttl_files(target_version))
         vocab = VocabularyLoader(all_graph, version=target_version).load()
 
-    ExportSiteMetadataTask(
-        input_layout=input_layout,
-        output_layout=output_layout,
-        version=target_version,
-        vocab=vocab,
-        progress=LogProgressReporter(logger=log, log_steps=True),
-    ).run()
+    artifacts = plan_site_docs(
+        vocab, target_version, releases.dir(target_version), output_layout
+    )
+    progress = LogProgressReporter(logger=log, log_steps=True)
+    with progress.task(
+        "Exporting site metadata files", total=len(artifacts), unit="files"
+    ) as p:
+        for artifact in artifacts:
+            p.step(f"{artifact.name} ({artifact.path.name})")
+            write_artifact(artifact)
+            p.advance(1)
 
 
 def main(argv: Sequence[str] | None = None) -> None:

@@ -26,6 +26,19 @@ from schemaorg.renderers import (
     uriwrap,
 )
 from schemaorg import markdown
+from schemaorg.progress import LogProgressReporter, NullProgressReporter
+from schemaorg.site_bundle import SiteBundle
+from schemaorg.tasks.export_release_files import (
+    Artifact,
+    ExportReleaseFilesTask,
+    export_release_unscoped,
+    export_scoped,
+    write_artifact,
+)
+from schemaorg.tasks.export_site_metadata import (
+    ExportSiteMetadataTask,
+    plan_site_docs,
+)
 from schemaorg.version import Version, VersionItem
 import scripts.buildfiles as buildfiles
 import scripts.buildsite as buildsite
@@ -90,8 +103,8 @@ class TestPostProcess(unittest.TestCase):
     def testWriteArtifactAppliesPostProcessorsInOrder(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "out.txt"
-            buildfiles.write_artifact(
-                buildfiles.Artifact(
+            write_artifact(
+                Artifact(
                     "x",
                     path,
                     lambda: "https://schema.org/Thing",
@@ -101,6 +114,8 @@ class TestPostProcess(unittest.TestCase):
             self.assertEqual(
                 path.read_text(encoding="utf-8"), "HTTP://SCHEMA.ORG/THING"
             )
+            write_artifact(Artifact("plain", path, lambda: "raw"))
+            self.assertEqual(path.read_text(encoding="utf-8"), "raw")
 
 
 class TestRenderers(unittest.TestCase):
@@ -387,17 +402,17 @@ class TestPlan(unittest.TestCase):
             vocab = VocabularyLoader(all_graph, version=next_version).load()
             csv = CsvRenderer(vocab)
 
-            next_all_scoped = buildfiles.export_scoped(
+            next_all_scoped = export_scoped(
                 Scope.ALL, all_graph, csv, next_version, releases
             )
-            next_current_scoped = buildfiles.export_scoped(
+            next_current_scoped = export_scoped(
                 Scope.CURRENT, current_graph, csv, next_version, releases
             )
-            next_unscoped = buildfiles.export_release_unscoped(
+            next_unscoped = export_release_unscoped(
                 all_graph, vocab, next_version, releases, ()
             )
-            site_docs = buildfiles.plan_site_docs(
-                vocab, next_version, releases, site_layout
+            site_docs = plan_site_docs(
+                vocab, next_version, releases.dir(next_version), site_layout
             )
             self.assertEqual(
                 [a.path.name for a in next_all_scoped],
@@ -428,13 +443,13 @@ class TestPlan(unittest.TestCase):
                 )
             )
 
-            all_scoped = buildfiles.export_scoped(
+            all_scoped = export_scoped(
                 Scope.ALL, all_graph, csv, numbered_version, releases
             )
-            current_scoped = buildfiles.export_scoped(
+            current_scoped = export_scoped(
                 Scope.CURRENT, current_graph, csv, numbered_version, releases
             )
-            release_unscoped = buildfiles.export_release_unscoped(
+            release_unscoped = export_release_unscoped(
                 all_graph, vocab, numbered_version, releases, ()
             )
             self.assertEqual(len(all_scoped), 14)
@@ -630,6 +645,90 @@ class TestPlan(unittest.TestCase):
             self.assertIsNotNone(person)
             assert person is not None
             self.assertIn('href="/Thing"', person.comment)
+
+    def testExportTasksProgressOutputLayoutAndErrorGuards(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            in_dir = root / "in"
+            rel_dir = root / "external_releases"
+            site_dir = root / "site"
+            (in_dir / "data").mkdir(parents=True)
+            versions_path = in_dir / "versions.json"
+            versions_path.write_text(
+                json.dumps({
+                    "schemaversion": "30.1",
+                    "releaseLog": {"30.1": "2026-09-16"},
+                }),
+                encoding="utf-8",
+            )
+            (in_dir / "data" / "schema.ttl").write_text(
+                FIXTURE_TTL, encoding="utf-8"
+            )
+            version_obj = Version(versions_path)
+            input_layout = InputLayout(in_dir)
+            release_out = OutputLayout(rel_dir)
+
+            # Undeclared version fails fast without creating target release dir.
+            with self.assertRaises(ValueError):
+                ExportReleaseFilesTask(
+                    input_layout=input_layout,
+                    output_layout=release_out,
+                    version=VersionItem("99.0", "2026-01-01"),
+                    progress=NullProgressReporter(),
+                ).run()
+            self.assertFalse((rel_dir / "releases" / "99.0").exists())
+
+            rel_logger = logging.getLogger("test.export_release")
+            with self.assertLogs(rel_logger, level=logging.INFO) as captured:
+                written = ExportReleaseFilesTask(
+                    input_layout=input_layout,
+                    output_layout=release_out,
+                    version=version_obj.next(),
+                    progress=LogProgressReporter(logger=rel_logger),
+                ).run()
+            self.assertEqual(len(written), 9)
+            self.assertIn("(9/9 files)", "\n".join(captured.output))
+
+            with self.assertLogs(rel_logger, level=logging.INFO) as captured:
+                written_num = ExportReleaseFilesTask(
+                    input_layout=input_layout,
+                    output_layout=release_out,
+                    version=version_obj.resolve("30.1"),
+                    progress=LogProgressReporter(logger=rel_logger),
+                ).run()
+            self.assertEqual(len(written_num), 35)
+            self.assertIn("(35/35 files)", "\n".join(captured.output))
+
+            # ExportSiteMetadataTask reads from SiteBundle backed by OutputLayout.
+            bundle = SiteBundle.from_release(
+                input_layout=input_layout,
+                releases_layout=release_out,
+                target_version=version_obj.next(),
+                progress=NullProgressReporter(),
+            )
+            meta_logger = logging.getLogger("test.export_site_metadata")
+            site_out = OutputLayout(site_dir)
+            with self.assertLogs(meta_logger, level=logging.INFO) as captured:
+                meta_written = ExportSiteMetadataTask(
+                    bundle=bundle,
+                    output_layout=site_out,
+                    progress=LogProgressReporter(
+                        logger=meta_logger, log_steps=True
+                    ),
+                ).run()
+            self.assertEqual(len(meta_written), 8)
+            self.assertIn("(8/8 files)", "\n".join(captured.output))
+
+            # Missing schemaorg.owl fails before creating docs/ or partial files.
+            (bundle.release_file.parent / "schemaorg.owl").unlink()
+            missing_site = root / "missing_site"
+            with self.assertRaises(FileNotFoundError):
+                ExportSiteMetadataTask(
+                    bundle=bundle,
+                    output_layout=OutputLayout(missing_site),
+                    progress=NullProgressReporter(),
+                ).run()
+            self.assertFalse((missing_site / "docs").exists())
 
 
 if __name__ == "__main__":
