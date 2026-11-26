@@ -22,7 +22,7 @@
         <!-- Pending/retired/term in section -->
         {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been <a href="#supersededby">superseded</a>.</em>{% endif %}
         {% if term.pending %}<br/><em>This term is in the "new" area - implementation feedback and adoption from applications and websites can help improve our definitions.</em>
-        {% elif term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>
+        {% elif term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.
         {% elif term.extLayer %}<em>Defined in the <a href="/docs/{{term.extLayer}}.home.html">{{term.extLayer}}</a> section.</em>
         {% endif %}
     </div>

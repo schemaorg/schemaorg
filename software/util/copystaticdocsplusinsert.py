@@ -29,7 +29,7 @@ _MD_DOC_BEGIN: str = """<!DOCTYPE html>
 <!-- #### Static Doc Insert PageHead goes here -->
 <div id="mainContent" class="faq">"""
 
-_MD_DOC_END: str = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n </html>"""
+_MD_DOC_END: str = """</div>\n<!-- #### Static Doc Insert Footer goes here -->\n</body>\n</html>"""
 
 
 _EMPTY_DATE_SEP_RE: re.Pattern[str] = re.compile(

@@ -6,7 +6,7 @@
   {% endif %}
   <tr><th class="prop-nam">{{ sdotermlink(prop.id)|safe}}</th>
       <td class="prop-ect">{% for ect in prop.domainIncludes.terms %}{% if not loop.first %}&nbsp; or <br/>{% endif %}{{ sdotermlink(ect)|safe}}{% endfor %}</td>
-      <td class="prop-desc">{{ prop.comment | safe}}
+      <td class="prop-desc">{{ prop.comment | safe}}</td>
   </tr>
 
   {% if loop.last %}

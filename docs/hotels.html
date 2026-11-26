@@ -27,7 +27,7 @@
 <ul>
     <li>A <strong><a href="../LodgingBusiness">lodging business</a></strong>, e.g. a hotel, hostel, resort, or a camping site): essentially the place and local business that houses the actual units of the establishment (e.g. hotel rooms). The lodging business can encompass multiple buildings but is in most cases a coherent place.</li>
     <li>An <strong><a href="../Accommodation">accommodation</a></strong>, i.e. the actually relevant units of the establishment (e.g. hotel rooms, suites, apartments, meeting rooms, camping pitches, etc.). These are the actual objects that are offered for rental.</li>
-    <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
+    <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.</li>
 </ul>
 
 <p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable an offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
@@ -58,7 +58,7 @@ The markup for MTE's is very simple:
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room product to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
-<p>When the offer includes more than just the bare room (e.g. meals) or multiple nights we use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.
+<p>When the offer includes more than just the bare room (e.g. meals) or multiple nights we use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.</p>
 
 <img alt="Schema.org pattern for describing hotel room offers" width="960" border="0" src="schema_hotels_1.png" title="Schema.org pattern for describing hotel room offers" />
 
@@ -169,7 +169,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h4>Advanced: Type of Star Rating</h4>
-    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../author">author</a> property for indicating the party making the rating assessment (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
+    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../author">author</a> property for indicating the party making the rating assessment (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).</p>
     <p><strong>Example:</strong> 4-star hotel rated by the DEHOGA</p>
         <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
@@ -248,7 +248,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Renovation and Date of Establishment</h3>
-    <p>For the date of establishment, use <a href="../foundingDate">foundingDate</a>. For information about renovation activities, use <a href="../additionalProperty">additionalProperty</a> and put the year into its <a href="../value">value</a> property and details into its description.
+    <p>For the date of establishment, use <a href="../foundingDate">foundingDate</a>. For information about renovation activities, use <a href="../additionalProperty">additionalProperty</a> and put the year into its <a href="../value">value</a> property and details into its description.</p>
     <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
@@ -379,7 +379,7 @@ enjoying your morning coffee.&lt;/span&gt;
 
 <p>In many cases, however, hotel Web sites contain additional information like images and textual descriptions about room categories (like &quot;Hollywood Twin Room&quot;) or even individual rooms (in particular in the case of small, family-owned hotels). Schema.org provides support for describing rooms and linking them to the hotel. This is also needed if you want to describe actual room offers (see below).</p>
 <h3>Basic Pattern: Description and Picture</h3>
-<p>You can link the hotel to its rooms (or suites or guest apartments) via the <a href="../containsPlace">containsPlace</a> property or a room to the hotel it belongs to via the inverse <a href="../containedInPlace">containedInPlace</a>.
+<p>You can link the hotel to its rooms (or suites or guest apartments) via the <a href="../containsPlace">containsPlace</a> property or a room to the hotel it belongs to via the inverse <a href="../containedInPlace">containedInPlace</a>.</p>
 <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
@@ -401,7 +401,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/ul&gt;
 &lt;/div&gt;</pre>
 <h3>Beds and Occupancy</h3>
-<p>You can add more details to the <a href="../HotelRoom">hotel room</a> entities, like the type and number of beds and the occupancy. The occupancy can be a single value (using <a href="../value">value</a>) or a range (using <a href="../minValue">minValue</a> and <a href="../minValue">minValue</a>).<p>
+<p>You can add more details to the <a href="../HotelRoom">hotel room</a> entities, like the type and number of beds and the occupancy. The occupancy can be a single value (using <a href="../value">value</a>) or a range (using <a href="../minValue">minValue</a> and <a href="../minValue">minValue</a>).</p>
 <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
