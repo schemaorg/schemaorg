@@ -16,7 +16,6 @@ from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.export_term_list import ExportTermListTask
 from schemaorg.term_view import TermViewCatalog
 from schemaorg.version import Version
-import util.pretty_logger as pretty_logger
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -37,7 +36,6 @@ def _load_default_catalog(input_layout: InputLayout) -> TermViewCatalog:
 
 def main(argv: Sequence[str] | None = None) -> None:
     logging.basicConfig(level=logging.INFO)
-    pretty_logger.MakeRootLogPretty()
 
     parser = argparse.ArgumentParser(
         description="Build list of schema.org terms."

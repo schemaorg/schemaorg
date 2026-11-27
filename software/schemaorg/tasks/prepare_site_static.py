@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 import random
@@ -44,7 +43,7 @@ _MD_DOC_END: str = (
 
 def _load_static_inserts(
     input_layout: InputLayout, target_version: VersionItem
-) -> Iterator[tuple[re.Pattern[str], str]]:
+) -> list[tuple[re.Pattern[str], str]]:
     files = input_layout.files(Domain.STATIC_DOC_INSERTS, "*.html")
     if not files:
         raise FileNotFoundError(
@@ -55,6 +54,7 @@ def _load_static_inserts(
     version_date = target_version.date()
     docs_dir = f"/{Domain.DOCS}"
 
+    inserts: list[tuple[re.Pattern[str], str]] = []
     for f_path in files:
         sub = re.escape(f_path.stem.lower().removeprefix("sdi-"))
         pattern = re.compile(
@@ -68,7 +68,8 @@ def _load_static_inserts(
             .replace("{{versiondate}}", version_date or "")
             .replace("{{docsdir}}", docs_dir)
         )
-        yield pattern, indata
+        inserts.append((pattern, indata))
+    return inserts
 
 
 def _convert_md_docs(doc_dir: Path) -> None:
@@ -147,8 +148,8 @@ class PrepareSiteStaticTask:
             p.advance(1)
 
             p.step("applying static doc inserts")
-            inserts = list(
-                _load_static_inserts(self.input_layout, self.target_version)
+            inserts = _load_static_inserts(
+                self.input_layout, self.target_version
             )
             for doc_path in sorted(docs_dest.glob("*.html")):
                 data = doc_path.read_text(encoding="utf-8")

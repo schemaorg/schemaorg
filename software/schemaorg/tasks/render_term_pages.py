@@ -45,16 +45,16 @@ class RenderTermPagesTask:
         if not uri:
             return []
         cleaned = unicodedata.normalize("NFC", uri.strip())
-        badges: list[dict[str, str]] = []
-        for provider in self.bundle.stats_providers:
-            if badge := provider.stats_map.get(cleaned):
-                badges.append({
-                    "provider_name": provider.name,
-                    "badge": badge,
-                    "date": provider.date,
-                    "description": provider.description,
-                })
-        return badges
+        return [
+            {
+                "provider_name": provider.name,
+                "badge": badge,
+                "date": provider.date,
+                "description": provider.description,
+            }
+            for provider in self.bundle.stats_providers
+            if (badge := provider.stats_map.get(cleaned))
+        ]
 
     def run(self) -> int:
         if not any(self.term_ids):
