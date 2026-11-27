@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
-import io
 from pathlib import Path
 
 from rdflib import Dataset, Graph, Namespace, RDF, RDFS, URIRef
@@ -141,10 +140,10 @@ def _compare_common_terms(
     common: set[str],
     previous_graph: Graph,
     current_graph: Graph,
-    buff: io.StringIO | None,
+    include_lines: bool,
     show_diffs: bool,
-) -> int:
-    qname_graph = Graph()
+) -> tuple[int, list[str]]:
+    qname_graph = Graph(bind_namespaces="none")
     qname_graph.bind("schema", SDO)
     qname_graph.bind("dct", Namespace("http://purl.org/dc/terms/"))
     qname_graph.bind("rdf", RDF)
@@ -164,6 +163,7 @@ def _compare_common_terms(
             return str(pred)
 
     changed_count = 0
+    lines: list[str] = []
     for term in sorted(common):
         curr_triples = curr_by_term[term]
         prev_triples = prev_by_term[term]
@@ -171,18 +171,18 @@ def _compare_common_terms(
         dropped = prev_triples - curr_triples
         if added or dropped:
             changed_count += 1
-            if buff is not None:
-                buff.write(f"   Changed term: {term}\n")
+            if include_lines:
+                lines.append(f"   Changed term: {term}")
                 if show_diffs:
                     for s, p, o in sorted(
                         added, key=lambda t: (str(t[1]), str(t[2]))
                     ):
-                        buff.write(f"       New:     {s} {fmt_pred(p)} {o}\n")
+                        lines.append(f"       New:     {s} {fmt_pred(p)} {o}")
                     for s, p, o in sorted(
                         dropped, key=lambda t: (str(t[1]), str(t[2]))
                     ):
-                        buff.write(f"       Dropped: {s} {fmt_pred(p)} {o}\n")
-    return changed_count
+                        lines.append(f"       Dropped: {s} {fmt_pred(p)} {o}")
+    return changed_count, lines
 
 
 @dataclass(frozen=True)
@@ -236,34 +236,27 @@ class CompareVocabularyTask:
             dropped = tuple(sorted(prev_terms - cur_terms))
             common = cur_terms & prev_terms
 
-            diff_buf = (
-                io.StringIO()
-                if (self.show_names or self.show_triples)
-                else None
-            )
-            changed = _compare_common_terms(
+            changed, diff_lines = _compare_common_terms(
                 common=common,
                 previous_graph=previous_graph,
                 current_graph=current_graph,
-                buff=diff_buf,
+                include_lines=self.show_names or self.show_triples,
                 show_diffs=self.show_triples,
             )
 
-            report_buf = io.StringIO()
-            report_buf.write(f"Current terms count {len(cur_terms)}\n")
-            report_buf.write(f"Previous terms Count {len(prev_terms)}\n")
-            report_buf.write("==========   Terms  ================\n")
-            report_buf.write(f"Dropped terms {len(dropped)}\n")
+            report_lines = [
+                f"Current terms count {len(cur_terms)}",
+                f"Previous terms Count {len(prev_terms)}",
+                "==========   Terms  ================",
+                f"Dropped terms {len(dropped)}",
+            ]
             if self.show_names:
-                for term in dropped:
-                    report_buf.write(f"   Dropped term {term}\n")
-            report_buf.write(f"New terms {len(added)}\n")
+                report_lines.extend(f"   Dropped term {t}" for t in dropped)
+            report_lines.append(f"New terms {len(added)}")
             if self.show_names:
-                for term in added:
-                    report_buf.write(f"   New term {term}\n")
-            report_buf.write(f"Changed terms {changed}\n")
-            if diff_buf is not None:
-                report_buf.write(diff_buf.getvalue())
+                report_lines.extend(f"   New term {t}" for t in added)
+            report_lines.append(f"Changed terms {changed}")
+            report_lines.extend(diff_lines)
             p.advance(1)
 
         return VocabularyDiffReport(
@@ -272,5 +265,5 @@ class CompareVocabularyTask:
             added=added,
             dropped=dropped,
             changed_count=changed,
-            formatted_report=report_buf.getvalue(),
+            formatted_report="\n".join(report_lines) + "\n",
         )

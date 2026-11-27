@@ -11,7 +11,7 @@ from pathlib import Path
 from rdflib import URIRef
 
 from schemaorg.model import Vocabulary
-from schemaorg.progress import ProgressReporter, TaskProgress
+from schemaorg.progress import ProgressReporter
 from schemaorg.sdo_uri import SdoUri
 from SchemaExamples.schemaexamples import Example, SchemaExamples
 
@@ -20,15 +20,15 @@ def _resolve_terms(
     vocab: Vocabulary,
     term_names: Sequence[str],
     recursive: bool,
-    progress_handle: TaskProgress,
-) -> set[str]:
+) -> tuple[set[str], list[str]]:
     seen: set[str] = set()
+    missing: list[str] = []
     stack: list[URIRef] = []
 
     for term_name in term_names:
         term = vocab.term(term_name)
         if term is None:
-            progress_handle.log(f"No such term: {term_name}", logging.WARNING)
+            missing.append(term_name)
             continue
         if term.id not in seen:
             seen.add(term.id)
@@ -43,7 +43,7 @@ def _resolve_terms(
                 seen.add(sub_id)
                 stack.append(sub_uri)
 
-    return seen
+    return seen, missing
 
 
 @dataclass(frozen=True)
@@ -63,29 +63,27 @@ class ExportTermExamplesTask:
             if self.output_path.suffix == ".csv"
             else self.output_path.with_name(f"{self.output_path.name}.csv")
         )
+        resolved_terms, missing_terms = _resolve_terms(
+            vocab=self.vocab,
+            term_names=self.term_names,
+            recursive=self.recursive,
+        )
+        matched: list[Example] = sorted(
+            {
+                ex
+                for term_id in resolved_terms
+                for ex in self.examples.examplesForTerm(term_id)
+            },
+            key=lambda ex: ex.keyvalue,
+        )
 
         with self.progress.task(
             f"Exporting term examples ({target_path.name})",
-            total=None,
+            total=len(matched),
             unit="examples",
         ) as p:
-            p.step("resolving terms")
-            resolved_terms = _resolve_terms(
-                vocab=self.vocab,
-                term_names=self.term_names,
-                recursive=self.recursive,
-                progress_handle=p,
-            )
-
-            p.step("collecting examples")
-            matched: list[Example] = sorted(
-                {
-                    ex
-                    for term_id in resolved_terms
-                    for ex in self.examples.examplesForTerm(term_id)
-                },
-                key=lambda ex: ex.keyvalue,
-            )
+            for term_name in missing_terms:
+                p.log(f"No such term: {term_name}", logging.WARNING)
 
             p.step(target_path.name)
             fields = ["Example Id", "Source File", "Linked to Terms"]

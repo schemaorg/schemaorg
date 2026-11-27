@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-import itertools
 from pathlib import Path
 import tempfile
 
@@ -14,6 +13,8 @@ from rdflib.namespace import RDF, RDFS
 
 from schemaorg.graph_loader import GraphLoader
 from schemaorg.progress import ProgressReporter
+# shortcut: CustomTurtleSerializer lives in legacy schemaorg.publish until
+# tasks-cleanup removes schemaorg/publish/ and inlines it here.
 from schemaorg.publish.turtle import CustomTurtleSerializer
 from schemaorg.sdo_uri import SDO, SdoUri
 
@@ -36,23 +37,21 @@ def _write_turtle_atomic(
     error_message: str = "",
 ) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        dir=target.parent, delete=False, suffix=".tmp"
-    ) as stream:
-        tmp_path = Path(stream.name)
-        try:
-            CustomTurtleSerializer(graph).serialize(stream)
-        except BaseException:
-            tmp_path.unlink(missing_ok=True)
-            raise
+    tmp_path: Path | None = None
     try:
+        with tempfile.NamedTemporaryFile(
+            dir=target.parent, delete=False, suffix=".tmp"
+        ) as stream:
+            tmp_path = Path(stream.name)
+            CustomTurtleSerializer(graph).serialize(stream)
         if verify:
             written = GraphLoader.load([tmp_path])
             if not _graphs_equal(graph, written):
                 raise ValueError(error_message)
         tmp_path.replace(target)
     except BaseException:
-        tmp_path.unlink(missing_ok=True)
+        if tmp_path is not None:
+            tmp_path.unlink(missing_ok=True)
         raise
 
 
@@ -165,12 +164,9 @@ class AnnotateTurtleTask:
                 g = GraphLoader.load([source_path])
                 g.remove((None, SDO.isPartOf, None))
                 if new_part is not None:
-                    subjects = itertools.chain(
-                        g.subjects(RDF.type, RDFS.Class),
-                        g.subjects(RDF.type, RDF.Property),
-                    )
-                    for sub in subjects:
-                        g.add((sub, SDO.isPartOf, new_part))
+                    for rdf_type in (RDFS.Class, RDF.Property):
+                        for sub in g.subjects(RDF.type, rdf_type):
+                            g.add((sub, SDO.isPartOf, new_part))
                 _write_turtle_atomic(g, target_path, verify=False)
                 written.append(target_path)
                 p.advance(1)
