@@ -179,9 +179,9 @@ class ValidateExamplesTask:
             failures: list[ExampleResult] = []
 
             for example in self.examples:
-                result = engine.validate(example)
                 if not self.invalid_only:
-                    p.step(result.name)
+                    p.step(example.getKey())
+                result = engine.validate(example)
                 if result.targeted:
                     targeted_count += 1
 

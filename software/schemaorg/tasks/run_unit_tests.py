@@ -71,16 +71,15 @@ class _ProgressTestResult(unittest.TestResult):
         super().addSubTest(test, subtest, err)
         if err is None:
             return
-        if issubclass(err[0], test.failureException):
-            _, traceback_str = self.failures[-1]
-            self._progress.log(
-                f"FAIL in {subtest.id()}:\n{traceback_str}", logging.ERROR
-            )
-        else:
-            _, traceback_str = self.errors[-1]
-            self._progress.log(
-                f"ERROR in {subtest.id()}:\n{traceback_str}", logging.ERROR
-            )
+        label, bucket = (
+            ("FAIL", self.failures)
+            if issubclass(err[0], test.failureException)
+            else ("ERROR", self.errors)
+        )
+        _, traceback_str = bucket[-1]
+        self._progress.log(
+            f"{label} in {subtest.id()}:\n{traceback_str}", logging.ERROR
+        )
 
     def addUnexpectedSuccess(self, test: unittest.TestCase) -> None:
         super().addUnexpectedSuccess(test)

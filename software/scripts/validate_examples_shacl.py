@@ -10,7 +10,14 @@ import os
 from pathlib import Path
 import sys
 
-from schemaorg.layout import NEXT_VERSION, OutputLayout, Releases
+from schemaorg import constants
+from schemaorg.layout import (
+    Domain,
+    InputLayout,
+    NEXT_VERSION,
+    OutputLayout,
+    Releases,
+)
 from schemaorg.layout.releases import VersionRef
 from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.validate_examples import (
@@ -18,18 +25,15 @@ from schemaorg.tasks.validate_examples import (
     ValidatableExample,
     ValidateExamplesTask,
 )
+from schemaorg.version import Version
 import SchemaExamples.schemaexamples as schemaexamples
-import util.paths as paths
-import util.schema as schema
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
-def load_examples() -> list[schemaexamples.Example]:
+def load_examples(input_layout: InputLayout) -> list[schemaexamples.Example]:
     """Find and load all JSON-LD examples."""
-    loaded = schemaexamples.SchemaExamples.from_layout(
-        paths.DefaultInputLayout()
-    )
+    loaded = schemaexamples.SchemaExamples.from_layout(input_layout)
     log.info("Loaded %d examples, processing JSON-LD variants", len(loaded))
     return [ex for ex in loaded.allExamples() if ex.hasJsonld()]
 
@@ -42,7 +46,14 @@ def validate_examples(
     version: VersionRef = NEXT_VERSION,
 ) -> None:
     """Validate examples via ValidateExamplesTask and map failures to exit codes."""
-    rel = releases or Releases(paths.DefaultInputLayout(), schema.VERSION)
+    if releases is None:
+        input_layout = InputLayout(constants.PROJECT_ROOT)
+        version_registry = Version(
+            input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
+        )
+        rel = Releases(input_layout, version_registry)
+    else:
+        rel = releases
     resolved = rel.resolve(version)
     reporter = LogProgressReporter(logger=log, log_steps=not invalid_only)
     try:
@@ -91,16 +102,18 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     args = parser.parse_args(argv)
 
-    layout = (
-        OutputLayout(Path(args.output))
-        if args.output
-        else paths.DefaultInputLayout()
+    input_layout = InputLayout(constants.PROJECT_ROOT)
+    version_registry = Version(
+        input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
+    )
+    releases_layout: InputLayout | OutputLayout = (
+        OutputLayout(Path(args.output)) if args.output else input_layout
     )
     validate_examples(
-        examples=load_examples(),
+        examples=load_examples(input_layout),
         invalid_only=args.invalidonly,
         source_output=args.sourceoutput,
-        releases=Releases(layout, schema.VERSION),
+        releases=Releases(releases_layout, version_registry),
         version=args.version,
     )
 

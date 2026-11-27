@@ -26,7 +26,8 @@ from unittest.mock import patch
 import rdflib
 from rdflib.namespace import SH
 
-from schemaorg.layout import OutputLayout, Releases
+from schemaorg import constants
+from schemaorg.layout import Domain, InputLayout, OutputLayout, Releases
 from schemaorg.progress import LogProgressReporter, NullProgressReporter
 from schemaorg.tasks.validate_examples import (
     ExampleResult,
@@ -37,7 +38,6 @@ from schemaorg.tasks.validate_examples import (
 from schemaorg.version import Version
 import scripts.buildsite as buildsite
 import scripts.validate_examples_shacl as validator
-import util.paths as paths
 
 
 class FakeExample:
@@ -238,10 +238,12 @@ class ValidateExampleTests(unittest.TestCase):
 
     def testMissingShaclFilesExitsConfigErrorWithoutMkdir(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            fresh_out = Path(tmp) / "fresh"
-            empty_releases = Releases(
-                OutputLayout(fresh_out), validator.schema.VERSION
+            input_layout = InputLayout(constants.PROJECT_ROOT)
+            version_registry = Version(
+                input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
             )
+            fresh_out = Path(tmp) / "fresh"
+            empty_releases = Releases(OutputLayout(fresh_out), version_registry)
             with (
                 self.assertLogs(validator.log, level="ERROR") as logs,
                 self.assertRaises(SystemExit) as cm,
@@ -296,9 +298,11 @@ class ShaclGateLivenessTests(unittest.TestCase):
 
     @classmethod
     def _load(cls, filename: str) -> rdflib.Graph | None:
-        path = Releases(
-            paths.DefaultInputLayout(), validator.schema.VERSION
-        ).file(filename=filename)
+        input_layout = InputLayout(constants.PROJECT_ROOT)
+        version_registry = Version(
+            input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
+        )
+        path = Releases(input_layout, version_registry).file(filename=filename)
         if not path.is_file():
             return None
         graph = rdflib.Graph()
