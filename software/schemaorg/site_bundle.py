@@ -50,6 +50,7 @@ class SiteBundle:
             input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
         )
         current_version = version_registry.current()
+        target_version = version_registry.resolve(target_version)
         if isinstance(releases_layout, OutputLayout):
             release_dir = (
                 releases_layout.output_dir

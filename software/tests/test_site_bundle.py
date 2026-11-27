@@ -9,7 +9,7 @@ import unittest
 from schemaorg.layout import Domain, InputLayout, OutputLayout, Releases
 from schemaorg.progress import LogProgressReporter, NullProgressReporter
 from schemaorg.site_bundle import SiteBundle
-from schemaorg.version import Version
+from schemaorg.version import Version, VersionItem
 
 
 class TestSiteBundle(unittest.TestCase):
@@ -51,8 +51,10 @@ class TestSiteBundle(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def _write_release_ttl(self, releases: Releases) -> Path:
-        ttl_path = releases.file(self.version.next())
+    def _write_release_ttl(
+        self, releases: Releases, version: VersionItem | None = None
+    ) -> Path:
+        ttl_path = releases.file(version or self.version.next())
         ttl_path.parent.mkdir(parents=True, exist_ok=True)
         ttl_path.write_text(
             "@prefix : <https://schema.org/> .\n"
@@ -128,6 +130,29 @@ class TestSiteBundle(unittest.TestCase):
                 progress=NullProgressReporter(),
             )
         self.assertFalse(fresh_out.exists())
+
+    def test_resolves_target_version_before_output_layout_guard(self) -> None:
+        fresh_out = self.root / "undeclared_out"
+        with self.assertRaises(ValueError):
+            SiteBundle.from_release(
+                input_layout=self.layout,
+                releases_layout=OutputLayout(fresh_out),
+                target_version=VersionItem("99.9", "2099-01-01"),
+                progress=NullProgressReporter(),
+            )
+        self.assertFalse(fresh_out.exists())
+
+        releases_out = OutputLayout(self.root / "data")
+        self._write_release_ttl(
+            Releases(releases_out, self.version), self.version.current()
+        )
+        bundle = SiteBundle.from_release(
+            input_layout=self.layout,
+            releases_layout=releases_out,
+            target_version=VersionItem("30.1", "2000-01-01"),
+            progress=NullProgressReporter(),
+        )
+        self.assertEqual(bundle.target_version.date(), "2026-09-16")
 
 
 if __name__ == "__main__":
