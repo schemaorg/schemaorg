@@ -59,6 +59,25 @@ def _fixture_graph() -> rdflib.Graph:
     return g
 
 
+def _make_repo(
+    root: Path, ttl: str | None = FIXTURE_TTL
+) -> tuple[InputLayout, OutputLayout, Version]:
+    """Create a minimal repo under root with versions.json and optional schema.ttl."""
+    data_dir = root / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    versions_path = root / "versions.json"
+    versions_path.write_text(
+        json.dumps({
+            "schemaversion": "30.1",
+            "releaseLog": {"30.1": "2026-09-16"},
+        }),
+        encoding="utf-8",
+    )
+    if ttl is not None:
+        (data_dir / "schema.ttl").write_text(ttl, encoding="utf-8")
+    return InputLayout(root), OutputLayout(data_dir), Version(versions_path)
+
+
 class TestPostProcess(unittest.TestCase):
     def testProtocolSwap(self) -> None:
         swap = protocol_swap()
@@ -201,25 +220,13 @@ class TestRenderers(unittest.TestCase):
                 ("with_prefix", FIXTURE_TTL),
                 ("without_prefix", ttl_without_foaf_prefix),
             ):
-                in_dir = root / label
-                (in_dir / "data").mkdir(parents=True)
-                (in_dir / "versions.json").write_text(
-                    json.dumps({
-                        "schemaversion": "30.1",
-                        "releaseLog": {"30.1": "2026-09-16"},
-                    }),
-                    encoding="utf-8",
+                input_layout, out_layout, version = _make_repo(
+                    root / label, ttl=ttl_text
                 )
-                (in_dir / "data" / "schema.ttl").write_text(
-                    ttl_text, encoding="utf-8"
-                )
-                out_layout = OutputLayout(in_dir / "data")
                 buildfiles.export_release_files(
-                    InputLayout(in_dir), out_layout, version="30.1"
+                    input_layout, out_layout, version="30.1"
                 )
-                rel_dir = Releases(
-                    out_layout, Version(in_dir / "versions.json")
-                ).dir("30.1")
+                rel_dir = Releases(out_layout, version).dir("30.1")
                 outputs[label] = {
                     p.name: p.read_text(encoding="utf-8")
                     for p in rel_dir.iterdir()
@@ -369,18 +376,9 @@ class TestRenderers(unittest.TestCase):
 class TestPlan(unittest.TestCase):
     def testReleaseAndSiteDocsPlansAreDisjointAndComplete(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            versions_path = Path(tmp) / "versions.json"
-            versions_path.write_text(
-                json.dumps({
-                    "schemaversion": "30.1",
-                    "releaseLog": {"30.1": "2026-09-16"},
-                }),
-                encoding="utf-8",
-            )
-            version = Version(versions_path)
+            _, release_layout, version = _make_repo(Path(tmp), ttl=None)
             next_version = version.next()
             numbered_version = version.current()
-            release_layout = OutputLayout(Path(tmp) / "data")
             site_layout = OutputLayout(Path(tmp) / "site")
             releases = Releases(release_layout, version)
             all_graph, current_graph = split_release_graphs(_fixture_graph())
@@ -469,19 +467,7 @@ class TestPlan(unittest.TestCase):
             root = Path(tmp)
             in_dir = root / "in"
             site_dir = root / "site"
-            (in_dir / "data").mkdir(parents=True)
-            (in_dir / "versions.json").write_text(
-                json.dumps({
-                    "schemaversion": "30.1",
-                    "releaseLog": {"30.1": "2026-09-16"},
-                }),
-                encoding="utf-8",
-            )
-            (in_dir / "data" / "schema.ttl").write_text(
-                FIXTURE_TTL, encoding="utf-8"
-            )
-            input_layout = InputLayout(in_dir)
-            release_out_layout = OutputLayout(in_dir / "data")
+            input_layout, release_out_layout, version = _make_repo(in_dir)
             site_out_layout = OutputLayout(site_dir)
 
             stale = release_out_layout.file(Domain.RELEASE, "next/stale.txt")
@@ -499,9 +485,7 @@ class TestPlan(unittest.TestCase):
             self.assertFalse(stale.exists())
             self.assertFalse(stale_http.exists())
 
-            releases = Releases(
-                release_out_layout, Version(in_dir / "versions.json")
-            )
+            releases = Releases(release_out_layout, version)
             self.assertEqual(
                 sorted(p.name for p in releases.dir("next").iterdir()),
                 [
@@ -589,24 +573,13 @@ class TestPlan(unittest.TestCase):
         self.addCleanup(markdown.MarkdownTool.setWikilinkPrePath, prev_wpre)
 
         with tempfile.TemporaryDirectory() as tmp:
-            in_dir = Path(tmp) / "in"
-            (in_dir / "data").mkdir(parents=True)
-            (in_dir / "versions.json").write_text(
-                json.dumps({
-                    "schemaversion": "30.1",
-                    "releaseLog": {"30.1": "2026-09-16"},
-                }),
-                encoding="utf-8",
-            )
             ttl_with_foreign = (
                 FIXTURE_TTL
                 + '\n<https://example.org/foreign-dataset> a :Thing ; rdfs:label "Foreign" .\n'
             )
-            raw_ttl = in_dir / "data" / "schema.ttl"
-            raw_ttl.write_text(ttl_with_foreign, encoding="utf-8")
-            input_layout = InputLayout(in_dir)
-            release_out_layout = OutputLayout(in_dir / "data")
-            version_obj = Version(in_dir / "versions.json")
+            input_layout, release_out_layout, version_obj = _make_repo(
+                Path(tmp) / "in", ttl=ttl_with_foreign
+            )
 
             markdown.MarkdownTool.setWikilinkPrePath("/")
             schema.config.TARGET_VERSION = "next"
