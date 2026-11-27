@@ -1,0 +1,117 @@
+"""Progress reporting protocol and logger-backed implementations."""
+
+from __future__ import annotations
+
+from collections.abc import Iterator
+from contextlib import AbstractContextManager, contextmanager, nullcontext
+import logging
+import time
+from typing import Protocol
+
+
+class TaskProgress(Protocol):
+    """Active handle for one running task."""
+
+    def step(self, label: str) -> None:
+        """Update the current sub-step or item label."""
+        ...
+
+    def advance(self, n: int) -> None:
+        """Increment completed work units by n."""
+        ...
+
+    def log(self, message: str, level: int) -> None:
+        """Emit a diagnostic log line safely alongside active progress."""
+        ...
+
+
+class ProgressReporter(Protocol):
+    """Factory for scoped task progress handles."""
+
+    def task(
+        self,
+        description: str,
+        total: int | None,
+        unit: str,
+    ) -> AbstractContextManager[TaskProgress]: ...
+
+
+class _NullTaskProgress:
+    def step(self, label: str) -> None:
+        pass
+
+    def advance(self, n: int) -> None:
+        pass
+
+    def log(self, message: str, level: int) -> None:
+        pass
+
+
+_NULL_PROGRESS: _NullTaskProgress = _NullTaskProgress()
+
+
+class NullProgressReporter:
+    """Silent no-op reporter for unit tests and non-interactive callers."""
+
+    def task(
+        self,
+        description: str,
+        total: int | None,
+        unit: str,
+    ) -> AbstractContextManager[TaskProgress]:
+        return nullcontext(_NULL_PROGRESS)
+
+
+class _LogTaskProgress:
+    def __init__(
+        self,
+        logger: logging.Logger,
+        description: str,
+        log_steps: bool,
+    ) -> None:
+        self.logger = logger
+        self.description = description
+        self.log_steps = log_steps
+        self.completed: int = 0
+
+    def step(self, label: str) -> None:
+        if self.log_steps:
+            self.logger.info("%s: %s", self.description, label)
+
+    def advance(self, n: int) -> None:
+        self.completed += n
+
+    def log(self, message: str, level: int) -> None:
+        self.logger.log(level, "%s", message)
+
+
+class LogProgressReporter:
+    """Logger-backed reporter with start/done/failure timing logs."""
+
+    def __init__(self, logger: logging.Logger, log_steps: bool = False) -> None:
+        self.logger: logging.Logger = logger
+        self.log_steps: bool = log_steps
+
+    @contextmanager
+    def task(
+        self,
+        description: str,
+        total: int | None,
+        unit: str,
+    ) -> Iterator[TaskProgress]:
+        handle = _LogTaskProgress(self.logger, description, self.log_steps)
+        self.logger.info("Start: %s", description)
+        start = time.perf_counter()
+        try:
+            yield handle
+        except BaseException:
+            self.logger.error("Failed: %s", description)
+            raise
+        elapsed = time.perf_counter() - start
+        if total is not None:
+            summary = f"{description} ({handle.completed}/{total} {unit})"
+        elif handle.completed:
+            summary = f"{description} ({handle.completed} {unit})"
+        else:
+            summary = description
+        self.logger.info("Done: %s in %.2f seconds", summary, elapsed)
