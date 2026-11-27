@@ -22,7 +22,7 @@ from schemaorg.model import Vocabulary, VocabularyLoader
 from schemaorg.progress import LogProgressReporter
 from schemaorg.tasks.export_release_files import (
     ExportReleaseFilesTask,
-    write_artifact,
+    write_artifacts,
 )
 from schemaorg.tasks.export_site_metadata import plan_site_docs
 from schemaorg.version import Version
@@ -36,6 +36,9 @@ def export_release_files(
     version: VersionRef = NEXT_VERSION,
 ) -> None:
     """Load the source graph and write schema release files (9 for next, 35 for numbered)."""
+    # shortcut: compatibility wrapper for legacy callers (double-parses
+    # versions.json with ExportReleaseFilesTask); slated for removal once
+    # buildsite.py and tests call ExportReleaseFilesTask directly.
     version_obj = Version(
         input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
     )
@@ -55,6 +58,8 @@ def export_site_docs(
     vocab: Vocabulary | None = None,
 ) -> None:
     """Write the 8 Domain.DOCS site metadata files."""
+    # shortcut: temporary compatibility bridge for buildsite.py; slated for
+    # removal once buildsite.py switches to ExportSiteMetadataTask(bundle=...).
     version_obj = Version(
         input_layout.file(Domain.ROOT, constants.VERSIONS_FILE)
     )
@@ -67,14 +72,11 @@ def export_site_docs(
     artifacts = plan_site_docs(
         vocab, target_version, releases.dir(target_version), output_layout
     )
-    progress = LogProgressReporter(logger=log, log_steps=True)
-    with progress.task(
-        "Exporting site metadata files", total=len(artifacts), unit="files"
-    ) as p:
-        for artifact in artifacts:
-            p.step(f"{artifact.name} ({artifact.path.name})")
-            write_artifact(artifact)
-            p.advance(1)
+    write_artifacts(
+        artifacts,
+        LogProgressReporter(logger=log, log_steps=True),
+        "Exporting site metadata files",
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> None:

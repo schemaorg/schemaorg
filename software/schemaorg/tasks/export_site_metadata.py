@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-import functools
 from functools import partial
 from pathlib import Path
 
@@ -16,7 +15,7 @@ from schemaorg.renderers import (
     render_sitemap,
 )
 from schemaorg.site_bundle import SiteBundle
-from schemaorg.tasks.export_release_files import Artifact, write_artifact
+from schemaorg.tasks.export_release_files import Artifact, write_artifacts
 from schemaorg.version import VersionItem
 
 _REQUIRED_RELEASE_FILES: tuple[str, ...] = (
@@ -31,19 +30,13 @@ def plan_site_docs(
     release_dir: Path,
     output_layout: OutputLayout,
 ) -> list[Artifact]:
-    """Website supporting files under Domain.DOCS."""
-
-    def docs_file(filename: str) -> Path:
-        return output_layout.file(Domain.DOCS, filename)
-
-    read_context = functools.cache(
-        partial(
-            (release_dir / "schemaorgcontext.jsonld").read_text,
-            encoding="utf-8",
-        )
+    """Plan website supporting files under Domain.DOCS."""
+    docs_file = partial(output_layout.file, Domain.DOCS)
+    read_context = partial(
+        Path.read_text, release_dir / "schemaorgcontext.jsonld", encoding="utf-8"
     )
     read_owl = partial(
-        (release_dir / "schemaorg.owl").read_text, encoding="utf-8"
+        Path.read_text, release_dir / "schemaorg.owl", encoding="utf-8"
     )
     counts = CountsRenderer(vocab, version)
     return [
@@ -90,15 +83,6 @@ class ExportSiteMetadataTask:
             release_dir,
             self.output_layout,
         )
-
-        with self.progress.task(
-            "Exporting site metadata files",
-            total=len(artifacts),
-            unit="files",
-        ) as p:
-            for artifact in artifacts:
-                p.step(f"{artifact.name} ({artifact.path.name})")
-                write_artifact(artifact)
-                p.advance(1)
-
-        return [a.path for a in artifacts]
+        return write_artifacts(
+            artifacts, self.progress, "Exporting site metadata files"
+        )

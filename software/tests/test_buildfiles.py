@@ -31,9 +31,9 @@ from schemaorg.site_bundle import SiteBundle
 from schemaorg.tasks.export_release_files import (
     Artifact,
     ExportReleaseFilesTask,
-    export_release_unscoped,
-    export_scoped,
-    write_artifact,
+    plan_release_unscoped,
+    plan_scoped,
+    write_artifacts,
 )
 from schemaorg.tasks.export_site_metadata import (
     ExportSiteMetadataTask,
@@ -100,22 +100,37 @@ class TestPostProcess(unittest.TestCase):
             "http://myblog.schema.org/y",
         )
 
-    def testWriteArtifactAppliesPostProcessorsInOrder(self) -> None:
+    def testArtifactWriteAndSharedRenderDeduplication(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "out.txt"
-            write_artifact(
-                Artifact(
-                    "x",
-                    path,
-                    lambda: "https://schema.org/Thing",
-                    (protocol_swap(), str.upper),
-                )
+            https_path = Path(tmp) / "https.txt"
+            http_path = Path(tmp) / "http.txt"
+            calls = 0
+
+            def render() -> str:
+                nonlocal calls
+                calls += 1
+                return "https://schema.org/Thing"
+
+            written = write_artifacts(
+                [
+                    Artifact("https", https_path, render),
+                    Artifact("http", http_path, render, protocol_swap()),
+                ],
+                NullProgressReporter(),
+                "test",
+            )
+            self.assertEqual(written, [https_path, http_path])
+            self.assertEqual(calls, 1)
+            self.assertEqual(
+                https_path.read_text(encoding="utf-8"),
+                "https://schema.org/Thing",
             )
             self.assertEqual(
-                path.read_text(encoding="utf-8"), "HTTP://SCHEMA.ORG/THING"
+                http_path.read_text(encoding="utf-8"),
+                "http://schema.org/Thing",
             )
-            write_artifact(Artifact("plain", path, lambda: "raw"))
-            self.assertEqual(path.read_text(encoding="utf-8"), "raw")
+            Artifact("plain", https_path, lambda: "raw").write()
+            self.assertEqual(https_path.read_text(encoding="utf-8"), "raw")
 
 
 class TestRenderers(unittest.TestCase):
@@ -402,13 +417,13 @@ class TestPlan(unittest.TestCase):
             vocab = VocabularyLoader(all_graph, version=next_version).load()
             csv = CsvRenderer(vocab)
 
-            next_all_scoped = export_scoped(
+            next_all_scoped = plan_scoped(
                 Scope.ALL, all_graph, csv, next_version, releases
             )
-            next_current_scoped = export_scoped(
+            next_current_scoped = plan_scoped(
                 Scope.CURRENT, current_graph, csv, next_version, releases
             )
-            next_unscoped = export_release_unscoped(
+            next_unscoped = plan_release_unscoped(
                 all_graph, vocab, next_version, releases, ()
             )
             site_docs = plan_site_docs(
@@ -443,13 +458,13 @@ class TestPlan(unittest.TestCase):
                 )
             )
 
-            all_scoped = export_scoped(
+            all_scoped = plan_scoped(
                 Scope.ALL, all_graph, csv, numbered_version, releases
             )
-            current_scoped = export_scoped(
+            current_scoped = plan_scoped(
                 Scope.CURRENT, current_graph, csv, numbered_version, releases
             )
-            release_unscoped = export_release_unscoped(
+            release_unscoped = plan_release_unscoped(
                 all_graph, vocab, numbered_version, releases, ()
             )
             self.assertEqual(len(all_scoped), 14)

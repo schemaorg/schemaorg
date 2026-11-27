@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
-import functools
 from functools import partial
 from pathlib import Path
 
@@ -40,36 +39,55 @@ from schemaorg.version import Version, VersionItem
 
 @dataclass(frozen=True)
 class Artifact:
-    """One output file: its renderer, destination, and text post-processors."""
+    """One output file: its renderer, destination, and optional post-processor."""
 
     name: str
     path: Path
     render: Callable[[], str]
-    post: tuple[PostProcessor, ...] = ()
+    post: PostProcessor | None = None
+
+    def write(self, rendered: str | None = None) -> None:
+        content = self.render() if rendered is None else rendered
+        if self.post is not None:
+            content = self.post(content)
+        self.path.write_text(content, encoding="utf-8")
 
 
-def write_artifact(artifact: Artifact) -> None:
-    content = artifact.render()
-    for step in artifact.post:
-        content = step(content)
-    artifact.path.write_text(content, encoding="utf-8")
+def write_artifacts(
+    artifacts: Sequence[Artifact],
+    progress: ProgressReporter,
+    description: str,
+) -> list[Path]:
+    """Write artifacts with progress, rendering each shared callable once."""
+    grouped: dict[int, list[Artifact]] = {}
+    for artifact in artifacts:
+        grouped.setdefault(id(artifact.render), []).append(artifact)
+
+    with progress.task(description, total=len(artifacts), unit="files") as p:
+        for group in grouped.values():
+            rendered = group[0].render()
+            for artifact in group:
+                p.step(f"{artifact.name} ({artifact.path.name})")
+                artifact.write(rendered)
+                p.advance(1)
+    return [a.path for a in artifacts]
 
 
 # Each (https, http) file pair shares one render; only post-processing differs.
-PROTOCOL_VARIANTS: tuple[tuple[Protocol, tuple[PostProcessor, ...]], ...] = (
-    (Protocol.HTTPS, ()),
-    (Protocol.HTTP, (protocol_swap(),)),
+_PROTOCOL_VARIANTS: tuple[tuple[Protocol, PostProcessor | None], ...] = (
+    (Protocol.HTTPS, None),
+    (Protocol.HTTP, protocol_swap()),
 )
 
 
-def export_scoped(
+def plan_scoped(
     scope: Scope,
     graph: rdflib.Graph,
     csv: CsvRenderer,
     version: VersionItem,
     releases: Releases,
 ) -> list[Artifact]:
-    """RDF and CSV release artifacts for one scope."""
+    """Plan RDF and CSV release artifacts for one scope."""
     rdf = RdfRenderer(graph)
     if version.is_next():
         return [
@@ -86,34 +104,20 @@ def export_scoped(
         ]
     include_retired = scope == Scope.ALL
     scoped_renders: tuple[tuple[str, str, Callable[[], str]], ...] = (
-        (
-            "RDFExport.json-ld",
-            ".jsonld",
-            functools.cache(partial(rdf.render, "json-ld")),
-        ),
+        ("RDFExport.json-ld", ".jsonld", partial(rdf.render, "json-ld")),
         (
             "RDFExport.nquads",
             ".nq",
-            functools.cache(
-                partial(rdf.render, "nquads", SDO[version.number()])
-            ),
+            partial(rdf.render, "nquads", SDO[version.number()]),
         ),
-        ("RDFExport.nt", ".nt", functools.cache(partial(rdf.render, "nt"))),
-        ("RDFExport.rdf", ".rdf", functools.cache(partial(rdf.render, "rdf"))),
-        (
-            "RDFExport.turtle",
-            ".ttl",
-            functools.cache(partial(rdf.render, "turtle")),
-        ),
-        (
-            "CSVExports",
-            "-types.csv",
-            functools.cache(partial(csv.types, include_retired)),
-        ),
+        ("RDFExport.nt", ".nt", partial(rdf.render, "nt")),
+        ("RDFExport.rdf", ".rdf", partial(rdf.render, "rdf")),
+        ("RDFExport.turtle", ".ttl", partial(rdf.render, "turtle")),
+        ("CSVExports", "-types.csv", partial(csv.types, include_retired)),
         (
             "CSVExports",
             "-properties.csv",
-            functools.cache(partial(csv.properties, include_retired)),
+            partial(csv.properties, include_retired),
         ),
     )
     return [
@@ -126,21 +130,21 @@ def export_scoped(
                 extension=ext,
             ),
             render,
-            finisher,
+            post,
         )
-        for protocol, finisher in PROTOCOL_VARIANTS
         for name, ext, render in scoped_renders
+        for protocol, post in _PROTOCOL_VARIANTS
     ]
 
 
-def export_release_unscoped(
+def plan_release_unscoped(
     graph: rdflib.Graph,
     vocab: Vocabulary,
     version: VersionItem,
     releases: Releases,
     example_files: Sequence[Path],
 ) -> list[Artifact]:
-    """Vocabulary-wide schema release artifacts."""
+    """Plan vocabulary-wide schema release artifacts."""
     owl = OwlRenderer(graph, version)
     shapes = ShapesRenderer(graph)
     rel_file = partial(releases.file, version=version, protocol="")
@@ -199,20 +203,24 @@ class ExportReleaseFilesTask:
 
         with self.progress.task(
             f"Loading source graph ({version.number()})",
-            total=None,
+            total=3,
             unit="steps",
         ) as p:
             p.step("parsing Turtle files")
             source_graph = GraphLoader.load(issues.get_ttl_files())
+            p.advance(1)
             p.step("preparing export graphs")
             all_graph, current_graph = split_release_graphs(source_graph)
+            p.advance(1)
+            p.step("loading vocabulary")
             vocab = VocabularyLoader(all_graph, version=version).load()
+            p.advance(1)
 
         csv = CsvRenderer(vocab)
         artifacts = [
-            *export_scoped(Scope.ALL, all_graph, csv, version, releases),
-            *export_scoped(Scope.CURRENT, current_graph, csv, version, releases),
-            *export_release_unscoped(
+            *plan_scoped(Scope.ALL, all_graph, csv, version, releases),
+            *plan_scoped(Scope.CURRENT, current_graph, csv, version, releases),
+            *plan_release_unscoped(
                 all_graph,
                 vocab,
                 version,
@@ -221,21 +229,15 @@ class ExportReleaseFilesTask:
             ),
         ]
 
-        with self.progress.task(
+        written = write_artifacts(
+            artifacts,
+            self.progress,
             f"Exporting release files ({version.number()})",
-            total=len(artifacts),
-            unit="files",
-        ) as p:
-            for artifact in artifacts:
-                p.step(f"{artifact.name} ({artifact.path.name})")
-                write_artifact(artifact)
-                p.advance(1)
+        )
 
-        expected_paths = {a.path for a in artifacts}
-        target_dir = releases.dir(version)
-        if target_dir.is_dir():
-            for existing in target_dir.iterdir():
-                if existing.is_file() and existing not in expected_paths:
-                    existing.unlink()
+        expected_paths = set(written)
+        for existing in releases.dir(version).iterdir():
+            if existing.is_file() and existing not in expected_paths:
+                existing.unlink()
 
-        return [a.path for a in artifacts]
+        return written
